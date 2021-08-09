@@ -97,7 +97,7 @@ namespace Senparc.Weixin.MP
         /// <returns></returns>
         public static IRegisterService SetAccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<Task<string>> func)
         {
-            ApiHandlerWapper.accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc = func;
+            ApiHandlerWapper.AccessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc = func;
             return registerService;
         }
 
@@ -122,7 +122,7 @@ namespace Senparc.Weixin.MP
         /// <returns></returns>
         public static IRegisterService SetAccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<string, Task<bool>> func)
         {
-            ApiHandlerWapper.accessTokenContainer_CheckRegisteredAsyncFunc = func;
+            ApiHandlerWapper.AccessTokenContainer_CheckRegisteredAsyncFunc = func;
             return registerService;
         }
 
@@ -147,7 +147,7 @@ namespace Senparc.Weixin.MP
         /// <returns></returns>
         public static IRegisterService SetAccessTokenContainer_GetAccessTokenResultFunc(this IRegisterService registerService, Func<string, bool, Task<IAccessTokenResult>> func)
         {
-            ApiHandlerWapper.accessTokenContainer_GetAccessTokenResultAsyncFunc = func;
+            ApiHandlerWapper.AccessTokenContainer_GetAccessTokenResultAsyncFunc = func;
             return registerService;
         }
 

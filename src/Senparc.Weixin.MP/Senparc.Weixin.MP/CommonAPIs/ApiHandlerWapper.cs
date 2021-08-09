@@ -214,13 +214,13 @@ namespace Senparc.Weixin.MP
 
         #region 异步方法
 
-        internal static Func<Task<string>> accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc =
+        internal static Func<Task<string>> AccessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc =
                async () => await AccessTokenContainer.GetFirstOrDefaultAppIdAsync(PlatformType.MP).ConfigureAwait(false);
 
-        internal static Func<string, Task<bool>> accessTokenContainer_CheckRegisteredAsyncFunc =
+        internal static Func<string, Task<bool>> AccessTokenContainer_CheckRegisteredAsyncFunc =
          async appId => await AccessTokenContainer.CheckRegisteredAsync(appId).ConfigureAwait(false);
 
-        internal static Func<string, bool, Task<IAccessTokenResult>> accessTokenContainer_GetAccessTokenResultAsyncFunc =
+        internal static Func<string, bool, Task<IAccessTokenResult>> AccessTokenContainer_GetAccessTokenResultAsyncFunc =
             (appId, getNewToken) => AccessTokenContainer.GetAccessTokenResultAsync(appId, getNewToken);
 
         /// <summary>
@@ -240,9 +240,9 @@ namespace Senparc.Weixin.MP
             var result = ApiHandlerWapperBase.
                 TryCommonApiBaseAsync(
                     PlatformType.MP,
-                    accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
-                    accessTokenContainer_CheckRegisteredAsyncFunc,
-                    accessTokenContainer_GetAccessTokenResultAsyncFunc,
+                    AccessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
+                    AccessTokenContainer_CheckRegisteredAsyncFunc,
+                    AccessTokenContainer_GetAccessTokenResultAsyncFunc,
                     invalidCredentialValue,
                     fun, accessTokenOrAppId, retryIfFaild);
             return await result.ConfigureAwait(false);

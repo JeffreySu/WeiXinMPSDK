@@ -18,6 +18,8 @@
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Work.Containers;
+using System.Threading.Tasks;
+using System;
 
 namespace Senparc.Weixin.Work
 {
@@ -56,5 +58,84 @@ namespace Senparc.Weixin.Work
             }
             return RegisterWorkAccount(registerService, weixinSettingForWork.WeixinCorpId, weixinSettingForWork.WeixinCorpSecret, name ?? weixinSettingForWork.ItemKey);
         }
+
+        #region 设置 ApiHandlerWapper 处理方法
+
+        /// <summary>
+        /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetFirstOrDefaultAppIdFunc 委托，默认为返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId(PlatformType.Work) 方法
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="func">自定义返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId(PlatformType.Work) 方法</param>
+        /// <returns></returns>
+        public static IRegisterService SetAccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<string> func)
+        {
+            ApiHandlerWapper.AccessTokenContainer_GetFirstOrDefaultAppIdFunc = func;
+            return registerService;
+        }
+
+        /// <summary>
+        /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetFirstOrDefaultAppIdFunc 委托，默认为返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId(PlatformType.Work) 方法
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="func">自定义返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId(PlatformType.Work) 方法</param>
+        /// <returns></returns>
+        public static IRegisterService SetAccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<Task<string>> func)
+        {
+            ApiHandlerWapper.AccessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc = func;
+            return registerService;
+        }
+
+
+        /// <summary>
+        /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetFirstOrDefaultAppIdFunc 委托，默认为返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId() 方法
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="func">自定义返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId() 方法</param>
+        /// <returns></returns>
+        public static IRegisterService SetAccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<string, bool> func)
+        {
+            ApiHandlerWapper.AccessTokenContainer_CheckRegisteredFunc = func;
+            return registerService;
+        }
+
+        /// <summary>
+        /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetFirstOrDefaultAppIdFunc 委托，默认为返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId() 方法
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="func">自定义返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId() 方法</param>
+        /// <returns></returns>
+        public static IRegisterService SetAccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<string, Task<bool>> func)
+        {
+            ApiHandlerWapper.AccessTokenContainer_CheckRegisteredAsyncFunc = func;
+            return registerService;
+        }
+
+
+        /// <summary>
+        /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetAccessTokenResultFunc 委托，默认为返回 AccessTokenContainer 中的 GetAccessTokenResult() 方法
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="func">自定义返回 AccessTokenContainer 中的 AccessTokenResult GetAccessTokenResult(appId) 方法</param>
+        /// <returns></returns>
+        public static IRegisterService SetAccessTokenContainer_GetAccessTokenResultFunc(this IRegisterService registerService, Func<string, bool, IAccessTokenResult> func)
+        {
+            ApiHandlerWapper.AccessTokenContainer_GetAccessTokenResultFunc = func;
+            return registerService;
+        }
+
+        /// <summary>
+        /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetAccessTokenResultFunc 委托，默认为返回 AccessTokenContainer 中的 GetAccessTokenResult() 方法
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="func">自定义返回 AccessTokenContainer 中的 AccessTokenResult GetAccessTokenResult(appId) 方法</param>
+        /// <returns></returns>
+        public static IRegisterService SetAccessTokenContainer_GetAccessTokenResultFunc(this IRegisterService registerService, Func<string, bool, Task<IAccessTokenResult>> func)
+        {
+            ApiHandlerWapper.AccessTokenContainer_GetAccessTokenResultAsyncFunc = func;
+            return registerService;
+        }
+
+        #endregion
+
     }
 }

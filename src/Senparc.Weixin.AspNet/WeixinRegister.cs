@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_1
+﻿#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_1 || NET6_0
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
@@ -30,7 +30,7 @@ namespace Senparc.Weixin.AspNet
 #endif
             SenparcSetting senparcSetting, SenparcWeixinSetting senparcWeixinSetting, Action<IRegisterService> globalRegisterConfigure, Action<IRegisterService> weixinRegisterConfigure,
              //CO2NET 全局设置
-             bool autoScanExtensionCacheStrategies = false, Func<IList<IDomainExtensionCacheStrategy>> extensionCacheStrategiesFunc = null
+             bool autoScanExtensionCacheStrategies = false, Func<List<IDomainExtensionCacheStrategy>> extensionCacheStrategiesFunc = null
             )
         {
             //注册 CO2NET 全局

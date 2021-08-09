@@ -161,7 +161,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// </summary>
         /// <param name="nodeName"></param>
         /// <returns></returns>
-        public IList<T> GetXmlValues<T>(string nodeName)
+        public List<T> GetXmlValues<T>(string nodeName)
         {
             var result = new List<T>();
             try
@@ -437,19 +437,19 @@ namespace Senparc.Weixin.TenPay.V3
         ///订单使用代金券时有返回（取值：CASH、NO_CASH）。$n为下标,从0开始编号，举例：coupon_type_$0
         ///coupon_type_$n
         /// </summary>
-        public IList<string> coupon_type_values { get; set; }
+        public List<string> coupon_type_values { get; set; }
 
         /// <summary>
         /// 代金券ID, $n为下标，从0开始编号
         /// coupon_id_$n
         /// </summary>
-        public IList<string> coupon_id_values { get; set; }
+        public List<string> coupon_id_values { get; set; }
 
         /// <summary>
         /// 单个代金券支付金额, $n为下标，从0开始编号
         /// coupon_fee_$n
         /// </summary>
-        public IList<int> coupon_fee_values { get; set; }
+        public List<int> coupon_fee_values { get; set; }
 
         /// <summary>
         /// 微信支付订单号
@@ -640,15 +640,15 @@ namespace Senparc.Weixin.TenPay.V3
         /// <summary>
         /// 代金券类型
         /// </summary>
-        public IList<string> coupon_type_n { get; set; }
+        public List<string> coupon_type_n { get; set; }
         /// <summary>
         /// 单个代金券退款金额
         /// </summary>
-        public IList<int> coupon_refund_fee_n { get; set; }
+        public List<int> coupon_refund_fee_n { get; set; }
         /// <summary>
         /// 退款代金券ID	
         /// </summary>
-        public IList<string> coupon_refund_id_n { get; set; }
+        public List<string> coupon_refund_id_n { get; set; }
 
         #endregion
 

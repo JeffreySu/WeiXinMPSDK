@@ -32,7 +32,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "Search.SubmitPages", true)]
-        public static WxJsonResult SubmitPages(string accessTokenOrAppId, IEnumerable<Page> pages, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult SubmitPages(string accessTokenOrAppId, List<Page> pages, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -56,7 +56,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "Search.SubmitPagesAsync", true)]
-        public static async Task<WxJsonResult> SubmitPagesAsync(string accessTokenOrAppId, IEnumerable<Page> pages, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> SubmitPagesAsync(string accessTokenOrAppId, List<Page> pages, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {

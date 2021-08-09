@@ -74,7 +74,6 @@ namespace Senparc.Weixin.Sample.NetCore3
              * https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs
              */
 
-
             services.AddSenparcWeixinServices(Configuration)//Senparc.Weixin 注册（必须）
                     .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>() //Senparc.WebSocket 注册（按需）  -- DPBMARK WebSocket DPBMARK_END
                     ;
@@ -273,6 +272,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                                 //getComponentVerifyTicketFunc
                                 async componentAppId =>
                                 {
+                                    //注意：当前使用本地文件缓存数据只是为了方便演示和部署，分布式系统中请使用其他储存方式！
                                     var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/OpenTicket"));
                                     if (!Directory.Exists(dir))
                                     {

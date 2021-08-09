@@ -52,6 +52,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <summary>
         /// 截屏mediaid列表，可以通过提审素材上传接口获得
         /// </summary>
-        public string pic_id_list { get; set; }
+        public string[] pic_id_list { get; set; }
     }
 }

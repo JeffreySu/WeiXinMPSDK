@@ -53,7 +53,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
         /// <summary>
         /// 日程参与者列表。最多支持2000人
         /// </summary>
-        public IEnumerable<Attendee> attendees { get; set; }
+        public List<Attendee> attendees { get; set; }
         /// <summary>
         /// 日程标题。0 ~ 128 字符。不填会默认显示为“新建事件”
         /// </summary>

@@ -48,14 +48,14 @@ namespace Senparc.Weixin.Open.WxOpenAPIs.CategoryListJson
     public class CategoryListJsonResult : WxJsonResult
     {
         //微信文档写的参数名称是  category_list，实际上是 categories_list
-        //public IList<Category> categories { get; set; }
+        //public List<Category> categories { get; set; }
 
         public CategoriesList categories_list { get; set; }
     }
 
     public class CategoriesList
     {
-        public IList<Category> categories { get; set; }
+        public List<Category> categories { get; set; }
     }
 
     public class Category
@@ -83,7 +83,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs.CategoryListJson
         /// <summary>
         /// 子级类目Id
         /// </summary>
-        public IList<int> children { get; set; } = new List<int>();
+        public List<int> children { get; set; } = new List<int>();
 
         /// <summary>
         /// 是否为敏感类目（1为敏感类目，需要提供相应资质审核；0为非敏感类目，无需审核
@@ -100,7 +100,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs.CategoryListJson
             exter_list = new List<Exter>();
         }
 
-        public IList<Exter> exter_list { get; set; }
+        public List<Exter> exter_list { get; set; }
     }
 
     public class Exter
@@ -110,7 +110,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs.CategoryListJson
             inner_list = new List<Inner>();
         }
 
-        public IList<Inner> inner_list { get; set; }
+        public List<Inner> inner_list { get; set; }
     }
 
     public class Inner

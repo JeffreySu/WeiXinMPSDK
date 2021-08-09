@@ -34,16 +34,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "ScheduleApi.Add", true)]
-        public static AddScheduleJsonResult Add(string accessTokenOrAppKey, ScheduleJson.Schedule schedule, int timeOut = Config.TIME_OUT)
+        public static AddScheduleJsonResult Add(string accessTokenOrAppKey, ScheduleAdd data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = Config.ApiWorkHost + "/cgi-bin/oa/schedule/add?access_token={0}";
-
-                var data = new
-                {
-                    schedule
-                };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<AddScheduleJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
@@ -125,16 +120,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "ScheduleApi.AddAsync", true)]
-        public static async Task<AddScheduleJsonResult> AddAsync(string accessTokenOrAppKey, ScheduleJson.Schedule schedule, int timeOut = Config.TIME_OUT)
+        public static async Task<AddScheduleJsonResult> AddAsync(string accessTokenOrAppKey, ScheduleAdd data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = Config.ApiWorkHost + "/cgi-bin/oa/schedule/add?access_token={0}";
-
-                var data = new
-                {
-                    schedule
-                };
 
                 return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddScheduleJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);

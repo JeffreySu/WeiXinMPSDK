@@ -359,6 +359,9 @@ namespace Senparc.Weixin.Work.MessageHandlers
                 case Event.CLICK://菜单点击
                     responseMessage = OnEvent_ClickRequest(RequestMessage as RequestMessageEvent_Click);
                     break;
+                case Event.TASKCARD_CLICK:
+                    responseMessage = OnEvent_TaskCardClickRequest(responseMessage as RequestMessageEvent_TaskCardClick);
+                    break;
                 case Event.VIEW://URL跳转（view视图）
                     responseMessage = OnEvent_ViewRequest(RequestMessage as RequestMessageEvent_View);
                     break;
@@ -494,6 +497,16 @@ namespace Senparc.Weixin.Work.MessageHandlers
         /// Event事件类型请求之CLICK
         /// </summary>
         public virtual IWorkResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// Event事件类型请求之TASKCARDCLICK
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_TaskCardClickRequest(RequestMessageEvent_TaskCardClick requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

@@ -235,29 +235,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             }, accessTokenOrAppKey);
         }
 
-
-        /// <summary>
-        /// 获取配置了客户联系功能的成员列表
-        /// <para>权限说明：</para>
-        /// <para>企业需要使用“客户联系”secret或配置到“可调用应用”列表中的自建应用secret所获取的accesstoken来调用</para>
-        /// <para>第三方应用需具有“企业客户权限->客户基础信息”权限</para>
-        /// <para>第三方/自建应用只能获取到可见范围内的配置了客户联系功能的成员。</para>
-        /// </summary>
-        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
-        /// <param name="rquest">请求报文</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetFollowUserList", true)]
-        public static WorkJsonResult GetFollowUserList(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
-        {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/get_follow_user_list?access_token={accessToken}";
-
-                return CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
-        }
-
         #region 「联系我」
 
         /// <summary>
@@ -392,22 +369,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         #endregion
-        
-        #endregion
-        
-
 
         #endregion
-
-
-        #endregion
-
-
-        #endregion
-
 
         #region 异步方法
-        
+
         #region 企业服务人员管理
 
         /// <summary>
@@ -599,29 +565,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 
-
-        /// <summary>
-        /// 【异步方法】获取配置了客户联系功能的成员列表
-        /// <para>权限说明：</para>
-        /// <para>企业需要使用“客户联系”secret或配置到“可调用应用”列表中的自建应用secret所获取的accesstoken来调用</para>
-        /// <para>第三方应用需具有“企业客户权限->客户基础信息”权限</para>
-        /// <para>第三方/自建应用只能获取到可见范围内的配置了客户联系功能的成员。</para>
-        /// </summary>
-        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
-        /// <param name="rquest">请求报文</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetFollowUserListAsync", true)]
-        public static async Task<GetFollowUserListResult> GetFollowUserListAsync(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
-        {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
-            {
-                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/get_follow_user_list?access_token={accessToken}";
-
-                return await CommonJsonSend.SendAsync<GetFollowUserListResult>(null, url, null, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
-            }, accessTokenOrAppKey);
-        }
-
         #endregion
 
         #region 消息推送
@@ -755,7 +698,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         #endregion
-
 
         #endregion
     }

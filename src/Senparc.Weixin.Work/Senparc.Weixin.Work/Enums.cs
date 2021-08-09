@@ -85,7 +85,10 @@ namespace Senparc.Weixin.Work
         /// 自定义菜单点击事件
         /// </summary>
         CLICK,
-
+        /// <summary>
+        /// 任务卡片事件推送
+        /// </summary>
+        TASKCARD_CLICK,
         /// <summary>
         /// 二维码扫描
         /// </summary>

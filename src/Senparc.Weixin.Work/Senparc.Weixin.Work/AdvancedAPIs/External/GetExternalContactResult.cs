@@ -182,13 +182,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External
         public string[] remark_mobiles { get; set; }
 
         public Follow_User_Tags[] tags { get; set; }
-        public long createtime { get; set; }
-        public List<Follow_User_Tag> tags { get; set; }
-        public string remark_corp_name { get; set; }
-        public string[] remark_mobiles { get; set; }
-        public string oper_userid { get; set; }
-        public string state { get; set; }
-        public int add_way { get; set; }
     }
     
     public class Follow_User_Tag

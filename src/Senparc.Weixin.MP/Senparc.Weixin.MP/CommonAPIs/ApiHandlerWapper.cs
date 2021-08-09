@@ -60,6 +60,7 @@ using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.Utilities.WeixinUtility;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.CommonAPIs.ApiHandlerWapper;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP
 {
@@ -68,6 +69,9 @@ namespace Senparc.Weixin.MP
     /// </summary>
     public static class ApiHandlerWapper
     {
+        internal static IEnumerable<int> InvalidCredentialValues = new[] { (int)ReturnCode.获取access_token时AppSecret错误或者access_token无效 };
+
+
         #region 同步方法
 
         internal static Func<string> AccessTokenContainer_GetFirstOrDefaultAppIdFunc =
@@ -91,15 +95,13 @@ namespace Senparc.Weixin.MP
         public static T TryCommonApi<T>(Func<string, T> fun, string accessTokenOrAppId = null, bool retryIfFaild = true)
             where T : WxJsonResult, new()
         {
-            int invalidCredentialValue = (int)ReturnCode.获取access_token时AppSecret错误或者access_token无效;
-
             var result = ApiHandlerWapperBase.
                 TryCommonApiBase(
                     PlatformType.MP,
                     AccessTokenContainer_GetFirstOrDefaultAppIdFunc,
                     AccessTokenContainer_CheckRegisteredFunc,
                     AccessTokenContainer_GetAccessTokenResultFunc,
-                    invalidCredentialValue,
+                    InvalidCredentialValues,
                     fun, accessTokenOrAppId, retryIfFaild);
             return result;
 
@@ -235,15 +237,13 @@ namespace Senparc.Weixin.MP
         public static async Task<T> TryCommonApiAsync<T>(Func<string, Task<T>> fun, string accessTokenOrAppId = null, bool retryIfFaild = true)
             where T : WxJsonResult, new()
         {
-            int invalidCredentialValue = (int)ReturnCode.获取access_token时AppSecret错误或者access_token无效;
-
             var result = ApiHandlerWapperBase.
                 TryCommonApiBaseAsync(
                     PlatformType.MP,
                     AccessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
                     AccessTokenContainer_CheckRegisteredAsyncFunc,
                     AccessTokenContainer_GetAccessTokenResultAsyncFunc,
-                    invalidCredentialValue,
+                    InvalidCredentialValues,
                     fun, accessTokenOrAppId, retryIfFaild);
             return await result.ConfigureAwait(false);
         }

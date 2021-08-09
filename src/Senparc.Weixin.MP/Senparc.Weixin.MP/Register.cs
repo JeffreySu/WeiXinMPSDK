@@ -21,6 +21,8 @@ using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.Containers;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP
@@ -78,6 +80,20 @@ namespace Senparc.Weixin.MP
         #region 设置 ApiHandlerWapper 处理方法
 
         /// <summary>
+        /// 设置所有使用了 ApiHandlerWapper 的接口，可以自动进入重试的 API 错误代码
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="invalidCredentialReturnCodes">可进入重试的 API 错误代码</param>
+        /// <returns></returns>
+        public static IRegisterService SetInvalidCredentialValues(this IRegisterService registerService, IEnumerable<ReturnCode> invalidCredentialReturnCodes)
+        {
+            ApiHandlerWapper.InvalidCredentialValues = invalidCredentialReturnCodes.Select(z => (int)z);
+            return registerService;
+        }
+
+        #region AccessTokenContainer_GetFirstOrDefaultAppIdFunc
+
+        /// <summary>
         /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetFirstOrDefaultAppIdFunc 委托，默认为返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId(PlatformType.MP) 方法
         /// </summary>
         /// <param name="registerService"></param>
@@ -101,6 +117,9 @@ namespace Senparc.Weixin.MP
             return registerService;
         }
 
+        #endregion
+
+        #region AccessTokenContainer_GetFirstOrDefaultAppIdFunc
 
         /// <summary>
         /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetFirstOrDefaultAppIdFunc 委托，默认为返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId() 方法
@@ -126,6 +145,9 @@ namespace Senparc.Weixin.MP
             return registerService;
         }
 
+        #endregion
+
+        #region AccessTokenContainer_GetAccessTokenResultFunc
 
         /// <summary>
         /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetAccessTokenResultFunc 委托，默认为返回 AccessTokenContainer 中的 GetAccessTokenResult() 方法
@@ -150,6 +172,8 @@ namespace Senparc.Weixin.MP
             ApiHandlerWapper.AccessTokenContainer_GetAccessTokenResultAsyncFunc = func;
             return registerService;
         }
+
+        #endregion
 
         #endregion
 

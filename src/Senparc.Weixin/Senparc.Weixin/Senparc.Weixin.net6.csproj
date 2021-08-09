@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>6.11-preview3</Version>
+    <Version>6.11.1-preview3</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -99,7 +99,7 @@
 		v4.9.3 添加小程序返回码添加小程序返回码
 		v4.9.5 添加Sex枚举
 		v4.9.6 修改错别字Browser-&gt;Browser，请注意全局替换更新
-		
+
 		v4.9.7
 		1、WeixinTrace使用同步锁，取代原先的本地锁
 		2、修改日志储存路径，新路径为/App_Data/WeixinTraceLog/SenparcWeixinTrace-yyyyMMdd.log
@@ -318,10 +318,11 @@
 		1、添加 40164 错误编码
 		2、新增企业微信状态码转换失败判断
 		v6.8.200 RegisterFuncCollection 改为 ConcurrentDictionary 类型
-		v6.8.400 
+		v6.8.400
 		1、引用新版本 NeuChar 及 CO2NET，解决可能导致崩溃的缓存问题
 		2、修复 CommonJsonSend.PostFailAction 公共请求失败处理抛错问题
-</PackageReleaseNotes>
+		v6.11.1 
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

@@ -52,6 +52,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：WangDrama - 20210630
     修改描述：v3.9.600 添加对企业微信状态码 WorkJsonResult 的判断
 
+    修改标识：Senparc - 20210630
+    修改描述：v6.11.1 TryCommonApiBase 提供 invalidCredentialValues，可设置多种重试错误代码
+
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
@@ -92,7 +95,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
         /// <summary>
         /// 返回 JsonResult 错误结果信息（不抛出异常）
         /// </summary>
-        /// <param name="errorMessage"></param>
+        /// <param name="jsonResult"></param>
         /// <returns></returns>
         private static T GetJsonErrorResult<T>(WxJsonResult jsonResult) where T : BaseJsonResult, new()
         {
@@ -119,7 +122,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
         /// <param name="accessTokenContainer_GetFirstOrDefaultAppIdFunc">AccessTokenContainer中的GetFirstOrDefaultAppId()方法</param>
         /// <param name="accessTokenContainer_CheckRegisteredFunc">AccessTokenContainer中的bool CheckRegistered(appId,getNew)方法</param>
         /// <param name="accessTokenContainer_GetAccessTokenResultFunc">AccessTokenContainer中的AccessTokenResult GetAccessTokenResult(appId)方法</param>
-        /// <param name="invalidCredentialValue">"ReturnCode.获取access_token时AppSecret错误或者access_token无效"枚举的值</param>
+        /// <param name="invalidCredentialValues">"ReturnCode.获取access_token时AppSecret错误或者access_token无效"枚举的值</param>
         /// <param name="fun"></param>
         /// <param name="accessTokenOrAppId">公众号、小程序中的 AppId，或企业微信中的 AppKey（由AppId+AppSecret组成）</param>
         /// <param name="retryIfFaild"></param>
@@ -129,7 +132,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
             Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc,
             Func<string, bool> accessTokenContainer_CheckRegisteredFunc,
             Func<string, bool, IAccessTokenResult> accessTokenContainer_GetAccessTokenResultFunc,
-            int invalidCredentialValue,
+            IEnumerable<int> invalidCredentialValues,
             Func<string, T> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : BaseJsonResult, new()
         {
 
@@ -212,7 +215,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                 if (retryIfFaild
                     && appId != null    //如果 appId 为 null，已经没有重试的意义（直接提供的 AccessToken 是错误的）
                                         //&& ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
-                    && (int)ex.JsonResult.errcode == invalidCredentialValue)
+                    && invalidCredentialValues.Contains((int)ex.JsonResult.errcode))
                 {
                     //尝试重新验证
                     var accessTokenResult = accessTokenContainer_GetAccessTokenResultFunc(appId, true);//AccessTokenContainer.GetAccessTokenResult(appId, true);
@@ -222,7 +225,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                                 accessTokenContainer_GetFirstOrDefaultAppIdFunc,
                                 accessTokenContainer_CheckRegisteredFunc,
                                 accessTokenContainer_GetAccessTokenResultFunc,
-                                invalidCredentialValue,
+                                invalidCredentialValues,
                                 fun, accessToken, false);
                 }
                 else
@@ -273,7 +276,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
         /// <param name="accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc">AccessTokenContainer中的GetFirstOrDefaultAppId()方法</param>
         /// <param name="accessTokenContainer_CheckRegisteredAsyncFunc">AccessTokenContainer中的bool CheckRegistered(appId,getNew)方法</param>
         /// <param name="accessTokenContainer_GetAccessTokenResultAsyncFunc">AccessTokenContainer中的AccessTokenResult GetAccessTokenResultAsync(appId)方法（异步方法）</param>
-        /// <param name="invalidCredentialValue">"ReturnCode.获取access_token时AppSecret错误或者access_token无效"枚举的值</param>
+        /// <param name="invalidCredentialValues">"ReturnCode.获取access_token时AppSecret错误或者access_token无效"枚举的值</param>
         /// <param name="fun"></param>
         /// <param name="accessTokenOrAppId">公众号、小程序中的 AppId，或企业微信中的 AppKey（由AppId+AppSecret组成）</param>
         /// <param name="retryIfFaild"></param>
@@ -283,7 +286,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
             Func<Task<string>> accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
             Func<string, Task<bool>> accessTokenContainer_CheckRegisteredAsyncFunc,
             Func<string, bool, Task<IAccessTokenResult>> accessTokenContainer_GetAccessTokenResultAsyncFunc,
-            int invalidCredentialValue,
+            IEnumerable<int> invalidCredentialValues,
             Func<string, Task<T>> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : BaseJsonResult, new()
         {
 
@@ -363,7 +366,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                 if (retryIfFaild
                     && appId != null    //如果 appId 为 null，已经没有重试的意义（直接提供的 AccessToken 是错误的）
                                         //&& ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
-                    && (int)ex.JsonResult.errcode == invalidCredentialValue)
+                    && invalidCredentialValues.Contains((int)ex.JsonResult.errcode))
                 {
                     //尝试重新验证（如果是低版本VS，此处不能使用await关键字，可以直接使用xx.Result输出。VS2013不支持：无法在 catch 字句体中等待）
                     var accessTokenResult = await accessTokenContainer_GetAccessTokenResultAsyncFunc(appId, true).ConfigureAwait(false);//AccessTokenContainer.GetAccessTokenResultAsync(appId, true);
@@ -374,7 +377,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                                 accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
                                 accessTokenContainer_CheckRegisteredAsyncFunc,
                                 accessTokenContainer_GetAccessTokenResultAsyncFunc,
-                                invalidCredentialValue,
+                                invalidCredentialValues,
                                 fun, accessToken, false).ConfigureAwait(false);
                     //result = TryCommonApiAsync(fun, appId, false);
                 }

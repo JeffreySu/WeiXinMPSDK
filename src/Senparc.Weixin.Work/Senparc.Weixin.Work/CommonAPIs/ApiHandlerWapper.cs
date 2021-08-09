@@ -105,8 +105,7 @@ namespace Senparc.Weixin.Work
         /// <returns></returns>
         public static T TryCommonApi<T>(Func<string, T> fun, string accessTokenOrAppKey, bool retryIfFaild = true) where T : WorkJsonResult, new()
         {
-
-            int invalidCredentialValue = (int)ReturnCode.不合法的access_token;//ReturnCode_Work.获取access_token时Secret错误_或者access_token无效;
+            var invalidCredentialValues = new[] { (int)ReturnCode.不合法的access_token };//ReturnCode_Work.获取access_token时Secret错误_或者access_token无效;
 
             var result = ApiHandlerWapperBase.
                 TryCommonApiBase(
@@ -114,7 +113,7 @@ namespace Senparc.Weixin.Work
                     AccessTokenContainer_GetFirstOrDefaultAppIdFunc,
                     AccessTokenContainer_CheckRegisteredFunc,
                     AccessTokenContainer_GetAccessTokenResultFunc,
-                    invalidCredentialValue,
+                    invalidCredentialValues,
                     fun, accessTokenOrAppKey, retryIfFaild);
             return result;
         }
@@ -158,7 +157,7 @@ namespace Senparc.Weixin.Work
         public static async Task<T> TryCommonApiAsync<T>(Func<string, Task<T>> fun, string accessTokenOrAppKey, bool retryIfFaild = true) where T : WorkJsonResult, new()
         {
 
-            int invalidCredentialValue = (int)ReturnCode.不合法的access_token;//ReturnCode_Work.获取access_token时Secret错误_或者access_token无效;
+            var invalidCredentialValues = new[] { (int)ReturnCode.不合法的access_token };//ReturnCode_Work.获取access_token时Secret错误_或者access_token无效;
 
             var result = ApiHandlerWapperBase.
                 TryCommonApiBaseAsync(
@@ -166,7 +165,7 @@ namespace Senparc.Weixin.Work
                     AccessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
                     AccessTokenContainer_CheckRegisteredAsyncFunc,
                     AccessTokenContainer_GetAccessTokenResultAsyncFunc,
-                    invalidCredentialValue,
+                    invalidCredentialValues,
                     fun, accessTokenOrAppKey, retryIfFaild);
             return await result.ConfigureAwait(false);
         }

@@ -14,6 +14,7 @@ using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Sample.CommonService.Download;
 using System.IO;
 using Senparc.Weixin.MP;
+using Senparc.Weixin.MP.AdvancedAPIs.QrCode;
 //using Senparc.Weixin.MP.Sample.CommonService.Download;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
@@ -34,15 +35,26 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
             var configHelper = new ConfigHelper();
 
+            int qrCodeId = 0;
+            CreateQrCodeResult qrResult = null;
             try
             {
                 //chm二维码
-                var qrCodeId = configHelper.GetQrCodeId();
-                var qrResult = MP.AdvancedAPIs.QrCodeApi.Create(appId, 10000, qrCodeId, QrCode_ActionName.QR_SCENE);
+                qrCodeId = configHelper.GetQrCodeId();
+                qrResult = MP.AdvancedAPIs.QrCodeApi.Create(appId, 10000, qrCodeId, QrCode_ActionName.QR_SCENE);
 
                 var qrCodeUrl = MP.AdvancedAPIs.QrCodeApi.GetShowQrCodeUrl(qrResult.ticket);
                 ViewData["QrCodeUrl"] = qrCodeUrl;
+            }
+            catch (Exception e)
+            {
+                WeixinTrace.SendCustomLog("Document发生appsecret错误！", e.ToString());
+                var accessTokenBags = AccessTokenContainer.GetAllItems();
 
+                WeixinTrace.SendCustomLog("当前AccessToken信息", accessTokenBags.ToJson());
+            }
+            finally
+            {
                 ConfigHelper.CodeCollection[guid] = new CodeRecord()
                 {
                     Key = guid,
@@ -55,18 +67,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 ViewData["Versions"] = config.Versions;
                 ViewData["WebVersions"] = config.WebVersions;
                 ViewData["DownloadCount"] = config.DownloadCount.ToString("##,###");
-
-                return View();
             }
-            catch (Exception e)
-            {
-                WeixinTrace.SendCustomLog("Document发生appsecret错误！", e.ToString());
-                var accessTokenBags = AccessTokenContainer.GetAllItems();
-
-                WeixinTrace.SendCustomLog("当前AccessToken信息", accessTokenBags.ToJson());
-
-                throw;
-            }
+            return View();
 
         }
 

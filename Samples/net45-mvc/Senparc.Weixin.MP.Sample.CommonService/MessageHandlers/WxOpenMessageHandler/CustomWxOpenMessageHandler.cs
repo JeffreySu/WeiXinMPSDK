@@ -1,8 +1,8 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
 
-    文件名：CustomMessageHandler.cs
-    文件功能描述：微信公众号自定义MessageHandler
+    文件名：CustomWxOpenMessageHandler.cs
+    文件功能描述：微信小程序自定义MessageHandler
 
 
     创建标识：Senparc - 20150312

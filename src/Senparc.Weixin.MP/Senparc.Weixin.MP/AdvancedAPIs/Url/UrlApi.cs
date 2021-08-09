@@ -46,6 +46,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 长短链接接口
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
     public class UrlApi
     {
         /*
@@ -63,7 +64,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///  <param name="action">此处填long2short，代表长链接转短链接</param>
         ///  <param name="longUrl">需要转换的长链接，支持http://、https://、weixin://wxpay 格式的url</param>
         /// <param name="timeOut">请求超时时间</param>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UrlApi.ShortUrl", true)]
         public static ShortUrlResult ShortUrl(string accessTokenOrAppId, string action, string longUrl, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -88,7 +88,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///  <param name="action">此处填long2short，代表长链接转短链接</param>
         ///  <param name="longUrl">需要转换的长链接，支持http://、https://、weixin://wxpay 格式的url</param>
         /// <param name="timeOut">请求超时时间</param>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UrlApi.ShortUrlAsync", true)]
         public static async Task<ShortUrlResult> ShortUrlAsync(string accessTokenOrAppId, string action, string longUrl, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

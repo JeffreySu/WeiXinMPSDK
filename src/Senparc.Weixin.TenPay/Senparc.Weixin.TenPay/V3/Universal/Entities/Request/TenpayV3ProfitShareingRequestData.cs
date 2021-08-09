@@ -54,11 +54,11 @@ namespace Senparc.Weixin.TenPay.V3
 {
     /// <summary>
     /// 分账请求
-    /// 服务商(单次分账): https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_1&index=1
-    /// 境内普通商户(单次分账): https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_1&index=1
-    /// 服务商(多次分账): https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_6&index=2
-    /// 境内普通商户(多次分账): https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_6&index=2
-    /// 2019-12-30
+    /// <para>服务商(单次分账): <see href="https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_1&amp;index=1"></see></para>
+    /// <para>境内普通商户(单次分账): <see href="https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_1&amp;index=1"></see></para>
+    /// <para>服务商(多次分账): <see href="https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_6&amp;index=2"></see></para>
+    /// <para>境内普通商户(多次分账): <see href="https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_6&amp;index=2"></see></para>
+    /// <para>2019-12-30</para>
     /// </summary>
     public class TenpayV3ProtfitSharingRequestData
     {
@@ -204,9 +204,9 @@ namespace Senparc.Weixin.TenPay.V3
 
     /// <summary>
     /// 完结分账请求
-    /// 服务商特约商户: https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_5&index=6
-    /// 境内普通商户: https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_5&index=6
-    /// 2019-12-30
+    /// <para>服务商特约商户:<see href="https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_5&amp;index=6"></see></para>
+    /// <para>境内普通商户: <see href="https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_5&amp;index=6"></see></para>
+    /// <para>2019-12-30</para>
     /// </summary>
     public class TenpayV3ProtfitSharingFinishRequestData
     {
@@ -431,6 +431,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="outOrderNo">商户系统内部的分账单号，在商户系统内部唯一（单次分账、多次分账、完结分账应使用不同的商户分账单号），
         /// 同一分账单号多次请求等同一次。只能是数字、大小写字母_-|*@ 
         /// </param>
+        /// <param name="description"></param>
         public TenpayV3ProtfitSharingQueryRequestData(
             string appId, string mchId, string subappid, string submchid, string key, string nonceStr,
             string transactionId,

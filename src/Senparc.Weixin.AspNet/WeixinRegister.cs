@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_1 || NET6_0
+﻿#if !NET45
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
@@ -37,6 +37,7 @@ namespace Senparc.Weixin.AspNet
             var register = app.UseSenparcGlobal(env, senparcSetting, globalRegisterConfigure, autoScanExtensionCacheStrategies, extensionCacheStrategiesFunc);
             //注册微信
             register.UseSenparcWeixin(senparcWeixinSetting, weixinRegisterConfigure);
+
             return register;
         }
     }

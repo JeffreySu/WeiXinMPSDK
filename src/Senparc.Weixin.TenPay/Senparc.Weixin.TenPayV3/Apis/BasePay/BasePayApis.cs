@@ -22,10 +22,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     Copyright (C) 2021 Senparc
   
     文件名：BasePayApis.cs
-    文件功能描述：基础支付Apis
+    文件功能描述：新微信支付V3基础接口
     
     
     创建标识：Senparc - 20210804
+
+    修改标识：Senparc - 20210811
+    修改描述：完成JsApi支付签名方法
     
 ----------------------------------------------------------------*/
 
@@ -37,8 +40,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.NeuChar.Helpers;
 
 namespace Senparc.Weixin.TenPayV3.Apis
 {
@@ -61,7 +66,15 @@ namespace Senparc.Weixin.TenPayV3.Apis
             return string.Format(urlFormat, Senparc.Weixin.Config.UseSandBoxPay ? "sandboxnew/" : "");
         }
 
-        public static JsApiReturnJson JsApi(IServiceProvider serviceProvider, JsApiRequestData data, int timeOut = Config.TIME_OUT)
+        /// <summary>
+        /// JSAPI下单接口
+        /// 在微信支付服务后台生成 JSAPI 预支付交易单，返回预支付交易会话标识
+        /// </summary>
+        /// <param name="dataInfo">微信支付需要post的Data数据</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static JsApiReturnJson JsApi(IServiceProvider serviceProvider, JsApiRequestData data,
+            int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/jsapi");
             var jsonString = SerializerHelper.GetJsonString(data, null);
@@ -71,13 +84,35 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 ms.Write(bytes, 0, bytes.Length);
                 ms.Seek(0, SeekOrigin.Begin);
 
-                WeixinTrace.SendApiPostDataLog(url, jsonString);//记录Post的Json数据
+                WeixinTrace.SendApiPostDataLog(url, jsonString); //记录Post的Json数据
 
                 //PostGetJson方法中将使用WeixinTrace记录结果
                 return Post.PostGetJson<JsApiReturnJson>(serviceProvider, url, null, ms,
                     timeOut: timeOut,
                     afterReturnText: null,
                     checkValidationResult: false);
+            }
+        }
+
+        /// <summary>
+        /// 获取UI使用的JS支付签名
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="timeStamp"></param>
+        /// <param name="nonceStr"></param>
+        /// <param name="package">格式：prepay_id={0}</param>
+        /// <returns></returns>
+        public static string GetJsApiPaySign(string appId, string timeStamp, string nonceStr, string package, string privateKey)
+        {
+            string contentForSign = $"{appId}\n{timeStamp}\n{nonceStr}\n{package}\n";
+
+            var rsa = new RSACryptoServiceProvider();
+            rsa.FromXmlString(privateKey);
+            //签名返回
+            using (var sha256 = new SHA256CryptoServiceProvider())
+            {
+                var signData = rsa.SignData(Encoding.UTF8.GetBytes(contentForSign), sha256);
+                return Convert.ToBase64String(signData);
             }
         }
     }

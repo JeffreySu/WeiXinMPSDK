@@ -398,6 +398,11 @@ namespace Senparc.Weixin.MP
         /// 2.3 接收授权完成事件 用户授权完成后，执收单位的公众号会收到授权完成的事件，关于事件推送请参考接受callback推送
         /// </summary>
         user_authorize_invoice,
+        /// <summary>
+        /// 用户提交抬头后，商户会收到用户提交的事件。
+        /// https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/Quick_issuing/Interface_Instructions.html
+        /// </summary>
+        submit_invoice_title,
         #endregion
         #region 订阅通知
         /// <summary>

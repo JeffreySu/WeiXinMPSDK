@@ -241,6 +241,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.user_authorize_invoice:
                     responseMessage = OnEvent_User_Authorize_Invoice(RequestMessage as RequestMessageEvent_User_Authorize_Invoice);
                     break;
+                case Event.submit_invoice_title:
+                    responseMessage = OnEvent_Submit_Invoice_Title(RequestMessage as RequestMessageEvent_Submit_Invoice_Title);
+                    break;
                 #endregion
                 default:
                     throw new Exceptions.UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -727,9 +730,17 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return DefaultResponseMessage(requestMessage);
         }
-
+        /// <summary>
+        /// 用户提交抬头后，商户会收到用户提交的事件。
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Submit_Invoice_Title(RequestMessageEvent_Submit_Invoice_Title requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
         #endregion
-        
+
         #region 订阅通知
         /// <summary>
         /// 用户管理订阅通知

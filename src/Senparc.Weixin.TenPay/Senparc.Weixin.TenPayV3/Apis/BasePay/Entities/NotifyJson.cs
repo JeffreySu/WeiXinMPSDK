@@ -41,7 +41,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
     /// <summary>
     /// NotifyJson 的基类
     /// </summary>
-    public class NotifyJsonBase
+    public class NotifyJson
     {
         /// <summary>
         /// 通知ID

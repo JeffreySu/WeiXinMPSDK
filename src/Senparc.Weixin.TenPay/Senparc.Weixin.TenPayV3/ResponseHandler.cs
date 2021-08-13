@@ -24,6 +24,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件名：ResponseHandler.cs
     文件功能描述：新微信支付V3 响应处理
     
+    创建标识：Senparc - 20210811
 
 ----------------------------------------------------------------*/
 
@@ -44,6 +45,8 @@ using Senparc.CO2NET;
 
 using System.Web;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
 
 
 namespace Senparc.Weixin.TenPayV3
@@ -78,7 +81,9 @@ namespace Senparc.Weixin.TenPayV3
         /// <summary>
         /// 请求的主体
         /// </summary>
-        private string Body;
+        public string Body { get; set; }
+
+        private NotifyJson NotifyJson;
 
         /// <summary>
         /// debug信息
@@ -107,18 +112,20 @@ namespace Senparc.Weixin.TenPayV3
         public ResponseHandler(HttpContext httpContext)
         {
 
-            this.HttpContext = httpContext ?? HttpContext.Current;
+            this.HttpContext = httpContext;
 
             WechatpayTimestamp = HttpContext.Request.Headers?["Wechatpay-Timestamp"];
             WechatpayNonce = HttpContext.Request.Headers?["Wechatpay-Nonce"];
             WechatpaySignature = HttpContext.Request.Headers?["Wechatpay-Signature"];
 
             //post data
-            if (this.HttpContext.Request.HttpMethod == "POST")
+            if (this.HttpContext.Request.Method == "POST")
             {
-                using (var reader = new StreamReader(HttpContext.Request.InputStream))
+                using (var reader = new StreamReader(HttpContext.Request.Body))
                 {
-                    var body = reader.ReadToEnd();
+                    Body = reader.ReadToEnd();
+
+                    NotifyJson = JsonConvert.DeserializeObject<NotifyJson>(Body);
                 }
             }
         }
@@ -174,38 +181,29 @@ namespace Senparc.Weixin.TenPayV3
         { this.DebugInfo = debugInfo; }
 
         /// <summary>
-        /// 获得字符集
+        /// 将返回的结果Json解密并且反序列化为实体类
         /// </summary>
+        /// <param name="key">这里需要传入apiv3秘钥进行 AEAD_AES_256_GCM 解密</param>
         /// <returns></returns>
-        protected virtual string GetCharset()
+        public T JsonDeserialize<T>(string key)
         {
-            return this.HttpContext.Request.ContentEncoding.BodyName;
-        }
+            var nonce = NotifyJson.resource.nonce;
+            var associated_data = NotifyJson.resource.associated_data;
 
-        /// <summary>
-        /// 输出XML
-        /// </summary>
-        /// <returns></returns>
-        public string ParseXML()
-        {
-            //StringBuilder sb = new StringBuilder();
-            //sb.Append("<xml>");
-            //foreach (string k in Parameters.Keys)
-            //{
-            //    string v = (string)Parameters[k];
-            //    if (Regex.IsMatch(v, @"^[0-9.]$"))
-            //    {
+            var keyBytes = Encoding.UTF8.GetBytes(key);
+            var nonceBytes = Encoding.UTF8.GetBytes(nonce);
+            var associatedBytes = associated_data == null ? null : Encoding.UTF8.GetBytes(associated_data);
 
-            //        sb.Append("<" + k + ">" + v + "</" + k + ">");
-            //    }
-            //    else
-            //    {
-            //        sb.Append("<" + k + "><![CDATA[" + v + "]]></" + k + ">");
-            //    }
+            var encryptedBytes = Convert.FromBase64String(NotifyJson.resource.ciphertext);
+            //tag size is 16
+            var cipherBytes = encryptedBytes[..^16];
+            var tag = encryptedBytes[^16..];
+            var decryptedData = new byte[cipherBytes.Length];
+            using var cipher = new AesGcm(keyBytes);
+            cipher.Decrypt(nonceBytes, cipherBytes, tag, decryptedData, associatedBytes);
+            var decrypted_string = Encoding.UTF8.GetString(decryptedData);
 
-            //}
-            //sb.Append("</xml>");
-            //return sb.ToString();
+            return JsonConvert.DeserializeObject<T>(decrypted_string);
         }
     }
 }

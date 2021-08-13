@@ -121,7 +121,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_pre_auth_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_pre_auth_code?suite_access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     suite_id = suiteId,
@@ -145,7 +145,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/set_session_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/set_session_info?suite_access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     pre_auth_code = authCode,
@@ -177,7 +177,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_permanent_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_permanent_code?suite_access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -204,7 +204,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_auth_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_auth_info?suite_access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -233,7 +233,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_agent?suite_access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -263,7 +263,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/set_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/set_agent?suite_access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -292,7 +292,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_corp_token?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_corp_token?suite_access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -318,7 +318,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_admin_list?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_admin_list?suite_access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -344,7 +344,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/getuserinfo3rd?access_token={0}&code={1}", suiteAccessToken.AsUrlData(), code);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/getuserinfo3rd?access_token={0}&code={1}", accessToken.AsUrlData(), code);
 
                 return Weixin.CommonAPIs.CommonJsonSend.Send<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET, timeOut);
             }, suiteAccessToken);
@@ -362,7 +362,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/getuserdetail3rd?access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/getuserdetail3rd?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     user_ticket = userTicket
@@ -383,7 +383,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_register_code?provider_access_token={0}", providerAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_register_code?provider_access_token={0}", accessToken.AsUrlData());
 
                 return Weixin.CommonAPIs.CommonJsonSend.Send<GetRegisterCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, providerAccessToken);
@@ -401,7 +401,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_register_info?provider_access_token={0}", providerAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_register_info?provider_access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     register_code = registerCode
@@ -511,7 +511,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_pre_auth_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_pre_auth_code?suite_access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     suite_id = suiteId,
@@ -535,7 +535,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/set_session_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/set_session_info?suite_access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     pre_auth_code = authCode,
@@ -567,7 +567,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_permanent_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_permanent_code?suite_access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -594,7 +594,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_auth_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_auth_info?suite_access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -623,7 +623,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_agent?suite_access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -653,7 +653,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/set_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/set_agent?suite_access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -682,7 +682,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_corp_token?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_corp_token?suite_access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -709,7 +709,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_admin_list?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_admin_list?suite_access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -735,7 +735,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/getuserinfo3rd?access_token={0}&code={1}", suiteAccessToken.AsUrlData(), code);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/getuserinfo3rd?access_token={0}&code={1}", accessToken.AsUrlData(), code);
 
                 return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
             }, suiteAccessToken).ConfigureAwait(false);
@@ -753,7 +753,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/getuserdetail3rd?access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/getuserdetail3rd?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     user_ticket = userTicket
@@ -774,7 +774,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_register_code?provider_access_token={0}", providerAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_register_code?provider_access_token={0}", accessToken.AsUrlData());
 
                 return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetRegisterCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, providerAccessToken).ConfigureAwait(false);
@@ -792,7 +792,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_register_info?provider_access_token={0}", providerAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_register_info?provider_access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     register_code = registerCode

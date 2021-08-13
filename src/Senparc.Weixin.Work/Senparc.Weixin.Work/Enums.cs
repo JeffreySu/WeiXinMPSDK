@@ -508,4 +508,26 @@ namespace Senparc.Weixin.Work
         折扣,
         被折扣
     }
+    public enum WorkTokenType
+    {
+        /// <summary>
+        /// 企业内部开发 默认
+        /// </summary>
+        Internal,
+        /// <summary>
+        /// 服务商 token
+        /// </summary>
+        Provider,
+
+        /// <summary>
+        /// 服务商 第三方应用的token
+        /// </summary>
+        Suite,
+        /// <summary>
+        /// /// <summary>
+        /// 服务商 授权企业的token
+        /// </summary>
+        /// </summary>
+        AuthCorp
+    }
 }

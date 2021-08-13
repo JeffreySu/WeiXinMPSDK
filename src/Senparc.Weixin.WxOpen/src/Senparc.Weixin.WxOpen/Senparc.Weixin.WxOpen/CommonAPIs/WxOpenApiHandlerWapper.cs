@@ -47,6 +47,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.CommonAPIs.ApiHandlerWapper;
 using Senparc.Weixin.WxOpen.Containers;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.WxOpen
 {
@@ -55,6 +56,8 @@ namespace Senparc.Weixin.WxOpen
     /// </summary>
     public static class WxOpenApiHandlerWapper
     {
+
+        internal static IEnumerable<int> InvalidCredentialValues = new[] { (int)ReturnCode.获取access_token时AppSecret错误或者access_token无效 };
         #region 同步方法
 
         /// <summary>
@@ -86,7 +89,7 @@ namespace Senparc.Weixin.WxOpen
                     accessTokenContainer_GetFirstOrDefaultAppIdFunc,
                     accessTokenContainer_CheckRegisteredFunc,
                     accessTokenContainer_GetAccessTokenResultFunc,
-                    invalidCredentialValue,
+                    InvalidCredentialValues,
                     fun, accessTokenOrAppId, retryIfFaild);
             return result;
 
@@ -229,7 +232,7 @@ namespace Senparc.Weixin.WxOpen
                     accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
                     accessTokenContainer_CheckRegisteredAsyncFunc,
                     accessTokenContainer_GetAccessTokenResultAsyncFunc,
-                    invalidCredentialValue,
+                    InvalidCredentialValues,
                     fun, accessTokenOrAppId, retryIfFaild);
             return await result.ConfigureAwait(false);
         }

@@ -94,13 +94,13 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
         /// </summary>
         /// <param name="errorMessage"></param>
         /// <returns></returns>
-        private static T GetJsonErrorResult<T>(WxJsonResult jsonResult) where T : BaseJsonResult, new()
+        private static T GetJsonErrorResult<T>(BaseJsonResult jsonResult) where T : BaseJsonResult, new()
         {
             var result = new T();
             result.errmsg = jsonResult.errmsg;
             if (result is WxJsonResult)
             {
-                (result as WxJsonResult).errcode = jsonResult.errcode;
+                (result as WxJsonResult).errcode = (ReturnCode)jsonResult.ErrorCodeValue;
             }
             else if (result is WorkJsonResult)
             {
@@ -129,7 +129,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
             Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc,
             Func<string, bool> accessTokenContainer_CheckRegisteredFunc,
             Func<string, bool, IAccessTokenResult> accessTokenContainer_GetAccessTokenResultFunc,
-            int invalidCredentialValue,
+            IEnumerable<int> invalidCredentialValues,
             Func<string, T> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : BaseJsonResult, new()
         {
 
@@ -196,15 +196,22 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
 
                 //当系统不抛出异常，且当前返回结果不成功，且允许重试的时候，在内部抛出一个异常，以便进行 Retry
                 if (!Config.ThrownWhenJsonResultFaild
-                    && result is WxJsonResult
-                    && (result as WxJsonResult).errcode != ReturnCode.请求成功
+                    && result is BaseJsonResult
+                    && result.ErrorCodeValue != (int)ReturnCode.请求成功
                     && retryIfFaild
                     )
                 {
-                    var errorResult = result as WxJsonResult;
+                    var errorResult = new WxJsonResult();
+                    if (result is WxJsonResult)
+                        errorResult = result as WxJsonResult;
+                    else if (result is WorkJsonResult) 
+                    {
+                        errorResult.errcode = (ReturnCode)result.ErrorCodeValue;
+                        errorResult.errmsg = result.errmsg;
+                    }
                     throw new ErrorJsonResultException(
                           string.Format("微信请求发生错误！错误代码：{0}，说明：{1}",
-                                          (int)errorResult.errcode, errorResult.errmsg), null, errorResult);
+                                          (int)result.ErrorCodeValue, result.errmsg), null, errorResult);
                 }
             }
             catch (ErrorJsonResultException ex)
@@ -212,7 +219,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                 if (retryIfFaild
                     && appId != null    //如果 appId 为 null，已经没有重试的意义（直接提供的 AccessToken 是错误的）
                                         //&& ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
-                    && (int)ex.JsonResult.errcode == invalidCredentialValue)
+                    && invalidCredentialValues.Contains(ex.JsonResult.ErrorCodeValue))
                 {
                     //尝试重新验证
                     var accessTokenResult = accessTokenContainer_GetAccessTokenResultFunc(appId, true);//AccessTokenContainer.GetAccessTokenResult(appId, true);
@@ -222,7 +229,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                                 accessTokenContainer_GetFirstOrDefaultAppIdFunc,
                                 accessTokenContainer_CheckRegisteredFunc,
                                 accessTokenContainer_GetAccessTokenResultFunc,
-                                invalidCredentialValue,
+                                invalidCredentialValues,
                                 fun, accessToken, false);
                 }
                 else
@@ -283,7 +290,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
             Func<Task<string>> accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
             Func<string, Task<bool>> accessTokenContainer_CheckRegisteredAsyncFunc,
             Func<string, bool, Task<IAccessTokenResult>> accessTokenContainer_GetAccessTokenResultAsyncFunc,
-            int invalidCredentialValue,
+            IEnumerable<int> invalidCredentialValues,
             Func<string, Task<T>> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : BaseJsonResult, new()
         {
 
@@ -347,15 +354,22 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
 
                 //当系统不抛出异常，且当前返回结果不成功，且允许重试的时候，在内部抛出一个异常，以便进行 Retry
                 if (!Config.ThrownWhenJsonResultFaild
-                    && result is WxJsonResult
-                    && (result as WxJsonResult).errcode != ReturnCode.请求成功
+                    && result is BaseJsonResult
+                    && result.ErrorCodeValue != (int)ReturnCode.请求成功
                     && retryIfFaild
                     )
                 {
-                    var errorResult = result as WxJsonResult;
+                    var errorResult = new WxJsonResult();
+                    if (result is WxJsonResult)
+                        errorResult = result as WxJsonResult;
+                    else if (result is WorkJsonResult)
+                    {
+                        errorResult.errcode = (ReturnCode)result.ErrorCodeValue;
+                        errorResult.errmsg = result.errmsg;
+                    }
                     throw new ErrorJsonResultException(
                           string.Format("微信请求发生错误！错误代码：{0}，说明：{1}",
-                                          (int)errorResult.errcode, errorResult.errmsg), null, errorResult);
+                                          (int)result.ErrorCodeValue, result.errmsg), null, errorResult);
                 }
             }
             catch (ErrorJsonResultException ex)
@@ -363,7 +377,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                 if (retryIfFaild
                     && appId != null    //如果 appId 为 null，已经没有重试的意义（直接提供的 AccessToken 是错误的）
                                         //&& ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
-                    && (int)ex.JsonResult.errcode == invalidCredentialValue)
+                    && invalidCredentialValues.Contains(ex.JsonResult.ErrorCodeValue))
                 {
                     //尝试重新验证（如果是低版本VS，此处不能使用await关键字，可以直接使用xx.Result输出。VS2013不支持：无法在 catch 字句体中等待）
                     var accessTokenResult = await accessTokenContainer_GetAccessTokenResultAsyncFunc(appId, true).ConfigureAwait(false);//AccessTokenContainer.GetAccessTokenResultAsync(appId, true);
@@ -374,7 +388,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                                 accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
                                 accessTokenContainer_CheckRegisteredAsyncFunc,
                                 accessTokenContainer_GetAccessTokenResultAsyncFunc,
-                                invalidCredentialValue,
+                                invalidCredentialValues,
                                 fun, accessToken, false).ConfigureAwait(false);
                     //result = TryCommonApiAsync(fun, appId, false);
                 }

@@ -62,6 +62,7 @@ using Senparc.Weixin.Work.Containers;
 using Senparc.Weixin.Utilities.WeixinUtility;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.CommonAPIs.ApiHandlerWapper;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.Work
 {
@@ -70,6 +71,7 @@ namespace Senparc.Weixin.Work
     /// </summary>
     public static class ApiHandlerWapper
     {
+        internal static IEnumerable<int> InvalidCredentialValues = new[] { (int)ReturnCode_Work.不合法的access_token, (int)ReturnCode_Work.access_token过期, (int)ReturnCode_Work.不合法的suitetoken };//ReturnCode_Work.获取access_token时Secret错误_或者access_token无效;
         #region 同步方法
 
         /// <summary>
@@ -112,7 +114,7 @@ namespace Senparc.Weixin.Work
                     accessTokenContainer_GetFirstOrDefaultAppIdFunc,
                     accessTokenContainer_CheckRegisteredFunc,
                     accessTokenContainer_GetAccessTokenResultFunc,
-                    invalidCredentialValue,
+                    InvalidCredentialValues,
                     fun, accessTokenOrAppKey, retryIfFaild);
             return result;
         }
@@ -162,7 +164,7 @@ namespace Senparc.Weixin.Work
                     accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
                     accessTokenContainer_CheckRegisteredAsyncFunc,
                     accessTokenContainer_GetAccessTokenResultAsyncFunc,
-                    invalidCredentialValue,
+                    InvalidCredentialValues,
                     fun, accessTokenOrAppKey, retryIfFaild);
             return await result.ConfigureAwait(false);
         }

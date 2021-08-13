@@ -143,7 +143,7 @@ namespace Senparc.Weixin.TenPay.V3
                 X509Certificate2 cer = new X509Certificate2(cert, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
 
                 string responseContent = RequestUtility.HttpPost(
-                    CommonDI.CommonSP, 
+                    CommonDI.CommonSP,
                     url,
                     postStream: ms,
                     cer: cer,
@@ -395,18 +395,24 @@ namespace Senparc.Weixin.TenPay.V3
         /// <summary>
         /// 订单查询接口
         /// </summary>
-        /// <param name="dataInfo"></param>
+        /// <param name="body">请求主体</param>
+        /// <param name="signature">请求签名</param>
+        /// <param name="transaction_id"> 微信支付系统生成的订单号 示例值：1217752501201407033233368018</param>
+        /// <param name="mchid">连商户的商户号，由微信支付生成并下发。 示例值：1230000109</param>
         /// <returns></returns>
-        public static OrderQueryResult OrderQuery(TenPayV3OrderQueryRequestData dataInfo)
+        public static OrderQueryResult OrderQuery(string body, string signature, string transaction_id, string mchid)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/orderquery");
-            var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
-            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-            MemoryStream ms = new MemoryStream();
-            ms.Write(formDataBytes, 0, formDataBytes.Length);
-            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms);
-            return new OrderQueryResult(resultXml);
+
+            var urlFormat = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}pay/transactions/id/{transaction_id}");
+
+
+            //var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
+            //var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            //MemoryStream ms = new MemoryStream();
+            //ms.Write(formDataBytes, 0, formDataBytes.Length);
+            //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            //var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms);
+            //return new OrderQueryResult(resultXml);
         }
 
         /// <summary>
@@ -556,7 +562,7 @@ namespace Senparc.Weixin.TenPay.V3
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut);
-           // var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            // var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
             return new ProfitSharingAddReceiverResult(resultXml);
         }
 
@@ -657,7 +663,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3ReverseRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
@@ -696,7 +702,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3RefundRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
@@ -881,7 +887,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3TransfersRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
@@ -907,7 +913,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3PayToWorkerRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
@@ -951,7 +957,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3GetTransferInfoRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
@@ -979,7 +985,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3GetTransferInfoRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
@@ -1116,7 +1122,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3RefundRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
@@ -1257,7 +1263,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3ReverseRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
@@ -1442,7 +1448,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3TransfersRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
@@ -1484,7 +1490,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3GetTransferInfoRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {

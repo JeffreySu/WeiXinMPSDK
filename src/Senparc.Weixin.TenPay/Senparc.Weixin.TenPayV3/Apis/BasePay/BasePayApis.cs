@@ -40,9 +40,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Senparc.NeuChar.Helpers;
 
 namespace Senparc.Weixin.TenPayV3.Apis
@@ -106,14 +110,82 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             string contentForSign = $"{appId}\n{timeStamp}\n{nonceStr}\n{package}\n";
 
-            var rsa = new RSACryptoServiceProvider();
-            rsa.FromXmlString(privateKey);
-            //签名返回
-            using (var sha256 = new SHA256CryptoServiceProvider())
+            byte[] keyData = Convert.FromBase64String(privateKey);
+            using (CngKey cngKey = CngKey.Import(keyData, CngKeyBlobFormat.Pkcs8PrivateBlob))
+            using (RSACng rsa = new RSACng(cngKey))
             {
-                var signData = rsa.SignData(Encoding.UTF8.GetBytes(contentForSign), sha256);
-                return Convert.ToBase64String(signData);
+                byte[] data = System.Text.Encoding.UTF8.GetBytes(contentForSign);
+                return Convert.ToBase64String(rsa.SignData(data, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
             }
+        }
+
+        /// <summary>
+        /// 微信支付订单号查询
+        /// </summary>
+        /// <param name="signature">请求签名</param>
+        /// <param name="transaction_id"> 微信支付系统生成的订单号 示例值：1217752501201407033233368018</param>
+        /// <param name="mchid">直连商户的商户号，由微信支付生成并下发。 示例值：1230000109</param>
+        /// <returns></returns>
+        public static OrderJson OrderQueryByTransactionId(string signature, string transaction_id, string mchid)
+        {
+            var urlFormat = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}pay/transactions/id/{transaction_id}?mchid={mchid}");
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("Authorization", signature);
+
+            var response = httpClient.GetAsync(urlFormat);
+            response.Wait();
+
+            var responseBody = response.Result.Content.ReadFromJsonAsync<OrderJson>();
+            responseBody.Wait();
+
+            return responseBody.Result;
+        }
+
+        /// <summary>
+        /// 商户订单号查询
+        /// </summary>
+        /// <param name="signature">请求签名</param>
+        /// <param name="transaction_id"> 微信支付系统生成的订单号 示例值：1217752501201407033233368018</param>
+        /// <param name="mchid">直连商户的商户号，由微信支付生成并下发。 示例值：1230000109</param>
+        /// <returns></returns>
+        public static OrderJson OrderQueryByOutTradeNo(string signature, string out_trade_no, string mchid)
+        {
+            var urlFormat = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}pay/transactions/id/{out_trade_no}?mchid={mchid}");
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("Authorization", signature);
+
+            var response = httpClient.GetAsync(urlFormat);
+            response.Wait();
+
+            var responseBody = response.Result.Content.ReadFromJsonAsync<OrderJson>();
+            responseBody.Wait();
+
+            return responseBody.Result;
+        }
+
+        /// <summary>
+        /// 关闭订单接口
+        /// </summary>
+        /// <param name="signature">请求签名</param>
+        /// <param name="out_trade_no">商户系统内部订单号，只能是数字、大小写字母_-*且在同一个商户号下唯一 示例值：1217752501201407033233368018</param>
+        /// <param name="mchid">直连商户的商户号，由微信支付生成并下发。 示例值：1230000109</param>
+        /// <returns></returns>
+        public static HttpStatusCode CloseOrder(string signature, string out_trade_no, string mchid)
+        {
+            var urlFormat = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}pay/transactions/out-trade-no/{out_trade_no}/close");
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("Authorization", signature);
+
+            HttpContent content = new StringContent(JsonConvert.SerializeObject(mchid));
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+            var response = httpClient.PostAsync(urlFormat, content);
+            response.Wait();
+
+            return response.Result.StatusCode;
         }
     }
 }

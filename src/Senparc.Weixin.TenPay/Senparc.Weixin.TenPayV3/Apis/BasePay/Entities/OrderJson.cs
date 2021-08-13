@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：JsApiPayNotifyJson.cs
-    文件功能描述：JsApi支付通知Json类
+    文件名：OrderJson.cs
+    文件功能描述：微信支付订单实体类
     
     
     创建标识：Senparc - 20210813
@@ -38,7 +38,7 @@ using Senparc.Weixin.TenPayV3.Entities;
 
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
 {
-    public class JsApiPayNotifyJson : NotifyJson
+    public class OrderJson : NotifyJson
     {
         /// <summary>
         /// 应用ID
@@ -61,6 +61,13 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
         /// 示例值：1217752501201407033233368018
         /// </summary>
         public string out_trade_no { get; set; }
+
+        /// <summary>
+        /// 微信支付订单号
+        /// 微信支付系统生成的订单号。
+        /// 示例值：1217752501201407033233368018
+        /// </summary>
+        public string transaction_id { get; set; }
 
         /// <summary>
         /// 交易类型，枚举值：

@@ -73,7 +73,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="dataInfo">微信支付需要post的Data数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static JsApiReturnJson JsApi(IServiceProvider serviceProvider, JsApiRequestData data,
+        public static JsApiNotifyJson JsApi(IServiceProvider serviceProvider, JsApiRequestData data,
             int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/jsapi");
@@ -87,7 +87,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 WeixinTrace.SendApiPostDataLog(url, jsonString); //记录Post的Json数据
 
                 //PostGetJson方法中将使用WeixinTrace记录结果
-                return Post.PostGetJson<JsApiReturnJson>(serviceProvider, url, null, ms,
+                return Post.PostGetJson<JsApiNotifyJson>(serviceProvider, url, null, ms,
                     timeOut: timeOut,
                     afterReturnText: null,
                     checkValidationResult: false);

@@ -99,6 +99,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20201211
     修改描述：v1.6.101.1 修改 TenPayV3Type 过期提示
 
+    修改标识：lishewen - 20210809
+    修改描述：v16.14.2 添加 Event.submit_invoice_title
+
 ----------------------------------------------------------------*/
 
 using System;

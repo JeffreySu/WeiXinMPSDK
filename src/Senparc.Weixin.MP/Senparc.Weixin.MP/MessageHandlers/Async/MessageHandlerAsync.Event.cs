@@ -30,17 +30,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190515
     修改描述：v16.7.4 添加“微信认证事件推送”功能
 
+    修改标识：lishewen - 20210809
+    修改描述：v16.14.2 添加 OnEvent_Submit_Invoice_TitleAsync() 方法
+
 ----------------------------------------------------------------*/
 
-
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Helpers;
-using Senparc.NeuChar.MessageHandlers;
-using System.Threading.Tasks;
-using System;
 using Senparc.NeuChar.Entities;
-using Senparc.NeuChar.Exceptions;
+using Senparc.Weixin.MP.Entities;
+using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {

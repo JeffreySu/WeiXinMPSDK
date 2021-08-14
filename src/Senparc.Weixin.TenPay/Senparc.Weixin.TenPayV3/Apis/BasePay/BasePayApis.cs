@@ -99,14 +99,42 @@ namespace Senparc.Weixin.TenPayV3.Apis
         }
 
         /// <summary>
-        /// 获取UI使用的JS支付签名
+        /// JSAPI合单支付下单接口
+        /// 在微信支付服务后台生成多个 JSAPI 预支付交易单，返回预支付交易会话标识
+        /// </summary>
+        /// <param name="dataInfo">微信支付需要post的Data数据</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static JsApiReturnJson JsApiCombine(IServiceProvider serviceProvider, JsApiCombineRequestData data,
+            int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/jsapi");
+            var jsonString = SerializerHelper.GetJsonString(data, null);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                var bytes = Encoding.UTF8.GetBytes(jsonString);
+                ms.Write(bytes, 0, bytes.Length);
+                ms.Seek(0, SeekOrigin.Begin);
+
+                WeixinTrace.SendApiPostDataLog(url, jsonString); //记录Post的Json数据
+
+                //PostGetJson方法中将使用WeixinTrace记录结果
+                return Post.PostGetJson<JsApiReturnJson>(serviceProvider, url, null, ms,
+                    timeOut: timeOut,
+                    afterReturnText: null,
+                    checkValidationResult: false);
+            }
+        }
+
+        /// <summary>
+        /// 获取调起支付所需的签名
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="timeStamp"></param>
         /// <param name="nonceStr"></param>
         /// <param name="package">格式：prepay_id={0}</param>
         /// <returns></returns>
-        public static string GetJsApiPaySign(string appId, string timeStamp, string nonceStr, string package,
+        public static string GetPaySign(string appId, string timeStamp, string nonceStr, string package,
             string privateKey)
         {
             string contentForSign = $"{appId}\n{timeStamp}\n{nonceStr}\n{package}\n";
@@ -336,8 +364,37 @@ namespace Senparc.Weixin.TenPayV3.Apis
         }
 
         /// <summary>
+        /// APP合单支付下单接口
+        /// 在微信支付服务后台生成多个 APP 预支付交易单，返回预支付交易会话标识
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <param name="data">H5支付下单请求数据</param>
+        /// <param name="timeOut">超时时间 单位ms</param>
+        /// <returns></returns>
+        public static AppReturnJson AppCombine(IServiceProvider serviceProvider, AppCombineRequestData data,
+            int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/h5");
+            var jsonString = SerializerHelper.GetJsonString(data, null);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                var bytes = Encoding.UTF8.GetBytes(jsonString);
+                ms.Write(bytes, 0, bytes.Length);
+                ms.Seek(0, SeekOrigin.Begin);
+
+                WeixinTrace.SendApiPostDataLog(url, jsonString); //记录Post的Json数据
+
+                //PostGetJson方法中将使用WeixinTrace记录结果
+                return Post.PostGetJson<AppReturnJson>(serviceProvider, url, null, ms,
+                    timeOut: timeOut,
+                    afterReturnText: null,
+                    checkValidationResult: false);
+            }
+        }
+
+        /// <summary>
         /// H5支付下单接口
-        /// 在微信支付服务后台生成 APP支付 预支付交易单，返回预支付交易会话标识
+        /// 在微信支付服务后台生成 H5支付 预支付交易单，返回预支付交易会话标识
         /// </summary>
         /// <param name="serviceProvider"></param>
         /// <param name="data">APP支付下单请求数据</param>
@@ -347,6 +404,35 @@ namespace Senparc.Weixin.TenPayV3.Apis
             int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/h5");
+            var jsonString = SerializerHelper.GetJsonString(data, null);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                var bytes = Encoding.UTF8.GetBytes(jsonString);
+                ms.Write(bytes, 0, bytes.Length);
+                ms.Seek(0, SeekOrigin.Begin);
+
+                WeixinTrace.SendApiPostDataLog(url, jsonString); //记录Post的Json数据
+
+                //PostGetJson方法中将使用WeixinTrace记录结果
+                return Post.PostGetJson<H5ReturnJson>(serviceProvider, url, null, ms,
+                    timeOut: timeOut,
+                    afterReturnText: null,
+                    checkValidationResult: false);
+            }
+        }
+
+        /// <summary>
+        /// H5合单支付下单接口
+        /// 在微信支付服务后台生成多个 H5 预支付交易单，返回预支付交易会话标识
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <param name="data">APP支付下单请求数据</param>
+        /// <param name="timeOut">超时时间 单位ms</param>
+        /// <returns></returns>
+        public static H5ReturnJson H5Combine(IServiceProvider serviceProvider, H5CombineRequestData data,
+            int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/h5");
             var jsonString = SerializerHelper.GetJsonString(data, null);
             using (MemoryStream ms = new MemoryStream())
             {
@@ -376,6 +462,35 @@ namespace Senparc.Weixin.TenPayV3.Apis
             int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/native");
+            var jsonString = SerializerHelper.GetJsonString(data, null);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                var bytes = Encoding.UTF8.GetBytes(jsonString);
+                ms.Write(bytes, 0, bytes.Length);
+                ms.Seek(0, SeekOrigin.Begin);
+
+                WeixinTrace.SendApiPostDataLog(url, jsonString); //记录Post的Json数据
+
+                //PostGetJson方法中将使用WeixinTrace记录结果
+                return Post.PostGetJson<NativeReturnJson>(serviceProvider, url, null, ms,
+                    timeOut: timeOut,
+                    afterReturnText: null,
+                    checkValidationResult: false);
+            }
+        }
+
+        /// <summary>
+        /// Native 合单支付下单接口
+        /// 在微信支付服务后台生成多个 H5 预支付交易单，返回预支付交易会话标识
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <param name="data">APP支付下单请求数据</param>
+        /// <param name="timeOut">超时时间 单位ms</param>
+        /// <returns></returns>
+        public static NativeReturnJson NativeCombine(IServiceProvider serviceProvider, NativeCombineRequestData data,
+            int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/h5");
             var jsonString = SerializerHelper.GetJsonString(data, null);
             using (MemoryStream ms = new MemoryStream())
             {

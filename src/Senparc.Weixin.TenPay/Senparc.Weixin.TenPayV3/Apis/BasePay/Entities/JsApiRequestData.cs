@@ -120,6 +120,176 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// </summary>
         public Scene_Info scene_info { get; set; }
 
+
+
+        public class Amount
+        {
+            /// <summary>
+            /// 总金额
+            /// 订单总金额，单位为分。
+            /// 示例值：100 (1元)
+            /// </summary>
+            public int total { get; set; }
+
+            /// <summary>
+            /// 货币类型
+            /// CNY：人民币，境内商户号仅支持人民币。
+            /// 示例值：CNY
+            /// </summary>
+            public string currency { get; set; }
+        }
+
+        /// <summary>
+        /// 支付者信息
+        /// </summary>
+        public class Payer
+        {
+            /// <summary>
+            /// 用户标识	
+            /// 用户在直连商户appid下的唯一标识。 下单前需获取到用户的Openid，Openid获取详见
+            /// 示例值：oUpF8uMuAJO_M2pxb1Q9zNjWeS6o
+            /// </summary>
+            public string openid { get; set; }
+        }
+
+        /// <summary>
+        /// 优惠功能
+        /// </summary>
+        public class Detail
+        {
+            /// <summary>
+            /// 商家小票ID
+            /// 示例值：微信123
+            /// </summary>
+            public string invoice_id { get; set; }
+
+            /// <summary>
+            /// 单品列表
+            /// 条目个数限制：[1，6000]
+            /// </summary>
+            public Goods_Detail[] goods_detail { get; set; }
+
+            /// <summary>
+            /// 订单原价
+            /// 1、商户侧一张小票订单可能被分多次支付，订单原价用于记录整张小票的交易金额。
+            /// 2、当订单原价与支付金额不相等，则不享受优惠。
+            /// 3、该字段主要用于防止同一张小票分多次支付，以享受多次优惠的情况，正常支付订单不必上传此参数。
+            /// 示例值：608800
+            /// </summary>
+            public int cost_price { get; set; }
+        }
+
+        /// <summary>
+        /// 单品列表信息
+        /// </summary>
+        public class Goods_Detail
+        {
+            /// <summary>
+            /// 商品名称
+            /// 商品的实际名称
+            /// 示例值：iPhoneX 256G
+            /// </summary>
+            public string goods_name { get; set; }
+
+            /// <summary>
+            /// 微信侧商品编码
+            /// 微信支付定义的统一商品编号（没有可不传）
+            /// 示例值：1001
+            /// </summary>
+            public string wechatpay_goods_id { get; set; }
+
+            /// <summary>
+            /// 商品数量
+            /// 用户购买的数量
+            /// 示例值：1
+            /// </summary>
+            public int quantity { get; set; }
+
+            /// <summary>
+            /// 商户侧商品编码
+            /// 由半角的大小写字母、数字、中划线、下划线中的一种或几种组成。
+            /// 示例值：1246464644
+            /// </summary>
+            public string merchant_goods_id { get; set; }
+
+            /// <summary>
+            /// 商品单价
+            /// 商品单价，单位为分
+            /// 示例值：828800 (8288元)
+            /// </summary>
+            public int unit_price { get; set; }
+        }
+
+        /// <summary>
+        /// 场景信息
+        /// </summary>
+        public class Scene_Info
+        {
+            /// <summary>
+            /// 商户门店信息
+            /// </summary>
+            public Store_Info store_info { get; set; }
+
+            /// <summary>
+            /// 商户端设备号
+            /// 商户端设备号（门店号或收银设备ID）。
+            /// 示例值：013467007045764
+            /// </summary>
+            public string device_id { get; set; }
+
+            /// <summary>
+            /// 用户终端IP
+            /// 用户的客户端IP，支持IPv4和IPv6两种格式的IP地址。
+            /// 示例值：14.23.150.211
+            /// </summary>
+            public string payer_client_ip { get; set; }
+        }
+
+        /// <summary>
+        /// 商户门店信息
+        /// </summary>
+        public class Store_Info
+        {
+            /// <summary>
+            /// 详细地址
+            /// 详细的商户门店地址
+            /// 示例值：广东省深圳市南山区科技中一道10000号
+            /// </summary>
+            public string address { get; set; }
+
+            /// <summary>
+            /// 地区编码	
+            /// 地区编码，详细请见省市区编号对照表。
+            /// 示例值：440305
+            /// </summary>
+            public string area_code { get; set; }
+
+            /// <summary>
+            /// 门店名称
+            /// 商户侧门店名称
+            /// 示例值：腾讯大厦分店
+            /// </summary>
+            public string name { get; set; }
+
+            /// <summary>
+            /// 门店编号
+            /// 商户侧门店编号
+            /// 示例值：0001
+            /// </summary>
+            public string id { get; set; }
+        }
+
+        /// <summary>
+        /// 结算信息
+        /// </summary>
+        public class Settle_Info
+        {
+            /// <summary>
+            /// 是否指定分账
+            /// </summary>
+            public bool profit_sharing { get; set; }
+        }
+
         public JsApiRequestData(TenpayDateTime time_expire, Amount amount, string mchid, string description,
             string notify_url, Payer payer, string out_trade_no, string goods_tag, string appid, string attach,
             Detail detail, Scene_Info scene_info, Settle_Info settle_info)
@@ -138,173 +308,5 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             this.scene_info = scene_info;
             this.settle_info = settle_info;
         }
-    }
-
-    public class Amount
-    {
-        /// <summary>
-        /// 总金额
-        /// 订单总金额，单位为分。
-        /// 示例值：100 (1元)
-        /// </summary>
-        public int total { get; set; }
-
-        /// <summary>
-        /// 货币类型
-        /// CNY：人民币，境内商户号仅支持人民币。
-        /// 示例值：CNY
-        /// </summary>
-        public string currency { get; set; }
-    }
-
-    /// <summary>
-    /// 支付者信息
-    /// </summary>
-    public class Payer
-    {
-        /// <summary>
-        /// 用户标识	
-        /// 用户在直连商户appid下的唯一标识。 下单前需获取到用户的Openid，Openid获取详见
-        /// 示例值：oUpF8uMuAJO_M2pxb1Q9zNjWeS6o
-        /// </summary>
-        public string openid { get; set; }
-    }
-
-    /// <summary>
-    /// 优惠功能
-    /// </summary>
-    public class Detail
-    {
-        /// <summary>
-        /// 商家小票ID
-        /// 示例值：微信123
-        /// </summary>
-        public string invoice_id { get; set; }
-
-        /// <summary>
-        /// 单品列表
-        /// 条目个数限制：[1，6000]
-        /// </summary>
-        public Goods_Detail[] goods_detail { get; set; }
-
-        /// <summary>
-        /// 订单原价
-        /// 1、商户侧一张小票订单可能被分多次支付，订单原价用于记录整张小票的交易金额。
-        /// 2、当订单原价与支付金额不相等，则不享受优惠。
-        /// 3、该字段主要用于防止同一张小票分多次支付，以享受多次优惠的情况，正常支付订单不必上传此参数。
-        /// 示例值：608800
-        /// </summary>
-        public int cost_price { get; set; }
-    }
-
-    /// <summary>
-    /// 单品列表信息
-    /// </summary>
-    public class Goods_Detail
-    {
-        /// <summary>
-        /// 商品名称
-        /// 商品的实际名称
-        /// 示例值：iPhoneX 256G
-        /// </summary>
-        public string goods_name { get; set; }
-
-        /// <summary>
-        /// 微信侧商品编码
-        /// 微信支付定义的统一商品编号（没有可不传）
-        /// 示例值：1001
-        /// </summary>
-        public string wechatpay_goods_id { get; set; }
-
-        /// <summary>
-        /// 商品数量
-        /// 用户购买的数量
-        /// 示例值：1
-        /// </summary>
-        public int quantity { get; set; }
-
-        /// <summary>
-        /// 商户侧商品编码
-        /// 由半角的大小写字母、数字、中划线、下划线中的一种或几种组成。
-        /// 示例值：1246464644
-        /// </summary>
-        public string merchant_goods_id { get; set; }
-
-        /// <summary>
-        /// 商品单价
-        /// 商品单价，单位为分
-        /// 示例值：828800 (8288元)
-        /// </summary>
-        public int unit_price { get; set; }
-    }
-
-    /// <summary>
-    /// 场景信息
-    /// </summary>
-    public class Scene_Info
-    {
-        /// <summary>
-        /// 商户门店信息
-        /// </summary>
-        public Store_Info store_info { get; set; }
-
-        /// <summary>
-        /// 商户端设备号
-        /// 商户端设备号（门店号或收银设备ID）。
-        /// 示例值：013467007045764
-        /// </summary>
-        public string device_id { get; set; }
-
-        /// <summary>
-        /// 用户终端IP
-        /// 用户的客户端IP，支持IPv4和IPv6两种格式的IP地址。
-        /// 示例值：14.23.150.211
-        /// </summary>
-        public string payer_client_ip { get; set; }
-    }
-
-    /// <summary>
-    /// 商户门店信息
-    /// </summary>
-    public class Store_Info
-    {
-        /// <summary>
-        /// 详细地址
-        /// 详细的商户门店地址
-        /// 示例值：广东省深圳市南山区科技中一道10000号
-        /// </summary>
-        public string address { get; set; }
-
-        /// <summary>
-        /// 地区编码	
-        /// 地区编码，详细请见省市区编号对照表。
-        /// 示例值：440305
-        /// </summary>
-        public string area_code { get; set; }
-
-        /// <summary>
-        /// 门店名称
-        /// 商户侧门店名称
-        /// 示例值：腾讯大厦分店
-        /// </summary>
-        public string name { get; set; }
-
-        /// <summary>
-        /// 门店编号
-        /// 商户侧门店编号
-        /// 示例值：0001
-        /// </summary>
-        public string id { get; set; }
-    }
-
-    /// <summary>
-    /// 结算信息
-    /// </summary>
-    public class Settle_Info
-    {
-        /// <summary>
-        /// 是否指定分账
-        /// </summary>
-        public bool profit_sharing { get; set; }
     }
 }

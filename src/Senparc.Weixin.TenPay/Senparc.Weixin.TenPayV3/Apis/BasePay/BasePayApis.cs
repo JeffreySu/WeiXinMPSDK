@@ -106,7 +106,8 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="nonceStr"></param>
         /// <param name="package">格式：prepay_id={0}</param>
         /// <returns></returns>
-        public static string GetJsApiPaySign(string appId, string timeStamp, string nonceStr, string package, string privateKey)
+        public static string GetJsApiPaySign(string appId, string timeStamp, string nonceStr, string package,
+            string privateKey)
         {
             string contentForSign = $"{appId}\n{timeStamp}\n{nonceStr}\n{package}\n";
 
@@ -128,7 +129,9 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public static OrderJson OrderQueryByTransactionId(string signature, string transaction_id, string mchid)
         {
-            var urlFormat = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}pay/transactions/id/{transaction_id}?mchid={mchid}");
+            var urlFormat =
+                ReurnPayApiUrl(
+                    $"https://api.mch.weixin.qq.com/v3/{{0}}pay/transactions/id/{transaction_id}?mchid={mchid}");
 
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Add("Authorization", signature);
@@ -151,7 +154,9 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public static OrderJson OrderQueryByOutTradeNo(string signature, string out_trade_no, string mchid)
         {
-            var urlFormat = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}pay/transactions/id/{out_trade_no}?mchid={mchid}");
+            var urlFormat =
+                ReurnPayApiUrl(
+                    $"https://api.mch.weixin.qq.com/v3/{{0}}pay/transactions/id/{out_trade_no}?mchid={mchid}");
 
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Add("Authorization", signature);
@@ -174,7 +179,9 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public static HttpStatusCode CloseOrder(string signature, string out_trade_no, string mchid)
         {
-            var urlFormat = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}pay/transactions/out-trade-no/{out_trade_no}/close");
+            var urlFormat =
+                ReurnPayApiUrl(
+                    $"https://api.mch.weixin.qq.com/v3/{{0}}pay/transactions/out-trade-no/{out_trade_no}/close");
 
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Add("Authorization", signature);
@@ -186,6 +193,55 @@ namespace Senparc.Weixin.TenPayV3.Apis
             response.Wait();
 
             return response.Result.StatusCode;
+        }
+
+        /// <summary>
+        /// 申请退款接口
+        /// </summary>
+        /// <param name="signature">请求签名</param>
+        /// <param name="body">请求主体</param>
+        /// <param name="timeOut">超时时间</param>
+        /// <returns></returns>
+        public static RefundResultData Refund(string signature, string body, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}refund/domestic/refunds");
+            HttpClient httpClient = new HttpClient();
+            httpClient.Timeout = TimeSpan.FromMilliseconds(timeOut);
+            httpClient.DefaultRequestHeaders.Add("Authorization", signature);
+            HttpContent content = new StringContent(body);
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+            var response = httpClient.GetAsync(urlFormat);
+            response.Wait();
+
+            var responseBody = response.Result.Content.ReadFromJsonAsync<RefundResultData>();
+            responseBody.Wait();
+
+            return responseBody.Result;
+        }
+
+        /// <summary>
+        /// 查询单笔退款接口
+        /// </summary>
+        /// <param name="signature">请求签名</param>
+        /// <param name="out_refund_no">商户系统内部的退款单号，商户系统内部唯一，只能是数字、大小写字母_-|*@ ，同一退款单号多次请求只退一笔。示例值：1217752501201407033233368018</param>
+        /// <returns></returns>
+        public static RefundResultData RefundQuery(string signature, string out_refund_no)
+        {
+            var urlFormat =
+                ReurnPayApiUrl(
+                    $"https://api.mch.weixin.qq.com/v3/refund/domestic/refunds/{out_refund_no}");
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("Authorization", signature);
+
+            var response = httpClient.GetAsync(urlFormat);
+            response.Wait();
+
+            var responseBody = response.Result.Content.ReadFromJsonAsync<RefundResultData>();
+            responseBody.Wait();
+
+            return responseBody.Result;
         }
     }
 }

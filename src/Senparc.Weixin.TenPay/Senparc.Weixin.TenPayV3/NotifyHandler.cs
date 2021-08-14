@@ -51,7 +51,7 @@ using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
 
 namespace Senparc.Weixin.TenPayV3
 {
-    public class ResponseHandler
+    public class NotifyHandler
     {
         /// <summary>
         /// 私钥
@@ -109,7 +109,7 @@ namespace Senparc.Weixin.TenPayV3
         /// 注意:.NetCore环境必须传入HttpContext实例，不能传Null，这个接口调试特别困难，千万别出错！
         /// </summary>
         /// <param name="httpContext"></param>
-        public ResponseHandler(HttpContext httpContext)
+        public NotifyHandler(HttpContext httpContext)
         {
 
             this.HttpContext = httpContext;

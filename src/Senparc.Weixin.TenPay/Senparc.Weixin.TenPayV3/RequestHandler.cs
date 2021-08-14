@@ -129,6 +129,26 @@ namespace Senparc.Weixin.TenPay.V3
         }
 
         /// <summary>
+        /// 创建Authorization
+        /// </summary>
+        /// <param name="mchid">直连商户的商户号，由微信支付生成并下发。</param>
+        /// <param name="method">请求方法</param>
+        /// <param name="uri">请求的绝对URL，并去除域名部分得到参与签名的URL。如果请求中有查询参数，URL末尾应附加有'?'和对应的查询字符串。如 /v3/certificates </param>
+        /// <param name="timestamp">请求时间戳。微信支付会拒绝处理很久之前发起的请求，请商户自身系统的时间准确。</param>
+        /// <param name="nonce">16位请求随机串</param>
+        /// <param name="privateKey">私钥</param>
+        /// NOTE： 私钥不包括私钥文件起始的-----BEGIN PRIVATE KEY-----
+        ///        亦不包括结尾的-----END PRIVATE KEY-----
+        /// <returns></returns>
+        public string CreateAuthorization(string mchid, string method, string uri, string timestamp, string nonce, string privateKey)
+        {
+            var signature = CreateSign(method, uri, timestamp, nonce, privateKey);
+            var authorization = $"WECHATPAY2-SHA256-RSA2048 mchid=\"{mchid}\",nonce_str=\"{nonce}\",signature=\"{signature}\"";
+
+            return authorization;
+        }
+
+        /// <summary>
         /// 输出请求主体的json数据
         /// </summary>
         /// <returns></returns>

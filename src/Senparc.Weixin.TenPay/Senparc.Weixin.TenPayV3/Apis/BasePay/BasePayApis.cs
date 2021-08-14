@@ -123,18 +123,18 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <summary>
         /// 微信支付订单号查询
         /// </summary>
-        /// <param name="signature">请求签名</param>
+        /// <param name="authorization">请求authorization</param>
         /// <param name="transaction_id"> 微信支付系统生成的订单号 示例值：1217752501201407033233368018</param>
         /// <param name="mchid">直连商户的商户号，由微信支付生成并下发。 示例值：1230000109</param>
         /// <returns></returns>
-        public static OrderJson OrderQueryByTransactionId(string signature, string transaction_id, string mchid)
+        public static OrderJson OrderQueryByTransactionId(string authorization, string transaction_id, string mchid)
         {
             var urlFormat =
                 ReurnPayApiUrl(
                     $"https://api.mch.weixin.qq.com/v3/{{0}}pay/transactions/id/{transaction_id}?mchid={mchid}");
 
             HttpClient httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Add("Authorization", signature);
+            httpClient.DefaultRequestHeaders.Add("Authorization", authorization);
 
             var response = httpClient.GetAsync(urlFormat);
             response.Wait();
@@ -148,18 +148,18 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <summary>
         /// 商户订单号查询
         /// </summary>
-        /// <param name="signature">请求签名</param>
-        /// <param name="transaction_id"> 微信支付系统生成的订单号 示例值：1217752501201407033233368018</param>
+        /// <param name="authorization">请求authorization</param>
+        /// <param name="out_trade_no"> 微信支付系统生成的订单号 示例值：1217752501201407033233368018</param>
         /// <param name="mchid">直连商户的商户号，由微信支付生成并下发。 示例值：1230000109</param>
         /// <returns></returns>
-        public static OrderJson OrderQueryByOutTradeNo(string signature, string out_trade_no, string mchid)
+        public static OrderJson OrderQueryByOutTradeNo(string authorization, string out_trade_no, string mchid)
         {
             var urlFormat =
                 ReurnPayApiUrl(
                     $"https://api.mch.weixin.qq.com/v3/{{0}}pay/transactions/id/{out_trade_no}?mchid={mchid}");
 
             HttpClient httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Add("Authorization", signature);
+            httpClient.DefaultRequestHeaders.Add("Authorization", authorization);
 
             var response = httpClient.GetAsync(urlFormat);
             response.Wait();
@@ -173,18 +173,18 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <summary>
         /// 关闭订单接口
         /// </summary>
-        /// <param name="signature">请求签名</param>
+        /// <param name="authorization">请求authorization</param>
         /// <param name="out_trade_no">商户系统内部订单号，只能是数字、大小写字母_-*且在同一个商户号下唯一 示例值：1217752501201407033233368018</param>
         /// <param name="mchid">直连商户的商户号，由微信支付生成并下发。 示例值：1230000109</param>
         /// <returns></returns>
-        public static HttpStatusCode CloseOrder(string signature, string out_trade_no, string mchid)
+        public static HttpStatusCode CloseOrder(string authorization, string out_trade_no, string mchid)
         {
             var urlFormat =
                 ReurnPayApiUrl(
                     $"https://api.mch.weixin.qq.com/v3/{{0}}pay/transactions/out-trade-no/{out_trade_no}/close");
 
             HttpClient httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Add("Authorization", signature);
+            httpClient.DefaultRequestHeaders.Add("Authorization", authorization);
 
             HttpContent content = new StringContent(JsonConvert.SerializeObject(mchid));
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
@@ -198,16 +198,16 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <summary>
         /// 申请退款接口
         /// </summary>
-        /// <param name="signature">请求签名</param>
+        /// <param name="authorization">请求authorization</param>
         /// <param name="body">请求主体</param>
         /// <param name="timeOut">超时时间</param>
         /// <returns></returns>
-        public static RefundResultData Refund(string signature, string body, int timeOut = Config.TIME_OUT)
+        public static RefundResultData Refund(string authorization, string body, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}refund/domestic/refunds");
             HttpClient httpClient = new HttpClient();
             httpClient.Timeout = TimeSpan.FromMilliseconds(timeOut);
-            httpClient.DefaultRequestHeaders.Add("Authorization", signature);
+            httpClient.DefaultRequestHeaders.Add("Authorization", authorization);
             HttpContent content = new StringContent(body);
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 
@@ -223,17 +223,17 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <summary>
         /// 查询单笔退款接口
         /// </summary>
-        /// <param name="signature">请求签名</param>
+        /// <param name="authorization">请求authorization</param>
         /// <param name="out_refund_no">商户系统内部的退款单号，商户系统内部唯一，只能是数字、大小写字母_-|*@ ，同一退款单号多次请求只退一笔。示例值：1217752501201407033233368018</param>
         /// <returns></returns>
-        public static RefundResultData RefundQuery(string signature, string out_refund_no)
+        public static RefundResultData RefundQuery(string authorization, string out_refund_no)
         {
             var urlFormat =
                 ReurnPayApiUrl(
-                    $"https://api.mch.weixin.qq.com/v3/refund/domestic/refunds/{out_refund_no}");
+                    $"https://api.mch.weixin.qq.com/v3/{{0}}refund/domestic/refunds/{out_refund_no}");
 
             HttpClient httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Add("Authorization", signature);
+            httpClient.DefaultRequestHeaders.Add("Authorization", authorization);
 
             var response = httpClient.GetAsync(urlFormat);
             response.Wait();
@@ -243,5 +243,68 @@ namespace Senparc.Weixin.TenPayV3.Apis
 
             return responseBody.Result;
         }
+
+        /// <summary>
+        /// 申请交易账单接口
+        /// 获得微信支付按天提供的交易账单文件
+        /// </summary>
+        /// <param name="authorization">请求authorization</param>
+        /// <param name="bill_date">账单日期 格式YYYY-MM-DD 仅支持三个月内的账单下载申请</param>
+        /// <param name="bill_type">填则默认是ALL 枚举值：ALL：返回当日所有订单信息（不含充值退款订单）SUCCESS：返回当日成功支付的订单（不含充值退款订单）REFUND：返回当日退款订单（不含充值退款订单</param>
+        /// <param name="tar_type"> 不填则默认是数据流 枚举值：GZIP：返回格式为.gzip的压缩包账单</param>
+        /// <returns></returns>
+        public static BillData TradeBillQuery(string authorization, string bill_date, string bill_type = "ALL", string tar_type = null)
+        {
+            var urlFormat =
+                ReurnPayApiUrl(
+                    $"https://api.mch.weixin.qq.com/v3/{{0}}bill/tradebill?bill_date={bill_date}&bill_type={bill_type}");
+            if (tar_type != null)
+            {
+                urlFormat += $"&tar_type={tar_type}";
+            }
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("Authorization", authorization);
+
+            var response = httpClient.GetAsync(urlFormat);
+            response.Wait();
+
+            var responseBody = response.Result.Content.ReadFromJsonAsync<BillData>();
+            responseBody.Wait();
+
+            return responseBody.Result;
+        }
+
+        /// <summary>
+        /// 申请资金账单接口
+        /// 获得微信支付按天提供的微信支付账户资金流水账单文件
+        /// </summary>
+        /// <param name="signature">请求签名</param>
+        /// <param name="bill_date">账单日期 格式YYYY-MM-DD 仅支持三个月内的账单下载申请</param>
+        /// <param name="account_type">不填则默认是BASIC 枚举值：BASIC：基本账户 OPERATION：运营账户 FEES：手续费账户</param>
+        /// <param name="tar_type"> 不填则默认是数据流 枚举值：GZIP：返回格式为.gzip的压缩包账单</param>
+        /// <returns></returns>
+        public static BillData FundflowBillQuery(string signature, string bill_date, string account_type = "BASIC", string tar_type = null)
+        {
+            var urlFormat =
+                ReurnPayApiUrl(
+                    $"https://api.mch.weixin.qq.com/v3/{{0}}bill/fundflowbill?bill_date={bill_date}&account_type={account_type}");
+            if (tar_type != null)
+            {
+                urlFormat += $"&tar_type={tar_type}";
+            }
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("Authorization", signature);
+
+            var response = httpClient.GetAsync(urlFormat);
+            response.Wait();
+
+            var responseBody = response.Result.Content.ReadFromJsonAsync<BillData>();
+            responseBody.Wait();
+
+            return responseBody.Result;
+        }
+
     }
 }

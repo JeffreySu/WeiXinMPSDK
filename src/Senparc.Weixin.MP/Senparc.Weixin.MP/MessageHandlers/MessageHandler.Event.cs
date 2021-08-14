@@ -33,14 +33,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190515
     修改描述：v16.7.4 添加“微信认证事件推送”功能
 
+    修改标识：lishewen - 20210809
+    修改描述：v16.14.2 添加 OnEvent_Submit_Invoice_Title() 方法
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;
-using Senparc.NeuChar.Exceptions;
 using Senparc.NeuChar.Helpers;
-using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -179,17 +179,17 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = OnEvent_View_Miniprogram(RequestMessage as RequestMessageEvent_View_Miniprogram);
                     break;
 
-                case Event.subscribe_msg_change_event: 
+                case Event.subscribe_msg_change_event:
                     responseMessage = OnEvent_Subscribe_Msg_ChangeRequest(RequestMessage as RequestMessageEvent_Subscribe_Msg_Change);
                     break;
-                case Event.subscribe_msg_popup_event: 
+                case Event.subscribe_msg_popup_event:
                     responseMessage = OnEvent_Subscribe_Msg_PopupRequest(RequestMessage as RequestMessageEvent_Subscribe_Msg_Popup);
                     break;
-                case Event.subscribe_msg_sent_event: 
+                case Event.subscribe_msg_sent_event:
                     responseMessage = OnEvent_Subscribe_Msg_SentRequest(RequestMessage as RequestMessageEvent_Subscribe_Msg_Sent);
                     break;
-                
-                
+
+
                 #region 卡券回调
 
                 case Event.giftcard_pay_done:

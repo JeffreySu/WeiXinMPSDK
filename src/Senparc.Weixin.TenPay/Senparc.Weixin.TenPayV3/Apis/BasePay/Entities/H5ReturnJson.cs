@@ -21,11 +21,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：JsApiReturnJson.cs
-    文件功能描述：JsApi支付下单返回Json类
+    文件名：H5ReturnJson.cs
+    文件功能描述：H5支付返回Json类
     
     
-    创建标识：Senparc - 20210804
+    创建标识：Senparc - 20210814
     
 ----------------------------------------------------------------*/
 using System;
@@ -36,12 +36,13 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
 {
-    public class JsApiReturnJson : ReturnJsonBase
+    public class H5ReturnJson : ReturnJsonBase
     {
         /// <summary>
-        /// 预支付交易会话标识。用于后续接口调用中使用，该值有效期为2小时
-        /// 示例值：wx201410272009395522657a690389285100
+        /// 支付跳转链接
+        /// h5_url为拉起微信支付收银台的中间页面，可通过访问该url来拉起微信客户端，完成支付，h5_url的有效期为5分钟。
+        /// 示例值：https://wx.tenpay.com/cgi-bin/mmpayweb-bin/checkmweb?prepay_id=wx2016121516420242444321ca0631331346&amp;package=1405458241
         /// </summary>
-        public string prepay_id { get; set; }
+        public string h5_url { get; set; }
     }
 }

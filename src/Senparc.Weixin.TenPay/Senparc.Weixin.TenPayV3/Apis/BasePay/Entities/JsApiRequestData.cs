@@ -22,7 +22,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     Copyright (C) 2021 Senparc
   
     文件名：JsApiRequestData.cs
-    文件功能描述：JsApi请求数据实体
+    文件功能描述：JsApi请求数据实体 (Payer)
     
     
     创建标识：Senparc - 20210804
@@ -75,12 +75,12 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// </summary>
         public string notify_url { get; set; }
 
-        private Payer payer;
+        public Payer payer;
 
         /// <summary>
         /// 结算信息
         /// </summary>
-        private Settle_Info settle_info;
+        public Settle_Info settle_info;
 
         /// <summary>
         /// 商户订单号

@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：JsApiReturnJson.cs
-    文件功能描述：JsApi支付下单返回Json类
+    文件名：AppReturnJson.cs
+    文件功能描述：App支付返回Json类
     
     
     创建标识：Senparc - 20210804
@@ -36,7 +36,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
 {
-    public class JsApiReturnJson : ReturnJsonBase
+    public class AppReturnJson : ReturnJsonBase
     {
         /// <summary>
         /// 预支付交易会话标识。用于后续接口调用中使用，该值有效期为2小时

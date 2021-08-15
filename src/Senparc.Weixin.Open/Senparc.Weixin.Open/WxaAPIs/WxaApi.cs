@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.WxaAPIs
 {
+    [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
     public class WxaApi
     {
         #region 同步方法
@@ -19,7 +20,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxaApi.GetShowWxaItem", true)]
         public static GetShowWxaItemJsonResult GetShowWxaItem(string accessToken)
         {
             var url = $"{Config.ApiMpHost}/wxa/getshowwxaitem?access_token={accessToken.AsUrlData()}";
@@ -35,7 +35,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="page">页码，从 0 开始</param>
         /// <param name="num">每页记录数，最大为 20</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxaApi.GetWxaMpLinkForShow", true)]
         public static GetWxaMpLinkForShowJsonRsult GetWxaMpLinkForShow(string accessToken, int page, int num)
         {
             var url = $"{Config.ApiMpHost}/wxa/getwxamplinkforshow?access_token={accessToken.AsUrlData()}";
@@ -56,7 +55,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="wxa_subscribe_biz_flag">是否打开扫码关注组件，0 关闭，1 开启</param>
         /// <param name="appid">如果开启，需要传新的公众号 appid</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxaApi.UpdateShowWxaItem", true)]
         public static WxJsonResult UpdateShowWxaItem(string accessToken, int wxa_subscribe_biz_flag, string appid)
         {
             var url = $"{Config.ApiMpHost}/wxa/updateshowwxaitem?access_token={accessToken.AsUrlData()}";
@@ -80,7 +78,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxaApi.GetShowWxaItemAsync", true)]
         public static async Task<GetShowWxaItemJsonResult> GetShowWxaItemAsync(string accessToken)
         {
             var url = $"{Config.ApiMpHost}/wxa/getshowwxaitem?access_token={accessToken.AsUrlData()}";
@@ -96,7 +93,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="page">页码，从 0 开始</param>
         /// <param name="num">每页记录数，最大为 20</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxaApi.GetWxaMpLinkForShowAsync", true)]
         public static async Task<GetWxaMpLinkForShowJsonRsult> GetWxaMpLinkForShowAsync(string accessToken, int page, int num)
         {
             var url = $"{Config.ApiMpHost}/wxa/getwxamplinkforshow?access_token={accessToken.AsUrlData()}";
@@ -117,7 +113,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="wxa_subscribe_biz_flag">是否打开扫码关注组件，0 关闭，1 开启</param>
         /// <param name="appid">如果开启，需要传新的公众号 appid</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxaApi.UpdateShowWxaItemAsync", true)]
         public static async Task<WxJsonResult> UpdateShowWxaItemAsync(string accessToken, int wxa_subscribe_biz_flag, string appid)
         {
             var url = $"{Config.ApiMpHost}/wxa/updateshowwxaitem?access_token={accessToken.AsUrlData()}";

@@ -176,7 +176,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers.WxOpen
                     var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key, unionId);
 
                     //注意：生产环境下SessionKey属于敏感信息，不能进行传输！
-                    return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key, sessionKey = sessionBag.SessionKey });
+                    return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key, sessionKey = sessionBag.SessionKey/* 此参数千万不能暴露给客户端！处仅作演示！ */ });
                 }
                 else
                 {
@@ -307,7 +307,7 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
         /// <returns></returns>
         public ActionResult DecryptPhoneNumber(string sessionId, string encryptedData, string iv)
         {
-            var sessionBag = SessionContainer.GetSession(sessionId);
+            //var sessionBag = SessionContainer.GetSession(sessionId);
             try
             {
                 var phoneNumber = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecryptPhoneNumber(sessionId, encryptedData, iv);

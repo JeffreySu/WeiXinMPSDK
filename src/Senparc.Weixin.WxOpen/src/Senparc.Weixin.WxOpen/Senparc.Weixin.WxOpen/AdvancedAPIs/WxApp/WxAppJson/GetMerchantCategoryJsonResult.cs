@@ -17,7 +17,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson
     [Serializable]
     public class CategoriesList
     {
-        public IList<Category> categories { get; set; }
+        public List<Category> categories { get; set; }
     }
     [Serializable]
     public class Category
@@ -34,7 +34,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson
         /// </summary>
         public int level { get; set; }
 
-        public IList<int> children { get; set; } = new List<int>();
+        public List<int> children { get; set; } = new List<int>();
 
         public int father { get; set; }
 
@@ -55,7 +55,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson
             exter_list = new List<Exter>();
         }
 
-        public IList<Exter> exter_list { get; set; }
+        public List<Exter> exter_list { get; set; }
     }
     [Serializable]
     public class Exter
@@ -65,7 +65,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson
             inner_list = new List<Inner>();
         }
 
-        public IList<Inner> inner_list { get; set; }
+        public List<Inner> inner_list { get; set; }
     }
     [Serializable]
     public class Inner

@@ -62,7 +62,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs.GetCategoryJson
         /// </summary>
         public int category_limit { get; set; }
 
-        public IList<Category> categories { get; set; }
+        public List<Category> categories { get; set; }
 
 
     }

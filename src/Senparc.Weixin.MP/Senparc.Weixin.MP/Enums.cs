@@ -99,6 +99,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20201211
     修改描述：v1.6.101.1 修改 TenPayV3Type 过期提示
 
+    修改标识：lishewen - 20210809
+    修改描述：v16.14.2 添加 Event.submit_invoice_title
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -398,6 +401,11 @@ namespace Senparc.Weixin.MP
         /// 2.3 接收授权完成事件 用户授权完成后，执收单位的公众号会收到授权完成的事件，关于事件推送请参考接受callback推送
         /// </summary>
         user_authorize_invoice,
+        /// <summary>
+        /// 用户提交抬头后，商户会收到用户提交的事件。
+        /// https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/Quick_issuing/Interface_Instructions.html
+        /// </summary>
+        submit_invoice_title,
         #endregion
         #region 订阅通知
         /// <summary>
@@ -450,7 +458,6 @@ namespace Senparc.Weixin.MP
     //    SuccessResponse = 200
     //}
 
-    /// <summary>
     /// <summary>
     /// 上传媒体文件类型
     /// </summary>
@@ -700,7 +707,7 @@ namespace Senparc.Weixin.MP
         FIELD_NAME_TYPE_MILEAGE = 5,
 
         /// <summary>
-        /// 未知类型（新加入，文档中没有：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025272）
+        /// 未知类型（新加入，文档中没有：<see href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1451025272"/>）
         /// </summary>
         FIELD_NAME_TYPE_UNKNOW = -1
     }

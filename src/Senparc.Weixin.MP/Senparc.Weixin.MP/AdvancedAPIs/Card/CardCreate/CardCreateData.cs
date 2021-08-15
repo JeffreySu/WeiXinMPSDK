@@ -284,7 +284,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public bool? wx_activate_after_submit { get; set; }
         /// <summary>
-        /// 跳转型一键激活跳转的地址链接，请填写http://或者https://开头的链接（官方文档为bool类型：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025283）
+        /// 跳转型一键激活跳转的地址链接，请填写http://或者https://开头的链接（官方文档为bool类型：<see href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1451025283"/>）
         /// <para>如果是使用小程序页面激活则不填此字段，填写activate_app_brand_user_name和activate_app_brand_pass字段</para>
         /// </summary>
         public string wx_activate_after_submit_url { get; set; }

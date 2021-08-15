@@ -59,7 +59,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     {
         /// <summary>
         /// 子商户id，对于一个母商户公众号下唯一。
-        /// 详情见创建卡券接口：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1445241432
+        /// 详情见创建卡券接口：<see href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1445241432"/>
         /// </summary>
         public Card_BaseInfoBase_SubMerchantInfo sub_merchant_info { get; set; }
 

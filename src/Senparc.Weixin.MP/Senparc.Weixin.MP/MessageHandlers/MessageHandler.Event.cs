@@ -33,14 +33,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190515
     修改描述：v16.7.4 添加“微信认证事件推送”功能
 
+    修改标识：lishewen - 20210809
+    修改描述：v16.14.2 添加 OnEvent_Submit_Invoice_Title() 方法
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;
-using Senparc.NeuChar.Exceptions;
 using Senparc.NeuChar.Helpers;
-using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -179,17 +179,17 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = OnEvent_View_Miniprogram(RequestMessage as RequestMessageEvent_View_Miniprogram);
                     break;
 
-                case Event.subscribe_msg_change_event: 
+                case Event.subscribe_msg_change_event:
                     responseMessage = OnEvent_Subscribe_Msg_ChangeRequest(RequestMessage as RequestMessageEvent_Subscribe_Msg_Change);
                     break;
-                case Event.subscribe_msg_popup_event: 
+                case Event.subscribe_msg_popup_event:
                     responseMessage = OnEvent_Subscribe_Msg_PopupRequest(RequestMessage as RequestMessageEvent_Subscribe_Msg_Popup);
                     break;
-                case Event.subscribe_msg_sent_event: 
+                case Event.subscribe_msg_sent_event:
                     responseMessage = OnEvent_Subscribe_Msg_SentRequest(RequestMessage as RequestMessageEvent_Subscribe_Msg_Sent);
                     break;
-                
-                
+
+
                 #region 卡券回调
 
                 case Event.giftcard_pay_done:
@@ -240,6 +240,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 #region 微信电子发票
                 case Event.user_authorize_invoice:
                     responseMessage = OnEvent_User_Authorize_Invoice(RequestMessage as RequestMessageEvent_User_Authorize_Invoice);
+                    break;
+                case Event.submit_invoice_title:
+                    responseMessage = OnEvent_Submit_Invoice_Title(RequestMessage as RequestMessageEvent_Submit_Invoice_Title);
                     break;
                 #endregion
                 default:
@@ -727,9 +730,17 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return DefaultResponseMessage(requestMessage);
         }
-
+        /// <summary>
+        /// 用户提交抬头后，商户会收到用户提交的事件。
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Submit_Invoice_Title(RequestMessageEvent_Submit_Invoice_Title requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
         #endregion
-        
+
         #region 订阅通知
         /// <summary>
         /// 用户管理订阅通知

@@ -96,13 +96,13 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             var neucharGroup = new Home_IndexVD_GroupInfo()
             {
                 Title = "跨平台支持库：Senparc.NeuChar",
-                Description = "NeuChar 是盛派提供的一套跨平台服务的标准（例如跨微信公众号、微信小程序、丁丁、QQ小程序、百度小程序，等等），<br />" +
+                Description = "NeuChar 是盛派提供的一套跨平台服务的标准（例如跨微信公众号、微信小程序、钉钉、QQ小程序、百度小程序，等等），<br />" +
                 "使用一套代码，同时服务多平台。目前 Senparc.Weixin SDK 就是基于 NeuChar 标准在微信领域内的一个实现分支，<br />" +
                 "您也可以使用 NeuChar 扩展到更多的平台。<br />" +
                 "<a href=\"https://www.neuchar.com\" target=\"_blank\">https://www.neuchar.com</a> 是盛派官方提供的一个基于 NeuChar 标准实现的可视化跨平台配置操作平台。"
             };
             var neucharList = new List<Home_IndexVD_AssemblyModel>();
-            neucharList.Add(new Home_IndexVD_AssemblyModel("NeuChar 跨平台支持库", "Senparc.NeuChar", typeof(Senparc.NeuChar.ApiBindInfo), gitHubUrl: neucharGitHubUrl));// NeuChar 基础库
+            neucharList.Add(new Home_IndexVD_AssemblyModel("NeuChar 跨平台支持库", "Senparc.NeuChar", typeof(Senparc.NeuChar.Register), gitHubUrl: neucharGitHubUrl));// NeuChar 基础库
             neucharList.Add(new Home_IndexVD_AssemblyModel("NeuChar APP 以及<br />NeuChar Ending<br />的对接 SDK", "Senparc.NeuChar.App", typeof(Senparc.NeuChar.App.HttpRequestType), gitHubUrl: neucharGitHubUrl));// NeuChar 基础库
             neucharList.Add(new Home_IndexVD_AssemblyModel("NeuChar 的 ASP.NET<br />运行时支持库", "Senparc.NeuChar.AspNet", typeof(Senparc.NeuChar.Middlewares.MessageHandlerMiddlewareExtension), gitHubUrl: neucharGitHubUrl));// NeuChar 基础库
             vd.AssemblyModelCollection[neucharGroup] = neucharList;
@@ -122,6 +122,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             co2netList.Add(new Home_IndexVD_AssemblyModel("Redis 库<br />（CSRedis）", "Senparc.CO2NET.Cache.CsRedis", typeof(Senparc.CO2NET.Cache.CsRedis.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.CsRedis 版本信息        -- DPBMARK CsRedis DPBMARK_END
             co2netList.Add(new Home_IndexVD_AssemblyModel("Memcached 库", "Senparc.CO2NET.Cache.Memcached", typeof(Senparc.CO2NET.Cache.Memcached.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.Memcached 版本信息               -- DPBMARK Memcached DPBMARK_END
             co2netList.Add(new Home_IndexVD_AssemblyModel("CO2NET 的 ASP.NET<br />运行时支持库", "Senparc.CO2NET.AspNet", typeof(Senparc.CO2NET.AspNet.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.AspNet 版本信息
+            vd.AssemblyModelCollection[co2netGroup] = co2netList;
+            co2netList.Add(new Home_IndexVD_AssemblyModel("WebApi 引擎库（新）", "Senparc.CO2NET.WebApi", typeof(Senparc.CO2NET.WebApi.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.AspNet 版本信息
             vd.AssemblyModelCollection[co2netGroup] = co2netList;
 
             #endregion

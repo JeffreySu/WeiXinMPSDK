@@ -93,6 +93,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20210504
     修改描述：v6.9.101 修改 ReturnCode 枚举类型，添加公众号“addTemplate选用模板”接口错误代码
 
+    修改标识：WangDrama - 20210630
+    修改描述：v6.9.600 添加 ReturnCode.SenparcWeixinSDK配置错误 枚举
+
 ----------------------------------------------------------------*/
 
 
@@ -677,6 +680,7 @@ namespace Senparc.Weixin
     /// </summary>
     public enum ReturnCode_Work
     {
+        SenparcWeixinSDK配置错误 = -99,
 #pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释
         系统繁忙 = -1,
         请求成功 = 0,

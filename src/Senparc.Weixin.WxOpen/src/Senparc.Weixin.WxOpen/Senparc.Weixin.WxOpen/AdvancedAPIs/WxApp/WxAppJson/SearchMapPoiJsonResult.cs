@@ -56,8 +56,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson
 
         public int data_supply { get; set; }
 
-        public IList<string> pic_urls { get; set; } = new List<string>();
+        public List<string> pic_urls { get; set; } = new List<string>();
 
-        public IList<string> card_id_list { get; set; } = new List<string>();
+        public List<string> card_id_list { get; set; } = new List<string>();
     }
 }

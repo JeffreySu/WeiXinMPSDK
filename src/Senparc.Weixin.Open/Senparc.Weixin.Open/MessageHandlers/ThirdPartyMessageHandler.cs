@@ -45,7 +45,7 @@ namespace Senparc.Weixin.Open.MessageHandlers
 
         public string ResponseMessageText { get; set; }
 
-        public bool CancelExcute { get; set; }
+        public bool CancelExecute { get; set; }
 
         public ThirdPartyMessageHandler(Stream inputStream, PostModel postModel = null)
         {
@@ -76,7 +76,7 @@ namespace Senparc.Weixin.Open.MessageHandlers
             if (result != 0)
             {
                 //验证没有通过，取消执行
-                CancelExcute = true;
+                CancelExecute = true;
                 return null;
             }
 
@@ -90,14 +90,14 @@ namespace Senparc.Weixin.Open.MessageHandlers
 
         public void Execute()
         {
-            if (CancelExcute)
+            if (CancelExecute)
             {
                 return;
             }
 
             OnExecuting();
 
-            if (CancelExcute)
+            if (CancelExecute)
             {
                 return;
             }

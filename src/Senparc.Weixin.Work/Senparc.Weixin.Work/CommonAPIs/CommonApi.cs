@@ -28,6 +28,9 @@
     修改标识：Senparc - 20200416
     修改描述：v3.7.500 提供详细 CommonApi.GetToken() 报错信息（包括白名单异常）
 
+    修改标识：Senparc - 20210807
+    修改描述：v3.12.1 修正 CommonApi.GetTokenAsync() 的 GET 请求方式
+
 ----------------------------------------------------------------*/
 
 /*
@@ -37,21 +40,20 @@
     userid转换成openid API地址:http://qydev.weixin.qq.com/wiki/index.php?title=Userid%E4%B8%8Eopenid%E4%BA%92%E6%8D%A2%E6%8E%A5%E5%8F%A3
  */
 
-using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.Containers;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Exceptions;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Work.CommonAPIs
 {
     /// <summary>
     /// 通用基础API
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
     public partial class CommonApi
     {
         //public static string _apiUrl = Config.ApiWorkHost + "/cgi-bin";
@@ -63,7 +65,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// </summary>
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.GetToken", true)]
         public static AccessTokenResult GetToken(string corpId, string corpSecret)
         {
             #region 主动调用的频率限制
@@ -107,7 +108,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.GetCallBackIp", true)]
         public static GetCallBackIpResult GetCallBackIp(string accessToken)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
@@ -121,7 +121,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.GetTicket", true)]
         public static JsApiTicketResult GetTicket(string corpId, string corpSecret)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -144,7 +143,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="agentId">需要发送红包的应用ID，若只是使用微信支付和企业转账，则无需该参数</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.ConvertToOpenId", true)]
         public static ConvertToOpenIdResult ConvertToOpenId(string accessToken, string userId, string agentId = null, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/convert_to_openid?access_token={0}",
@@ -165,7 +163,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="openId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.ConvertToUserId", true)]
         public static ConvertToUserIdResult ConvertToUserId(string accessToken, string openId, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/convert_to_userid?access_token={0}",
@@ -187,7 +184,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// </summary>
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.GetTokenAsync", true)]
         public static async Task<AccessTokenResult> GetTokenAsync(string corpId, string corpSecret)
         {
             #region 主动调用的频率限制
@@ -214,7 +210,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
             #endregion
 
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
-            var result = await CommonJsonSend.SendAsync<AccessTokenResult>(null, url, null, CommonJsonSendType.POST).ConfigureAwait(false);
+            var result = await CommonJsonSend.SendAsync<AccessTokenResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
 
             if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode_Work.请求成功)
             {
@@ -232,7 +228,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.GetCallBackIpAsync", true)]
         public static async Task<GetCallBackIpResult> GetCallBackIpAsync(string accessToken)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
@@ -245,7 +240,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.GetTicketAsync", true)]
         public static async Task<JsApiTicketResult> GetTicketAsync(string corpId, string corpSecret)
         {
 
@@ -267,7 +261,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="agentId">需要发送红包的应用ID，若只是使用微信支付和企业转账，则无需该参数</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.ConvertToOpenIdAsync", true)]
         public static async Task<ConvertToOpenIdResult> ConvertToOpenIdAsync(string accessToken, string userId, string agentId = null, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/convert_to_openid?access_token={0}",
@@ -289,7 +282,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="openId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.ConvertToUserIdAsync", true)]
         public static async Task<ConvertToUserIdResult> ConvertToUserIdAsync(string accessToken, string openId, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/convert_to_userid?access_token={0}",

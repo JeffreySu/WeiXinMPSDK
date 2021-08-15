@@ -44,4 +44,15 @@ namespace Senparc.Weixin.TenPayV3
         public const string ZH_TW = "zh-TW";
     }
 
+    /// <summary>
+    /// API 请求方法
+    /// </summary>
+    public enum ApiRequestMethod
+    {
+        GET,
+        POST,
+        PUT,
+        PATCH
+    }
+
 }

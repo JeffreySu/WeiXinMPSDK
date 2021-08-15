@@ -28,6 +28,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     创建标识：Senparc - 20210804
     
 ----------------------------------------------------------------*/
+using Senparc.Weixin.TenPayV3.HttpHandlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
     /// </summary>
     public class ReturnJsonBase
     {
-
+        public TenPayApiResultCode ResultCode { get; set; } = new TenPayApiResultCode();
     }
 }

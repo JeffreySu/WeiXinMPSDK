@@ -1,24 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.TenPayV3
+namespace Senparc.Weixin.TenPayV3.HttpHandlers
 {
-
-    // 使用方法
-    // HttpClient client = new HttpClient(new HttpHandler("{商户号}", "{商户证书序列号}"));
-    // ...
-    // var response = client.GetAsync("https://api.mch.weixin.qq.com/v3/certificates");
-    public class HttpHandler : DelegatingHandler
+    /// <summary>
+    /// 微信支付 HttpHandler
+    /// </summary>
+    public class TenPayHttpHandler : DelegatingHandler
     {
         private readonly string merchantId;
         private readonly string serialNo;
         private readonly string privateKey;
 
-        public HttpHandler(string merchantId, string merchantSerialNo,string privateKey)
+        public TenPayHttpHandler(string merchantId, string merchantSerialNo, string privateKey)
         {
             InnerHandler = new HttpClientHandler();
 
@@ -27,6 +28,12 @@ namespace Senparc.Weixin.TenPayV3
             this.privateKey = privateKey;
         }
 
+        /// <summary>
+        /// 重写 SendAsync 方法
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         protected async override Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request,
             CancellationToken cancellationToken)
@@ -38,6 +45,11 @@ namespace Senparc.Weixin.TenPayV3
             return await base.SendAsync(request, cancellationToken);
         }
 
+        /// <summary>
+        /// 生成 Authorization 头
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         protected async Task<string> BuildAuthAsync(HttpRequestMessage request)
         {
             string method = request.Method.ToString();
@@ -57,6 +69,12 @@ namespace Senparc.Weixin.TenPayV3
             return $"mchid=\"{merchantId}\",nonce_str=\"{nonce}\",timestamp=\"{timestamp}\",serial_no=\"{serialNo}\",signature=\"{signature}\"";
         }
 
+        /// <summary>
+        /// 签名
+        /// <para>https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/wechatpay4_0.shtml</para>
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         protected string Sign(string message)
         {
             // NOTE： 私钥不包括私钥文件起始的-----BEGIN PRIVATE KEY-----

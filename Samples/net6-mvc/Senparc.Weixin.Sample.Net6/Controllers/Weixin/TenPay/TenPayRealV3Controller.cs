@@ -37,20 +37,22 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             _serviceProvider = serviceProvider;
         }
 
-        public IActionResult Js()
+        public async Task<IActionResult> Js()
         {
             var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";
-           var sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
-                        TenPayV3Util.BuildRandomStr(6));
+            var sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
+                         TenPayV3Util.BuildRandomStr(6));
             var goodsTags = "";
             var attach = "附加数据";
             JsApiRequestData.Detail detail = null;
             JsApiRequestData.Scene_Info scene = null;
             JsApiRequestData.Settle_Info settle = null;
-            JsApiRequestData jsApiRequestData = new(new TenpayDateTime(DateTime.Now),new JsApiRequestData.Amount() { currency="CNY", total=100 }, 
-                TenPayV3Info.MchId,"测试购买", TenPayV3Info.TenPayV3Notify,new JsApiRequestData.Payer() {  openid= openId },sp_billno, goodsTags, TenPayV3Info.AppId,
+            JsApiRequestData jsApiRequestData = new(new TenpayDateTime(DateTime.Now), new JsApiRequestData.Amount() { currency = "CNY", total = 100 },
+                TenPayV3Info.MchId, "测试购买", TenPayV3Info.TenPayV3Notify, new JsApiRequestData.Payer() { openid = openId }, sp_billno, goodsTags, TenPayV3Info.AppId,
                 attach, detail, scene, settle);
-            var result = BasePayApis.JsApi(_serviceProvider, jsApiRequestData);
+
+
+            var result = await BasePayApis.JsApiAsync(_serviceProvider, jsApiRequestData);
             return Json(result);
         }
     }

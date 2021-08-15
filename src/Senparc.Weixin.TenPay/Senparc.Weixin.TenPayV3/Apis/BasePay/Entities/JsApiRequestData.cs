@@ -48,7 +48,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE
         /// 示例值：2018-06-08T10:34:56+08:00
         /// </summary>
-        public TenpayDateTime time_expire { get; set; }
+        public string time_expire { get; set; }
 
         /// <summary>
         /// 订单金额
@@ -119,7 +119,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// 场景信息 支付场景描述
         /// </summary>
         public Scene_Info scene_info { get; set; }
-
 
 
         public class Amount
@@ -290,11 +289,27 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             public bool profit_sharing { get; set; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="time_expire"></param>
+        /// <param name="amount"></param>
+        /// <param name="mchid"></param>
+        /// <param name="description"></param>
+        /// <param name="notify_url"></param>
+        /// <param name="payer"></param>
+        /// <param name="out_trade_no"></param>
+        /// <param name="goods_tag"></param>
+        /// <param name="appid"></param>
+        /// <param name="attach"></param>
+        /// <param name="detail"></param>
+        /// <param name="scene_info"></param>
+        /// <param name="settle_info"></param>
         public JsApiRequestData(TenpayDateTime time_expire, Amount amount, string mchid, string description,
             string notify_url, Payer payer, string out_trade_no, string goods_tag, string appid, string attach,
             Detail detail, Scene_Info scene_info, Settle_Info settle_info)
         {
-            this.time_expire = time_expire;
+            this.time_expire = time_expire.ToString();
             this.amount = amount;
             this.mchid = mchid;
             this.description = description;

@@ -286,11 +286,25 @@ namespace Senparc.Weixin.Entities
         /// 微信支付TenpayNotify
         /// </summary>
         public virtual string TenPayV3_TenpayNotify { get; set; }
+
+        #region 新版微信支付 V3 新增
+        /// <summary>
+        /// 微信支付（V3）证书私钥
+        /// <para>获取途径：apiclient_key.pem</para>
+        /// </summary>
+        public virtual string TenPayV3_PrivateKey { get; set; }
+        /// <summary>
+        /// 微信支付（V3）证书序列号
+        /// <para>查看地址：https://pay.weixin.qq.com/index.php/core/cert/api_cert#/api-cert-manage</para>
+        /// </summary>
+        public virtual string TenPayV3_SerialNumber { get; set; }
+
+        #endregion
+
         /// <summary>
         /// 小程序微信支付WxOpenTenpayNotify
         /// </summary>
         public virtual string TenPayV3_WxOpenTenpayNotify { get; set; }
-
 
 
         #endregion

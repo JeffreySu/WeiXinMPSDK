@@ -48,6 +48,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Senparc.NeuChar.Helpers;
+using Senparc.CO2NET.Extensions;
+using System.Net.Http.Headers;
 
 namespace Senparc.Weixin.TenPayV3.Apis
 {
@@ -77,25 +79,79 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="dataInfo">微信支付需要post的Data数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static JsApiReturnJson JsApi(IServiceProvider serviceProvider, JsApiRequestData data,
-            int timeOut = Config.TIME_OUT)
+        public static JsApiReturnJson JsApi(IServiceProvider serviceProvider, JsApiRequestData data, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/jsapi");
-            var jsonString = SerializerHelper.GetJsonString(data, null);
-            using (MemoryStream ms = new MemoryStream())
+            var jsonString = SerializerHelper.GetJsonString(data, new CO2NET.Helpers.Serializers.JsonSetting(true));
+
+            WeixinTrace.SendApiPostDataLog(url, jsonString); //记录Post的Json数据
+
+            try
             {
-                var bytes = Encoding.UTF8.GetBytes(jsonString);
-                ms.Write(bytes, 0, bytes.Length);
-                ms.Seek(0, SeekOrigin.Begin);
+                //var co2netHttpClient = CO2NET.HttpUtility.RequestUtility.HttpPost_Common_NetCore(serviceProvider, url, out var hc, contentType: "application/json");
 
-                WeixinTrace.SendApiPostDataLog(url, jsonString); //记录Post的Json数据
+                var tenpayV3Setting = Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
+                var ser_no = tenpayV3Setting.TenPayV3_SerialNumber;
+                var privateKey = tenpayV3Setting.TenPayV3_PrivateKey;
 
-                //PostGetJson方法中将使用WeixinTrace记录结果
-                return Post.PostGetJson<JsApiReturnJson>(serviceProvider, url, null, ms,
-                    timeOut: timeOut,
-                    afterReturnText: null,
-                    checkValidationResult: false);
+                HttpHandler httpHandler = new(data.mchid, ser_no, privateKey);
+                HttpClient client = new HttpClient(httpHandler);
+
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));//ACCEPT header
+                client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Chrome", "92.0.4515.131"));
+                client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Safari", "537.36"));
+                client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Edg", "92.0.902.67"));
+
+                var hc = new StringContent(jsonString, Encoding.UTF8, mediaType: "application/json");
+                //hc.Headers.Add("Content-Type", "application/json");
+                //hc.Headers.Add("Accept", "application/json");
+
+                var responseString = client.PostAsync(url, hc).GetAwaiter().GetResult().Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                var result = responseString.GetObject<JsApiReturnJson>();
+                return result;
             }
+            catch (Exception ex)
+            {
+                return new JsApiReturnJson()
+                {
+                    prepay_id = ex.Message + "\r\n\r\n" + ex.StackTrace
+                };
+            }
+
+
+
+            //try
+            //{
+            //    var timeStamp = TenPayV3Util.GetTimestamp();
+            //    var nonceStr = TenPayV3Util.GetNoncestr();
+            //    RequestHandler requestHandler = new();
+            //    var privateKey = "";
+            //    var authorization = requestHandler.CreateAuthorization(data.mchid, "POST", url, timeStamp, nonceStr, privateKey, ser_no);
+            //    var header = new Dictionary<string, string>()
+            //{
+            //    {"Authorization",authorization}
+            //};
+            //    var result = Senparc.CO2NET.HttpUtility.RequestUtility.HttpPost(serviceProvider, url, postStream: ms, headerAddition: header);
+
+            //    WeixinTrace.Log("TenPayRealV3 JsApi 接口返回" + result); //记录Post的Json数据
+            //    return Senparc.CO2NET.Helpers.SerializerHelper.GetObject<JsApiReturnJson>(result);
+            //}
+            //catch (Exception ex)
+            //{
+            //    return new JsApiReturnJson()
+            //    {
+            //        prepay_id = ex.Message + "\r\n\r\n" + ex.StackTrace
+            //    };
+            //}
+
+
+
+
+            ////PostGetJson方法中将使用WeixinTrace记录结果
+            //return Post.PostGetJson<JsApiReturnJson>(serviceProvider, url, null, ms,
+            //    timeOut: timeOut,
+            //    afterReturnText: null,
+            //    checkValidationResult: false);
         }
 
         /// <summary>

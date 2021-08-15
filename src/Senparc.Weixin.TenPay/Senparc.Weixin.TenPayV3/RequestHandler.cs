@@ -44,7 +44,7 @@ using Microsoft.AspNetCore.Http;
 using Senparc.Weixin.Helpers;
 
 
-namespace Senparc.Weixin.TenPay.V3
+namespace Senparc.Weixin.TenPayV3
 {
     public class RequestHandler
     {
@@ -140,11 +140,10 @@ namespace Senparc.Weixin.TenPay.V3
         /// NOTE： 私钥不包括私钥文件起始的-----BEGIN PRIVATE KEY-----
         ///        亦不包括结尾的-----END PRIVATE KEY-----
         /// <returns></returns>
-        public string CreateAuthorization(string mchid, string method, string uri, string timestamp, string nonce, string privateKey)
+        public string CreateAuthorization(string mchid, string method, string uri, string timestamp, string nonce, string privateKey,string serial_no)
         {
             var signature = CreateSign(method, uri, timestamp, nonce, privateKey);
-            var authorization = $"WECHATPAY2-SHA256-RSA2048 mchid=\"{mchid}\",nonce_str=\"{nonce}\",signature=\"{signature}\"";
-
+            var authorization = $"WECHATPAY2-SHA256-RSA2048 mchid=\"{mchid}\",nonce_str=\"{nonce}\",signature=\"{signature}\",timestamp = \"{timestamp}\",serial_no=\"{serial_no}\"";
             return authorization;
         }
 

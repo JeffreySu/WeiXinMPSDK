@@ -23,7 +23,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson
         /// <summary>
         /// result[0]是省 result[1]是市 result[2]是区
         /// </summary>
-        public IEnumerable<District>[] result { get; set; }
+        public List<District> result { get; set; }
+        //public List<District>[] result { get; set; }
     }
 
     /// <summary>
@@ -46,7 +47,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson
         /// <summary>
         /// 拼音
         /// </summary>
-        public IEnumerable<string> pinyin { get; set; }
+        public List<string> pinyin { get; set; }
         /// <summary>
         /// 经纬度
         /// </summary>
@@ -54,7 +55,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson
         /// <summary>
         /// 下级的地区id
         /// </summary>
-        public IEnumerable<int> cidx { get; set; }
+        public List<int> cidx { get; set; }
     }
 
     public class Location

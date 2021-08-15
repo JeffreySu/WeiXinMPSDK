@@ -260,6 +260,18 @@ namespace Senparc.Weixin.MP.MessageContexts
                         //    break;
                         #endregion
 
+                        #region 订阅通知事件
+                        case "SUBSCRIBE_MSG_POPUP_EVENT":
+                            requestMessage = new RequestMessageEvent_Subscribe_Msg_Popup();
+                            break;
+                        case "SUBSCRIBE_MSG_CHANGE_EVENT":
+                            requestMessage = new RequestMessageEvent_Subscribe_Msg_Change();
+                            break;
+                        case "SUBSCRIBE_MSG_SENT_EVENT":
+                            requestMessage = new RequestMessageEvent_Subscribe_Msg_Sent();
+                            break;
+                        #endregion
+                        
                         default://其他意外类型（也可以选择抛出异常）
                             requestMessage = new RequestMessageEventBase();
                             break;

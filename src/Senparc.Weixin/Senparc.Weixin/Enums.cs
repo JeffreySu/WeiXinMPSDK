@@ -90,6 +90,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Billzjh - 20210118
     修改描述：为支持小程序 GenerateScheme 接口，修改 ReturnCode 枚举类型
 
+    修改标识：Senparc - 20210504
+    修改描述：v6.9.101 修改 ReturnCode 枚举类型，添加公众号“addTemplate选用模板”接口错误代码
+
+    修改标识：WangDrama - 20210630
+    修改描述：v6.9.600 添加 ReturnCode.SenparcWeixinSDK配置错误 枚举
+
 ----------------------------------------------------------------*/
 
 
@@ -347,6 +353,13 @@ namespace Senparc.Weixin
         名称命中微信号 = 53018,
         名称在保护期内 = 53019,
 
+        //订阅通知
+        模版tid参数错误 = 200014,
+        关键词列表kidList参数错误 = 200020,
+        场景描述sceneDesc参数错误 = 200021,
+        此账号已被封禁_无法操作 = 200011,
+        此模版已被封禁_无法选用 = 200013,
+        私有模板数已达上限_上限_50_个 = 200012,
 
         //小程序代码管理返回码
         不是由第三方代小程序进行调用 = 86000,
@@ -667,6 +680,7 @@ namespace Senparc.Weixin
     /// </summary>
     public enum ReturnCode_Work
     {
+        SenparcWeixinSDK配置错误 = -99,
 #pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释
         系统繁忙 = -1,
         请求成功 = 0,

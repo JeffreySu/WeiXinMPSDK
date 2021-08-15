@@ -25,7 +25,7 @@ namespace Senparc.Weixin.Work.Entities
 {
 	public interface IWorkResponseMessageBase : Senparc.NeuChar.Entities.IResponseMessageBase, IMessageBase
 	{
-		ResponseMsgType MsgType { get; }
+		//ResponseMsgType MsgType { get; }
 		//string Content { get; set; }
 		//bool FuncFlag { get; set; }
 	}

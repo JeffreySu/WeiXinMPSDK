@@ -3,7 +3,7 @@
 var app = getApp()
 Page({
   data: {
-    motto: 'Senparc.Weixin SDK Demo v2019.10.19',
+    motto: 'Senparc.Weixin SDK Demo v2021.5.1',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -253,40 +253,6 @@ Page({
       }
     })
   },
-  getRunData:function(){
-    wx.getWeRunData({
-      success(res) {
-        const encryptedData = res.encryptedData;
-
-        wx.request({
-          url: wx.getStorageSync('domainName') + '/WxOpen/DecryptRunData',
-          data: {
-            sessionId: wx.getStorageSync('sessionId'),
-            encryptedData: encryptedData,
-            iv: res.iv, 
-          },
-          method: 'POST',
-          header: { 'content-type': 'application/x-www-form-urlencoded' },
-          success: function (runDataRes) {
-            if (runDataRes.data.success) {
-              wx.showModal({
-                title: '成功获得步数信息！',
-                content: JSON.stringify(runDataRes.data.runData),
-                showCancel: false
-              });
-            } else {
-              wx.showModal({
-                title: '获取步数信息失败！',
-                content: runDataRes.data.msg,
-                showCancel: false
-              });
-            }
-          }
-        });
-
-      }
-    })
-  },
   //生成二维码
   openLivePusher:function(){
     wx.navigateTo({
@@ -343,6 +309,9 @@ Page({
        }
     })
   },
+  //分享
+  onShareAppMessage: function () {
+  },
   onLoad: function () {
     console.log('onLoad')
     var that = this
@@ -388,13 +357,9 @@ Page({
         that.setData({time:new Date().toLocaleTimeString()});
     },1000);
   },
-  getUserInfo: function (e) {
-    console.log(e)
-    app.getUserInfo(e);
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+  getUserInfo: function(){
+    wx.navigateTo({
+      url: '../Login/Login',
     })
   }
 })

@@ -36,6 +36,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190602
     修改描述：v6.4.8 根据 Config.ThrownWhenJsonResultFaild 优化 getFailAction 和 postFailAction 抛出异常逻辑
 
+    修改标识：Senparc - 20210413
+    修改描述：v6.8.400 修复 CommonJsonSend.PostFailAction 公共请求失败处理抛错问题
+
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -98,8 +102,8 @@ namespace Senparc.Weixin.CommonAPIs
                  ErrorJsonResultException ex = null;
                  if (errorResult.errcode != ReturnCode.请求成功)
                  {
-                     //发生错误，记录异常
-                     throw new ErrorJsonResultException(
+                    //发生错误，记录异常
+                    ex = new ErrorJsonResultException(
                           string.Format("微信 POST 请求发生错误！错误代码：{0}，说明：{1}",
                                         (int)errorResult.errcode,
                                         errorResult.errmsg),

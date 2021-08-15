@@ -30,17 +30,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190515
     修改描述：v16.7.4 添加“微信认证事件推送”功能
 
+    修改标识：lishewen - 20210809
+    修改描述：v16.14.2 添加 OnEvent_Submit_Invoice_TitleAsync() 方法
+
 ----------------------------------------------------------------*/
 
-
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Helpers;
-using Senparc.NeuChar.MessageHandlers;
-using System.Threading.Tasks;
-using System;
 using Senparc.NeuChar.Entities;
-using Senparc.NeuChar.Exceptions;
+using Senparc.Weixin.MP.Entities;
+using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -176,7 +174,16 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = await OnEvent_Modify_Store_Audit_InfoAsync(RequestMessage as RequestMessageEvent_ModifyStoreAuditInfo).ConfigureAwait(false);
                     break;
                 case Event.view_miniprogram://点击菜单跳转小程序的事件推送
-                    responseMessage =await OnEvent_View_MiniprogramAsync(RequestMessage as RequestMessageEvent_View_Miniprogram).ConfigureAwait(false);
+                    responseMessage = await OnEvent_View_MiniprogramAsync(RequestMessage as RequestMessageEvent_View_Miniprogram).ConfigureAwait(false);
+                    break;
+                case Event.subscribe_msg_change_event:
+                    responseMessage = await OnEvent_Subscribe_Msg_ChangeRequestAsync(RequestMessage as RequestMessageEvent_Subscribe_Msg_Change).ConfigureAwait(false);
+                    break;
+                case Event.subscribe_msg_popup_event:
+                    responseMessage = await OnEvent_Subscribe_Msg_PopupRequestAsync(RequestMessage as RequestMessageEvent_Subscribe_Msg_Popup).ConfigureAwait(false);
+                    break;
+                case Event.subscribe_msg_sent_event:
+                    responseMessage = await OnEvent_Subscribe_Msg_SentRequestAsync(RequestMessage as RequestMessageEvent_Subscribe_Msg_Sent).ConfigureAwait(false);
                     break;
 
 
@@ -245,7 +252,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return responseMessage;
         }
 
-#region Event下属分类，接收事件方法
+        #region Event下属分类，接收事件方法
 
         /// <summary>
         /// 【异步方法】Event事件类型请求之ENTER
@@ -687,9 +694,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_WeAppAuditSuccessRequest(requestMessage)).ConfigureAwait(false);
         }
 
-#endregion
+        #endregion
 
-#region 卡券回调
+        #region 卡券回调
 
         /// <summary>
         /// 用户购买礼品卡付款成功
@@ -723,8 +730,41 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_User_Authorize_Invoice(requestMessage)).ConfigureAwait(false);
         }
-
+        public virtual async Task<IResponseMessageBase> OnEvent_Submit_Invoice_TitleAsync(RequestMessageEvent_Submit_Invoice_Title requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_Submit_Invoice_Title(requestMessage)).ConfigureAwait(false);
+        }
         #endregion
+        #region 订阅通知
+        /// <summary>
+        /// 用户管理订阅通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_Subscribe_Msg_ChangeRequestAsync(RequestMessageEvent_Subscribe_Msg_Change requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_Subscribe_Msg_ChangeRequest(requestMessage));
+        }
+        /// <summary>
+        /// 用户操作订阅通知弹窗
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_Subscribe_Msg_PopupRequestAsync(RequestMessageEvent_Subscribe_Msg_Popup requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_Subscribe_Msg_PopupRequest(requestMessage));
+        }
+        /// <summary>
+        /// 发送订阅通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_Subscribe_Msg_SentRequestAsync(RequestMessageEvent_Subscribe_Msg_Sent requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_Subscribe_Msg_SentRequest(requestMessage));
+        }
+        #endregion
+
         #endregion
     }
 }

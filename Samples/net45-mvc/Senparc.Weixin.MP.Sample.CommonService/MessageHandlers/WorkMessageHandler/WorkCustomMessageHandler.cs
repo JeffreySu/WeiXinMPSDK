@@ -27,11 +27,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers
         /// <summary>
         /// 为中间件提供生成当前类的委托
         /// </summary>
-        public static Func<Stream, PostModel, int, WorkCustomMessageHandler> GenerateMessageHandler = (stream, postModel, maxRecordCount) => new WorkCustomMessageHandler(stream, postModel, maxRecordCount);
+        public static Func<Stream, PostModel, int, IServiceProvider, WorkCustomMessageHandler> GenerateMessageHandler =
+            (stream, postModel, maxRecordCount, serviceProvider) => new WorkCustomMessageHandler(stream, postModel, maxRecordCount, serviceProvider);
 
 
-        public WorkCustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
-            : base(inputStream, postModel, maxRecordCount)
+        public WorkCustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, IServiceProvider serviceProvider = null)
+            : base(inputStream, postModel, maxRecordCount, serviceProvider: serviceProvider)
         {
         }
 

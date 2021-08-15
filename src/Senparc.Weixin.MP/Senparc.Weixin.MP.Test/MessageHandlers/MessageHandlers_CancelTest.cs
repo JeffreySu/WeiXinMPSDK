@@ -48,7 +48,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Console.WriteLine("1");
 
             RunStep = "OnExecuting";
-            CancelExcute = true;//取消执行
+            CancelExecute = true;//取消执行
             await base.OnExecutingAsync(cancellationToken);
             Console.WriteLine("2");
 
@@ -111,7 +111,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             {
                 //一开始就取消
                 var messageHandler = new CancelMessageHandlers(XDocument.Parse(xmlText.FormatWith(SystemTime.NowTicks,DateTimeHelper.GetUnixDateTime(SystemTime.Now))), postModel);
-                messageHandler.CancelExcute = true;
+                messageHandler.CancelExecute = true;
 
                 //缺少异步方法重写的时候，使用同步方法
                 messageHandler.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;

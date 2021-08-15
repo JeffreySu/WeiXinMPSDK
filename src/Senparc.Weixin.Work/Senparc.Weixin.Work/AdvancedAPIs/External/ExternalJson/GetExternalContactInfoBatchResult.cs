@@ -6,6 +6,9 @@
     
     
     创建标识：gokeiyou - 20201013
+
+    修改标识：ShyUncle - 20210513
+    修改描述：v3.9.102 修复“批量获取客户详情 返回结果”参数名称
     
 ----------------------------------------------------------------*/
 
@@ -55,7 +58,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
     {
         public string remark { get; set; }
         public string description { get; set; }
-        public long creattime { get; set; }
+        public long createtime { get; set; }
         public string[] tag_id { get; set; }
         public string[] remark_mobiles { get; set; }
         public int add_way { get; set; }

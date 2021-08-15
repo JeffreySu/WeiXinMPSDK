@@ -59,8 +59,14 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.user_enter_tempsession:
                     responseMessage = OnEvent_UserEnterTempSessionRequest(RequestMessage as RequestMessageEvent_UserEnterTempSession);
                     break;
+                case Event.nearby_category_audit_info:
+                    responseMessage = OnEvent_NearbyCategoryAuditInfoRequest(RequestMessage as RequestMessageEvent_NearbyCategoryAuditInfo);
+                    break;
                 case Event.add_nearby_poi_audit_info:
                     responseMessage = OnEvent_AddNearbyPoiAuditInfoRequest(RequestMessage as RequestMessageEvent_AddNearbyPoiAuditInfo);
+                    break;
+                case Event.create_map_poi_audit_info:
+                    responseMessage = OnEvent_CreateMapPoiAuditInfoRequest(RequestMessage as RequestMessageEvent_CreateMapPoiAuditInfo);
                     break;
                 case Event.weapp_audit_success://
                     responseMessage = OnEvent_WeAppAuditSuccessRequest(RequestMessage as RequestMessageEvent_WeAppAuditSuccess);
@@ -82,6 +88,25 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
         #region Event 下属分类
 
+        /// <summary>
+        /// 在腾讯地图中创建门店的审核结果
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_CreateMapPoiAuditInfoRequest(RequestMessageEvent_CreateMapPoiAuditInfo requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 门店小程序类目审核事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_NearbyCategoryAuditInfoRequest(RequestMessageEvent_NearbyCategoryAuditInfo requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
 
         /// <summary>
         /// 进入客服会话事件
@@ -165,6 +190,12 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.add_nearby_poi_audit_info:
                     responseMessage = await OnEvent_AddNearbyPoiAuditInfoRequestAsync(RequestMessage as RequestMessageEvent_AddNearbyPoiAuditInfo);
                     break;
+                case Event.nearby_category_audit_info:
+                    responseMessage = await OnEvent_NearbyCategoryAuditInfoRequestAsync(RequestMessage as RequestMessageEvent_NearbyCategoryAuditInfo);
+                    break;
+                case Event.create_map_poi_audit_info:
+                    responseMessage = await OnEvent_CreateMapPoiAuditInfoRequestAsync(RequestMessage as RequestMessageEvent_CreateMapPoiAuditInfo);
+                    break;
                 case Event.weapp_audit_success://
                     responseMessage = await OnEvent_WeAppAuditSuccessRequestAsync(RequestMessage as RequestMessageEvent_WeAppAuditSuccess);
                     break;
@@ -185,6 +216,23 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
         #region Event 下属分类
 
+        /// <summary>
+        /// 在腾讯地图中创建门店的审核结果
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_CreateMapPoiAuditInfoRequestAsync(RequestMessageEvent_CreateMapPoiAuditInfo requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_CreateMapPoiAuditInfoRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】门店小程序类目审核事件
+        /// </summary>
+        public virtual async Task<IResponseMessageBase> OnEvent_NearbyCategoryAuditInfoRequestAsync(RequestMessageEvent_NearbyCategoryAuditInfo requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_NearbyCategoryAuditInfoRequest(requestMessage)).ConfigureAwait(false);
+        }
 
         /// <summary>
         /// 【异步方法】进入客服会话事件

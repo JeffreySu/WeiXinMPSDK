@@ -1,19 +1,13 @@
-﻿using Senparc.CO2NET.Helpers.Serializers;
+﻿using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
+using Senparc.Weixin.TenPayV3.HttpHandlers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.TenPayV3.HttpHandlers;
-using Senparc.CO2NET.Extensions;
-using Senparc.CO2NET.Helpers;
-using System.Reflection.PortableExecutable;
-using System.Reflection;
-using Senparc.Weixin.TenPayV3.Entities;
 
 namespace Senparc.Weixin.TenPayV3
 {

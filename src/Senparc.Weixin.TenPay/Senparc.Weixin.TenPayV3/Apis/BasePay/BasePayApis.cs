@@ -51,6 +51,7 @@ using Senparc.NeuChar.Helpers;
 using Senparc.CO2NET.Extensions;
 using System.Net.Http.Headers;
 using Microsoft.Extensions.DependencyInjection;
+using Senparc.CO2NET.Trace;
 
 namespace Senparc.Weixin.TenPayV3.Apis
 {
@@ -75,7 +76,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
 
         /// <summary>
         /// JSAPI下单接口
-        /// 在微信支付服务后台生成 JSAPI 预支付交易单，返回预支付交易会话标识
+        /// <para>在微信支付服务后台生成 JSAPI 预支付交易单，返回预支付交易会话标识</para>
         /// </summary>
         /// <param name="dataInfo">微信支付需要post的Data数据</param>
         /// <param name="timeOut"></param>
@@ -90,6 +91,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             }
             catch (Exception ex)
             {
+                SenparcTrace.BaseExceptionLog(ex);
                 return new JsApiReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
             }
         }

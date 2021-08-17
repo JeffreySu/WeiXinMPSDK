@@ -12,6 +12,7 @@ using Senparc.Weixin.TenPayV3.HttpHandlers;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
 using System.Reflection.PortableExecutable;
+using System.Reflection;
 
 namespace Senparc.Weixin.TenPayV3
 {
@@ -20,6 +21,23 @@ namespace Senparc.Weixin.TenPayV3
     /// </summary>
     public class TenPayApiRequest
     {
+        /// <summary>
+        /// 当前模块版本号
+        /// </summary>
+        private static string SenparcWeixinVersion = typeof(Senparc.Weixin.Config).Assembly.GetName().Version.ToString();
+        /// <summary>
+        /// 当前模块版本
+        /// </summary>
+        private static string TenPayV3Version = typeof(TenPayApiRequest).Assembly.GetName().Version.ToString();
+        /// <summary>
+        /// 操作系统名称及版本
+        /// </summary>
+        private static string OSVersion = Environment.OSVersion.ToString();
+        /// <summary>
+        /// 当前 .NET 运行时版本
+        /// </summary>
+        private static string RuntimeVersion = Environment.Version.ToString();
+
         private ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting;
 
         public TenPayApiRequest(ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null)
@@ -31,14 +49,16 @@ namespace Senparc.Weixin.TenPayV3
         /// 设置 HTTP 请求头
         /// </summary>
         /// <param name="client"></param>
-        private void SetHeader(HttpClient client)
+        public void SetHeader(HttpClient client)
         {
             //ACCEPT header
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
             //User-Agent header
-            client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Chrome", "92.0.4515.131"));
-            client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Safari", "537.36"));
-            client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Edg", "92.0.902.67"));
+            client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Senparc.Weixin.TenPayV3-C#", TenPayV3Version));
+            client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue($"(Senparc.Weixin {SenparcWeixinVersion})"));
+            client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(".NET", RuntimeVersion));
+            client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue($"({OSVersion})"));
         }
 
         /// <summary>

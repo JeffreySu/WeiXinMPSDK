@@ -74,14 +74,16 @@ namespace Senparc.Weixin.TenPayV3.Apis
             return string.Format(urlFormat, Senparc.Weixin.Config.UseSandBoxPay ? "sandboxnew/" : "");
         }
 
+
+        #region 下单接口
         /// <summary>
         /// JSAPI下单接口
-        /// <para>在微信支付服务后台生成 JSAPI 预支付交易单，返回预支付交易会话标识</para>
+        /// <para>在微信支付服务后台生成JSAPI预支付交易单，返回预支付交易会话标识</para>
         /// </summary>
-        /// <param name="dataInfo">微信支付需要post的Data数据</param>
-        /// <param name="timeOut"></param>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public static async Task<JsApiReturnJson> JsApiAsync(IServiceProvider serviceProvider, JsApiRequestData data, int timeOut = Config.TIME_OUT)
+        public static async Task<JsApiReturnJson> JsApiAsync(JsApiRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -96,17 +98,136 @@ namespace Senparc.Weixin.TenPayV3.Apis
             }
         }
 
+        // TODO: 待测试
         /// <summary>
         /// JSAPI合单支付下单接口
-        /// 在微信支付服务后台生成多个 JSAPI 预支付交易单，返回预支付交易会话标识
+        /// <para>在微信支付服务后台生成JSAPI合单预支付交易单，返回预支付交易会话标识</para>
         /// </summary>
-        /// <param name="dataInfo">微信支付需要post的Data数据</param>
-        /// <param name="timeOut"></param>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public static JsApiReturnJson JsApiCombine(IServiceProvider serviceProvider, JsApiCombineRequestData data,
+        public static async Task<JsApiReturnJson> JsApiCombine(JsApiCombineRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            try
+            {
+                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/jsapi");
+                TenPayApiRequest tenPayApiRequest = new();
+                return await tenPayApiRequest.RequestAsync<JsApiReturnJson>(url, data, timeOut);
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.BaseExceptionLog(ex);
+                return new JsApiReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+            }
+        }
+
+        // TODO: 待测试
+        /// <summary>
+        /// APP支付下单接口
+        /// <para>在微信支付服务后台生成APP支付预支付交易单，返回预支付交易会话标识</para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms </param>
+        /// <returns></returns>
+        public static async Task<AppReturnJson> AppPay(AppRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            try
+            {
+                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/app");
+                TenPayApiRequest tenPayApiRequest = new();
+                return await tenPayApiRequest.RequestAsync<AppReturnJson>(url, data, timeOut);
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.BaseExceptionLog(ex);
+                return new AppReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+            }
+        }
+
+        // TODO: 待测试
+        /// <summary>
+        /// APP合单支付下单接口
+        /// <para>在微信支付服务后台生成APP合单支付预支付交易单，返回预支付交易会话标识</para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms </param>
+        /// <returns></returns>
+        public static async Task<AppReturnJson> AppCombine(AppCombineRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            try
+            {
+                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/app");
+                TenPayApiRequest tenPayApiRequest = new();
+                return await tenPayApiRequest.RequestAsync<AppReturnJson>(url, data, timeOut);
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.BaseExceptionLog(ex);
+                return new AppReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+            }
+        }
+
+        // TODO: 待测试
+        /// <summary>
+        /// H5支付下单接口
+        /// <para>在微信支付服务后台生成H5支付预支付交易单，返回预支付交易会话标识</para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms </param>
+        /// <returns></returns>
+        public static async Task<H5ReturnJson> H5Pay(H5RequestData data, int timeOut = Config.TIME_OUT)
+        {
+            try
+            {
+                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/h5");
+                TenPayApiRequest tenPayApiRequest = new();
+                return await tenPayApiRequest.RequestAsync<H5ReturnJson>(url, data, timeOut);
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.BaseExceptionLog(ex);
+                return new H5ReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+            }
+        }
+
+        // TODO: 待测试
+        /// <summary>
+        /// APP合单支付下单接口
+        /// <para>在微信支付服务后台生成APP合单支付预支付交易单，返回预支付交易会话标识</para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms </param>
+        /// <returns></returns>
+        public static async Task<AppReturnJson> AppCombine(AppCombineRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            try
+            {
+                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/app");
+                TenPayApiRequest tenPayApiRequest = new();
+                return await tenPayApiRequest.RequestAsync<AppReturnJson>(url, data, timeOut);
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.BaseExceptionLog(ex);
+                return new AppReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+            }
+        }
+
+
+        
+
+        /// <summary>
+        /// H5合单支付下单接口
+        /// 在微信支付服务后台生成多个 H5 预支付交易单，返回预支付交易会话标识
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <param name="data">APP支付下单请求数据</param>
+        /// <param name="timeOut">超时时间 单位ms</param>
+        /// <returns></returns>
+        public static H5ReturnJson H5Combine(IServiceProvider serviceProvider, H5CombineRequestData data,
             int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/jsapi");
+            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/h5");
             var jsonString = SerializerHelper.GetJsonString(data, null);
             using (MemoryStream ms = new MemoryStream())
             {
@@ -117,12 +238,71 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 WeixinTrace.SendApiPostDataLog(url, jsonString); //记录Post的Json数据
 
                 //PostGetJson方法中将使用WeixinTrace记录结果
-                return Post.PostGetJson<JsApiReturnJson>(serviceProvider, url, null, ms,
+                return Post.PostGetJson<H5ReturnJson>(serviceProvider, url, null, ms,
                     timeOut: timeOut,
                     afterReturnText: null,
                     checkValidationResult: false);
             }
         }
+
+        /// <summary>
+        /// Native支付下单接口
+        /// 在微信支付服务后台生成 Native支付 预支付交易单，返回预支付交易会话标识
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <param name="data">APP支付下单请求数据</param>
+        /// <param name="timeOut">超时时间 单位ms</param>
+        /// <returns></returns>
+        public static NativeReturnJson NativePay(IServiceProvider serviceProvider, NativeRequestData data,
+            int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/native");
+            var jsonString = SerializerHelper.GetJsonString(data, null);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                var bytes = Encoding.UTF8.GetBytes(jsonString);
+                ms.Write(bytes, 0, bytes.Length);
+                ms.Seek(0, SeekOrigin.Begin);
+
+                WeixinTrace.SendApiPostDataLog(url, jsonString); //记录Post的Json数据
+
+                //PostGetJson方法中将使用WeixinTrace记录结果
+                return Post.PostGetJson<NativeReturnJson>(serviceProvider, url, null, ms,
+                    timeOut: timeOut,
+                    afterReturnText: null,
+                    checkValidationResult: false);
+            }
+        }
+
+        /// <summary>
+        /// Native 合单支付下单接口
+        /// 在微信支付服务后台生成多个 H5 预支付交易单，返回预支付交易会话标识
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <param name="data">APP支付下单请求数据</param>
+        /// <param name="timeOut">超时时间 单位ms</param>
+        /// <returns></returns>
+        public static NativeReturnJson NativeCombine(IServiceProvider serviceProvider, NativeCombineRequestData data,
+            int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/h5");
+            var jsonString = SerializerHelper.GetJsonString(data, null);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                var bytes = Encoding.UTF8.GetBytes(jsonString);
+                ms.Write(bytes, 0, bytes.Length);
+                ms.Seek(0, SeekOrigin.Begin);
+
+                WeixinTrace.SendApiPostDataLog(url, jsonString); //记录Post的Json数据
+
+                //PostGetJson方法中将使用WeixinTrace记录结果
+                return Post.PostGetJson<NativeReturnJson>(serviceProvider, url, null, ms,
+                    timeOut: timeOut,
+                    afterReturnText: null,
+                    checkValidationResult: false);
+            }
+        }
+        #endregion
 
         /// <summary>
         /// 获取调起支付所需的签名
@@ -330,180 +510,6 @@ namespace Senparc.Weixin.TenPayV3.Apis
             responseBody.Wait();
 
             return responseBody.Result;
-        }
-
-        /// <summary>
-        /// APP支付下单接口
-        /// 在微信支付服务后台生成 APP支付 预支付交易单，返回预支付交易会话标识
-        /// </summary>
-        /// <param name="serviceProvider"></param>
-        /// <param name="data">APP支付下单请求数据</param>
-        /// <param name="timeOut">超时时间 单位ms</param>
-        /// <returns></returns>
-        public static AppReturnJson AppPay(IServiceProvider serviceProvider, AppRequestData data,
-            int timeOut = Config.TIME_OUT)
-        {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/app");
-            var jsonString = SerializerHelper.GetJsonString(data, null);
-            using (MemoryStream ms = new MemoryStream())
-            {
-                var bytes = Encoding.UTF8.GetBytes(jsonString);
-                ms.Write(bytes, 0, bytes.Length);
-                ms.Seek(0, SeekOrigin.Begin);
-
-                WeixinTrace.SendApiPostDataLog(url, jsonString); //记录Post的Json数据
-
-                //PostGetJson方法中将使用WeixinTrace记录结果
-                return Post.PostGetJson<AppReturnJson>(serviceProvider, url, null, ms,
-                    timeOut: timeOut,
-                    afterReturnText: null,
-                    checkValidationResult: false);
-            }
-        }
-
-        /// <summary>
-        /// APP合单支付下单接口
-        /// 在微信支付服务后台生成多个 APP 预支付交易单，返回预支付交易会话标识
-        /// </summary>
-        /// <param name="serviceProvider"></param>
-        /// <param name="data">H5支付下单请求数据</param>
-        /// <param name="timeOut">超时时间 单位ms</param>
-        /// <returns></returns>
-        public static AppReturnJson AppCombine(IServiceProvider serviceProvider, AppCombineRequestData data,
-            int timeOut = Config.TIME_OUT)
-        {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/h5");
-            var jsonString = SerializerHelper.GetJsonString(data, null);
-            using (MemoryStream ms = new MemoryStream())
-            {
-                var bytes = Encoding.UTF8.GetBytes(jsonString);
-                ms.Write(bytes, 0, bytes.Length);
-                ms.Seek(0, SeekOrigin.Begin);
-
-                WeixinTrace.SendApiPostDataLog(url, jsonString); //记录Post的Json数据
-
-                //PostGetJson方法中将使用WeixinTrace记录结果
-                return Post.PostGetJson<AppReturnJson>(serviceProvider, url, null, ms,
-                    timeOut: timeOut,
-                    afterReturnText: null,
-                    checkValidationResult: false);
-            }
-        }
-
-        /// <summary>
-        /// H5支付下单接口
-        /// 在微信支付服务后台生成 H5支付 预支付交易单，返回预支付交易会话标识
-        /// </summary>
-        /// <param name="serviceProvider"></param>
-        /// <param name="data">APP支付下单请求数据</param>
-        /// <param name="timeOut">超时时间 单位ms</param>
-        /// <returns></returns>
-        public static H5ReturnJson H5Pay(IServiceProvider serviceProvider, H5RequestData data,
-            int timeOut = Config.TIME_OUT)
-        {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/h5");
-            var jsonString = SerializerHelper.GetJsonString(data, null);
-            using (MemoryStream ms = new MemoryStream())
-            {
-                var bytes = Encoding.UTF8.GetBytes(jsonString);
-                ms.Write(bytes, 0, bytes.Length);
-                ms.Seek(0, SeekOrigin.Begin);
-
-                WeixinTrace.SendApiPostDataLog(url, jsonString); //记录Post的Json数据
-
-                //PostGetJson方法中将使用WeixinTrace记录结果
-                return Post.PostGetJson<H5ReturnJson>(serviceProvider, url, null, ms,
-                    timeOut: timeOut,
-                    afterReturnText: null,
-                    checkValidationResult: false);
-            }
-        }
-
-        /// <summary>
-        /// H5合单支付下单接口
-        /// 在微信支付服务后台生成多个 H5 预支付交易单，返回预支付交易会话标识
-        /// </summary>
-        /// <param name="serviceProvider"></param>
-        /// <param name="data">APP支付下单请求数据</param>
-        /// <param name="timeOut">超时时间 单位ms</param>
-        /// <returns></returns>
-        public static H5ReturnJson H5Combine(IServiceProvider serviceProvider, H5CombineRequestData data,
-            int timeOut = Config.TIME_OUT)
-        {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/h5");
-            var jsonString = SerializerHelper.GetJsonString(data, null);
-            using (MemoryStream ms = new MemoryStream())
-            {
-                var bytes = Encoding.UTF8.GetBytes(jsonString);
-                ms.Write(bytes, 0, bytes.Length);
-                ms.Seek(0, SeekOrigin.Begin);
-
-                WeixinTrace.SendApiPostDataLog(url, jsonString); //记录Post的Json数据
-
-                //PostGetJson方法中将使用WeixinTrace记录结果
-                return Post.PostGetJson<H5ReturnJson>(serviceProvider, url, null, ms,
-                    timeOut: timeOut,
-                    afterReturnText: null,
-                    checkValidationResult: false);
-            }
-        }
-
-        /// <summary>
-        /// Native支付下单接口
-        /// 在微信支付服务后台生成 Native支付 预支付交易单，返回预支付交易会话标识
-        /// </summary>
-        /// <param name="serviceProvider"></param>
-        /// <param name="data">APP支付下单请求数据</param>
-        /// <param name="timeOut">超时时间 单位ms</param>
-        /// <returns></returns>
-        public static NativeReturnJson NativePay(IServiceProvider serviceProvider, NativeRequestData data,
-            int timeOut = Config.TIME_OUT)
-        {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/native");
-            var jsonString = SerializerHelper.GetJsonString(data, null);
-            using (MemoryStream ms = new MemoryStream())
-            {
-                var bytes = Encoding.UTF8.GetBytes(jsonString);
-                ms.Write(bytes, 0, bytes.Length);
-                ms.Seek(0, SeekOrigin.Begin);
-
-                WeixinTrace.SendApiPostDataLog(url, jsonString); //记录Post的Json数据
-
-                //PostGetJson方法中将使用WeixinTrace记录结果
-                return Post.PostGetJson<NativeReturnJson>(serviceProvider, url, null, ms,
-                    timeOut: timeOut,
-                    afterReturnText: null,
-                    checkValidationResult: false);
-            }
-        }
-
-        /// <summary>
-        /// Native 合单支付下单接口
-        /// 在微信支付服务后台生成多个 H5 预支付交易单，返回预支付交易会话标识
-        /// </summary>
-        /// <param name="serviceProvider"></param>
-        /// <param name="data">APP支付下单请求数据</param>
-        /// <param name="timeOut">超时时间 单位ms</param>
-        /// <returns></returns>
-        public static NativeReturnJson NativeCombine(IServiceProvider serviceProvider, NativeCombineRequestData data,
-            int timeOut = Config.TIME_OUT)
-        {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/h5");
-            var jsonString = SerializerHelper.GetJsonString(data, null);
-            using (MemoryStream ms = new MemoryStream())
-            {
-                var bytes = Encoding.UTF8.GetBytes(jsonString);
-                ms.Write(bytes, 0, bytes.Length);
-                ms.Seek(0, SeekOrigin.Begin);
-
-                WeixinTrace.SendApiPostDataLog(url, jsonString); //记录Post的Json数据
-
-                //PostGetJson方法中将使用WeixinTrace记录结果
-                return Post.PostGetJson<NativeReturnJson>(serviceProvider, url, null, ms,
-                    timeOut: timeOut,
-                    afterReturnText: null,
-                    checkValidationResult: false);
-            }
         }
     }
 }

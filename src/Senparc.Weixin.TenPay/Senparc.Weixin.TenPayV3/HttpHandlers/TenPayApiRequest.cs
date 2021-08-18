@@ -1,4 +1,35 @@
-﻿using Senparc.CO2NET.Extensions;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2021 Senparc
+  
+    文件名：TenPayApiRequest.cs
+    文件功能描述：微信支付V3接口请求
+    
+    
+    创建标识：Senparc - 20210815
+    
+----------------------------------------------------------------*/
+
+using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
@@ -6,6 +37,7 @@ using Senparc.Weixin.TenPayV3.HttpHandlers;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -42,7 +74,7 @@ namespace Senparc.Weixin.TenPayV3
         }
 
         /// <summary>
-        /// Post 参数，获取结果
+        /// 请求参数，获取结果
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="url"></param>
@@ -104,11 +136,61 @@ namespace Senparc.Weixin.TenPayV3
             //检查响应代码
             TenPayApiResultCode resutlCode = TenPayApiResultCode.TryGetCode(responseMessage.StatusCode);
 
+            //TODO:待测试 加入验证签名
             //获取响应结果
-            T result = resutlCode.Success ? (await responseMessage.Content.ReadAsStringAsync()).GetObject<T>() : new T();
+            T result = null;
+            if (resutlCode.Success)
+            {
+                string content = await responseMessage.Content.ReadAsStringAsync();
+
+                //TODO:待测试
+                //验证微信签名
+                result.Signed = VerifyTenpaySign(responseMessage.Headers, content);
+
+                result = content.GetObject<T>();
+            }
+            else
+            {
+                result = new();
+            }
+            //T result = resutlCode.Success ? (await responseMessage.Content.ReadAsStringAsync()).GetObject<T>() : new T();
             result.ResultCode = resutlCode;
 
             return result;
+        }
+
+        /// <summary>
+        /// 检验签名，以确保回调是由微信支付发送。
+        /// 签名规则见微信官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/wechatpay4_1.shtml。
+        /// return bool
+        /// </summary>
+        /// <param name="responseHeaders">请求头</param>
+        /// <param name="content">请求主体</param>
+        /// <param name="pubKey">平台公钥 可为空 平台公钥获取详见微信官方文档https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/wechatpay3_1.shtml/param>
+        /// <returns></returns>
+        // TODO: 本方法待测试
+        public virtual bool VerifyTenpaySign(HttpResponseHeaders responseHeaders, string content, string pubKey = null)
+        {
+            pubKey ??= new("此处应为平台公钥");//TODO: 不知平台公钥在配置中为何值
+
+            var WechatpayTimestamp = responseHeaders.GetValues("Wechatpay-Timestamp").First();
+            var WechatpayNonce = responseHeaders.GetValues("Wechatpay-Nonce").First();
+            var WechatpaySignature = responseHeaders.GetValues("Wechatpay-Signature").First();
+
+            string contentForSign = $"{WechatpayTimestamp}\n{WechatpayNonce}\n{content}\n";
+
+            // NOTE： 私钥不包括私钥文件起始的-----BEGIN PRIVATE KEY-----
+            //        亦不包括结尾的-----END PRIVATE KEY-----
+            //string privateKey = "{你的私钥}";
+            byte[] keyData = Convert.FromBase64String(pubKey);
+            using (CngKey cngKey = CngKey.Import(keyData, CngKeyBlobFormat.Pkcs8PrivateBlob))
+            using (RSACng rsa = new RSACng(cngKey))
+            {
+                byte[] data = System.Text.Encoding.UTF8.GetBytes(contentForSign);
+                byte[] signature = System.Text.Encoding.UTF8.GetBytes(WechatpaySignature);
+
+                return rsa.VerifyData(data, signature, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+            }
         }
     }
 }

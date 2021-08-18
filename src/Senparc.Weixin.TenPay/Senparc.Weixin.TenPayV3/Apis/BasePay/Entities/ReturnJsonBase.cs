@@ -42,6 +42,14 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
     /// </summary>
     public class ReturnJsonBase
     {
+        /// <summary>
+        /// 回复状态码
+        /// </summary>
         public TenPayApiResultCode ResultCode { get; set; } = new TenPayApiResultCode();
+
+        /// <summary>
+        /// 回复签名是否正确
+        /// </summary>
+        public bool? Signed { get; set; } = null;
     }
 }

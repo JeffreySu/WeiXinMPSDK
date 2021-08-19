@@ -38,7 +38,7 @@ using Senparc.Weixin.TenPayV3.Entities;
 
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
 {
-    public class CombineOrderReturnJson : NotifyRequest
+    public class CombineOrderReturnJson : ReturnJsonBase
     {
         /// <summary>
         /// 合单发起方的appid。

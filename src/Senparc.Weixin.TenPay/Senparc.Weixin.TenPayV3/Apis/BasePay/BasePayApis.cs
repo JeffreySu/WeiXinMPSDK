@@ -312,6 +312,29 @@ namespace Senparc.Weixin.TenPayV3.Apis
 
         // TODO: 待测试
         /// <summary>
+        /// 合单查询订单接口
+        /// </summary>
+        /// <param name="combine_out_trade_no">合单支付总订单号 示例值：P20150806125346</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public static async Task<CombineOrderReturnJson> CombineOrderQuery(string combine_out_trade_no, int timeOut = Config.TIME_OUT)
+        {
+            try
+            {
+
+                var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}combine-transactions/out-trade-no/{combine_out_trade_no}");
+                TenPayApiRequest tenPayApiRequest = new();
+                return await tenPayApiRequest.RequestAsync<CombineOrderReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.BaseExceptionLog(ex);
+                return new CombineOrderReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+            }
+        }
+
+        // TODO: 待测试
+        /// <summary>
         /// 关闭订单接口
         /// </summary>
         /// <param name="out_trade_no">商户系统内部订单号，只能是数字、大小写字母_-*且在同一个商户号下唯一 示例值：1217752501201407033233368018</param>
@@ -325,6 +348,29 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}pay/transactions/out-trade-no/{out_trade_no}/close");
                 TenPayApiRequest tenPayApiRequest = new();
                 return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, mchid, timeOut);
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.BaseExceptionLog(ex);
+                return new ReturnJsonBase() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+            }
+        }
+
+        // TODO: 待测试
+        /// <summary>
+        /// 合单关闭订单接口
+        /// </summary>
+        /// <param name="combine_out_trade_no">合单支付总订单号 示例值：P20150806125346</param>
+        /// <param name="data">合单关闭订单请求数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public static async Task<ReturnJsonBase> CloseCombineOrder(string combine_out_trade_no, CloseCombineOrderRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            try
+            {
+                var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}combine-transactions/out-trade-no/{combine_out_trade_no}/close");
+                TenPayApiRequest tenPayApiRequest = new();
+                return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, data, timeOut);
             }
             catch (Exception ex)
             {

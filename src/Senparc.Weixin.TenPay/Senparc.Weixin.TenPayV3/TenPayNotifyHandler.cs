@@ -28,6 +28,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20210819
     修改描述：重构使用TenPaySignHelper类验证签名
+
 ----------------------------------------------------------------*/
 
 using System;

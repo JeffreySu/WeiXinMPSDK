@@ -40,7 +40,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
     /// <summary>
     /// 账单数据
     /// </summary>
-    public class BillData
+    public class BillReturnJson:ReturnJsonBase
     {
         /// <summary>
         /// 哈希类型

@@ -17,8 +17,10 @@ namespace Senparc.Weixin.TenPayV3.HttpHandlers
         /// 已知返回代码集合
         /// </summary>
         public static Dictionary<string, TenPayApiResultCode[]> CodesCollection = new Dictionary<string, TenPayApiResultCode[]> {
-                    {"200" ,new[] { new TenPayApiResultCode("200","SUCCESS","请求成功","",true) } },
                     //以下代码参考：https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_1_1.shtml
+                    {"200" ,new[] { new TenPayApiResultCode("200","SUCCESS","请求成功","",true) } },
+                    {"202" ,new[] { new TenPayApiResultCode("202", "USERPAYING", "用户支付中，需要输入密码", "等待5秒，然后调用被扫订单结果查询API，查询当前订单的不同状态，决定下一步的操作", false) } },
+                    {"204" ,new[] { new TenPayApiResultCode("204", "No Content", "请求成功","", true) } },
                     {"400", new[] { new TenPayApiResultCode("400","PARAM_ERROR","参数错误","请根据接口返回的详细信息检查请求参数"),
                                     new TenPayApiResultCode("400","ORDER_CLOSED","订单已关闭","当前订单已关闭，请重新下单"),
                                     new TenPayApiResultCode("400","MCH_NOT_EXISTS","商户号不存在","请检查商户号是否正确"),

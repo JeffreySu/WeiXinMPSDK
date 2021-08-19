@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：RefundResultData.cs
-    文件功能描述：微信支付退款结果数据
+    文件名：RefundReturnJson.cs
+    文件功能描述：微信支付退款结果Json
     
     
     创建标识：Senparc - 20210813
@@ -39,7 +39,7 @@ using Senparc.Weixin.TenPayV3.Entities;
 
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
 {
-    public class RefundResultData
+    public class RefundReturnJson : ReturnJsonBase
     {
         /// <summary>
         /// 微信支付退款单号

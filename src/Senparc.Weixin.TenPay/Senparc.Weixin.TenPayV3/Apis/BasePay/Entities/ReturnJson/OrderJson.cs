@@ -38,7 +38,7 @@ using Senparc.Weixin.TenPayV3.Entities;
 
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
 {
-    public class OrderJson : NotifyJson
+    public class OrderJson : ReturnJsonBase
     {
         /// <summary>
         /// 应用ID

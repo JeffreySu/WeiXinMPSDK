@@ -30,6 +30,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.TenPayV3.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -97,28 +98,10 @@ namespace Senparc.Weixin.TenPayV3.HttpHandlers
             string nonce = Path.GetRandomFileName();
 
             string message = $"{method}\n{uri}\n{timestamp}\n{nonce}\n{body}\n";
-            string signature = Sign(message);
-            return $"mchid=\"{merchantId}\",nonce_str=\"{nonce}\",timestamp=\"{timestamp}\",serial_no=\"{serialNo}\",signature=\"{signature}\"";
-        }
+            //TODO:此处重构待测试
+            string signature = TenPaySignHelper.CreateSign(message, privateKey);
 
-        /// <summary>
-        /// 签名
-        /// <para>https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/wechatpay4_0.shtml</para>
-        /// </summary>
-        /// <param name="message"></param>
-        /// <returns></returns>
-        protected string Sign(string message)
-        {
-            // NOTE： 私钥不包括私钥文件起始的-----BEGIN PRIVATE KEY-----
-            //        亦不包括结尾的-----END PRIVATE KEY-----
-            //string privateKey = "{你的私钥}";
-            byte[] keyData = Convert.FromBase64String(privateKey);
-            using (CngKey cngKey = CngKey.Import(keyData, CngKeyBlobFormat.Pkcs8PrivateBlob))
-            using (RSACng rsa = new RSACng(cngKey))
-            {
-                byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
-                return Convert.ToBase64String(rsa.SignData(data, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
-            }
+            return $"mchid=\"{merchantId}\",nonce_str=\"{nonce}\",timestamp=\"{timestamp}\",serial_no=\"{serialNo}\",signature=\"{signature}\"";
         }
     }
 }

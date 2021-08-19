@@ -33,6 +33,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
+using Senparc.Weixin.TenPayV3.Helpers;
 using Senparc.Weixin.TenPayV3.HttpHandlers;
 using System;
 using System.Net.Http;
@@ -145,7 +146,12 @@ namespace Senparc.Weixin.TenPayV3
 
                 //TODO:待测试
                 //验证微信签名
-                result.Signed = VerifyTenpaySign(responseMessage.Headers, content);
+                //result.Signed = VerifyTenpaySign(responseMessage.Headers, content);
+                var wechatpayTimestamp = responseMessage.Headers.GetValues("Wechatpay-Timestamp").First();
+                var wechatpayNonce = responseMessage.Headers.GetValues("Wechatpay-Nonce").First();
+                var wechatpaySignature = responseMessage.Headers.GetValues("Wechatpay-Signature").First();
+
+                result.Signed = TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content);
 
                 result = content.GetObject<T>();
             }
@@ -157,40 +163,6 @@ namespace Senparc.Weixin.TenPayV3
             result.ResultCode = resutlCode;
 
             return result;
-        }
-
-        /// <summary>
-        /// 检验签名，以确保回调是由微信支付发送。
-        /// 签名规则见微信官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/wechatpay4_1.shtml。
-        /// return bool
-        /// </summary>
-        /// <param name="responseHeaders">请求头</param>
-        /// <param name="content">请求主体</param>
-        /// <param name="pubKey">平台公钥 可为空 平台公钥获取详见微信官方文档https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/wechatpay3_1.shtml/param>
-        /// <returns></returns>
-        // TODO: 本方法待测试
-        public virtual bool VerifyTenpaySign(HttpResponseHeaders responseHeaders, string content, string pubKey = null)
-        {
-            pubKey ??= new("此处应为平台公钥");//TODO: 不知平台公钥在配置中为何值
-
-            var WechatpayTimestamp = responseHeaders.GetValues("Wechatpay-Timestamp").First();
-            var WechatpayNonce = responseHeaders.GetValues("Wechatpay-Nonce").First();
-            var WechatpaySignature = responseHeaders.GetValues("Wechatpay-Signature").First();
-
-            string contentForSign = $"{WechatpayTimestamp}\n{WechatpayNonce}\n{content}\n";
-
-            // NOTE： 私钥不包括私钥文件起始的-----BEGIN PRIVATE KEY-----
-            //        亦不包括结尾的-----END PRIVATE KEY-----
-            //string privateKey = "{你的私钥}";
-            byte[] keyData = Convert.FromBase64String(pubKey);
-            using (CngKey cngKey = CngKey.Import(keyData, CngKeyBlobFormat.Pkcs8PrivateBlob))
-            using (RSACng rsa = new RSACng(cngKey))
-            {
-                byte[] data = System.Text.Encoding.UTF8.GetBytes(contentForSign);
-                byte[] signature = System.Text.Encoding.UTF8.GetBytes(WechatpaySignature);
-
-                return rsa.VerifyData(data, signature, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
-            }
         }
     }
 }

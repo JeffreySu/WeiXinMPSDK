@@ -26,6 +26,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20210819
+
+    修改标识：Senparc - 20210819
+    修改描述：完善注释; 增加构造函数
     
 ----------------------------------------------------------------*/
 
@@ -40,6 +43,16 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
 {
     public class CloseCombineOrderRequestData
     {
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="combine_appid">合单发起方的appid </param>
+        /// <param name="sub_orders">子单信息 最多支持子单条数：10</param>
+        public CloseCombineOrderRequestData(string combine_appid, Sub_Orders[] sub_orders)
+        {
+            this.combine_appid = combine_appid;
+            this.sub_orders = sub_orders;
+        }
 
         /// <summary>
         /// 合单商户appid	

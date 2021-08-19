@@ -26,6 +26,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20210814
+
+    修改标识：Senparc - 20210819
+    修改描述：完善注释; 增加构造函数
     
 ----------------------------------------------------------------*/
 

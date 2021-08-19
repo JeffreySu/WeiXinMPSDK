@@ -26,9 +26,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20210814
+
+    修改标识：Senparc - 20210819
+    修改描述：完善注释; 加入构造函数
     
 ----------------------------------------------------------------*/
-
 
 using System;
 using System.Collections.Generic;
@@ -41,6 +43,37 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
 {
     public class NativeRequestData
     {
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="appid">由微信生成的应用ID，全局唯一</param>
+        /// <param name="mchid">直连商户的商户号，由微信支付生成并下发</param>
+        /// <param name="description">商品描述 示例值：Image形象店-深圳腾大-QQ公仔</param>
+        /// <param name="out_trade_no">商户系统内部订单号</param>
+        /// <param name="time_expire">订单失效时间 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE</param>
+        /// <param name="attach">附加数据，在查询API和支付通知中原样返回，可作为自定义参数使用</param>
+        /// <param name="notify_url">通知URL 必须为直接可访问的URL，不允许携带查询串，要求必须为https地址</param>
+        /// <param name="goods_tag">订单优惠标记 示例值：WXG</param>
+        /// <param name="amount">订单金额</param>
+        /// <param name="detail">优惠功能</param>
+        /// <param name="settle_info">结算信息</param>
+        /// <param name="scene_info">支付场景描述</param>
+        public NativeRequestData(string appid, string mchid, string description, string out_trade_no, TenpayDateTime time_expire, string attach, string notify_url, string goods_tag, Amount amount, Detail detail, Settle_Info settle_info, Scene_Info scene_info)
+        {
+            this.appid = appid;
+            this.mchid = mchid;
+            this.description = description;
+            this.out_trade_no = out_trade_no;
+            this.time_expire = time_expire.ToString();
+            this.attach = attach;
+            this.notify_url = notify_url;
+            this.goods_tag = goods_tag;
+            this.amount = amount;
+            this.detail = detail;
+            this.settle_info = settle_info;
+            this.scene_info = scene_info;
+        }
+
         /// <summary>
         /// 应用ID
         /// 由微信生成的应用ID，全局唯一。请求基础下单接口时请注意APPID的应用属性，例如公众号场景下，需使用应用属性为公众号的APPID
@@ -74,7 +107,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
         /// 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE
         /// 示例值：2018-06-08T10:34:56+08:00
         /// </summary>
-        public TenpayDateTime time_expire { get; set; }
+        public string time_expire { get; set; }
 
         /// <summary>
         /// 附加数据

@@ -21,7 +21,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：NotifyJson.cs
+    文件名：NotifyRequest.cs
     文件功能描述：微信支付V3回调通知请求类 数据未解密
     
     
@@ -39,7 +39,7 @@ using Senparc.Weixin.TenPayV3.Entities;
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
 {
     /// <summary>
-    /// NotifyJson 的基类
+    /// NotifyRequest
     /// </summary>
     public class NotifyRequest
     {

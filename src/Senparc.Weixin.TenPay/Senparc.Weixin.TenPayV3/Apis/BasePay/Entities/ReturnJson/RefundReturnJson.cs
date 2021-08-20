@@ -39,6 +39,10 @@ using Senparc.Weixin.TenPayV3.Entities;
 
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
 {
+    /// <summary>
+    /// 微信支付V3退款返回Json
+    /// 本类型为微信支付申请退款与查询退款返回Json 请勿与RefundNotifyJson混淆
+    /// </summary>
     public class RefundReturnJson : ReturnJsonBase
     {
         /// <summary>
@@ -67,7 +71,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
         /// </summary>
         public string out_trade_no { get; set; }
 
-
         /// <summary>
         /// 退款渠道
         /// 枚举值：
@@ -95,14 +98,14 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
         /// 退款成功时间，当退款状态为退款成功时有返回。
         /// 示例值：2020-12-01T16:18:12+08:00
         /// </summary>
-        public TenpayDateTime success_time { get; set; }
+        public string success_time { get; set; }
 
         /// <summary>
         /// 退款创建时间	
         /// 退款受理时间
         /// 示例值：2020-12-01T16:18:12+08:00
         /// </summary>
-        public TenpayDateTime create_time { get; set; }
+        public string create_time { get; set; }
 
         /// <summary>
         /// 退款状态
@@ -319,6 +322,4 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
             public int refund_quantity { get; set; }
         }
     }
-
-
 }

@@ -41,7 +41,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Helpers
 {
-    class TenPaySignHelper
+    public class TenPaySignHelper
     {
         /// <summary>
         /// 创建签名

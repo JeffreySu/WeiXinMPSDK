@@ -39,7 +39,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.TenPayV3.Apis.BasePay
+namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
 {
     public class CloseCombineOrderRequestData
     {

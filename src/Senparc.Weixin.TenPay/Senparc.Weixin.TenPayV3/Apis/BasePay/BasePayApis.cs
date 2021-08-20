@@ -32,6 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20210819
     修改描述：修改重构基础api支付接口
+
+    修改标识：Senparc - 20210820
+    修改描述：重命名部分异步方法
     
 ----------------------------------------------------------------*/
 
@@ -272,7 +275,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="mchid">直连商户的商户号，由微信支付生成并下发。 示例值：1230000109</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public static async Task<OrderReturnJson> OrderQueryByTransactionId(string transaction_id, string mchid, int timeOut = Config.TIME_OUT)
+        public static async Task<OrderReturnJson> OrderQueryByTransactionIdAsync(string transaction_id, string mchid, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -295,7 +298,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="mchid">直连商户的商户号，由微信支付生成并下发。 示例值：1230000109</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public static async Task<OrderReturnJson> OrderQueryByOutTradeNo(string out_trade_no, string mchid, int timeOut = Config.TIME_OUT)
+        public static async Task<OrderReturnJson> OrderQueryByOutTradeNoAsync(string out_trade_no, string mchid, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -317,7 +320,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="combine_out_trade_no">合单支付总订单号 示例值：P20150806125346</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public static async Task<CombineOrderReturnJson> CombineOrderQuery(string combine_out_trade_no, int timeOut = Config.TIME_OUT)
+        public static async Task<CombineOrderReturnJson> CombineOrderQueryAsync(string combine_out_trade_no, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -341,7 +344,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="mchid">直连商户的商户号，由微信支付生成并下发。 示例值：1230000109</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public static async Task<ReturnJsonBase> CloseOrder(string out_trade_no, string mchid, int timeOut = Config.TIME_OUT)
+        public static async Task<ReturnJsonBase> CloseOrderAsync(string out_trade_no, string mchid, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -364,7 +367,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">合单关闭订单请求数据</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public static async Task<ReturnJsonBase> CloseCombineOrder(string combine_out_trade_no, CloseCombineOrderRequestData data, int timeOut = Config.TIME_OUT)
+        public static async Task<ReturnJsonBase> CloseCombineOrderAsync(string combine_out_trade_no, CloseCombineOrderRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -388,7 +391,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">请求数据</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public static async Task<RefundReturnJson> Refund(JsApiRequestData data, int timeOut = Config.TIME_OUT)
+        public static async Task<RefundReturnJson> RefundAsync(RefundRequsetData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -410,7 +413,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="out_refund_no">商户系统内部的退款单号，商户系统内部唯一，只能是数字、大小写字母_-|*@ ，同一退款单号多次请求只退一笔。示例值：1217752501201407033233368018</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public static async Task<RefundReturnJson> RefundQuery(string out_refund_no, int timeOut = Config.TIME_OUT)
+        public static async Task<RefundReturnJson> RefundQueryAsync(string out_refund_no, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -437,7 +440,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="tar_type"> 不填则默认是数据流 枚举值：GZIP：返回格式为.gzip的压缩包账单</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public static async Task<BillReturnJson> TradeBillQuery(string bill_date, string bill_type = "ALL", string tar_type = null, int timeOut = Config.TIME_OUT)
+        public static async Task<BillReturnJson> TradeBillQueryAsync(string bill_date, string bill_type = "ALL", string tar_type = null, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -465,7 +468,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="account_type">不填则默认是BASIC 枚举值：BASIC：基本账户 OPERATION：运营账户 FEES：手续费账户</param>
         /// <param name="tar_type"> 不填则默认是数据流 枚举值：GZIP：返回格式为.gzip的压缩包账单</param>
         /// <returns></returns>
-        public static async Task<BillReturnJson> FundflowBillQuery(string bill_date, string account_type = "BASIC", string tar_type = null, int timeOut = Config.TIME_OUT)
+        public static async Task<BillReturnJson> FundflowBillQueryAsync(string bill_date, string account_type = "BASIC", string tar_type = null, int timeOut = Config.TIME_OUT)
         {
             try
             {

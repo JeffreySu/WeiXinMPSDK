@@ -44,6 +44,27 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
     public class RefundRequsetData
     {
         /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="transaction_id">原支付交易对应的微信订单号</param>
+        /// <param name="out_trade_no">原支付交易对应的商户订单号</param>
+        /// <param name="out_refund_no">商户系统内部的退款单号，商户系统内部唯一</param>
+        /// <param name="reason">若商户传入，会在下发给用户的退款消息中体现退款原因</param>
+        /// <param name="notify_url">异步接收微信支付退款结果通知的回调地址，通知url必须为外网可访问的url，不能携带参数。 如果参数中传了notify_url，则商户平台上配置的回调地址将不会生效，优先回调当前传的这个地址。</param>
+        /// <param name="funds_account">退款资金来源 若传递此参数则使用对应的资金账户退款，否则默认使用未结算资金退款（仅对老资金流商户适用）</param>
+        /// <param name="amount">订单金额信息</param>
+        public RefundRequsetData(string transaction_id, string out_trade_no, string out_refund_no, string reason, string notify_url, string funds_account, Amount amount)
+        {
+            this.transaction_id = transaction_id;
+            this.out_trade_no = out_trade_no;
+            this.out_refund_no = out_refund_no;
+            this.reason = reason;
+            this.notify_url = notify_url;
+            this.funds_account = funds_account;
+            this.amount = amount;
+        }
+
+        /// <summary>
         /// 微信支付订单号
         /// 原支付交易对应的微信订单号
         /// 示例值：1217752501201407033233368018
@@ -97,6 +118,21 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
         /// </summary>
         public class Amount
         {
+            /// <summary>
+            /// 构造函数
+            /// </summary>
+            /// <param name="refund">退款金额 币种的最小单位，只能为整数，不能超过原订单支付金额</param>
+            /// <param name="total">订单总金额，单位为分</param>
+            /// <param name="currency">货币类型 境内商户号仅支持人民币</param>
+            /// <param name="goods_detail">退款商品</param>
+            public Amount(int refund, int total, string currency, Goods_Detail[] goods_detail)
+            {
+                this.refund = refund;
+                this.total = total;
+                this.currency = currency;
+                this.goods_detail = goods_detail;
+            }
+
             /// <summary>
             /// 退款金额，币种的最小单位，只能为整数，不能超过原订单支付金额。
             /// 示例值：888

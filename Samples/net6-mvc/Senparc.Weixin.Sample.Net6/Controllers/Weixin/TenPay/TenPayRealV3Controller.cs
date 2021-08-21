@@ -6,6 +6,10 @@
     
     
     创建标识：Senparc - 20210820
+
+    修改标识：Senparc - 20210821
+    修改描述：加入账单查询/关闭账单Demo
+
 ----------------------------------------------------------------*/
 
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +36,6 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
     public class TenPayRealV3Controller : BaseController
     {
         private static TenPayV3Info _tenPayV3Info;
-
 
         public static TenPayV3Info TenPayV3Info
         {
@@ -439,12 +442,9 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
 
 
                     WeixinTrace.SendCustomLog("RefundNotifyUrl被访问", "验证通过");
-
                 }
 
                 //进行后续业务处理
-
-
             }
             catch (Exception ex)
             {
@@ -461,6 +461,52 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             //如果需要,也不知何种方式处理
             //https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/wechatpay3_3.shtml
             return Json(new NotifyReturnData(responseCode, responseMsg));
+        }
+
+        /// <summary>
+        /// 订单查询
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> OrderQuery(string out_trade_no = null, string transaction_id = null)
+        {
+            //out_trade_no transaction_id 两个参数不能都为空
+            if (out_trade_no is null && transaction_id is null)
+            {
+                throw new ArgumentNullException(nameof(out_trade_no) + " or " + nameof(transaction_id));
+            }
+
+            OrderReturnJson result = null;
+
+            //选择方式查询订单
+            if (out_trade_no is not null)
+            {
+                result = await BasePayApis.OrderQueryByOutTradeNoAsync(out_trade_no, TenPayV3Info.MchId);
+            }
+            if (transaction_id is not null)
+            {
+                result = await BasePayApis.OrderQueryByTransactionIdAsync(transaction_id, TenPayV3Info.MchId);
+            }
+
+            return Json(result);
+        }
+
+        /// <summary>
+        /// 关闭订单接口
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> CloseOrder(string out_trade_no)
+        {
+
+            //out_trade_no transaction_id 两个参数不能都为空
+            if (out_trade_no is null)
+            {
+                throw new ArgumentNullException(nameof(out_trade_no));
+            }
+
+            ReturnJsonBase result = null;
+            result = await BasePayApis.CloseOrderAsync(out_trade_no, TenPayV3Info.MchId);
+
+            return Json(result);
         }
         #endregion
 
@@ -720,58 +766,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
 
         //        #region 订单及退款
 
-        //        /// <summary>
-        //        /// 订单查询
-        //        /// </summary>
-        //        /// <returns></returns>
-        //        public ActionResult OrderQuery()
-        //        {
-        //            string nonceStr = TenPayV3Util.GetNoncestr();
-        //            RequestHandler packageReqHandler = new RequestHandler(null);
 
-        //            //设置package订单参数
-        //            packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);		  //公众账号ID
-        //            packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);		  //商户号
-        //            packageReqHandler.SetParameter("transaction_id", "");       //填入微信订单号
-        //            packageReqHandler.SetParameter("out_trade_no", "");         //填入商家订单号
-        //            packageReqHandler.SetParameter("nonce_str", nonceStr);             //随机字符串
-        //            string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
-        //            packageReqHandler.SetParameter("sign", sign);	                    //签名
-
-        //            string data = packageReqHandler.ParseXML();
-
-        //            var result = TenPayOldV3.OrderQuery(data);
-        //            var res = XDocument.Parse(result);
-        //            string openid = res.Element("xml").Element("sign").Value;
-
-        //            return Content(openid);
-        //        }
-
-        //        /// <summary>
-        //        /// 关闭订单接口
-        //        /// </summary>
-        //        /// <returns></returns>
-        //        public ActionResult CloseOrder()
-        //        {
-        //            string nonceStr = TenPayV3Util.GetNoncestr();
-        //            RequestHandler packageReqHandler = new RequestHandler(null);
-
-        //            //设置package订单参数
-        //            packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);		  //公众账号ID
-        //            packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);		  //商户号
-        //            packageReqHandler.SetParameter("out_trade_no", "");                 //填入商家订单号
-        //            packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
-        //            string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
-        //            packageReqHandler.SetParameter("sign", sign);	                    //签名
-
-        //            string data = packageReqHandler.ParseXML();
-
-        //            var result = TenPayOldV3.CloseOrder(data);
-        //            var res = XDocument.Parse(result);
-        //            string openid = res.Element("xml").Element("openid").Value;
-
-        //            return Content(openid);
-        //        }
 
 
 

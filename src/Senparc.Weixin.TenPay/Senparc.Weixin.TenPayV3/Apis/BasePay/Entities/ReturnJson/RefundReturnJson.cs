@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：RefundResultData.cs
-    文件功能描述：微信支付退款结果数据
+    文件名：RefundReturnJson.cs
+    文件功能描述：微信支付退款结果Json
     
     
     创建标识：Senparc - 20210813
@@ -39,7 +39,11 @@ using Senparc.Weixin.TenPayV3.Entities;
 
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
 {
-    public class RefundResultData
+    /// <summary>
+    /// 微信支付V3退款返回Json
+    /// 本类型为微信支付申请退款与查询退款返回Json 请勿与RefundNotifyJson混淆
+    /// </summary>
+    public class RefundReturnJson : ReturnJsonBase
     {
         /// <summary>
         /// 微信支付退款单号
@@ -66,7 +70,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
         /// 示例值：1217752501201407033233368018
         /// </summary>
         public string out_trade_no { get; set; }
-
 
         /// <summary>
         /// 退款渠道
@@ -95,14 +98,14 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
         /// 退款成功时间，当退款状态为退款成功时有返回。
         /// 示例值：2020-12-01T16:18:12+08:00
         /// </summary>
-        public TenpayDateTime success_time { get; set; }
+        public string success_time { get; set; }
 
         /// <summary>
         /// 退款创建时间	
         /// 退款受理时间
         /// 示例值：2020-12-01T16:18:12+08:00
         /// </summary>
-        public TenpayDateTime create_time { get; set; }
+        public string create_time { get; set; }
 
         /// <summary>
         /// 退款状态
@@ -319,6 +322,4 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
             public int refund_quantity { get; set; }
         }
     }
-
-
 }

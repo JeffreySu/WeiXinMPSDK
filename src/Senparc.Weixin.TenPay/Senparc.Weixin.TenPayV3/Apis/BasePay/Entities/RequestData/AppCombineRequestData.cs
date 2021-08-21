@@ -21,11 +21,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：H5CombineRequestData.cs
-    文件功能描述：合单H5下单请求数据
+    文件名：AppCombineRequestData.cs
+    文件功能描述：APP合单支付请求数据 
     
     
     创建标识：Senparc - 20210814
+
+    修改标识：Senparc - 20210819
+    修改描述：完善注释; 增加构造函数
     
 ----------------------------------------------------------------*/
 
@@ -38,8 +41,32 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay
 {
-    public class H5CombineRequestData
+    public class AppCombineRequestData
     {
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="combine_appid">合单商户appid</param>
+        /// <param name="combine_mchid">合单发起方商户号</param>
+        /// <param name="combine_out_trade_no">合单商户订单号</param>
+        /// <param name="scene_info">支付场景描述</param>
+        /// <param name="sub_orders">子单信息 最多支持子单条数：10</param>
+        /// <param name="combine_payer_info">支付者信息</param>
+        /// <param name="time_start">订单生成时间 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE</param>
+        /// <param name="time_expire">订单失效时间 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE</param>
+        /// <param name="notify_url">通知URL 必须为直接可访问的URL，不允许携带查询串，要求必须为https地址。</param>
+        public AppCombineRequestData(string combine_appid, string combine_mchid, string combine_out_trade_no, Scene_Info scene_info, Sub_Orders[] sub_orders, Combine_Payer_Info combine_payer_info, TenpayDateTime time_start, TenpayDateTime time_expire, string notify_url)
+        {
+            this.combine_appid = combine_appid;
+            this.combine_mchid = combine_mchid;
+            this.combine_out_trade_no = combine_out_trade_no;
+            this.scene_info = scene_info;
+            this.sub_orders = sub_orders;
+            this.combine_payer_info = combine_payer_info;
+            this.time_start = time_start.ToString();
+            this.time_expire = time_expire.ToString();
+            this.notify_url = notify_url;
+        }
 
         /// <summary>
         /// 合单商户appid	
@@ -83,14 +110,14 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE
         /// 示例值：2018-06-08T10:34:56+08:00
         /// </summary>
-        public TenpayDateTime time_start { get; set; }
+        public string time_start { get; set; }
 
         /// <summary>
         /// 订单失效时间
         /// 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE
         /// 示例值：2018-06-08T10:34:56+08:00
         /// </summary>
-        public TenpayDateTime time_expire { get; set; }
+        public string time_expire { get; set; }
 
         /// <summary>
         /// 通知地址
@@ -134,11 +161,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             /// 示例值：14.23.150.211
             /// </summary>
             public string payer_client_ip { get; set; }
-
-            /// <summary>
-            /// H5场景信息
-            /// </summary>
-            public H5_Info h5_info { get; set; }
         }
 
         /// <summary>
@@ -250,43 +272,5 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             public string openid { get; set; }
         }
 
-
-        /// <summary>
-        /// H5场景信息
-        /// </summary>
-        public class H5_Info
-        {
-            /// <summary>
-            /// 场景类型
-            /// 示例值：iOS, Android, Wap
-            /// </summary>
-            public string type { get; set; }
-
-            /// <summary>
-            /// 应用名称
-            /// 示例值：王者荣耀
-            /// </summary>
-            public string app_name { get; set; }
-
-            /// <summary>
-            /// 网站URL
-            /// 示例值：https://pay.qq.com
-            /// </summary>
-            public string app_url { get; set; }
-
-            /// <summary>
-            /// iOS平台BundleID
-            /// 示例值：com.tencent.wzryiOS
-            /// </summary>
-            public string bundle_id { get; set; }
-
-            /// <summary>
-            /// Android平台PackageName
-            /// 示例值：com.tencent.tmgp.sgame
-            /// </summary>
-            public string package_name { get; set; }
-        }
-
     }
-
 }

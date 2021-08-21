@@ -10,9 +10,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
     public class CaseCollectionController : BaseController
     {
-        private readonly IHostingEnvironment _env;
+        private readonly Microsoft.AspNetCore.Hosting.IHostingEnvironment _env;
 
-        public CaseCollectionController(IHostingEnvironment env)
+        public CaseCollectionController(Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
         {
             this._env = env;
         }

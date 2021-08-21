@@ -12,6 +12,7 @@
 
 ----------------------------------------------------------------*/
 
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Utilities;
@@ -29,7 +30,11 @@ using Senparc.Weixin.TenPayV3.Apis.BasePay;
 using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
 using Senparc.Weixin.TenPayV3.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
+using System;
+using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Sample.Net6.Controllers
 {
@@ -63,7 +68,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 return RedirectToAction("ProductList");
             }
 
-            var returnUrl = string.Format("https://sdk.weixin.senparc.com/TenPayV3/JsApi");
+            var returnUrl = string.Format("https://sdk.weixin.senparc.com/TenPayRealV3/JsApi");
             var state = string.Format("{0}|{1}", productId, hc);
             var url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);
 

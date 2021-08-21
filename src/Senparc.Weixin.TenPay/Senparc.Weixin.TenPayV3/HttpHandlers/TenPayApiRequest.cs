@@ -36,6 +36,7 @@ using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
 using Senparc.Weixin.TenPayV3.HttpHandlers;
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;

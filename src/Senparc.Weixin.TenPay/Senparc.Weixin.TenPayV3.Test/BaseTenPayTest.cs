@@ -3,11 +3,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Senparc.Weixin.TenPayV3.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class BaseTenPayTest
     {
-        [TestMethod]
-        public void TestMethod1()
+        public BaseTenPayTest()
         {
+
         }
     }
 }

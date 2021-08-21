@@ -4,6 +4,7 @@ using Senparc.Weixin.TenPayV3.Apis;
 using Senparc.Weixin.TenPayV3.Apis.BasePay;
 using Senparc.Weixin.TenPayV3.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
+using Senparc.Weixin.TenPayV3.Test;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +13,7 @@ using System.Xml.Linq;
 namespace Senparc.Weixin.TenPayV3.Apis.Tests
 {
     [TestClass()]
-    public class BasePayApisTests
+    public class BasePayApisTests: BaseTenPayTest
     {
         [TestMethod()]
         public void JsAPiAsyncTest()

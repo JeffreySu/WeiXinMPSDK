@@ -146,7 +146,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         #region JsApi支付
 
         //需要OAuth登录
-        [CustomOAuth(null, "/TenpayV3/OAuthCallback")]
+        [CustomOAuth(null, "/TenpayRealV3/OAuthCallback")]
         public async Task<IActionResult> JsApi(int productId, int hc)
         {
             try
@@ -347,7 +347,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 int totalFee = int.Parse(HttpContext.Session.GetString("BillFee"));
                 int refundFee = totalFee;
                 string opUserId = TenPayV3Info.MchId;
-                var notifyUrl = "https://sdk.weixin.senparc.com/TenPayV3/RefundNotifyUrl";
+                var notifyUrl = "https://sdk.weixin.senparc.com/TenPayRealV3/RefundNotifyUrl";
                 //var dataInfo = new TenPayV3RefundRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, TenPayV3Info.Key,
                 //    null, nonceStr, null, outTradeNo, outRefundNo, totalFee, refundFee, opUserId, null, notifyUrl: notifyUrl);
                 var dataInfo = new RefundRequsetData(outTradeNo, outTradeNo, outRefundNo, "Senparc TenPayV3 demo退款测试", notifyUrl, null, new RefundRequsetData.Amount(refundFee, refundFee, "CNY", null));

@@ -21,32 +21,77 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：AppRequestData.cs
-    文件功能描述：App下单请求数据实体
+    文件名：JsApiRequestData.cs
+    文件功能描述：JsApi请求数据实体 (Payer)
     
-    创建标识：Senparc - 20210814
+    
+    创建标识：Senparc - 20210804
 
+    修改标识：Senparc - 20210811
+    修改描述：完善注释; 加入settle_info结算信息
+
+    修改标识：Senparc - 20210819
+    修改描述：完善注释; 加入构造函数
     
 ----------------------------------------------------------------*/
 
-
+using Senparc.Weixin.TenPayV3.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.TenPayV3.Entities;
 
-namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
+namespace Senparc.Weixin.TenPayV3.Apis.BasePay
 {
-    public class AppRequestData
+    public class JsApiRequestData
     {
         /// <summary>
-        /// 应用ID
-        /// 由微信生成的应用ID，全局唯一。请求基础下单接口时请注意APPID的应用属性，例如公众号场景下，需使用应用属性为公众号的APPID
-        /// 示例值：wxd678efh567hg6787
+        /// 构造函数
         /// </summary>
-        public string appid { get; set; }
+        /// <param name="time_expire">订单失效时间 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE</param>
+        /// <param name="amount">订单金额</param>
+        /// <param name="mchid">直连商户的商户号，由微信支付生成并下发。</param>
+        /// <param name="description"> 商品描述 示例值：Image形象店-深圳腾大-QQ公仔</param>
+        /// <param name="notify_url">通知URL 必须为直接可访问的URL，不允许携带查询串，要求必须为https地址。</param>
+        /// <param name="payer">支付者信息</param>
+        /// <param name="out_trade_no">商户订单号</param>
+        /// <param name="goods_tag">订单优惠标记 示例值：WXG</param>
+        /// <param name="appid">由微信生成的应用ID，全局唯一。</param>
+        /// <param name="attach">附加数据，在查询API和支付通知中原样返回，可作为自定义参数使用</param>
+        /// <param name="detail">优惠功能</param>
+        /// <param name="scene_info">场景信息</param>
+        /// <param name="settle_info">结算信息</param>
+        public JsApiRequestData(TenpayDateTime time_expire, Amount amount, string mchid, string description,
+            string notify_url, Payer payer, string out_trade_no, string goods_tag, string appid, string attach,
+            Detail detail, Scene_Info scene_info, Settle_Info settle_info)
+        {
+            this.time_expire = time_expire.ToString();
+            this.amount = amount;
+            this.mchid = mchid;
+            this.description = description;
+            this.notify_url = notify_url;
+            this.payer = payer;
+            this.out_trade_no = out_trade_no;
+            this.goods_tag = goods_tag;
+            this.appid = appid;
+            this.attach = attach;
+            this.detail = detail;
+            this.scene_info = scene_info;
+            this.settle_info = settle_info;
+        }
+
+        /// <summary>
+        /// 订单失效时间
+        /// 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE
+        /// 示例值：2018-06-08T10:34:56+08:00
+        /// </summary>
+        public string time_expire { get; set; }
+
+        /// <summary>
+        /// 订单金额
+        /// </summary>
+        public Amount amount { get; set; }
 
         /// <summary>
         /// 直连商户号
@@ -62,6 +107,23 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
         public string description { get; set; }
 
         /// <summary>
+        /// 通知地址
+        /// 通知URL必须为直接可访问的URL，不允许携带查询串，要求必须为https地址。
+        /// 示例值：https://www.weixin.qq.com/wxpay/pay.php
+        /// </summary>
+        public string notify_url { get; set; }
+
+        /// <summary>
+        /// 支付者信息
+        /// </summary>
+        public Payer payer;
+
+        /// <summary>
+        /// 结算信息
+        /// </summary>
+        public Settle_Info settle_info;
+
+        /// <summary>
         /// 商户订单号
         /// 商户系统内部订单号，只能是数字、大小写字母_-*且在同一个商户号下唯一
         /// 建议：最短失效时间间隔大于1分钟
@@ -70,11 +132,17 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
         public string out_trade_no { get; set; }
 
         /// <summary>
-        /// 订单失效时间
-        /// 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE
-        /// 示例值：2018-06-08T10:34:56+08:00
+        /// 订单优惠标记
+        /// 示例值：WXG
         /// </summary>
-        public TenpayDateTime time_expire { get; set; }
+        public string goods_tag { get; set; }
+
+        /// <summary>
+        /// 应用ID
+        /// 由微信生成的应用ID，全局唯一。请求基础下单接口时请注意APPID的应用属性，例如公众号场景下，需使用应用属性为公众号的APPID
+        /// 示例值：wxd678efh567hg6787
+        /// </summary>
+        public string appid { get; set; }
 
         /// <summary>
         /// 附加数据
@@ -84,33 +152,9 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
         public string attach { get; set; }
 
         /// <summary>
-        /// 通知地址
-        /// 通知URL必须为直接可访问的URL，不允许携带查询串，要求必须为https地址。
-        /// 示例值：https://www.weixin.qq.com/wxpay/pay.php
-        /// </summary>
-        public string notify_url { get; set; }
-
-        /// <summary>
-        /// 订单优惠标记
-        /// 示例值：WXG
-        /// </summary>
-        public string goods_tag { get; set; }
-
-        /// <summary>
-        /// 订单金额
-        /// </summary>
-        public Amount amount { get; set; }
-
-        /// <summary>
         /// 优惠功能
         /// </summary>
         public Detail detail { get; set; }
-
-
-        /// <summary>
-        /// 结算信息
-        /// </summary>
-        public Settle_Info settle_info;
 
         /// <summary>
         /// 场景信息 支付场景描述
@@ -132,6 +176,19 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
             /// 示例值：CNY
             /// </summary>
             public string currency { get; set; }
+        }
+
+        /// <summary>
+        /// 支付者信息
+        /// </summary>
+        public class Payer
+        {
+            /// <summary>
+            /// 用户标识	
+            /// 用户在直连商户appid下的唯一标识。 下单前需获取到用户的Openid，Openid获取详见
+            /// 示例值：oUpF8uMuAJO_M2pxb1Q9zNjWeS6o
+            /// </summary>
+            public string openid { get; set; }
         }
 
         /// <summary>
@@ -273,4 +330,3 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
         }
     }
 }
-

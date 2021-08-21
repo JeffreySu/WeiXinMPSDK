@@ -21,14 +21,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：BillData.cs
-    文件功能描述：新微信支付V3账单数据
+    文件名：ReturnJsonBase.cs
+    文件功能描述：ReturnJson 的基类
     
     
-    创建标识：Senparc - 20210814
+    创建标识：Senparc - 20210804
     
 ----------------------------------------------------------------*/
-
+using Senparc.Weixin.TenPayV3.HttpHandlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,29 +38,18 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
 {
     /// <summary>
-    /// 账单数据
+    /// ReturnJson 的基类（预留）
     /// </summary>
-    public class BillData
+    public class ReturnJsonBase
     {
         /// <summary>
-        /// 哈希类型
-        /// 原始账单（gzip需要解压缩）的摘要值，用于校验文件的完整性。
-        /// 示例值：SHA1
+        /// 回复状态码
         /// </summary>
-        public string hash_type { get; set; }
+        public TenPayApiResultCode ResultCode { get; set; } = new TenPayApiResultCode();
 
         /// <summary>
-        /// 哈希值
-        /// 原始账单（gzip需要解压缩）的摘要值，用于校验文件的完整性。
-        /// 示例值：79bb0f45fc4c42234a918000b2668d689e2bde04
+        /// 回复签名是否正确 在有错误的情况下为null
         /// </summary>
-        public string hash_value { get; set; }
-
-        /// <summary>
-        /// 账单下载地址
-        /// 供下一步请求账单文件的下载地址，该地址30s内有效。
-        /// 示例值：https://api.mch.weixin.qq.com/v3/billdownload/file?token=xxx
-        /// </summary>
-        public string download_url { get; set; }
+        public bool? Signed { get; set; } = null;
     }
 }

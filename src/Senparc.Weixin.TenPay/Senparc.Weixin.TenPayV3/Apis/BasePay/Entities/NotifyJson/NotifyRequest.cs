@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：JsApiRequestData.cs
-    文件功能描述：NotifyJson 的基类
+    文件名：NotifyRequest.cs
+    文件功能描述：微信支付V3回调通知请求类 数据未解密
     
     
     创建标识：Senparc - 20210813
@@ -39,9 +39,9 @@ using Senparc.Weixin.TenPayV3.Entities;
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
 {
     /// <summary>
-    /// NotifyJson 的基类
+    /// NotifyRequest
     /// </summary>
-    public class NotifyJson
+    public class NotifyRequest
     {
         /// <summary>
         /// 通知ID
@@ -81,46 +81,46 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
         /// 示例值：支付成功
         /// </summary>
         public string summary { get; set; }
-    }
-
-    /// <summary>
-    /// 通知资源数据
-    /// </summary>
-    public class Resource
-    {
-        /// <summary>
-        /// 加密算法类型
-        /// 对开启结果数据进行加密的加密算法，目前只支持AEAD_AES_256_GCM
-        /// 示例值：AEAD_AES_256_GCM
-        /// </summary>
-        public string algorithm { get; set; }
 
         /// <summary>
-        /// 数据密文
-        /// Base64编码后的开启/停用结果数据密文
-        /// 示例值：sadsadsadsad
+        /// 通知资源数据
         /// </summary>
-        public string ciphertext { get; set; }
+        public class Resource
+        {
+            /// <summary>
+            /// 加密算法类型
+            /// 对开启结果数据进行加密的加密算法，目前只支持AEAD_AES_256_GCM
+            /// 示例值：AEAD_AES_256_GCM
+            /// </summary>
+            public string algorithm { get; set; }
 
-        /// <summary>
-        /// 附加数据
-        /// 附加数据
-        /// 示例值：fdasfwqewlkja484w
-        /// </summary>
-        public string associated_data { get; set; }
+            /// <summary>
+            /// 数据密文
+            /// Base64编码后的开启/停用结果数据密文
+            /// 示例值：sadsadsadsad
+            /// </summary>
+            public string ciphertext { get; set; }
 
-        /// <summary>
-        /// 原始类型
-        /// 原始回调类型，为transaction
-        /// 示例值：transaction
-        /// </summary>
-        public string original_type { get; set; }
+            /// <summary>
+            /// 附加数据
+            /// 附加数据
+            /// 示例值：fdasfwqewlkja484w
+            /// </summary>
+            public string associated_data { get; set; }
 
-        /// <summary>
-        /// 随机串
-        /// 加密使用的随机串
-        /// 示例值：fdasflkja484w
-        /// </summary>
-        public string nonce { get; set; }
+            /// <summary>
+            /// 原始类型
+            /// 原始回调类型，为transaction
+            /// 示例值：transaction
+            /// </summary>
+            public string original_type { get; set; }
+
+            /// <summary>
+            /// 随机串
+            /// 加密使用的随机串
+            /// 示例值：fdasflkja484w
+            /// </summary>
+            public string nonce { get; set; }
+        }
     }
 }

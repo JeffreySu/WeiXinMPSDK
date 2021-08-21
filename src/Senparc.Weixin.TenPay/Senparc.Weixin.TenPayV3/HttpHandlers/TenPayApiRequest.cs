@@ -29,12 +29,12 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="client"></param>
         public void SetHeader(HttpClient client)
         {
-            var userAgentValues = UserAgentValues.Instance;
-
             //ACCEPT header
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
+
             //User-Agent header
+            var userAgentValues = UserAgentValues.Instance;
             client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Senparc.Weixin.TenPayV3-C#", userAgentValues.TenPayV3Version));
             client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue($"(Senparc.Weixin {userAgentValues.SenparcWeixinVersion})"));
             client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(".NET", userAgentValues.RuntimeVersion));

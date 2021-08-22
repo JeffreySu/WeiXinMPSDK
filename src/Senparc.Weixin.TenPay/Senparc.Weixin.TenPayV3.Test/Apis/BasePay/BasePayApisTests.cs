@@ -44,7 +44,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
         [TestMethod()]
         public void CertificatesTest()
         {
-            var result = BasePayApis.Certificates().GetAwaiter().GetResult();
+            var result = BasePayApis.CertificatesAsync().GetAwaiter().GetResult();
             Assert.IsNotNull(result);
             Console.WriteLine(result.ToJson(true));
             Assert.IsTrue(result.ResultCode.Success);

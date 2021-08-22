@@ -76,7 +76,16 @@ namespace Senparc.Weixin.TenPayV3
             client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue($"({userAgentValues.OSVersion})"));
         }
 
-        public async Task<HttpResponseMessage> GetHttpResponseMessageAsync(string url, object data, int timeOut = Config.TIME_OUT, ApiRequestMethod requestMethod = ApiRequestMethod.POST)
+        /// <summary>
+        /// 获取 HttpResponseMessage 对象
+        /// </summary> 
+        /// <param name="url"></param>
+        /// <param name="data">如果为 GET 请求，此参数可为 null</param>
+        /// <param name="timeOut"></param>
+        /// <param name="requestMethod"></param>
+        /// <param name="checkDataNotNull">非 GET 请求情况下，是否强制检查 data 参数不能为 null，默认为 true</param>
+        /// <returns></returns>
+        public async Task<HttpResponseMessage> GetHttpResponseMessageAsync(string url, object data, int timeOut = Config.TIME_OUT, ApiRequestMethod requestMethod = ApiRequestMethod.POST, bool checkDataNotNull = true)
         {
             try
             {
@@ -109,7 +118,10 @@ namespace Senparc.Weixin.TenPayV3
                     case ApiRequestMethod.PUT:
                     case ApiRequestMethod.PATCH:
                         //检查是否为空
-                        //_ = data ?? throw new ArgumentNullException($"{nameof(data)} 不能为 null！");
+                        if (checkDataNotNull)
+                        {
+                            _ = data ?? throw new ArgumentNullException($"{nameof(data)} 不能为 null！");
+                        }
 
                         //设置请求 Json 字符串
                         //var jsonString = SerializerHelper.GetJsonString(data, new CO2NET.Helpers.Serializers.JsonSetting(true));
@@ -162,10 +174,10 @@ namespace Senparc.Weixin.TenPayV3
 
                 //TODO:待测试 加入验证签名
                 //获取响应结果
+                string content = await responseMessage.Content.ReadAsStringAsync();//TODO:如果不正确也要返回详情
+
                 if (resutlCode.Success)
                 {
-                    string content = await responseMessage.Content.ReadAsStringAsync();
-
                     //TODO:待测试
                     //验证微信签名
                     //result.Signed = VerifyTenpaySign(responseMessage.Headers, content);
@@ -177,7 +189,7 @@ namespace Senparc.Weixin.TenPayV3
 
                     try
                     {
-                        result.Signed = TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content);
+                        //result.Signed = TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content);
                     }
                     catch (Exception ex)
                     {
@@ -187,6 +199,7 @@ namespace Senparc.Weixin.TenPayV3
                 else
                 {
                     result = createDefaultInstance?.Invoke() ?? GetInstance<T>(true);
+                    resutlCode.Additional = content;
                 }
                 //T result = resutlCode.Success ? (await responseMessage.Content.ReadAsStringAsync()).GetObject<T>() : new T();
                 result.ResultCode = resutlCode;

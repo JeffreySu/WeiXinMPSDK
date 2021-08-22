@@ -17,6 +17,8 @@ namespace Senparc.Weixin.TenPayV3.HttpHandlers
         /// 已知返回代码集合
         /// </summary>
         public static Dictionary<string, TenPayApiResultCode[]> CodesCollection = new Dictionary<string, TenPayApiResultCode[]> {
+                    //以下代码通过测试得到：
+                    {"405",new[]{ new TenPayApiResultCode("405", "MethodNotAllowed","为允许请求方法","请检查是否符合文档要求的 GET / POST 等方法") } },
                     //以下代码参考：https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_1_1.shtml
                     {"200" ,new[] { new TenPayApiResultCode("200","SUCCESS","请求成功","",true) } },
                     {"202" ,new[] { new TenPayApiResultCode("202", "USERPAYING", "用户支付中，需要输入密码", "等待5秒，然后调用被扫订单结果查询API，查询当前订单的不同状态，决定下一步的操作", false) } },
@@ -66,7 +68,7 @@ namespace Senparc.Weixin.TenPayV3.HttpHandlers
                 };
             }
 
-            return new TenPayApiResultCode("UNKNOW", "UNKNOW CODE", "未知的代码", "请检查日志", false);//没有匹配到
+            return new TenPayApiResultCode(httpStatusCode.ToString(), "UNKNOW CODE", "未知的代码", "请检查日志", false);//没有匹配到
         }
 
         public string StateCode { get; set; }

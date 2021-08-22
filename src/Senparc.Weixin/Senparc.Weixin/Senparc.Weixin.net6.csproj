@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>6.11.1-preview3</Version>
+    <Version>6.12.0-preview1</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -321,7 +321,8 @@
 		v6.8.400
 		1、引用新版本 NeuChar 及 CO2NET，解决可能导致崩溃的缓存问题
 		2、修复 CommonJsonSend.PostFailAction 公共请求失败处理抛错问题
-		v6.11.1 
+		v6.11.1 TryCommonApiBase 提供 invalidCredentialValues，可设置多种重试错误代码
+		v6.12.0 升级至微信支付 V3（真）
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

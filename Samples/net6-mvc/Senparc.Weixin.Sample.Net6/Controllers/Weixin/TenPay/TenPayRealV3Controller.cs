@@ -12,6 +12,7 @@
 
 ----------------------------------------------------------------*/
 
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Utilities;
@@ -29,7 +30,11 @@ using Senparc.Weixin.TenPayV3.Apis.BasePay;
 using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
 using Senparc.Weixin.TenPayV3.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
+using System;
+using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Sample.Net6.Controllers
 {
@@ -63,7 +68,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 return RedirectToAction("ProductList");
             }
 
-            var returnUrl = string.Format("https://sdk.weixin.senparc.com/TenPayV3/JsApi");
+            var returnUrl = string.Format("https://sdk.weixin.senparc.com/TenPayRealV3/JsApi");
             var state = string.Format("{0}|{1}", productId, hc);
             var url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);
 
@@ -141,7 +146,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         #region JsApi支付
 
         //需要OAuth登录
-        [CustomOAuth(null, "/TenpayV3/OAuthCallback")]
+        [CustomOAuth(null, "/TenpayRealV3/OAuthCallback")]
         public async Task<IActionResult> JsApi(int productId, int hc)
         {
             try
@@ -342,7 +347,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 int totalFee = int.Parse(HttpContext.Session.GetString("BillFee"));
                 int refundFee = totalFee;
                 string opUserId = TenPayV3Info.MchId;
-                var notifyUrl = "https://sdk.weixin.senparc.com/TenPayV3/RefundNotifyUrl";
+                var notifyUrl = "https://sdk.weixin.senparc.com/TenPayRealV3/RefundNotifyUrl";
                 //var dataInfo = new TenPayV3RefundRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, TenPayV3Info.Key,
                 //    null, nonceStr, null, outTradeNo, outRefundNo, totalFee, refundFee, opUserId, null, notifyUrl: notifyUrl);
                 var dataInfo = new RefundRequsetData(outTradeNo, outTradeNo, outRefundNo, "Senparc TenPayV3 demo退款测试", notifyUrl, null, new RefundRequsetData.Amount(refundFee, refundFee, "CNY", null));

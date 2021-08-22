@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Senparc.Weixin.TenPayV3.Test.net6": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIROMENT": "Test"
+      }
+    }
+  }
+}

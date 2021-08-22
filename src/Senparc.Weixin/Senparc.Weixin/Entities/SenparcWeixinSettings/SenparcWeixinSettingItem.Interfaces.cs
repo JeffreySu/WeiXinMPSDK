@@ -32,6 +32,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 	修改标识：Senparc - 20191004
     修改描述：添加新的 Work（企业微信）的参数
+
+	修改标识：Senparc - 20210815
+    修改描述：添加 ISenparcWeixinSettingForTenpayV3 针对（真）微信 V3 支付的属性
+
 ----------------------------------------------------------------*/
 
 

@@ -8,6 +8,8 @@ using Senparc.Weixin.TenPayV3.Helpers;
 using Senparc.Weixin.TenPayV3.Test;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Xml.Linq;
 
@@ -48,11 +50,20 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
         public void CertificatesTest()
         {
             BasePayApis basePayApis = new BasePayApis();
-            var result = basePayApis.CertificatesAsync().GetAwaiter().GetResult();
-            Assert.IsNotNull(result);
-            Console.WriteLine(result.ToJson(true));
-            Assert.IsTrue(result.ResultCode.Success);
-            Assert.IsNull(result.Signed);//不参与验证
+            var certs = basePayApis.CertificatesAsync().GetAwaiter().GetResult();
+            Assert.IsNotNull(certs);
+            Console.WriteLine(certs.ToJson(true));
+            Assert.IsTrue(certs.ResultCode.Success);
+            Assert.IsNull(certs.Signed);//不参与验证
+
+            Console.WriteLine();
+
+            var tenpayV3Setting = Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
+            var cert = certs.data.First();
+            var pubKey = ApiSecurityHelper.AesGcmDecryptCiphertext(tenpayV3Setting.TenPayV3_APIv3Key, cert.encrypt_certificate.nonce,
+                     cert.encrypt_certificate.associated_data, cert.encrypt_certificate.ciphertext);
+            Console.WriteLine(pubKey);
+            Assert.IsNull(pubKey);
         }
     }
 }

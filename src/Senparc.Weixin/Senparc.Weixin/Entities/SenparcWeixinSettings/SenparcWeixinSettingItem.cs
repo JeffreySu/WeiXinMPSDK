@@ -298,7 +298,10 @@ namespace Senparc.Weixin.Entities
         /// <para>查看地址：https://pay.weixin.qq.com/index.php/core/cert/api_cert#/api-cert-manage</para>
         /// </summary>
         public virtual string TenPayV3_SerialNumber { get; set; }
-
+        /// <summary>
+        /// APIv3 密钥。在微信支付后台设置：https://pay.weixin.qq.com/index.php/core/cert/api_cert#/
+        /// </summary>
+        public string TenPayV3_APIv3Key { get; set; }
         #endregion
 
         /// <summary>

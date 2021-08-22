@@ -59,6 +59,8 @@ using System.Net.Http.Headers;
 using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.Trace;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.TenPayV3.Entities;
+using Senparc.Weixin.TenPayV3.Helpers;
 
 namespace Senparc.Weixin.TenPayV3.Apis
 {
@@ -84,17 +86,39 @@ namespace Senparc.Weixin.TenPayV3.Apis
         #region 平台证书
 
         /// <summary>
-        /// 
+        /// 获取平台证书
         /// </summary>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<CertificatesResultJson> Certificates(int timeOut = Config.TIME_OUT)
+        public static async Task<CertificatesResultJson> CertificatesAsync(int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/certificates");
             TenPayApiRequest tenPayApiRequest = new();
             //var responseMessge = await tenPayApiRequest.GetHttpResponseMessageAsync(url, null, timeOut);
             //return await responseMessge.Content.ReadAsStringAsync();
             return await tenPayApiRequest.RequestAsync<CertificatesResultJson>(url, null, timeOut, ApiRequestMethod.GET);
+        }
+
+        /// <summary>
+        /// 获取平台证书的公钥（会从远程请求，不会缓存）
+        /// </summary>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<PublicKeyCollection> GetPublicKeysAsync(int timeOut = Config.TIME_OUT)
+        {
+            var certificates = await CertificatesAsync();
+            if (certificates.data?.Length == 0)
+            {
+                throw new TenpayApiRequestException("Certificates 获取结果为空");
+            }
+
+            PublicKeyCollection keys = new();
+            var tenpayV3Setting = Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;//TODO:改成从构造函数配置
+            foreach (var cert in certificates.data)
+            {
+                keys[cert.serial_no] = ApiSecurityHelper.AesGcmDecryptCiphertext(tenpayV3Setting.TenPayV3_APIv3Key, cert.encrypt_certificate.nonce, cert.encrypt_certificate.associated_data, cert.encrypt_certificate.ciphertext);
+            }
+            return keys;
         }
 
         #endregion
@@ -113,7 +137,6 @@ namespace Senparc.Weixin.TenPayV3.Apis
             TenPayApiRequest tenPayApiRequest = new();
             return await tenPayApiRequest.RequestAsync<JsApiReturnJson>(url, data, timeOut);
         }
-
 
         // TODO: 待测试
         /// <summary>

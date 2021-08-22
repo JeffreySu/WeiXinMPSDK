@@ -29,7 +29,9 @@ namespace Senparc.Weixin.TenPayV3.HttpHandlers
                                     new TenPayApiResultCode("400","INVALID_REQUEST","无效请求","请根据接口返回的详细信息检查"),
                                     new TenPayApiResultCode("400","APPID_MCHID_NOT_MATCH","appid和mch_id不匹配","请确认appid和mch_id是否匹配")
                                     }},
-                    {"401", new[] { new TenPayApiResultCode("401","SIGN_ERROR","签名错误","请检查签名参数和方法是否都符合签名算法要求") } },
+                    {"401", new[] { new TenPayApiResultCode("401","SIGN_ERROR","签名错误","请检查签名参数和方法是否都符合签名算法要求"),
+                                    new TenPayApiResultCode("401","SIGN_ERROR","商户未设置加密的密钥","请登录商户平台操作！请参考http://kf.qq.com/faq/180830E36vyQ180830AZFZvu.html")//通过测试得到
+                                    } },
                     {"403", new[] { new TenPayApiResultCode("403","TRADE_ERROR","交易错误","因业务原因交易失败，请查看接口返回的详细信息"),
                                     new TenPayApiResultCode("403","RULE_LIMIT","业务规则限制","因业务规则限制请求频率，请查看接口返回的详细信息"),
                                     new TenPayApiResultCode("403","OUT_TRADE_NO_USED","商户订单号重复","请核实商户订单号是否重复提交"),
@@ -57,25 +59,29 @@ namespace Senparc.Weixin.TenPayV3.HttpHandlers
             {
                 if (result.Length == 1)
                 {
-                    return result[0];
+                    return result[0] with { };
                 }
 
                 return result.First() with
                 {
-                    ErrorCode = string.Join(',', result.Select(z => z.ErrorCode)),
-                    ErrorMessage = string.Join(',', result.Select(z => z.ErrorMessage)),
-                    Solution = string.Join(',', result.Select(z => z.Solution)),
+                    ErrorCode = string.Join(";\n", result.Select(z => z.ErrorCode)),
+                    ErrorMessage = string.Join(";\n", result.Select(z => z.ErrorMessage)),
+                    Solution = string.Join(";\n", result.Select(z => z.Solution)),
                 };
             }
 
             return new TenPayApiResultCode(httpStatusCode.ToString(), "UNKNOW CODE", "未知的代码", "请检查日志", false);//没有匹配到
         }
 
-        public string StateCode { get; set; }
-        public string ErrorCode { get; set; }
-        public string ErrorMessage { get; set; }
-        public string Solution { get; set; }
-        public bool Success { get; set; } = false;
+        public bool Success { get; protected set; } = false;
+        public string StateCode { get; protected set; }
+        public string ErrorCode { get; protected set; }
+        public string ErrorMessage { get; internal set; }
+        public string Solution { get; internal set; }
+        /// <summary>
+        /// 额外信息
+        /// </summary>
+        public string Additional { get; set; }
 
         public TenPayApiResultCode() { }
 

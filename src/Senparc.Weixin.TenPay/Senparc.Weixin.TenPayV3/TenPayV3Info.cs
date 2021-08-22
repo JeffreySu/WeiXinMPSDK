@@ -41,7 +41,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Trace;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.TenPayV3.Apis;
+using Senparc.Weixin.TenPayV3.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3
 {
@@ -50,6 +56,8 @@ namespace Senparc.Weixin.TenPayV3
     /// </summary>
     public class TenPayV3Info
     {
+        private PublicKeyCollection publicKeys;
+
         /// <summary>
         /// 第三方用户唯一凭证appid
         /// </summary>
@@ -108,7 +116,7 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="tenPayV3Notify"></param>
         /// <param name="tenPayV3WxOpenNotify"></param>
         public TenPayV3Info(string appId, string appSecret, string mchId, string key, string certPath, string certSecret, string tenPayV3Notify, string tenPayV3WxOpenNotify)
-            : this(appId, appSecret, mchId, key, certPath, certSecret, "", "","", tenPayV3Notify, tenPayV3WxOpenNotify)
+            : this(appId, appSecret, mchId, key, certPath, certSecret, "", "", "", tenPayV3Notify, tenPayV3WxOpenNotify)
         {
 
         }
@@ -126,7 +134,7 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="subMchId"></param>
         /// <param name="tenPayV3Notify"></param>
         /// <param name="tenPayV3WxOpenNotify"></param>
-        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string certPath, string certSecret, string subAppId,string subAppSecret, string subMchId, string tenPayV3Notify, string tenPayV3WxOpenNotify)
+        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string certPath, string certSecret, string subAppId, string subAppSecret, string subMchId, string tenPayV3Notify, string tenPayV3WxOpenNotify)
         {
             AppId = appId;
             AppSecret = appSecret;
@@ -161,5 +169,36 @@ namespace Senparc.Weixin.TenPayV3
         {
         }
 
+        /// <summary>
+        /// 获取公钥
+        /// </summary>
+        public async Task<PublicKeyCollection> GetPublicKeys()
+        {
+            //TODO:可以升级为从缓存读取
+
+            if (publicKeys == null)
+            {
+                //获取最新的 Key
+                publicKeys = await BasePayApis.GetPublicKeysAsync();
+            }
+            return publicKeys;
+        }
+
+        /// <summary>
+        /// 获取单个公钥
+        /// </summary>
+        /// <param name="serialNumber"></param>
+        /// <returns></returns>
+        public async Task<string> GetPublicKey(string serialNumber)
+        {
+            var keys = await GetPublicKeys();
+            if (keys.TryGetValue(serialNumber, out string publicKey))
+            {
+                return publicKey;
+            }
+
+            SenparcTrace.BaseExceptionLog(new TenpaySecurityException($"公钥序列号不存在！serialNumber:{serialNumber},TenPayV3Info:{this.ToJson(true)}"));
+            throw new TenpaySecurityException("公钥序列号不存在！请查看日志！", true);
+        }
     }
 }

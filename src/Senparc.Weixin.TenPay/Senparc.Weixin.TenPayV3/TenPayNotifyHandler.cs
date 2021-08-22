@@ -106,25 +106,11 @@ namespace Senparc.Weixin.TenPayV3
         // TODO: 本方法待测试
         public T AesGcmDecryptGetObject<T>(string aes_key = null, string nonce = null, string associated_data = null) where T : ReturnJsonBase, new()
         {
-            aes_key ??= new("此处应为apiv3秘钥");//TODO: 不知apiv3秘钥在配置中为何值
+            aes_key ??= _tenpayV3Setting.TenPayV3_APIv3Key;
             nonce ??= NotifyRequest.resource.nonce;
             associated_data ??= NotifyRequest.resource.associated_data;
 
-            //将解密所需数据转换为Bytes
-            var keyBytes = Encoding.UTF8.GetBytes(aes_key);
-            var nonceBytes = Encoding.UTF8.GetBytes(nonce);
-            var associatedBytes = associated_data == null ? null : Encoding.UTF8.GetBytes(associated_data);
-
-            //AEAD_AES_256_GCM 解密
-            var encryptedBytes = Convert.FromBase64String(NotifyRequest.resource.ciphertext);
-            //tag size is 16 TODO: what is tag size?
-            var cipherBytes = encryptedBytes[..^16];
-            var tag = encryptedBytes[^16..];
-            var decryptedData = new byte[cipherBytes.Length];
-            using var cipher = new AesGcm(keyBytes);
-            cipher.Decrypt(nonceBytes, cipherBytes, tag, decryptedData, associatedBytes);
-            var decrypted_string = Encoding.UTF8.GetString(decryptedData);
-
+            var decrypted_string = ApiSecurityHelper.AesGcmDecryptCiphertext(aes_key, nonce, associated_data, NotifyRequest.resource.ciphertext);
 
             T result = decrypted_string.GetObject<T>();
 

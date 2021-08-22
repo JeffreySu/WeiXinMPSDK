@@ -26,6 +26,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20210815
+
+    修改标识：Senparc - 20210822
+    修改描述：重构使用ISenparcWeixinSettingForTenpayV3初始化实例
     
 ----------------------------------------------------------------*/
 
@@ -92,13 +95,16 @@ namespace Senparc.Weixin.TenPayV3
             {
                 //var co2netHttpClient = CO2NET.HttpUtility.RequestUtility.HttpPost_Common_NetCore(serviceProvider, url, out var hc, contentType: "application/json");
 
-                //设置参数
-                var mchid = _tenpayV3Setting.TenPayV3_MchId;
-                var ser_no = _tenpayV3Setting.TenPayV3_SerialNumber;
-                var privateKey = _tenpayV3Setting.TenPayV3_PrivateKey;
+                ////设置参数
+                //var mchid = _tenpayV3Setting.TenPayV3_MchId;
+                //var ser_no = _tenpayV3Setting.TenPayV3_SerialNumber;
+                //var privateKey = _tenpayV3Setting.TenPayV3_PrivateKey;
 
-                //使用微信支付参数，配置 HttpHandler
-                TenPayHttpHandler httpHandler = new(mchid, ser_no, privateKey);
+                ////使用微信支付参数，配置 HttpHandler
+                //TenPayHttpHandler httpHandler = new(mchid, ser_no, privateKey);
+
+                //TODO:此处重构使用ISenparcWeixinSettingForTenpayV3
+                TenPayHttpHandler httpHandler = new(_tenpayV3Setting);
 
                 //创建 HttpClient
                 HttpClient client = new HttpClient(httpHandler);

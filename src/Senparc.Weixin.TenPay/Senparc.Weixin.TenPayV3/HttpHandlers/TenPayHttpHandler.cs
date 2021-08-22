@@ -27,9 +27,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20210815
 
+    修改标识：Senparc - 20210822
+    修改描述：重构使用ISenparcWeixinSettingForTenpayV3初始化实例
+
     
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
 using System;
 using System.Collections.Generic;
@@ -48,17 +52,27 @@ namespace Senparc.Weixin.TenPayV3.HttpHandlers
     /// </summary>
     public class TenPayHttpHandler : DelegatingHandler
     {
-        private readonly string merchantId;
-        private readonly string serialNo;
-        private readonly string privateKey;
+        //private readonly string merchantId;
+        //private readonly string serialNo;
+        //private readonly string privateKey;
 
-        public TenPayHttpHandler(string merchantId, string merchantSerialNo, string privateKey)
+        //public TenPayHttpHandler(string merchantId, string merchantSerialNo, string privateKey)
+        //{
+        //    InnerHandler = new HttpClientHandler();
+
+        //    this.merchantId = merchantId;
+        //    this.serialNo = merchantSerialNo;
+        //    this.privateKey = privateKey;
+        //}
+
+        //TODO: 此处重构使用ISenparcWeixinSettingForTenpayV3初始化实例
+        private ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting;
+
+        public TenPayHttpHandler(ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null)
         {
             InnerHandler = new HttpClientHandler();
 
-            this.merchantId = merchantId;
-            this.serialNo = merchantSerialNo;
-            this.privateKey = privateKey;
+            _tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
         }
 
         /// <summary>
@@ -98,10 +112,15 @@ namespace Senparc.Weixin.TenPayV3.HttpHandlers
             string nonce = Path.GetRandomFileName();
 
             string message = $"{method}\n{uri}\n{timestamp}\n{nonce}\n{body}\n";
-            //TODO:此处重构待测试
-            string signature = TenPaySignHelper.CreateSign(message, privateKey);
+            ////此处重构待测试
+            //string signature = TenPaySignHelper.CreateSign(message, privateKey);
 
-            return $"mchid=\"{merchantId}\",nonce_str=\"{nonce}\",timestamp=\"{timestamp}\",serial_no=\"{serialNo}\",signature=\"{signature}\"";
+            //return $"mchid=\"{merchantId}\",nonce_str=\"{nonce}\",timestamp=\"{timestamp}\",serial_no=\"{serialNo}\",signature=\"{signature}\"";
+
+            //TODO:此处重构使用ISenparcWeixinSettingForTenpayV3
+            string signature = TenPaySignHelper.CreateSign(message, _tenpayV3Setting.TenPayV3_PrivateKey);
+
+            return $"mchid=\"{_tenpayV3Setting.TenPayV3_MchId}\",nonce_str=\"{nonce}\",timestamp=\"{timestamp}\",serial_no=\"{_tenpayV3Setting.TenPayV3_SerialNumber}\",signature=\"{signature}\"";
         }
     }
 }

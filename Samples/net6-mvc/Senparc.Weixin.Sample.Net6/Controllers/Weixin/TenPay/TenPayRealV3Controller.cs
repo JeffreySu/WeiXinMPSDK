@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Utilities;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP;
@@ -55,6 +56,19 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 }
                 return _tenPayV3Info;
             }
+        }
+
+        /// <summary>
+        /// 用于初始化BasePayApis
+        /// </summary>
+        private readonly ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting;
+
+        private readonly BasePayApis _basePayApis;
+
+        public TenPayRealV3Controller()
+        {
+            _tenpayV3Setting = Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
+            _basePayApis = new BasePayApis(_tenpayV3Setting);
         }
 
         /// <summary>
@@ -191,7 +205,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
 
                 //var result = TenPayOldV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
                 //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
-                var result = await BasePayApis.JsApiAsync(jsApiRequestData);
+                var result = await _basePayApis.JsApiAsync(jsApiRequestData);
                 var package = string.Format("prepay_id={0}", result.prepay_id);
 
                 ViewData["product"] = product;
@@ -356,7 +370,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 //#region 新方法（Senparc.Weixin v6.4.4+）
                 //var result = TenPayOldV3.Refund(_serviceProvider, dataInfo);//证书地址、密码，在配置文件中设置，并在注册微信支付信息时自动记录
                 //#endregion
-                var result = await BasePayApis.RefundAsync(dataInfo);
+                var result = await _basePayApis.RefundAsync(dataInfo);
 
                 WeixinTrace.SendCustomLog("进入退款流程", "3 Result：" + result.ToJson());
                 ViewData["Message"] = $"退款结果：{result.status} {result.ResultCode}。您可以刷新当前页面查看最新结果。";
@@ -485,11 +499,11 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             //选择方式查询订单
             if (out_trade_no is not null)
             {
-                result = await BasePayApis.OrderQueryByOutTradeNoAsync(out_trade_no, TenPayV3Info.MchId);
+                result = await _basePayApis.OrderQueryByOutTradeNoAsync(out_trade_no, TenPayV3Info.MchId);
             }
             if (transaction_id is not null)
             {
-                result = await BasePayApis.OrderQueryByTransactionIdAsync(transaction_id, TenPayV3Info.MchId);
+                result = await _basePayApis.OrderQueryByTransactionIdAsync(transaction_id, TenPayV3Info.MchId);
             }
 
             return Json(result);
@@ -509,7 +523,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             }
 
             ReturnJsonBase result = null;
-            result = await BasePayApis.CloseOrderAsync(out_trade_no, TenPayV3Info.MchId);
+            result = await _basePayApis.CloseOrderAsync(out_trade_no, TenPayV3Info.MchId);
 
             return Json(result);
         }

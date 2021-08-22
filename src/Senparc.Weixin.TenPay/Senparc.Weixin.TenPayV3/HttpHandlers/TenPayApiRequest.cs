@@ -33,6 +33,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Trace;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
 using Senparc.Weixin.TenPayV3.HttpHandlers;
@@ -184,12 +185,14 @@ namespace Senparc.Weixin.TenPayV3
                     var wechatpayTimestamp = responseMessage.Headers.GetValues("Wechatpay-Timestamp").First();
                     var wechatpayNonce = responseMessage.Headers.GetValues("Wechatpay-Nonce").First();
                     var wechatpaySignature = responseMessage.Headers.GetValues("Wechatpay-Signature").First();
+                    var wechatpaySerial = responseMessage.Headers.GetValues("Wechatpay-Serial").First();
 
                     result = content.GetObject<T>();
 
                     try
                     {
-                        //result.Signed = TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content);
+                        var pubKey = await TenPayV3InfoCollection.GetAPIv3PublicKey(this._tenpayV3Setting, wechatpaySerial);
+                        result.Signed = TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content, pubKey);
                     }
                     catch (Exception ex)
                     {

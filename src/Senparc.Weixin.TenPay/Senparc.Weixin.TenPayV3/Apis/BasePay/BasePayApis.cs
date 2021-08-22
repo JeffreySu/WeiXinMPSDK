@@ -116,7 +116,9 @@ namespace Senparc.Weixin.TenPayV3.Apis
             var tenpayV3Setting = Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;//TODO:改成从构造函数配置
             foreach (var cert in certificates.data)
             {
-                keys[cert.serial_no] = ApiSecurityHelper.AesGcmDecryptCiphertext(tenpayV3Setting.TenPayV3_APIv3Key, cert.encrypt_certificate.nonce, cert.encrypt_certificate.associated_data, cert.encrypt_certificate.ciphertext);
+                var publicKey = ApiSecurityHelper.AesGcmDecryptCiphertext(tenpayV3Setting.TenPayV3_APIv3Key, cert.encrypt_certificate.nonce, 
+                                    cert.encrypt_certificate.associated_data, cert.encrypt_certificate.ciphertext);
+                keys[cert.serial_no] = publicKey;
             }
             return keys;
         }

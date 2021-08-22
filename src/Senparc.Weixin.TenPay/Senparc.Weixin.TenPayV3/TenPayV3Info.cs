@@ -170,9 +170,9 @@ namespace Senparc.Weixin.TenPayV3
         }
 
         /// <summary>
-        /// 获取公钥
+        /// 获取当前支付账号下所有公钥信息
         /// </summary>
-        public async Task<PublicKeyCollection> GetPublicKeys()
+        public async Task<PublicKeyCollection> GetPublicKeysAsync()
         {
             //TODO:可以升级为从缓存读取
 
@@ -189,9 +189,9 @@ namespace Senparc.Weixin.TenPayV3
         /// </summary>
         /// <param name="serialNumber"></param>
         /// <returns></returns>
-        public async Task<string> GetPublicKey(string serialNumber)
+        public async Task<string> GetPublicKeyAsync(string serialNumber)
         {
-            var keys = await GetPublicKeys();
+            var keys = await GetPublicKeysAsync();
             if (keys.TryGetValue(serialNumber, out string publicKey))
             {
                 return publicKey;

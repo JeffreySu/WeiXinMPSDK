@@ -52,6 +52,7 @@ using Newtonsoft.Json;
 using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3
 {
@@ -104,7 +105,7 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="associated_data">附加数据包 可空</param>
         /// <returns></returns>
         // TODO: 本方法待测试
-        public T AesGcmDecryptGetObject<T>(string aes_key = null, string nonce = null, string associated_data = null) where T : ReturnJsonBase, new()
+        public async Task<T> AesGcmDecryptGetObjectAsync<T>(string aes_key = null, string nonce = null, string associated_data = null) where T : ReturnJsonBase, new()
         {
             aes_key ??= _tenpayV3Setting.TenPayV3_APIv3Key;
             nonce ??= NotifyRequest.resource.nonce;
@@ -119,7 +120,7 @@ namespace Senparc.Weixin.TenPayV3
             var wechatpayNonce = _httpContext.Request.Headers?["Wechatpay-Nonce"];
             var wechatpaySignature = _httpContext.Request.Headers?["Wechatpay-Signature"];
 
-            result.Signed = TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, Body);
+            result.Signed = await TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, Body, this._tenpayV3Setting);
             result.ResultCode = null;
 
             return result;

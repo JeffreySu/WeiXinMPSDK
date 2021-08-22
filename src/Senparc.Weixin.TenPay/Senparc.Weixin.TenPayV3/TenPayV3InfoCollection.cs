@@ -44,6 +44,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 #if NETSTANDARD2_0 || NETSTANDARD2_1
 using Microsoft.Extensions.DependencyInjection;
 #endif
@@ -92,6 +93,19 @@ namespace Senparc.Weixin.TenPayV3
         }
 
         /// <summary>
+        /// 获取 APIv3 的公钥
+        /// </summary>
+        /// <param name="senparcWeixinSettingForTenpayV3"></param>
+        /// <param name="tenpaySerialNumber"></param>
+        /// <returns></returns>
+        public static async Task<string> GetAPIv3PublicKey(ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3, string tenpaySerialNumber)
+        {
+            var tenpayV3InfoKey = TenPayHelper.GetRegisterKey(senparcWeixinSettingForTenpayV3.TenPayV3_MchId, senparcWeixinSettingForTenpayV3.TenPayV3_SubMchId);
+            var pubKey = await Data[tenpayV3InfoKey].GetPublicKeyAsync(tenpaySerialNumber);
+            return pubKey;
+        }
+
+        /// <summary>
         /// 索引 TenPayV3Info
         /// </summary>
         /// <param name="key"></param>
@@ -122,5 +136,7 @@ namespace Senparc.Weixin.TenPayV3
         {
 
         }
+
+       
     }
 }

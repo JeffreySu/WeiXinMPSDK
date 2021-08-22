@@ -55,7 +55,6 @@ namespace Senparc.Weixin.TenPayV3.Test
             register.ChangeDefaultCacheNamespace("Senparc.Weixin Test Cache");
         }
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
         /// <summary>
         /// 注册 IServiceCollection 和 MemoryCache
         /// </summary>
@@ -64,17 +63,25 @@ namespace Senparc.Weixin.TenPayV3.Test
             var serviceCollection = new ServiceCollection();
             var configBuilder = new ConfigurationBuilder();
 
-            var appSettingsFilePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UnitTestHelper.RootPath, "appsettings.json"));
-            var appSettingsExisted = File.Exists(appSettingsFilePath);
+            var appSettingsTestFilePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UnitTestHelper.RootPath, "appsettings.Test.json"));
+            var appSettingsFileExisted = File.Exists(appSettingsTestFilePath);
 
-            if (appSettingsExisted)
+            if (appSettingsFileExisted)
             {
-                configBuilder.AddJsonFile("appsettings.json", false, false);
+                configBuilder.AddJsonFile("appsettings.Test.json", false, false);//此文件可能包含敏感信息，不可上传至公共库
+            }
+            else
+            {
+                if (File.Exists(appSettingsTestFilePath.Replace(".Test","")))
+                {
+                    configBuilder.AddJsonFile("appsettings.json", false, false);//默认使用 appsettings.json
+                    appSettingsFileExisted = true;
+                }
             }
 
             var config = configBuilder.Build();
 
-            if (appSettingsExisted)
+            if (appSettingsFileExisted)
             {
                 _senparcSetting = new SenparcSetting() { IsDebug = true };
                 _senparcWeixinSetting = new SenparcWeixinSetting() { IsDebug = true };
@@ -88,16 +95,6 @@ namespace Senparc.Weixin.TenPayV3.Test
             serviceCollection.AddSenparcWeixinServices(config);
 
             _serviceProvider = serviceCollection.BuildServiceProvider();
-        }
-#endif
-
-        /// <summary>
-        /// 获取到达项目根目录的相对路径
-        /// </summary>
-        /// <returns></returns>
-        protected string GetParentRootRelativePath()
-        {
-            return @"..\..\..\";
         }
     }
 }

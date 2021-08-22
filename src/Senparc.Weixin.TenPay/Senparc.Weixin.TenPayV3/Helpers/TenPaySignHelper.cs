@@ -32,6 +32,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -98,11 +99,8 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="content">应答报文主体</param>
         /// <param name="pubKey">平台公钥 可为空</param>
         /// <returns></returns>
-        public static bool VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignature, string content, string pubKey = null)
+        public static bool VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignature, string content, string pubKey)
         {
-            // TODO: 本方法待测试
-            pubKey ??= new("此处应为平台公钥");//TODO: 不知平台公钥在配置中为何值
-
             string contentForSign = $"{wechatpayTimestamp}\n{wechatpayNonce}\n{content}\n";
 
             // NOTE： 私钥不包括私钥文件起始的-----BEGIN PRIVATE KEY-----
@@ -117,6 +115,27 @@ namespace Senparc.Weixin.TenPayV3.Helpers
 
                 return rsa.VerifyData(data, signature, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
             }
+        }
+
+        /// <summary>
+        /// 检验签名，以确保回调是由微信支付发送。
+        /// 签名规则见微信官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/wechatpay4_1.shtml。
+        /// return bool
+        /// </summary>
+        /// <param name="wechatpayTimestamp">HTTP头中的应答时间戳</param>
+        /// <param name="wechatpayNonce">HTTP头中的应答随机串</param>
+        /// <param name="wechatpaySignature">HTTP头中的应答签名</param>
+        /// <param name="content">应答报文主体</param>
+        /// <param name="pubKey">平台公钥 可为空</param>
+        /// <returns></returns>
+        public static async Task<bool> VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignature, string content, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
+        {
+            string contentForSign = $"{wechatpayTimestamp}\n{wechatpayNonce}\n{content}\n";
+
+            var tenpayV3InfoKey = TenPayHelper.GetRegisterKey(senparcWeixinSettingForTenpayV3.TenPayV3_MchId, senparcWeixinSettingForTenpayV3.TenPayV3_SubMchId);
+            var serialNumber = "";
+            var pubKey = await TenPayV3InfoCollection.Data[tenpayV3InfoKey].GetPublicKeyAsync(serialNumber);
+            return VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content, pubKey);
         }
     }
 }

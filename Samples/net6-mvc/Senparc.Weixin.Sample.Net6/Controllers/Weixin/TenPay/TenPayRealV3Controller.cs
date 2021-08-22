@@ -241,13 +241,13 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         /// JS-SDK支付回调地址（在统一下单接口中设置notify_url）
         /// </summary>
         /// <returns></returns>
-        public IActionResult PayNotifyUrl()
+        public async Task<IActionResult> PayNotifyUrl()
         {
             try
             {
                 //ResponseHandler resHandler = new ResponseHandler(HttpContext);
                 var resHandler = new TenPayNotifyHandler(HttpContext);
-                var orderReturnJson = resHandler.AesGcmDecryptGetObject<OrderReturnJson>();
+                var orderReturnJson = await resHandler.AesGcmDecryptGetObjectAsync<OrderReturnJson>();
 
                 //string return_code = resHandler.GetParameter("return_code");
                 //string return_msg = resHandler.GetParameter("return_msg");
@@ -389,7 +389,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         /// 退款通知地址
         /// </summary>
         /// <returns></returns>
-        public IActionResult RefundNotifyUrl()
+        public async Task<IActionResult> RefundNotifyUrl()
         {
             WeixinTrace.SendCustomLog("RefundNotifyUrl被访问", "IP" + HttpContext.UserHostAddress()?.ToString());
 
@@ -399,7 +399,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             {
                 //ResponseHandler resHandler = new ResponseHandler(null
                 var resHandler = new TenPayNotifyHandler(HttpContext);
-                var refundNotifyJson = resHandler.AesGcmDecryptGetObject<RefundNotifyJson>();
+                var refundNotifyJson = await resHandler.AesGcmDecryptGetObjectAsync<RefundNotifyJson>();
 
                 //string return_code = resHandler.GetParameter("return_code");
                 //string return_msg = resHandler.GetParameter("return_msg");

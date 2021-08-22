@@ -33,7 +33,8 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
                     TenPayV3Info.MchId, name, TenPayV3Info.TenPayV3Notify, new JsApiRequestData.Payer() { openid = openId }, sp_billno, null, TenPayV3Info.AppId,
                     null, null, null, null);
 
-            var result = BasePayApis.JsApiAsync(jsApiRequestData).GetAwaiter().GetResult();
+            BasePayApis basePayApis = new BasePayApis();
+            var result = basePayApis.JsApiAsync(jsApiRequestData).GetAwaiter().GetResult();
 
             Console.WriteLine("微信支付 V3 预支付结果：" + result.ToJson(true));
 
@@ -46,7 +47,8 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
         [TestMethod()]
         public void CertificatesTest()
         {
-            var result = BasePayApis.CertificatesAsync().GetAwaiter().GetResult();
+            BasePayApis basePayApis = new BasePayApis();
+            var result = basePayApis.CertificatesAsync().GetAwaiter().GetResult();
             Assert.IsNotNull(result);
             Console.WriteLine(result.ToJson(true));
             Assert.IsTrue(result.ResultCode.Success);

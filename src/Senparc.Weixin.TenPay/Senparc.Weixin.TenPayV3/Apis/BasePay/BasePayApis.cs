@@ -139,7 +139,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             {
                 var publicKey = ApiSecurityHelper.AesGcmDecryptCiphertext(_tenpayV3Setting.TenPayV3_APIv3Key, cert.encrypt_certificate.nonce,
                                     cert.encrypt_certificate.associated_data, cert.encrypt_certificate.ciphertext);
-                keys[cert.serial_no] = publicKey.Replace("-----BEGIN CERTIFICATE-----", "").Replace("-----END CERTIFICATE-----", "").Replace("\r", "").Replace("\n", "");
+                keys[cert.serial_no] = publicKey;
             }
             return keys;
         }

@@ -35,6 +35,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20210820
     修改描述：重命名部分异步方法
+
+    修改标识：Senparc - 20210822
+    修改描述：修改BasePayApis 此类型不再为静态类 使用ISenparcWeixinSettingForTenpayV3初始化实例
     
 ----------------------------------------------------------------*/
 
@@ -64,8 +67,20 @@ using Senparc.Weixin.TenPayV3.Helpers;
 
 namespace Senparc.Weixin.TenPayV3.Apis
 {
-    public static class BasePayApis
+    public class BasePayApis
     {
+
+        private ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting;
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="senparcWeixinSettingForTenpayV3"></param>
+        public BasePayApis(ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null)
+        {
+            _tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
+        }
+
         //private readonly IServiceProvider _serviceProvider;
 
         //public BasePayApis(IServiceProvider serviceProvider)
@@ -90,10 +105,10 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// </summary>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<CertificatesResultJson> CertificatesAsync(int timeOut = Config.TIME_OUT)
+        public async Task<CertificatesResultJson> CertificatesAsync(int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/certificates");
-            TenPayApiRequest tenPayApiRequest = new();
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             //var responseMessge = await tenPayApiRequest.GetHttpResponseMessageAsync(url, null, timeOut);
             //return await responseMessge.Content.ReadAsStringAsync();
             return await tenPayApiRequest.RequestAsync<CertificatesResultJson>(url, null, timeOut, ApiRequestMethod.GET);
@@ -104,7 +119,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// </summary>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<PublicKeyCollection> GetPublicKeysAsync(int timeOut = Config.TIME_OUT)
+        public async Task<PublicKeyCollection> GetPublicKeysAsync(int timeOut = Config.TIME_OUT)
         {
             var certificates = await CertificatesAsync();
             if (certificates.data?.Length == 0)
@@ -113,10 +128,12 @@ namespace Senparc.Weixin.TenPayV3.Apis
             }
 
             PublicKeyCollection keys = new();
-            var tenpayV3Setting = Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;//TODO:改成从构造函数配置
+            //var tenpayV3Setting = Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;//TODO:改成从构造函数配置
+
             foreach (var cert in certificates.data)
             {
-                keys[cert.serial_no] = ApiSecurityHelper.AesGcmDecryptCiphertext(tenpayV3Setting.TenPayV3_APIv3Key, cert.encrypt_certificate.nonce, cert.encrypt_certificate.associated_data, cert.encrypt_certificate.ciphertext);
+                // 已改成从构造函数配置
+                keys[cert.serial_no] = ApiSecurityHelper.AesGcmDecryptCiphertext(_tenpayV3Setting.TenPayV3_APIv3Key, cert.encrypt_certificate.nonce, cert.encrypt_certificate.associated_data, cert.encrypt_certificate.ciphertext);
             }
             return keys;
         }
@@ -131,10 +148,10 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public static async Task<JsApiReturnJson> JsApiAsync(JsApiRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<JsApiReturnJson> JsApiAsync(JsApiRequestData data, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/jsapi");
-            TenPayApiRequest tenPayApiRequest = new();
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<JsApiReturnJson>(url, data, timeOut);
         }
 
@@ -146,12 +163,12 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public static async Task<JsApiReturnJson> JsApiCombineAsync(JsApiCombineRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<JsApiReturnJson> JsApiCombineAsync(JsApiCombineRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
                 var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/jsapi");
-                TenPayApiRequest tenPayApiRequest = new();
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<JsApiReturnJson>(url, data, timeOut);
             }
             catch (Exception ex)
@@ -169,12 +186,12 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public static async Task<AppReturnJson> AppAsync(AppRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<AppReturnJson> AppAsync(AppRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
                 var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/app");
-                TenPayApiRequest tenPayApiRequest = new();
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<AppReturnJson>(url, data, timeOut);
             }
             catch (Exception ex)
@@ -192,12 +209,12 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public static async Task<AppReturnJson> AppCombineAsync(AppCombineRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<AppReturnJson> AppCombineAsync(AppCombineRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
                 var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/app");
-                TenPayApiRequest tenPayApiRequest = new();
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<AppReturnJson>(url, data, timeOut);
             }
             catch (Exception ex)
@@ -215,12 +232,12 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public static async Task<H5ReturnJson> H5Async(H5RequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<H5ReturnJson> H5Async(H5RequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
                 var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/h5");
-                TenPayApiRequest tenPayApiRequest = new();
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<H5ReturnJson>(url, data, timeOut);
             }
             catch (Exception ex)
@@ -238,12 +255,12 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public static async Task<H5ReturnJson> H5CombineAsync(H5CombineRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<H5ReturnJson> H5CombineAsync(H5CombineRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
                 var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/h5");
-                TenPayApiRequest tenPayApiRequest = new();
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<H5ReturnJson>(url, data, timeOut);
             }
             catch (Exception ex)
@@ -261,12 +278,12 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public static async Task<NativeReturnJson> NativeAsync(NativeRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<NativeReturnJson> NativeAsync(NativeRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
                 var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/native");
-                TenPayApiRequest tenPayApiRequest = new();
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<NativeReturnJson>(url, data, timeOut);
             }
             catch (Exception ex)
@@ -284,12 +301,12 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public static async Task<NativeReturnJson> NativeCombineAsync(NativeCombineRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<NativeReturnJson> NativeCombineAsync(NativeCombineRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
                 var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/native");
-                TenPayApiRequest tenPayApiRequest = new();
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<NativeReturnJson>(url, data, timeOut);
             }
             catch (Exception ex)
@@ -309,12 +326,12 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="mchid">直连商户的商户号，由微信支付生成并下发。 示例值：1230000109</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public static async Task<OrderReturnJson> OrderQueryByTransactionIdAsync(string transaction_id, string mchid, int timeOut = Config.TIME_OUT)
+        public async Task<OrderReturnJson> OrderQueryByTransactionIdAsync(string transaction_id, string mchid, int timeOut = Config.TIME_OUT)
         {
             try
             {
                 var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}pay/transactions/id/{transaction_id}?mchid={mchid}");
-                TenPayApiRequest tenPayApiRequest = new();
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<OrderReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
             }
             catch (Exception ex)
@@ -332,12 +349,12 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="mchid">直连商户的商户号，由微信支付生成并下发。 示例值：1230000109</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public static async Task<OrderReturnJson> OrderQueryByOutTradeNoAsync(string out_trade_no, string mchid, int timeOut = Config.TIME_OUT)
+        public async Task<OrderReturnJson> OrderQueryByOutTradeNoAsync(string out_trade_no, string mchid, int timeOut = Config.TIME_OUT)
         {
             try
             {
                 var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}pay/transactions/id/{out_trade_no}?mchid={mchid}");
-                TenPayApiRequest tenPayApiRequest = new();
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<OrderReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
             }
             catch (Exception ex)
@@ -354,13 +371,13 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="combine_out_trade_no">合单支付总订单号 示例值：P20150806125346</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public static async Task<CombineOrderReturnJson> CombineOrderQueryAsync(string combine_out_trade_no, int timeOut = Config.TIME_OUT)
+        public async Task<CombineOrderReturnJson> CombineOrderQueryAsync(string combine_out_trade_no, int timeOut = Config.TIME_OUT)
         {
             try
             {
 
                 var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}combine-transactions/out-trade-no/{combine_out_trade_no}");
-                TenPayApiRequest tenPayApiRequest = new();
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<CombineOrderReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
             }
             catch (Exception ex)
@@ -378,12 +395,12 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="mchid">直连商户的商户号，由微信支付生成并下发。 示例值：1230000109</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public static async Task<ReturnJsonBase> CloseOrderAsync(string out_trade_no, string mchid, int timeOut = Config.TIME_OUT)
+        public async Task<ReturnJsonBase> CloseOrderAsync(string out_trade_no, string mchid, int timeOut = Config.TIME_OUT)
         {
             try
             {
                 var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}pay/transactions/out-trade-no/{out_trade_no}/close");
-                TenPayApiRequest tenPayApiRequest = new();
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, mchid, timeOut);
             }
             catch (Exception ex)
@@ -401,12 +418,12 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">合单关闭订单请求数据</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public static async Task<ReturnJsonBase> CloseCombineOrderAsync(string combine_out_trade_no, CloseCombineOrderRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<ReturnJsonBase> CloseCombineOrderAsync(string combine_out_trade_no, CloseCombineOrderRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
                 var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}combine-transactions/out-trade-no/{combine_out_trade_no}/close");
-                TenPayApiRequest tenPayApiRequest = new();
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, data, timeOut);
             }
             catch (Exception ex)
@@ -425,12 +442,12 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">请求数据</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public static async Task<RefundReturnJson> RefundAsync(RefundRequsetData data, int timeOut = Config.TIME_OUT)
+        public async Task<RefundReturnJson> RefundAsync(RefundRequsetData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
                 var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}refund/domestic/refunds");
-                TenPayApiRequest tenPayApiRequest = new();
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<RefundReturnJson>(url, data, timeOut);
             }
             catch (Exception ex)
@@ -447,12 +464,12 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="out_refund_no">商户系统内部的退款单号，商户系统内部唯一，只能是数字、大小写字母_-|*@ ，同一退款单号多次请求只退一笔。示例值：1217752501201407033233368018</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public static async Task<RefundReturnJson> RefundQueryAsync(string out_refund_no, int timeOut = Config.TIME_OUT)
+        public async Task<RefundReturnJson> RefundQueryAsync(string out_refund_no, int timeOut = Config.TIME_OUT)
         {
             try
             {
                 var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}refund/domestic/refunds");
-                TenPayApiRequest tenPayApiRequest = new();
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<RefundReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
             }
             catch (Exception ex)
@@ -474,7 +491,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="tar_type"> 不填则默认是数据流 枚举值：GZIP：返回格式为.gzip的压缩包账单</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public static async Task<BillReturnJson> TradeBillQueryAsync(string bill_date, string bill_type = "ALL", string tar_type = null, int timeOut = Config.TIME_OUT)
+        public async Task<BillReturnJson> TradeBillQueryAsync(string bill_date, string bill_type = "ALL", string tar_type = null, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -483,7 +500,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 {
                     url += $"&tar_type={tar_type}";
                 }
-                TenPayApiRequest tenPayApiRequest = new();
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<BillReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
             }
             catch (Exception ex)
@@ -502,7 +519,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="account_type">不填则默认是BASIC 枚举值：BASIC：基本账户 OPERATION：运营账户 FEES：手续费账户</param>
         /// <param name="tar_type"> 不填则默认是数据流 枚举值：GZIP：返回格式为.gzip的压缩包账单</param>
         /// <returns></returns>
-        public static async Task<BillReturnJson> FundflowBillQueryAsync(string bill_date, string account_type = "BASIC", string tar_type = null, int timeOut = Config.TIME_OUT)
+        public async Task<BillReturnJson> FundflowBillQueryAsync(string bill_date, string account_type = "BASIC", string tar_type = null, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -511,7 +528,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 {
                     url += $"&tar_type={tar_type}";
                 }
-                TenPayApiRequest tenPayApiRequest = new();
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<BillReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
             }
             catch (Exception ex)

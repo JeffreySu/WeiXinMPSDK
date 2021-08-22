@@ -39,6 +39,8 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.ResultCode.Success);
+            Assert.IsTrue(result.Signed == true);//通过验证
+
         }
 
         [TestMethod()]
@@ -48,6 +50,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             Assert.IsNotNull(result);
             Console.WriteLine(result.ToJson(true));
             Assert.IsTrue(result.ResultCode.Success);
+            Assert.IsNull(result.Signed);//不参与验证
         }
     }
 }

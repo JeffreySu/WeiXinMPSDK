@@ -95,11 +95,11 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// </summary>
         /// <param name="wechatpayTimestamp">HTTP头中的应答时间戳</param>
         /// <param name="wechatpayNonce">HTTP头中的应答随机串</param>
-        /// <param name="wechatpaySignature">HTTP头中的应答签名</param>
+        /// <param name="wechatpaySignatureBase64">HTTP头中的应答签名（Base64）</param>
         /// <param name="content">应答报文主体</param>
         /// <param name="pubKey">平台公钥 可为空</param>
         /// <returns></returns>
-        public static bool VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignature, string content, string pubKey)
+        public static bool VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignatureBase64, string content, string pubKey)
         {
             string contentForSign = $"{wechatpayTimestamp}\n{wechatpayNonce}\n{content}\n";
 
@@ -111,7 +111,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers
             using (RSACng rsa = new RSACng(cngKey))
             {
                 byte[] data = System.Text.Encoding.UTF8.GetBytes(contentForSign);
-                byte[] signature = System.Text.Encoding.UTF8.GetBytes(wechatpaySignature);
+                byte[] signature = Convert.FromBase64String(wechatpaySignatureBase64);
 
                 return rsa.VerifyData(data, signature, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
             }

@@ -96,7 +96,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             TenPayApiRequest tenPayApiRequest = new();
             //var responseMessge = await tenPayApiRequest.GetHttpResponseMessageAsync(url, null, timeOut);
             //return await responseMessge.Content.ReadAsStringAsync();
-            return await tenPayApiRequest.RequestAsync<CertificatesResultJson>(url, null, timeOut, ApiRequestMethod.GET);
+            return await tenPayApiRequest.RequestAsync<CertificatesResultJson>(url, null, timeOut, ApiRequestMethod.GET, checkSign: false);
         }
 
         /// <summary>
@@ -107,6 +107,11 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public static async Task<PublicKeyCollection> GetPublicKeysAsync(int timeOut = Config.TIME_OUT)
         {
             var certificates = await CertificatesAsync();
+            if (!certificates.ResultCode.Success)
+            {
+                throw new TenpayApiRequestException("获取证书公钥失败：" + certificates.ResultCode.ErrorMessage);
+            }
+
             if (certificates.data?.Length == 0)
             {
                 throw new TenpayApiRequestException("Certificates 获取结果为空");
@@ -116,9 +121,9 @@ namespace Senparc.Weixin.TenPayV3.Apis
             var tenpayV3Setting = Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;//TODO:改成从构造函数配置
             foreach (var cert in certificates.data)
             {
-                var publicKey = ApiSecurityHelper.AesGcmDecryptCiphertext(tenpayV3Setting.TenPayV3_APIv3Key, cert.encrypt_certificate.nonce, 
+                var publicKey = ApiSecurityHelper.AesGcmDecryptCiphertext(tenpayV3Setting.TenPayV3_APIv3Key, cert.encrypt_certificate.nonce,
                                     cert.encrypt_certificate.associated_data, cert.encrypt_certificate.ciphertext);
-                keys[cert.serial_no] = publicKey;
+                keys[cert.serial_no] = publicKey.Replace("-----BEGIN CERTIFICATE-----", "").Replace("-----END CERTIFICATE-----", "").Replace("\r", "").Replace("\n", "");
             }
             return keys;
         }

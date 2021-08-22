@@ -48,7 +48,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
         public TenPayApiResultCode ResultCode { get; set; } = new TenPayApiResultCode();
 
         /// <summary>
-        /// 回复签名是否正确 在有错误的情况下为null
+        /// 回复签名是否正确 在有错误的情况下，或不要求验证签名时 为null
         /// </summary>
         public bool? Signed { get; set; } = null;
     }

@@ -161,7 +161,7 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="url"></param>
         /// <param name="data">如果为 GET 请求，此参数可为 null</param>
         /// <returns></returns>
-        public async Task<T> RequestAsync<T>(string url, object data, int timeOut = Config.TIME_OUT, ApiRequestMethod requestMethod = ApiRequestMethod.POST, Func<T> createDefaultInstance = null)
+        public async Task<T> RequestAsync<T>(string url, object data, int timeOut = Config.TIME_OUT, ApiRequestMethod requestMethod = ApiRequestMethod.POST, bool checkSign = true, Func<T> createDefaultInstance = null)
             where T : ReturnJsonBase/*, new()*/
         {
             T result = null;
@@ -184,19 +184,22 @@ namespace Senparc.Weixin.TenPayV3
                     //result.Signed = VerifyTenpaySign(responseMessage.Headers, content);
                     var wechatpayTimestamp = responseMessage.Headers.GetValues("Wechatpay-Timestamp").First();
                     var wechatpayNonce = responseMessage.Headers.GetValues("Wechatpay-Nonce").First();
-                    var wechatpaySignature = responseMessage.Headers.GetValues("Wechatpay-Signature").First();
+                    var wechatpaySignatureBase64 = responseMessage.Headers.GetValues("Wechatpay-Signature").First();//后续需要base64解码
                     var wechatpaySerial = responseMessage.Headers.GetValues("Wechatpay-Serial").First();
 
                     result = content.GetObject<T>();
 
-                    try
+                    if (checkSign)
                     {
-                        var pubKey = await TenPayV3InfoCollection.GetAPIv3PublicKey(this._tenpayV3Setting, wechatpaySerial);
-                        result.Signed = TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content, pubKey);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new TenpayApiRequestException("RequestAsync 签名验证失败：" + ex.Message, ex);
+                        try
+                        {
+                            var pubKey = await TenPayV3InfoCollection.GetAPIv3PublicKeyAsync(this._tenpayV3Setting, wechatpaySerial);
+                            result.Signed = TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignatureBase64, content, pubKey);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new TenpayApiRequestException("RequestAsync 签名验证失败：" + ex.Message, ex);
+                        }
                     }
                 }
                 else

@@ -81,6 +81,24 @@ namespace Senparc.Weixin.TenPayV3.Apis
             return string.Format(urlFormat, Senparc.Weixin.Config.UseSandBoxPay ? "sandboxnew/" : "");
         }
 
+        #region 平台证书
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<CertificatesResultJson> Certificates(int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/certificates");
+            TenPayApiRequest tenPayApiRequest = new();
+            //var responseMessge = await tenPayApiRequest.GetHttpResponseMessageAsync(url, null, timeOut);
+            //return await responseMessge.Content.ReadAsStringAsync();
+            return await tenPayApiRequest.RequestAsync<CertificatesResultJson>(url, null, timeOut, ApiRequestMethod.GET);
+        }
+
+        #endregion
+
         #region 下单接口
         /// <summary>
         /// JSAPI下单接口
@@ -91,18 +109,11 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public static async Task<JsApiReturnJson> JsApiAsync(JsApiRequestData data, int timeOut = Config.TIME_OUT)
         {
-            try
-            {
-                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/jsapi");
-                TenPayApiRequest tenPayApiRequest = new();
-                return await tenPayApiRequest.RequestAsync<JsApiReturnJson>(url, data, timeOut);
-            }
-            catch (Exception ex)
-            {
-                SenparcTrace.BaseExceptionLog(ex);
-                return new JsApiReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
-            }
+            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/jsapi");
+            TenPayApiRequest tenPayApiRequest = new();
+            return await tenPayApiRequest.RequestAsync<JsApiReturnJson>(url, data, timeOut);
         }
+
 
         // TODO: 待测试
         /// <summary>

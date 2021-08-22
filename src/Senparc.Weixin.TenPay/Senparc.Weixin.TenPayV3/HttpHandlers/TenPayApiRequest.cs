@@ -31,6 +31,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Trace;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
@@ -75,6 +76,71 @@ namespace Senparc.Weixin.TenPayV3
             client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue($"({userAgentValues.OSVersion})"));
         }
 
+        public async Task<HttpResponseMessage> GetHttpResponseMessageAsync(string url, object data, int timeOut = Config.TIME_OUT, ApiRequestMethod requestMethod = ApiRequestMethod.POST)
+        {
+            try
+            {
+                //var co2netHttpClient = CO2NET.HttpUtility.RequestUtility.HttpPost_Common_NetCore(serviceProvider, url, out var hc, contentType: "application/json");
+
+                //设置参数
+                var mchid = _tenpayV3Setting.TenPayV3_MchId;
+                var ser_no = _tenpayV3Setting.TenPayV3_SerialNumber;
+                var privateKey = _tenpayV3Setting.TenPayV3_PrivateKey;
+
+                //使用微信支付参数，配置 HttpHandler
+                TenPayHttpHandler httpHandler = new(mchid, ser_no, privateKey);
+
+                //创建 HttpClient
+                HttpClient client = new HttpClient(httpHandler);
+                //设置超时时间
+                client.Timeout = TimeSpan.FromMilliseconds(timeOut);
+
+                //设置 HTTP 请求头
+                SetHeader(client);
+
+                HttpResponseMessage responseMessage = null;
+                switch (requestMethod)
+                {
+                    case ApiRequestMethod.GET:
+                        responseMessage = await client.GetAsync(url);
+                        WeixinTrace.Log(url); //记录Get的Json数据
+                        break;
+                    case ApiRequestMethod.POST:
+                    case ApiRequestMethod.PUT:
+                    case ApiRequestMethod.PATCH:
+                        //检查是否为空
+                        //_ = data ?? throw new ArgumentNullException($"{nameof(data)} 不能为 null！");
+
+                        //设置请求 Json 字符串
+                        //var jsonString = SerializerHelper.GetJsonString(data, new CO2NET.Helpers.Serializers.JsonSetting(true));
+                        string jsonString = data != null
+                            ? data.ToJson(false, new Newtonsoft.Json.JsonSerializerSettings() { NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore })
+                            : "";
+                        WeixinTrace.SendApiPostDataLog(url, jsonString); //记录Post的Json数据
+
+                        //设置 HttpContent
+                        var hc = new StringContent(jsonString, Encoding.UTF8, mediaType: "application/json");
+                        //获取响应结果
+                        responseMessage = requestMethod switch
+                        {
+                            ApiRequestMethod.POST => await client.PostAsync(url, hc),
+                            ApiRequestMethod.PUT => await client.PutAsync(url, hc),
+                            ApiRequestMethod.PATCH => await client.PatchAsync(url, hc),
+                            _ => throw new ArgumentOutOfRangeException(nameof(requestMethod))
+                        };
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(requestMethod));
+                }
+
+                return responseMessage;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         /// <summary>
         /// 请求参数，获取结果
         /// </summary>
@@ -82,88 +148,82 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="url"></param>
         /// <param name="data">如果为 GET 请求，此参数可为 null</param>
         /// <returns></returns>
-        public async Task<T> RequestAsync<T>(string url, object data, int timeOut = Config.TIME_OUT, ApiRequestMethod requestMethod = ApiRequestMethod.POST) where T : ReturnJsonBase, new()
+        public async Task<T> RequestAsync<T>(string url, object data, int timeOut = Config.TIME_OUT, ApiRequestMethod requestMethod = ApiRequestMethod.POST, Func<T> createDefaultInstance = null)
+            where T : ReturnJsonBase/*, new()*/
         {
-            //var co2netHttpClient = CO2NET.HttpUtility.RequestUtility.HttpPost_Common_NetCore(serviceProvider, url, out var hc, contentType: "application/json");
-
-            //设置参数
-            var mchid = _tenpayV3Setting.TenPayV3_MchId;
-            var ser_no = _tenpayV3Setting.TenPayV3_SerialNumber;
-            var privateKey = _tenpayV3Setting.TenPayV3_PrivateKey;
-
-            //使用微信支付参数，配置 HttpHandler
-            TenPayHttpHandler httpHandler = new(mchid, ser_no, privateKey);
-
-            //创建 HttpClient
-            HttpClient client = new HttpClient(httpHandler);
-            //设置超时时间
-            client.Timeout = TimeSpan.FromMilliseconds(timeOut);
-
-            //设置 HTTP 请求头
-            SetHeader(client);
-
-            HttpResponseMessage responseMessage = null;
-            switch (requestMethod)
-            {
-                case ApiRequestMethod.GET:
-                    responseMessage = await client.GetAsync(url);
-                    WeixinTrace.Log(url); //记录Get的Json数据
-                    break;
-                case ApiRequestMethod.POST:
-                case ApiRequestMethod.PUT:
-                case ApiRequestMethod.PATCH:
-                    //检查是否为空
-                    _ = data ?? throw new ArgumentNullException($"{nameof(data)} 不能为 null！");
-
-                    //设置请求 Json 字符串
-                    //var jsonString = SerializerHelper.GetJsonString(data, new CO2NET.Helpers.Serializers.JsonSetting(true));
-                    string jsonString = data.ToJson(false, new Newtonsoft.Json.JsonSerializerSettings() { NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore });
-                    WeixinTrace.SendApiPostDataLog(url, jsonString); //记录Post的Json数据
-
-                    //设置 HttpContent
-                    var hc = new StringContent(jsonString, Encoding.UTF8, mediaType: "application/json");
-                    //获取响应结果
-                    responseMessage = requestMethod switch
-                    {
-                        ApiRequestMethod.POST => await client.PostAsync(url, hc),
-                        ApiRequestMethod.PUT => await client.PutAsync(url, hc),
-                        ApiRequestMethod.PATCH => await client.PatchAsync(url, hc),
-                        _ => throw new ArgumentOutOfRangeException(nameof(requestMethod))
-                    };
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(requestMethod));
-            }
-
-            //检查响应代码
-            TenPayApiResultCode resutlCode = TenPayApiResultCode.TryGetCode(responseMessage.StatusCode);
-
-            //TODO:待测试 加入验证签名
-            //获取响应结果
             T result = null;
-            if (resutlCode.Success)
+
+            try
             {
-                string content = await responseMessage.Content.ReadAsStringAsync();
+                HttpResponseMessage responseMessage = await GetHttpResponseMessageAsync(url, data, timeOut, requestMethod);
 
-                //TODO:待测试
-                //验证微信签名
-                //result.Signed = VerifyTenpaySign(responseMessage.Headers, content);
-                var wechatpayTimestamp = responseMessage.Headers.GetValues("Wechatpay-Timestamp").First();
-                var wechatpayNonce = responseMessage.Headers.GetValues("Wechatpay-Nonce").First();
-                var wechatpaySignature = responseMessage.Headers.GetValues("Wechatpay-Signature").First();
+                //检查响应代码
+                TenPayApiResultCode resutlCode = TenPayApiResultCode.TryGetCode(responseMessage.StatusCode);
 
-                result.Signed = TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content);
+                //TODO:待测试 加入验证签名
+                //获取响应结果
+                if (resutlCode.Success)
+                {
+                    string content = await responseMessage.Content.ReadAsStringAsync();
 
-                result = content.GetObject<T>();
+                    //TODO:待测试
+                    //验证微信签名
+                    //result.Signed = VerifyTenpaySign(responseMessage.Headers, content);
+                    var wechatpayTimestamp = responseMessage.Headers.GetValues("Wechatpay-Timestamp").First();
+                    var wechatpayNonce = responseMessage.Headers.GetValues("Wechatpay-Nonce").First();
+                    var wechatpaySignature = responseMessage.Headers.GetValues("Wechatpay-Signature").First();
+
+                    result = content.GetObject<T>();
+
+                    try
+                    {
+                        result.Signed = TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new TenpayApiRequestException("RequestAsync 签名验证失败：" + ex.Message, ex);
+                    }
+                }
+                else
+                {
+                    result = createDefaultInstance?.Invoke() ?? GetInstance<T>(true);
+                }
+                //T result = resutlCode.Success ? (await responseMessage.Content.ReadAsStringAsync()).GetObject<T>() : new T();
+                result.ResultCode = resutlCode;
+
+                return result;
             }
-            else
+            catch (Exception ex)
             {
-                result = new();
-            }
-            //T result = resutlCode.Success ? (await responseMessage.Content.ReadAsStringAsync()).GetObject<T>() : new T();
-            result.ResultCode = resutlCode;
+                SenparcTrace.BaseExceptionLog(ex);
+                result = createDefaultInstance?.Invoke() ?? GetInstance<T>(false);
+                if (result != null)
+                {
+                    result.ResultCode = new() { ErrorMessage = ex.Message };
+                }
 
-            return result;
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 获取实例
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="throwIfFaild"></param>
+        /// <returns></returns>
+        private T GetInstance<T>(bool throwIfFaild)
+            where T : ReturnJsonBase
+        {
+            if (typeof(T).IsClass)
+            {
+                return Senparc.CO2NET.Helpers.ReflectionHelper.CreateInstance<T>(typeof(T).FullName, typeof(T).Assembly.GetName().Name);
+            }
+            else if (throwIfFaild)
+            {
+                throw new TenpayApiRequestException("GetInstance 失败，此类型无法自动生成：" + typeof(T).FullName);
+            }
+            return null;
         }
     }
 }

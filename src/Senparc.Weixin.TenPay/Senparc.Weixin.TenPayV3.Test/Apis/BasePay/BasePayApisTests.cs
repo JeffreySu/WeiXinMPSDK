@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.TenPayV3.Apis;
 using Senparc.Weixin.TenPayV3.Apis.BasePay;
@@ -13,7 +14,7 @@ using System.Xml.Linq;
 namespace Senparc.Weixin.TenPayV3.Apis.Tests
 {
     [TestClass()]
-    public class BasePayApisTests: BaseTenPayTest
+    public class BasePayApisTests : BaseTenPayTest
     {
         [TestMethod()]
         public void JsAPiAsyncTest()
@@ -31,9 +32,22 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             JsApiRequestData jsApiRequestData = new(new TenpayDateTime(DateTime.Now), new JsApiRequestData.Amount() { currency = "CNY", total = price },
                     TenPayV3Info.MchId, name, TenPayV3Info.TenPayV3Notify, new JsApiRequestData.Payer() { openid = openId }, sp_billno, null, TenPayV3Info.AppId,
                     null, null, null, null);
+
             var result = BasePayApis.JsApiAsync(jsApiRequestData).GetAwaiter().GetResult();
-            Console.WriteLine(result);
+
+            Console.WriteLine("微信支付 V3 预支付结果：" + result.ToJson(true));
+
             Assert.IsNotNull(result);
+            Assert.IsTrue(result.ResultCode.Success);
+        }
+
+        [TestMethod()]
+        public void CertificatesTest()
+        {
+            var result = BasePayApis.Certificates().GetAwaiter().GetResult();
+            Assert.IsNotNull(result);
+            Console.WriteLine(result.ToJson(true));
+            Assert.IsTrue(result.ResultCode.Success);
         }
     }
 }

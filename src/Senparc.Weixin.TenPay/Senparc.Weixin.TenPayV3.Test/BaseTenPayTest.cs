@@ -51,7 +51,7 @@ namespace Senparc.Weixin.TenPayV3.Test
 
             //注册微信
             //var senparcWeixinSetting = new SenparcWeixinSetting(true);
-            register.UseSenparcWeixin(_senparcWeixinSetting, senparcSetting);
+            register.UseSenparcWeixin(_senparcWeixinSetting, senparcSetting).RegisterTenpayRealV3(_senparcWeixinSetting, "微信 V3");
             register.ChangeDefaultCacheNamespace("Senparc.Weixin Test Cache");
         }
 
@@ -72,7 +72,7 @@ namespace Senparc.Weixin.TenPayV3.Test
             }
             else
             {
-                if (File.Exists(appSettingsTestFilePath.Replace(".Test","")))
+                if (File.Exists(appSettingsTestFilePath.Replace(".Test", "")))
                 {
                     configBuilder.AddJsonFile("appsettings.json", false, false);//默认使用 appsettings.json
                     appSettingsFileExisted = true;
@@ -81,10 +81,11 @@ namespace Senparc.Weixin.TenPayV3.Test
 
             var config = configBuilder.Build();
 
+            _senparcSetting = new SenparcSetting() { IsDebug = true };
+            _senparcWeixinSetting = new SenparcWeixinSetting() { IsDebug = true };
+
             if (appSettingsFileExisted)
             {
-                _senparcSetting = new SenparcSetting() { IsDebug = true };
-                _senparcWeixinSetting = new SenparcWeixinSetting() { IsDebug = true };
                 config.GetSection("SenparcSetting").Bind(_senparcSetting);
                 config.GetSection("SenparcWeixinSetting").Bind(_senparcWeixinSetting);
             }

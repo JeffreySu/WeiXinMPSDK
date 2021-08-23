@@ -37,6 +37,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -97,24 +98,34 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="wechatpayNonce">HTTP头中的应答随机串</param>
         /// <param name="wechatpaySignatureBase64">HTTP头中的应答签名（Base64）</param>
         /// <param name="content">应答报文主体</param>
-        /// <param name="pubKey">平台公钥 可为空</param>
+        /// <param name="pubKey">平台公钥（必须是Unwrap的公钥）</param>
         /// <returns></returns>
         public static bool VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignatureBase64, string content, string pubKey)
         {
+            //验签名串
             string contentForSign = $"{wechatpayTimestamp}\n{wechatpayNonce}\n{content}\n";
 
-            // NOTE： 私钥不包括私钥文件起始的-----BEGIN PRIVATE KEY-----
-            //        亦不包括结尾的-----END PRIVATE KEY-----
-            //string privateKey = "{你的私钥}";
-            byte[] keyData = Convert.FromBase64String(pubKey);
-            using (CngKey cngKey = CngKey.Import(keyData, CngKeyBlobFormat.Pkcs8PrivateBlob))
-            using (RSACng rsa = new RSACng(cngKey))
-            {
-                byte[] data = System.Text.Encoding.UTF8.GetBytes(contentForSign);
-                byte[] signature = Convert.FromBase64String(wechatpaySignatureBase64);
+            //Base64 解码 pubKey（必须已经使用 ApiSecurityHelper.GetUnwrapCertKey() 方法进行 Unwrap）
+            var bs = Convert.FromBase64String(pubKey);
+            //使用 X509Certificate2 证书
+            var x509 = new X509Certificate2(bs);
+            //AsymmetricAlgorithm对象
+            var key = x509.PublicKey.Key;
 
-                return rsa.VerifyData(data, signature, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
-            }
+            //RSAPKCS1SignatureDeformatter对象
+            RSAPKCS1SignatureDeformatter df = new RSAPKCS1SignatureDeformatter(key);
+            //指定 SHA256
+            df.SetHashAlgorithm("SHA256");
+            //SHA256Managed 方法已弃用，使用 SHA256.Create() 生成 SHA256 对象
+            var sha256 = SHA256.Create();
+            //应答签名
+            byte[] signature = Convert.FromBase64String(wechatpaySignatureBase64);
+            //对比签名
+            byte[] compareByte = sha256.ComputeHash(Encoding.UTF8.GetBytes(contentForSign));
+            //验证签名
+            var result = df.VerifySignature(compareByte, signature);
+
+            return result;
         }
 
         /// <summary>

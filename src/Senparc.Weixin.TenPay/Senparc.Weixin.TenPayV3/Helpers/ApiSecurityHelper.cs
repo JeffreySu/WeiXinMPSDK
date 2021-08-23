@@ -17,7 +17,6 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <returns></returns>
         public static string AesGcmDecryptCiphertext(string aes_key, string nonce, string associated_data, string ciphertext)
         {
-
             //将解密所需数据转换为Bytes
             var keyBytes = Encoding.UTF8.GetBytes(aes_key);
             var nonceBytes = Encoding.UTF8.GetBytes(nonce);

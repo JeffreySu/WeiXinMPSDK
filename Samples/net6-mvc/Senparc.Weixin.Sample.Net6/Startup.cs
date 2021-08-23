@@ -55,8 +55,8 @@ namespace Senparc.Weixin.Sample.NetCore3
 
             var builder = services.AddControllersWithViews()
                                   .AddNewtonsoftJson();// 支持 NewtonsoftJson
-                                //.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
-            // Add CookieTempDataProvider after AddMvc and include ViewFeatures.
+                                                       //.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+                                                       // Add CookieTempDataProvider after AddMvc and include ViewFeatures.
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
 
             //如果部署在linux系统上，需要加上下面的配置：
@@ -340,9 +340,16 @@ namespace Senparc.Weixin.Sample.NetCore3
                                     }
                                 }, "【盛派网络】开放平台")
 
-                        //除此以外，仍然可以在程序任意地方注册开放平台：
-                        //ComponentContainer.Register();//命名空间：Senparc.Weixin.Open.Containers
+                            //除此以外，仍然可以在程序任意地方注册开放平台：
+                            //ComponentContainer.Register();//命名空间：Senparc.Weixin.Open.Containers
                     #endregion                          // DPBMARK_END
+
+                    #region 设置自定义 ApiHandlerWapper 参数（可选，一般不需要设置）  --DPBMARK MP
+
+                            .SetMP_InvalidCredentialValues(new[] { ReturnCode.获取access_token时AppSecret错误或者access_token无效 })
+                            //.SetMP_AccessTokenContainer_GetAccessTokenResultFunc((appId, getNewToken)=> { return xxx })
+
+                    #endregion                                                          // DPBMARK_END
 
                         ;
 
@@ -403,7 +410,7 @@ namespace Senparc.Weixin.Sample.NetCore3
             //使用 企业微信 MessageHandler 中间件                                                 // -- DPBMARK Work
             app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMessageHandler,
                                          o => o.AccountSettingFunc = c => senparcWeixinSetting.Value);//最简化的方式
-                                                                                                  // DPBMARK_END
+                                                                                                      // DPBMARK_END
 
             #endregion
 

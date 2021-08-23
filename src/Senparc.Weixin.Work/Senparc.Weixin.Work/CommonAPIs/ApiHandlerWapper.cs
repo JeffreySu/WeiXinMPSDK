@@ -106,7 +106,6 @@ namespace Senparc.Weixin.Work
                     return AccessTokenContainer.GetTokenResult(appKey, getNewToken);
                 };
 
-            int invalidCredentialValue = (int)ReturnCode.不合法的access_token;//ReturnCode_Work.获取access_token时Secret错误_或者access_token无效;
 
             var result = ApiHandlerWapperBase.
                 TryCommonApiBase(

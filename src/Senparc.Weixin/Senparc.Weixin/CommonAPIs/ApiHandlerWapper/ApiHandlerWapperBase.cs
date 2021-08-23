@@ -52,6 +52,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：WangDrama - 20210630
     修改描述：v3.9.600 添加对企业微信状态码 WorkJsonResult 的判断
 
+    修改标识：Senparc - 20210630
+    修改描述：v6.11.1 TryCommonApiBase 提供 invalidCredentialValues，可设置多种重试错误代码
+
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
@@ -92,7 +95,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
         /// <summary>
         /// 返回 JsonResult 错误结果信息（不抛出异常）
         /// </summary>
-        /// <param name="errorMessage"></param>
+        /// <param name="jsonResult"></param>
         /// <returns></returns>
         private static T GetJsonErrorResult<T>(BaseJsonResult jsonResult) where T : BaseJsonResult, new()
         {
@@ -119,7 +122,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
         /// <param name="accessTokenContainer_GetFirstOrDefaultAppIdFunc">AccessTokenContainer中的GetFirstOrDefaultAppId()方法</param>
         /// <param name="accessTokenContainer_CheckRegisteredFunc">AccessTokenContainer中的bool CheckRegistered(appId,getNew)方法</param>
         /// <param name="accessTokenContainer_GetAccessTokenResultFunc">AccessTokenContainer中的AccessTokenResult GetAccessTokenResult(appId)方法</param>
-        /// <param name="invalidCredentialValue">"ReturnCode.获取access_token时AppSecret错误或者access_token无效"枚举的值</param>
+        /// <param name="invalidCredentialValues">"ReturnCode.获取access_token时AppSecret错误或者access_token无效"枚举的值</param>
         /// <param name="fun"></param>
         /// <param name="accessTokenOrAppId">公众号、小程序中的 AppId，或企业微信中的 AppKey（由AppId+AppSecret组成）</param>
         /// <param name="retryIfFaild"></param>
@@ -280,7 +283,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
         /// <param name="accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc">AccessTokenContainer中的GetFirstOrDefaultAppId()方法</param>
         /// <param name="accessTokenContainer_CheckRegisteredAsyncFunc">AccessTokenContainer中的bool CheckRegistered(appId,getNew)方法</param>
         /// <param name="accessTokenContainer_GetAccessTokenResultAsyncFunc">AccessTokenContainer中的AccessTokenResult GetAccessTokenResultAsync(appId)方法（异步方法）</param>
-        /// <param name="invalidCredentialValue">"ReturnCode.获取access_token时AppSecret错误或者access_token无效"枚举的值</param>
+        /// <param name="invalidCredentialValues">"ReturnCode.获取access_token时AppSecret错误或者access_token无效"枚举的值</param>
         /// <param name="fun"></param>
         /// <param name="accessTokenOrAppId">公众号、小程序中的 AppId，或企业微信中的 AppKey（由AppId+AppSecret组成）</param>
         /// <param name="retryIfFaild"></param>

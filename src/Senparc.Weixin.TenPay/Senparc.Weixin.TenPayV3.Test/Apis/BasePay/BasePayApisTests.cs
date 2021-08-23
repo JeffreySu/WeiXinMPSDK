@@ -42,7 +42,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.ResultCode.Success);
-            Assert.IsTrue(result.Signed == true);//通过验证
+            Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
 
         }
 
@@ -54,7 +54,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             Assert.IsNotNull(certs);
             Console.WriteLine(certs.ToJson(true));
             Assert.IsTrue(certs.ResultCode.Success);
-            Assert.IsNull(certs.Signed);//不参与验证
+            Assert.IsNull(certs.VerifySignSuccess);//不参与验证
 
             Console.WriteLine();
 

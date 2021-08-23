@@ -268,7 +268,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 //}
 
                 //验证请求是否从微信发过来（安全）
-                if (orderReturnJson.Signed == true && trade_state == "SUCCESS")
+                if (orderReturnJson.VerifySignSuccess == true && trade_state == "SUCCESS")
                 {
                     res = "success";//正确的订单处理
                                     //直到这里，才能认为交易真正成功了，可以进行数据库操作，但是别忘了返回规定格式的消息！

@@ -63,7 +63,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             var pubKey = ApiSecurityHelper.AesGcmDecryptCiphertext(tenpayV3Setting.TenPayV3_APIv3Key, cert.encrypt_certificate.nonce,
                      cert.encrypt_certificate.associated_data, cert.encrypt_certificate.ciphertext);
             Console.WriteLine(pubKey);
-            Assert.IsNull(pubKey);
+            Assert.IsNotNull(pubKey);
         }
     }
 }

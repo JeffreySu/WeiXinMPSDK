@@ -112,7 +112,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers
             //AsymmetricAlgorithm对象
             var key = x509.PublicKey.Key;
 
-            //RSAPKCS1SignatureDeformatter对象
+            //RSAPKCS1SignatureDeformatter 对象
             RSAPKCS1SignatureDeformatter df = new RSAPKCS1SignatureDeformatter(key);
             //指定 SHA256
             df.SetHashAlgorithm("SHA256");

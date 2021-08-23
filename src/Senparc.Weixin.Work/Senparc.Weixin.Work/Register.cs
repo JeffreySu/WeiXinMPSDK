@@ -38,12 +38,14 @@ namespace Senparc.Weixin.Work
         /// <param name="weixinCorpId">weixinCorpId</param>
         /// <param name="weixinCorpSecret">weixinCorpSecret</param>
         /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别</param>
+        /// <param name="getSuiteTicketFunc">根据服务商应用获取服务商ticket</param>
+        /// <param name="getSuiteByCorpPermanentCodeFunc">根据企业永久授权码获取关联的服务商应用和秘钥</param>
         /// <returns></returns>
         public static IRegisterService RegisterWorkAccount(this IRegisterService registerService, string weixinCorpId, string weixinCorpSecret, string name = null, 
             Func<string, Task<string>> getSuiteTicketFunc = null,
-            Func<string, Task<FuncGetIdSecretResult>> getPermanentCodeFunc = null)
+            Func<string, Task<FuncGetIdSecretResult>> getSuiteByCorpPermanentCodeFunc = null)
         {
-            ProviderTokenContainer.Register(weixinCorpId, weixinCorpSecret, getSuiteTicketFunc, getPermanentCodeFunc, name);
+            ProviderTokenContainer.Register(weixinCorpId, weixinCorpSecret, getSuiteTicketFunc, getSuiteByCorpPermanentCodeFunc, name);
             return registerService;
         }
 
@@ -53,17 +55,19 @@ namespace Senparc.Weixin.Work
         /// <param name="registerService">RegisterService</param>
         /// <param name="weixinSettingForWork">SenparcWeixinSetting</param>
         /// <param name="name">统一标识，如果为null，则使用 SenparcWeixinSetting.ItemKey </param>
+        /// <param name="getSuiteTicketFunc">根据服务商应用获取服务商ticket</param>
+        /// <param name="getSuiteByCorpPermanentCodeFunc">根据企业永久授权码获取关联的服务商应用和秘钥</param>
         /// <returns></returns>
         public static IRegisterService RegisterWorkAccount(this IRegisterService registerService, Weixin.Entities.ISenparcWeixinSettingForWork weixinSettingForWork,string name = null,
             Func<string, Task<string>> getSuiteTicketFunc = null,
-            Func<string, Task<FuncGetIdSecretResult>> getPermanentCodeFunc = null)
+            Func<string, Task<FuncGetIdSecretResult>> getSuiteByCorpPermanentCodeFunc = null)
         {
             //配置全局参数
             if (!string.IsNullOrWhiteSpace(name))
             {
                 Config.SenparcWeixinSetting[name] = new SenparcWeixinSettingItem(weixinSettingForWork);
             }
-            return RegisterWorkAccount(registerService, weixinSettingForWork.WeixinCorpId, weixinSettingForWork.WeixinCorpSecret, name ?? weixinSettingForWork.ItemKey, getSuiteTicketFunc, getPermanentCodeFunc);
+            return RegisterWorkAccount(registerService, weixinSettingForWork.WeixinCorpId, weixinSettingForWork.WeixinCorpSecret, name ?? weixinSettingForWork.ItemKey, getSuiteTicketFunc, getSuiteByCorpPermanentCodeFunc);
         }
         #region 设置 ApiHandlerWapper 处理方法
 
@@ -73,7 +77,7 @@ namespace Senparc.Weixin.Work
         /// <param name="registerService"></param>
         /// <param name="invalidCredentialReturnCodes">可进入重试的 API 错误代码</param>
         /// <returns></returns>
-        public static IRegisterService SetWork_InvalidCredentialValues(this IRegisterService registerService, IEnumerable<ReturnCode> invalidCredentialReturnCodes)
+        public static IRegisterService SetWork_InvalidCredentialValues(this IRegisterService registerService, IEnumerable<ReturnCode_Work> invalidCredentialReturnCodes)
         {
             ApiHandlerWapper.InvalidCredentialValues = invalidCredentialReturnCodes.Select(z => (int)z);
             return registerService;

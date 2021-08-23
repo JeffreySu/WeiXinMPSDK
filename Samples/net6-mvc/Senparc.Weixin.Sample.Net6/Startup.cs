@@ -36,6 +36,7 @@ using Senparc.Weixin.WxOpen.MessageHandlers.Middleware;//DPBMARK MiniProgram DPB
 using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Sample.NetCore3
 {
@@ -247,7 +248,13 @@ namespace Senparc.Weixin.Sample.NetCore3
                     #region 注册企业号（按需）           -- DPBMARK Work
 
                             //注册企业微信（可注册多个）
-                            .RegisterWorkAccount(senparcWeixinSetting.Value, "【盛派网络】企业微信")
+                            .RegisterWorkAccount(senparcWeixinSetting.Value, "【盛派网络】企业微信(或服务商)",
+                            getSuiteTicketFunc:suiteId => {
+                                return Task.FromResult("");
+                            },
+                            getSuiteByCorpPermanentCodeFunc: permanentCode => {
+                                return Task.FromResult(new Work.Entities.FuncGetIdSecretResult { CorpId = "", Secret = "" });
+                            })
 
                             //除此以外，仍然可以在程序任意地方注册企业微信：
                             //AccessTokenContainer.Register(corpId, corpSecret, name);//命名空间：Senparc.Weixin.Work.Containers
@@ -346,7 +353,7 @@ namespace Senparc.Weixin.Sample.NetCore3
 
                     #region 设置自定义 ApiHandlerWapper 参数（可选，一般不需要设置）  --DPBMARK MP
 
-                            .SetMP_InvalidCredentialValues(new[] { ReturnCode.获取access_token时AppSecret错误或者access_token无效 })
+                            .SetWork_InvalidCredentialValues(new[] { ReturnCode_Work.不合法的access_token, ReturnCode_Work.access_token过期, ReturnCode_Work.不合法的suitetoken })
                             //.SetMP_AccessTokenContainer_GetAccessTokenResultFunc((appId, getNewToken)=> { return xxx })
 
                     #endregion                                                          // DPBMARK_END

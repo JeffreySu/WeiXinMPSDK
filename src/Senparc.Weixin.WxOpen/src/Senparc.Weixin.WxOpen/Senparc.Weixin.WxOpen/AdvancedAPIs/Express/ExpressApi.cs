@@ -23,8 +23,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/delivery/getall?access_token={0}";
-                return CommonJsonSend.Send<GetAllImmeDeliveryJsonResult>(accessToken, urlFormat, null, timeOut: timeOut);
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/delivery/getall?access_token={0}";
+                var data = new { };
+                return CommonJsonSend.Send<GetAllImmeDeliveryJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -39,8 +40,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/shop/get?access_token={0}";
-                return CommonJsonSend.Send<GetBindAccountJsonResult>(accessToken, urlFormat, null, timeOut: timeOut);
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/shop/get?access_token={0}";
+                var data = new { };
+                return CommonJsonSend.Send<GetBindAccountJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -52,16 +54,16 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="delivery_id">配送公司ID</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult BindAccount(string accessTokenOrAppId, string delivery_id, int timeOut = Config.TIME_OUT)
+        public static ExpressJsonResult BindAccount(string accessTokenOrAppId, string delivery_id, int timeOut = Config.TIME_OUT)
         {
-            object data = new 
+            var data = new 
             {
                 delivery_id = delivery_id
             };
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/shop/add?access_token={0}";
-                return CommonJsonSend.Send(accessToken, urlFormat, data, timeOut: timeOut);
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/shop/add?access_token={0}";
+                return CommonJsonSend.Send<ExpressJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
 
@@ -71,12 +73,13 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult OpenDelivery(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        public static ExpressJsonResult OpenDelivery(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/open?access_token={0}";
-                return CommonJsonSend.Send(accessToken, urlFormat, null, timeOut: timeOut);
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/open?access_token={0}";
+                var data = new { };
+                return CommonJsonSend.Send<ExpressJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
 
@@ -91,7 +94,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/pre_add?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/pre_add?access_token={0}";
                 return CommonJsonSend.Send<PreAddOrderJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
@@ -107,7 +110,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/precancel?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/precancel?access_token={0}";
                 return CommonJsonSend.Send<PreCancelOrderJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
@@ -123,7 +126,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/add?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/add?access_token={0}";
                 return CommonJsonSend.Send<AddOrderJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
@@ -139,7 +142,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/cancel?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/cancel?access_token={0}";
                 return CommonJsonSend.Send<CancelOrderJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
@@ -155,7 +158,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/readd?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/readd?access_token={0}";
                 return CommonJsonSend.Send<ReOrderJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
@@ -171,7 +174,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/get?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/get?access_token={0}";
                 return CommonJsonSend.Send<GetOrderJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
@@ -183,12 +186,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="data">请求数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult AddTip(string accessTokenOrAppId, AddTipModel data, int timeOut = Config.TIME_OUT)
+        public static ExpressJsonResult AddTip(string accessTokenOrAppId, AddTipModel data, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/addtips?access_token={0}";
-                return CommonJsonSend.Send(accessToken, urlFormat, data, timeOut: timeOut);
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/addtips?access_token={0}";
+                return CommonJsonSend.Send<ExpressJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
 
@@ -199,12 +202,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="data">请求数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult AbnormalConfirm(string accessTokenOrAppId, AbnormalConfirmModel data, int timeOut = Config.TIME_OUT)
+        public static ExpressJsonResult AbnormalConfirm(string accessTokenOrAppId, AbnormalConfirmModel data, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/confirm_return?access_token={0}";
-                return CommonJsonSend.Send(accessToken, urlFormat, data, timeOut: timeOut);
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/confirm_return?access_token={0}";
+                return CommonJsonSend.Send<ExpressJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
 
@@ -215,12 +218,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="data">请求数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult RealMockUpdateOrder(string accessTokenOrAppId, RealMockUpdateOrderModel data, int timeOut = Config.TIME_OUT)
+        public static ExpressJsonResult RealMockUpdateOrder(string accessTokenOrAppId, RealMockUpdateOrderModel data, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/realmock_update_order?access_token={0}";
-                return CommonJsonSend.Send(accessToken, urlFormat, data, timeOut: timeOut);
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/realmock_update_order?access_token={0}";
+                return CommonJsonSend.Send<ExpressJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
 
@@ -231,12 +234,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="data">请求数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult MockUpdateOrder(string accessTokenOrAppId, RealMockUpdateOrderModel data, int timeOut = Config.TIME_OUT)
+        public static ExpressJsonResult MockUpdateOrder(string accessTokenOrAppId, RealMockUpdateOrderModel data, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/test_update_order?access_token={0}";
-                return CommonJsonSend.Send(accessToken, urlFormat, data, timeOut: timeOut);
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/test_update_order?access_token={0}";
+                return CommonJsonSend.Send<ExpressJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
         #endregion
@@ -252,8 +255,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/delivery/getall?access_token={0}";
-                return await CommonJsonSend.SendAsync<GetAllImmeDeliveryJsonResult>(accessToken, urlFormat, null, timeOut: timeOut);
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/delivery/getall?access_token={0}";
+                var data = new { };
+                return await CommonJsonSend.SendAsync<GetAllImmeDeliveryJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
@@ -268,8 +272,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/shop/get?access_token={0}";
-                return await CommonJsonSend.SendAsync<GetBindAccountJsonResult>(accessToken, urlFormat, null, timeOut: timeOut);
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/shop/get?access_token={0}";
+                var data = new { };
+                return await CommonJsonSend.SendAsync<GetBindAccountJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
@@ -281,16 +286,16 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="delivery_id">配送公司ID</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> BindAccountAsync(string accessTokenOrAppId, string delivery_id, int timeOut = Config.TIME_OUT)
+        public static async Task<ExpressJsonResult> BindAccountAsync(string accessTokenOrAppId, string delivery_id, int timeOut = Config.TIME_OUT)
         {
-            object data = new
+            var data = new
             {
                 delivery_id = delivery_id
             };
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/shop/add?access_token={0}";
-                return await CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut);
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/shop/add?access_token={0}";
+                return await CommonJsonSend.SendAsync<ExpressJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
@@ -300,12 +305,13 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> OpenDeliveryAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        public static async Task<ExpressJsonResult> OpenDeliveryAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/open?access_token={0}";
-                return await CommonJsonSend.SendAsync(accessToken, urlFormat, null, timeOut: timeOut);
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/open?access_token={0}";
+                var data = new { };
+                return await CommonJsonSend.SendAsync<ExpressJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
@@ -320,7 +326,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/pre_add?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/pre_add?access_token={0}";
                 return await CommonJsonSend.SendAsync<PreAddOrderJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
@@ -336,7 +342,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/precancel?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/precancel?access_token={0}";
                 return await CommonJsonSend.SendAsync<PreCancelOrderJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
@@ -352,7 +358,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/add?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/add?access_token={0}";
                 return await CommonJsonSend.SendAsync<AddOrderJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
@@ -368,7 +374,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/cancel?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/cancel?access_token={0}";
                 return await CommonJsonSend.SendAsync<CancelOrderJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
@@ -384,7 +390,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/readd?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/readd?access_token={0}";
                 return await CommonJsonSend.SendAsync<ReOrderJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
@@ -400,7 +406,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/get?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/get?access_token={0}";
                 return await CommonJsonSend.SendAsync<GetOrderJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
@@ -412,12 +418,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="data">请求数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> AddTipAsync(string accessTokenOrAppId, AddTipModel data, int timeOut = Config.TIME_OUT)
+        public static async Task<ExpressJsonResult> AddTipAsync(string accessTokenOrAppId, AddTipModel data, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/addtips?access_token={0}";
-                return await CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut);
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/addtips?access_token={0}";
+                return await CommonJsonSend.SendAsync<ExpressJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
@@ -428,12 +434,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="data">请求数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> AbnormalConfirmAsync(string accessTokenOrAppId, AbnormalConfirmModel data, int timeOut = Config.TIME_OUT)
+        public static async Task<ExpressJsonResult> AbnormalConfirmAsync(string accessTokenOrAppId, AbnormalConfirmModel data, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/confirm_return?access_token={0}";
-                return await CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut);
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/order/confirm_return?access_token={0}";
+                return await CommonJsonSend.SendAsync<ExpressJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
@@ -444,12 +450,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="data">请求数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> RealMockUpdateOrderAsync(string accessTokenOrAppId, RealMockUpdateOrderModel data, int timeOut = Config.TIME_OUT)
+        public static async Task<ExpressJsonResult> RealMockUpdateOrderAsync(string accessTokenOrAppId, RealMockUpdateOrderModel data, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/realmock_update_order?access_token={0}";
-                return await CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut);
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/realmock_update_order?access_token={0}";
+                return await CommonJsonSend.SendAsync<ExpressJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
@@ -460,12 +466,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="data">请求数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> MockUpdateOrderAsync(string accessTokenOrAppId, RealMockUpdateOrderModel data, int timeOut = Config.TIME_OUT)
+        public static async Task<ExpressJsonResult> MockUpdateOrderAsync(string accessTokenOrAppId, RealMockUpdateOrderModel data, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/test_update_order?access_token={0}";
-                return await CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut);
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/express/local/business/test_update_order?access_token={0}";
+                return await CommonJsonSend.SendAsync<ExpressJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
         #endregion

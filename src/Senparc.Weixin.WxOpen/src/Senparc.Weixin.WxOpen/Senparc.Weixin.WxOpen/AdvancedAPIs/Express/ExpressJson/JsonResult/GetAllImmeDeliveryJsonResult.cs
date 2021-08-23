@@ -6,7 +6,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Express
     /// <summary>
     /// 获取已支持的配送公司列表接口
     /// </summary>
-    public class GetAllImmeDeliveryJsonResult : WxJsonResult
+    public class GetAllImmeDeliveryJsonResult : ExpressJsonResult
     {
         /// <summary>
         /// 配送公司列表

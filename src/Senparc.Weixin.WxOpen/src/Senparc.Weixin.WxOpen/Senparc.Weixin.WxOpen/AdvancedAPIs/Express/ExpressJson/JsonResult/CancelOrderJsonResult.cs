@@ -5,7 +5,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Express
     /// <summary>
     /// 
     /// </summary>
-    public class CancelOrderJsonResult : WxJsonResult
+    public class CancelOrderJsonResult : ExpressJsonResult
     {
         /// <summary>
         /// 扣除的违约金(单位：元)，精确到分

@@ -6,7 +6,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Express
     /// <summary>
     /// 拉取已绑定账号
     /// </summary>
-    public class GetBindAccountJsonResult : WxJsonResult
+    public class GetBindAccountJsonResult : ExpressJsonResult
     {
         /// <summary>
         /// 绑定的商家签约账号列表

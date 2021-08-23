@@ -6,7 +6,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Express
     /// <summary>
     /// 
     /// </summary>
-    public class ReOrderJsonResult : WxJsonResult
+    public class ReOrderJsonResult : ExpressJsonResult
     {
         /// <summary>
         /// 实际运费(单位：元)，运费减去优惠券费用

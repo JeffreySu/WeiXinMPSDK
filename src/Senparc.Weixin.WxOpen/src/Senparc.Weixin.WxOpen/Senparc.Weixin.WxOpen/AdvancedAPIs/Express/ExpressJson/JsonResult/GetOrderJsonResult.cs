@@ -5,7 +5,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Express
     /// <summary>
     /// 
     /// </summary>
-    public class GetOrderJsonResult : WxJsonResult
+    public class GetOrderJsonResult : ExpressJsonResult
     {
         /// <summary>
         /// 配送状态

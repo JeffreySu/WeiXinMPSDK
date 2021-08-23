@@ -31,8 +31,8 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             var sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
                          TenPayV3Util.BuildRandomStr(6));
 
-            JsApiRequestData jsApiRequestData = new(new TenpayDateTime(DateTime.Now), new JsApiRequestData.Amount() { currency = "CNY", total = price },
-                    TenPayV3Info.MchId, name, TenPayV3Info.TenPayV3Notify, new JsApiRequestData.Payer() { openid = openId }, sp_billno, null, TenPayV3Info.AppId,
+            CreateStocksRequsetData jsApiRequestData = new(new TenpayDateTime(DateTime.Now), new CreateStocksRequsetData.Amount() { currency = "CNY", total = price },
+                    TenPayV3Info.MchId, name, TenPayV3Info.TenPayV3Notify, new CreateStocksRequsetData.Payer() { openid = openId }, sp_billno, null, TenPayV3Info.AppId,
                     null, null, null, null);
 
             BasePayApis basePayApis = new BasePayApis();

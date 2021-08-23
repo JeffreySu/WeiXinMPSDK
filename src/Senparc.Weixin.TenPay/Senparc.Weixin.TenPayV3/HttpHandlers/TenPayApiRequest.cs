@@ -37,7 +37,7 @@ using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Trace;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
+using Senparc.Weixin.TenPayV3.Apis.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
 using Senparc.Weixin.TenPayV3.HttpHandlers;
 using System;

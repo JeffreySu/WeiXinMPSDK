@@ -21,28 +21,25 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：AppReturnJson.cs
-    文件功能描述：App支付返回Json类
+    文件名：CreateStockRequsetData.cs
+    文件功能描述：创建代金券批次请求数据
     
     
-    创建标识：Senparc - 20210804
+    创建标识：Senparc - 20210832
     
 ----------------------------------------------------------------*/
+
+using Senparc.Weixin.TenPayV3.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.TenPayV3.Apis.Entities;
 
-namespace Senparc.Weixin.TenPayV3.Apis.BasePay
+namespace Senparc.Weixin.TenPayV3.Apis.Marketing
 {
-    public class AppReturnJson : ReturnJsonBase
+    public class CreateStockRequsetData
     {
-        /// <summary>
-        /// 预支付交易会话标识。用于后续接口调用中使用，该值有效期为2小时
-        /// 示例值：wx201410272009395522657a690389285100
-        /// </summary>
-        public string prepay_id { get; set; }
+
     }
 }

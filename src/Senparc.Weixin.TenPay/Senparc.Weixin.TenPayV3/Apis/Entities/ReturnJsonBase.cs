@@ -35,7 +35,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
+namespace Senparc.Weixin.TenPayV3.Apis.Entities
 {
     /// <summary>
     /// ReturnJson 的基类（预留）

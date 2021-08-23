@@ -35,9 +35,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.TenPayV3.Entities;
+using Senparc.Weixin.TenPayV3.Apis.Entities;
 
-namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
+namespace Senparc.Weixin.TenPayV3.Apis.BasePay
 {
     /// <summary>
     /// 微信支付V3退款返回Json

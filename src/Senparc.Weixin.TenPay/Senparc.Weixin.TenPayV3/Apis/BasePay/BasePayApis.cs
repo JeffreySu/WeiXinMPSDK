@@ -62,8 +62,9 @@ using System.Net.Http.Headers;
 using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.Trace;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.TenPayV3.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
+using Senparc.Weixin.TenPayV3.Entities;
+using Senparc.Weixin.TenPayV3.Apis.Entities;
 
 namespace Senparc.Weixin.TenPayV3.Apis
 {

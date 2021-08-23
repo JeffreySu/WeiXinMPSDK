@@ -36,7 +36,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.TenPayV3.Entities;
 
-namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
+namespace Senparc.Weixin.TenPayV3.Apis.Entities
 {
     /// <summary>
     /// 支付回调通知返回给微信的数据

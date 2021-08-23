@@ -34,9 +34,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.Weixin.TenPayV3.Apis.Entities;
 using Senparc.Weixin.TenPayV3.Entities;
 
-namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
+namespace Senparc.Weixin.TenPayV3.Apis.BasePay
 {
     public class CombineOrderReturnJson : ReturnJsonBase
     {

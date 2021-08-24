@@ -24,6 +24,7 @@ namespace Senparc.Weixin.TenPayV3.Test
 
         public BaseTenPayTest()
         {
+            //Senparc.Weixin.Config.UseSandBoxPay = true;
             RegisterStart();
         }
 

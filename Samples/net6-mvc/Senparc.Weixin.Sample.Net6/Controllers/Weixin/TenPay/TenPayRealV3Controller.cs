@@ -29,6 +29,7 @@ using Senparc.Weixin.TenPayV3;
 using Senparc.Weixin.TenPayV3.Apis;
 using Senparc.Weixin.TenPayV3.Apis.BasePay;
 using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
+using Senparc.Weixin.TenPayV3.Apis.Entities;
 using Senparc.Weixin.TenPayV3.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
 using System;
@@ -199,8 +200,8 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 var price = product == null ? 100 : (int)(product.Price * 100);//单位：分
 
                 //var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, HttpContext.UserHostAddress()?.ToString(), TenPayV3Info.TenPayV3Notify, TenPay.TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
-                CreateStocksRequsetData jsApiRequestData = new(new TenpayDateTime(DateTime.Now), new CreateStocksRequsetData.Amount() { currency = "CNY", total = price },
-                    TenPayV3Info.MchId, name, TenPayV3Info.TenPayV3Notify, new CreateStocksRequsetData.Payer() { openid = openId }, sp_billno, null, TenPayV3Info.AppId,
+                JsApiRequestData jsApiRequestData = new(new TenpayDateTime(DateTime.Now), new JsApiRequestData.Amount() { currency = "CNY", total = price },
+                    TenPayV3Info.MchId, name, TenPayV3Info.TenPayV3Notify, new JsApiRequestData.Payer() { openid = openId }, sp_billno, null, TenPayV3Info.AppId,
                     null, null, null, null);
 
                 //var result = TenPayOldV3.Unifiedorder(xmlDataInfo);//调用统一订单接口

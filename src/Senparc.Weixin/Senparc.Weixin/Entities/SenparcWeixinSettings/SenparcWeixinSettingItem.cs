@@ -52,7 +52,7 @@ namespace Senparc.Weixin.Entities
     /// <summary>
     /// Senparc.Weixin SDK 中单个公众号配置信息
     /// </summary>
-    public class SenparcWeixinSettingItem : ISenparcWeixinSettingForMP, ISenparcWeixinSettingForWxOpen, ISenparcWeixinSettingForWork, ISenparcWeixinSettingForOldTenpay,
+    public record class SenparcWeixinSettingItem : ISenparcWeixinSettingForMP, ISenparcWeixinSettingForWxOpen, ISenparcWeixinSettingForWork, ISenparcWeixinSettingForOldTenpay,
                                             ISenparcWeixinSettingForTenpayV3, ISenparcWeixinSettingForOpen, ISenparcWeixinSettingForExtension
     {
         /// <summary>

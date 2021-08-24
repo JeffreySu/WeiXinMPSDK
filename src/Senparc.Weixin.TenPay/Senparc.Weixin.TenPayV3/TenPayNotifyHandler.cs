@@ -123,7 +123,7 @@ namespace Senparc.Weixin.TenPayV3
             var wechatpayNonce = _httpContext.Request.Headers?["Wechatpay-Nonce"];
             var wechatpaySignature = _httpContext.Request.Headers?["Wechatpay-Signature"];
 
-            result.Signed = await TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, Body, this._tenpayV3Setting);
+            result.VerifySignSuccess = await TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, Body, this._tenpayV3Setting);
             result.ResultCode = null;
 
             return result;

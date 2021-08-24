@@ -18,6 +18,27 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
     [TestClass()]
     public class BasePayApisTests : BaseTenPayTest
     {
+
+        [TestMethod()]
+        public void CertificatesTest()
+        {
+            BasePayApis basePayApis = new BasePayApis();
+            var certs = basePayApis.CertificatesAsync().GetAwaiter().GetResult();
+            Assert.IsNotNull(certs);
+            Console.WriteLine(certs.ToJson(true));
+            Assert.IsTrue(certs.ResultCode.Success);
+            Assert.IsNull(certs.VerifySignSuccess);//不参与验证
+
+            Console.WriteLine();
+
+            var tenpayV3Setting = Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
+            var cert = certs.data.First();
+            var pubKey = ApiSecurityHelper.AesGcmDecryptCiphertext(tenpayV3Setting.TenPayV3_APIv3Key, cert.encrypt_certificate.nonce,
+                     cert.encrypt_certificate.associated_data, cert.encrypt_certificate.ciphertext);
+            Console.WriteLine(pubKey);
+            Assert.IsNotNull(pubKey);
+        }
+
         [TestMethod()]
         public void JsAPiAsyncTest()
         {
@@ -42,28 +63,9 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.ResultCode.Success);
-            Assert.IsTrue(result.Signed == true);//通过验证
+            Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
 
         }
 
-        [TestMethod()]
-        public void CertificatesTest()
-        {
-            BasePayApis basePayApis = new BasePayApis();
-            var certs = basePayApis.CertificatesAsync().GetAwaiter().GetResult();
-            Assert.IsNotNull(certs);
-            Console.WriteLine(certs.ToJson(true));
-            Assert.IsTrue(certs.ResultCode.Success);
-            Assert.IsNull(certs.Signed);//不参与验证
-
-            Console.WriteLine();
-
-            var tenpayV3Setting = Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
-            var cert = certs.data.First();
-            var pubKey = ApiSecurityHelper.AesGcmDecryptCiphertext(tenpayV3Setting.TenPayV3_APIv3Key, cert.encrypt_certificate.nonce,
-                     cert.encrypt_certificate.associated_data, cert.encrypt_certificate.ciphertext);
-            Console.WriteLine(pubKey);
-            Assert.IsNull(pubKey);
-        }
     }
 }

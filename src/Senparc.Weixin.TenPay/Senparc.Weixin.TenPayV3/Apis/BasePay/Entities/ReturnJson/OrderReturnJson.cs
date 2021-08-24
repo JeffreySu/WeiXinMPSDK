@@ -120,7 +120,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
         /// 支付完成时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE
         /// 示例值：2018-06-08T10:34:56+08:00
         /// </summary>
-        public TenpayDateTime success_time { get; set; }
+        public DateTime /*TenpayDateTime*/ success_time { get; set; }
 
         /// <summary>
         /// 支付者信息

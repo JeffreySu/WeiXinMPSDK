@@ -90,7 +90,7 @@ namespace Senparc.Weixin.TenPayV3
             {
                 using (var reader = new StreamReader(_httpContext.Request.Body))
                 {
-                    Body = reader.ReadToEnd();
+                    Body = reader.ReadToEndAsync().GetAwaiter().GetResult();
                     NotifyRequest = Body.GetObject<NotifyRequest>();
                 }
             }
@@ -119,8 +119,9 @@ namespace Senparc.Weixin.TenPayV3
             var wechatpayTimestamp = _httpContext.Request.Headers?["Wechatpay-Timestamp"];
             var wechatpayNonce = _httpContext.Request.Headers?["Wechatpay-Nonce"];
             var wechatpaySignature = _httpContext.Request.Headers?["Wechatpay-Signature"];
+            var wechatpaySerial = _httpContext.Request.Headers?["Wechatpay-Serial"];
 
-            result.VerifySignSuccess = await TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, Body, this._tenpayV3Setting);
+            result.VerifySignSuccess = await TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, Body, wechatpaySerial, this._tenpayV3Setting);
             result.ResultCode = null;
 
             return result;

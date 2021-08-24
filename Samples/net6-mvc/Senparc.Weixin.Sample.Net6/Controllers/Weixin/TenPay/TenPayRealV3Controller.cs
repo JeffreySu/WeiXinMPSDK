@@ -32,6 +32,7 @@ using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
 using Senparc.Weixin.TenPayV3.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
 using System;
+using System.Collections.Concurrent;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -64,6 +65,12 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         private readonly ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting;
 
         private readonly BasePayApis _basePayApis;
+
+        /// <summary>
+        /// trade_no 和 transaction_id 对照表
+        /// TODO：可以放入缓存，设置有效时间
+        /// </summary>
+        public static ConcurrentDictionary<string, string> TradeNumberToTransactionId = new ConcurrentDictionary<string, string>();
 
         public TenPayRealV3Controller()
         {
@@ -176,7 +183,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 //var openId = User.Identity.Name;
                 var openId = HttpContext.Session.GetString("OpenId");
 
-                string sp_billno = Request.Query["order_no"];
+                string sp_billno = Request.Query["order_no"];//out_trade_no
                 if (string.IsNullOrEmpty(sp_billno))
                 {
                     //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
@@ -240,22 +247,31 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             }
         }
 
+
         /// <summary>
         /// JS-SDK支付回调地址（在统一下单接口中设置notify_url）
+        /// TODO：使用异步方法
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> PayNotifyUrl()
+        public IActionResult PayNotifyUrl()
         {
             try
             {
+
                 //ResponseHandler resHandler = new ResponseHandler(HttpContext);
                 var resHandler = new TenPayNotifyHandler(HttpContext);
-                var orderReturnJson = await resHandler.AesGcmDecryptGetObjectAsync<OrderReturnJson>();
+                var orderReturnJson = resHandler.AesGcmDecryptGetObjectAsync<OrderReturnJson>().GetAwaiter().GetResult();
+
+                Senparc.Weixin.WeixinTrace.SendCustomLog("PayNotifyUrl 接收到消息", orderReturnJson.ToJson(true));
 
                 //string return_code = resHandler.GetParameter("return_code");
                 //string return_msg = resHandler.GetParameter("return_msg");
                 string trade_state = orderReturnJson.trade_state;
 
+                TradeNumberToTransactionId[orderReturnJson.out_trade_no] = orderReturnJson.transaction_id;
+
+
+                //orderReturnJson.transaction_id
                 string res = null;
 
                 //resHandler.SetKey(TenPayV3Info.Key);
@@ -357,8 +373,12 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 string nonceStr = TenPayV3Util.GetNoncestr();
 
                 string outTradeNo = HttpContext.Session.GetString("BillNo");
-
-                WeixinTrace.SendCustomLog("进入退款流程", "2 outTradeNo：" + outTradeNo);
+                if (!TradeNumberToTransactionId.TryGetValue(outTradeNo,out string transactionId))
+                {
+                    return Content("transactionId 不正确，可能是服务器还没有收到微信回调确认通知，退款失败。请稍后刷新再试。");
+                }
+                 
+                WeixinTrace.SendCustomLog("进入退款流程", "2 outTradeNo：" + outTradeNo+ ",transactionId："+ transactionId);
 
                 string outRefundNo = "OutRefunNo-" + SystemTime.Now.Ticks;
                 int totalFee = int.Parse(HttpContext.Session.GetString("BillFee"));
@@ -367,7 +387,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 var notifyUrl = "https://sdk.weixin.senparc.com/TenPayRealV3/RefundNotifyUrl";
                 //var dataInfo = new TenPayV3RefundRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, TenPayV3Info.Key,
                 //    null, nonceStr, null, outTradeNo, outRefundNo, totalFee, refundFee, opUserId, null, notifyUrl: notifyUrl);
-                var dataInfo = new RefundRequsetData(outTradeNo, outTradeNo, outRefundNo, "Senparc TenPayV3 demo退款测试", notifyUrl, null, new RefundRequsetData.Amount(refundFee, refundFee, "CNY", null));
+                var dataInfo = new RefundRequsetData(transactionId, outTradeNo, outRefundNo, "Senparc TenPayV3 demo退款测试", notifyUrl, null, new RefundRequsetData.Amount(refundFee, refundFee, "CNY", null));
 
 
                 //#region 新方法（Senparc.Weixin v6.4.4+）

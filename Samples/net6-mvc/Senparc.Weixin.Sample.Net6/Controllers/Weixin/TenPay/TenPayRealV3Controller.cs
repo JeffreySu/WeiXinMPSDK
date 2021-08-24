@@ -200,8 +200,11 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 var price = product == null ? 100 : (int)(product.Price * 100);//单位：分
 
                 //var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, HttpContext.UserHostAddress()?.ToString(), TenPayV3Info.TenPayV3Notify, TenPay.TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
-                JsApiRequestData jsApiRequestData = new(new TenpayDateTime(DateTime.Now), new JsApiRequestData.Amount() { currency = "CNY", total = price },
-                    TenPayV3Info.MchId, name, TenPayV3Info.TenPayV3Notify, new JsApiRequestData.Payer() { openid = openId }, sp_billno, null, TenPayV3Info.AppId,
+
+                var notifyUrl = TenPayV3Info.TenPayV3Notify.Replace("/TenpayV3/", "/TenpayRealV3/");
+
+                JsApiRequestData jsApiRequestData = new(new TenpayDateTime(DateTime.Now.AddHours(1), false), new JsApiRequestData.Amount() { currency = "CNY", total = price },
+                    TenPayV3Info.MchId, name, notifyUrl, new JsApiRequestData.Payer() { openid = openId }, sp_billno, null, TenPayV3Info.AppId,
                     null, null, null, null);
 
                 //var result = TenPayOldV3.Unifiedorder(xmlDataInfo);//调用统一订单接口

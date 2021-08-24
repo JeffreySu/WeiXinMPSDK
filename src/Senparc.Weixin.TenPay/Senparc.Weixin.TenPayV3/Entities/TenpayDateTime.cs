@@ -45,9 +45,12 @@ namespace Senparc.Weixin.TenPayV3.Entities
     //[Serializable]
     public class TenpayDateTime //: ISerializable
     {
-        public TenpayDateTime(DateTime dateTime)
+        private bool _keepMillionSeconds ;
+
+        public TenpayDateTime(DateTime dateTime, bool keepMillionSeconds = true)
         {
             DateTime = dateTime;
+            _keepMillionSeconds = keepMillionSeconds;
         }
         public DateTime DateTime { get; }
 
@@ -59,7 +62,7 @@ namespace Senparc.Weixin.TenPayV3.Entities
 
         public override string ToString()
         {
-            return DateTime.ToTenPayDateTime();
+            return DateTime.ToTenPayDateTime(_keepMillionSeconds);
         }
     }
 }

@@ -47,10 +47,11 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <para>文档：https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/wechatpay2_0.shtml</para>
         /// </summary>
         /// <param name="dateTime"></param>
+        /// <param name="keepMillionseconds">是否保留毫秒</param>
         /// <returns></returns>
-        public static string ToTenPayDateTime(this DateTime dateTime)
+        public static string ToTenPayDateTime(this DateTime dateTime, bool keepMillionseconds = true)
         {
-            return dateTime.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz");//).ToString("yyyy-MM-ddTHH:mm:fff");
+            return dateTime.ToString($"yyyy-MM-ddTHH:mm:ss{(keepMillionseconds ? ".fff" : "")}zzz");//).ToString("yyyy-MM-ddTHH:mm:fff");
         }
     }
 }

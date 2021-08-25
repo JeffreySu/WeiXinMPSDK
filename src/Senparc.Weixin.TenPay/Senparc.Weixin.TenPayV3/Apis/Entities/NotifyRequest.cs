@@ -55,7 +55,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Entities
         /// 通知创建的时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE
         /// 示例值：2015-05-20T13:29:35+08:00 
         /// </summary>
-        public TenpayDateTime create_time { get; set; }
+        public DateTime /*TenpayDateTime*/ create_time { get; set; }
 
         /// <summary>
         /// 通知类型

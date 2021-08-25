@@ -85,6 +85,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// 订单失效时间
         /// 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE
         /// 示例值：2018-06-08T10:34:56+08:00
+        /// <para>订单失效时间是针对订单号而言的，由于在请求支付的时候有一个必传参数prepay_id只有两小时的有效期，所以在重入时间超过2小时的时候需要重新请求下单接口获取新的prepay_id。其他详见时间规则 time_expire只能第一次下单传值，不允许二次修改，二次修改系统将报错。如用户支付失败后，需再次支付，需更换原订单号重新下单。</para>
         /// </summary>
         public string time_expire { get; set; }
 

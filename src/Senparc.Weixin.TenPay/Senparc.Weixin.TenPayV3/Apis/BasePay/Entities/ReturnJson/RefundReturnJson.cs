@@ -98,7 +98,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// 退款成功时间，当退款状态为退款成功时有返回。
         /// 示例值：2020-12-01T16:18:12+08:00
         /// </summary>
-        public string success_time { get; set; }
+        public DateTime success_time { get; set; }
 
         /// <summary>
         /// 退款创建时间	
@@ -140,7 +140,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <summary>
         /// 优惠退款信息
         /// </summary>
-        public Promotion_Detail promotion_detail { get; set; }
+        public Promotion_Detail[] promotion_detail { get; set; }
 
         /// <summary>
         /// 金额详细信息

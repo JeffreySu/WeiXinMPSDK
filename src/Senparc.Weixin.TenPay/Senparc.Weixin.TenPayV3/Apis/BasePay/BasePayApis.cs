@@ -96,6 +96,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         private static string ReurnPayApiUrl(string urlFormat)
         {
+            //注意：目前微信支付 V3 还没有支持沙箱，此处只是预留
             return string.Format(urlFormat, Senparc.Weixin.Config.UseSandBoxPay ? "sandboxnew/" : "");
         }
 

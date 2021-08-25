@@ -47,6 +47,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190606
     修改描述：v6.4.8 TryCommonApiBase<T> 中 T 参数添加 new() 约束
+
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -70,6 +72,15 @@ namespace Senparc.Weixin.MP
 
         internal static IEnumerable<int> InvalidCredentialValues = new[] { (int)ReturnCode.获取access_token时AppSecret错误或者access_token无效 };
         #region 同步方法
+
+        internal static Func<string> AccessTokenContainer_GetFirstOrDefaultAppIdFunc =
+                () => AccessTokenContainer.GetFirstOrDefaultAppId(PlatformType.MP);
+
+        internal static Func<string, bool> AccessTokenContainer_CheckRegisteredFunc =
+            appId => AccessTokenContainer.CheckRegistered(appId);
+
+        internal static Func<string, bool, IAccessTokenResult> AccessTokenContainer_GetAccessTokenResultFunc =
+            (appId, getNewToken) => AccessTokenContainer.GetAccessTokenResult(appId, getNewToken);
 
         /// <summary>
         /// 使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试。
@@ -214,8 +225,16 @@ namespace Senparc.Weixin.MP
 
         #endregion
 
-
         #region 异步方法
+
+        internal static Func<Task<string>> AccessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc =
+               async () => await AccessTokenContainer.GetFirstOrDefaultAppIdAsync(PlatformType.MP).ConfigureAwait(false);
+
+        internal static Func<string, Task<bool>> AccessTokenContainer_CheckRegisteredAsyncFunc =
+         async appId => await AccessTokenContainer.CheckRegisteredAsync(appId).ConfigureAwait(false);
+
+        internal static Func<string, bool, Task<IAccessTokenResult>> AccessTokenContainer_GetAccessTokenResultAsyncFunc =
+            (appId, getNewToken) => AccessTokenContainer.GetAccessTokenResultAsync(appId, getNewToken);
 
         /// <summary>
         /// 【异步方法】使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试。

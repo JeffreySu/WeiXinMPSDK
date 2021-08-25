@@ -3,6 +3,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.TenPayV3.Apis;
 using Senparc.Weixin.TenPayV3.Apis.BasePay;
+using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities.RequestData.Entities;
 using Senparc.Weixin.TenPayV3.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
 using Senparc.Weixin.TenPayV3.Test;
@@ -53,7 +54,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
                          TenPayV3Util.BuildRandomStr(6));
 
             //TODO: JsApiRequestData修改构造函数参数顺序
-            JsApiRequestData jsApiRequestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name, sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1)), null, TenPayV3Info.TenPayV3Notify, null, new JsApiRequestData.Amount { currency = "CNY", total = price }, new JsApiRequestData.Payer(openId), null, null, null);
+            TransactionsRequestData jsApiRequestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name, sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1)), null, TenPayV3Info.TenPayV3Notify, null, new Amount { currency = "CNY", total = price }, new Payer(openId), null, null, null);
 
             BasePayApis basePayApis = new BasePayApis();
             var result = basePayApis.JsApiAsync(jsApiRequestData).GetAwaiter().GetResult();

@@ -21,13 +21,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：Settle_Info.cs
-    文件功能描述：下单请求数据结算信息
+    文件名：H5_Info.cs
+    文件功能描述：下单请求H5场景信息
     
     
     创建标识：Senparc - 20210825
     
 ----------------------------------------------------------------*/
+
 
 using System;
 using System.Collections.Generic;
@@ -37,30 +38,64 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities.RequestData.Entities
 {
+
     /// <summary>
-    /// 结算信息
+    /// H5场景信息
     /// </summary>
-    public class Settle_Info
+    public class H5_Info
     {
         /// <summary>
         /// 含参构造函数
         /// </summary>
-        /// <param name="profit_sharing">是否指定分账，可为null</param>
-        public Settle_Info(bool profit_sharing)
+        /// <param name="type">场景类型</param>
+        /// <param name="app_name">应用名称，可为null</param>
+        /// <param name="app_url">应用URL，可为null</param>
+        /// <param name="bundle_id">iOS平台BundleID，可为null</param>
+        /// <param name="package_name">Android平台PackageName，可为null</param>
+        public H5_Info(string type, string app_name, string app_url, string bundle_id, string package_name)
         {
-            this.profit_sharing = profit_sharing;
+            this.type = type;
+            this.app_name = app_name;
+            this.app_url = app_url;
+            this.bundle_id = bundle_id;
+            this.package_name = package_name;
         }
 
         /// <summary>
         /// 无参构造函数
         /// </summary>
-        public Settle_Info()
+        public H5_Info()
         {
         }
 
         /// <summary>
-        /// 是否指定分账
+        /// 场景类型
+        /// 示例值：iOS, Android, Wap
         /// </summary>
-        public bool profit_sharing { get; set; }
+        public string type { get; set; }
+
+        /// <summary>
+        /// 应用名称
+        /// 示例值：王者荣耀
+        /// </summary>
+        public string app_name { get; set; }
+
+        /// <summary>
+        /// 网站URL
+        /// 示例值：https://pay.qq.com
+        /// </summary>
+        public string app_url { get; set; }
+
+        /// <summary>
+        /// iOS平台BundleID
+        /// 示例值：com.tencent.wzryiOS
+        /// </summary>
+        public string bundle_id { get; set; }
+
+        /// <summary>
+        /// Android平台PackageName
+        /// 示例值：com.tencent.tmgp.sgame
+        /// </summary>
+        public string package_name { get; set; }
     }
 }

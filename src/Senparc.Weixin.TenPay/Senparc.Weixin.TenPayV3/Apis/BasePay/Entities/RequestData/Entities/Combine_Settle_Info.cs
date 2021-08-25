@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：Settle_Info.cs
-    文件功能描述：下单请求数据结算信息
+    文件名：Combine_Settle_Info.cs
+    文件功能描述：下合单请求数据结算信息
     
     
     创建标识：Senparc - 20210825
@@ -40,27 +40,32 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities.RequestData.Entities
     /// <summary>
     /// 结算信息
     /// </summary>
-    public class Settle_Info
+    public class Combine_Settle_Info : Settle_Info
     {
         /// <summary>
         /// 含参构造函数
         /// </summary>
         /// <param name="profit_sharing">是否指定分账，可为null</param>
-        public Settle_Info(bool profit_sharing)
+        /// /// <param name="subsidy_amount">补差金额	，SettleInfo.profit_sharing为true时，该金额才生效，可为null</param>
+        public Combine_Settle_Info(bool profit_sharing, long subsidy_amount)
+            : base(profit_sharing)
         {
-            this.profit_sharing = profit_sharing;
+            this.subsidy_amount = subsidy_amount;
         }
 
         /// <summary>
         /// 无参构造函数
         /// </summary>
-        public Settle_Info()
+        public Combine_Settle_Info()
         {
         }
 
         /// <summary>
-        /// 是否指定分账
+        /// 补差金额
+        /// SettleInfo.profit_sharing为true时，该金额才生效。
+        /// 注意：单笔订单最高补差金额为5000元
+        /// 示例值：10
         /// </summary>
-        public bool profit_sharing { get; set; }
+        public long subsidy_amount { get; set; }
     }
 }

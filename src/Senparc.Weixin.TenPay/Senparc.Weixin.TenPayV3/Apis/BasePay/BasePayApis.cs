@@ -38,6 +38,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20210822
     修改描述：修改BasePayApis 此类型不再为静态类 使用ISenparcWeixinSettingForTenpayV3初始化实例
+
+    修改标识：Senparc - 20210825
+    修改描述：统一各支付方式请求类
     
 ----------------------------------------------------------------*/
 
@@ -156,7 +159,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<JsApiReturnJson> JsApiAsync(JsApiRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<JsApiReturnJson> JsApiAsync(TransactionsRequestData data, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/jsapi");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
@@ -171,7 +174,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<JsApiReturnJson> JsApiCombineAsync(JsApiCombineRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<JsApiReturnJson> JsApiCombineAsync(CombineTransactionsRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -194,7 +197,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<AppReturnJson> AppAsync(AppRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<AppReturnJson> AppAsync(TransactionsRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -217,7 +220,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<AppReturnJson> AppCombineAsync(AppCombineRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<AppReturnJson> AppCombineAsync(CombineTransactionsRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -240,7 +243,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<H5ReturnJson> H5Async(H5RequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<H5ReturnJson> H5Async(TransactionsRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -263,7 +266,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<H5ReturnJson> H5CombineAsync(H5CombineRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<H5ReturnJson> H5CombineAsync(CombineTransactionsRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -286,7 +289,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<NativeReturnJson> NativeAsync(NativeRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<NativeReturnJson> NativeAsync(TransactionsRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -309,7 +312,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<NativeReturnJson> NativeCombineAsync(NativeCombineRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<NativeReturnJson> NativeCombineAsync(CombineTransactionsRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {

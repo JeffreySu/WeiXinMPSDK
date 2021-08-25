@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：Settle_Info.cs
-    文件功能描述：下单请求数据结算信息
+    文件名：Amount.cs
+    文件功能描述：下单请求订单金额信息
     
     
     创建标识：Senparc - 20210825
@@ -38,29 +38,40 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities.RequestData.Entities
 {
     /// <summary>
-    /// 结算信息
+    /// 订单金额
     /// </summary>
-    public class Settle_Info
+    public class Amount
     {
         /// <summary>
         /// 含参构造函数
         /// </summary>
-        /// <param name="profit_sharing">是否指定分账，可为null</param>
-        public Settle_Info(bool profit_sharing)
+        /// <param name="total">订单总金额，单位为分</param>
+        /// <param name="currency">货币类型 CNY：人民币，境内商户号仅支持人民币，可为null</param>
+        public Amount(int total, string currency)
         {
-            this.profit_sharing = profit_sharing;
+            this.total = total;
+            this.currency = currency;
         }
 
         /// <summary>
         /// 无参构造函数
         /// </summary>
-        public Settle_Info()
+        public Amount()
         {
         }
 
         /// <summary>
-        /// 是否指定分账
+        /// 总金额
+        /// 订单总金额，单位为分。
+        /// 示例值：100 (1元)
         /// </summary>
-        public bool profit_sharing { get; set; }
+        public int total { get; set; }
+
+        /// <summary>
+        /// 货币类型
+        /// CNY：人民币，境内商户号仅支持人民币。
+        /// 示例值：CNY
+        /// </summary>
+        public string currency { get; set; }
     }
 }

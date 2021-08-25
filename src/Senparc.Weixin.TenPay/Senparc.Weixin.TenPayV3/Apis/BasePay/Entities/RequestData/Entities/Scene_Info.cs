@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：Settle_Info.cs
-    文件功能描述：下单请求数据结算信息
+    文件名：Scene_Info.cs
+    文件功能描述：下单请求数据场景信息
     
     
     创建标识：Senparc - 20210825
@@ -38,29 +38,54 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities.RequestData.Entities
 {
     /// <summary>
-    /// 结算信息
+    /// 场景信息
     /// </summary>
-    public class Settle_Info
+    public class Scene_Info
     {
         /// <summary>
         /// 含参构造函数
         /// </summary>
-        /// <param name="profit_sharing">是否指定分账，可为null</param>
-        public Settle_Info(bool profit_sharing)
+        /// <param name="payer_client_ip">用户终端IP</param>
+        /// <param name="device_id">商户端设备号，可为null</param>
+        /// <param name="store_info">商户门店信息，下单个订单可为null，下合单必须为null</param>
+        /// <param name="h5_info">H5场景信息，H5下单必填，其它支付方式必须为null</param>
+        public Scene_Info(string payer_client_ip, string device_id, Store_Info store_info, H5_Info h5_info = null)
         {
-            this.profit_sharing = profit_sharing;
+            this.store_info = store_info;
+            this.device_id = device_id;
+            this.payer_client_ip = payer_client_ip;
+            this.h5_info = h5_info;
         }
 
         /// <summary>
         /// 无参构造函数
         /// </summary>
-        public Settle_Info()
+        public Scene_Info()
         {
         }
 
         /// <summary>
-        /// 是否指定分账
+        /// 商户门店信息
         /// </summary>
-        public bool profit_sharing { get; set; }
+        public Store_Info store_info { get; set; }
+
+        /// <summary>
+        /// 商户端设备号
+        /// 商户端设备号（门店号或收银设备ID）。
+        /// 示例值：013467007045764
+        /// </summary>
+        public string device_id { get; set; }
+
+        /// <summary>
+        /// 用户终端IP
+        /// 用户的客户端IP，支持IPv4和IPv6两种格式的IP地址。
+        /// 示例值：14.23.150.211
+        /// </summary>
+        public string payer_client_ip { get; set; }
+
+        /// <summary>
+        /// H5场景信息
+        /// </summary>
+        public H5_Info h5_info { get; set; }
     }
 }

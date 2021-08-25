@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：Settle_Info.cs
-    文件功能描述：下单请求数据结算信息
+    文件名：Payer.cs
+    文件功能描述：下单请求支付者信息
     
     
     创建标识：Senparc - 20210825
@@ -37,30 +37,34 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities.RequestData.Entities
 {
+
     /// <summary>
-    /// 结算信息
+    /// 支付者信息
     /// </summary>
-    public class Settle_Info
+    public class Payer
     {
         /// <summary>
         /// 含参构造函数
         /// </summary>
-        /// <param name="profit_sharing">是否指定分账，可为null</param>
-        public Settle_Info(bool profit_sharing)
+        /// <param name="openid">用户在直连商户appid下的唯一标识</param>
+        public Payer(string openid)
         {
-            this.profit_sharing = profit_sharing;
+            this.openid = openid;
         }
 
         /// <summary>
         /// 无参构造函数
         /// </summary>
-        public Settle_Info()
+        public Payer()
         {
         }
 
         /// <summary>
-        /// 是否指定分账
+        /// 用户标识	
+        /// 用户在直连商户appid下的唯一标识
+        /// 示例值：oUpF8uMuAJO_M2pxb1Q9zNjWeS6o
         /// </summary>
-        public bool profit_sharing { get; set; }
+        public string openid { get; set; }
     }
 }
+

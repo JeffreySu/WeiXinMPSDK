@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：Settle_Info.cs
-    文件功能描述：下单请求数据结算信息
+    文件名：Store_Info.cs
+    文件功能描述：下单请求数据商户门店信息
     
     
     创建标识：Senparc - 20210825
@@ -38,29 +38,58 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities.RequestData.Entities
 {
     /// <summary>
-    /// 结算信息
+    /// 商户门店信息
     /// </summary>
-    public class Settle_Info
+    public class Store_Info
     {
         /// <summary>
         /// 含参构造函数
         /// </summary>
-        /// <param name="profit_sharing">是否指定分账，可为null</param>
-        public Settle_Info(bool profit_sharing)
+        /// <param name="id">商户侧门店编号</param>
+        /// <param name="name">商户侧门店名称，可为null</param>
+        /// <param name="area_code">地区编码，详细请见省市区编号对照表，可为null</param>
+        /// <param name="address">详细地址，可为null</param>
+        public Store_Info(string id, string name, string area_code, string address)
         {
-            this.profit_sharing = profit_sharing;
+            this.address = address;
+            this.area_code = area_code;
+            this.name = name;
+            this.id = id;
         }
 
         /// <summary>
         /// 无参构造函数
         /// </summary>
-        public Settle_Info()
+        public Store_Info()
         {
         }
 
         /// <summary>
-        /// 是否指定分账
+        /// 详细地址
+        /// 详细的商户门店地址
+        /// 示例值：广东省深圳市南山区科技中一道10000号
         /// </summary>
-        public bool profit_sharing { get; set; }
+        public string address { get; set; }
+
+        /// <summary>
+        /// 地区编码	
+        /// 地区编码，详细请见省市区编号对照表。
+        /// 示例值：440305
+        /// </summary>
+        public string area_code { get; set; }
+
+        /// <summary>
+        /// 门店名称
+        /// 商户侧门店名称
+        /// 示例值：腾讯大厦分店
+        /// </summary>
+        public string name { get; set; }
+
+        /// <summary>
+        /// 门店编号
+        /// 商户侧门店编号
+        /// 示例值：0001
+        /// </summary>
+        public string id { get; set; }
     }
 }

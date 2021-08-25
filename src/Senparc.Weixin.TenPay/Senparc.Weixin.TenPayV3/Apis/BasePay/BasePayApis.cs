@@ -120,7 +120,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// </summary>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public async Task<PublicKeyCollection> GetPublicKeysAsync(int timeOut = Config.TIME_OUT)
+        public async Task<PublicKeyCollection> GetPublicKeysAsync(/*int timeOut = Config.TIME_OUT*/)
         {
             var certificates = await CertificatesAsync();
             if (!certificates.ResultCode.Success)

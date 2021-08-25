@@ -52,9 +52,8 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             var sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
                          TenPayV3Util.BuildRandomStr(6));
 
-            JsApiRequestData jsApiRequestData = new(new TenpayDateTime(DateTime.Now.AddHours(1)), new JsApiRequestData.Amount() { currency = "CNY", total = price },
-                    TenPayV3Info.MchId, name, TenPayV3Info.TenPayV3Notify, new JsApiRequestData.Payer() { openid = openId }, sp_billno, null, TenPayV3Info.AppId,
-                    null, null, null, null);
+            //TODO: JsApiRequestData修改构造函数参数顺序
+            JsApiRequestData jsApiRequestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name, sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1)), null, TenPayV3Info.TenPayV3Notify, null, new JsApiRequestData.Amount { currency = "CNY", total = price }, new JsApiRequestData.Payer(openId), null, null, null);
 
             BasePayApis basePayApis = new BasePayApis();
             var result = basePayApis.JsApiAsync(jsApiRequestData).GetAwaiter().GetResult();
@@ -64,8 +63,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             Assert.IsNotNull(result);
             Assert.IsTrue(result.ResultCode.Success);
             Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
-
         }
-
     }
 }

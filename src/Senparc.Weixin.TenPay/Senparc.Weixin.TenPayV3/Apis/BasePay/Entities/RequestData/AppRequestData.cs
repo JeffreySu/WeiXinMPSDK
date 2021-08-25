@@ -50,14 +50,14 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <param name="mchid">直连商户的商户号，由微信支付生成并下发</param>
         /// <param name="description">商品描述 示例值：Image形象店-深圳腾大-QQ公仔</param>
         /// <param name="out_trade_no">商户系统内部订单号</param>
-        /// <param name="time_expire">订单失效时间 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE</param>
-        /// <param name="attach">附加数据，在查询API和支付通知中原样返回，可作为自定义参数使用</param>
+        /// <param name="time_expire">订单失效时间 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE，可为null</param>
+        /// <param name="attach">附加数据，在查询API和支付通知中原样返回，可作为自定义参数使用，可为null</param>
         /// <param name="notify_url">通知URL 必须为直接可访问的URL，不允许携带查询串，要求必须为https地址</param>
-        /// <param name="goods_tag">订单优惠标记 示例值：WXG</param>
+        /// <param name="goods_tag">订单优惠标记 示例值：WXG，可为null</param>
         /// <param name="amount">订单金额</param>
-        /// <param name="detail">优惠功能</param>
-        /// <param name="settle_info">结算信息</param>
-        /// <param name="scene_info">支付场景描述</param>
+        /// <param name="detail">优惠功能，可为null</param>
+        /// <param name="settle_info">结算信息，可为null</param>
+        /// <param name="scene_info">支付场景描述，可为null</param>
         public AppRequestData(string appid, string mchid, string description, string out_trade_no, TenpayDateTime time_expire, string attach, string notify_url, string goods_tag, Amount amount, Detail detail, Settle_Info settle_info, Scene_Info scene_info)
         {
             this.appid = appid;
@@ -73,6 +73,14 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             this.settle_info = settle_info;
             this.scene_info = scene_info;
         }
+
+        /// <summary>
+        /// 无参构造函数
+        /// </summary>
+        public AppRequestData()
+        {
+        }
+
         /// <summary>
         /// 应用ID
         /// 由微信生成的应用ID，全局唯一。请求基础下单接口时请注意APPID的应用属性，例如公众号场景下，需使用应用属性为公众号的APPID
@@ -138,7 +146,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// </summary>
         public Detail detail { get; set; }
 
-
         /// <summary>
         /// 结算信息
         /// </summary>
@@ -149,8 +156,30 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// </summary>
         public Scene_Info scene_info { get; set; }
 
+
+        /// <summary>
+        /// 订单金额
+        /// </summary>
         public class Amount
         {
+            /// <summary>
+            /// 构造函数
+            /// </summary>
+            /// <param name="total">订单总金额，单位为分</param>
+            /// <param name="currency">货币类型 CNY：人民币，境内商户号仅支持人民币，可为null</param>
+            public Amount(int total, string currency)
+            {
+                this.total = total;
+                this.currency = currency;
+            }
+
+            /// <summary>
+            /// 无参构造函数
+            /// </summary>
+            public Amount()
+            {
+            }
+
             /// <summary>
             /// 总金额
             /// 订单总金额，单位为分。
@@ -171,6 +200,27 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// </summary>
         public class Detail
         {
+            /// <summary>
+            /// 构造函数
+            /// </summary>
+            /// <param name="cost_price">订单原价，可为null</param>
+            /// <param name="invoice_id">商家小票ID，可为null</param>
+            /// <param name="goods_detail">单品列表 条目个数限制：[1，6000]，可为null</param>
+            public Detail(int cost_price, string invoice_id, Goods_Detail[] goods_detail)
+            {
+                this.invoice_id = invoice_id;
+                this.goods_detail = goods_detail;
+                this.cost_price = cost_price;
+            }
+
+            /// <summary>
+            /// 无参构造函数
+            /// </summary>
+            public Detail()
+            {
+            }
+
+
             /// <summary>
             /// 商家小票ID
             /// 示例值：微信123
@@ -199,11 +249,28 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         public class Goods_Detail
         {
             /// <summary>
-            /// 商品名称
-            /// 商品的实际名称
-            /// 示例值：iPhoneX 256G
+            /// 构造函数
             /// </summary>
-            public string goods_name { get; set; }
+            /// <param name="merchant_goods_id">商户侧商品编码</param>
+            /// <param name="wechatpay_goods_id">微信侧商品编码</param>
+            /// <param name="goods_name">商品名称</param>
+            /// <param name="quantity">商品数量</param>
+            /// <param name="unit_price">商品单价</param>
+            public Goods_Detail(string merchant_goods_id, string wechatpay_goods_id, string goods_name, int quantity, int unit_price)
+            {
+                this.merchant_goods_id = merchant_goods_id;
+                this.wechatpay_goods_id = wechatpay_goods_id;
+                this.goods_name = goods_name;
+                this.quantity = quantity;
+                this.unit_price = unit_price;
+            }
+
+            /// <summary>
+            /// 商户侧商品编码
+            /// 由半角的大小写字母、数字、中划线、下划线中的一种或几种组成。
+            /// 示例值：1246464644
+            /// </summary>
+            public string merchant_goods_id { get; set; }
 
             /// <summary>
             /// 微信侧商品编码
@@ -213,18 +280,18 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             public string wechatpay_goods_id { get; set; }
 
             /// <summary>
+            /// 商品名称
+            /// 商品的实际名称
+            /// 示例值：iPhoneX 256G
+            /// </summary>
+            public string goods_name { get; set; }
+
+            /// <summary>
             /// 商品数量
             /// 用户购买的数量
             /// 示例值：1
             /// </summary>
             public int quantity { get; set; }
-
-            /// <summary>
-            /// 商户侧商品编码
-            /// 由半角的大小写字母、数字、中划线、下划线中的一种或几种组成。
-            /// 示例值：1246464644
-            /// </summary>
-            public string merchant_goods_id { get; set; }
 
             /// <summary>
             /// 商品单价

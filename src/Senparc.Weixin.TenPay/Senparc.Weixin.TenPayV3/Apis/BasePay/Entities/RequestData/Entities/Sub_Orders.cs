@@ -64,6 +64,13 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities.RequestData.Entities
         }
 
         /// <summary>
+        /// 无参构造函数
+        /// </summary>
+        public Sub_Orders()
+        {
+        }
+
+        /// <summary>
         /// 子单商户号
         /// 子单发起方商户号即合单参与方商户号，必须与发起方appid有绑定关系。
         /// 示例值：1900000109

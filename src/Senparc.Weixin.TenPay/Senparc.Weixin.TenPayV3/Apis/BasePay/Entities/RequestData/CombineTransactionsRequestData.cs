@@ -53,7 +53,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <param name="time_start">订单生成时间 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE，可为null</param>
         /// <param name="time_expire">订单失效时间 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE，可为null</param>
         /// <param name="notify_url">通知URL 必须为直接可访问的URL，不允许携带查询串，要求必须为https地址。</param>
-        public CombineTransactionsRequestData(string combine_appid, string combine_mchid, string combine_out_trade_no, Scene_Info scene_info, Sub_Orders[] sub_orders, Combine_Payer_Info combine_payer_info, TenpayDateTime time_start, TenpayDateTime time_expire, string notify_url)
+        public CombineTransactionsRequestData(string combine_appid, string combine_mchid, string combine_out_trade_no, Scene_Info scene_info, Sub_Orders[] sub_orders, Payer combine_payer_info, TenpayDateTime time_start, TenpayDateTime time_expire, string notify_url)
         {
             this.combine_appid = combine_appid;
             this.combine_mchid = combine_mchid;

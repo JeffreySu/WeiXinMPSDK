@@ -240,8 +240,8 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// H5支付下单接口
         /// <para>在微信支付服务后台生成H5支付预支付交易单，返回预支付交易会话标识</para>
         /// </summary>
-        /// <param name="data">微信支付需要POST的Data数据</param>
-        /// <param name="timeOut">超时时间，单位为ms </param>
+        /// <param name="data">微信支付需要POST的Data数据 注意：H5下单scene_info参数必填</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
         public async Task<H5ReturnJson> H5Async(TransactionsRequestData data, int timeOut = Config.TIME_OUT)
         {
@@ -264,7 +264,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <para>在微信支付服务后台生成H5合单支付预支付交易单，返回预支付交易会话标识</para>
         /// </summary>
         /// <param name="data">微信支付需要POST的Data数据</param>
-        /// <param name="timeOut">超时时间，单位为ms </param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
         public async Task<H5ReturnJson> H5CombineAsync(CombineTransactionsRequestData data, int timeOut = Config.TIME_OUT)
         {

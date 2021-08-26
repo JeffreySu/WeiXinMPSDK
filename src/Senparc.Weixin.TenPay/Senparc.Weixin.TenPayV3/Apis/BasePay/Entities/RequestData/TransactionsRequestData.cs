@@ -57,7 +57,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <param name="payer">支付者，JSAPI下单必填，其它下单方式必须为null</param>
         /// <param name="detail">优惠功能，可为null</param>
         /// <param name="settle_info">结算信息，可为null</param>
-        /// <param name="scene_info">支付场景描述，可为null</param>
+        /// <param name="scene_info">支付场景描述，H5下单必填，其它支付方式可为null</param>
         public TransactionsRequestData(string appid, string mchid, string description,
             string out_trade_no, TenpayDateTime time_expire, string attach,
             string notify_url, string goods_tag, Amount amount, Payer payer = null,

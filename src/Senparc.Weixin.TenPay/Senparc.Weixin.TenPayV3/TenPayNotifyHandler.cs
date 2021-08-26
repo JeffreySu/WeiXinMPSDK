@@ -52,7 +52,10 @@ using Newtonsoft.Json;
 using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
+using Senparc.Weixin.TenPayV3.Entities;
+using Senparc.Weixin.TenPayV3.Apis.Entities;
 using System.Threading.Tasks;
+
 
 namespace Senparc.Weixin.TenPayV3
 {

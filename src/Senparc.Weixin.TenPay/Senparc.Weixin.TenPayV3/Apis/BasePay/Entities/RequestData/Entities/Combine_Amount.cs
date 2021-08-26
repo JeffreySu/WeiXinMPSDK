@@ -21,28 +21,57 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：AppReturnJson.cs
-    文件功能描述：App支付返回Json类
+    文件名：Combine_Amount.cs
+    文件功能描述：下合单请求订单金额信息
     
     
-    创建标识：Senparc - 20210804
+    创建标识：Senparc - 20210825
     
 ----------------------------------------------------------------*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.TenPayV3.Apis.Entities;
 
-namespace Senparc.Weixin.TenPayV3.Apis.BasePay
+namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities.RequestData.Entities
 {
-    public class AppReturnJson : ReturnJsonBase
+    /// <summary>
+    /// 订单金额
+    /// </summary>
+    public class Combine_Amount
     {
         /// <summary>
-        /// 预支付交易会话标识。用于后续接口调用中使用，该值有效期为2小时
-        /// 示例值：wx201410272009395522657a690389285100
+        /// 含参构造函数
         /// </summary>
-        public string prepay_id { get; set; }
+        /// <param name="total_amount">订单总金额，单位为分</param>
+        /// <param name="currency">货币类型 CNY：人民币，境内商户号仅支持人民币</param>
+        public Combine_Amount(int total_amount, string currency)
+        {
+            this.total_amount = total_amount;
+            this.currency = currency;
+        }
+
+        /// <summary>
+        /// 无参构造函数
+        /// </summary>
+        public Combine_Amount()
+        {
+        }
+
+        /// <summary>
+        /// 总金额
+        /// 订单总金额，单位为分。
+        /// 示例值：100 (1元)
+        /// </summary>
+        public int total_amount { get; set; }
+
+        /// <summary>
+        /// 货币类型
+        /// CNY：人民币，境内商户号仅支持人民币。
+        /// 示例值：CNY
+        /// </summary>
+        public string currency { get; set; }
     }
 }

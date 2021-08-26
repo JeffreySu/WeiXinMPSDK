@@ -21,35 +21,50 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：ReturnJsonBase.cs
-    文件功能描述：ReturnJson 的基类
+    文件名：Payer.cs
+    文件功能描述：下单请求支付者信息
     
     
-    创建标识：Senparc - 20210804
+    创建标识：Senparc - 20210825
     
 ----------------------------------------------------------------*/
-using Senparc.Weixin.TenPayV3.HttpHandlers;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
+namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities.RequestData.Entities
 {
+
     /// <summary>
-    /// ReturnJson 的基类（预留）
+    /// 支付者信息
     /// </summary>
-    public class ReturnJsonBase
+    public class Payer
     {
         /// <summary>
-        /// 回复状态码
+        /// 含参构造函数
         /// </summary>
-        public TenPayApiResultCode ResultCode { get; set; } = new TenPayApiResultCode();
+        /// <param name="openid">用户在直连商户appid下的唯一标识</param>
+        public Payer(string openid)
+        {
+            this.openid = openid;
+        }
 
         /// <summary>
-        /// 回复签名是否正确 在有错误的情况下，或不要求验证签名时 为null
+        /// 无参构造函数
         /// </summary>
-        public bool? VerifySignSuccess { get; set; } = null;
+        public Payer()
+        {
+        }
+
+        /// <summary>
+        /// 用户标识	
+        /// 用户在直连商户appid下的唯一标识
+        /// 示例值：oUpF8uMuAJO_M2pxb1Q9zNjWeS6o
+        /// </summary>
+        public string openid { get; set; }
     }
 }
+

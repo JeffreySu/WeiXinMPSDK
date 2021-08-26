@@ -21,11 +21,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：NotifyReturnData.cs
-    文件功能描述：支付回调通知返回给微信的数据
+    文件名：Amount.cs
+    文件功能描述：下单请求订单金额信息
     
     
-    创建标识：Senparc - 20210820
+    创建标识：Senparc - 20210825
     
 ----------------------------------------------------------------*/
 
@@ -34,37 +34,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.TenPayV3.Entities;
 
-namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities
+namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities.RequestData.Entities
 {
     /// <summary>
-    /// 支付回调通知返回给微信的数据
+    /// 订单金额
     /// </summary>
-    public class NotifyReturnData
+    public class Amount
     {
         /// <summary>
-        /// 构造函数
+        /// 含参构造函数
         /// </summary>
-        /// <param name="code">返回状态码 SUCCESS为清算机构接收成功，其他状态码为失败</param>
-        /// <param name="message">返回信息，如非空，为错误原因。</param>
-        public NotifyReturnData(string code, string message)
+        /// <param name="total">订单总金额，单位为分</param>
+        /// <param name="currency">货币类型 CNY：人民币，境内商户号仅支持人民币，可为null</param>
+        public Amount(int total, string currency)
         {
-            this.code = code;
-            this.message = message;
+            this.total = total;
+            this.currency = currency;
         }
 
         /// <summary>
-        /// 返回状态码
-        /// 错误码，SUCCESS为清算机构接收成功，其他错误码为失败。
-        /// 示例值：SUCCESS
+        /// 无参构造函数
         /// </summary>
-        public string code { get; set; }
+        public Amount()
+        {
+        }
 
         /// <summary>
-        /// 返回信息，如非空，为错误原因。
-        /// 示例值：系统错误
+        /// 总金额
+        /// 订单总金额，单位为分。
+        /// 示例值：100 (1元)
         /// </summary>
-        public string message {  get; set; }
+        public int total { get; set; }
+
+        /// <summary>
+        /// 货币类型
+        /// CNY：人民币，境内商户号仅支持人民币。
+        /// 示例值：CNY
+        /// </summary>
+        public string currency { get; set; }
     }
 }

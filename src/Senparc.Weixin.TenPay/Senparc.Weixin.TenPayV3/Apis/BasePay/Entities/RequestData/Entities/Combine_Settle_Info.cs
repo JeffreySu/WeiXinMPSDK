@@ -21,28 +21,51 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：AppReturnJson.cs
-    文件功能描述：App支付返回Json类
+    文件名：Combine_Settle_Info.cs
+    文件功能描述：下合单请求数据结算信息
     
     
-    创建标识：Senparc - 20210804
+    创建标识：Senparc - 20210825
     
 ----------------------------------------------------------------*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.TenPayV3.Apis.Entities;
 
-namespace Senparc.Weixin.TenPayV3.Apis.BasePay
+namespace Senparc.Weixin.TenPayV3.Apis.BasePay.Entities.RequestData.Entities
 {
-    public class AppReturnJson : ReturnJsonBase
+    /// <summary>
+    /// 结算信息
+    /// </summary>
+    public class Combine_Settle_Info : Settle_Info
     {
         /// <summary>
-        /// 预支付交易会话标识。用于后续接口调用中使用，该值有效期为2小时
-        /// 示例值：wx201410272009395522657a690389285100
+        /// 含参构造函数
         /// </summary>
-        public string prepay_id { get; set; }
+        /// <param name="profit_sharing">是否指定分账，可为null</param>
+        /// /// <param name="subsidy_amount">补差金额	，SettleInfo.profit_sharing为true时，该金额才生效，可为null</param>
+        public Combine_Settle_Info(bool profit_sharing, long subsidy_amount)
+            : base(profit_sharing)
+        {
+            this.subsidy_amount = subsidy_amount;
+        }
+
+        /// <summary>
+        /// 无参构造函数
+        /// </summary>
+        public Combine_Settle_Info()
+        {
+        }
+
+        /// <summary>
+        /// 补差金额
+        /// SettleInfo.profit_sharing为true时，该金额才生效。
+        /// 注意：单笔订单最高补差金额为5000元
+        /// 示例值：10
+        /// </summary>
+        public long subsidy_amount { get; set; }
     }
 }

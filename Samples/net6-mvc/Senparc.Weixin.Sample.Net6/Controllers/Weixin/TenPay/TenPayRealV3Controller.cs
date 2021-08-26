@@ -29,6 +29,8 @@ using Senparc.Weixin.TenPayV3;
 using Senparc.Weixin.TenPayV3.Apis;
 using Senparc.Weixin.TenPayV3.Apis.BasePay;
 using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
+using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities.RequestData.Entities;
+using Senparc.Weixin.TenPayV3.Apis.Entities;
 using Senparc.Weixin.TenPayV3.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
 using System;
@@ -209,9 +211,8 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
 
                 var notifyUrl = TenPayV3Info.TenPayV3Notify.Replace("/TenpayV3/", "/TenpayRealV3/");
 
-                JsApiRequestData jsApiRequestData = new(new TenpayDateTime(DateTime.Now.AddHours(1), false), new JsApiRequestData.Amount() { currency = "CNY", total = price },
-                    TenPayV3Info.MchId, name, notifyUrl, new JsApiRequestData.Payer() { openid = openId }, sp_billno, null, TenPayV3Info.AppId,
-                    null, null, null, null);
+                //TODO: JsApiRequestData修改构造函数参数顺序
+                TransactionsRequestData jsApiRequestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name, sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1), false), null, notifyUrl, null, new Amount { currency = "CNY", total = price }, new Payer(openId), null, null, null);
 
                 //var result = TenPayOldV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
                 //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
@@ -373,12 +374,12 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 string nonceStr = TenPayV3Util.GetNoncestr();
 
                 string outTradeNo = HttpContext.Session.GetString("BillNo");
-                if (!TradeNumberToTransactionId.TryGetValue(outTradeNo,out string transactionId))
+                if (!TradeNumberToTransactionId.TryGetValue(outTradeNo, out string transactionId))
                 {
                     return Content("transactionId 不正确，可能是服务器还没有收到微信回调确认通知，退款失败。请稍后刷新再试。");
                 }
-                 
-                WeixinTrace.SendCustomLog("进入退款流程", "2 outTradeNo：" + outTradeNo+ ",transactionId："+ transactionId);
+
+                WeixinTrace.SendCustomLog("进入退款流程", "2 outTradeNo：" + outTradeNo + ",transactionId：" + transactionId);
 
                 string outRefundNo = "OutRefunNo-" + SystemTime.Now.Ticks;
                 int totalFee = int.Parse(HttpContext.Session.GetString("BillFee"));

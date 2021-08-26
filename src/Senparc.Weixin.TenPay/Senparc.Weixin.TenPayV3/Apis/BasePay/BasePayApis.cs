@@ -38,6 +38,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20210822
     修改描述：修改BasePayApis 此类型不再为静态类 使用ISenparcWeixinSettingForTenpayV3初始化实例
+
+    修改标识：Senparc - 20210825
+    修改描述：统一各支付方式请求类
     
 ----------------------------------------------------------------*/
 
@@ -62,8 +65,9 @@ using System.Net.Http.Headers;
 using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.Trace;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.TenPayV3.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
+using Senparc.Weixin.TenPayV3.Entities;
+using Senparc.Weixin.TenPayV3.Apis.Entities;
 
 namespace Senparc.Weixin.TenPayV3.Apis
 {
@@ -155,7 +159,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<JsApiReturnJson> JsApiAsync(JsApiRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<JsApiReturnJson> JsApiAsync(TransactionsRequestData data, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/jsapi");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
@@ -170,7 +174,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<JsApiReturnJson> JsApiCombineAsync(JsApiCombineRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<JsApiReturnJson> JsApiCombineAsync(CombineTransactionsRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -193,7 +197,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<AppReturnJson> AppAsync(AppRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<AppReturnJson> AppAsync(TransactionsRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -216,7 +220,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<AppReturnJson> AppCombineAsync(AppCombineRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<AppReturnJson> AppCombineAsync(CombineTransactionsRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -236,10 +240,10 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// H5支付下单接口
         /// <para>在微信支付服务后台生成H5支付预支付交易单，返回预支付交易会话标识</para>
         /// </summary>
-        /// <param name="data">微信支付需要POST的Data数据</param>
-        /// <param name="timeOut">超时时间，单位为ms </param>
+        /// <param name="data">微信支付需要POST的Data数据 注意：H5下单scene_info参数必填</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<H5ReturnJson> H5Async(H5RequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<H5ReturnJson> H5Async(TransactionsRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -260,9 +264,9 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <para>在微信支付服务后台生成H5合单支付预支付交易单，返回预支付交易会话标识</para>
         /// </summary>
         /// <param name="data">微信支付需要POST的Data数据</param>
-        /// <param name="timeOut">超时时间，单位为ms </param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<H5ReturnJson> H5CombineAsync(H5CombineRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<H5ReturnJson> H5CombineAsync(CombineTransactionsRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -285,7 +289,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<NativeReturnJson> NativeAsync(NativeRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<NativeReturnJson> NativeAsync(TransactionsRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -308,7 +312,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<NativeReturnJson> NativeCombineAsync(NativeCombineRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<NativeReturnJson> NativeCombineAsync(CombineTransactionsRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
             {

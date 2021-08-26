@@ -21,28 +21,50 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：AppReturnJson.cs
-    文件功能描述：App支付返回Json类
+    文件名：NotifyReturnData.cs
+    文件功能描述：支付回调通知返回给微信的数据
     
     
-    创建标识：Senparc - 20210804
+    创建标识：Senparc - 20210820
     
 ----------------------------------------------------------------*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.TenPayV3.Apis.Entities;
+using Senparc.Weixin.TenPayV3.Entities;
 
-namespace Senparc.Weixin.TenPayV3.Apis.BasePay
+namespace Senparc.Weixin.TenPayV3.Apis.Entities
 {
-    public class AppReturnJson : ReturnJsonBase
+    /// <summary>
+    /// 支付回调通知返回给微信的数据
+    /// </summary>
+    public class NotifyReturnData
     {
         /// <summary>
-        /// 预支付交易会话标识。用于后续接口调用中使用，该值有效期为2小时
-        /// 示例值：wx201410272009395522657a690389285100
+        /// 构造函数
         /// </summary>
-        public string prepay_id { get; set; }
+        /// <param name="code">返回状态码 SUCCESS为清算机构接收成功，其他状态码为失败</param>
+        /// <param name="message">返回信息，如非空，为错误原因。</param>
+        public NotifyReturnData(string code, string message)
+        {
+            this.code = code;
+            this.message = message;
+        }
+
+        /// <summary>
+        /// 返回状态码
+        /// 错误码，SUCCESS为清算机构接收成功，其他错误码为失败。
+        /// 示例值：SUCCESS
+        /// </summary>
+        public string code { get; set; }
+
+        /// <summary>
+        /// 返回信息，如非空，为错误原因。
+        /// 示例值：系统错误
+        /// </summary>
+        public string message {  get; set; }
     }
 }

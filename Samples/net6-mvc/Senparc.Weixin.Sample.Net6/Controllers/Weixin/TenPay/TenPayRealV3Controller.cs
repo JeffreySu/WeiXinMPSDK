@@ -29,7 +29,6 @@ using Senparc.Weixin.TenPayV3;
 using Senparc.Weixin.TenPayV3.Apis;
 using Senparc.Weixin.TenPayV3.Apis.BasePay;
 using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
-using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities.RequestData.Entities;
 using Senparc.Weixin.TenPayV3.Apis.Entities;
 using Senparc.Weixin.TenPayV3.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
@@ -212,7 +211,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 var notifyUrl = TenPayV3Info.TenPayV3Notify.Replace("/TenpayV3/", "/TenpayRealV3/");
 
                 //TODO: JsApiRequestData修改构造函数参数顺序
-                TransactionsRequestData jsApiRequestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name, sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1), false), null, notifyUrl, null, new Amount { currency = "CNY", total = price }, new Payer(openId), null, null, null);
+                TransactionsRequestData jsApiRequestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name, sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1), false), null, notifyUrl, null, new() { currency = "CNY", total = price }, new(openId), null, null, null);
 
                 //var result = TenPayOldV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
                 //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);

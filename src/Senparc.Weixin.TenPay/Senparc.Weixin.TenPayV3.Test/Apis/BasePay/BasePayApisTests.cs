@@ -306,7 +306,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
         }
 
-        [TestMethod()]
+        //[TestMethod()]
         public void CloseOrderAsyncTest()
         {
             var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
@@ -344,7 +344,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
         }
 
-        [TestMethod()]
+        //[TestMethod()]
         public void CloseCombineOrderAsyncTest()
         {
             var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
@@ -380,7 +380,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
         #region 退款操作接口
 
-        [TestMethod()]
+        //[TestMethod()]
         public void RefundAsyncTest()
         {
             var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);

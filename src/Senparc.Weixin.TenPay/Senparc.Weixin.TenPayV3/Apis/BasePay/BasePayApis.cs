@@ -527,7 +527,6 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// 申请资金账单接口
         /// 获得微信支付按天提供的微信支付账户资金流水账单文件
         /// </summary>
-        /// <param name="signature">请求签名</param>
         /// <param name="bill_date">账单日期 格式YYYY-MM-DD 仅支持三个月内的账单下载申请</param>
         /// <param name="account_type">不填则默认是BASIC 枚举值：BASIC：基本账户 OPERATION：运营账户 FEES：手续费账户</param>
         /// <param name="tar_type"> 不填则默认是数据流 枚举值：GZIP：返回格式为.gzip的压缩包账单</param>

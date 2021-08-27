@@ -486,7 +486,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
                 /// <summary>
                 /// 含参构造函数
                 /// </summary>
-                /// <param name="type">场景类型</param>
+                /// <param name="type">场景类型 枚举值: iOS, Android, Wap</param>
                 /// <param name="app_name">应用名称，可为null</param>
                 /// <param name="app_url">应用URL，可为null</param>
                 /// <param name="bundle_id">iOS平台BundleID，可为null</param>

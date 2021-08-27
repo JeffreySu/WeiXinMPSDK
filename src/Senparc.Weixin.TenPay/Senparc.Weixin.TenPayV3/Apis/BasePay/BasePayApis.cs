@@ -329,6 +329,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         #endregion
 
         #region 订单操作接口
+
         // TODO: 待测试
         /// <summary>
         /// 微信支付订单号查询
@@ -386,7 +387,6 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-
                 var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/v3/{{0}}combine-transactions/out-trade-no/{combine_out_trade_no}");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<CombineOrderReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
@@ -445,7 +445,8 @@ namespace Senparc.Weixin.TenPayV3.Apis
         }
         #endregion
 
-        #region 退款相关接口
+        #region 退款操作接口
+
         // TODO: 待测试
         /// <summary>
         /// 申请退款接口
@@ -492,6 +493,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         #endregion
 
         #region 交易账单接口
+
         // TODO: 待测试
         /// <summary>
         /// 申请交易账单接口
@@ -499,7 +501,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// </summary>
         /// <param name="bill_date">账单日期 格式YYYY-MM-DD 仅支持三个月内的账单下载申请</param>
         /// <param name="bill_type">填则默认是ALL 枚举值：ALL：返回当日所有订单信息（不含充值退款订单）SUCCESS：返回当日成功支付的订单（不含充值退款订单）REFUND：返回当日退款订单（不含充值退款订单</param>
-        /// <param name="tar_type"> 不填则默认是数据流 枚举值：GZIP：返回格式为.gzip的压缩包账单</param>
+        /// <param name="tar_type">不填则默认是数据流 枚举值：GZIP：返回格式为.gzip的压缩包账单</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
         public async Task<BillReturnJson> TradeBillQueryAsync(string bill_date, string bill_type = "ALL", string tar_type = null, int timeOut = Config.TIME_OUT)
@@ -525,7 +527,6 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// 申请资金账单接口
         /// 获得微信支付按天提供的微信支付账户资金流水账单文件
         /// </summary>
-        /// <param name="signature">请求签名</param>
         /// <param name="bill_date">账单日期 格式YYYY-MM-DD 仅支持三个月内的账单下载申请</param>
         /// <param name="account_type">不填则默认是BASIC 枚举值：BASIC：基本账户 OPERATION：运营账户 FEES：手续费账户</param>
         /// <param name="tar_type"> 不填则默认是数据流 枚举值：GZIP：返回格式为.gzip的压缩包账单</param>

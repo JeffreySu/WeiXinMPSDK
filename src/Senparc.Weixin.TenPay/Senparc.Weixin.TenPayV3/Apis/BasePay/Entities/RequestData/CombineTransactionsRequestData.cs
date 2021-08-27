@@ -52,7 +52,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <param name="time_start">订单生成时间 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE，可为null</param>
         /// <param name="time_expire">订单失效时间 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE，可为null</param>
         /// <param name="notify_url">通知URL 必须为直接可访问的URL，不允许携带查询串，要求必须为https地址。</param>
-        public CombineTransactionsRequestData(string combine_appid, string combine_mchid, string combine_out_trade_no, Scene_Info scene_info, Sub_Orders[] sub_orders, Combine_Payer_Info combine_payer_info, TenpayDateTime time_start, TenpayDateTime time_expire, string notify_url)
+        public CombineTransactionsRequestData(string combine_appid, string combine_mchid, string combine_out_trade_no, Scene_Info scene_info, Sub_Order[] sub_orders, Combine_Payer_Info combine_payer_info, TenpayDateTime time_start, TenpayDateTime time_expire, string notify_url)
         {
             this.combine_appid = combine_appid;
             this.combine_mchid = combine_mchid;
@@ -92,10 +92,10 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         public Scene_Info scene_info { get; set; }
 
         /// <summary>
-        /// 子单信息
+        /// 子单信息数组
         /// 最多支持子单条数：10
         /// </summary>
-        public Sub_Orders[] sub_orders { get; set; }
+        public Sub_Order[] sub_orders { get; set; }
 
         /// <summary>
         /// 支付者信息
@@ -237,7 +237,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <summary>
         /// 子单信息
         /// </summary>
-        public class Sub_Orders
+        public class Sub_Order
         {
             /// <summary>
             /// 含参构造函数
@@ -249,7 +249,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             /// <param name="goods_tag">订单优惠标记，可为null</param>
             /// <param name="description">商品描述</param>
             /// <param name="settle_info">结算信息，可为null</param>
-            public Sub_Orders(string mchid, string attach, Amount amount, string out_trade_no, string goods_tag, string description, Settle_Info settle_info)
+            public Sub_Order(string mchid, string attach, Amount amount, string out_trade_no, string goods_tag, string description, Settle_Info settle_info)
             {
                 this.mchid = mchid;
                 this.attach = attach;
@@ -263,7 +263,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             /// <summary>
             /// 无参构造函数
             /// </summary>
-            public Sub_Orders()
+            public Sub_Order()
             {
             }
 

@@ -65,10 +65,10 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         public Scene_Info scene_info { get; set; }
 
         /// <summary>
-        /// 子单信息
+        /// 子单信息数组
         /// 最多支持子单条数：10
         /// </summary>
-        public Sub_Orders[] sub_orders { get; set; }
+        public Sub_Order[] sub_orders { get; set; }
 
         /// <summary>
         /// 支付者信息
@@ -104,7 +104,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <summary>
         /// 子单信息
         /// </summary>
-        public class Sub_Orders
+        public class Sub_Order
         {
             /// <summary>
             /// 子单商户号

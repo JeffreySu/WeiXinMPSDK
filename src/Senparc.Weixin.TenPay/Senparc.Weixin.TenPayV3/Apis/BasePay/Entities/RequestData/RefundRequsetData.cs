@@ -46,16 +46,18 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <summary>
         /// 含参构造函数
         /// </summary>
-        /// <param name="transaction_id">原支付交易对应的微信订单号</param>
+        /// <param name="transaction_id">原支付交易对应的微信订单号,transaction_id与out_trade_no二选一传入</param>
+        /// <param name="out_trade_no">微信支付订单号,transaction_id与out_trade_no二选一传入</param>
         /// <param name="out_refund_no">商户系统内部的退款单号，商户系统内部唯一</param>
         /// <param name="reason">若商户传入，会在下发给用户的退款消息中体现退款原因，可为null</param>
         /// <param name="notify_url">异步接收微信支付退款结果通知的回调地址，通知url必须为外网可访问的url，不能携带参数。 如果参数中传了notify_url，则商户平台上配置的回调地址将不会生效，优先回调当前传的这个地址，可为null</param>
         /// <param name="funds_account">退款资金来源 若传递此参数则使用对应的资金账户退款，否则默认使用未结算资金退款（仅对老资金流商户适用），可为null</param>
         /// <param name="amount">订单金额信息</param>
         /// <param name="goods_detail">退款商品，可为null</param>
-        public RefundRequsetData(string transaction_id, string out_refund_no, string reason, string notify_url, string funds_account, Amount amount, Goods_Detail[] goods_detail)
+        public RefundRequsetData(string transaction_id, string out_trade_no, string out_refund_no, string reason, string notify_url, string funds_account, Amount amount, Goods_Detail[] goods_detail)
         {
             this.transaction_id = transaction_id;
+            this.out_trade_no = out_trade_no;
             this.out_refund_no = out_refund_no;
             this.reason = reason;
             this.notify_url = notify_url;
@@ -77,6 +79,14 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// 示例值：1217752501201407033233368018
         /// </summary>
         public string transaction_id { get; set; }
+
+
+        /// <summary>
+        /// 商户订单号
+        /// 原支付交易对应的商户订单号
+        /// 示例值：1217752501201407033233368018
+        /// </summary>
+        public string out_trade_no { get; set; }
 
         /// <summary>
         /// 商户退款单号

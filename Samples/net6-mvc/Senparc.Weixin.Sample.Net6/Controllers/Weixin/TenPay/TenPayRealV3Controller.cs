@@ -387,7 +387,8 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 var notifyUrl = "https://sdk.weixin.senparc.com/TenPayRealV3/RefundNotifyUrl";
                 //var dataInfo = new TenPayV3RefundRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, TenPayV3Info.Key,
                 //    null, nonceStr, null, outTradeNo, outRefundNo, totalFee, refundFee, opUserId, null, notifyUrl: notifyUrl);
-                var dataInfo = new RefundRequsetData(transactionId, outTradeNo, outRefundNo, "Senparc TenPayV3 demo退款测试", notifyUrl, null, new RefundRequsetData.Amount(refundFee, refundFee, "CNY", null));
+                //TODO:该接口参数二选一传入
+                var dataInfo = new RefundRequsetData(transactionId, null, outRefundNo, "Senparc TenPayV3 demo退款测试", notifyUrl, null, new RefundRequsetData.Amount(refundFee, null, refundFee, "CNY"), null);
 
 
                 //#region 新方法（Senparc.Weixin v6.4.4+）

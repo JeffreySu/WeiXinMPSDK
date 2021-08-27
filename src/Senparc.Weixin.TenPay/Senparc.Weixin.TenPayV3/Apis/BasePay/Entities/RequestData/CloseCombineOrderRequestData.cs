@@ -48,7 +48,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// </summary>
         /// <param name="combine_appid">合单发起方的appid</param>
         /// <param name="sub_orders">子单信息 最多支持子单条数：10</param>
-        public CloseCombineOrderRequestData(string combine_appid, Sub_Orders[] sub_orders)
+        public CloseCombineOrderRequestData(string combine_appid, Sub_Order[] sub_orders)
         {
             this.combine_appid = combine_appid;
             this.sub_orders = sub_orders;
@@ -62,27 +62,34 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         public string combine_appid { get; set; }
 
         /// <summary>
-        /// 子单信息
+        /// 子单信息数组
         /// 最多支持子单条数：10
         /// </summary>
-        public Sub_Orders[] sub_orders { get; set; }
+        public Sub_Order[] sub_orders { get; set; }
 
         #region 请求数据类型
 
         /// <summary>
         /// 子单信息
         /// </summary>
-        public class Sub_Orders
+        public class Sub_Order
         {
             /// <summary>
             /// 含参构造函数
             /// </summary>
             /// <param name="mchid">子单商户号</param>
             /// <param name="out_trade_no">子单商户订单号</param>
-            public Sub_Orders(string mchid, string out_trade_no)
+            public Sub_Order(string mchid, string out_trade_no)
             {
                 this.mchid = mchid;
                 this.out_trade_no = out_trade_no;
+            }
+
+            /// <summary>
+            /// 无参构造函数
+            /// </summary>
+            public Sub_Order()
+            {
             }
 
             /// <summary>

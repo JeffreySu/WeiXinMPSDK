@@ -28,9 +28,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
-        IHostingEnvironment _env;
+        Microsoft.AspNetCore.Hosting.IHostingEnvironment _env;
 
-        public HomeController(ILogger<HomeController> logger, IHostingEnvironment env)
+        public HomeController(ILogger<HomeController> logger, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
         {
             _logger = logger;
             _env = env;

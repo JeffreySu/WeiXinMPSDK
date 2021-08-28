@@ -170,6 +170,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <summary>
         /// JSAPI合单支付下单接口
         /// <para>在微信支付服务后台生成JSAPI合单预支付交易单，返回预支付交易会话标识</para>
+        /// <para>https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter5_1_3.shtml</para>
         /// </summary>
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
@@ -178,6 +179,11 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
+                if (data.sub_orders.Count() is not >= 2 or not <= 10)
+                {
+                    throw new TenpayApiRequestException("sub_orders 参数必须在 2 到 10 之间！");
+                }
+
                 var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/jsapi");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<JsApiReturnJson>(url, data, timeOut);
@@ -356,6 +362,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         // TODO: 待测试
         /// <summary>
         /// 商户订单号查询
+        /// <para>https://pay.weixin.qq.com/wiki/doc/apiv3_partner/apis/chapter4_1_2.shtml</para>
         /// </summary>
         /// <param name="out_trade_no"> 微信支付系统生成的订单号 示例值：1217752501201407033233368018</param>
         /// <param name="mchid">直连商户的商户号，由微信支付生成并下发。 示例值：1230000109</param>
@@ -365,7 +372,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-                var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/pay/transactions/id/{out_trade_no}?mchid={mchid}");
+                var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/pay/transactions/out-trade-no/{out_trade_no}?mchid={mchid}");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<OrderReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
             }
@@ -498,13 +505,14 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <summary>
         /// 申请交易账单接口
         /// 获得微信支付按天提供的交易账单文件
+        /// <para>https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_1_6.shtml</para>
         /// </summary>
         /// <param name="bill_date">账单日期 格式YYYY-MM-DD 仅支持三个月内的账单下载申请</param>
         /// <param name="bill_type">填则默认是ALL 枚举值：ALL：返回当日所有订单信息（不含充值退款订单）SUCCESS：返回当日成功支付的订单（不含充值退款订单）REFUND：返回当日退款订单（不含充值退款订单</param>
         /// <param name="tar_type">不填则默认是数据流 枚举值：GZIP：返回格式为.gzip的压缩包账单</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<BillReturnJson> TradeBillQueryAsync(string bill_date, string bill_type = "ALL", string tar_type = null, int timeOut = Config.TIME_OUT)
+        public async Task<BillReturnJson> TradeBillQueryAsync(string bill_date, string bill_type = "ALL", Stream fileStream, string tar_type = null, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -514,7 +522,17 @@ namespace Senparc.Weixin.TenPayV3.Apis
                     url += $"&tar_type={tar_type}";
                 }
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
-                return await tenPayApiRequest.RequestAsync<BillReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+                var result = await tenPayApiRequest.RequestAsync<BillReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+
+                //下载订单
+                if (result.VerifySignSuccess == true)
+                {
+                    var responseMessage = await tenPayApiRequest.GetHttpResponseMessageAsync(result.download_url, null, requestMethod: ApiRequestMethod.GET);
+                    fileStream.Position = 0;
+                    fileStream.Seek(0, SeekOrigin.Begin);
+                    await responseMessage.Content.CopyToAsync(fileStream);
+                }
+                return result;
             }
             catch (Exception ex)
             {

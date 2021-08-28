@@ -141,7 +141,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <summary>
         /// 优惠功能，享受优惠时返回该字段。
         /// </summary>
-        public Promotion_Detail promotion_detail { get; set; }
+        public Promotion_Detail[] promotion_detail { get; set; }
 
         /// <summary>
         /// 支付者信息

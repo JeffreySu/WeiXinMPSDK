@@ -52,7 +52,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <param name="time_start">订单生成时间 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE，可为null</param>
         /// <param name="time_expire">订单失效时间 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE，可为null</param>
         /// <param name="notify_url">通知URL 必须为直接可访问的URL，不允许携带查询串，要求必须为https地址。</param>
-        public CombineTransactionsRequestData(string combine_appid, string combine_mchid, string combine_out_trade_no, Scene_Info scene_info, Sub_Order[] sub_orders, Combine_Payer_Info combine_payer_info, TenpayDateTime time_start, TenpayDateTime time_expire, string notify_url)
+        public CombineTransactionsRequestData(string combine_appid, string combine_mchid, string combine_out_trade_no, Scene_Info scene_info, IEnumerable<Sub_Order> sub_orders, Combine_Payer_Info combine_payer_info, TenpayDateTime time_start, TenpayDateTime time_expire, string notify_url)
         {
             this.combine_appid = combine_appid;
             this.combine_mchid = combine_mchid;
@@ -60,8 +60,8 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             this.scene_info = scene_info;
             this.sub_orders = sub_orders;
             this.combine_payer_info = combine_payer_info;
-            this.time_start = time_start.ToString();
-            this.time_expire = time_expire.ToString();
+            this.time_start = time_start?.ToString();
+            this.time_expire = time_expire?.ToString();
             this.notify_url = notify_url;
         }
 
@@ -95,7 +95,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// 子单信息数组
         /// 最多支持子单条数：10
         /// </summary>
-        public Sub_Order[] sub_orders { get; set; }
+        public IEnumerable<Sub_Order> sub_orders { get; set; }
 
         /// <summary>
         /// 支付者信息

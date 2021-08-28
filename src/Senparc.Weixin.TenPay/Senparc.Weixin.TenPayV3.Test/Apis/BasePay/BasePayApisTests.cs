@@ -88,11 +88,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             var price = 100;
             var name = "单元测试-" + DateTime.Now.ToString();
-            var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//换成测试人的 OpenId
+
             var sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
                          TenPayV3Util.BuildRandomStr(6));
 
-            TransactionsRequestData requestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name, sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1)), null, TenPayV3Info.TenPayV3Notify, null, new() { currency = "CNY", total = price }, new(openId), null, null, null);
+            TransactionsRequestData requestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name, sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1)), null, TenPayV3Info.TenPayV3Notify, null, new() { currency = "CNY", total = price }, null, null, null, null);
 
             BasePayApis basePayApis = new BasePayApis();
             var result = basePayApis.AppAsync(requestData).GetAwaiter().GetResult();
@@ -113,12 +113,12 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             var price = 100;
             var name = "单元测试-" + DateTime.Now.ToString();
-            var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//换成测试人的 OpenId
+
             var sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
                          TenPayV3Util.BuildRandomStr(6));
 
             //注意：H5下单scene_info参数必填
-            TransactionsRequestData requestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name, sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1)), null, TenPayV3Info.TenPayV3Notify, null, new() { currency = "CNY", total = price }, new(openId), null, null, new("14.23.150.211", null, null, new("Android", null, null, null, null)));
+            TransactionsRequestData requestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name, sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1)), null, TenPayV3Info.TenPayV3Notify, null, new() { currency = "CNY", total = price }, null, null, null, new("14.23.150.211", null, null, new("Android", null, null, null, null)));
 
             BasePayApis basePayApis = new BasePayApis();
             var result = basePayApis.H5Async(requestData).GetAwaiter().GetResult();
@@ -139,11 +139,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             var price = 100;
             var name = "单元测试-" + DateTime.Now.ToString();
-            var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//换成测试人的 OpenId
+
             var sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
                          TenPayV3Util.BuildRandomStr(6));
 
-            TransactionsRequestData requestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name, sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1)), null, TenPayV3Info.TenPayV3Notify, null, new() { currency = "CNY", total = price }, new(openId), null, null, null);
+            TransactionsRequestData requestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name, sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1)), null, TenPayV3Info.TenPayV3Notify, null, new() { currency = "CNY", total = price }, null, null, null, null);
 
             BasePayApis basePayApis = new BasePayApis();
             var result = basePayApis.NativeAsync(requestData).GetAwaiter().GetResult();

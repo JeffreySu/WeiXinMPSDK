@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
+using Senparc.Weixin.TenPayV3.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -53,24 +56,64 @@ namespace Senparc.Weixin.TenPayV3.HttpHandlers
         /// </summary>
         /// <param name="httpStatusCode"></param>
         /// <returns></returns>
-        public static TenPayApiResultCode TryGetCode(HttpStatusCode httpStatusCode)
+        public static TenPayApiResultCode TryGetCode(HttpStatusCode httpStatusCode, string responseContent)
         {
+            TenPayApiResultCode resultCode = null;
+
             if (CodesCollection.TryGetValue(((int)httpStatusCode).ToString(), out var result))
             {
+                //只有一条符合的结果
                 if (result.Length == 1)
                 {
                     return result[0] with { };
                 }
 
-                return result.First() with
+                //有多条符合的结果
+                var firstResult = result.First();
+                if (firstResult.Success)
                 {
-                    ErrorCode = string.Join(";\n", result.Select(z => z.ErrorCode)),
-                    ErrorMessage = string.Join(";\n", result.Select(z => z.ErrorMessage)),
-                    Solution = string.Join(";\n", result.Select(z => z.Solution)),
-                };
+                    resultCode = firstResult;//请求成功
+                }
+                else
+                {
+                    //失败，如：{"code":"PARAM_ERROR","detail":{"location":null,"value":["/body/payer/openid"]},"message":"请求中含有未在API文档中定义的参数"}
+                    var responseErrorMessage = responseContent.GetObject<ResponseErrorJsonResult>();
+                    if (responseErrorMessage != null)
+                    {
+                        //content符合标准的错误格式
+                        resultCode = result.FirstOrDefault(z => z.ErrorCode == responseErrorMessage.code);//查找符合标准的对象
+                        if (resultCode != null)
+                        {
+                            resultCode = resultCode with { Additional = $"发生错误：{responseErrorMessage.ToJson()}" };
+                        }
+                    }
+                    else
+                    {
+                        //content 不符合标准的错误格式，返回所有错误结果
+                        resultCode = firstResult with
+                        {
+                            ErrorCode = string.Join(";\n", result.Select(z => z.ErrorCode)),
+                            ErrorMessage = string.Join(";\n", result.Select(z => z.ErrorMessage)),
+                            Solution = string.Join(";\n", result.Select(z => z.Solution)),
+                        };
+                    }
+                }
+            }
+            else
+            {
+                //错误代码不在预设范围内
+                resultCode = new TenPayApiResultCode(httpStatusCode.ToString(), "UNKNOW CODE", "未知的代码", "请检查日志", false);//没有匹配到
+
+                var responseErrorMessage = responseContent.GetObject<ResponseErrorJsonResult>();
+                if (responseErrorMessage != null)
+                {
+                    resultCode.ErrorCode = responseErrorMessage.code;
+                    resultCode.ErrorMessage = responseErrorMessage.message;
+                    resultCode.Additional = $"发生未知代码错误，请检查日志：{responseErrorMessage.ToJson()}";
+                }
             }
 
-            return new TenPayApiResultCode(httpStatusCode.ToString(), "UNKNOW CODE", "未知的代码", "请检查日志", false);//没有匹配到
+            return resultCode;
         }
 
         public bool Success { get; protected set; } = false;

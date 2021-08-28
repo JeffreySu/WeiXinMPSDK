@@ -176,12 +176,11 @@ namespace Senparc.Weixin.TenPayV3
             {
                 HttpResponseMessage responseMessage = await GetHttpResponseMessageAsync(url, data, timeOut, requestMethod);
 
-                //检查响应代码
-                TenPayApiResultCode resutlCode = TenPayApiResultCode.TryGetCode(responseMessage.StatusCode);
-
-                //TODO:待测试 加入验证签名
                 //获取响应结果
                 string content = await responseMessage.Content.ReadAsStringAsync();//TODO:如果不正确也要返回详情
+
+                //检查响应代码
+                TenPayApiResultCode resutlCode = TenPayApiResultCode.TryGetCode(responseMessage.StatusCode,content);
 
                 if (resutlCode.Success)
                 {

@@ -42,7 +42,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
     /// 微信支付V3营销工具接口
     /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_1_1.shtml 下的【营销工具】所有接口
     /// </summary>
-    class MarketingApis
+    public class MarketingApis
     {
 
         private ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting;

@@ -32,6 +32,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 	修改标识：Senparc - 20191004
     修改描述：添加新的 Work（企业微信）的参数
+
+	修改标识：Senparc - 20210815
+    修改描述：添加 ISenparcWeixinSettingForTenpayV3 针对（真）微信 V3 支付的属性
+
 ----------------------------------------------------------------*/
 
 
@@ -108,7 +112,7 @@ namespace Senparc.Weixin.Entities
         /// <summary>
         /// 企业微信 AgentId（单个应用的Id），一般为数字
         /// </summary>
-         string WeixinCorpAgentId { get; set; }
+        string WeixinCorpAgentId { get; set; }
 
         /// <summary>
         /// 企业微信CorpSecret（和 AgentId对应）
@@ -123,7 +127,7 @@ namespace Senparc.Weixin.Entities
         /// EncodingAESKey
         /// </summary>
         string WeixinCorpEncodingAESKey { get; set; }
-        
+
     }
 
     /// <summary>
@@ -201,6 +205,26 @@ namespace Senparc.Weixin.Entities
         /// 微信支付TenpayNotify
         /// </summary>
         string TenPayV3_TenpayNotify { get; set; }
+
+        #region 新版微信支付 V3 新增
+
+        /// <summary>
+        /// 微信支付（V3）证书私钥
+        /// <para>获取途径：apiclient_key.pem</para>
+        /// </summary>
+        string TenPayV3_PrivateKey { get; set; }
+        /// <summary>
+        /// 微信支付（V3）证书序列号
+        /// <para>查看地址：https://pay.weixin.qq.com/index.php/core/cert/api_cert#/api-cert-manage</para>
+        /// </summary>
+        string TenPayV3_SerialNumber { get; set; }
+        /// <summary>
+        /// APIv3 密钥。在微信支付后台设置：https://pay.weixin.qq.com/index.php/core/cert/api_cert#/
+        /// </summary>
+        string TenPayV3_APIv3Key { get; set; }
+
+        #endregion
+
         /// <summary>
         /// 小程序微信支付WxOpenTenpayNotify
         /// </summary>

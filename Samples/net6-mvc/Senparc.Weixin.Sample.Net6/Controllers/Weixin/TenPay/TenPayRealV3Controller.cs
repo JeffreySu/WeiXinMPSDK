@@ -457,8 +457,8 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 WeixinTrace.SendCustomLog("H5Pay接口请求", requestData.ToJson());
 
                 //var result = TenPayOldV3.Html5Order(xmlDataInfo);//调用统一订单接口
-                                                                 //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
-                
+                //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
+
                 var result = await _basePayApis.H5Async(requestData);
 
                 //SenparcTrace.SendCustomLog("H5Pay接口返回", result.ToJson());
@@ -715,8 +715,19 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 return Content("出于安全考虑，此操作限定在本机上操作（实际项目可以添加登录权限限制后远程操作）！");
             }
 
-            var result = await _basePayApis.TradeBillQueryAsync(date);
-            return Json(result);
+
+            var filePath = $"{date}-TradeBill.csv";
+            Console.WriteLine("FilePath:" + filePath);
+            using (var fs = new FileStream(filePath, FileMode.OpenOrCreate))
+            {
+                BasePayApis basePayApis = new BasePayApis();
+
+                var result = basePayApis.TradeBillQueryAsync(date, fileStream: fs).GetAwaiter().GetResult();
+
+                fs.Flush();
+
+            }
+            return Content("已经下载倒指定目录，文件名：" + filePath);
         }
 
         /// <summary>
@@ -731,8 +742,17 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 return Content("出于安全考虑，此操作限定在本机上操作（实际项目可以添加登录权限限制后远程操作）！");
             }
 
-            var result = await _basePayApis.FundflowBillQueryAsync(date);
-            return Json(result);
+            var filePath = $"{date}-FundflowBill.csv";
+            Console.WriteLine("FilePath:" + filePath);
+            using (var fs = new FileStream(filePath, FileMode.OpenOrCreate))
+            {
+                BasePayApis basePayApis = new BasePayApis();
+
+                var result = await _basePayApis.FundflowBillQueryAsync(date, fs);
+
+                fs.Flush();
+            }
+            return Content("已经下载倒指定目录，文件名：" + filePath);
         }
 
         #endregion

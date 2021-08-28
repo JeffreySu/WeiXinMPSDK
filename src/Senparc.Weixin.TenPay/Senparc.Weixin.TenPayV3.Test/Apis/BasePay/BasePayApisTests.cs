@@ -38,7 +38,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             var tenpayV3Setting = Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
             var cert = certs.data.First();
-            var pubKey = ApiSecurityHelper.AesGcmDecryptCiphertext(tenpayV3Setting.TenPayV3_APIv3Key, cert.encrypt_certificate.nonce,
+            var pubKey = SecurityHelper.AesGcmDecryptCiphertext(tenpayV3Setting.TenPayV3_APIv3Key, cert.encrypt_certificate.nonce,
                      cert.encrypt_certificate.associated_data, cert.encrypt_certificate.ciphertext);
             Console.WriteLine(pubKey);
             Assert.IsNotNull(pubKey);
@@ -484,40 +484,56 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
         {
             var bill_date = "2021-08-27";//格式YYYY-MM-DD
 
-            var filePath = $"{bill_date}.xlsx";
-            Console.WriteLine("FilePath:"+filePath);
-            using (var fs = new FileStream(filePath, FileMode.OpenOrCreate))
-            {
-                BasePayApis basePayApis = new BasePayApis();
+            var filePath = $"{bill_date}-TradeBill.csv";
+            Console.WriteLine("FilePath:" + filePath);
+            var fs = new FileStream(filePath, FileMode.OpenOrCreate);
+            BasePayApis basePayApis = new BasePayApis();
 
-                var result = basePayApis.TradeBillQueryAsync(bill_date, fileStream: fs).GetAwaiter().GetResult();
+            var result = basePayApis.TradeBillQueryAsync(bill_date, fileStream: fs).GetAwaiter().GetResult();
+            fs.Flush();
 
-                fs.Flush();
+            Console.WriteLine("FileStream Length:" + fs.Length);
+            fs.Close();
 
-                Console.WriteLine("FileStream Length:"+fs.Length);
 
-                Console.WriteLine("微信支付 V3 交易账单查询结果：" + result.ToJson(true));
+            Console.WriteLine("微信支付 V3 交易账单查询结果：" + result.ToJson(true));
 
-                Assert.IsNotNull(result);
-                Assert.IsTrue(result.ResultCode.Success);
-                Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
-                Assert.IsTrue(File.Exists(filePath));
-            }
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ResultCode.Success);
+            Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
+            Assert.IsTrue(File.Exists(filePath));
+
+            //校验文件
+            var fileHash = SecurityHelper.GetFileHash(filePath, result.hash_type);
+            Assert.AreEqual(result.hash_value.ToUpper(), fileHash);
         }
 
         [TestMethod()]
         public void FundflowBillQueryAsyncTest()
         {
-            var bill_date = "2021-08-01";//格式YYYY-MM-DD
+            var bill_date = "2021-08-27";//格式YYYY-MM-DD
 
+            var filePath = $"{bill_date}-FundflowBillQuery.csv";
+            Console.WriteLine("FilePath:" + filePath);
+            var fs = new FileStream(filePath, FileMode.OpenOrCreate);
             BasePayApis basePayApis = new BasePayApis();
-            var result = basePayApis.FundflowBillQueryAsync(bill_date).GetAwaiter().GetResult();
+            var result = basePayApis.FundflowBillQueryAsync(bill_date, fs).GetAwaiter().GetResult();
+
+            fs.Flush();
+
+            Console.WriteLine("FileStream Length:" + fs.Length);
+            fs.Close();
 
             Console.WriteLine("微信支付 V3 资金账单查询结果：" + result.ToJson(true));
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.ResultCode.Success);
             Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
+            Assert.IsTrue(File.Exists(filePath));
+
+            //校验文件
+            var fileHash = SecurityHelper.GetFileHash(filePath, result.hash_type);
+            Assert.AreEqual(result.hash_value.ToUpper(), fileHash);
         }
 
         #endregion

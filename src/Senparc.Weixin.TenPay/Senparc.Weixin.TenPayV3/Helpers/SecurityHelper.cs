@@ -1,6 +1,7 @@
 ﻿using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Helpers
 {
-    public class ApiSecurityHelper
+    public class SecurityHelper
     {
         /// <summary>
         /// 解密微信支付接口 ciphertext 内容
@@ -44,6 +45,49 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         {
             var unwrapKey = Regex.Replace(originalPublicKey, @"(\s|([\-]+[^\-]+[\-]+))+", "");
             return unwrapKey;
+        }
+
+        /// <summary>
+        /// 获取文件的 HASH 值
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="type"></param>
+        public static string GetFileHash(string filePath, string type = "SHA1")
+        {
+            switch (type)
+            {
+                case "SHA1":
+                    {
+                        var hash = SHA1.Create();
+                        var stream = new FileStream(filePath, FileMode.Open);
+                        byte[] hashByte = hash.ComputeHash(stream);
+                        stream.Close();
+                        return BitConverter.ToString(hashByte).Replace("-", "");
+                    }
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type));
+            }
+        }
+
+        /// <summary>
+        /// 获取文件的 HASH 值
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="type"></param>
+        public static string GetFileHash(Stream stream, string type = "SHA1")
+        {
+            switch (type)
+            {
+                case "SHA1":
+                    {
+                        var hash = SHA1.Create();
+                        stream.Seek(0, SeekOrigin.Begin);
+                        byte[] hashByte = hash.ComputeHash(stream);
+                        return BitConverter.ToString(hashByte).Replace("-", "");
+                    }
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type));
+            }
         }
     }
 }

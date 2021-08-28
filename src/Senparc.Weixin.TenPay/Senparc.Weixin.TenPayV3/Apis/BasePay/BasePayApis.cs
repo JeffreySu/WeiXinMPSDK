@@ -142,9 +142,9 @@ namespace Senparc.Weixin.TenPayV3.Apis
 
             foreach (var cert in certificates.data)
             {
-                var publicKey = ApiSecurityHelper.AesGcmDecryptCiphertext(_tenpayV3Setting.TenPayV3_APIv3Key, cert.encrypt_certificate.nonce,
+                var publicKey = SecurityHelper.AesGcmDecryptCiphertext(_tenpayV3Setting.TenPayV3_APIv3Key, cert.encrypt_certificate.nonce,
                                     cert.encrypt_certificate.associated_data, cert.encrypt_certificate.ciphertext);
-                keys[cert.serial_no] = ApiSecurityHelper.GetUnwrapCertKey(publicKey);
+                keys[cert.serial_no] = SecurityHelper.GetUnwrapCertKey(publicKey);
             }
             return keys;
         }
@@ -512,7 +512,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="tar_type">不填则默认是数据流 枚举值：GZIP：返回格式为.gzip的压缩包账单</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<BillReturnJson> TradeBillQueryAsync(string bill_date, string bill_type = "ALL", Stream fileStream, string tar_type = null, int timeOut = Config.TIME_OUT)
+        public async Task<BillReturnJson> TradeBillQueryAsync(string bill_date, Stream fileStream, string bill_type = "ALL", string tar_type = null, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -524,13 +524,23 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 var result = await tenPayApiRequest.RequestAsync<BillReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
 
-                //下载订单
+                //下载交易账单
                 if (result.VerifySignSuccess == true)
                 {
                     var responseMessage = await tenPayApiRequest.GetHttpResponseMessageAsync(result.download_url, null, requestMethod: ApiRequestMethod.GET);
                     fileStream.Position = 0;
                     fileStream.Seek(0, SeekOrigin.Begin);
                     await responseMessage.Content.CopyToAsync(fileStream);
+
+                    //校验文件Hash
+                    var fileHash = SecurityHelper.GetFileHash(fileStream, result.hash_type);
+                    var fileVerify = fileHash.Equals(result.hash_value, StringComparison.OrdinalIgnoreCase);
+                    if (!fileVerify)
+                    {
+                        result.VerifySignSuccess = false;
+                        result.ResultCode.Additional += "请求成功，但文件校验错误。请查看日志！";
+                        SenparcTrace.BaseExceptionLog(new TenpayApiRequestException($"TradeBillQueryAsync 下载文件成功，但校验失败，正确值：{result.hash_value}，实际值：{fileHash}（忽略大小写）"));
+                    }
                 }
                 return result;
             }
@@ -549,7 +559,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="account_type">不填则默认是BASIC 枚举值：BASIC：基本账户 OPERATION：运营账户 FEES：手续费账户</param>
         /// <param name="tar_type"> 不填则默认是数据流 枚举值：GZIP：返回格式为.gzip的压缩包账单</param>
         /// <returns></returns>
-        public async Task<BillReturnJson> FundflowBillQueryAsync(string bill_date, string account_type = "BASIC", string tar_type = null, int timeOut = Config.TIME_OUT)
+        public async Task<BillReturnJson> FundflowBillQueryAsync(string bill_date, Stream fileStream, string account_type = "BASIC", string tar_type = null, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -559,7 +569,28 @@ namespace Senparc.Weixin.TenPayV3.Apis
                     url += $"&tar_type={tar_type}";
                 }
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
-                return await tenPayApiRequest.RequestAsync<BillReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+                var result = await tenPayApiRequest.RequestAsync<BillReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+
+                //下载资金账单
+                if (result.VerifySignSuccess == true)
+                {
+                    var responseMessage = await tenPayApiRequest.GetHttpResponseMessageAsync(result.download_url, null, requestMethod: ApiRequestMethod.GET);
+                    fileStream.Position = 0;
+                    fileStream.Seek(0, SeekOrigin.Begin);
+                    await responseMessage.Content.CopyToAsync(fileStream);
+
+                    //校验文件Hash
+                    var fileHash = SecurityHelper.GetFileHash(fileStream, result.hash_type);
+                    var fileVerify = fileHash.Equals(result.hash_value, StringComparison.OrdinalIgnoreCase);
+                    if (!fileVerify)
+                    {
+                        result.VerifySignSuccess = false;
+                        result.ResultCode.Additional += "请求成功，但文件校验错误。请查看日志！";
+                        SenparcTrace.BaseExceptionLog(new TenpayApiRequestException($"TradeBillQueryAsync 下载文件成功，但校验失败，正确值：{result.hash_value}，实际值：{fileHash}（忽略大小写）"));
+                    }
+                }
+
+                return result;
             }
             catch (Exception ex)
             {

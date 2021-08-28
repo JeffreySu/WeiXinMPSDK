@@ -114,7 +114,7 @@ namespace Senparc.Weixin.TenPayV3
             nonce ??= NotifyRequest.resource.nonce;
             associated_data ??= NotifyRequest.resource.associated_data;
 
-            var decrypted_string = ApiSecurityHelper.AesGcmDecryptCiphertext(aes_key, nonce, associated_data, NotifyRequest.resource.ciphertext);
+            var decrypted_string = SecurityHelper.AesGcmDecryptCiphertext(aes_key, nonce, associated_data, NotifyRequest.resource.ciphertext);
 
             T result = decrypted_string.GetObject<T>();
 

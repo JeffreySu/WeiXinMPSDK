@@ -52,8 +52,9 @@ namespace Senparc.Weixin.Entities
     /// <summary>
     /// Senparc.Weixin SDK 中单个公众号配置信息
     /// </summary>
-    public record class SenparcWeixinSettingItem : ISenparcWeixinSettingForMP, ISenparcWeixinSettingForWxOpen, ISenparcWeixinSettingForWork, ISenparcWeixinSettingForOldTenpay,
-                                            ISenparcWeixinSettingForTenpayV3, ISenparcWeixinSettingForOpen, ISenparcWeixinSettingForExtension
+    public record class SenparcWeixinSettingItem : ISenparcWeixinSettingForMP, ISenparcWeixinSettingForWxOpen, ISenparcWeixinSettingForWork, 
+                                                   ISenparcWeixinSettingForOldTenpay, ISenparcWeixinSettingForTenpayV3, 
+                                                   ISenparcWeixinSettingForOpen, ISenparcWeixinSettingForExtension
     {
         /// <summary>
         /// 唯一标识
@@ -122,6 +123,9 @@ namespace Senparc.Weixin.Entities
             TenPayV3_SubAppSecret = setting.TenPayV3_SubAppSecret;
             TenPayV3_SubMchId = setting.TenPayV3_SubMchId;
             TenPayV3_TenpayNotify = setting.TenPayV3_TenpayNotify;
+            TenPayV3_APIv3Key = setting.TenPayV3_APIv3Key;
+            TenPayV3_PrivateKey = setting.TenPayV3_PrivateKey;
+            TenPayV3_SerialNumber = setting.TenPayV3_SerialNumber;
             TenPayV3_WxOpenTenpayNotify = setting.TenPayV3_WxOpenTenpayNotify;
         }
 

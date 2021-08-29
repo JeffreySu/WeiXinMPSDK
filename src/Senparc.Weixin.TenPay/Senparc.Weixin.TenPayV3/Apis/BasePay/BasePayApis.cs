@@ -44,30 +44,16 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
-using Senparc.CO2NET.Helpers;
-using Senparc.CO2NET.HttpUtility;
-using Senparc.Weixin.TenPayV3.Apis.BasePay;
-using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Senparc.NeuChar.Helpers;
-using Senparc.CO2NET.Extensions;
-using System.Net.Http.Headers;
-using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.Trace;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.TenPayV3.Helpers;
-using Senparc.Weixin.TenPayV3.Entities;
+using Senparc.Weixin.TenPayV3.Apis.BasePay;
 using Senparc.Weixin.TenPayV3.Apis.Entities;
+using Senparc.Weixin.TenPayV3.Entities;
+using Senparc.Weixin.TenPayV3.Helpers;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis
 {

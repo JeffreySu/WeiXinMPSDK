@@ -40,14 +40,6 @@
 		<ErrorReport>prompt</ErrorReport>
 		<CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
-		<OutputPath>..\..\BuildOutPut\</OutputPath>
-		<DocumentationFile>..\..\BuildOutPut\net40\Senparc.Weixin.TenPayV3.xml</DocumentationFile>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-		<OutputPath>..\..\BuildOutPut\</OutputPath>
-		<DocumentationFile>..\..\BuildOutPut\netstandard2.0\Senparc.Weixin.TenPayV3.xml</DocumentationFile>
-	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
 		<OutputPath>..\..\BuildOutPut\</OutputPath>
 		<DocumentationFile>..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.Open.xml</DocumentationFile>
@@ -55,13 +47,6 @@
 	<ItemGroup>
 		<Compile Remove="Properties\AssemblyInfo.cs" />
 	</ItemGroup>
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-		<Reference Include="System.Web" />
-	</ItemGroup>
-	<!--<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-		<PackageReference Include="Microsoft.Extensions.Http" Version="3.1.2" />
-		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
-	</ItemGroup>-->
 	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
 		<PackageReference Include="Microsoft.Extensions.Http" Version="3.1.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />

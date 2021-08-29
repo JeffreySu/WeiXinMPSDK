@@ -96,19 +96,11 @@ namespace Senparc.Weixin.TenPayV3
 
                 try
                 {
-#if NET45
-                    return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
-#else
                     return WebUtility.UrlEncode(instr);
-#endif
                 }
                 catch (Exception ex)
                 {
-#if NET45
-                    return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
-#else
                     return WebUtility.UrlEncode(instr);
-#endif
                 }
 
                 //return res;
@@ -131,19 +123,11 @@ namespace Senparc.Weixin.TenPayV3
 
                 try
                 {
-#if NET45
-                    return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
-#else
                     return WebUtility.UrlDecode(instr);
-#endif
                 }
                 catch (Exception ex)
                 {
-#if NET45
-                    return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
-#else
                     return WebUtility.UrlDecode(instr);
-#endif
                 }
                 //return res;
 
@@ -157,11 +141,7 @@ namespace Senparc.Weixin.TenPayV3
         /// <returns></returns>
         public static UInt32 UnixStamp()
         {
-//#if NET45
-//            TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
-//#else
             TimeSpan ts = SystemTime.Now - new DateTimeOffset(1970, 1, 1, 0, 0, 0, 0, TimeSpan.Zero);
-//#endif
             return Convert.ToUInt32(ts.TotalSeconds);
         }
 

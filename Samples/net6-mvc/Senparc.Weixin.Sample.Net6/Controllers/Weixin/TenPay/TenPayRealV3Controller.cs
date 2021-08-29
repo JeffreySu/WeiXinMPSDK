@@ -37,12 +37,15 @@ using Senparc.Weixin.TenPayV3.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
 using System;
 using System.Collections.Concurrent;
+using System.Drawing;
 using System.IO;
+using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZXing;
 using ZXing.Common;
+using ZXing.Rendering;
 
 namespace Senparc.Weixin.Sample.Net6.Controllers
 {
@@ -88,7 +91,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         /// <returns></returns>
         private static MemoryStream GerQrCodeStream(string url)
         {
-            BitMatrix bitMatrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, 600, 600);
+            BitMatrix bitMatrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, 300, 300);
             var bw = new ZXing.BarcodeWriterPixelData();
 
             var pixelData = bw.Write(bitMatrix);
@@ -113,6 +116,42 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             fileStream.Seek(0, SeekOrigin.Begin);
             return fileStream;
         }
+
+        /// <summary>
+        /// 获取文字图片信息
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        private static MemoryStream GetTextImageStream(string text)
+        {
+            MemoryStream fileStream = new MemoryStream();
+            var fontSize = 14;
+            var wordLength = 0;
+            for (int i = 0; i < text.Length; i++)
+            {
+                byte[] bytes = Encoding.Default.GetBytes(text.Substring(i,1));
+                wordLength += bytes.Length > 1 ? 2 : 1;
+            }
+            using (var bitmap = new System.Drawing.Bitmap(wordLength * fontSize + 20, 14 + 40, System.Drawing.Imaging.PixelFormat.Format32bppRgb))
+            {
+                using (Graphics g = Graphics.FromImage(bitmap))
+                {
+                    g.ResetTransform();//重置图像
+                    g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+                    g.DrawString(text, new Font("微软雅黑", fontSize, FontStyle.Bold), Brushes.White, 10, 10);
+                    bitmap.Save(fileStream, System.Drawing.Imaging.ImageFormat.Png);
+                }
+            }
+            fileStream.Seek(0, SeekOrigin.Begin);
+            return fileStream;
+        }
+
+        public IActionResult Test()
+        {
+            var fileStream = GetTextImageStream("Native Pay 未能通过签名验证，无法显示二维码");
+            return File(fileStream, "image/png");
+        }
+
 
         #endregion
 
@@ -142,12 +181,21 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
 
 
         #region 产品展示
+        /// <summary>
+        /// 商品列表
+        /// </summary>
+        /// <returns></returns>
         public IActionResult ProductList()
         {
             var products = ProductModel.GetFakeProductList();
             return View(products);
         }
-
+        /// <summary>
+        /// 商品详情
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <param name="hc"></param>
+        /// <returns></returns>
         public ActionResult ProductItem(int productId, int hc)
         {
             var products = ProductModel.GetFakeProductList();
@@ -171,11 +219,12 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         }
 
         /// <summary>
-        /// 显示二维码
+        /// 显示支付二维码（Native 支付，或引导到常规支付）
         /// </summary>
         /// <param name="productId"></param>
+        /// <param name="isNativePay">是否使用 Native 支付方式</param>
         /// <returns></returns>
-        public IActionResult ProductPayCode(int productId, int hc)
+        public async Task<IActionResult> ProductPayCode(int productId, int hc, bool isNativePay = false)
         {
             var products = ProductModel.GetFakeProductList();
             var product = products.FirstOrDefault(z => z.Id == productId);
@@ -184,10 +233,41 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 return Content("商品信息不存在，或非法进入！2004");
             }
 
-            var url = $"http://sdk.weixin.senparc.com/TenPayRealV3/JsApi?productId={productId}&hc={product.GetHashCode()}&t={SystemTime.Now.Ticks}";
-            MemoryStream fileStream = GerQrCodeStream(url);
+            string url = null;
+            MemoryStream fileStream = null;//输出图片的URL
+            if (isNativePay)
+            {
+                //使用 Native 支付，输出二维码并展示
+                var price = (int)(product.Price * 100);
+                var name = product.Name + " - 微信支付 V3 - Native 支付";
+                var sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
+                             TenPayV3Util.BuildRandomStr(6));
+
+                TransactionsRequestData requestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name, sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1)), null, TenPayV3Info.TenPayV3Notify, null, new() { currency = "CNY", total = price }, null, null, null, null);
+
+                BasePayApis basePayApis = new BasePayApis();
+                var result = await basePayApis.NativeAsync(requestData);
+                //进行安全签名验证
+                if (result.VerifySignSuccess == true)
+                {
+                    fileStream = GerQrCodeStream(result.code_url);
+                }
+                else
+                {
+                    fileStream = GetTextImageStream("Native Pay 未能通过签名验证，无法显示二维码");
+                }
+            }
+            else
+            {
+                //使用 JsApi 方式支付，引导到常规的商品详情页面
+                url = $"http://sdk.weixin.senparc.com/TenPayRealV3/JsApi?productId={productId}&hc={product.GetHashCode()}&t={SystemTime.Now.Ticks}";
+                fileStream = GerQrCodeStream(url);
+            }
+
             return File(fileStream, "image/png");
+
         }
+
 
 
         #endregion
@@ -430,7 +510,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         /// <param name="productId"></param>
         /// <param name="hc"></param>
         /// <returns></returns>
-        public async Task<IActionResult> H5Pay(int productId, int hc, bool showQrCode = false)
+        public async Task<IActionResult> H5Pay(int productId, int hc)
         {
             try
             {
@@ -487,13 +567,6 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                     return Content("未通过验证，请检查数据有效性！");
                 }
 
-                if (showQrCode)
-                {
-                    //生成二维码并展示
-                    var ms = GerQrCodeStream(result.h5_url);
-                    var base64Img = Convert.ToBase64String(ms.ToArray());
-                    return Content($"<html><head><title>微信支付V3-H5扫码支付</title></head><body>请使用微信扫描下方二维码完成支付：<img src=\"data:image/png;base64,{base64Img}\" width=\"300\" /></body></html>", "text/html; charset=utf-8");
-                }
                 //直接跳转
                 return Redirect(result.h5_url);
             }

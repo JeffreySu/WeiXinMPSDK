@@ -1,7 +1,7 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
     
-    文件名：TenPayController.cs
+    文件名：TenPayRealV3Controller.cs
     文件功能描述：微信支付V3 Controller
     
     
@@ -12,6 +12,9 @@
 
 ----------------------------------------------------------------*/
 
+/* 注意：TenPayRealV3Controller 为真正微信支付 API V3 的示例 */
+
+//DPBMARK_FILE TenPay
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Extensions;
@@ -22,6 +25,7 @@ using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.Sample.NetCore3.Controllers;
 using Senparc.Weixin.Sample.NetCore3.Filters;
 using Senparc.Weixin.Sample.NetCore3.Models;
@@ -34,12 +38,15 @@ using Senparc.Weixin.TenPayV3.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
 using System;
 using System.Collections.Concurrent;
+using System.Drawing;
 using System.IO;
+using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZXing;
 using ZXing.Common;
+using ZXing.Rendering;
 
 namespace Senparc.Weixin.Sample.Net6.Controllers
 {
@@ -75,6 +82,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         /// </summary>
         public static ConcurrentDictionary<string, string> TradeNumberToTransactionId = new ConcurrentDictionary<string, string>();
 
+
         public TenPayRealV3Controller()
         {
             _tenpayV3Setting = Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
@@ -99,13 +107,23 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             return Redirect(url);
         }
 
+
         #region 产品展示
+        /// <summary>
+        /// 商品列表
+        /// </summary>
+        /// <returns></returns>
         public IActionResult ProductList()
         {
             var products = ProductModel.GetFakeProductList();
             return View(products);
         }
-
+        /// <summary>
+        /// 商品详情
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <param name="hc"></param>
+        /// <returns></returns>
         public ActionResult ProductItem(int productId, int hc)
         {
             var products = ProductModel.GetFakeProductList();
@@ -129,9 +147,48 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         }
 
         /// <summary>
-        /// 显示二维码
+        /// 使用 Native 支付
         /// </summary>
         /// <param name="productId"></param>
+        /// <param name="hc"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> NativePayCode(int productId, int hc)
+        {
+            var products = ProductModel.GetFakeProductList();
+            var product = products.FirstOrDefault(z => z.Id == productId);
+            if (product == null || product.GetHashCode() != hc)
+            {
+                return Content("商品信息不存在，或非法进入！2004");
+            }
+
+            //使用 Native 支付，输出二维码并展示
+            MemoryStream fileStream = null;//输出图片的URL
+            var price = (int)(product.Price * 100);
+            var name = product.Name + " - 微信支付 V3 - Native 支付";
+            var sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
+                         TenPayV3Util.BuildRandomStr(6));
+
+            TransactionsRequestData requestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name, sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1)), null, TenPayV3Info.TenPayV3Notify, null, new() { currency = "CNY", total = price }, null, null, null, null);
+
+            BasePayApis basePayApis = new BasePayApis();
+            var result = await basePayApis.NativeAsync(requestData);
+            //进行安全签名验证
+            if (result.VerifySignSuccess == true)
+            {
+                fileStream = QrCodeHelper.GerQrCodeStream(result.code_url);
+            }
+            else
+            {
+                fileStream = QrCodeHelper.GetTextImageStream("Native Pay 未能通过签名验证，无法显示二维码");
+            }
+            return File(fileStream, "image/png");
+        }
+
+        /// <summary>
+        /// 显示支付二维码，跳转至手机详情页再进行支付
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <param name="hc"></param>
         /// <returns></returns>
         public IActionResult ProductPayCode(int productId, int hc)
         {
@@ -142,35 +199,13 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 return Content("商品信息不存在，或非法进入！2004");
             }
 
-            var url = string.Format("http://sdk.weixin.senparc.com/TenPayRealV3/JsApi?productId={0}&hc={1}&t={2}", productId,
-                product.GetHashCode(), SystemTime.Now.Ticks);
+            //使用 JsApi 方式支付，引导到常规的商品详情页面
+            string url = $"http://sdk.weixin.senparc.com/TenPayRealV3/JsApi?productId={productId}&hc={product.GetHashCode()}&t={SystemTime.Now.Ticks}";
+            var fileStream = QrCodeHelper.GerQrCodeStream(url);
 
-            BitMatrix bitMatrix;
-            bitMatrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, 600, 600);
-            var bw = new ZXing.BarcodeWriterPixelData();
-
-            var pixelData = bw.Write(bitMatrix);
-            var bitmap = new System.Drawing.Bitmap(pixelData.Width, pixelData.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
-            var fileStream = new MemoryStream();
-            var bitmapData = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, pixelData.Width, pixelData.Height), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
-            try
-            {
-                // we assume that the row stride of the bitmap is aligned to 4 byte multiplied by the width of the image   
-                System.Runtime.InteropServices.Marshal.Copy(pixelData.Pixels, 0, bitmapData.Scan0, pixelData.Pixels.Length);
-            }
-            finally
-            {
-                bitmap.UnlockBits(bitmapData);
-            }
-
-            fileStream.Flush();//.net core 必须要加
-            fileStream.Position = 0;//.net core 必须要加
-
-            bitmap.Save(fileStream, System.Drawing.Imaging.ImageFormat.Png);
-
-            fileStream.Seek(0, SeekOrigin.Begin);
             return File(fileStream, "image/png");
         }
+
 
         #endregion
 
@@ -258,7 +293,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 var notifyUrl = TenPayV3Info.TenPayV3Notify.Replace("/TenpayV3/", "/TenpayRealV3/");
 
                 //TODO: JsApiRequestData修改构造函数参数顺序
-                TransactionsRequestData jsApiRequestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name, sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1), false), null, notifyUrl, null, new() { currency = "CNY", total = price }, new(openId), null, null, null);
+                TransactionsRequestData jsApiRequestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name + " - 微信支付 V3", sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1), false), null, notifyUrl, null, new() { currency = "CNY", total = price }, new(openId), null, null, null);
 
                 //var result = TenPayOldV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
                 //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
@@ -464,6 +499,12 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 //SenparcTrace.SendCustomLog("H5Pay接口返回", result.ToJson());
                 WeixinTrace.SendCustomLog("H5Pay接口返回", result.ToJson());
 
+                if (!result.VerifySignSuccess == true)
+                {
+                    return Content("未通过验证，请检查数据有效性！");
+                }
+
+                //直接跳转
                 return Redirect(result.h5_url);
             }
             catch (Exception ex)

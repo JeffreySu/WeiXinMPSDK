@@ -25,7 +25,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers
 
             //AEAD_AES_256_GCM 解密
             var encryptedBytes = Convert.FromBase64String(ciphertext);
-            //tag size is 16 TODO: what is tag size?
+            //tag size is 16
             var cipherBytes = encryptedBytes[..^16];
             var tag = encryptedBytes[^16..];
             var decryptedData = new byte[cipherBytes.Length];

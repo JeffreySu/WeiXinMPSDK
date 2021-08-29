@@ -17,40 +17,35 @@
     修改描述：调用新版Unifiedorder方法
 ----------------------------------------------------------------*/
 
+/* 注意：TenPayV3Controller 是微信文档 V3 的示例，并非微信之后出来的 API V3，
+ * 微信真正微信支付 API V3 的示例请见 TenPayRealV3Controller 
+ */
+
 //DPBMARK_FILE TenPay
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Trace;
+using Senparc.CO2NET.Utilities;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Helpers;
+using Senparc.Weixin.MP;
+using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
+using Senparc.Weixin.Sample.NetCore3.Filters;
+using Senparc.Weixin.Sample.NetCore3.Models;
+using Senparc.Weixin.TenPay.V3;
 using System;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-
-using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
-using Senparc.Weixin.Helpers;
-using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
-using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.TenPay.V3;
 using ZXing;
 using ZXing.Common;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
-using Microsoft.AspNetCore.Http;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
-using Senparc.CO2NET.Extensions;
-using Senparc.CO2NET.Helpers;
-using Senparc.CO2NET.Utilities;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Senparc.Weixin.Sample.NetCore3.Filters;
-using Senparc.Weixin.Sample.NetCore3.Models;
-using Senparc.Weixin.MP;
-using Senparc.CO2NET;
-using Senparc.CO2NET.Trace;
-using Senparc.Weixin.MP.Entities;
 using TenPayOldV3 = Senparc.Weixin.TenPay.V3.TenPayV3;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers

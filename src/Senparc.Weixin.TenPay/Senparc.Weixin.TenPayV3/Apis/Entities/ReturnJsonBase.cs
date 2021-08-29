@@ -49,6 +49,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Entities
 
         /// <summary>
         /// 回复签名是否正确 在有错误的情况下，或不要求验证签名时 为null
+        /// <para>通常情况下，必须为 true 才表明签名通过</para>
         /// </summary>
         public bool? VerifySignSuccess { get; set; } = null;
     }

@@ -28,7 +28,6 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     创建标识：Senparc - 20210804
     
 ----------------------------------------------------------------*/
-using Senparc.Weixin.TenPayV3.HttpHandlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

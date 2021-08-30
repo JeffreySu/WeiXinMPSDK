@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20210822
     修改描述：修改BasePayApis 此类型不再为静态类 使用ISenparcWeixinSettingForTenpayV3初始化实例
 
+    修改标识：Senparc - 20210829
+    修改描述：添加 V3 中新增加的属性
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;
@@ -46,13 +49,6 @@ namespace Senparc.Weixin.TenPayV3
     /// </summary>
     public class TenPayV3Info
     {
-        /// <summary>
-        /// 用于初始化BasePayApis
-        /// </summary>
-        private readonly ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting;
-
-        private readonly BasePayApis _basePayApis;
-
         private PublicKeyCollection publicKeys;
 
         /// <summary>
@@ -101,6 +97,27 @@ namespace Senparc.Weixin.TenPayV3
         /// </summary>
         public string Sub_MchId { get; set; }
 
+
+        #region 新版微信支付 V3 新增
+
+        /// <summary>
+        /// 微信支付（V3）证书私钥
+        /// <para>获取途径：apiclient_key.pem</para>
+        /// </summary>
+        public string TenPayV3_PrivateKey { get; set; }
+        /// <summary>
+        /// 微信支付（V3）证书序列号
+        /// <para>查看地址：https://pay.weixin.qq.com/index.php/core/cert/api_cert#/api-cert-manage</para>
+        /// </summary>
+        public string TenPayV3_SerialNumber { get; set; }
+        /// <summary>
+        /// APIv3 密钥。在微信支付后台设置：https://pay.weixin.qq.com/index.php/core/cert/api_cert#/
+        /// </summary>
+        public string TenPayV3_APIv3Key { get; set; }
+
+        #endregion
+
+
         /// <summary>
         /// 普通服务商 微信支付 V3 参数 构造函数
         /// </summary>
@@ -112,8 +129,11 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="certSecret"></param>
         /// <param name="tenPayV3Notify"></param>
         /// <param name="tenPayV3WxOpenNotify"></param>
-        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string certPath, string certSecret, string tenPayV3Notify, string tenPayV3WxOpenNotify)
-            : this(appId, appSecret, mchId, key, certPath, certSecret, "", "", "", tenPayV3Notify, tenPayV3WxOpenNotify)
+        /// <param name="privateKey"></param>
+        /// <param name="serialNumber"></param>
+        /// <param name="apiV3Key"></param>
+        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string certPath, string certSecret, string tenPayV3Notify, string tenPayV3WxOpenNotify, string privateKey, string serialNumber, string apiV3Key)
+            : this(appId, appSecret, mchId, key, certPath, certSecret, "", "", "", tenPayV3Notify, tenPayV3WxOpenNotify, privateKey, serialNumber, apiV3Key)
         {
 
         }
@@ -131,7 +151,10 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="subMchId"></param>
         /// <param name="tenPayV3Notify"></param>
         /// <param name="tenPayV3WxOpenNotify"></param>
-        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string certPath, string certSecret, string subAppId, string subAppSecret, string subMchId, string tenPayV3Notify, string tenPayV3WxOpenNotify)
+        /// <param name="privateKey"></param>
+        /// <param name="serialNumber"></param>
+        /// <param name="apiV3Key"></param>
+        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string certPath, string certSecret, string subAppId, string subAppSecret, string subMchId, string tenPayV3Notify, string tenPayV3WxOpenNotify, string privateKey, string serialNumber, string apiV3Key)
         {
             AppId = appId;
             AppSecret = appSecret;
@@ -144,12 +167,15 @@ namespace Senparc.Weixin.TenPayV3
             Sub_AppId = subAppId;
             Sub_AppSecret = subAppSecret;
             Sub_MchId = subMchId;
+            TenPayV3_PrivateKey = privateKey;
+            TenPayV3_SerialNumber = serialNumber;
+            TenPayV3_APIv3Key = apiV3Key;
         }
 
         /// <summary>
         /// 微信支付 V3 参数 构造函数
         /// </summary>
-        /// <param name="senparcWeixinSetting">已经填充过微信支付参数的 SenparcWeixinSetting 对象</param>
+        /// <param name="senparcWeixinSettingForTenpayV3">已经填充过微信支付参数的 SenparcWeixinSetting 对象</param>
         public TenPayV3Info(ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null)
             : this(senparcWeixinSettingForTenpayV3.TenPayV3_AppId,
                   senparcWeixinSettingForTenpayV3.TenPayV3_AppSecret,
@@ -161,25 +187,28 @@ namespace Senparc.Weixin.TenPayV3
                   senparcWeixinSettingForTenpayV3.TenPayV3_SubAppSecret,
                   senparcWeixinSettingForTenpayV3.TenPayV3_SubMchId,
                   senparcWeixinSettingForTenpayV3.TenPayV3_TenpayNotify,
-                  senparcWeixinSettingForTenpayV3.TenPayV3_WxOpenTenpayNotify
+                  senparcWeixinSettingForTenpayV3.TenPayV3_WxOpenTenpayNotify,
+                  senparcWeixinSettingForTenpayV3.TenPayV3_PrivateKey,
+                  senparcWeixinSettingForTenpayV3.TenPayV3_SerialNumber,
+                  senparcWeixinSettingForTenpayV3.TenPayV3_APIv3Key
                   )
         {
-            _tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
-            _basePayApis = new BasePayApis(_tenpayV3Setting);
+            //_tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
 
         }
 
         /// <summary>
         /// 获取当前支付账号下所有公钥信息
         /// </summary>
-        public async Task<PublicKeyCollection> GetPublicKeysAsync()
+        public async Task<PublicKeyCollection> GetPublicKeysAsync(ISenparcWeixinSettingForTenpayV3 tenpayV3Setting)
         {
             //TODO:可以升级为从缓存读取
 
             if (publicKeys == null)
             {
                 //获取最新的 Key
-                publicKeys = await _basePayApis.GetPublicKeysAsync();
+                var basePayApis = new BasePayApis(tenpayV3Setting);
+                publicKeys = await basePayApis.GetPublicKeysAsync();
             }
             return publicKeys;
         }
@@ -189,9 +218,9 @@ namespace Senparc.Weixin.TenPayV3
         /// </summary>
         /// <param name="serialNumber"></param>
         /// <returns></returns>
-        public async Task<string> GetPublicKeyAsync(string serialNumber)
+        public async Task<string> GetPublicKeyAsync(string serialNumber, ISenparcWeixinSettingForTenpayV3 tenpayV3Setting)
         {
-            var keys = await GetPublicKeysAsync();
+            var keys = await GetPublicKeysAsync(tenpayV3Setting);
             if (keys.TryGetValue(serialNumber, out string publicKey))
             {
                 return publicKey;

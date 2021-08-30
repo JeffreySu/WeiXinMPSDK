@@ -45,7 +45,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.TenPayV3.HttpHandlers
+namespace Senparc.Weixin.TenPayV3
 {
     /// <summary>
     /// 微信支付 HttpHandler

@@ -44,6 +44,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Trace;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.TenPayV3.Apis.BasePay;
@@ -53,6 +54,9 @@ using Senparc.Weixin.TenPayV3.Helpers;
 using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis
@@ -177,7 +181,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             catch (Exception ex)
             {
                 SenparcTrace.BaseExceptionLog(ex);
-                return new JsApiReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+                return new JsApiReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
             }
         }
 
@@ -200,7 +204,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             catch (Exception ex)
             {
                 SenparcTrace.BaseExceptionLog(ex);
-                return new AppReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+                return new AppReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
             }
         }
 
@@ -223,7 +227,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             catch (Exception ex)
             {
                 SenparcTrace.BaseExceptionLog(ex);
-                return new AppReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+                return new AppReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
             }
         }
 
@@ -246,7 +250,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             catch (Exception ex)
             {
                 SenparcTrace.BaseExceptionLog(ex);
-                return new H5ReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+                return new H5ReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
             }
         }
 
@@ -269,7 +273,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             catch (Exception ex)
             {
                 SenparcTrace.BaseExceptionLog(ex);
-                return new H5ReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+                return new H5ReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
             }
         }
 
@@ -292,7 +296,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             catch (Exception ex)
             {
                 SenparcTrace.BaseExceptionLog(ex);
-                return new NativeReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+                return new NativeReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
             }
         }
 
@@ -315,7 +319,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             catch (Exception ex)
             {
                 SenparcTrace.BaseExceptionLog(ex);
-                return new NativeReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+                return new NativeReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
             }
         }
         #endregion
@@ -341,7 +345,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             catch (Exception ex)
             {
                 SenparcTrace.BaseExceptionLog(ex);
-                return new OrderReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+                return new OrderReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
             }
         }
 
@@ -365,7 +369,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             catch (Exception ex)
             {
                 SenparcTrace.BaseExceptionLog(ex);
-                return new OrderReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+                return new OrderReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
             }
         }
 
@@ -387,7 +391,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             catch (Exception ex)
             {
                 SenparcTrace.BaseExceptionLog(ex);
-                return new CombineOrderReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+                return new CombineOrderReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
             }
         }
 
@@ -410,7 +414,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             catch (Exception ex)
             {
                 SenparcTrace.BaseExceptionLog(ex);
-                return new ReturnJsonBase() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+                return new ReturnJsonBase() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
             }
         }
 
@@ -433,7 +437,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             catch (Exception ex)
             {
                 SenparcTrace.BaseExceptionLog(ex);
-                return new ReturnJsonBase() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+                return new ReturnJsonBase() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
             }
         }
         #endregion
@@ -458,7 +462,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             catch (Exception ex)
             {
                 SenparcTrace.BaseExceptionLog(ex);
-                return new RefundReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+                return new RefundReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
             }
         }
 
@@ -480,7 +484,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             catch (Exception ex)
             {
                 SenparcTrace.BaseExceptionLog(ex);
-                return new RefundReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+                return new RefundReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
             }
         }
         #endregion
@@ -514,12 +518,13 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 if (result.VerifySignSuccess == true)
                 {
                     var responseMessage = await tenPayApiRequest.GetHttpResponseMessageAsync(result.download_url, null, requestMethod: ApiRequestMethod.GET);
-                    fileStream.Position = 0;
                     fileStream.Seek(0, SeekOrigin.Begin);
                     await responseMessage.Content.CopyToAsync(fileStream);
+                    fileStream.Seek(0, SeekOrigin.Begin);
 
                     //校验文件Hash
-                    var fileHash = SecurityHelper.GetFileHash(fileStream, result.hash_type);
+                    var fileHash = FileHelper.GetFileHash(fileStream, result.hash_type, false);
+                    Console.WriteLine("fileHash: "+ fileHash);
                     var fileVerify = fileHash.Equals(result.hash_value, StringComparison.OrdinalIgnoreCase);
                     if (!fileVerify)
                     {
@@ -533,7 +538,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             catch (Exception ex)
             {
                 SenparcTrace.BaseExceptionLog(ex);
-                return new BillReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+                return new BillReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
             }
         }
 
@@ -561,12 +566,12 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 if (result.VerifySignSuccess == true)
                 {
                     var responseMessage = await tenPayApiRequest.GetHttpResponseMessageAsync(result.download_url, null, requestMethod: ApiRequestMethod.GET);
-                    fileStream.Position = 0;
                     fileStream.Seek(0, SeekOrigin.Begin);
                     await responseMessage.Content.CopyToAsync(fileStream);
+                    fileStream.Seek(0, SeekOrigin.Begin);
 
                     //校验文件Hash
-                    var fileHash = SecurityHelper.GetFileHash(fileStream, result.hash_type);
+                    var fileHash = FileHelper.GetFileHash(fileStream, result.hash_type);
                     var fileVerify = fileHash.Equals(result.hash_value, StringComparison.OrdinalIgnoreCase);
                     if (!fileVerify)
                     {
@@ -581,7 +586,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             catch (Exception ex)
             {
                 SenparcTrace.BaseExceptionLog(ex);
-                return new BillReturnJson() { ResultCode = new HttpHandlers.TenPayApiResultCode() { ErrorMessage = ex.Message } };
+                return new BillReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
             }
         }
         #endregion

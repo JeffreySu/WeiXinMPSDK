@@ -146,7 +146,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                                 ReturnCode.接口调用超过限制,
                                 ReturnCode.需要接收者关注,//43004
                                 ReturnCode.超出响应数量限制,//43004 - out of response count limit，一般只允许连续接收20条客服消息
-                                ReturnCode.不合法的APPID
+                                ReturnCode.不合法的APPID,
+                                ReturnCode.不合法的OpenID,
 
                                 //其他更多可能的情况
                             };
@@ -183,10 +184,17 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                     {
                         var result = Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
                           url, data);
+
                         Task.WaitAll(new[] { result });
+
                         if (result.IsFaulted)
                         {
                             Senparc.Weixin.WeixinTrace.SendCustomLog("OnWeixinExceptionFunc过程模板消息发送异常", result.Exception?.Message + "\r\n" + result.Exception?.StackTrace);
+                        }
+
+                        if (result.Result.errcode != ReturnCode.请求成功)
+                        {
+                            Senparc.Weixin.WeixinTrace.SendCustomLog("异常模板消息发送过程中再次失败", result.Exception?.Message + "\r\n" + result.Exception?.StackTrace);
                         }
                     }
                 }                           // DPBMARK_END

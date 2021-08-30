@@ -493,7 +493,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 {
                     string appId = Config.SenparcWeixinSetting.TenPayV3_AppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
                     string openId = resHandler.GetParameter("openid");
-                    var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "购买商品", "状态：" + return_code);
+                    var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "微信支付 V2 购买商品", "状态：" + return_code);
 
                     Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数", appId + " , " + openId);
 
@@ -707,7 +707,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             string responseMsg = "FAIL";
             try
             {
-                ResponseHandler resHandler = new ResponseHandler(null);
+                ResponseHandler resHandler = new ResponseHandler(HttpContext);
 
                 string return_code = resHandler.GetParameter("return_code");
                 string return_msg = resHandler.GetParameter("return_msg");
@@ -736,7 +736,12 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                         return Content("faild");
                     }
 
+                    SenparcTrace.SendCustomLog("解密 - req_info", req_info);
+
                     var decodeReqInfo = TenPayV3Util.DecodeRefundReqInfo(req_info, TenPayV3Info.Key);
+
+                    SenparcTrace.SendCustomLog("解密 - decodeReqInfo", decodeReqInfo);
+
                     var decodeDoc = XDocument.Parse(decodeReqInfo);
 
                     //获取接口中需要用到的信息

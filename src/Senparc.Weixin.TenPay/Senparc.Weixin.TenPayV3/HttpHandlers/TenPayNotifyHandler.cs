@@ -31,34 +31,21 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections;
-using System.Collections.Specialized;
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Xml;
-
-using Senparc.Weixin.Exceptions;
-using Senparc.CO2NET.Helpers;
-using Senparc.CO2NET.AspNet.HttpUtility;
-using Senparc.CO2NET.Trace;
-using Senparc.CO2NET;
-
-using System.Web;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
+using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.TenPayV3.Helpers;
-using Senparc.Weixin.TenPayV3.Entities;
 using Senparc.Weixin.TenPayV3.Apis.Entities;
+using Senparc.Weixin.TenPayV3.Helpers;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 
 
 namespace Senparc.Weixin.TenPayV3
 {
+    /// <summary>
+    /// 微信支付通知消息处理器
+    /// </summary>
     public class TenPayNotifyHandler
     {
         readonly private NotifyRequest NotifyRequest;
@@ -67,11 +54,6 @@ namespace Senparc.Weixin.TenPayV3
         private ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting { get; }
         private HttpContext _httpContext;
 
-        /// <summary>
-        /// 获取页面提交的get和post参数
-        /// 注意:.NetCore环境必须传入HttpContext实例，不能传Null，这个接口调试特别困难，千万别出错！
-        /// </summary>
-        /// <param name="httpContext"></param>
 
         /// <summary>
         /// 构造函数
@@ -125,7 +107,7 @@ namespace Senparc.Weixin.TenPayV3
             var wechatpaySerial = _httpContext.Request.Headers?["Wechatpay-Serial"];
 
             result.VerifySignSuccess = await TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, Body, wechatpaySerial, this._tenpayV3Setting);
-            result.ResultCode = null;
+            result.ResultCode = new TenPayApiResultCode(_httpContext.Request.Method, "", "", "", result.VerifySignSuccess == true);
 
             return result;
         }

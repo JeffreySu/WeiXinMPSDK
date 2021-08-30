@@ -39,7 +39,6 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.TenPayV3.Apis.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
-using Senparc.Weixin.TenPayV3.HttpHandlers;
 using System;
 using System.Linq;
 using System.Net.Http;

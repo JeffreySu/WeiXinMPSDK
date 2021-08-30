@@ -96,7 +96,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         public class Stock_Use_Rule
         {
             /// <summary>
-            /// 
+            /// 含参构造函数
             /// </summary>
             /// <param name="max_coupons">发放总上限 最大发券数</param>
             /// <param name="max_amount">最大发券预算</param>
@@ -112,6 +112,13 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
                 this.max_coupons_per_user = max_coupons_per_user;
                 this.natural_person_limit = natural_person_limit;
                 this.prevent_api_abuse = prevent_api_abuse;
+            }
+
+            /// <summary>
+            /// 无参构造函数
+            /// </summary>
+            public Stock_Use_Rule()
+            {
             }
 
             /// <summary>
@@ -171,17 +178,82 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             public bool prevent_api_abuse { get; set; }
         }
 
+        /// <summary>
+        /// 样式设置
+        /// </summary>
+        public class Pattern_Info
+        {
+            /// <summary>
+            /// 含参构造函数
+            /// </summary>
+            /// <param name="description">用于说明详细的活动规则，会展示在代金券详情页</param>
+            /// <param name="merchant_logo">商户logo ，仅支持通过《图片上传API》接口获取的图片URL地址</param>
+            /// <param name="merchant_name">品牌名称，展示在用户卡包</param>
+            /// <param name="background_color">券的背景颜色，可设置10种颜色，色值请参考卡券背景颜色图 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_1.shtml </param>
+            /// <param name="coupon_image">券详情图片， 850像素*350像素，且图片大小不超过2M，支持JPG/PNG格式，仅支持通过《图片上传API》接口获取的图片URL地址</param>
+            public Pattern_Info(string description, string merchant_logo, string merchant_name, string background_color, string coupon_image)
+            {
+                this.description = description;
+                this.merchant_logo = merchant_logo;
+                this.merchant_name = merchant_name;
+                this.background_color = background_color;
+                this.coupon_image = coupon_image;
+            }
+
+            /// <summary>
+            /// 无参构造函数
+            /// </summary>
+            public Pattern_Info()
+            {
+            }
+
+            /// <summary>
+            /// 使用说明
+            /// 用于说明详细的活动规则，会展示在代金券详情页。
+            /// 校验规则：最多1000个UTF8字符
+            /// 示例值：微信支付营销代金券
+            /// </summary>
+            public string description { get; set; }
+
+            /// <summary>
+            /// 商户logo	
+            /// 商户logo ，仅支持通过《图片上传API》接口获取的图片URL地址。
+            /// 1、商户logo大小需为120像素*120像素。
+            /// 2、支持JPG/JPEG/PNG格式，且图片小于1M。
+            /// 3、最多128个UTF8字符
+            /// 示例值：https://qpic.cn/xxx
+            /// </summary>
+            public string merchant_logo { get; set; }
+
+            /// <summary>
+            /// 品牌名称
+            /// 品牌名称，展示在用户卡包
+            /// 校验规则：
+            /// 1、最多12个中文汉字
+            /// 2、最多36个英文字符
+            /// 示例值：微信支付
+            /// </summary>
+            public string merchant_name { get; set; }
+
+            /// <summary>
+            /// 背景颜色
+            /// 券的背景颜色，可设置10种颜色，色值请参考卡券背景颜色图。颜色取值为颜色图中的颜色名称。可选枚举字段不用则不传，不可以传空值
+            /// 示例值：COLOR020
+            /// </summary>
+            public string background_color { get; set; }
+
+            /// <summary>
+            /// 券详情图片
+            /// 券详情图片， 850像素*350像素，且图片大小不超过2M，支持JPG/PNG格式，仅支持通过《图片上传API》接口获取的图片URL地址。
+            /// 示例值：https://qpic.cn/xxx
+            /// </summary>
+            public string coupon_image { get; set; }
+        }
+
         #endregion
 
 
-        public class Pattern_Info
-        {
-            public string description { get; set; }
-            public string merchant_logo { get; set; }
-            public string merchant_name { get; set; }
-            public string background_color { get; set; }
-            public string coupon_image { get; set; }
-        }
+
 
         public class Coupon_Use_Rule
         {

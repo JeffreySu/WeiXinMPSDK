@@ -290,7 +290,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 var name = product == null ? "test" : product.Name;
                 var price = product == null ? 100 : (int)(product.Price * 100);//单位：分
 
-                var notifyUrl = TenPayV3Info.TenPayV3Notify.Replace("/TenpayV3/", "/TenpayRealV3/");
+                var notifyUrl = TenPayV3Info.TenPayV3Notify.Replace("/TenpayV3/", "/TenpayRealV3/").Replace("http://", "https://");
 
                 //TODO: JsApiRequestData修改构造函数参数顺序
                 TransactionsRequestData jsApiRequestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name + " - 微信支付 V3", sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1), false), null, notifyUrl, null, new() { currency = "CNY", total = price }, new(openId), null, null, null);
@@ -369,16 +369,15 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                     string appId = Config.SenparcWeixinSetting.TenPayV3_AppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
                     //string openId = resHandler.GetParameter("openid");
                     string openId = orderReturnJson.payer.openid;
-                    //var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "购买商品", "状态：" + return_code);
-                    var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "购买商品", "状态：" + trade_state);
+                    var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "微信支付 V3 购买商品", "状态：" + trade_state);
 
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数", "AppId:" + appId + " ,openId: " + openId);
+                    Senparc.Weixin.WeixinTrace.SendCustomLog("TenPayV3 支付成功模板消息参数", "AppId:" + appId + " ,openId: " + openId);
 
                     var result = MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(appId, openId, templateData);
                 }
                 catch (Exception ex)
                 {
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息", ex.ToString());
+                    Senparc.Weixin.WeixinTrace.SendCustomLog("TenPayV3 支付成功模板消息", ex.ToString());
                 }
 
                 #region 记录日志

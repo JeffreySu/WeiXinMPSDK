@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：QueryStockReturnJson.cs
-    文件功能描述：查询代金券批次返回Json类
+    文件名：StockReturnJson.cs
+    文件功能描述：代金券批次数据
     
     
     创建标识：Senparc - 20210823
@@ -38,10 +38,10 @@ using Senparc.Weixin.TenPayV3.Apis.Entities;
 namespace Senparc.Weixin.TenPayV3.Apis.Marketing
 {
     /// <summary>
-    /// 查询代金券批次返回Json类
+    /// 代金券批次数据
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_5.shtml </para>
     /// </summary>
-    public class QueryStockReturnJson : ReturnJsonBase
+    public class StockReturnJson : ReturnJsonBase
     {
         /// <summary>
         /// 批次号
@@ -131,7 +131,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// 批次类型
         /// <para>枚举值： NORMAL：代金券批次 DISCOUNT_CUT：立减与折扣 OTHER：其他</para>
         /// </summary>
-        public string[] stock_type { get; set; }
+        public string stock_type { get; set; }
 
         #region 请求数据类型
 
@@ -140,38 +140,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// </summary>
         public class Stock_Use_Rule
         {
-            /// <summary>
-            /// 含参构造函数
-            /// </summary>
-            /// <param name="max_coupons">发放总上限</param>
-            /// <param name="max_amount">总预算</param>
-            /// <param name="max_amount_by_day">单天发放上限金额</param>
-            /// <param name="fixed_normal_coupon">固定面额批次特定信息</param>
-            /// <param name="max_coupons_per_user">单个用户可领个数</param>
-            /// <param name="coupon_type">券类型 <para>枚举值：NORMAL：满减券 CUT_TO：减至券</para></param>
-            /// <param name="goods_tag">订单优惠标记 (该字段暂未开放返回)</param>
-            /// <param name="trade_type">支付方式 <para>枚举值： MICROAPP：小程序支付 APPPAY：APP支付 PPAY：免密支付 CARD：付款码支付 FACE：人脸支付 OTHER：（公众号、扫码等）</para></param>
-            /// <param name="combine_use"> 是否可叠加其他优惠 <para>枚举值： true：是 false：否 示例值：true</para></param>
-            public Stock_Use_Rule(ulong max_coupons, ulong max_amount, ulong max_amount_by_day, Fixed_Normal_Coupon fixed_normal_coupon, uint max_coupons_per_user, string[] coupon_type, string[] goods_tag, string[] trade_type, bool combine_use)
-            {
-                this.max_coupons = max_coupons;
-                this.max_amount = max_amount;
-                this.max_amount_by_day = max_amount_by_day;
-                this.fixed_normal_coupon = fixed_normal_coupon;
-                this.max_coupons_per_user = max_coupons_per_user;
-                this.coupon_type = coupon_type;
-                this.goods_tag = goods_tag;
-                this.trade_type = trade_type;
-                this.combine_use = combine_use;
-            }
-
-            /// <summary>
-            /// 无参构造函数
-            /// </summary>
-            public Stock_Use_Rule()
-            {
-            }
-
             /// <summary>
             /// 发放总上限
             /// </summary>
@@ -201,7 +169,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             /// 券类型
             /// <para>枚举值：NORMAL：满减券 CUT_TO：减至券</para>
             /// </summary>
-            public string[] coupon_type { get; set; }
+            public string coupon_type { get; set; }
 
             /// <summary>
             /// 订单优惠标记 (该字段暂未开放返回)
@@ -229,24 +197,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             public class Fixed_Normal_Coupon
             {
                 /// <summary>
-                /// 含参构造函数
-                /// </summary>
-                /// <param name="coupon_amount">面额</param>
-                /// <param name="transaction_minimum">使用券金额门槛</param>
-                public Fixed_Normal_Coupon(ulong coupon_amount, ulong transaction_minimum)
-                {
-                    this.coupon_amount = coupon_amount;
-                    this.transaction_minimum = transaction_minimum;
-                }
-
-                /// <summary>
-                /// 无参构造函数
-                /// </summary>
-                public Fixed_Normal_Coupon()
-                {
-                }
-
-                /// <summary>
                 /// 面额
                 /// </summary>
                 public ulong coupon_amount { get; set; }
@@ -266,24 +216,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         public class Cut_To_Message
         {
             /// <summary>
-            /// 含参构造函数
-            /// </summary>
-            /// <param name="single_price_max">可用优惠的商品最高单价</param>
-            /// <param name="cut_to_price">减至后的优惠单价</param>
-            public Cut_To_Message(ulong single_price_max, ulong cut_to_price)
-            {
-                this.single_price_max = single_price_max;
-                this.cut_to_price = cut_to_price;
-            }
-
-            /// <summary>
-            /// 无参构造函数
-            /// </summary>
-            public Cut_To_Message()
-            {
-            }
-
-            /// <summary>
             /// 可用优惠的商品最高单价
             /// </summary>
             public ulong single_price_max { get; set; }
@@ -296,9 +228,4 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
 
         #endregion
     }
-
-
-
-
-
 }

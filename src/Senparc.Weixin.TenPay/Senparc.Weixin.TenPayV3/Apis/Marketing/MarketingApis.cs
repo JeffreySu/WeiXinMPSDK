@@ -30,6 +30,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.TenPayV3.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -127,7 +128,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <returns></returns>
         public async Task<PauseStockReturnJson> PauseStock(string stock_id, string stock_creator_mchid, int timeOut = Config.TIME_OUT)
         {
-            
+
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}/pause");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<PauseStockReturnJson>(url, stock_creator_mchid, timeOut);
@@ -144,7 +145,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <returns></returns>
         public async Task<RestartStockReturnJson> RestartStock(string stock_id, string stock_creator_mchid, int timeOut = Config.TIME_OUT)
         {
-        
+
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}/restart");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<RestartStockReturnJson>(url, stock_creator_mchid, timeOut);
@@ -155,32 +156,48 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <para>通过此接口可查询多个批次的信息，包括批次的配置信息以及批次概况数据</para>
         /// <para><see href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_4.shtml">更多详细请参考微信支付官方文档</see></para>
         /// </summary>
-        /// <param name="stock_id">批次号 微信为每个代金券批次分配的唯一id 校验规则：必须为代金券（全场券或单品券）批次号，不支持立减与折扣。</param>
+        /// <param name="offset">分页页码	 页码从0开始，默认第0页</param>
+        /// <param name="limit">分页大小，最大10</param>
         /// <param name="stock_creator_mchid">批次创建方商户号 校验规则：接口传入的批次号需由stock_creator_mchid所创建</param>
+        /// <param name="create_start_time">起始创建时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss.sss+TIMEZONE，可为null</param>
+        /// <param name="create_end_time">终止创建时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss.sss+TIMEZONE，可为null</param>
+        /// <param name="status">批次状态，枚举值： unactivated：未激活 audit：审核中 running：运行中 stoped：已停止 paused：暂停发放，可为null
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<RestartStockReturnJson> QueryStocks(string stock_id, string stock_creator_mchid, int timeOut = Config.TIME_OUT)
+        public async Task<QueryStocksReturnJson> QueryStocks(uint offset, uint limit, string stock_creator_mchid, TenpayDateTime create_start_time = null, TenpayDateTime create_end_time = null, string status = null, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}?stock_creator_mchid={stock_creator_mchid}");
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks?offset={offset}&limit={limit}&stock_creator_mchid={stock_creator_mchid}");
+            if (create_start_time is not null)
+            {
+                url += $"&create_start_time={create_start_time}";
+            }
+            if (create_end_time is not null)
+            {
+                url += $"&create_end_time={create_end_time}";
+            }
+            if (status is not null)
+            {
+                url += $"&status={status}";
+            }
+
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
-            return await tenPayApiRequest.RequestAsync<RestartStockReturnJson>(url, stock_creator_mchid, timeOut);
+            return await tenPayApiRequest.RequestAsync<QueryStocksReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }
 
-
         /// <summary>
-        /// 条件查询代金券批次列表
-        /// <para>通过此接口可查询多个批次的信息，包括批次的配置信息以及批次概况数据</para>
-        /// <para><see href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_4.shtml">更多详细请参考微信支付官方文档</see></para>
+        /// 查询批次详情
+        /// <para>通过此接口可查询批次信息，包括批次的配置信息以及批次概况数据</para>
+        /// <para><see href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_5.shtml">更多详细请参考微信支付官方文档</see></para>
         /// </summary>
         /// <param name="stock_id">批次号 微信为每个代金券批次分配的唯一id 校验规则：必须为代金券（全场券或单品券）批次号，不支持立减与折扣。</param>
         /// <param name="stock_creator_mchid">批次创建方商户号 校验规则：接口传入的批次号需由stock_creator_mchid所创建</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<QueryStockReturnJson> QueryStock(string stock_id, string stock_creator_mchid, int timeOut = Config.TIME_OUT)
+        public async Task<StockReturnJson> QueryStock(string stock_id, string stock_creator_mchid, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}?stock_creator_mchid={stock_creator_mchid}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
-            return await tenPayApiRequest.RequestAsync<QueryStockReturnJson>(url, null, timeOut,ApiRequestMethod.GET);
+            return await tenPayApiRequest.RequestAsync<StockReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }
         #endregion
     }

@@ -101,7 +101,7 @@ namespace Senparc.Weixin.TenPayV3
         public static async Task<string> GetAPIv3PublicKeyAsync(ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3, string tenpaySerialNumber)
         {
             var tenpayV3InfoKey = TenPayHelper.GetRegisterKey(senparcWeixinSettingForTenpayV3.TenPayV3_MchId, senparcWeixinSettingForTenpayV3.TenPayV3_SubMchId);
-            var pubKey = await Data[tenpayV3InfoKey].GetPublicKeyAsync(tenpaySerialNumber);
+            var pubKey = await Data[tenpayV3InfoKey].GetPublicKeyAsync(tenpaySerialNumber, senparcWeixinSettingForTenpayV3);
             return pubKey;
         }
 

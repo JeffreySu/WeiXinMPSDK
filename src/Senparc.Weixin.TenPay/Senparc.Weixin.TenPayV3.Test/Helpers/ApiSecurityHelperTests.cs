@@ -24,7 +24,7 @@ namespace Senparc.Weixin.TenPayV3.Test.net6.Helpers
     rwIDAQAB
 -----END PUBLIC KEY-----";
 
-            var unwrapKey = ApiSecurityHelper.GetUnwrapCertKey(originalPublicKey);
+            var unwrapKey = SecurityHelper.GetUnwrapCertKey(originalPublicKey);
             Assert.AreEqual(@"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4zej1cqugGQtVSY2Ah8RMCKcr2UpZ8Npo+5Ja9xpFPYkWHaF1Gjrn3d5kcwAFuHHcfdc3yxDYx6+9grvJnCA2zQzWjzVRa3BJ5LTMj6yqvhEmtvjO9D1xbFTA2m3kyjxlaIar/RYHZSslT4VmjIatW9KJCDKkwpM6x/RIWL8wwfFwgz2q3Zcrff1y72nB8p8P12ndH7GSLoY6d2Tv0OB2+We2Kyy2+QzfGXOmLp7UK/pFQjJjzhSf9jxaWJXYKIBxpGlddbRZj9PqvFPTiep8rvfKGNZF9Q6QaMYTpTp/uKQ3YvpDlyeQlYe4rRFauH3mOE6j56QlYQWivknDX9VrwIDAQAB", unwrapKey);
         }
     }

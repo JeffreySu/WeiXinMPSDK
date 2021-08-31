@@ -39,7 +39,6 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.TenPayV3.Apis.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
-using Senparc.Weixin.TenPayV3.HttpHandlers;
 using System;
 using System.Linq;
 using System.Net.Http;
@@ -180,7 +179,7 @@ namespace Senparc.Weixin.TenPayV3
                 string content = await responseMessage.Content.ReadAsStringAsync();//TODO:如果不正确也要返回详情
 
                 //检查响应代码
-                TenPayApiResultCode resutlCode = TenPayApiResultCode.TryGetCode(responseMessage.StatusCode,content);
+                TenPayApiResultCode resutlCode = TenPayApiResultCode.TryGetCode(responseMessage.StatusCode, content);
 
                 if (resutlCode.Success)
                 {

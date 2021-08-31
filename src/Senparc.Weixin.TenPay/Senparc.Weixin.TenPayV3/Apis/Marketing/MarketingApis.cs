@@ -150,6 +150,38 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             return await tenPayApiRequest.RequestAsync<RestartStockReturnJson>(url, stock_creator_mchid, timeOut);
         }
 
+        /// <summary>
+        /// 条件查询代金券批次列表
+        /// <para>通过此接口可查询多个批次的信息，包括批次的配置信息以及批次概况数据</para>
+        /// <para><see href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_4.shtml">更多详细请参考微信支付官方文档</see></para>
+        /// </summary>
+        /// <param name="stock_id">批次号 微信为每个代金券批次分配的唯一id 校验规则：必须为代金券（全场券或单品券）批次号，不支持立减与折扣。</param>
+        /// <param name="stock_creator_mchid">批次创建方商户号 校验规则：接口传入的批次号需由stock_creator_mchid所创建</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<RestartStockReturnJson> QueryStocks(string stock_id, string stock_creator_mchid, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}?stock_creator_mchid={stock_creator_mchid}");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<RestartStockReturnJson>(url, stock_creator_mchid, timeOut);
+        }
+
+
+        /// <summary>
+        /// 条件查询代金券批次列表
+        /// <para>通过此接口可查询多个批次的信息，包括批次的配置信息以及批次概况数据</para>
+        /// <para><see href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_4.shtml">更多详细请参考微信支付官方文档</see></para>
+        /// </summary>
+        /// <param name="stock_id">批次号 微信为每个代金券批次分配的唯一id 校验规则：必须为代金券（全场券或单品券）批次号，不支持立减与折扣。</param>
+        /// <param name="stock_creator_mchid">批次创建方商户号 校验规则：接口传入的批次号需由stock_creator_mchid所创建</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<QueryStockReturnJson> QueryStock(string stock_id, string stock_creator_mchid, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}?stock_creator_mchid={stock_creator_mchid}");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<QueryStockReturnJson>(url, null, timeOut,ApiRequestMethod.GET);
+        }
         #endregion
     }
 }

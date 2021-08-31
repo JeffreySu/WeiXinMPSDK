@@ -110,9 +110,9 @@ namespace Senparc.Weixin.Work
             var result = ApiHandlerWapperBase.
                 TryCommonApiBase(
                     PlatformType.Work,
-                    accessTokenContainer_GetFirstOrDefaultAppIdFunc,
-                    accessTokenContainer_CheckRegisteredFunc,
-                    accessTokenContainer_GetAccessTokenResultFunc,
+                    AccessTokenContainer_GetFirstOrDefaultAppIdFunc,
+                    AccessTokenContainer_CheckRegisteredFunc,
+                    AccessTokenContainer_GetAccessTokenResultFunc,
                     InvalidCredentialValues,
                     fun, accessTokenOrAppKey, retryIfFaild);
             return result;
@@ -137,12 +137,12 @@ namespace Senparc.Weixin.Work
           };
 
         internal static Func<string, bool, Task<IAccessTokenResult>> AccessTokenContainer_GetAccessTokenResultAsyncFunc =
-            (appKey, getNewToken) =>
+            async (appKey, getNewToken) =>
             {
                 /*
                  * 对于企业微信来说，AppId = key = CorpId+'@'+CorpSecret
                  */
-                return AccessTokenContainer.GetTokenResultAsync(appKey, getNewToken);
+                return await AccessTokenContainer.GetTokenResultAsync(appKey, getNewToken).ConfigureAwait(false);
             };
 
         /// <summary>
@@ -159,9 +159,9 @@ namespace Senparc.Weixin.Work
             var result = ApiHandlerWapperBase.
                 TryCommonApiBaseAsync(
                     PlatformType.Work,
-                    accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
-                    accessTokenContainer_CheckRegisteredAsyncFunc,
-                    accessTokenContainer_GetAccessTokenResultAsyncFunc,
+                    AccessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
+                    AccessTokenContainer_CheckRegisteredAsyncFunc,
+                    AccessTokenContainer_GetAccessTokenResultAsyncFunc,
                     InvalidCredentialValues,
                     fun, accessTokenOrAppKey, retryIfFaild);
             return await result.ConfigureAwait(false);

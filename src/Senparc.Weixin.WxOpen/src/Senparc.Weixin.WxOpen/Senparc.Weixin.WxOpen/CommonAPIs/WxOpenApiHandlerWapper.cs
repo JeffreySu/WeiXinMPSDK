@@ -81,7 +81,7 @@ namespace Senparc.Weixin.WxOpen
             Func<string, bool, IAccessTokenResult> accessTokenContainer_GetAccessTokenResultFunc =
                 (appId, getNewToken) => AccessTokenContainer.GetAccessTokenResult(appId, getNewToken);
 
-            int invalidCredentialValue = (int)ReturnCode.获取access_token时AppSecret错误或者access_token无效;
+            //int invalidCredentialValue = (int)ReturnCode.获取access_token时AppSecret错误或者access_token无效;
 
             var result = ApiHandlerWapperBase.
                 TryCommonApiBase(
@@ -224,7 +224,7 @@ namespace Senparc.Weixin.WxOpen
             Func<string, bool, Task<IAccessTokenResult>> accessTokenContainer_GetAccessTokenResultAsyncFunc =
                 (appId, getNewToken) => AccessTokenContainer.GetAccessTokenResultAsync(appId, getNewToken);
 
-            int invalidCredentialValue = (int)ReturnCode.获取access_token时AppSecret错误或者access_token无效;
+            //int invalidCredentialValue = (int)ReturnCode.获取access_token时AppSecret错误或者access_token无效;
 
             var result = ApiHandlerWapperBase.
                 TryCommonApiBaseAsync(

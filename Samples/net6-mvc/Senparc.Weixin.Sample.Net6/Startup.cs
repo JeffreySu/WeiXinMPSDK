@@ -29,6 +29,7 @@ using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK Open DPBMARK_END
 using Senparc.Weixin.RegisterServices;
 using Senparc.Weixin.Sample.NetCore3.WebSocket.Hubs;//DPBMARK WebSocket DPBMARK_END
 using Senparc.Weixin.TenPay;//DPBMARK TenPay DPBMARK_END
+using Senparc.Weixin.TenPayV3;
 using Senparc.Weixin.Work;//DPBMARK Work DPBMARK_END
 using Senparc.Weixin.Work.MessageHandlers.Middleware;//DPBMARK Work DPBMARK_END
 using Senparc.Weixin.WxOpen;//DPBMARK MiniProgram DPBMARK_END
@@ -274,6 +275,8 @@ namespace Senparc.Weixin.Sample.NetCore3
                              * 请在 ConfigureServices() 方法中使用 services.AddCertHttpClient() 
                              * 添加对应证书。
                              */
+
+                            .RegisterTenpayRealV3(senparcWeixinSetting.Value, "【盛派网络小助手】公众号-RealV3")//注册最新的 TenPay V3
 
                     #endregion                          // DPBMARK_END
 

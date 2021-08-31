@@ -79,9 +79,24 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <returns></returns>
         public async Task<CreateStockReturnJson> CreateStocks(CreateStockRequsetData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/v3/marketing/favor/coupon-stocks");
+            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/marketing/favor/coupon-stocks");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<CreateStockReturnJson>(url, data, timeOut);
+        }
+
+        /// <summary>
+        /// 激活代金券批次接口
+        /// <para>制券成功后，通过调用此接口激活批次，如果是预充值代金券，激活时会从商户账户余额中锁定本批次的营销资金</para>
+        /// <para>更多详细请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_3.shtml </para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms </param>
+        /// <returns></returns>
+        public async Task<StartStockReturnJson> StartStocks(string stock_id, StartStockRequsetData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}/start");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<StartStockReturnJson>(url, data, timeOut);
         }
 
         #endregion

@@ -21,49 +21,38 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：StartStockRequsetData.cs
-    文件功能描述：激活代金券批次请求数据
+    文件名：StartStockReturnJson.cs
+    文件功能描述：激活代金券批次返回Json类
     
     
-    创建标识：Senparc - 20210831
+    创建标识：Senparc - 20210823
     
 ----------------------------------------------------------------*/
-
-using Senparc.Weixin.TenPayV3.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.Weixin.TenPayV3.Apis.Entities;
 
 namespace Senparc.Weixin.TenPayV3.Apis.Marketing
 {
     /// <summary>
-    /// 激活代金券批次API请求数据
-    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_3.shtml </para>
+    /// 激活代金券批次返回Json类
+    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_1.shtml </para>
     /// </summary>
-    public class StartStockRequsetData
+    public class StartStockReturnJson : ReturnJsonBase
     {
         /// <summary>
-        /// 含参构造函数
+        /// 生效时间
+        /// <para>遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss.sss+TIMEZONE</para>
         /// </summary>
-        /// <param name="stock_creator_mchid">创建批次的商户号</param>
-        public StartStockRequsetData(string stock_creator_mchid)
-        {
-            this.stock_creator_mchid = stock_creator_mchid;
-        }
+        public DateTime start_time { get; set; }
 
         /// <summary>
-        /// 无参构造函数
+        /// 批次号
+        /// <para>微信为每个代金券批次分配的唯一id</para>
         /// </summary>
-        public StartStockRequsetData()
-        {
-        }
-
-        /// <summary>
-        /// 创建批次的商户号
-        /// <para>批次创建方商户号</para>
-        /// </summary>
-        public string stock_creator_mchid { get; set; }
+        public string stock_id { get; set; }
     }
 }

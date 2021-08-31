@@ -72,13 +72,14 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <summary>
         /// 创建代金券批次接口
         /// <para>调用此接口创建微信支付代金券批次，创建完成后将获得代金券批次id。</para>
+        /// <para>更多详细请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_1.shtml </para>
         /// </summary>
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
         public async Task<CreateStockReturnJson> CreateStocks(CreateStockRequsetData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/jsapi");
+            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/v3/marketing/favor/coupon-stocks");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<CreateStockReturnJson>(url, data, timeOut);
         }

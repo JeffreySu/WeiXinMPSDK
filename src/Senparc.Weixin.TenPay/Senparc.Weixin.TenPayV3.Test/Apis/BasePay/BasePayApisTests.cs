@@ -93,6 +93,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             var price = 100;
             var name = "单元测试-" + DateTime.Now.ToString();
+            
             var sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
                          TenPayV3Util.BuildRandomStr(6));
 
@@ -117,6 +118,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             var price = 100;
             var name = "单元测试-" + DateTime.Now.ToString();
+            
             var sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
                          TenPayV3Util.BuildRandomStr(6));
 
@@ -142,6 +144,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             var price = 100;
             var name = "单元测试-" + DateTime.Now.ToString();
+            
             var sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
                          TenPayV3Util.BuildRandomStr(6));
 

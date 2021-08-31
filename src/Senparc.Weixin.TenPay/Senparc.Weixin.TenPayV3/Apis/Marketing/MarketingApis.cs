@@ -116,6 +116,23 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             return await tenPayApiRequest.RequestAsync<DistributeStockReturnJson>(url, data, timeOut);
         }
 
+        /// <summary>
+        /// 暂停代金券批次接口
+        /// <para>通过此接口可暂停指定代金券批次。暂停后，该代金券批次暂停发放，用户无法通过任何渠道再领取该批次的券</para>
+        /// <para><see href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_13.shtml">更多详细请参考微信支付官方文档</see></para>
+        /// </summary>
+        /// <param name="stock_id"> 微信为每个代金券批次分配的唯一id 校验规则：必须为代金券（全场券或单品券）批次号，不支持立减与折扣。</param>
+        /// <param name="stock_creator_mchid">批次创建方商户号 校验规则：接口传入的批次号需由stock_creator_mchid所创建</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<PauseStockReturnJson> PauseStock(string stock_id, string stock_creator_mchid, int timeOut = Config.TIME_OUT)
+        {
+            
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}/pause");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<PauseStockReturnJson>(url, stock_creator_mchid, timeOut);
+        }
+
         #endregion
     }
 }

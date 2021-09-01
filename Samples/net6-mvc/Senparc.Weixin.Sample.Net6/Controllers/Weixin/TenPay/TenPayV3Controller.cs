@@ -17,40 +17,35 @@
     修改描述：调用新版Unifiedorder方法
 ----------------------------------------------------------------*/
 
+/* 注意：TenPayV3Controller 是微信文档 V3 的示例，并非微信之后出来的 API V3，
+ * 微信真正微信支付 API V3 的示例请见 TenPayRealV3Controller 
+ */
+
 //DPBMARK_FILE TenPay
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Trace;
+using Senparc.CO2NET.Utilities;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Helpers;
+using Senparc.Weixin.MP;
+using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
+using Senparc.Weixin.Sample.NetCore3.Filters;
+using Senparc.Weixin.Sample.NetCore3.Models;
+using Senparc.Weixin.TenPay.V3;
 using System;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-
-using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
-using Senparc.Weixin.Helpers;
-using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
-using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.TenPay.V3;
 using ZXing;
 using ZXing.Common;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
-using Microsoft.AspNetCore.Http;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
-using Senparc.CO2NET.Extensions;
-using Senparc.CO2NET.Helpers;
-using Senparc.CO2NET.Utilities;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Senparc.Weixin.Sample.NetCore3.Filters;
-using Senparc.Weixin.Sample.NetCore3.Models;
-using Senparc.Weixin.MP;
-using Senparc.CO2NET;
-using Senparc.CO2NET.Trace;
-using Senparc.Weixin.MP.Entities;
 using TenPayOldV3 = Senparc.Weixin.TenPay.V3.TenPayV3;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
@@ -498,7 +493,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 {
                     string appId = Config.SenparcWeixinSetting.TenPayV3_AppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
                     string openId = resHandler.GetParameter("openid");
-                    var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "购买商品", "状态：" + return_code);
+                    var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "微信支付 V2 购买商品", "状态：" + return_code);
 
                     Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数", appId + " , " + openId);
 
@@ -712,7 +707,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             string responseMsg = "FAIL";
             try
             {
-                ResponseHandler resHandler = new ResponseHandler(null);
+                ResponseHandler resHandler = new ResponseHandler(HttpContext);
 
                 string return_code = resHandler.GetParameter("return_code");
                 string return_msg = resHandler.GetParameter("return_msg");
@@ -741,7 +736,12 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                         return Content("faild");
                     }
 
+                    SenparcTrace.SendCustomLog("解密 - req_info", req_info);
+
                     var decodeReqInfo = TenPayV3Util.DecodeRefundReqInfo(req_info, TenPayV3Info.Key);
+
+                    SenparcTrace.SendCustomLog("解密 - decodeReqInfo", decodeReqInfo);
+
                     var decodeDoc = XDocument.Parse(decodeReqInfo);
 
                     //获取接口中需要用到的信息

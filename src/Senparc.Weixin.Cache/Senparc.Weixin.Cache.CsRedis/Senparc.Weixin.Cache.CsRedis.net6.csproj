@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;net461;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>0.5.500-preview2</Version>
+    <Version>0.5.500-preview2.1</Version>
     <AssemblyName>Senparc.Weixin.Cache.CsRedis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.CsRedis</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -22,8 +22,8 @@
     <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
     <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
     <PackageReleaseNotes>
-			v0.1.0
-			创世
+			v0.1.0 创世
+			v0.5.500 Register.ActivityDomainCache() 方法添加 try，过滤异常
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -67,7 +67,7 @@
   <ItemGroup>
     <!--<PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.1.0" />-->
     <PackageReference Include="BinaryFormatter" Version="2.1.4" />
-    <PackageReference Include="Senparc.CO2NET.Cache.CsRedis" Version="0.5.0-preview3" />
+    <PackageReference Include="Senparc.CO2NET.Cache.CsRedis" Version="0.5.2-preview3" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

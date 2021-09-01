@@ -16,6 +16,9 @@
     修改标识：Senparc - 20191002
     修改描述：v2.8.100 UseSenparcWeixinCacheRedis() 扩展方法 this 类型由 IApplicationBuilder 改为 IRegisterService
 
+    修改标识：Senparc - 20210901
+    修改描述：v0.5.500 Register.ActivityDomainCache() 方法添加 try，过滤异常
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.RegisterServices;
@@ -43,8 +46,14 @@ namespace Senparc.Weixin.Cache.CsRedis
         public static void ActivityDomainCache()
         {
             //通过调用 ContainerCacheStrategy，激活领域模型注册过程
-            var cache = RedisContainerCacheStrategy.Instance;
-            var cacheHashSet = RedisHashSetContainerCacheStrategy.Instance;
+            try
+            {
+                var cache = RedisContainerCacheStrategy.Instance;
+                var cacheHashSet = RedisHashSetContainerCacheStrategy.Instance;
+            }
+            catch
+            {
+            }
         }
     }
 }

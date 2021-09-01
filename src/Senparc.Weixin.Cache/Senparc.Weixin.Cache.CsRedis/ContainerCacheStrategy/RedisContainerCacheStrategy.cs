@@ -72,6 +72,8 @@ namespace Senparc.Weixin.Cache.CsRedis
         {
             //base.ChildNamespace = "WeixinContainer";
 
+            var tt = RedisObjectCacheStrategy.Instance;
+
             //使用底层缓存策略
             BaseCacheStrategy = () => RedisObjectCacheStrategy.Instance;
 

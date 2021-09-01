@@ -377,6 +377,22 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             }
         }
 
+
+        /// <summary>
+        /// 设置消息通知地址
+        /// <para>于设置接收营销事件通知的URL，可接收营销相关的事件通知，包括核销、发放、退款等</para>
+        /// <para><see href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_12.shtml">更多详细请参考微信支付官方文档</see></para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<SetNotifyUrlReturnJson> SetNotifyUrl(SetNotifyUrlRequsetData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/callbacks");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<SetNotifyUrlReturnJson>(url, data, timeOut);
+        }
+
         #endregion
     }
 }

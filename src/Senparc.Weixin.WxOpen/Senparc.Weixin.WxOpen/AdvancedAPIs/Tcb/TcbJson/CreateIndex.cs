@@ -20,45 +20,59 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
+  
+    文件名：CreateIndex.cs
+    文件功能描述：新增索引
     
-    文件名：LibraryListJsonResult.cs
-    文件功能描述：“获取小程序模板库标题列表”接口：LibraryList 结果
     
-    
-    创建标识：Senparc - 20170827
-
+    创建标识：lishewen - 20200318
 ----------------------------------------------------------------*/
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Senparc.Weixin.Entities;
-
-namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
+namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
 {
     /// <summary>
-    /// “获取小程序模板库标题列表”接口：LibraryList 结果
+    /// 新增索引
     /// </summary>
-    public class LibraryListJsonResult : WxJsonResult
+    public class CreateIndex
     {
-        public List<LibraryListJsonResult_List> list { get; set; }
         /// <summary>
-        /// 模板库标题总数
+        /// 索引名
         /// </summary>
-        public int total_count { get; set; }
+        public string name { get; set; }
+        /// <summary>
+        /// 是否唯一
+        /// </summary>
+        public bool unique { get; set; }
+        /// <summary>
+        /// 索引字段
+        /// </summary>
+        public Key[] keys { get; set; }
+    }
+    /// <summary>
+    /// 索引字段
+    /// </summary>
+    public class Key
+    {
+        /// <summary>
+        /// 字段名
+        /// </summary>
+        public string name { get; set; }
+        /// <summary>
+        /// 字段排序
+        /// "1"        升序
+        /// "-1"        降序
+        /// "2dsphere"        地理位置
+        /// </summary>
+        public string direction { get; set; }
+    }
+    /// <summary>
+    /// 删除索引
+    /// </summary>
+    public class DropIndex
+    {
+        /// <summary>
+        /// 索引名
+        /// </summary>
+        public string name { get; set; }
     }
 
-    public class LibraryListJsonResult_List
-    {
-        /// <summary>
-        /// 模板标题id（获取模板标题下的关键词库时需要）
-        /// </summary>
-        public string id { get; set; }
-        /// <summary>
-        /// 模板标题内容
-        /// </summary>
-        public string title { get; set; }
-    }
 }

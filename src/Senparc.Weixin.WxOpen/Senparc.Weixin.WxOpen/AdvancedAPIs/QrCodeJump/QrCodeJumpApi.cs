@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,10 +19,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2021 Senparc
 
     文件名：QrCodeJumpApi.cs
     文件功能描述：小程序的普通链接二维码接口
+
+    修改标识：Senparc - 20200909
+    修改描述：v3.8.512 修复普通链接二维码与小程序码-获取校验文件名称及内容
 
 ----------------------------------------------------------------*/
 
@@ -55,7 +58,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.QrCodeJump
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/qrcodejumpget?access_token={0}";
 
-                return CommonJsonSend.Send<GetJsonResult>(accessToken, urlFormat, null, timeOut: timeOut);
+                return CommonJsonSend.Send<GetJsonResult>(accessToken, urlFormat, new { }, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
 
@@ -73,7 +76,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.QrCodeJump
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/qrcodejumpdownload?access_token={0}";
 
-            return CommonJsonSend.Send<DownloadJsonResult>(accessToken, urlFormat, null, timeOut: timeOut);
+            return CommonJsonSend.Send<DownloadJsonResult>(accessToken, urlFormat, new { }, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
 
@@ -169,7 +172,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.QrCodeJump
 
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/qrcodejumpget?access_token={0}";
 
-                return await CommonJsonSend.SendAsync<GetJsonResult>(accessToken, urlFormat, null, timeOut: timeOut).ConfigureAwait(false);
+                return await CommonJsonSend.SendAsync<GetJsonResult>(accessToken, urlFormat, new { }, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
             
@@ -190,7 +193,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.QrCodeJump
 
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/qrcodejumpdownload?access_token={0}";
 
-                return await CommonJsonSend.SendAsync<DownloadJsonResult>(accessToken, urlFormat, null, timeOut: timeOut).ConfigureAwait(false);
+                return await CommonJsonSend.SendAsync<DownloadJsonResult>(accessToken, urlFormat, new { }, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
 

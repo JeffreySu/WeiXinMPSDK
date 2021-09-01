@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2021 Senparc
     
     文件名：EncryptHelper.cs
     文件功能描述：加密、解密处理类
@@ -32,6 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190727
     修改描述：完善 AES_Decrypt，处理偶然出现的 adding is invalid and cannot be removed 问题（未发现规律）
+
+    修改标识：likui0623 - 20201013
+    修改描述：添加解密到实例信息方法
 
 ----------------------------------------------------------------*/
 
@@ -291,6 +294,26 @@ namespace Senparc.Weixin.WxOpen.Helpers
             var entity = SerializerHelper.GetObject<T>(jsonStr);
             return entity;
         }
+        /// <summary>
+        /// 解密到实例信息
+        /// </summary>
+        /// <typeparam name="T">DecodeEntityBase</typeparam>
+        /// <param name="sessionKey"></param>
+        /// <param name="encryptedData"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
+        public static T DecodeEncryptedDataToEntityEasy<T>(string sessionKey, string encryptedData, string iv)
+       where T : DecodeEntityBase
+        {
+            var jsonStr = DecodeEncryptedData(sessionKey, encryptedData, iv);
+
+            //Console.WriteLine("===== jsonStr =====");
+            //Console.WriteLine(jsonStr);
+            //Console.WriteLine();
+
+            var entity = SerializerHelper.GetObject<T>(jsonStr);
+            return entity;
+        }
 
         /// <summary>
         /// 解密UserInfo消息（通过SessionId获取）
@@ -314,6 +337,22 @@ namespace Senparc.Weixin.WxOpen.Helpers
         public static DecodedPhoneNumber DecryptPhoneNumber(string sessionId, string encryptedData, string iv)
         {
             return DecodeEncryptedDataToEntity<DecodedPhoneNumber>(sessionId, encryptedData, iv);
+        }
+        /// <summary>
+        /// 解密手机号(根据sessionKey解密)
+        /// </summary>
+        /// <param name="sessionKey"></param>
+        /// <param name="encryptedData"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
+        public static DecodedPhoneNumber DecryptPhoneNumberBySessionKey(string sessionKey, string encryptedData, string iv)
+        {
+            //var resultStr = DecodeEncryptedData(sessionKey, encryptedData, iv);
+
+            //var entity = SerializerHelper.GetObject<DecodedPhoneNumber>(resultStr);
+            //return entity;
+
+            return DecodeEncryptedDataToEntityEasy<DecodedPhoneNumber>(sessionKey, encryptedData, iv);
         }
 
         /// <summary>

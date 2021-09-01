@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2021 Senparc
     
     文件名：WxOpenMessageHandler.cs
     文件功能描述：小程序MessageHandler
@@ -35,6 +35,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20190917
     修改描述：v3.6.0 支持新版本 MessageHandler 和 WeixinContext，支持使用分布式缓存储存上下文消息
+
+    修改标识：Senparc - 20200303
+    修改描述：v3.8.304.1 优化 MessageHandler 的异步方法调用
+      
+    修改标识：Senparc - 2020909
+    修改描述：v3.8.511 MessageHandler 增加异步方法
 
 ----------------------------------------------------------------*/
 
@@ -99,7 +105,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     return null;
                 }
 
-                if (!UsingEcryptMessage)
+                if (!UsingEncryptMessage)
                 {
                     return ResponseDocument;
                 }
@@ -142,10 +148,10 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="inputStream">XML流（后期会支持JSON）</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
-        /// <param name="onlyAllowEcryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
+        /// <param name="onlyAllowEncryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
         ///// <param name="developerInfo">开发者信息（非必填）</param>
-        public WxOpenMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false)
-            : base(inputStream, postModel, maxRecordCount, onlyAllowEcryptMessage)
+        public WxOpenMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false)
+            : base(inputStream, postModel, maxRecordCount, onlyAllowEncryptMessage)
         {
         }
 
@@ -155,9 +161,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="requestDocument">XML格式的请求</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
-        /// <param name="onlyAllowEcryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
-        public WxOpenMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false)
-            : base(requestDocument, postModel, maxRecordCount, onlyAllowEcryptMessage)
+        /// <param name="onlyAllowEncryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
+        public WxOpenMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false)
+            : base(requestDocument, postModel, maxRecordCount, onlyAllowEncryptMessage)
         {
         }
 
@@ -167,9 +173,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="requestMessageBase">RequestMessageBase</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
-        /// <param name="onlyAllowEcryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
-        public WxOpenMessageHandler(RequestMessageBase requestMessageBase, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false)
-            : base(requestMessageBase, postModel, maxRecordCount, onlyAllowEcryptMessage)
+        /// <param name="onlyAllowEncryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
+        public WxOpenMessageHandler(RequestMessageBase requestMessageBase, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false)
+            : base(requestMessageBase, postModel, maxRecordCount, onlyAllowEncryptMessage)
         {
         }
 
@@ -191,7 +197,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 && postDataDocument.Root.Element("Encrypt") != null && !string.IsNullOrEmpty(postDataDocument.Root.Element("Encrypt").Value))
             {
                 //使用了加密
-                UsingEcryptMessage = true;
+                UsingEncryptMessage = true;
                 EcryptRequestDocument = postDataDocument;
 
                 WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.AppId);
@@ -209,22 +215,22 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 if (postDataDocument.Root.Element("FromUserName") != null && !string.IsNullOrEmpty(postDataDocument.Root.Element("FromUserName").Value))
                 {
                     //TODO：使用了兼容模式，进行验证即可
-                    UsingCompatibilityModelEcryptMessage = true;
+                    UsingCompatibilityModelEncryptMessage = true;
                 }
 
                 decryptDoc = XDocument.Parse(msgXml);//完成解密
             }
 
             //检查是否限定只能用加密模式
-            if (OnlyAllowEcryptMessage && !UsingEcryptMessage)
+            if (OnlyAllowEncryptMessage && !UsingEncryptMessage)
             {
                 CancelExcute = true;
-                TextResponseMessage = "当前 MessageHandler 开启了 OnlyAllowEcryptMessage 设置，只允许处理加密消息，以提高安全性！";
+                TextResponseMessage = "当前 MessageHandler 开启了 OnlyAllowEncryptMessage 设置，只允许处理加密消息，以提高安全性！";
                 return null;
             }
 
             RequestMessage = RequestMessageFactory.GetRequestEntity(new TMC(), decryptDoc);
-            if (UsingEcryptMessage)
+            if (UsingEncryptMessage)
             {
                 RequestMessage.Encrypt = postDataDocument.Root.Element("Encrypt").Value;
             }
@@ -256,8 +262,33 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         #endregion
 
         #region 异步方法
-
-
+        /// <summary>
+        /// 自动判断默认异步方法调用（在没有override的情况下调用的默认方法）
+        /// </summary>
+        /// <param name="requestMessage">requestMessage</param>
+        /// <param name="syncMethod">同名的同步方法(DefaultMessageHandlerAsyncEvent值为SelfSynicMethod时调用)</param>
+        /// <returns></returns>
+        private async Task<IResponseMessageBase> DefaultAsyncMethod(IRequestMessageBase requestMessage, Func<IResponseMessageBase> syncMethod)
+        {
+            switch (base.DefaultMessageHandlerAsyncEvent)
+            {
+                case DefaultMessageHandlerAsyncEvent.DefaultResponseMessageAsync:
+                    //返回默认信息
+                    return await DefaultResponseMessageAsync(requestMessage).ConfigureAwait(false);
+                case DefaultMessageHandlerAsyncEvent.SelfSynicMethod:
+                    //返回同步信息
+                    return await Task.Run(syncMethod).ConfigureAwait(false);
+                default:
+                    throw new MessageHandlerException($"DefaultMessageHandlerAsyncEvent 类型未作处理：{base.DefaultMessageHandlerAsyncEvent.ToString()}");
+            }
+        }
+        /// <summary>
+        /// 【异步方法】认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
+        /// </summary>
+        public virtual async Task<IResponseMessageBase> DefaultResponseMessageAsync(IRequestMessageBase requestMessage)
+        {
+            return await Task.Run(() => DefaultResponseMessage(requestMessage)).ConfigureAwait(false);
+        }
         /// <summary>
         /// 执行微信请求
         /// </summary>
@@ -277,8 +308,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case RequestMsgType.Text:
                     {
                         //SenparcTrace.SendCustomLog("wxTest-request", RequestMessage.ToJson());
-                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ??
-                                OnTextRequest(RequestMessage as RequestMessageText);
+                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false) ??
+                              await OnTextRequestAsync(RequestMessage as RequestMessageText);
                         //SenparcTrace.SendCustomLog("wxTest-response", ResponseMessage.ToJson());
                         //SenparcTrace.SendCustomLog("WxOpen RequestMsgType", ResponseMessage.ToJson());
 
@@ -287,16 +318,16 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     break;
                 case RequestMsgType.Image:
                     {
-                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ??
-                                OnImageRequest(RequestMessage as RequestMessageImage);
+                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false) ??
+                             await OnImageRequestAsync(RequestMessage as RequestMessageImage);
                     }
                     break;
                 case RequestMsgType.NeuChar:
-                    ResponseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar);
+                    ResponseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar).ConfigureAwait(false);
                     break;
                 case RequestMsgType.Event:
                     {
-                        await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase);
+                        await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase).ConfigureAwait(false);
                     }
                     break;
                 default:

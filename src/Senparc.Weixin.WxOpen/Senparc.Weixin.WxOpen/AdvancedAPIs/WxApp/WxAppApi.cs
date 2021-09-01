@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2021 Senparc
     
     文件名：WxAppApi.cs
     文件功能描述：小程序WxApp目录下面的接口
@@ -99,7 +99,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
                 var data = new { path = path, width = width, line_color = lineColor, is_hyaline = isHyaline };
                 JsonSetting jsonSetting = new JsonSetting(true);
-                Post.Download(url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
+                Post.Download(CommonDI.CommonSP, url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
 
                 return new WxJsonResult()
                 {
@@ -169,7 +169,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
                 var data = new { scene = scene, page = page, width = width, line_color = lineColor, is_hyaline = isHyaline };
                 JsonSetting jsonSetting = new JsonSetting(true);
-                Post.Download(url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
+                Post.Download(CommonDI.CommonSP, url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
 
                 return new WxJsonResult()
                 {
@@ -226,7 +226,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 var url = string.Format(urlFormat, accessToken);
 
                 var data = new { path = path, width = width };
-                Post.Download(url, SerializerHelper.GetJsonString(data), stream);
+                Post.Download(CommonDI.CommonSP, url, SerializerHelper.GetJsonString(data), stream);
 
                 return new WxJsonResult()
                 {
@@ -302,14 +302,15 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.AddNearbyPoi", true)]
-        public static AddNearbyPoiJsonResult AddNearbyPoi(string accessTokenOrAppId, string pic_list, string service_infos, string store_name,string hour, string credential, string address, string company_name, string qualification_list="", string kf_info="", string poi_id="", int timeOut = Config.TIME_OUT)
+        public static AddNearbyPoiJsonResult AddNearbyPoi(string accessTokenOrAppId, string pic_list, string service_infos, string store_name, string hour, string credential, string address, string company_name, string qualification_list = "", string kf_info = "", string poi_id = "", int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/addnearbypoi?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
 
-                var data = new {
+                var data = new
+                {
                     is_comm_nearby = "1", //必填,写死为"1"
                     pic_list = pic_list,
                     service_infos = service_infos,
@@ -435,7 +436,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 var url = urlFormat.FormatWith(accessToken);
                 var fileDic = new Dictionary<string, string>();
                 fileDic["media"] = filePath;
-                return CO2NET.HttpUtility.Post.PostFileGetJson<WxJsonResult>(url, fileDictionary: fileDic, timeOut: timeOut);
+                return CO2NET.HttpUtility.Post.PostFileGetJson<WxJsonResult>(CommonDI.CommonSP, url, fileDictionary: fileDic, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -583,13 +584,14 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// https://api.weixin.qq.com/wxa/getpaidunionid?access_token=ACCESS_TOKEN&openid=OPENID&mch_id=MCH_ID&out_trade_no=OUT_TRADE_NO
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId">支付用户唯一标识</param>
         /// <param name="transaction_id">微信支付订单号</param>
         /// <param name="mch_id">微信支付分配的商户号，和商户订单号配合使用</param>
         /// <param name="out_trade_no">微信支付商户订单号，和商户号配合使用</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetPaidUnionid", true)]
-        public static WxJsonResult GetPaidUnionid(string accessTokenOrAppId, string transaction_id, string mch_id="", string out_trade_no="", int timeOut = Config.TIME_OUT)
+        public static WxJsonResult GetPaidUnionid(string accessTokenOrAppId, string openId, string transaction_id, string mch_id = "", string out_trade_no = "", int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -601,6 +603,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 {
                     data = new
                     {
+                        openid = openId,
                         mch_id = mch_id,
                         out_trade_no = out_trade_no
                     };
@@ -609,6 +612,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 {
                     data = new
                     {
+                        openid = openId,
                         transaction_id = transaction_id
                     };
                 }
@@ -617,7 +621,27 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
             }, accessTokenOrAppId);
         }
+        /// <summary>
+        /// 风险用户扫描
+        /// 快速发现使用小程序的风险用户，提升小程序运营安全
+        /// 根据提交的用户信息数据获取用户的安全等级 risk_rank，无需用户授权。
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/safety-control-capability/getuserriskrank.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetUserRiskRank", true)]
+        public static GetUserRiskRankResult GetUserRiskRank(string accessTokenOrAppId, GetUserRiskRankParam data, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/getuserriskrank?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
 
+                return CommonJsonSend.Send<GetUserRiskRankResult>(accessToken, url, data, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
 
         #endregion
 
@@ -686,7 +710,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
                 var data = new { scene = scene, page = page, width = width, line_color = lineColor, is_hyaline = isHyaline };
                 JsonSetting jsonSetting = new JsonSetting(true);
-                await Post.DownloadAsync(url, SerializerHelper.GetJsonString(data, jsonSetting), stream).ConfigureAwait(false);
+                await Post.DownloadAsync(CommonDI.CommonSP, url, SerializerHelper.GetJsonString(data, jsonSetting), stream).ConfigureAwait(false);
 
                 return new WxJsonResult()
                 {
@@ -756,7 +780,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
                 var data = new { path = path, width = width, line_color = lineColor, is_hyaline = isHyaline };
                 JsonSetting jsonSetting = new JsonSetting(true);
-                await CO2NET.HttpUtility.Post.DownloadAsync(url, SerializerHelper.GetJsonString(data, jsonSetting), stream).ConfigureAwait(false);
+                await CO2NET.HttpUtility.Post.DownloadAsync(CommonDI.CommonSP, url, SerializerHelper.GetJsonString(data, jsonSetting), stream).ConfigureAwait(false);
 
                 return new WxJsonResult()
                 {
@@ -784,7 +808,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 var url = string.Format(urlFormat, accessToken);
 
                 var data = new { path = path, width = width };
-                await Post.DownloadAsync(url, SerializerHelper.GetJsonString(data), stream).ConfigureAwait(false);
+                await Post.DownloadAsync(CommonDI.CommonSP, url, SerializerHelper.GetJsonString(data), stream).ConfigureAwait(false);
 
                 return new WxJsonResult()
                 {
@@ -994,7 +1018,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 var url = urlFormat.FormatWith(accessToken);
                 var fileDic = new Dictionary<string, string>();
                 fileDic["media"] = filePath;
-                return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<WxJsonResult>(url, fileDictionary: fileDic, timeOut: timeOut).ConfigureAwait(false);
+                return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<WxJsonResult>(CommonDI.CommonSP, url, fileDictionary: fileDic, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
@@ -1142,13 +1166,14 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// https://api.weixin.qq.com/wxa/getpaidunionid?access_token=ACCESS_TOKEN&openid=OPENID&mch_id=MCH_ID&out_trade_no=OUT_TRADE_NO
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId">支付用户唯一标识</param>
         /// <param name="transaction_id">微信支付订单号</param>
         /// <param name="mch_id">微信支付分配的商户号，和商户订单号配合使用</param>
         /// <param name="out_trade_no">微信支付商户订单号，和商户号配合使用</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetPaidUnionidAsync", true)]
-        public static async Task<WxJsonResult> GetPaidUnionidAsync(string accessTokenOrAppId, string transaction_id, string mch_id = "", string out_trade_no = "", int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> GetPaidUnionidAsync(string accessTokenOrAppId, string openId, string transaction_id, string mch_id = "", string out_trade_no = "", int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -1160,6 +1185,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 {
                     data = new
                     {
+                        openid = openId,
                         mch_id = mch_id,
                         out_trade_no = out_trade_no
                     };
@@ -1168,6 +1194,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 {
                     data = new
                     {
+                        openid = openId,
                         transaction_id = transaction_id
                     };
                 }
@@ -1176,8 +1203,27 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
+        /// <summary>
+        /// 风险用户扫描
+        /// 快速发现使用小程序的风险用户，提升小程序运营安全
+        /// 根据提交的用户信息数据获取用户的安全等级 risk_rank，无需用户授权。
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/safety-control-capability/getuserriskrank.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetUserRiskAsync", true)]
+        public static async Task<GetUserRiskRankResult> GetUserRiskAsync(string accessTokenOrAppId, GetUserRiskRankParam data, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/getuserriskrank?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
 
-
+                return await CommonJsonSend.SendAsync<GetUserRiskRankResult>(accessToken, url, data, timeOut: timeOut);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
         #endregion
     }
 }

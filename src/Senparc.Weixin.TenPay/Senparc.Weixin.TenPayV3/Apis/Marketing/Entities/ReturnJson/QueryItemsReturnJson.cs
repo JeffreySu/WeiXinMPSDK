@@ -25,7 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：查询代金券可用单品返回Json
     
     
-    创建标识：Senparc - 20210823
+    创建标识：Senparc - 20210901
     
 ----------------------------------------------------------------*/
 using System;
@@ -69,13 +69,5 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// 批次号
         /// </summary>
         public int stock_id { get; set; }
-
     }
-
-
-    public class Rootobject
-    {
-
-    }
-
 }

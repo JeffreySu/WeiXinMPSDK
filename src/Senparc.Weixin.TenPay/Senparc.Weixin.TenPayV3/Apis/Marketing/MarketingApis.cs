@@ -236,6 +236,51 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             return await tenPayApiRequest.RequestAsync<QueryItemsReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }
 
+        /// <summary>
+        /// 根据商户号查用户的券
+        /// <para>可通过该接口查询用户在某商户号可用的全部券，可用于商户的小程序/H5中，用户"我的代金券"或"提交订单页"展示优惠信息。无法查询到微信支付立减金。本接口查不到用户的微信支付立减金（又称“全平台通用券”），即在所有商户都可以使用的券，例如：摇摇乐红包；当按可用商户号查询时，无法查询用户已经核销的券</para>
+        /// <para><see href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_9.shtml">更多详细请参考微信支付官方文档</see></para>
+        /// </summary>
+        /// <param name="openid">用户在商户appid 下的唯一标识</param>
+        /// <param name="appid">微信为发券方商户分配的公众账号ID</param>
+        /// <param name="stock_id">批次号，是否指定批次号查询，填写available_mchid，该字段不生效，可为null</param>
+        /// <param name="status">代金券状态：枚举值: SENDED：可用 USED：已实扣 填写available_mchid，该字段不生效，可为null</param>
+        /// <param name="creator_mchid">批次创建方商户号，creator_mchid sender_mchid available_mchid三选一</param>
+        /// <param name="sender_mchid">批次发放商户号（该字段暂未开放），creator_mchid sender_mchid available_mchid三选一</param>
+        /// <param name="available_mchid">可用商户号，creator_mchid sender_mchid available_mchid三选一</param>
+        /// <param name="offset">分页页码</param>
+        /// <param name="limit">分页大小</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<QueryCouponsReturnJson> QueryCoupons(string openid, string appid, string stock_id, string status, string creator_mchid, string sender_mchid, string available_mchid, string stock_creator_mchid, uint offset = 0, uint limit = 20, int timeOut = Config.TIME_OUT)
+        {
+
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/users/{openid}/coupons?appid={appid}&offset={offset}&limit={limit}");
+
+            if (status is not null)
+            {
+                url += $"&status={status}";
+            }
+            if (creator_mchid is not null)
+            {
+                url += $"&creator_mchid={creator_mchid}";
+            }
+            if (creator_mchid is not null)
+            {
+                url += $"&creator_mchid={creator_mchid}";
+            }
+            if (sender_mchid is not null)
+            {
+                url += $"&sender_mchid={sender_mchid}";
+            }
+            if (available_mchid is not null)
+            {
+                url += $"&available_mchid={available_mchid}";
+            }
+
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<QueryCouponsReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+        }
 
         #endregion
     }

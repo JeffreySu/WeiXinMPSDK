@@ -294,11 +294,10 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <param name="fileStream">fileStream</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<DownloadStockUseFlowReturnJson> TradeBillQueryAsync(string stock_id, Stream fileStream, int timeOut = Config.TIME_OUT)
+        public async Task<DownloadStockUseFlowReturnJson> DownloadStockUseFlow(string stock_id, Stream fileStream, int timeOut = Config.TIME_OUT)
         {
             try
             {
-
                 var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}/use-flow");
 
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
@@ -329,6 +328,52 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             {
                 SenparcTrace.BaseExceptionLog(ex);
                 return new DownloadStockUseFlowReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
+            }
+        }
+
+        /// <summary>
+        /// 下载批次退款明细
+        /// 可获取到某批次的退款明细数据，包括订单号、单品信息、银行流水号等，用于对账/数据分析
+        /// <para>https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_1_11.shtml</para>
+        /// </summary>
+        /// <param name="stock_id">批次号</param>
+        /// <param name="fileStream">fileStream</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<DownloadStockRefundFlowReturnJson> DownloadStockRefundFlow(string stock_id, Stream fileStream, int timeOut = Config.TIME_OUT)
+        {
+            try
+            {
+                var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}/refund-flow");
+
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+                var result = await tenPayApiRequest.RequestAsync<DownloadStockRefundFlowReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+
+                //下载交易账单
+                if (result.VerifySignSuccess == true)
+                {
+                    var responseMessage = await tenPayApiRequest.GetHttpResponseMessageAsync(result.url, null, requestMethod: ApiRequestMethod.GET);
+                    fileStream.Seek(0, SeekOrigin.Begin);
+                    await responseMessage.Content.CopyToAsync(fileStream);
+                    fileStream.Seek(0, SeekOrigin.Begin);
+
+                    //校验文件Hash
+                    var fileHash = FileHelper.GetFileHash(fileStream, result.hash_type, false);
+                    Console.WriteLine("fileHash: " + fileHash);
+                    var fileVerify = fileHash.Equals(result.hash_value, StringComparison.OrdinalIgnoreCase);
+                    if (!fileVerify)
+                    {
+                        result.VerifySignSuccess = false;
+                        result.ResultCode.Additional += "请求成功，但文件校验错误。请查看日志！";
+                        SenparcTrace.BaseExceptionLog(new TenpayApiRequestException($"TradeBillQueryAsync 下载文件成功，但校验失败，正确值：{result.hash_value}，实际值：{fileHash}（忽略大小写）"));
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.BaseExceptionLog(ex);
+                return new DownloadStockRefundFlowReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
             }
         }
 

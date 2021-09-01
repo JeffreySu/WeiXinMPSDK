@@ -21,11 +21,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：QueryMerchantsReturnJson.cs
-    文件功能描述：查询代金券可用商户返回Json
+    文件名：QueryStocksReturnJson.cs
+    文件功能描述：条件查询批次列表返回Json
     
     
-    创建标识：Senparc - 20210901
+    创建标识：Senparc - 20210823
     
 ----------------------------------------------------------------*/
 using System;
@@ -38,35 +38,31 @@ using Senparc.Weixin.TenPayV3.Apis.Entities;
 namespace Senparc.Weixin.TenPayV3.Apis.Marketing
 {
     /// <summary>
-    /// 查询代金券可用商户返回Json
-    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_7.shtml </para>
+    /// 条件查询批次列表返回Json
+    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_4.shtml </para>
     /// </summary>
-    public class QueryMerchantsReturnJson : ReturnJsonBase
+    public class QueryStocksReturnJson : ReturnJsonBase
     {
         /// <summary>
-        /// 可用商户总数量
+        /// 批次总数
+        /// <para>经过条件筛选，查询到的批次总数量</para>
         /// </summary>
-        public uint total_count { get; set; }
+        public long total_count { get; set; }
 
         /// <summary>
-        /// 可用商户列表
-        /// 特殊规则：单个商户号的字符长度为【1，20】,条目个数限制为【1，50】。
+        /// 批次详情
         /// </summary>
-        public string[] data { get; set; }
+        public StockReturnJson[] data { get; set; }
 
         /// <summary>
-        /// 分页页码
-        /// </summary>
-        public uint offset { get; set; }
-
-        /// <summary>
-        /// 分页大小
+        /// 分页大小，最大10
         /// </summary>
         public uint limit { get; set; }
 
         /// <summary>
-        /// 批次号
+        /// 分页页码
+        /// <para>页码从0开始，默认第0页</para>
         /// </summary>
-        public string stock_id { get; set; }
+        public uint offset { get; set; }
     }
 }

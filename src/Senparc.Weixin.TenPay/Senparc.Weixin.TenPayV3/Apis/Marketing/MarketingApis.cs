@@ -205,8 +205,10 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <para>通过调用此接口可查询批次的可用商户号，判断券是否在某商户号可用，来决定是否展示</para>
         /// <para><see href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_7.shtml">更多详细请参考微信支付官方文档</see></para>
         /// </summary>
-        /// <param name="stock_creator_mchid">批次创建方商户号 校验规则：接口传入的批次号需由stock_creator_mchid所创建</param>
-        /// <param name="stock_id">批次号 微信为每个代金券批次分配的唯一id 校验规则：必须为代金券（全场券或单品券）批次号，不支持立减与折扣。</param>
+        /// <param name="offset">分页页码</param>
+        /// <param name="limit">分页大小</param>
+        /// <param name="stock_creator_mchid">创建批次的商户号</param>
+        /// <param name="stock_id">批次号</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
         public async Task<QueryMerchantsReturnJson> QueryMerchantsStock(uint offset, uint limit, string stock_creator_mchid, string stock_id, int timeOut = Config.TIME_OUT)
@@ -215,6 +217,26 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryMerchantsReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }
+
+        /// <summary>
+        /// 查询代金券可用单品
+        /// <para>通过此接口可查询批次的可用商品编码，判断券是否可用于某些商品，来决定是否展示</para>
+        /// <para><see href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_8.shtml">更多详细请参考微信支付官方文档</see></para>
+        /// </summary>
+        /// <param name="offset">分页页码</param>
+        /// <param name="limit">分页大小</param>
+        /// <param name="stock_creator_mchid">创建批次的商户号</param>
+        /// <param name="stock_id">批次号</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<QueryItemsReturnJson> QueryItems(uint offset, uint limit, string stock_creator_mchid, string stock_id, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}/items?offset={offset}&limit={limit}&stock_creator_mchid={stock_creator_mchid}");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<QueryItemsReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+        }
+
+
         #endregion
     }
 }

@@ -24,6 +24,8 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
         #region 代金券接口
 
+        CreateStockReturnJson createStockResult = null;
+
         /// <summary>
         /// 创建代金券接口批次测试
         /// </summary>
@@ -49,14 +51,44 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             var requestData = new CreateStockRequsetData("单元测试代金券批次", "用于单元测试", TenPayV3Info.MchId, new TenpayDateTime(DateTime.Now), new TenpayDateTime(DateTime.Now.AddDays(1)), stock_use_rule, null, coupon_use_rule, true, "NORMAL", out_request_no);
 
             var marketingApis = new MarketingApis();
-            var result = marketingApis.CreateStock(requestData).GetAwaiter().GetResult();
+            createStockResult = marketingApis.CreateStock(requestData).GetAwaiter().GetResult();
 
-            Console.WriteLine("微信支付 V3 创建代金券接口批次结果：" + result.ToJson(true));
+            Console.WriteLine("微信支付 V3 创建代金券接口批次结果：" + createStockResult.ToJson(true));
+
+            Assert.IsNotNull(createStockResult);
+            Assert.IsTrue(createStockResult.ResultCode.Success);
+            Assert.IsTrue(createStockResult.VerifySignSuccess == true);//通过验证
+        }
+
+
+        /// <summary>
+        /// 激活代金券批次接口测试
+        /// </summary>
+        [TestMethod()]
+        public void StartStockTest()
+        {
+            var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
+
+            var TenPayV3Info = TenPayV3InfoCollection.Data[key];
+
+            // 如果还未创建代金券批次 则创建新的代金券批次
+            if (createStockResult is null)
+            {
+                CreateStockTest();
+            }
+
+            var requestData = new StartStockRequsetData(TenPayV3Info.MchId);
+
+            var marketingApis = new MarketingApis();
+            var result = marketingApis.StartStock(createStockResult.stock_id, requestData).GetAwaiter().GetResult();
+
+            Console.WriteLine("微信支付 V3 激活代金券批次接口结果：" + result.ToJson(true));
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.ResultCode.Success);
             Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
         }
+
 
         #endregion
     }

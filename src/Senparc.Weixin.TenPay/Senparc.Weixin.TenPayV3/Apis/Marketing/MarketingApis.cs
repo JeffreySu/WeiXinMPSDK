@@ -82,7 +82,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<CreateStockReturnJson> CreateStock(CreateStockRequsetData data, int timeOut = Config.TIME_OUT)
+        public async Task<CreateStockReturnJson> CreateStockAsync(CreateStockRequsetData data, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/marketing/favor/coupon-stocks");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
@@ -98,7 +98,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<StartStockReturnJson> StartStock(string stock_id, StartStockRequsetData data, int timeOut = Config.TIME_OUT)
+        public async Task<StartStockReturnJson> StartStockAsync(string stock_id, StartStockRequsetData data, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}/start");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
@@ -114,7 +114,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<DistributeStockReturnJson> DistributeStock(string openid, DistributeStockRequsetData data, int timeOut = Config.TIME_OUT)
+        public async Task<DistributeStockReturnJson> DistributeStockAsync(string openid, DistributeStockRequsetData data, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/users/{openid}/coupons");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
@@ -130,7 +130,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="stock_creator_mchid">批次创建方商户号 校验规则：接口传入的批次号需由stock_creator_mchid所创建</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<PauseStockReturnJson> PauseStock(string stock_id, string stock_creator_mchid, int timeOut = Config.TIME_OUT)
+        public async Task<PauseStockReturnJson> PauseStockAsync(string stock_id, string stock_creator_mchid, int timeOut = Config.TIME_OUT)
         {
 
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}/pause");
@@ -147,7 +147,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="stock_creator_mchid">批次创建方商户号 校验规则：接口传入的批次号需由stock_creator_mchid所创建</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<RestartStockReturnJson> RestartStock(string stock_id, string stock_creator_mchid, int timeOut = Config.TIME_OUT)
+        public async Task<RestartStockReturnJson> RestartStockAsync(string stock_id, string stock_creator_mchid, int timeOut = Config.TIME_OUT)
         {
 
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}/restart");
@@ -168,7 +168,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="status">批次状态，枚举值： unactivated：未激活 audit：审核中 running：运行中 stoped：已停止 paused：暂停发放，可为null
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<QueryStocksReturnJson> QueryStocks(uint offset, uint limit, string stock_creator_mchid, TenpayDateTime create_start_time = null, TenpayDateTime create_end_time = null, string status = null, int timeOut = Config.TIME_OUT)
+        public async Task<QueryStocksReturnJson> QueryStocksAsync(uint offset, uint limit, string stock_creator_mchid, TenpayDateTime create_start_time = null, TenpayDateTime create_end_time = null, string status = null, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks?offset={offset}&limit={limit}&stock_creator_mchid={stock_creator_mchid}");
             if (create_start_time is not null)
@@ -197,7 +197,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="stock_creator_mchid">批次创建方商户号 校验规则：接口传入的批次号需由stock_creator_mchid所创建</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<StockReturnJson> QueryStock(string stock_id, string stock_creator_mchid, int timeOut = Config.TIME_OUT)
+        public async Task<StockReturnJson> QueryStockAsync(string stock_id, string stock_creator_mchid, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}?stock_creator_mchid={stock_creator_mchid}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
@@ -215,7 +215,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="stock_id">批次号</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<QueryMerchantsReturnJson> QueryMerchantsStock(uint offset, uint limit, string stock_creator_mchid, string stock_id, int timeOut = Config.TIME_OUT)
+        public async Task<QueryMerchantsReturnJson> QueryMerchantsStockAsync(uint offset, uint limit, string stock_creator_mchid, string stock_id, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}/merchants?offset={offset}&limit={limit}&stock_creator_mchid={stock_creator_mchid}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
@@ -233,7 +233,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="stock_id">批次号</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<QueryItemsReturnJson> QueryItems(uint offset, uint limit, string stock_creator_mchid, string stock_id, int timeOut = Config.TIME_OUT)
+        public async Task<QueryItemsReturnJson> QueryItemsAsync(uint offset, uint limit, string stock_creator_mchid, string stock_id, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}/items?offset={offset}&limit={limit}&stock_creator_mchid={stock_creator_mchid}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
@@ -256,18 +256,18 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="limit">分页大小</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<QueryCouponsReturnJson> QueryCoupons(string openid, string appid, string stock_id, string status, string creator_mchid, string sender_mchid, string available_mchid, string stock_creator_mchid, uint offset = 0, uint limit = 20, int timeOut = Config.TIME_OUT)
+        public async Task<QueryCouponsReturnJson> QueryCouponsAsync(string openid, string appid, string stock_id, string status, string creator_mchid, string sender_mchid, string available_mchid, uint offset = 0, uint limit = 20, int timeOut = Config.TIME_OUT)
         {
 
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/users/{openid}/coupons?appid={appid}&offset={offset}&limit={limit}");
 
+            if (stock_id is not null)
+            {
+                url += $"&stock_id={stock_id}";
+            }
             if (status is not null)
             {
                 url += $"&status={status}";
-            }
-            if (creator_mchid is not null)
-            {
-                url += $"&creator_mchid={creator_mchid}";
             }
             if (creator_mchid is not null)
             {
@@ -296,12 +296,12 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="openid">openid信息，用户在appid下的唯一标识</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<StockReturnJson> QueryCoupon(string coupon_id, string appid, string openid, int timeOut = Config.TIME_OUT)
+        public async Task<QueryCouponReturnJson> QueryCouponAsync(string coupon_id, string appid, string openid, int timeOut = Config.TIME_OUT)
         {
             
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/users/{openid}/coupons/{coupon_id}?appid={appid}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
-            return await tenPayApiRequest.RequestAsync<StockReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+            return await tenPayApiRequest.RequestAsync<QueryCouponReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }
 
         /// <summary>
@@ -313,7 +313,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="fileStream">fileStream</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<DownloadStockUseFlowReturnJson> DownloadStockUseFlow(string stock_id, Stream fileStream, int timeOut = Config.TIME_OUT)
+        public async Task<DownloadStockUseFlowReturnJson> DownloadStockUseFlowAsync(string stock_id, Stream fileStream, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -359,7 +359,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="fileStream">fileStream</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<DownloadStockRefundFlowReturnJson> DownloadStockRefundFlow(string stock_id, Stream fileStream, int timeOut = Config.TIME_OUT)
+        public async Task<DownloadStockRefundFlowReturnJson> DownloadStockRefundFlowAsync(string stock_id, Stream fileStream, int timeOut = Config.TIME_OUT)
         {
             try
             {
@@ -404,7 +404,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<SetNotifyUrlReturnJson> SetNotifyUrl(SetNotifyUrlRequsetData data, int timeOut = Config.TIME_OUT)
+        public async Task<SetNotifyUrlReturnJson> SetNotifyUrlAsync(SetNotifyUrlRequsetData data, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/callbacks");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);

@@ -377,7 +377,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             }
         }
 
-
         /// <summary>
         /// 设置消息通知地址
         /// <para>于设置接收营销事件通知的URL，可接收营销相关的事件通知，包括核销、发放、退款等</para>

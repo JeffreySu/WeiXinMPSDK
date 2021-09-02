@@ -32,6 +32,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Trace;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.TenPayV3.Apis.Marketing;
 using Senparc.Weixin.TenPayV3.Entities;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.TenPayV3.Apis.Marketing
+namespace Senparc.Weixin.TenPayV3.Apis
 {
     /// <summary>
     /// 微信支付V3营销工具接口

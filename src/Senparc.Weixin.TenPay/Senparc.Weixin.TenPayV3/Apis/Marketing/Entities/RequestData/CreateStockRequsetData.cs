@@ -55,9 +55,9 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <param name="stock_use_rule">发放规则</param>
         /// <param name="pattern_info">样式设置，可为null</param>
         /// <param name="coupon_use_rule">核销规则</param>
-        /// <param name="no_cash">营销经费</param>
+        /// <param name="no_cash">营销经费 <para>枚举值: true：免充值 false：预充值</para></param>
         /// <param name="stock_type">批次类型，仅支持：NORMAL：固定面额满减券批次</param>
-        /// <param name="out_request_no">商户单据号</param>
+        /// <param name="out_request_no">商户单据号 <para>格式：商户id+日期+流水号</para></param>
         public CreateStockRequsetData(string stock_name, string comment, string belong_merchant, TenpayDateTime available_begin_time, TenpayDateTime available_end_time, Stock_Use_Rule stock_use_rule, Pattern_Info pattern_info, Coupon_Use_Rule coupon_use_rule, bool no_cash, string stock_type, string out_request_no)
         {
             this.stock_name = stock_name;
@@ -171,9 +171,9 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             /// <param name="max_amount">最大发券预算</param>
             /// <param name="max_amount_by_day">单天预算发放上限，可为null</param>
             /// <param name="max_coupons_per_user">单个用户可领个数</param>
-            /// <param name="natural_person_limit">是否开启自然人限制</param>
-            /// <param name="prevent_api_abuse">是否开启防刷拦截</param>
-            public Stock_Use_Rule(ulong max_coupons, ulong max_amount, ulong max_amount_by_day, uint max_coupons_per_user, bool natural_person_limit, bool prevent_api_abuse)
+            /// <param name="natural_person_limit">是否开启自然人限制 <para>枚举值: true：是 false：否</para></param>
+            /// <param name="prevent_api_abuse">是否开启防刷拦截 <para>枚举值: true：是 false：否</para></param>
+            public Stock_Use_Rule(ulong max_coupons, ulong max_amount, ulong? max_amount_by_day, uint max_coupons_per_user, bool natural_person_limit, bool prevent_api_abuse)
             {
                 this.max_coupons = max_coupons;
                 this.max_amount = max_amount;
@@ -215,7 +215,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             /// 校验规则：批次总预算最多1亿元
             /// 示例值：5000
             /// </summary>
-            public ulong max_amount_by_day { get; set; }
+            public ulong? max_amount_by_day { get; set; }
 
             /// <summary>
             /// 单个用户可领个数
@@ -335,7 +335,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             /// <param name="combine_use">是否可叠加其他优惠，可为null</param>
             /// <param name="available_items">可核销商品编码，可为null</param>
             /// <param name="available_merchants">可用商户号</param>
-            public Coupon_Use_Rule(Fixed_Normal_Coupon fixed_normal_coupon, string[] goods_tag, string[] limit_pay, Limit_Card limit_card, string[] trade_type, bool combine_use, string[] available_items, string[] available_merchants)
+            public Coupon_Use_Rule(Fixed_Normal_Coupon fixed_normal_coupon, string[] goods_tag, string[] limit_pay, Limit_Card limit_card, string[] trade_type, bool? combine_use, string[] available_items, string[] available_merchants)
             {
                 this.fixed_normal_coupon = fixed_normal_coupon;
                 this.goods_tag = goods_tag;
@@ -405,7 +405,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             /// false：否
             /// 示例值：false
             /// </summary>
-            public bool combine_use { get; set; }
+            public bool? combine_use { get; set; }
 
             /// <summary>
             /// 可核销商品编码

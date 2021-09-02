@@ -140,7 +140,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
 
         /// <summary>
         /// 重启发放代金券批次接口
-        /// <para>通过此接口可暂停指定代金券批次。暂停后，该代金券批次暂停发放，用户无法通过任何渠道再领取该批次的券</para>
+        /// <para>通过此接口可重启指定代金券批次。重启后，该代金券批次可以再次发放</para>
         /// <para><see href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_14.shtml">更多详细请参考微信支付官方文档</see></para>
         /// </summary>
         /// <param name="stock_id">批次号 微信为每个代金券批次分配的唯一id 校验规则：必须为代金券（全场券或单品券）批次号，不支持立减与折扣。</param>

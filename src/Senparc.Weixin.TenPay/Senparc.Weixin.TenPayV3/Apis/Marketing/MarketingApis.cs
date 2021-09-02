@@ -287,6 +287,24 @@ namespace Senparc.Weixin.TenPayV3.Apis
         }
 
         /// <summary>
+        /// 查询代金券详情
+        /// <para>通过此接口可查询代金券信息，包括代金券的基础信息、状态。如代金券已核销，会包括代金券核销的订单信息（订单号、单品信息等）</para>
+        /// <para><see href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_6.shtml">更多详细请参考微信支付官方文档</see></para>
+        /// </summary>
+        /// <param name="coupon_id">微信为代金券唯一分配的id</param>
+        /// <param name="appid">公众账号ID</param>
+        /// <param name="openid">openid信息，用户在appid下的唯一标识</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<StockReturnJson> QueryCoupon(string coupon_id, string appid, string openid, int timeOut = Config.TIME_OUT)
+        {
+            
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/users/{openid}/coupons/{coupon_id}?appid={appid}");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<StockReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+        }
+
+        /// <summary>
         /// 下载批次核销明细
         /// 可获取到某批次的核销明细数据，包括订单号、单品信息、银行流水号等，用于对账/数据分析
         /// <para>https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_1_10.shtml</para>

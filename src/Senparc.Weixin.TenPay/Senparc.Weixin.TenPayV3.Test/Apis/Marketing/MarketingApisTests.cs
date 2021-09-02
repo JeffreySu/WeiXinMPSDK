@@ -176,6 +176,80 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
         }
 
+        /// <summary>
+        /// 条件查询代金券批次接口测试
+        /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_4.shtml
+        /// </summary>
+        [TestMethod()]
+        public void QueryStocksTest()
+        {
+            var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
+
+            var TenPayV3Info = TenPayV3InfoCollection.Data[key];
+
+            var marketingApis = new MarketingApis();
+            var result = marketingApis.QueryStocks(0, 10, TenPayV3Info.MchId).GetAwaiter().GetResult();
+
+            Console.WriteLine("微信支付 V3 条件查询代金券批次接口结果：" + result.ToJson(true));
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ResultCode.Success);
+            Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
+        }
+
+        /// <summary>
+        /// 查询代金券批次详情接口测试
+        /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_5.shtml
+        /// </summary>
+        [TestMethod()]
+        public void QueryStockTest()
+        {
+            var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
+
+            var TenPayV3Info = TenPayV3InfoCollection.Data[key];
+
+            // 如果还未创建代金券批次 则创建新的代金券批次
+            if (createStockResult is null)
+            {
+                CreateStockTest();
+            }
+
+            var marketingApis = new MarketingApis();
+            var result = marketingApis.QueryStock(createStockResult.stock_id, TenPayV3Info.MchId).GetAwaiter().GetResult();
+
+            Console.WriteLine("微信支付 V3 查询代金券批次详情接口结果：" + result.ToJson(true));
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ResultCode.Success);
+            Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
+        }
+
+        /// <summary>
+        /// 查询代金券详情接口测试
+        /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_6.shtml
+        /// </summary>
+        [TestMethod()]
+        public void QueryStockTest()
+        {
+            var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
+
+            var TenPayV3Info = TenPayV3InfoCollection.Data[key];
+
+            // 如果还未创建代金券批次 则创建新的代金券批次
+            if (createStockResult is null)
+            {
+                CreateStockTest();
+            }
+
+            var marketingApis = new MarketingApis();
+            var result = marketingApis.QueryStock(createStockResult.stock_id, TenPayV3Info.MchId).GetAwaiter().GetResult();
+
+            Console.WriteLine("微信支付 V3 查询代金券批次详情接口结果：" + result.ToJson(true));
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ResultCode.Success);
+            Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
+        }
         #endregion
     }
 }

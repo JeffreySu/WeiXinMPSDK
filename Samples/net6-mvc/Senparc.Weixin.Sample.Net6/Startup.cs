@@ -81,7 +81,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     ;
 
             //启用 WebApi（可选）
-            services.AddAndInitDynamicApi(builder, ServerUtility.ContentRootMapPath("~/App_Data"));
+            services.AddAndInitDynamicApi(builder, options => options.DocXmlPath = ServerUtility.ContentRootMapPath("~/App_Data"));
 
             //此处可以添加更多 Cert 证书
             //services.AddCertHttpClient("name", "pwd", "path");
@@ -350,7 +350,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     #region 设置自定义 ApiHandlerWapper 参数（可选，一般不需要设置）  --DPBMARK MP
 
                             .SetMP_InvalidCredentialValues(new[] { ReturnCode.获取access_token时AppSecret错误或者access_token无效 })
-                            //.SetMP_AccessTokenContainer_GetAccessTokenResultFunc((appId, getNewToken)=> { return xxx })
+                        //.SetMP_AccessTokenContainer_GetAccessTokenResultFunc((appId, getNewToken)=> { return xxx })
 
                     #endregion                                                          // DPBMARK_END
 

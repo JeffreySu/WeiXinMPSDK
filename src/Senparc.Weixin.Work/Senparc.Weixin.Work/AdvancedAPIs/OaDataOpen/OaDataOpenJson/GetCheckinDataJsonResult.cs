@@ -49,6 +49,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// </summary>
         public string exception_type { get; set; }
         /// <summary>
+        /// 标准打卡时间。UTC时间戳
+        /// </summary>
+        public long sch_checkin_time { get; set; }
+        /// <summary>
         /// 打卡时间。UTC时间戳
         /// </summary>
         public long checkin_time { get; set; }

@@ -98,6 +98,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// </summary>
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CodeApi.GetQRCode", true, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static CodeResultJson GetQRCode(string accessToken, Stream stream, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/get_qrcode?access_token={0}", accessToken.AsUrlData());
@@ -414,6 +415,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// </summary>
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CodeApi.GetQRCodeAsync", true, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static async Task<CodeResultJson> GetQRCodeAsync(string accessToken, Stream stream, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/get_qrcode?access_token={0}", accessToken.AsUrlData());

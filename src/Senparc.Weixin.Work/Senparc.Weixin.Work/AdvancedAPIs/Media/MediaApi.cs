@@ -84,6 +84,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.Get", true, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static void Get(string accessTokenOrAppKey, string mediaId, Stream stream)
         {
             ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -105,6 +106,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="mediaId"></param>
         /// <param name="dir">保存目录</param>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.Get", true, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static string Get(string accessTokenOrAppKey, string mediaId, string dir)
         {
             var result = ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -124,6 +126,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="stream"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetJssdk", true, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static string GetJssdk(string accessTokenOrAppId, string mediaId, Stream stream, int timeOut = Config.TIME_OUT)
         {
             var result = ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -223,6 +226,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetForeverMaterial", true, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static void GetForeverMaterial(string accessTokenOrAppKey, int agentId, string mediaId, Stream stream)
         {
             ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -396,6 +400,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetAsync", true, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static async Task GetAsync(string accessTokenOrAppKey, string mediaId, Stream stream)
         {
             await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -489,6 +494,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetForeverMaterialAsync", true, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static async Task GetForeverMaterialAsync(string accessTokenOrAppKey, int agentId, string mediaId, Stream stream)
         {
             await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

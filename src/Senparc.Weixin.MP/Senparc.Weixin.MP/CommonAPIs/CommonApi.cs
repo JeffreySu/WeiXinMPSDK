@@ -93,6 +93,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appid">第三方用户唯一凭证</param>
         /// <param name="secret">第三方用户唯一凭证密钥，既appsecret</param>
         /// <returns></returns>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetToken", false, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static AccessTokenResult GetToken(string appid, string secret, string grant_type = "client_credential")
         {
             //注意：此方法不能再使用ApiHandlerWapper.TryCommonApi()，否则会循环
@@ -212,6 +213,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appid">第三方用户唯一凭证</param>
         /// <param name="secret">第三方用户唯一凭证密钥，既appsecret</param>
         /// <returns></returns>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetTokenAsync", false, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static async Task<AccessTokenResult> GetTokenAsync(string appid, string secret, string grant_type = "client_credential")
         {
             //注意：此方法不能再使用ApiHandlerWapper.TryCommonApi()，否则会循环

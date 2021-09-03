@@ -46,7 +46,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <summary>
         /// 结果集
         /// </summary>
-        public Datum[] data { get; set; }
+        public QueryCouponReturnJson[] data { get; set; }
 
         /// <summary>
         /// 查询结果总数
@@ -68,7 +68,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <summary>
         /// 结果
         /// </summary>
-        public class Datum
+        public class QueryCouponReturnJson
         {
             /// <summary>
             /// 创建批次的商户号

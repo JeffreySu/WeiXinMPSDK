@@ -50,7 +50,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <param name="mchid">商户号</param>
         /// <param name="notify_url">通知url地址</param>
         /// <param name="switch">回调开关，可为null <para>如果商户不需要再接收营销事件通知，可通过该开关关闭</para> <para>枚举值: true：开启推送 false：停止推送</para></param>
-        public SetNotifyUrlRequsetData(string mchid, string notify_url, bool @switch)
+        public SetNotifyUrlRequsetData(string mchid, string notify_url, bool? @switch)
         {
             this.mchid = mchid;
             this.notify_url = notify_url;
@@ -79,6 +79,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <para>如果商户不需要再接收营销事件通知，可通过该开关关闭</para>
         /// <para>枚举值: true：开启推送 false：停止推送</para>
         /// </summary>
-        public bool @switch { get; set; }
+        public bool? @switch { get; set; }
     }
 }

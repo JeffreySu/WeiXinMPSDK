@@ -53,7 +53,6 @@ namespace Senparc.WeixinTests
                 var originalCache = CacheStrategyFactory.GetObjectCacheStrategyInstance();
                 //var exCache = CacheStrategyFactory.GetExtensionCacheStrategyInstance();
 
-
                 Console.WriteLine("== 使用缓存策略：" + objectCacheStrategy.GetType().Name + " 开始 == ");
 
                 //使用当前缓存策略

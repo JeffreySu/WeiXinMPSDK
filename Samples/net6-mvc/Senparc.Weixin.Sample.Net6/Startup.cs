@@ -70,6 +70,8 @@ namespace Senparc.Weixin.Sample.NetCore3
 
             services.AddSignalR();//使用 SignalR   -- DPBMARK WebSocket DPBMARK_END
 
+
+
             /*
              * CO2NET 是从 Senparc.Weixin 分离的底层公共基础模块，经过了长达 6 年的迭代优化，稳定可靠。
              * 关于 CO2NET 在所有项目中的通用设置可参考 CO2NET 的 Sample：
@@ -80,8 +82,10 @@ namespace Senparc.Weixin.Sample.NetCore3
                     .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>() //Senparc.WebSocket 注册（按需）  -- DPBMARK WebSocket DPBMARK_END
                     ;
 
-            //启用 WebApi（可选）
+            #region 启用 WebApi（可选）
+            CacheStrategyFactory.RegisterObjectCacheStrategy(() => LocalObjectCacheStrategy.Instance);//先给一个本地缓存设置
             services.AddAndInitDynamicApi(builder, ServerUtility.ContentRootMapPath("~/App_Data"));
+            #endregion
 
             //此处可以添加更多 Cert 证书
             //services.AddCertHttpClient("name", "pwd", "path");
@@ -350,7 +354,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     #region 设置自定义 ApiHandlerWapper 参数（可选，一般不需要设置）  --DPBMARK MP
 
                             .SetMP_InvalidCredentialValues(new[] { ReturnCode.获取access_token时AppSecret错误或者access_token无效 })
-                            //.SetMP_AccessTokenContainer_GetAccessTokenResultFunc((appId, getNewToken)=> { return xxx })
+                        //.SetMP_AccessTokenContainer_GetAccessTokenResultFunc((appId, getNewToken)=> { return xxx })
 
                     #endregion                                                          // DPBMARK_END
 
@@ -471,7 +475,7 @@ namespace Senparc.Weixin.Sample.NetCore3
         private bool UseRedis(SenparcSetting senparcSetting, out string redisConfigurationStr)
         {
             redisConfigurationStr = senparcSetting.Cache_Redis_Configuration;
-            var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) && 
+            var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) &&
                             redisConfigurationStr != "#{Cache_Redis_Configuration}#"/*默认值，未作修改，因此不启用，也可以自行设定规则*/;
             return useRedis;
         }

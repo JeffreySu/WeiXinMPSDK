@@ -43,6 +43,9 @@ namespace Senparc.Weixin.TenPayV3.Apis.Entities
     /// </summary>
     public class NotifyReturnData
     {
+        public NotifyReturnData() : this(null, null)
+        { }
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -65,6 +68,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.Entities
         /// 返回信息，如非空，为错误原因。
         /// 示例值：系统错误
         /// </summary>
-        public string message {  get; set; }
+        public string message { get; set; }
     }
 }

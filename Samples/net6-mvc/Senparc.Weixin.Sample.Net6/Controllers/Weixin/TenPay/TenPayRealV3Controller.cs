@@ -286,8 +286,10 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 var name = product == null ? "test" : product.Name;
                 var price = product == null ? 100 : (int)(product.Price * 100);//单位：分
                 var notifyUrl = TenPayV3Info.TenPayV3Notify.Replace("/TenpayV3/", "/TenpayRealV3/").Replace("http://", "https://");
+
                 //请求信息
                 TransactionsRequestData jsApiRequestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name + " - 微信支付 V3", sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1), false), null, notifyUrl, null, new() { currency = "CNY", total = price }, new(openId), null, null, null);
+
                 //请求接口
                 var result = await _basePayApis.JsApiAsync(jsApiRequestData);
 
@@ -315,57 +317,65 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
 
 
         /// <summary>
-        /// JS-SDK支付回调地址（在统一下单接口中设置notify_url）
+        /// JS-SDK支付回调地址（在下单接口中设置的 notify_url）
         /// </summary>
         /// <returns></returns>
         public async Task<IActionResult> PayNotifyUrl()
         {
             try
             {
+                //获取微信服务器异步发送的支付通知信息
                 var resHandler = new TenPayNotifyHandler(HttpContext);
                 var orderReturnJson = await resHandler.AesGcmDecryptGetObjectAsync<OrderReturnJson>();
 
+                //记录日志
                 Senparc.Weixin.WeixinTrace.SendCustomLog("PayNotifyUrl 接收到消息", orderReturnJson.ToJson(true));
 
-                string trade_state = orderReturnJson.trade_state;
-
+                //演示记录 transaction_id，实际开发中需要记录到数据库，以便退款和后续跟踪
                 TradeNumberToTransactionId[orderReturnJson.out_trade_no] = orderReturnJson.transaction_id;
 
-                //orderReturnJson.transaction_id
-                string res = null;
+                //获取支付状态
+                string trade_state = orderReturnJson.trade_state;
 
                 //验证请求是否从微信发过来（安全）
+                NotifyReturnData returnData = new();
+
+                //验证可靠的支付状态
                 if (orderReturnJson.VerifySignSuccess == true && trade_state == "SUCCESS")
                 {
-                    res = "success";//正确的订单处理
-                    //直到这里，才能认为交易真正成功了，可以进行数据库操作，但是别忘了返回规定格式的消息！
+                    returnData.code = "SUCCESS";//正确的订单处理
+                    /* 提示：
+                     * 1、直到这里，才能认为交易真正成功了，可以进行数据库操作，但是别忘了返回规定格式的消息！
+                     * 2、上述判断已经具有比较高的安全性以外，还可以对访问 IP 进行判断进一步加强安全性。
+                     * 3、下面演示的是发送支付成功的模板消息提示，非必须。
+                     */
+
+                    #region 发送支付成功模板消息提醒
+                    try
+                    {
+                        string appId = Config.SenparcWeixinSetting.TenPayV3_AppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
+                        string openId = orderReturnJson.payer.openid;
+                        var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "微信支付 V3 购买商品", "状态：" + trade_state);
+
+                        Senparc.Weixin.WeixinTrace.SendCustomLog("TenPayV3 支付成功模板消息参数", "AppId:" + appId + " ,openId: " + openId);
+
+                        var result = await MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, templateData);
+                    }
+                    catch (Exception ex)
+                    {
+                        Senparc.Weixin.WeixinTrace.SendCustomLog("TenPayV3 支付成功模板消息", ex.ToString());
+                    }
+                    #endregion
                 }
                 else
                 {
-                    res = "wrong";//错误的订单处理
+                    returnData.code = "FAILD";//错误的订单处理
+                    returnData.message = "验证失败";
+
+                    //此处可以给用户发送支付失败提示等
                 }
 
-
-                /* 这里可以进行订单处理的逻辑 */
-
-                #region 发送支付成功模板消息提醒
-                try
-                {
-                    string appId = Config.SenparcWeixinSetting.TenPayV3_AppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
-                    string openId = orderReturnJson.payer.openid;
-                    var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "微信支付 V3 购买商品", "状态：" + trade_state);
-
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("TenPayV3 支付成功模板消息参数", "AppId:" + appId + " ,openId: " + openId);
-
-                    var result = await MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, templateData);
-                }
-                catch (Exception ex)
-                {
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("TenPayV3 支付成功模板消息", ex.ToString());
-                }
-                #endregion
-
-                #region 记录日志
+                #region 记录日志（也可以记录到数据库审计日志中）
 
                 var logDir = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/TenPayNotify/{0}", SystemTime.Now.ToString("yyyyMMdd")));
                 if (!Directory.Exists(logDir))
@@ -384,8 +394,8 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 }
                 #endregion
 
-                //https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/wechatpay3_3.shtml
-                return Json(new NotifyReturnData(trade_state, trade_state));
+                //https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_1_5.shtml
+                return Json(returnData);
             }
             catch (Exception ex)
             {

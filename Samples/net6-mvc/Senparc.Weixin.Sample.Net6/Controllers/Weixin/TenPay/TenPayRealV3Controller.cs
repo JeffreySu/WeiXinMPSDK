@@ -565,61 +565,19 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
 
             string responseCode = "FAIL";
             string responseMsg = "FAIL";
+            NotifyReturnData returnData = new();
             try
             {
-                //ResponseHandler resHandler = new ResponseHandler(null
                 var resHandler = new TenPayNotifyHandler(HttpContext);
                 var refundNotifyJson = await resHandler.AesGcmDecryptGetObjectAsync<RefundNotifyJson>();
 
-                //string return_code = resHandler.GetParameter("return_code");
-                //string return_msg = resHandler.GetParameter("return_msg");
-                string refund_status = refundNotifyJson.refund_status;
-
-                //WeixinTrace.SendCustomLog("跟踪RefundNotifyUrl信息", resHandler.ParseXML());
                 WeixinTrace.SendCustomLog("跟踪RefundNotifyUrl信息", refundNotifyJson.ToJson());
 
-                if (refund_status == "SUCCESS")
+                string refund_status = refundNotifyJson.refund_status;
+                if (/*refundNotifyJson.VerifySignSuccess == true &*/ refund_status == "SUCCESS")
                 {
-                    responseCode = "SUCCESS";
-                    responseMsg = "OK";
-
-                    //string appId = resHandler.GetParameter("appid");
-                    //string mch_id = resHandler.GetParameter("mch_id");
-                    //string nonce_str = resHandler.GetParameter("nonce_str");
-                    //string req_info = resHandler.GetParameter("req_info");
-
-                    //TODO: 返回的数据中并没有mchid该如何判断?
-                    //if (!appId.Equals(Senparc.Weixin.Config.SenparcWeixinSetting.TenPayV3_AppId))
-                    //{
-                    //    /* 
-                    //     * 注意：
-                    //     * 这里添加过滤只是因为盛派Demo经常有其他公众号错误地设置了我们的地址，
-                    //     * 导致无法正常解密，平常使用不需要过滤！
-                    //     */
-                    //    SenparcTrace.SendCustomLog("RefundNotifyUrl 的 AppId 不正确",
-                    //        $"appId:{appId}\r\nmch_id:{mch_id}\r\nreq_info:{req_info}");
-                    //    return Content("faild");
-                    //}
-
-                    //var decodeReqInfo = TenPayV3Util.DecodeRefundReqInfo(req_info, TenPayV3Info.Key);
-                    //var decodeDoc = XDocument.Parse(decodeReqInfo);
-
-                    //获取接口中需要用到的信息
-                    //string transaction_id = decodeDoc.Root.Element("transaction_id").Value;
-                    //string out_trade_no = decodeDoc.Root.Element("out_trade_no").Value;
-                    //string refund_id = decodeDoc.Root.Element("refund_id").Value;
-                    //string out_refund_no = decodeDoc.Root.Element("out_refund_no").Value;
-                    //int total_fee = int.Parse(decodeDoc.Root.Element("total_fee").Value);
-                    //int? settlement_total_fee = decodeDoc.Root.Element("settlement_total_fee") != null
-                    //        ? int.Parse(decodeDoc.Root.Element("settlement_total_fee").Value)
-                    //        : null as int?;
-                    //int refund_fee = int.Parse(decodeDoc.Root.Element("refund_fee").Value);
-                    //int tosettlement_refund_feetal_fee = int.Parse(decodeDoc.Root.Element("settlement_refund_fee").Value);
-                    //string refund_status = decodeDoc.Root.Element("refund_status").Value;
-                    //string success_time = decodeDoc.Root.Element("success_time").Value;
-                    //string refund_recv_accout = decodeDoc.Root.Element("refund_recv_accout").Value;
-                    //string refund_account = decodeDoc.Root.Element("refund_account").Value;
-                    //string refund_request_source = decodeDoc.Root.Element("refund_request_source").Value;
+                    returnData.code = "SUCCESS";
+                    returnData.message = "OK";
 
                     //获取接口中需要用到的信息 例
                     string transaction_id = refundNotifyJson.transaction_id;
@@ -629,25 +587,26 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                     int total_fee = refundNotifyJson.amount.payer_total;
                     int refund_fee = refundNotifyJson.amount.refund;
 
-
+                    //填写逻辑
                     WeixinTrace.SendCustomLog("RefundNotifyUrl被访问", "验证通过");
+                }
+                else
+                {
+                    returnData.code = "FAILD";
+                    returnData.message = "验证失败";
+                    WeixinTrace.SendCustomLog("RefundNotifyUrl被访问", "验证失败");
+
                 }
 
                 //进行后续业务处理
             }
             catch (Exception ex)
             {
-                responseMsg = ex.Message;
+                returnData.code = "FAILD";
+                returnData.message= ex.Message;
                 WeixinTrace.WeixinExceptionLog(new WeixinException(ex.Message, ex));
             }
 
-            //    string xml = string.Format(@"<xml>
-            //<return_code><![CDATA[{0}]]></return_code>
-            //<return_msg><![CDATA[{1}]]></return_msg>
-            //</xml>", responseCode, responseMsg);
-            //    return Content(xml, "text/xml");
-            //TODO: 此处不知是否还需要签名,文档说我们要对微信回调请求验证签名,这里并未说回个OK是否需要签名
-            //如果需要,也不知何种方式处理
             //https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/wechatpay3_3.shtml
             return Json(new NotifyReturnData(responseCode, responseMsg));
         }

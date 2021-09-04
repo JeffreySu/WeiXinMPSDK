@@ -22,7 +22,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 ## 公告
 >  :trophy: 《[2020-2021年度 盛派开发者社区优秀贡献者入围名单](https://github.com/JeffreySu/WeiXinMPSDK/issues/2454)》公布，请注意查看并登记信息，2021 年 9 月 13 日 10:24 AM 截止登记 :smile:<br />
-> 🔒 [微信支付 V3 模块](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3)已上线！
+> 🔒 [微信支付 V3 模块](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3)已上线！<br>
 > ⚡ Sample 已支持 .NET 6.0，[点击这里查看](Samples/net6-mvc)！<br/>
 > 🍦 [file.api.weixin.qq.com 域名官方已停用（2020.9.15）](https://developers.weixin.qq.com/community/develop/doc/0002245dcdc8c06f36fa6a47d56400)，请及时更新到最新版本！<br/>
 

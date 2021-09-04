@@ -23,7 +23,7 @@ If you like and hope us to continue to optimize this project, please give us a S
 
 ## Notice 
 >  :trophy: 《[2020-2021 Outstanding Contributors of Senparc Developer Community Shortlist](https://github.com/JeffreySu/WeiXinMPSDK/issues/2454)》 has been published. Please check and register the information before 13/9/2021 10:24 AM :smile: <br />
-> 🔒 [TenPay V3 Module](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3) has been released！
+> 🔒 [TenPay V3 Module](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3) has been released！<br />
 > ⚡ Sample has already supported for .NET 6.0, [Click Here](Samples/net6-mvc) !<br/>
 > 🍦 [file.api.weixin.qq.com Domain name officially disabled(2020.9.15)](https://developers.weixin.qq.com/community/develop/doc/0002245dcdc8c06f36fa6a47d56400), please update to the latest version! <br />
 

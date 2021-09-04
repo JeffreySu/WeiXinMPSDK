@@ -563,8 +563,6 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         {
             WeixinTrace.SendCustomLog("RefundNotifyUrl被访问", "IP" + HttpContext.UserHostAddress()?.ToString());
 
-            string responseCode = "FAIL";
-            string responseMsg = "FAIL";
             NotifyReturnData returnData = new();
             try
             {
@@ -608,7 +606,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             }
 
             //https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/wechatpay3_3.shtml
-            return Json(new NotifyReturnData(responseCode, responseMsg));
+            return Json(returnData);
         }
 
         /// <summary>

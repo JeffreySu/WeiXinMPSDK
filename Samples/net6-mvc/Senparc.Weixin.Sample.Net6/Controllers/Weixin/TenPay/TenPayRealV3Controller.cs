@@ -38,15 +38,10 @@ using Senparc.Weixin.TenPayV3.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
 using System;
 using System.Collections.Concurrent;
-using System.Drawing;
 using System.IO;
-using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZXing;
-using ZXing.Common;
-using ZXing.Rendering;
 
 namespace Senparc.Weixin.Sample.Net6.Controllers
 {
@@ -601,7 +596,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             catch (Exception ex)
             {
                 returnData.code = "FAILD";
-                returnData.message= ex.Message;
+                returnData.message = ex.Message;
                 WeixinTrace.WeixinExceptionLog(new WeixinException(ex.Message, ex));
             }
 

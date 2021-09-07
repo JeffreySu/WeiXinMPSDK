@@ -74,7 +74,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 记录类型
         /// </summary>
-        public record_type record_type { get; set; }
+        public RecordType record_type { get; set; }
 
         /// <summary>
         /// 打卡人员姓名
@@ -104,7 +104,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 日报类型
         /// </summary>
-        public day_type day_type { get; set; }
+        public DayType day_type { get; set; }
     }
 
     /// <summary>
@@ -259,7 +259,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 校准状态类型：1-迟到；2-早退；3-缺卡；4-旷工；5-地点异常；6-设备异常
         /// </summary>
-        public uint exception { get; set; }
+        public ExceptionType exception { get; set; }
     }
 
     /// <summary>
@@ -270,7 +270,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 状态：0-无加班；1-正常；2-缺时长
         /// </summary>
-        public uint ot_status { get; set; }
+        public OtStatus ot_status { get; set; }
 
         /// <summary>
         /// 加班时长
@@ -316,22 +316,31 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 时长单位：0-按天 1-按小时
         /// </summary>
-        public uint time_type { get; set; }
+        public TimeType time_type { get; set; }
     }
 
     /// <summary>
     /// 日报类型
     /// </summary>
-    public enum day_type
+    public enum DayType
     {
         工作日日报 = 0,
         休息日日报 = 1
     }
 
     /// <summary>
+    /// 时长单位
+    /// </summary>
+    public enum TimeType
+    {
+        按天 = 0,
+        按小时 = 1
+    }
+
+    /// <summary>
     /// 记录类型
     /// </summary>
-    public enum record_type
+    public enum RecordType
     {
         固定上下班 = 1,
         外出 = 2,
@@ -339,5 +348,28 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         自由签到 = 4,
         加班 = 5,
         无规则 = 7
+    }
+
+    /// <summary>
+    /// 加班状态
+    /// </summary>
+    public enum OtStatus
+    {
+        无加班 = 0,
+        正常,
+        缺时长
+    }
+
+    /// <summary>
+    /// 校准状态类型：1-迟到；2-早退；3-缺卡；4-旷工；5-地点异常；6-设备异常
+    /// </summary>
+    public enum ExceptionType
+    {
+        迟到 = 1,
+        早退,
+        缺卡,
+        旷工,
+        地点异常,
+        设备异常
     }
 }

@@ -264,8 +264,8 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 {
                     return Content("商品信息不存在，或非法进入！1002");
                 }
+                ViewData["product"] = product;
 
-                //var openId = User.Identity.Name;
                 var openId = HttpContext.Session.GetString("OpenId");
 
                 string sp_billno = Request.Query["order_no"];//out_trade_no
@@ -282,32 +282,27 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                     sp_billno = Request.Query["order_no"];
                 }
 
-                var timeStamp = TenPayV3Util.GetTimestamp();
-                var nonceStr = TenPayV3Util.GetNoncestr();
-
-
                 //调用下单接口下单
                 var name = product == null ? "test" : product.Name;
                 var price = product == null ? 100 : (int)(product.Price * 100);//单位：分
-
                 var notifyUrl = TenPayV3Info.TenPayV3Notify.Replace("/TenpayV3/", "/TenpayRealV3/").Replace("http://", "https://");
 
-                //TODO: JsApiRequestData修改构造函数参数顺序
+                //请求信息
                 TransactionsRequestData jsApiRequestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name + " - 微信支付 V3", sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1), false), null, notifyUrl, null, new() { currency = "CNY", total = price }, new(openId), null, null, null);
 
-                //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
+                //请求接口
                 var result = await _basePayApis.JsApiAsync(jsApiRequestData);
-                var package = string.Format("prepay_id={0}", result.prepay_id);
 
-                ViewData["product"] = product;
+                if (result.VerifySignSuccess != true)
+                {
+                    throw new WeixinException("获取 prepay_id 结果校验出错！");
+                }
 
-                ViewData["appId"] = TenPayV3Info.AppId;
-                ViewData["timeStamp"] = timeStamp;
-                ViewData["nonceStr"] = nonceStr;
-                ViewData["package"] = package;
-                ViewData["paySign"] = TenPaySignHelper.CreatePaySign(timeStamp, nonceStr, package);
+                //获取 UI 信息包
+                var jsApiUiPackage = TenPaySignHelper.GetJsApiUiPackage(TenPayV3Info.AppId, result.prepay_id);
+                ViewData["jsApiUiPackage"] = jsApiUiPackage;
 
-                //临时记录订单信息，留给退款申请接口测试使用
+                //临时记录订单信息，留给退款申请接口测试使用（分布式情况下请注意数据同步）
                 HttpContext.Session.SetString("BillNo", sp_billno);
                 HttpContext.Session.SetString("BillFee", price.ToString());
 
@@ -315,72 +310,72 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             }
             catch (Exception ex)
             {
-                var msg = ex.Message;
-                msg += "<br>" + ex.StackTrace;
-                msg += "<br>==Source==<br>" + ex.Source;
-
-                if (ex.InnerException != null)
-                {
-                    msg += "<br>===InnerException===<br>" + ex.InnerException.Message;
-                }
-                return Content(msg);
+                Senparc.Weixin.WeixinTrace.BaseExceptionLog(ex);
+                throw;
             }
         }
 
 
         /// <summary>
-        /// JS-SDK支付回调地址（在统一下单接口中设置notify_url）
-        /// TODO：使用异步方法
+        /// JS-SDK支付回调地址（在下单接口中设置的 notify_url）
         /// </summary>
         /// <returns></returns>
-        public IActionResult PayNotifyUrl()
+        public async Task<IActionResult> PayNotifyUrl()
         {
             try
             {
+                //获取微信服务器异步发送的支付通知信息
                 var resHandler = new TenPayNotifyHandler(HttpContext);
-                var orderReturnJson = resHandler.AesGcmDecryptGetObjectAsync<OrderReturnJson>().GetAwaiter().GetResult();
+                var orderReturnJson = await resHandler.AesGcmDecryptGetObjectAsync<OrderReturnJson>();
 
+                //记录日志
                 Senparc.Weixin.WeixinTrace.SendCustomLog("PayNotifyUrl 接收到消息", orderReturnJson.ToJson(true));
 
-                string trade_state = orderReturnJson.trade_state;
-
+                //演示记录 transaction_id，实际开发中需要记录到数据库，以便退款和后续跟踪
                 TradeNumberToTransactionId[orderReturnJson.out_trade_no] = orderReturnJson.transaction_id;
 
-                //orderReturnJson.transaction_id
-                string res = null;
+                //获取支付状态
+                string trade_state = orderReturnJson.trade_state;
 
                 //验证请求是否从微信发过来（安全）
+                NotifyReturnData returnData = new();
+
+                //验证可靠的支付状态
                 if (orderReturnJson.VerifySignSuccess == true && trade_state == "SUCCESS")
                 {
-                    res = "success";//正确的订单处理
-                                    //直到这里，才能认为交易真正成功了，可以进行数据库操作，但是别忘了返回规定格式的消息！
+                    returnData.code = "SUCCESS";//正确的订单处理
+                    /* 提示：
+                     * 1、直到这里，才能认为交易真正成功了，可以进行数据库操作，但是别忘了返回规定格式的消息！
+                     * 2、上述判断已经具有比较高的安全性以外，还可以对访问 IP 进行判断进一步加强安全性。
+                     * 3、下面演示的是发送支付成功的模板消息提示，非必须。
+                     */
+
+                    #region 发送支付成功模板消息提醒
+                    try
+                    {
+                        string appId = Config.SenparcWeixinSetting.TenPayV3_AppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
+                        string openId = orderReturnJson.payer.openid;
+                        var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "微信支付 V3 购买商品", "状态：" + trade_state);
+
+                        Senparc.Weixin.WeixinTrace.SendCustomLog("TenPayV3 支付成功模板消息参数", "AppId:" + appId + " ,openId: " + openId);
+
+                        var result = await MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, templateData);
+                    }
+                    catch (Exception ex)
+                    {
+                        Senparc.Weixin.WeixinTrace.SendCustomLog("TenPayV3 支付成功模板消息", ex.ToString());
+                    }
+                    #endregion
                 }
                 else
                 {
-                    res = "wrong";//错误的订单处理
+                    returnData.code = "FAILD";//错误的订单处理
+                    returnData.message = "验证失败";
+
+                    //此处可以给用户发送支付失败提示等
                 }
 
-
-                /* 这里可以进行订单处理的逻辑 */
-
-                //发送支付成功的模板消息
-                try
-                {
-                    string appId = Config.SenparcWeixinSetting.TenPayV3_AppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
-                    //string openId = resHandler.GetParameter("openid");
-                    string openId = orderReturnJson.payer.openid;
-                    var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "微信支付 V3 购买商品", "状态：" + trade_state);
-
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("TenPayV3 支付成功模板消息参数", "AppId:" + appId + " ,openId: " + openId);
-
-                    var result = MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(appId, openId, templateData);
-                }
-                catch (Exception ex)
-                {
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("TenPayV3 支付成功模板消息", ex.ToString());
-                }
-
-                #region 记录日志
+                #region 记录日志（也可以记录到数据库审计日志中）
 
                 var logDir = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/TenPayNotify/{0}", SystemTime.Now.ToString("yyyyMMdd")));
                 if (!Directory.Exists(logDir))
@@ -392,19 +387,15 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
 
                 using (var fileStream = System.IO.File.OpenWrite(logPath))
                 {
-                    //var notifyXml = resHandler.ParseXML();
                     var notifyJson = orderReturnJson.ToString();
-                    //fileStream.Write(Encoding.Default.GetBytes(res), 0, Encoding.Default.GetByteCount(res));
-                    fileStream.Write(Encoding.Default.GetBytes(notifyJson), 0, Encoding.Default.GetByteCount(notifyJson));
+                    await fileStream.WriteAsync(Encoding.Default.GetBytes(notifyJson), 0, Encoding.Default.GetByteCount(notifyJson));
                     fileStream.Close();
+
                 }
                 #endregion
 
-
-                //TODO: 此处不知是否还需要签名,文档说我们要对微信回调请求验证签名,这里并未说回个OK是否需要签名
-                //如果需要,也不知何种方式处理
-                //https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/wechatpay3_3.shtml
-                return Json(new NotifyReturnData(trade_state, trade_state));
+                //https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_1_5.shtml
+                return Json(returnData);
             }
             catch (Exception ex)
             {
@@ -572,63 +563,19 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         {
             WeixinTrace.SendCustomLog("RefundNotifyUrl被访问", "IP" + HttpContext.UserHostAddress()?.ToString());
 
-            string responseCode = "FAIL";
-            string responseMsg = "FAIL";
+            NotifyReturnData returnData = new();
             try
             {
-                //ResponseHandler resHandler = new ResponseHandler(null
                 var resHandler = new TenPayNotifyHandler(HttpContext);
                 var refundNotifyJson = await resHandler.AesGcmDecryptGetObjectAsync<RefundNotifyJson>();
 
-                //string return_code = resHandler.GetParameter("return_code");
-                //string return_msg = resHandler.GetParameter("return_msg");
-                string refund_status = refundNotifyJson.refund_status;
-
-                //WeixinTrace.SendCustomLog("跟踪RefundNotifyUrl信息", resHandler.ParseXML());
                 WeixinTrace.SendCustomLog("跟踪RefundNotifyUrl信息", refundNotifyJson.ToJson());
 
-                if (refund_status == "SUCCESS")
+                string refund_status = refundNotifyJson.refund_status;
+                if (/*refundNotifyJson.VerifySignSuccess == true &*/ refund_status == "SUCCESS")
                 {
-                    responseCode = "SUCCESS";
-                    responseMsg = "OK";
-
-                    //string appId = resHandler.GetParameter("appid");
-                    //string mch_id = resHandler.GetParameter("mch_id");
-                    //string nonce_str = resHandler.GetParameter("nonce_str");
-                    //string req_info = resHandler.GetParameter("req_info");
-
-                    //TODO: 返回的数据中并没有mchid该如何判断?
-                    //if (!appId.Equals(Senparc.Weixin.Config.SenparcWeixinSetting.TenPayV3_AppId))
-                    //{
-                    //    /* 
-                    //     * 注意：
-                    //     * 这里添加过滤只是因为盛派Demo经常有其他公众号错误地设置了我们的地址，
-                    //     * 导致无法正常解密，平常使用不需要过滤！
-                    //     */
-                    //    SenparcTrace.SendCustomLog("RefundNotifyUrl 的 AppId 不正确",
-                    //        $"appId:{appId}\r\nmch_id:{mch_id}\r\nreq_info:{req_info}");
-                    //    return Content("faild");
-                    //}
-
-                    //var decodeReqInfo = TenPayV3Util.DecodeRefundReqInfo(req_info, TenPayV3Info.Key);
-                    //var decodeDoc = XDocument.Parse(decodeReqInfo);
-
-                    //获取接口中需要用到的信息
-                    //string transaction_id = decodeDoc.Root.Element("transaction_id").Value;
-                    //string out_trade_no = decodeDoc.Root.Element("out_trade_no").Value;
-                    //string refund_id = decodeDoc.Root.Element("refund_id").Value;
-                    //string out_refund_no = decodeDoc.Root.Element("out_refund_no").Value;
-                    //int total_fee = int.Parse(decodeDoc.Root.Element("total_fee").Value);
-                    //int? settlement_total_fee = decodeDoc.Root.Element("settlement_total_fee") != null
-                    //        ? int.Parse(decodeDoc.Root.Element("settlement_total_fee").Value)
-                    //        : null as int?;
-                    //int refund_fee = int.Parse(decodeDoc.Root.Element("refund_fee").Value);
-                    //int tosettlement_refund_feetal_fee = int.Parse(decodeDoc.Root.Element("settlement_refund_fee").Value);
-                    //string refund_status = decodeDoc.Root.Element("refund_status").Value;
-                    //string success_time = decodeDoc.Root.Element("success_time").Value;
-                    //string refund_recv_accout = decodeDoc.Root.Element("refund_recv_accout").Value;
-                    //string refund_account = decodeDoc.Root.Element("refund_account").Value;
-                    //string refund_request_source = decodeDoc.Root.Element("refund_request_source").Value;
+                    returnData.code = "SUCCESS";
+                    returnData.message = "OK";
 
                     //获取接口中需要用到的信息 例
                     string transaction_id = refundNotifyJson.transaction_id;
@@ -638,27 +585,28 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                     int total_fee = refundNotifyJson.amount.payer_total;
                     int refund_fee = refundNotifyJson.amount.refund;
 
-
+                    //填写逻辑
                     WeixinTrace.SendCustomLog("RefundNotifyUrl被访问", "验证通过");
+                }
+                else
+                {
+                    returnData.code = "FAILD";
+                    returnData.message = "验证失败";
+                    WeixinTrace.SendCustomLog("RefundNotifyUrl被访问", "验证失败");
+
                 }
 
                 //进行后续业务处理
             }
             catch (Exception ex)
             {
-                responseMsg = ex.Message;
+                returnData.code = "FAILD";
+                returnData.message= ex.Message;
                 WeixinTrace.WeixinExceptionLog(new WeixinException(ex.Message, ex));
             }
 
-            //    string xml = string.Format(@"<xml>
-            //<return_code><![CDATA[{0}]]></return_code>
-            //<return_msg><![CDATA[{1}]]></return_msg>
-            //</xml>", responseCode, responseMsg);
-            //    return Content(xml, "text/xml");
-            //TODO: 此处不知是否还需要签名,文档说我们要对微信回调请求验证签名,这里并未说回个OK是否需要签名
-            //如果需要,也不知何种方式处理
             //https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/wechatpay3_3.shtml
-            return Json(new NotifyReturnData(responseCode, responseMsg));
+            return Json(returnData);
         }
 
         /// <summary>

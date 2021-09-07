@@ -150,13 +150,30 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="content">应答报文主体</param>
         /// <param name="pubKey">平台公钥 可为空</param>
         /// <returns></returns>
-        public static async Task<bool> VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignature, string content, string serialNumber,ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
+        public static async Task<bool> VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignature, string content, string serialNumber, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
         {
             string contentForSign = $"{wechatpayTimestamp}\n{wechatpayNonce}\n{content}\n";
 
             var tenpayV3InfoKey = TenPayHelper.GetRegisterKey(senparcWeixinSettingForTenpayV3.TenPayV3_MchId, senparcWeixinSettingForTenpayV3.TenPayV3_SubMchId);
             var pubKey = await TenPayV3InfoCollection.Data[tenpayV3InfoKey].GetPublicKeyAsync(serialNumber, senparcWeixinSettingForTenpayV3);
             return VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, contentForSign, pubKey);
+        }
+
+        /// <summary>
+        /// 获取给 JsApi UI 使用的打包签名信息
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="prepayId"></param>
+        /// <returns></returns>
+        public static JsApiUiPackage GetJsApiUiPackage(string appId, string prepayId)
+        {
+            var timeStamp = TenPayV3Util.GetTimestamp();
+            var nonceStr = TenPayV3Util.GetNoncestr();
+            var prepayIdPackage = prepayId.Contains("prepay_id=") ? prepayId : string.Format("prepay_id={0}", prepayId);
+            var sign = TenPaySignHelper.CreatePaySign(timeStamp, nonceStr, prepayIdPackage);
+
+            JsApiUiPackage jsApiUiPackage = new(appId, timeStamp, nonceStr, prepayIdPackage, sign);
+            return jsApiUiPackage;
         }
     }
 }

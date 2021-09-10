@@ -18,10 +18,10 @@ using Senparc.Weixin.Exceptions;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Helpers;
 using Senparc.CO2NET.Utilities;
+using Senparc.CO2NET.Trace;
 //DPBMARK MP
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.CO2NET.Trace;
 //DPBMARK_END
 #if NET45
 using System.Web;

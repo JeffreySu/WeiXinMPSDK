@@ -38,7 +38,7 @@ using Senparc.Weixin.TenPay.V3;
 using ZXing;
 using ZXing.Common;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
+using Senparc.Weixin.Sample.CommonService.TemplateMessage;
 using Microsoft.AspNetCore.Http;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;

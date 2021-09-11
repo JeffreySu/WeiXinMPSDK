@@ -19,10 +19,10 @@ using Senparc.Weixin.Cache.Redis;//DPBMARK Redis DPBMARK_END
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP;//DPBMARK MP DPBMARK_END
 using Senparc.Weixin.MP.MessageHandlers.Middleware;//DPBMARK MP DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;//DPBMARK MP DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;//DPBMARK WebSocket DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;//DPBMARK Work DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;//DPBMARK MiniProgram DPBMARK_END
+using Senparc.Weixin.Sample.CommonService.CustomMessageHandler;//DPBMARK MP DPBMARK_END
+using Senparc.Weixin.Sample.CommonService.MessageHandlers.WebSocket;//DPBMARK WebSocket DPBMARK_END
+using Senparc.Weixin.Sample.CommonService.WorkMessageHandlers;//DPBMARK Work DPBMARK_END
+using Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler;//DPBMARK MiniProgram DPBMARK_END
 using Senparc.Weixin.Open;//DPBMARK Open DPBMARK_END
 using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK Open DPBMARK_END
 using Senparc.Weixin.RegisterServices;
@@ -439,7 +439,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                 //加入每次触发WeixinExceptionLog后需要执行的代码
 
                 //发送模板消息给管理员                                   -- DPBMARK Redis
-                var eventService = new Senparc.Weixin.MP.Sample.CommonService.EventService();
+                var eventService = new CommonService.EventService();
                 await eventService.ConfigOnWeixinExceptionFunc(ex);      // DPBMARK_END
             };
         }

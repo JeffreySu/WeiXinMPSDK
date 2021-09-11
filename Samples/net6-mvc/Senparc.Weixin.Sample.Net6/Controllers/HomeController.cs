@@ -15,7 +15,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.MP.Containers;//DPBMARK MP DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.Download;
+using Senparc.Weixin.MP.Sample.CommonService.Download;//DPBMARK MP DPBMARK_END
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;

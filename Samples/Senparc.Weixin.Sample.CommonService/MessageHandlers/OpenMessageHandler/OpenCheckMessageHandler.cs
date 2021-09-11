@@ -19,7 +19,6 @@ using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
 #else
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 #endif
 
 namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHandler

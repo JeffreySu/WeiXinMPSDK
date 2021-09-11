@@ -42,7 +42,6 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
     using Senparc.Weixin.MP;
     using Senparc.Weixin.MP.MvcExtension;
     using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
-    using Senparc.Weixin.MP.Sample.CommonService.Utilities;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;

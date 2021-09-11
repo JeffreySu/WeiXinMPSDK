@@ -12,7 +12,6 @@ using Senparc.CO2NET.Trace;
 #if NET45
 using System.Web;
 #else
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Microsoft.AspNetCore.Http;
 #endif
 

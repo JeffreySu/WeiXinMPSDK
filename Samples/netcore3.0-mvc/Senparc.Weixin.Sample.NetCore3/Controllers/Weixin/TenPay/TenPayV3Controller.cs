@@ -40,7 +40,6 @@ using ZXing.Common;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
 using Microsoft.AspNetCore.Http;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Utilities;

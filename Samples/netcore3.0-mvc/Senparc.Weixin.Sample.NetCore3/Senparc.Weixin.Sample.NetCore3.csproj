@@ -62,7 +62,7 @@
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.WxOpen.Middleware\Senparc.Weixin.WxOpen.Middleware.netcore3.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.netcore3.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.netcore3.csproj" />
-    <ProjectReference Include="..\..\net45-mvc\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.NetCore3Sample.CommonService.csproj" />
+    <ProjectReference Include="..\..\Senparc.Weixin.Sample.CommonService\Senparc.Weixin.NetCore3Sample.CommonService.csproj" />
   </ItemGroup>
 
   <ItemGroup>

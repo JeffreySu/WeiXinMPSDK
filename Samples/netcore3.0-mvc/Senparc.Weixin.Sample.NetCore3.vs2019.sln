@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29215.179
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31521.260
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraires", "Libraires", "{E72ACEC5-2011-41C7-9A48-34F073D1AEE2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample.netcore", "Sample.netcore", "{35139CB3-610E-4922-98AD-08A5D12BFC35}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample.netcore3", "Sample.netcore3", "{35139CB3-610E-4922-98AD-08A5D12BFC35}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FC72CA5A-5DE9-4902-A5AA-00344FA68B37}"
 EndProject
@@ -38,7 +38,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.TenPay.netco
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.NetCore3", "Senparc.Weixin.Sample.NetCore3\Senparc.Weixin.Sample.NetCore3.csproj", "{EB4FCB9F-9670-4B03-9E9E-724AFF737FD4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.NetCore3Sample.CommonService", "..\net45-mvc\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.NetCore3Sample.CommonService.csproj", "{EF4E5DE8-CEF7-4A3F-9686-193FF9E51A01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.NetCore3Sample.CommonService", "..\Senparc.Weixin.Sample.CommonService\Senparc.Weixin.NetCore3Sample.CommonService.csproj", "{EF4E5DE8-CEF7-4A3F-9686-193FF9E51A01}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Cache.Redis.Tests.NetCore3", "..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis.Tests\Senparc.Weixin.Cache.Redis.Tests.NetCore3.csproj", "{18F88E40-DAC0-4ECC-BF09-379B197FBFCF}"
 EndProject

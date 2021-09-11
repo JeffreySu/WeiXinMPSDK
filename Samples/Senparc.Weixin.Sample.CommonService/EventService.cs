@@ -29,9 +29,7 @@ using System.Configuration;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;//DPBMARK MP DPBMARK_END
 #else
 using Microsoft.AspNetCore.Http;
-
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;//DPBMARK MP DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 #endif
 
 

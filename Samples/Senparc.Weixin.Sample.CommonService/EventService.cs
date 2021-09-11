@@ -120,7 +120,7 @@ namespace Senparc.Weixin.Sample.CommonService
                 string message = ex.Message;
                 var status = ex.GetType().Name;
                 var remark = "\r\n这是一条通过OnWeixinExceptionFunc事件发送的异步模板消息";
-                string url = "https://github.com/JeffreySu/WeiXinMPSDK/blob/master/Samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3/Startup.cs#L410";//需要点击打开的URL
+                string url = "https://github.com/JeffreySu/WeiXinMPSDK/blob/master/Samples/netcore3.1-mvc/Senparc.Weixin.Sample.NetCore3/Startup.cs#L410";//需要点击打开的URL
 
                 var sendTemplateMessage = true;
 

@@ -64,7 +64,7 @@ Index
 The library contains the source code (the Core logic is exactly the same) that includes .Net 3.5/4.0/4.5/.NET Standard 2.0/.NET Core/.NET 6.
 
 * Use Visual Studio 2019 open Demo(support for all .NET Versions)：.NET 6.0 - [Senparc.Weixin.Sample.Net6.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net6-mvc) (referenced source code, recommanded)
-* Use Visual Studio 2019 open .NET 3.1 Demo - [Senparc.Weixin.Sample.NetCore3.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.0-mvc) (NOT referenced source code)
+* Use Visual Studio 2019 open .NET 3.1 Demo - [Senparc.Weixin.Sample.NetCore3.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.1-mvc) (NOT referenced source code)
 * Use other versions of Visual Studio to open the Demo (support .net 4.5 only) :
 [Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net45-mvc)
 * Use Visual Studio 2017/2019 to open Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/console)
@@ -303,7 +303,7 @@ Senparc official tutorials
 |--------|--------|-------|
 |[net45-mvc](Samples/net45-mvc)						  |Demo, can be released directly(.NET Framework 4.5 + ASP.NET MVC)| Nuget Packages
 |[net45-webforms](Samples/net45-webforms)		  |Demo, can be released directly(.NET Framework 4.5 + ASP.NET WebForms)| Nuget Packages
-|[netcore3.0-mvc](Samples/netcore3.0-mvc)			  |Demo, can be released directly(.NET Core 3.1 + MVC)| Source Code
+|[netcore3.1-mvc](Samples/netcore3.1-mvc)			  |Demo, can be released directly(.NET Core 3.1 + MVC)| Source Code
 |[Samples/console](Samples/console)			| Console Demo（.NET Core）| Source Code
 |[net6-mvc](Samples/net6-mvc)			|Demo, can be released directly(.NET 6.0), compatible with .NET 5.0 | Source Code
 

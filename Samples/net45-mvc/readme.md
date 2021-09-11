@@ -13,7 +13,7 @@
 
 ## .NET Core 及所有版本 Demo
 
-返回上一级后见目录：[Senparc.Weixin.MP.Sample.vs2017.sln](../netcore2.2-mvc/) (.Net Core 2.2) / [Senparc.Weixin.Sample.NetCore3.vs2019.sln](../netcore3.0-mvc/) (.Net Core 3.0，推荐)。
+返回上一级后见目录：[Senparc.Weixin.MP.Sample.vs2017.sln](../netcore2.2-mvc/) (.Net Core 2.2) / [Senparc.Weixin.Sample.NetCore3.vs2019.sln](../netcore3.1-mvc/) (.Net Core 3.1，推荐)。
 
 
 ## 其他说明

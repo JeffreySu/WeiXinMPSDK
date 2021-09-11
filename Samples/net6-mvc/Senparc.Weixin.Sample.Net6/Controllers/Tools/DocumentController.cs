@@ -3,13 +3,13 @@ using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs.QrCode;
 using Senparc.Weixin.MP.Containers;
-using Senparc.Weixin.MP.Sample.CommonService.Download;
+using Senparc.Weixin.Sample.CommonService.Download;
 using System;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using Senparc.Weixin.MP.Sample.CommonService.Download;
+//using Senparc.Weixin.Sample.CommonService.Download;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {

@@ -22,7 +22,6 @@ using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.Sample.NetCore3.Controllers;
 using Senparc.Weixin.Sample.NetCore3.Models;
 using Senparc.Weixin.TenPayV3;
@@ -43,7 +42,8 @@ using System.Threading.Tasks;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.Sample.NetCore3.Filters;
 using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
+using Senparc.Weixin.Sample.CommonService.TemplateMessage;
+using Senparc.Weixin.Sample.CommonService.Utilities;
 //DPBMARK_END
 
 namespace Senparc.Weixin.Sample.Net6.Controllers

@@ -45,7 +45,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             };
             TempData["SampleVersion"] = getTypeVersionInfo(this.GetType());//当前Demo的版本号
             TempData["CO2NETVersion"] = getTypeVersionInfo(typeof(CO2NET.Config));//CO2NET版本号
-            TempData["NeuCharVersion"] = getTypeVersionInfo(typeof(Senparc.NeuChar.ApiBindInfo));//NeuChar版本号
+            TempData["NeuCharVersion"] = getTypeVersionInfo(typeof(Senparc.NeuChar.Register));//NeuChar版本号
 
             TempData["WeixinVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Config));
             TempData["TenPayVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.TenPay.Register));//DPBMARK TenPay DPBMARK_END

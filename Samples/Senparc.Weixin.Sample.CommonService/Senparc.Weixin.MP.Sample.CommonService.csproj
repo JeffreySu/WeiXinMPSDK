@@ -52,86 +52,86 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BinaryFormatter, Version=2.1.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\BinaryFormatter.2.1.4\lib\netstandard1.1\BinaryFormatter.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\BinaryFormatter.2.1.4\lib\netstandard1.1\BinaryFormatter.dll</HintPath>
     </Reference>
     <Reference Include="Enyim.Caching, Version=2.11.0.0, Culture=neutral, PublicKeyToken=cec98615db04012e, processorArchitecture=MSIL">
-      <HintPath>packages\Membase.2.14\lib\net35\Enyim.Caching.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Membase.2.14\lib\net35\Enyim.Caching.dll</HintPath>
     </Reference>
     <Reference Include="Enyim.Caching.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Enyim.Caching.Web.1.0.0.1\lib\net40\Enyim.Caching.Web.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Enyim.Caching.Web.1.0.0.1\lib\net40\Enyim.Caching.Web.dll</HintPath>
     </Reference>
     <Reference Include="Membase, Version=2.14.0.0, Culture=neutral, PublicKeyToken=cec98615db04012e, processorArchitecture=MSIL">
-      <HintPath>packages\Membase.2.14\lib\net35\Membase.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Membase.2.14\lib\net35\Membase.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.CO2NET, Version=1.4.300.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.CO2NET.1.4.300.3-preview2.net6p.3.21201.4\lib\net45\Senparc.CO2NET.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.CO2NET.1.4.300.3-preview2.net6p.3.21201.4\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.CO2NET.APM, Version=0.10.300.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.CO2NET.APM.0.10.300.3-preview2.net6p.3.21201.4\lib\net45\Senparc.CO2NET.APM.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.CO2NET.APM.0.10.300.3-preview2.net6p.3.21201.4\lib\net45\Senparc.CO2NET.APM.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.CO2NET.AspNet, Version=0.4.300.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.CO2NET.AspNet.0.4.300.4-preview2.net6p.3.21201.4\lib\net45\Senparc.CO2NET.AspNet.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.CO2NET.AspNet.0.4.300.4-preview2.net6p.3.21201.4\lib\net45\Senparc.CO2NET.AspNet.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.CO2NET.Cache.Memcached, Version=3.8.300.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.CO2NET.Cache.Memcached.3.8.300.3-preview2.net6p.3.21201.4\lib\net45\Senparc.CO2NET.Cache.Memcached.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.CO2NET.Cache.Memcached.3.8.300.3-preview2.net6p.3.21201.4\lib\net45\Senparc.CO2NET.Cache.Memcached.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.CO2NET.Cache.Redis, Version=3.10.300.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.CO2NET.Cache.Redis.3.10.300.3-preview2.net6p.3.21201.4\lib\net45\Senparc.CO2NET.Cache.Redis.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.CO2NET.Cache.Redis.3.10.300.3-preview2.net6p.3.21201.4\lib\net45\Senparc.CO2NET.Cache.Redis.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.CO2NET.Cache.Redis.RedLock, Version=2.6.300.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.CO2NET.Cache.Redis.RedLock.2.6.300.3-preview2.net6p.3.21201.4\lib\net45\Senparc.CO2NET.Cache.Redis.RedLock.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.CO2NET.Cache.Redis.RedLock.2.6.300.3-preview2.net6p.3.21201.4\lib\net45\Senparc.CO2NET.Cache.Redis.RedLock.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.NeuChar, Version=1.4.100.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.NeuChar.1.4.100.9-preview2.net6p.3.21201.4\lib\net45\Senparc.NeuChar.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.NeuChar.1.4.100.9-preview2.net6p.3.21201.4\lib\net45\Senparc.NeuChar.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.NeuChar.App, Version=0.10.100.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.NeuChar.App.0.10.100.9-preview2.net6p.3.21201.4\lib\net45\Senparc.NeuChar.App.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.NeuChar.App.0.10.100.9-preview2.net6p.3.21201.4\lib\net45\Senparc.NeuChar.App.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.NeuChar.AspNet, Version=0.4.100.10, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.NeuChar.AspNet.0.4.100.10-preview2.net6p.3.21201.4\lib\net45\Senparc.NeuChar.AspNet.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.NeuChar.AspNet.0.4.100.10-preview2.net6p.3.21201.4\lib\net45\Senparc.NeuChar.AspNet.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.WebSocket, Version=0.12.100.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.WebSocket.0.12.100.1-preview2\lib\net45\Senparc.WebSocket.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.WebSocket.0.12.100.1-preview2\lib\net45\Senparc.WebSocket.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin, Version=6.9.101.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.Weixin.6.9.101.1-preview2\lib\net45\Senparc.Weixin.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.Weixin.6.9.101.1-preview2\lib\net45\Senparc.Weixin.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin.AspNet, Version=0.3.100.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.Weixin.AspNet.0.3.100.2-preview2\lib\net45\Senparc.Weixin.AspNet.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.Weixin.AspNet.0.3.100.2-preview2\lib\net45\Senparc.Weixin.AspNet.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin.Cache.Memcached, Version=2.8.100.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.Weixin.Cache.Memcached.2.8.100.1-preview2\lib\net45\Senparc.Weixin.Cache.Memcached.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.Weixin.Cache.Memcached.2.8.100.1-preview2\lib\net45\Senparc.Weixin.Cache.Memcached.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin.Cache.Redis, Version=2.10.100.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.Weixin.Cache.Redis.2.10.100.1-preview2\lib\net45\Senparc.Weixin.Cache.Redis.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.Weixin.Cache.Redis.2.10.100.1-preview2\lib\net45\Senparc.Weixin.Cache.Redis.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin.MP, Version=16.12.101.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.Weixin.MP.16.12.101.1-preview2\lib\net45\Senparc.Weixin.MP.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.Weixin.MP.16.12.101.1-preview2\lib\net45\Senparc.Weixin.MP.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin.MP.MvcExtension, Version=7.7.100.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.Weixin.MP.MVC.7.7.100.1-preview2\lib\net45\Senparc.Weixin.MP.MvcExtension.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.Weixin.MP.MVC.7.7.100.1-preview2\lib\net45\Senparc.Weixin.MP.MvcExtension.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin.Open, Version=4.9.100.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.Weixin.Open.4.9.100.1-preview2\lib\net45\Senparc.Weixin.Open.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.Weixin.Open.4.9.100.1-preview2\lib\net45\Senparc.Weixin.Open.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin.TenPay, Version=1.7.100.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.Weixin.TenPay.1.7.100.2-preview2\lib\net45\Senparc.Weixin.TenPay.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.Weixin.TenPay.1.7.100.2-preview2\lib\net45\Senparc.Weixin.TenPay.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin.Work, Version=3.9.102.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.Weixin.Work.3.9.102.2-preview2\lib\net45\Senparc.Weixin.Work.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.Weixin.Work.3.9.102.2-preview2\lib\net45\Senparc.Weixin.Work.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin.WxOpen, Version=3.11.100.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.Weixin.WxOpen.3.11.100.3-preview2\lib\net45\Senparc.Weixin.WxOpen.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.Weixin.WxOpen.3.11.100.3-preview2\lib\net45\Senparc.Weixin.WxOpen.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\StackExchange.Redis.1.2.6\lib\net45\StackExchange.Redis.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\StackExchange.Redis.1.2.6\lib\net45\StackExchange.Redis.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -141,29 +141,29 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -204,7 +204,6 @@
     <Compile Include="EventService.cs" />
     <Compile Include="LocationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\Server.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

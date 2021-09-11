@@ -41,7 +41,6 @@ using Senparc.CO2NET.Cache;
 using System.Web;
 using System.Configuration;
 using System.Web.Configuration;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 #else
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;

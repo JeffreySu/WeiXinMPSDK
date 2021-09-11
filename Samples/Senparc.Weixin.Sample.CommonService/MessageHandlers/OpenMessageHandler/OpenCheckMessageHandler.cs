@@ -16,7 +16,6 @@ using Senparc.NeuChar.Helpers;
 using System.Web.Configuration;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 #else
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;

@@ -14,14 +14,14 @@ using Senparc.NeuChar.Helpers;
 
 #if NET45
 using System.Web.Configuration;
-using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
-using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
+using Senparc.Weixin.Sample.CommonService.CustomMessageHandler;
+using Senparc.Weixin.Sample.CommonService.OpenTicket;
 #else
-using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
-using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
+using Senparc.Weixin.Sample.CommonService.CustomMessageHandler;
+using Senparc.Weixin.Sample.CommonService.OpenTicket;
 #endif
 
-namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHandler
+namespace Senparc.Weixin.Sample.CommonService.MessageHandlers.OpenMessageHandler
 {
     /// <summary>
     /// 开放平台全网发布之前需要做的验证
@@ -73,7 +73,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHand
 
                     //调用客服接口
                     var content = query_auth_code + "_from_api";
-                    var sendResult = AdvancedAPIs.CustomApi.SendText(oauthResult.authorization_info.authorizer_access_token,
+                    var sendResult = MP.AdvancedAPIs.CustomApi.SendText(oauthResult.authorization_info.authorizer_access_token,
                           requestMessage.FromUserName, content);
                 }
                 catch (Exception ex)

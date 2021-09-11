@@ -15,9 +15,10 @@ using Senparc.CO2NET.Utilities;
 using Senparc.NeuChar.Agents;
 using Senparc.NeuChar.Entities;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Sample.CommonService.Download;
+using Senparc.Weixin.Sample.CommonService.Download;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -29,7 +30,7 @@ using System.Threading.Tasks;
 //#endif
 
 
-namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
+namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
 {
     /// <summary>
     /// 自定义MessageHandler
@@ -194,7 +195,7 @@ QQ群：377815480
                         var filePath = "~/wwwroot/Images/Logo.thumb.jpg";
 #endif
 
-                        var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.thumb,
+                        var uploadResult = MP.AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.thumb,
                                                                     ServerUtility.ContentRootMapPath(filePath));
                         //PS：缩略图官方没有特别提示文件大小限制，实际测试哪怕114K也会返回文件过大的错误，因此尽量控制在小一点（当前图片39K）
 
@@ -217,7 +218,7 @@ QQ群：377815480
                         var filePath = "~/wwwroot/Images/Logo.jpg";
 #endif
 
-                        var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image,
+                        var uploadResult = MP.AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image,
                                                                      ServerUtility.ContentRootMapPath(filePath));
                         //设置图片信息
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageImage>();
@@ -350,7 +351,7 @@ QQ群：377815480
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
                         try
                         {
-                            var result = AdvancedAPIs.MediaApi.UploadForeverMedia(appId, ServerUtility.ContentRootMapPath("~/Images/logo.jpg"));
+                            var result = MP.AdvancedAPIs.MediaApi.UploadForeverMedia(appId, ServerUtility.ContentRootMapPath("~/Images/logo.jpg"));
                             strongResponseMessage.Content = result.media_id;
                         }
                         catch (Exception e)
@@ -480,13 +481,13 @@ QQ群：377815480
                 {
                     if (codeRecord.AllowDownload)
                     {
-                        Task.Factory.StartNew(() => AdvancedAPIs.CustomApi.SendTextAsync(null, OpenId, "下载已经开始，如需下载其他版本，请刷新页面后重新扫一扫。"));
+                        Task.Factory.StartNew(() => CustomApi.SendTextAsync(null, OpenId, "下载已经开始，如需下载其他版本，请刷新页面后重新扫一扫。"));
                     }
                     else
                     {
                         //确认可以下载
                         codeRecord.AllowDownload = true;
-                        Task.Factory.StartNew(() => AdvancedAPIs.CustomApi.SendTextAsync(null, OpenId, GetDownloadInfo(codeRecord)));
+                        Task.Factory.StartNew(() => CustomApi.SendTextAsync(null, OpenId, GetDownloadInfo(codeRecord)));
                     }
                 }
             }

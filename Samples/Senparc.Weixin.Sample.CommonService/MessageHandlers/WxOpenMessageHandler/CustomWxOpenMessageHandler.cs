@@ -25,6 +25,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.MP;
 
 #if NET45
 using System.Web.Configuration;
@@ -32,7 +33,7 @@ using System.Web.Configuration;
 
 #endif
 
-namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
+namespace Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler
 {
     /// <summary>
     /// 自定义MessageHandler

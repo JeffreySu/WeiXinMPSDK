@@ -1,13 +1,13 @@
 //DPBMARK_FILE MiniProgram
 
 using Senparc.CO2NET.Cache;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
+using Senparc.Weixin.Sample.CommonService.TemplateMessage.WxOpen;
 using Senparc.Weixin.TenPay.V3;//DPBMARK TenPay DPBMARK_END
 using Senparc.Weixin.WxOpen.Containers;
 using System;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.MP.Sample.CommonService
+namespace Senparc.Weixin.Sample.CommonService
 {
     public class TemplateMessageService
     {

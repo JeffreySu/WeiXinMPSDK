@@ -22,18 +22,19 @@ using Senparc.CO2NET.Trace;
 //DPBMARK MP
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
+using Senparc.Weixin.MP;
 //DPBMARK_END
 #if NET45
 using System.Web;
 using System.Configuration;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;//DPBMARK MP DPBMARK_END
+using Senparc.Weixin.Sample.CommonService.TemplateMessage;//DPBMARK MP DPBMARK_END
 #else
 using Microsoft.AspNetCore.Http;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;//DPBMARK MP DPBMARK_END
+using Senparc.Weixin.Sample.CommonService.TemplateMessage;//DPBMARK MP DPBMARK_END
 #endif
 
 
-namespace Senparc.Weixin.MP.Sample.CommonService
+namespace Senparc.Weixin.Sample.CommonService
 {
     /// <summary>
     /// 全局微信事件有关的处理程序

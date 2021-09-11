@@ -36,6 +36,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Senparc.CO2NET.Cache;
+using Senparc.Weixin.MP;
 
 #if NET45
 using System.Web;
@@ -46,7 +47,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
 #endif
 
-namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
+namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
 {
     /// <summary>
     /// 自定义MessageHandler
@@ -330,7 +331,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 .Keyword("OPENID", () =>
                 {
                     var openId = requestMessage.FromUserName;//获取OpenId
-                    var userInfo = AdvancedAPIs.UserApi.Info(appId, openId, Language.zh_CN);
+                    var userInfo = MP.AdvancedAPIs.UserApi.Info(appId, openId, Language.zh_CN);
 
                     defaultResponseMessage.Content = string.Format(
                         "您的OpenID为：{0}\r\n昵称：{1}\r\n性别：{2}\r\n地区（国家/省/市）：{3}/{4}/{5}\r\n关注时间：{6}\r\n关注状态：{7}",
@@ -528,7 +529,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             var responseMessage = CreateResponseMessage<ResponseMessageMusic>();
             //上传缩略图
             //var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
-            var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image,
+            var uploadResult = MP.AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image,
                                                          ServerUtility.ContentRootMapPath("~/Images/Logo.jpg"));
 
             //设置音乐信息
@@ -562,27 +563,27 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
             #region 上传素材并推送到客户端
 
-            Task.Factory.StartNew(async () =>
-             {
+            _ = Task.Factory.StartNew(async () =>
+               {
                  //上传素材
                  var dir = ServerUtility.ContentRootMapPath("~/App_Data/TempVideo/");
-                 var file = await MediaApi.GetAsync(appId, requestMessage.MediaId, dir);
-                 var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, UploadMediaFileType.video, file, 50000);
-                 await CustomApi.SendVideoAsync(appId, base.WeixinOpenId, uploadResult.media_id, "这是您刚才发送的视频", "这是一条视频消息");
-             }).ContinueWith(async task =>
-             {
-                 if (task.Exception != null)
-                 {
-                     WeixinTrace.Log("OnVideoRequest()储存Video过程发生错误：", task.Exception.Message);
+                   var file = await MediaApi.GetAsync(appId, requestMessage.MediaId, dir);
+                   var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, UploadMediaFileType.video, file, 50000);
+                   await CustomApi.SendVideoAsync(appId, base.OpenId, uploadResult.media_id, "这是您刚才发送的视频", "这是一条视频消息");
+               }).ContinueWith(async task =>
+               {
+                   if (task.Exception != null)
+                   {
+                       WeixinTrace.Log("OnVideoRequest()储存Video过程发生错误：", task.Exception.Message);
 
-                     var msg = string.Format("上传素材出错：{0}\r\n{1}",
-                                task.Exception.Message,
-                                task.Exception.InnerException != null
-                                    ? task.Exception.InnerException.Message
-                                    : null);
-                     await CustomApi.SendTextAsync(appId, base.WeixinOpenId, msg);
-                 }
-             });
+                       var msg = string.Format("上传素材出错：{0}\r\n{1}",
+                                  task.Exception.Message,
+                                  task.Exception.InnerException != null
+                                      ? task.Exception.InnerException.Message
+                                      : null);
+                       await CustomApi.SendTextAsync(appId, base.OpenId, msg);
+                   }
+               });
 
             #endregion
 

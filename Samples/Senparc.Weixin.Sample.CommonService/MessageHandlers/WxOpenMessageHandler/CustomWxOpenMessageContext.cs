@@ -17,7 +17,7 @@ using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
 using Senparc.Weixin.WxOpen.MessageContexts;
 
-namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
+namespace Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler
 {
     public class CustomWxOpenMessageContext : DefaultWxOpenMessageContext
     {

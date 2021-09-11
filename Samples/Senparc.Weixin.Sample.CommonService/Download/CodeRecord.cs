@@ -1,7 +1,7 @@
 ﻿//DPBMARK_FILE MP
 using Senparc.Weixin.MP.AdvancedAPIs.QrCode;
 
-namespace Senparc.Weixin.MP.Sample.CommonService.Download
+namespace Senparc.Weixin.Sample.CommonService.Download
 {
     public class CodeRecord
     {

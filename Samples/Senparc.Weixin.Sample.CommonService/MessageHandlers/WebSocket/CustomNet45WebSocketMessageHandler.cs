@@ -8,10 +8,10 @@ using Senparc.WebSocket;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 using Senparc.Weixin.WxOpen.Containers;
 using System.Web.Configuration;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
+using Senparc.Weixin.Sample.CommonService.TemplateMessage.WxOpen;
 
 
-namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
+namespace Senparc.Weixin.Sample.CommonService.MessageHandlers.WebSocket
 {
     /// <summary>
     /// 自定义 WebSocket 处理类

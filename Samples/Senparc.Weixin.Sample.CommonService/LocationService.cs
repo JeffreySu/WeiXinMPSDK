@@ -17,7 +17,7 @@ using Senparc.Weixin.MP.Helpers;
 using Senparc.CO2NET.Helpers;
 using Senparc.NeuChar.Entities;
 
-namespace Senparc.Weixin.MP.Sample.CommonService
+namespace Senparc.Weixin.Sample.CommonService
 {
     public class LocationService
     {

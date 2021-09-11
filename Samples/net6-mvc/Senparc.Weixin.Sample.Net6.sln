@@ -38,7 +38,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.TenPay.netco
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.Net6", "Senparc.Weixin.Sample.Net6\Senparc.Weixin.Sample.Net6.csproj", "{EB4FCB9F-9670-4B03-9E9E-724AFF737FD4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Net6Sample.CommonService", "..\net45-mvc\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.Net6Sample.CommonService.csproj", "{EF4E5DE8-CEF7-4A3F-9686-193FF9E51A01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Net6Sample.CommonService", "..\Senparc.Weixin.Sample.CommonService\Senparc.Weixin.Net6Sample.CommonService.csproj", "{EF4E5DE8-CEF7-4A3F-9686-193FF9E51A01}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Cache.Redis.Tests.NetCore3", "..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis.Tests\Senparc.Weixin.Cache.Redis.Tests.net6.csproj", "{18F88E40-DAC0-4ECC-BF09-379B197FBFCF}"
 EndProject

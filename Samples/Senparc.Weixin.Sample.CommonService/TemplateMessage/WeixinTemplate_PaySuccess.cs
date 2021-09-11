@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 
-namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage
+namespace Senparc.Weixin.Sample.CommonService.TemplateMessage
 {
     /// <summary>
     /// 支付成功模板消息（购买成功通知）

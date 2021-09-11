@@ -14,13 +14,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandler;
+using Senparc.Weixin.Sample.CommonService.WorkMessageHandler;
 using Senparc.Weixin.Work.AdvancedAPIs;
 using Senparc.Weixin.Work.Containers;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.MessageHandlers;
 
-namespace Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers
+namespace Senparc.Weixin.Sample.CommonService.WorkMessageHandlers
 {
     public class WorkCustomMessageHandler : WorkMessageHandler<WorkCustomMessageContext>
     {

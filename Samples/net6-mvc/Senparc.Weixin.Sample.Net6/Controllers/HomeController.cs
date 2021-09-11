@@ -15,7 +15,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.MP.Containers;//DPBMARK MP DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.Download;//DPBMARK MP DPBMARK_END
+using Senparc.Weixin.Sample.CommonService.Download;//DPBMARK MP DPBMARK_END
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -148,7 +148,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             }
             catch (Exception)
             {
-                TempData["NewestDocumentVersion"] = new Senparc.Weixin.MP.Sample.CommonService.Download.Config();
+                TempData["NewestDocumentVersion"] = new CommonService.Download.Config();
             }
             #endregion  DPBMARK_END
 

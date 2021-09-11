@@ -15,7 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 #endif
 
 
-namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage
+namespace Senparc.Weixin.Sample.CommonService.TemplateMessage
 {
     /*
        {{first.DATA}}

@@ -21,7 +21,7 @@ using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
-using Senparc.Weixin.MP.Sample.CommonService.Download;
+using Senparc.Weixin.Sample.CommonService.Download;
 using Senparc.NeuChar.Entities;
 
 #if NET45
@@ -31,7 +31,7 @@ using Microsoft.AspNetCore.Http;
 #endif
 
 
-namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
+namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
 {
     /// <summary>
     /// 自定义MessageHandler

@@ -17,7 +17,7 @@ using System.Web;
 #else
 #endif
 
-namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
+namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
 {
     /// <summary>
     /// 自定义MessageHandler

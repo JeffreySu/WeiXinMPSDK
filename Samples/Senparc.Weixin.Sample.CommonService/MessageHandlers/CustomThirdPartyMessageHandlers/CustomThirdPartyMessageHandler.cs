@@ -9,7 +9,7 @@ using System.IO;
 using Senparc.Weixin.Open.Entities.Request;
 using Senparc.CO2NET.Utilities;
 
-namespace Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers
+namespace Senparc.Weixin.Sample.CommonService.ThirdPartyMessageHandlers
 {
     public class CustomThirdPartyMessageHandler : ThirdPartyMessageHandler
     {

@@ -9,7 +9,7 @@ using Senparc.WebSocket;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;//DPBMARK MP DPBMARK_END
 using Senparc.Weixin.WxOpen.Containers;//DPBMARK MiniProgram DPBMARK_END
 
-namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
+namespace Senparc.Weixin.Sample.CommonService.MessageHandlers.WebSocket
 {
     /// <summary>
     /// .NET Core 自定义 WebSocket 处理类

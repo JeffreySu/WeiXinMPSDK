@@ -27,7 +27,7 @@ using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.AspNet.HttpUtility;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.MP.MvcExtension;
-using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;
+using Senparc.Weixin.Sample.CommonService.WorkMessageHandlers;
 using Senparc.Weixin.Work.Entities;
 using System;
 using System.IO;

@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Http;
 #endif
 
 
-namespace Senparc.Weixin.MP.Sample.CommonService.Download
+namespace Senparc.Weixin.Sample.CommonService.Download
 {
     public class ConfigHelper
     {

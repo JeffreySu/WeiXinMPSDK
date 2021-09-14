@@ -68,8 +68,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         public string wechatpay_disassociate_time { get; set; }
 
     }
-
-
 }
 
 

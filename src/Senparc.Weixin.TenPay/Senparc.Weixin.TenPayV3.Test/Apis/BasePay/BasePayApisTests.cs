@@ -196,11 +196,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             var errorMsg = "sub_orders 参数必须在 2 到 10 之间！";
 
-            ////测试 1 个子订单
-            //result = basePayApis.JsApiCombineAsync(requestData).GetAwaiter().GetResult();
-            //Assert.IsFalse(result.ResultCode.Success);
-            //Assert.IsTrue(result.VerifySignSuccess == null);//未通过验证
-            //Assert.AreEqual(errorMsg, result.ResultCode.ErrorMessage);
+            //测试 1 个子订单
+            result = basePayApis.JsApiCombineAsync(requestData).GetAwaiter().GetResult();
+            Assert.IsFalse(result.ResultCode.Success);
+            Assert.IsTrue(result.VerifySignSuccess == null);//未通过验证
+            Assert.AreEqual(errorMsg, result.ResultCode.ErrorMessage);
 
             //测试 2 个子订单
             subOrders.Add(getSubOrder());

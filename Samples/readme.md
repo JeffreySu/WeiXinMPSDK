@@ -22,8 +22,6 @@
 
 > 如果你已经安装了 VS2019（v16.3以上），并且希望调试 .NET Core 3.0 及以上版本，那么请打开：netcore3.1-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln 解决方案
 
-> 如果你已经安装了 VS2017，并且希望调试 .NET Core 2.0 及以上版本，那么请打开：netcore2.2-mvc/Senparc.Weixin.MP.Sample.vs2017.sln 解决方案
-
 > 如果你希望将 Senparc.Weixin SDK 用于命令行或桌面应用，那么请打开：console/Senparc.Weixin.MP.Sample.Consoles.vs2019.sln 解决方案
 
 > 其他情况（如没有安装 VS2017，或者只是想调试 .NET Framework 4.5 项目），那么请打开：net45-mvc/Senparc.Weixin.MP.Sample.sln 解决方案

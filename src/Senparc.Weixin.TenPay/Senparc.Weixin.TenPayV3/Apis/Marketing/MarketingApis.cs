@@ -58,6 +58,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="senparcWeixinSettingForTenpayV3"></param>
         public MarketingApis(ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null)
         {
+
             _tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
         }
 
@@ -245,7 +246,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <para>可通过该接口查询用户在某商户号可用的全部券，可用于商户的小程序/H5中，用户"我的代金券"或"提交订单页"展示优惠信息。无法查询到微信支付立减金。本接口查不到用户的微信支付立减金（又称“全平台通用券”），即在所有商户都可以使用的券，例如：摇摇乐红包；当按可用商户号查询时，无法查询用户已经核销的券</para>
         /// <para><see href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_9.shtml">更多详细请参考微信支付官方文档</see></para>
         /// </summary>
-        /// <param name="openid">用户在商户appid 下的唯一标识</param>
+        /// <param name="openid">用户在商户appid下的唯一标识</param>
         /// <param name="appid">微信为发券方商户分配的公众账号ID</param>
         /// <param name="stock_id">批次号，是否指定批次号查询，填写available_mchid，该字段不生效，可为null</param>
         /// <param name="status">代金券状态：枚举值: SENDED：可用 USED：已实扣 填写available_mchid，该字段不生效，可为null</param>
@@ -298,7 +299,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<QueryCouponReturnJson> QueryCouponAsync(string coupon_id, string appid, string openid, int timeOut = Config.TIME_OUT)
         {
-            
+
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/users/{openid}/coupons/{coupon_id}?appid={appid}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryCouponReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
@@ -409,6 +410,102 @@ namespace Senparc.Weixin.TenPayV3.Apis
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/callbacks");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<SetNotifyUrlReturnJson>(url, data, timeOut);
+        }
+
+        #endregion
+
+        #region 商家券接口
+
+        /// <summary>
+        /// 创建商家券批次接口
+        /// <para>商户可以通过该接口创建商家券。微信支付生成商家券批次后并返回商家券批次号给到商户，商户可调用发券接口发放该批次商家券。</para>
+        /// <para>更多详细请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_1.shtml </para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms </param>
+        /// <returns></returns>
+        public async Task<CreateBusifavorStockReturnJson> CreateBusifavorStockRequestData(CreateBusifavorStockRequestData data, int timeOut = Config.TIME_OUT)
+        {
+
+            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/marketing/busifavor/stocks");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<CreateBusifavorStockReturnJson>(url, data, timeOut);
+        }
+
+        /// <summary>
+        /// 查询商家券批次详情接口
+        /// <para>商户可通过该接口查询已创建的商家券批次详情信息。</para>
+        /// <para>更多详细请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_2.shtml </para>
+        /// </summary>
+        /// <param name="stock_id">微信为每个商家券批次分配的唯一ID</param>
+        /// <param name="timeOut">超时时间，单位为ms </param>
+        /// <returns></returns>
+        public async Task<QueryBusifavorStockReturnJson> QueryBusifavorStockRequestData(string stock_id, int timeOut = Config.TIME_OUT)
+        {
+
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{0}v3/marketing/busifavor/stocks/{stock_id}");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<QueryBusifavorStockReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+        }
+
+        /// <summary>
+        /// 核销商家券用户券详情接口
+        /// <para>在用户满足优惠门槛后，商户可通过该接口核销用户微信卡包中具体某一张商家券。</para>
+        /// <para>更多详细请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_3.shtml </para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms </param>
+        /// <returns></returns>
+        public async Task<UseBusifavorCouponReturnJson> QueryBusifavorStockRequestData(UseBusifavorCouponRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/marketing/busifavor/coupons/use");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<UseBusifavorCouponReturnJson>(url, data, timeOut);
+        }
+
+        /// <summary>
+        /// 根据过滤条件查询商家券用户券接口
+        /// <para>商户自定义筛选条件（如创建商户号、归属商户号、发放商户号等），查询指定微信用户卡包中满足对应条件的所有商家券信息。</para>
+        /// <para>更多详细请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_4.shtml </para>
+        /// </summary>
+        /// <param name="openid">Openid信息，用户在appid下的唯一标识</param>
+        /// <param name="appid">支持传入与当前调用接口商户号有绑定关系的appid。支持小程序appid与公众号appid</param>
+        /// <param name="stock_id">微信为每个商家券批次分配的唯一ID，是否指定批次号查询</param>
+        /// <param name="coupon_state">券状态 枚举值：SENDED：可用 USED：已核销 EXPIRED：已过期,可为null</param>
+        /// <param name="creator_merchant">批次创建方商户号,可为null</param>
+        /// <param name="belong_merchant">批次归属商户号,可为null</param>
+        /// <param name="sender_merchant">批次发放商户号,可为null</param>
+        /// <param name="offset">分页页码 默认值0</param>
+        /// <param name="limit">分页大小 默认值20</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<QueryBusifavorCouponsReturnJson> QueryBusifavorCoupons(string openid, string appid, string stock_id, string coupon_state, string creator_merchant, string belong_merchant, string sender_merchant, int offset = 0, int limit = 20, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{0}v3/marketing/busifavor/users/{openid}/coupons?appid={appid}&offset={offset}&limit={limit}");
+
+            if (stock_id is not null)
+            {
+                url += $"&stock_id={stock_id}";
+            }
+            if (coupon_state is not null)
+            {
+                url += $"&coupon_state={coupon_state}";
+            }
+            if (creator_merchant is not null)
+            {
+                url += $"&creator_merchant={creator_merchant}";
+            }
+            if (belong_merchant is not null)
+            {
+                url += $"&belong_merchant={belong_merchant}";
+            }
+            if (sender_merchant is not null)
+            {
+                url += $"&sender_merchant={sender_merchant}";
+            }
+
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<QueryBusifavorCouponsReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }
 
         #endregion

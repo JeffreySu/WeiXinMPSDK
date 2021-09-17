@@ -174,7 +174,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
                     throw new TenpayApiRequestException("sub_orders 参数必须在 2 到 10 之间！");
                 }
 
-                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/jsapi");
+                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/combine-transactions/jsapi");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<JsApiReturnJson>(url, data, timeOut);
             }
@@ -220,7 +220,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/app");
+                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/combine-transactions/app");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<AppReturnJson>(url, data, timeOut);
             }
@@ -266,7 +266,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/h5");
+                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/combine-transactions/h5");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<H5ReturnJson>(url, data, timeOut);
             }
@@ -312,7 +312,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/native");
+                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/combine-transactions/native");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<NativeReturnJson>(url, data, timeOut);
             }

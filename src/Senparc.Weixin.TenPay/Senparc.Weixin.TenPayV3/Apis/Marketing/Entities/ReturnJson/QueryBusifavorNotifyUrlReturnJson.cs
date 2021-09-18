@@ -41,7 +41,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
     /// 查询商家券事件通知地址返回Json类
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_8.shtml </para>
     /// </summary>
-    public class QueryBusifavorSetNotifyUrlReturnJson
+    public class QueryBusifavorNotifyUrlReturnJson : ReturnJsonBase
     {
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// </summary>
         /// <param name="notify_url">通知URL地址  <para>商户提供的用于接收商家券事件通知的url地址，必须支持https。</para><para>示例值：https://pay.weixin.qq.com</para></param>
         /// <param name="mchid">商户号  <para>微信支付商户的商户号，由微信支付生成并下发。</para><para>示例值：10000098</para></param>
-        public QueryBusifavorSetNotifyUrlReturnJson(string notify_url, string mchid)
+        public QueryBusifavorNotifyUrlReturnJson(string notify_url, string mchid)
         {
             this.notify_url = notify_url;
             this.mchid = mchid;
@@ -58,7 +58,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <summary>
         /// 无参构造函数
         /// </summary>
-        public QueryBusifavorSetNotifyUrlReturnJson()
+        public QueryBusifavorNotifyUrlReturnJson()
         {
         }
 

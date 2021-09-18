@@ -41,7 +41,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
     /// 设置商家券的Code码返回Json类
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_6.shtml </para>
     /// </summary>
-    public class SetBusifavorCouponCodesReturnJson
+    public class SetBusifavorCouponCodesReturnJson : ReturnJsonBase
     {
 
         /// <summary>

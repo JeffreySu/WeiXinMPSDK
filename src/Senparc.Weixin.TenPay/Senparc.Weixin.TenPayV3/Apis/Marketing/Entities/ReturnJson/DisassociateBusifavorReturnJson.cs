@@ -41,7 +41,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
     /// 取消关联商家券订单信息返回Json类
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_10.shtml </para>
     /// </summary>
-    public class DisassociateBusifavorReturnJson
+    public class DisassociateBusifavorReturnJson : ReturnJsonBase
     {
 
         /// <summary>

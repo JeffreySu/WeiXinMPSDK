@@ -34,6 +34,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis.Marketing
@@ -75,6 +76,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <para>path批次号 </para>
         /// <para>示例值：98065001</para>
         /// </summary>
+        [JsonIgnore]
         public string stock_id { get; set; }
 
         /// <summary>

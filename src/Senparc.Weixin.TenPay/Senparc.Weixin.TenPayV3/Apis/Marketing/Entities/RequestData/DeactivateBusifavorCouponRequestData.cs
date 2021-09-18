@@ -42,7 +42,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
     /// 使商家券失效接口请求数据
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_12.shtml </para>
     /// </summary>
-    public class DeactivateBusifavorCouponsRequestData
+    public class DeactivateBusifavorCouponRequestData
     {
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <param name="stock_id">批次号 <para>body券的所属批次号</para><para>示例值：1234567891</para></param>
         /// <param name="deactivate_request_no">失效请求单据号 <para>body每次失效请求的唯一标识，商户需保证唯一</para><para>示例值：1002600620019090123143254436</para></param>
         /// <param name="deactivate_reason">失效原因 <para>body商户失效券的原因</para><para>示例值：此券使用时间设置错误</para><para>可为null</para></param>
-        public DeactivateBusifavorCouponsRequestData(string coupon_code, string stock_id, string deactivate_request_no, string deactivate_reason)
+        public DeactivateBusifavorCouponRequestData(string coupon_code, string stock_id, string deactivate_request_no, string deactivate_reason)
         {
             this.coupon_code = coupon_code;
             this.stock_id = stock_id;
@@ -63,7 +63,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <summary>
         /// 无参构造函数
         /// </summary>
-        public DeactivateBusifavorCouponsRequestData()
+        public DeactivateBusifavorCouponRequestData()
         {
         }
 

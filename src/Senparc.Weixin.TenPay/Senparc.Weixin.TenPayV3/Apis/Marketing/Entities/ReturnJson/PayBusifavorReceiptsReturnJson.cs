@@ -41,7 +41,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
     /// 营销补差付款返回Json类
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_16.shtml </para>
     /// </summary>
-    public class PayBusifavorReceiptsReturnJson
+    public class PayBusifavorReceiptsReturnJson : ReturnJsonBase
     {
 
         /// <summary>

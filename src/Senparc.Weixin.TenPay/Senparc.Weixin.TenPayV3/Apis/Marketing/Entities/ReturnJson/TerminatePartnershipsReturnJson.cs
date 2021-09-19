@@ -41,7 +41,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
     /// 终止合作关系返回Json类
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_5_2.shtml </para>
     /// </summary>
-    public class TerminatePartnershipsReturnJson
+    public class TerminatePartnershipsReturnJson : ReturnJsonBase
     {
 
         /// <summary>

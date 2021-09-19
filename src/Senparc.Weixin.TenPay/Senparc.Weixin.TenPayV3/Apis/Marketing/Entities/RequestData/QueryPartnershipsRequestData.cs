@@ -22,41 +22,37 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     Copyright (C) 2021 Senparc
   
     文件名：QueryPartnershipsRequestData.cs
-    文件功能描述：查询合作关系返回Json类
+    文件功能描述：查询合作关系接口请求数据
     
     
-    创建标识：Senparc - 20210915
+    创建标识：Senparc - 20210919
     
 ----------------------------------------------------------------*/
+
+using Senparc.Weixin.TenPayV3.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.TenPayV3.Apis.Entities;
 
 namespace Senparc.Weixin.TenPayV3.Apis.Marketing
 {
     /// <summary>
-    /// 查询合作关系返回Json类
+    /// 查询合作关系接口请求数据
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_5_3.shtml </para>
     /// </summary>
     public class QueryPartnershipsRequestData
     {
-
         /// <summary>
         /// 含参构造函数
         /// </summary>
         /// <param name="partner">合作方信息 <para>query合作方相关的信息，商户自定义字段。</para><para>可为null</para></param>
         /// <param name="authorized_data">被授权数据 <para>query被授权的数据。</para></param>
-        /// <param name="limit">分页大小  <para>query分页大小，最大50。不传默认为20。</para><para>示例值：5</para><para>可为null</para></param>
-        /// <param name="offset">分页页码  <para>query分页页码，页码从0开始。</para><para>示例值：10</para><para>可为null</para></param>
-        public QueryPartnershipsRequestData(Partner partner, Authorized_Data authorized_data, ulong limit, ulong offset)
+        public QueryPartnershipsRequestData(Partner partner, Authorized_Data authorized_data)
         {
             this.partner = partner;
             this.authorized_data = authorized_data;
-            this.limit = limit;
-            this.offset = offset;
         }
 
         /// <summary>
@@ -78,22 +74,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <para>query 被授权的数据。</para>
         /// </summary>
         public Authorized_Data authorized_data { get; set; }
-
-        /// <summary>
-        /// 分页大小 
-        /// <para>query 分页大小，最大50。 不传默认为20。</para>
-        /// <para>示例值：5 </para>
-        /// <para>可为null</para>
-        /// </summary>
-        public ulong limit { get; set; }
-
-        /// <summary>
-        /// 分页页码 
-        /// <para>query 分页页码，页码从0开始。 </para>
-        /// <para>示例值：10 </para>
-        /// <para>可为null</para>
-        /// </summary>
-        public ulong offset { get; set; }
 
         #region 子数据类型
         public class Partner
@@ -189,5 +169,3 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
 
 
 }
-
-

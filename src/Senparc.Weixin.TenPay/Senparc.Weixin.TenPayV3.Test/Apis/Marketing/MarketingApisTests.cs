@@ -434,5 +434,18 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
         }
         #endregion
+
+        #region 委托营销接口
+
+        [TestMethod()]
+        public void QueryPartnerships()
+        {
+
+            TerminatePartnershipsRequestData data = new(new("type", "appid", "mchid"), new("bussiness_type", "stock_id"));
+            var test_result = data.ToJson();
+            Console.WriteLine(data.ToJson());
+        }
+
+        #endregion
     }
 }

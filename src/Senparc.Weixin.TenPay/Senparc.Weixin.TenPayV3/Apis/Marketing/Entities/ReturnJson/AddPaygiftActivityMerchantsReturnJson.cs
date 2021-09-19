@@ -41,7 +41,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
     /// 新增活动发券商户号Json类
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_7_8.shtml </para>
     /// </summary>
-    public class AddPaygiftActivityMerchantsReturnJson
+    public class AddPaygiftActivityMerchantsReturnJson : ReturnJsonBase
     {
 
         /// <summary>

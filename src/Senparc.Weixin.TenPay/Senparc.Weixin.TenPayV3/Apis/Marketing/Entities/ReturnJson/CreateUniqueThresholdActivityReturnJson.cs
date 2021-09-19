@@ -41,7 +41,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
     /// 创建全场满额送活动返回Json类
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_7_2.shtml </para>
     /// </summary>
-    public class CreateUniqueThresholdActivityReturnJson
+    public class CreateUniqueThresholdActivityReturnJson : ReturnJsonBase
     {
         /// <summary>
         /// 含参构造函数

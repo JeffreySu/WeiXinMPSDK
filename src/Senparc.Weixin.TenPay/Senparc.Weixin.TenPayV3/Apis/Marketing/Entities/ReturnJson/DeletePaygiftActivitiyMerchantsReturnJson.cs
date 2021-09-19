@@ -41,7 +41,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
     /// 删除活动发券商户号返回Json类
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_7_10.shtml </para>
     /// </summary>
-    public class DeletePaygiftActivitiyMerchantsReturnJson
+    public class DeletePaygiftActivitiyMerchantsReturnJson : ReturnJsonBase
     {
 
         /// <summary>

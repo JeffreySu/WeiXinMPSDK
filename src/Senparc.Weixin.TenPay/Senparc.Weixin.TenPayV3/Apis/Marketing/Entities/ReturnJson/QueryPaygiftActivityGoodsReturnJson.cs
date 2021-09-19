@@ -35,6 +35,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.Weixin.TenPayV3.Apis.Entities;
 
 namespace Senparc.Weixin.TenPayV3.Apis.Marketing
 {
@@ -42,7 +43,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
     /// 查询活动指定商品列表接口返回Json类
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_7_6.shtml </para>
     /// </summary>
-    public class QueryPaygiftActivityGoodsReturnJson
+    public class QueryPaygiftActivityGoodsReturnJson : ReturnJsonBase
     {
 
         /// <summary>

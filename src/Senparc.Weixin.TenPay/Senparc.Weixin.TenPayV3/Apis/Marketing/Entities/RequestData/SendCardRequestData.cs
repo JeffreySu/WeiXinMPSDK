@@ -34,6 +34,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis.Marketing
@@ -74,6 +75,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <para>path 消费卡ID，即card_id。card_id获取方法请参见《接入前准备》配置应用中的创建消费卡。 </para>
         /// <para>示例值：pIJMr5MMiIkO_93VtPyIiEk2DZ4w </para>
         /// </summary>
+        [JsonIgnore]
         public string card_id { get; set; }
 
         /// <summary>

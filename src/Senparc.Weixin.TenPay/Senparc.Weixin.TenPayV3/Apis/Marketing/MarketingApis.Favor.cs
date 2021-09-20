@@ -33,6 +33,16 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 throw new TenpayApiRequestException($"当 {nameof(data.stock_type)} 为 {STOCK_TYPE} 时，{nameof(data.coupon_use_rule.fixed_normal_coupon)} 必填！");
             }
 
+            if (data.stock_use_rule.max_amount != data.stock_use_rule.max_coupons * data.coupon_use_rule.fixed_normal_coupon.coupon_amount)
+            {
+                throw new TenpayApiRequestException($"{nameof(data.stock_use_rule.max_amount)} 必须等于 {nameof(data.stock_use_rule.max_coupons)} 乘以 {nameof(data.coupon_use_rule.fixed_normal_coupon.coupon_amount)}！");
+            }
+
+            if (data.coupon_use_rule.fixed_normal_coupon.coupon_amount > data.coupon_use_rule.fixed_normal_coupon.transaction_minimum)
+            {
+                throw new TenpayApiRequestException($"{nameof(data.coupon_use_rule.fixed_normal_coupon.coupon_amount)} 必须小于等于 {nameof(data.coupon_use_rule.fixed_normal_coupon.transaction_minimum)}！");
+            }
+
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/marketing/favor/coupon-stocks");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<CreateStockReturnJson>(url, data, timeOut);
@@ -84,7 +94,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
 
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}/pause");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
-            return await tenPayApiRequest.RequestAsync<PauseStockReturnJson>(url, new { stock_creator_mchid }, timeOut);
+            return await tenPayApiRequest.RequestAsync<PauseStockReturnJson>(url, new { stock_creator_mchid = stock_creator_mchid }, timeOut);
         }
 
         /// <summary>
@@ -101,7 +111,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
 
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}/restart");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
-            return await tenPayApiRequest.RequestAsync<RestartStockReturnJson>(url, stock_creator_mchid, timeOut);
+            return await tenPayApiRequest.RequestAsync<RestartStockReturnJson>(url, new { stock_creator_mchid = stock_creator_mchid }, timeOut);
         }
 
         /// <summary>

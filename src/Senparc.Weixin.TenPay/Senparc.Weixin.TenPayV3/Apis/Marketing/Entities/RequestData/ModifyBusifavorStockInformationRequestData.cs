@@ -42,7 +42,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
     /// 修改商家券基本信息接口请求数据
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_12.shtml </para>
     /// </summary>
-    public class PatchBusifavorStockInformationRequestData
+    public class ModifyBusifavorStockInformationRequestData
     {
         /// <summary>
         /// 含参构造函数
@@ -57,7 +57,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <param name="coupon_use_rule">核销规则 <para>body券核销相关规则</para><para>可为null</para></param>
         /// <param name="stock_send_rule">发放规则 <para>body券发放相关规则</para><para>可为null</para></param>
         /// <param name="notify_config">事件通知配置 <para>body事件回调通知商户的配置</para><para>可为null</para></param>
-        public PatchBusifavorStockInformationRequestData(string stock_id, Custom_Entrance custom_entrance, string stock_name, string comment, string goods_name, string out_request_no, Display_Pattern_Info display_pattern_info, Coupon_Use_Rule coupon_use_rule, Stock_Send_Rule stock_send_rule, Notify_Config notify_config)
+        public ModifyBusifavorStockInformationRequestData(string stock_id, Custom_Entrance custom_entrance, string stock_name, string comment, string goods_name, string out_request_no, Display_Pattern_Info display_pattern_info, Coupon_Use_Rule coupon_use_rule, Stock_Send_Rule stock_send_rule, Notify_Config notify_config)
         {
             this.stock_id = stock_id;
             this.custom_entrance = custom_entrance;
@@ -74,7 +74,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <summary>
         /// 无参构造函数
         /// </summary>
-        public PatchBusifavorStockInformationRequestData()
+        public ModifyBusifavorStockInformationRequestData()
         {
         }
 

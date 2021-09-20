@@ -48,10 +48,14 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <summary>
         /// 含参构造函数
         /// </summary>
-        /// <param name="wechatpay_return_time">微信退券成功的时间 <para>微信退券成功的时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE，YYYY-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss表示时分秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC8小时，即北京时间）。例如：2015-05-20T13:29:35+08:00表示，北京时间2015年5月20日13点29分35秒。</para><para>示例值：2020-05-20T13:29:35+08:00</para></param>
-        public ReturnBusifavorCouponRequestData(string wechatpay_return_time)
+        /// <param name="coupon_code">券code <para>body券的唯一标识</para><para>示例值：sxxe34343434</para></param>
+        /// <param name="stock_id">批次号 <para>body券的所属批次号</para><para>示例值：1234567891</para></param>
+        /// <param name="return_request_no">退券请求单据号 <para>body每次退券请求的唯一标识，商户需保证唯一</para><para>示例值：1002600620019090123143254436</para></param>
+        public ReturnBusifavorCouponRequestData(string coupon_code, string stock_id, string return_request_no)
         {
-            this.wechatpay_return_time = wechatpay_return_time;
+            this.coupon_code = coupon_code;
+            this.stock_id = stock_id;
+            this.return_request_no = return_request_no;
         }
 
         /// <summary>
@@ -62,11 +66,27 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         }
 
         /// <summary>
-        /// 微信退券成功的时间
-        /// <para>微信退券成功的时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE，YYYY-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss表示时分秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35+08:00表示，北京时间2015年5月20日 13点29分35秒。 </para>
-        /// <para>示例值：2020-05-20T13:29:35+08:00</para>
+        /// 券code
+        /// <para>body券的唯一标识 </para>
+        /// <para>示例值：sxxe34343434</para>
         /// </summary>
-        public string wechatpay_return_time { get; set; }
+        public string coupon_code { get; set; }
+
+        /// <summary>
+        /// 批次号
+        /// <para>body券的所属批次号 </para>
+        /// <para>示例值：1234567891</para>
+        /// </summary>
+        public string stock_id { get; set; }
+
+        /// <summary>
+        /// 退券请求单据号
+        /// <para>body每次退券请求的唯一标识，商户需保证唯一 </para>
+        /// <para>示例值：1002600620019090123143254436</para>
+        /// </summary>
+        public string return_request_no { get; set; }
 
     }
+
+
 }

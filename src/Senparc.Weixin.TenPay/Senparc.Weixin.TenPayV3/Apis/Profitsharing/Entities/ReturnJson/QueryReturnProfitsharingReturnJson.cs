@@ -41,7 +41,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
     /// 查询分账回退结果返回Json类
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter8_1_4.shtml </para>
     /// </summary>
-    public class QueryReturnProfitsharingReturnJson
+    public class QueryReturnProfitsharingReturnJson : ReturnJsonBase
     {
 
         /// <summary>

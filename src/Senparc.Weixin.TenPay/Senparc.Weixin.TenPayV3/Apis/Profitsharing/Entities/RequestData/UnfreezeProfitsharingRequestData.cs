@@ -29,6 +29,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.TenPayV3.Apis.Entities;
 using Senparc.Weixin.TenPayV3.Entities;
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
     /// 解冻分账剩余资金接口请求数据
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter8_1_5.shtml </para>
     /// </summary>
-    public class UnfreezeProfitsharingReturnJson
+    public class UnfreezeProfitsharingReturnJson : ReturnJsonBase
     {
 
         /// <summary>

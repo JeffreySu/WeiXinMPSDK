@@ -570,7 +570,7 @@ Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理�
 [![donate](http://sdk.weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png)](http://sdk.weixin.senparc.com#donate)
 
 ## Star 数量统计 
-[![Stargazers over time](https://starcharts.herokuapp.com/JeffreySu/WeiXinMPSDK.svg)](https://starcharts.herokuapp.com/JeffreySu/WeiXinMPSDK)
+[![starcharts stargazers over time](https://starchart.cc/JeffreySu/WeiXinMPSDK.svg)](https://starchart.cc/JeffreySu/WeiXinMPSDK)
 
 License
 --------------

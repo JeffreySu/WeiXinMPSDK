@@ -84,7 +84,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
 
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/favor/stocks/{stock_id}/pause");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
-            return await tenPayApiRequest.RequestAsync<PauseStockReturnJson>(url, stock_creator_mchid, timeOut);
+            return await tenPayApiRequest.RequestAsync<PauseStockReturnJson>(url, new { stock_creator_mchid }, timeOut);
         }
 
         /// <summary>

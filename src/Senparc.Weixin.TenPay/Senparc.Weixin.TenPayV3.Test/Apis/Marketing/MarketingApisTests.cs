@@ -471,6 +471,97 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             Assert.IsTrue(createBusifavorStockResult.VerifySignSuccess == true);//通过验证
         }
 
+        /// <summary>
+        /// 查询商家券批次详情接口
+        /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_2.shtml
+        /// </summary>
+        [TestMethod()]
+        public void QueryBusifavorStockAsyncTest()
+        {
+            var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
+
+            var TenPayV3Info = TenPayV3InfoCollection.Data[key];
+
+            var marketingApis = new MarketingApis();
+            var result = marketingApis.QueryBusifavorStockAsync(createBusifavorStockResult.stock_id).GetAwaiter().GetResult();
+
+            Console.WriteLine("微信支付 V3 查询商家券批次详情接口：" + result.ToJson(true));
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ResultCode.Success);
+            Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
+        }
+
+        /// <summary>
+        /// 核销商家券接口测试
+        /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_3.shtml
+        /// </summary>
+        [TestMethod()]
+        public void UseBusifavorCouponAsyncTest()
+        {
+            var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
+
+            var TenPayV3Info = TenPayV3InfoCollection.Data[key];
+
+            // TODO:流水号?这样是否有效?
+            var use_request_no = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"), TenPayV3Util.BuildRandomStr(6));
+
+            var coupon_code = "coupon_code";// TODO: 发券似乎还是V2接口 或者 微信支付平台流量场景发放 https://pay.weixin.qq.com/wiki/doc/apiv3/open/pay/chapter5_2_1.shtml
+
+            var requestData = new UseBusifavorCouponRequestData(coupon_code, createBusifavorStockResult.stock_id, TenPayV3Info.AppId, new TenpayDateTime(DateTime.Now), use_request_no, openId);
+
+            var marketingApis = new MarketingApis();
+            var result = marketingApis.UseBusifavorCouponAsync(requestData).GetAwaiter().GetResult();
+
+            Console.WriteLine("微信支付 V3 核销商家券接口批次结果：" + result.ToJson(true));
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ResultCode.Success);
+            Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
+        }
+
+        /// <summary>
+        /// 根据过滤条件查询商家券用户券接口
+        /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_4.shtml
+        /// </summary>
+        [TestMethod()]
+        public void QueryBusifavorCouponsAsyncTest()
+        {
+            var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
+            var TenPayV3Info = TenPayV3InfoCollection.Data[key];
+
+            var marketingApis = new MarketingApis();
+            var result = marketingApis.QueryBusifavorCouponsAsync(openId, TenPayV3Info.AppId, createBusifavorStockResult.stock_id, null, null, null, null).GetAwaiter().GetResult();
+
+            Console.WriteLine("微信支付 V3 根据过滤条件查询商家券用户券接口：" + result.ToJson(true));
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ResultCode.Success);
+            Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
+        }
+
+        /// <summary>
+        /// 查询用户单张券详情接口
+        /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_4.shtml
+        /// </summary>
+        [TestMethod()]
+        public void QueryBusifavorCouponAsyncTest()
+        {
+            var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
+
+            var TenPayV3Info = TenPayV3InfoCollection.Data[key];
+            var coupon_code = "coupon_code";// TODO: 发券似乎还是V2接口 或者 微信支付平台流量场景发放 https://pay.weixin.qq.com/wiki/doc/apiv3/open/pay/chapter5_2_1.shtml
+
+            var marketingApis = new MarketingApis();
+            var result = marketingApis.QueryBusifavorCouponAsync(coupon_code, TenPayV3Info.AppId, openId).GetAwaiter().GetResult();
+
+            Console.WriteLine("微信支付 V3 查询用户单张券详情接口：" + result.ToJson(true));
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ResultCode.Success);
+            Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
+        }
+
         #endregion
 
         #region 委托营销接口

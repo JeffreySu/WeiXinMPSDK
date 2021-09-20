@@ -59,8 +59,8 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <param name="display_pattern_info">样式信息 <para>body创建批次时的样式信息。</para><para>可为null</para></param>
         /// <param name="coupon_code_mode">券code模式  <para>body枚举值：WECHATPAY_MODE：系统分配券code。（固定22位纯数字）MERCHANT_API：商户发放时接口指定券code。MERCHANT_UPLOAD：商户上传自定义code，发券时系统随机选取上传的券code。</para><para>特殊规则：1、券code模式为WECHATPAY_MODE时，是微信自动分配券code，商户不需要预存code；适用于多种场景2、券code模式为MERCHANT_API时，无需调用上传预存code接口，调用发券接口时需指定券code；更多用在商家自有流量场景（例如：商家自有小程序、H5网页等）3、券code模式为MERCHANT_UPLOAD，需要调用上传预存code接口上传code，调用发券接口时无需指定code；更多适用在微信支付平台流量场景（例如：支付有礼、支付有优惠等）</para><para>示例值：WECHATPAY_MODE</para></param>
         /// <param name="notify_config">事件通知配置 <para>body事件回调通知商户的配置。</para><para>可为null</para></param>
-        /// <param name="subsidy">是否允许营销补贴  <para>body该批次发放的券是否允许进行补差，默认为false</para><para>示例值：false</para><para>可为null</para></param>
-        public CreateBusifavorStockRequestData(string stock_name, string belong_merchant, string comment, string goods_name, string stock_type, Coupon_Use_Rule coupon_use_rule, Stock_Send_Rule stock_send_rule, string out_request_no, Custom_Entrance custom_entrance, Display_Pattern_Info display_pattern_info, string coupon_code_mode, Notify_Config notify_config, bool subsidy)
+        /// <param name="subsidy">是否允许营销补贴 <para>body该批次发放的券是否允许进行补差，默认为false</para><para>示例值：false</para></param>
+        public CreateBusifavorStockRequestData(string stock_name, string belong_merchant, string comment, string goods_name, string stock_type, Coupon_Use_Rule coupon_use_rule, Stock_Send_Rule stock_send_rule, string out_request_no, Custom_Entrance custom_entrance, Display_Pattern_Info display_pattern_info, string coupon_code_mode, Notify_Config notify_config, bool subsidy = false)
         {
             this.stock_name = stock_name;
             this.belong_merchant = belong_merchant;
@@ -178,6 +178,9 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         public bool subsidy { get; set; }
 
         #region 子数据类型
+        /// <summary>
+        /// 核销规则
+        /// </summary>
         public class Coupon_Use_Rule
         {
 
@@ -261,16 +264,16 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
                 /// <summary>
                 /// 含参构造函数
                 /// </summary>
-                /// <param name="available_begin_time">开始时间  <para>批次开始时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE，YYYY-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss表示时分秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC8小时，即北京时间）。例如：2015-05-20T13:29:35+08:00表示，北京时间2015年5月20日13点29分35秒。</para><para>注意：开始时间设置有效期最长为1年。</para><para>示例值：2015-05-20T13:29:35+08:00</para></param>
-                /// <param name="available_end_time">结束时间  <para>批次结束时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE，YYYY-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss表示时分秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC8小时，即北京时间）。例如：2015-05-20T13:29:35+08:00表示，北京时间2015年5月20日13点29分35秒。</para><para>注意：结束时间设置有效期最长为1年。</para><para>示例值：2015-05-20T13:29:35+08:00</para></param>
+                /// <param name="available_begin_time">开始时间<para>批次开始时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE，YYYY-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss表示时分秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC8小时，即北京时间）。例如：2015-05-20T13:29:35+08:00表示，北京时间2015年5月20日13点29分35秒。</para><para>注意：开始时间设置有效期最长为1年。</para><para>示例值：2015-05-20T13:29:35+08:00</para></param>
+                /// <param name="available_end_time">结束时间<para>批次结束时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE，YYYY-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss表示时分秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC8小时，即北京时间）。例如：2015-05-20T13:29:35+08:00表示，北京时间2015年5月20日13点29分35秒。</para><para>注意：结束时间设置有效期最长为1年。</para><para>示例值：2015-05-20T13:29:35+08:00</para></param>
                 /// <param name="available_day_after_receive">生效后N天内有效 <para>日期区间内，券生效后x天内有效。例如生效当天内有效填1，生效后2天内有效填2，以此类推。注意，用户在有效期开始前领取商家券，则从有效期第1天开始计算天数，用户在有效期内领取商家券，则从领取当天开始计算天数，无论用户何时领取商家券，商家券在活动有效期结束后均不可用。可配合wait_days_after_receive一同填写，也可单独填写。单独填写时，有效期内领券后立即生效，生效后x天内有效。</para><para>示例值：3</para><para>可为null</para></param>
                 /// <param name="available_week">固定周期有效时间段 <para>可以设置多个星期下的多个可用时间段，比如每周二10点到18点，用户自定义字段。</para><para>可为null</para></param>
                 /// <param name="irregulary_avaliable_time">无规律的有效时间段 <para>无规律的有效时间，多个无规律时间段，用户自定义字段。</para><para>可为null</para></param>
                 /// <param name="wait_days_after_receive">领取后N天开始生效 <para>日期区间内，用户领券后需等待x天开始生效。例如领券后当天开始生效则无需填写，领券后第2天开始生效填1，以此类推。用户在有效期开始前领取商家券，则从有效期第1天开始计算天数，用户在有效期内领取商家券，则从领取当天开始计算天数。无论用户何时领取商家券，商家券在活动有效期结束后均不可用。需配合available_day_after_receive一同填写，不可单独填写。</para><para>示例值：7</para><para>可为null</para></param>
-                public Coupon_Available_Time(string available_begin_time, string available_end_time, int available_day_after_receive, Available_Week available_week, Irregulary_Avaliable_Time[] irregulary_avaliable_time, int wait_days_after_receive)
+                public Coupon_Available_Time(TenpayDateTime available_begin_time, TenpayDateTime available_end_time, int available_day_after_receive, Available_Week available_week, Irregulary_Avaliable_Time[] irregulary_avaliable_time, int? wait_days_after_receive)
                 {
-                    this.available_begin_time = available_begin_time;
-                    this.available_end_time = available_end_time;
+                    this.available_begin_time = available_begin_time.ToString();
+                    this.available_end_time = available_end_time.ToString();
                     this.available_day_after_receive = available_day_after_receive;
                     this.available_week = available_week;
                     this.irregulary_avaliable_time = irregulary_avaliable_time;
@@ -328,7 +331,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
                 /// <para>示例值：7</para>
                 /// <para>可为null</para>
                 /// </summary>
-                public int wait_days_after_receive { get; set; }
+                public int? wait_days_after_receive { get; set; }
 
                 #region 子数据类型
                 public class Available_Week
@@ -572,6 +575,9 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             #endregion
         }
 
+        /// <summary>
+        /// 发放规则
+        /// </summary>
         public class Stock_Send_Rule
         {
 
@@ -581,11 +587,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             /// <param name="max_coupons">批次最大发放个数  <para>批次最大可发放个数限制</para><para>特殊规则：取值范围1≤value≤1000000000</para><para>示例值：100</para></param>
             /// <param name="max_coupons_per_user">用户最大可领个数  <para>用户可领个数，每个用户最多100张券 。</para><para>示例值：5</para></param>
             /// <param name="max_coupons_by_day">单天发放上限个数  <para>单天发放上限个数（stock_type为DISCOUNT或EXCHANGE时可传入此字段控制单天发放上限）。</para><para>特殊规则：取值范围1≤value≤1000000000</para><para>示例值：100</para><para>可为null</para></param>
-            /// <param name="natural_person_limit">是否开启自然人限制  <para>不填默认否，枚举值：true：是false：否</para><para>注：自然人防刷即同证件号下的所有账户合并计算的限领次数（限领次数指的是参数字段“用户最大领取个数”填写的值）</para><para>示例值：false</para><para>可为null</para></param>
-            /// <param name="prevent_api_abuse">可疑账号拦截  <para>不填默认否，枚举值：true：是false：否</para><para>如：黑灰产账号</para><para>示例值：false</para><para>可为null</para></param>
-            /// <param name="transferable">是否允许转赠  <para>不填默认否，枚举值：true：是false：否</para><para>该字段暂未开放</para><para>示例值：false</para><para>可为null</para></param>
-            /// <param name="shareable">是否允许分享链接  <para>不填默认否，枚举值：true：是false：否</para><para>该字段暂未开放</para><para>示例值：false</para><para>可为null</para></param>
-            public Stock_Send_Rule(int max_coupons, int max_coupons_per_user, int max_coupons_by_day, bool natural_person_limit, bool prevent_api_abuse, bool transferable, bool shareable)
+            /// <param name="natural_person_limit">是否开启自然人限制  <para>不填默认否，枚举值：true：是false：否</para><para>注：自然人防刷即同证件号下的所有账户合并计算的限领次数（限领次数指的是参数字段“用户最大领取个数”填写的值）</para><para>示例值：false</para></param>
+            /// <param name="prevent_api_abuse">可疑账号拦截  <para>不填默认否，枚举值：true：是false：否</para><para>如：黑灰产账号</para><para>示例值：false</para></param>
+            /// <param name="transferable">是否允许转赠  <para>不填默认否，枚举值：true：是false：否</para><para>该字段暂未开放</para><para>示例值：false</para></param>
+            /// <param name="shareable">是否允许分享链接  <para>不填默认否，枚举值：true：是false：否</para><para>该字段暂未开放</para><para>示例值：false</para></param>
+            public Stock_Send_Rule(int max_coupons, int max_coupons_per_user, int max_coupons_by_day, bool natural_person_limit = false, bool prevent_api_abuse = false, bool transferable = false, bool shareable = false)
             {
                 this.max_coupons = max_coupons;
                 this.max_coupons_per_user = max_coupons_per_user;

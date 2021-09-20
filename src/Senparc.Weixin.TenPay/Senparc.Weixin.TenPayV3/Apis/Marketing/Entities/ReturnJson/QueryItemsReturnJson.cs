@@ -21,11 +21,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：CreateStockReturnJson.cs
-    文件功能描述：创建代金券批次返回Json类
+    文件名：QueryItemsReturnJson.cs
+    文件功能描述：查询代金券可用单品返回Json
     
     
-    创建标识：Senparc - 20210823
+    创建标识：Senparc - 20210901
     
 ----------------------------------------------------------------*/
 using System;
@@ -38,23 +38,36 @@ using Senparc.Weixin.TenPayV3.Apis.Entities;
 namespace Senparc.Weixin.TenPayV3.Apis.Marketing
 {
     /// <summary>
-    /// 创建代金券批次返回Json类
-    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_1.shtml </para>
+    /// 查询代金券可用单品返回Json
+    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_8.shtml </para>
     /// </summary>
-    public class CreateStockReturnJson : ReturnJsonBase
+    public class QueryItemsReturnJson : ReturnJsonBase
     {
         /// <summary>
-        /// 批次号
-        /// 微信为每个代金券批次分配的唯一ID
+        /// 批次总数
+        /// <para>经过条件筛选，查询到的批次总数量</para>
         /// </summary>
-        public string stock_id { get; set; }
+        public long total_count { get; set; }
 
         /// <summary>
-        /// 创建时间
-        /// 创建时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss.sss+TIMEZONE
+        /// 可用单品编码
         /// </summary>
-        public DateTime create_time { get; set; }
+        public string[] data { get; set; }
+
+        /// <summary>
+        /// 分页页码
+        /// <para>页码从0开始，默认第0页</para>
+        /// </summary>
+        public uint offset { get; set; }
+
+        /// <summary>
+        /// 分页大小，最大10
+        /// </summary>
+        public uint limit { get; set; }
+
+        /// <summary>
+        /// 批次号
+        /// </summary>
+        public int stock_id { get; set; }
     }
-
-
 }

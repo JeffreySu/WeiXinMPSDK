@@ -21,40 +21,56 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：CreateStockReturnJson.cs
-    文件功能描述：创建代金券批次返回Json类
+    文件名：QueryProfitsharingAmountsRequestData.cs
+    文件功能描述：查询分账剩余待分金额接口请求数据
     
     
-    创建标识：Senparc - 20210823
-    
+    创建标识：Senparc - 20210915
+
 ----------------------------------------------------------------*/
+
+using Senparc.Weixin.TenPayV3.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.TenPayV3.Apis.Entities;
 
-namespace Senparc.Weixin.TenPayV3.Apis.Marketing
+namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
 {
     /// <summary>
-    /// 创建代金券批次返回Json类
-    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_1.shtml </para>
+    /// 查询分账剩余待分金额接口请求数据
+    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter8_1_6.shtml </para>
     /// </summary>
-    public class CreateStockReturnJson : ReturnJsonBase
+    public class QueryProfitsharingAmountsRequestData
     {
-        /// <summary>
-        /// 批次号
-        /// 微信为每个代金券批次分配的唯一ID
-        /// </summary>
-        public string stock_id { get; set; }
 
         /// <summary>
-        /// 创建时间
-        /// 创建时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss.sss+TIMEZONE
+        /// 含参构造函数
         /// </summary>
-        public DateTime create_time { get; set; }
+        /// <param name="transaction_id">微信订单号 <para>path微信支付订单号</para><para>示例值：4208450740201411110007820472</para></param>
+        public QueryProfitsharingAmountsRequestData(string transaction_id)
+        {
+            this.transaction_id = transaction_id;
+        }
+
+        /// <summary>
+        /// 无参构造函数
+        /// </summary>
+        public QueryProfitsharingAmountsRequestData()
+        {
+        }
+
+        /// <summary>
+        /// 微信订单号
+        /// <para>path微信支付订单号</para>
+        /// <para>示例值：4208450740201411110007820472</para>
+        /// </summary>
+        public string transaction_id { get; set; }
+
     }
+
+
 
 
 }

@@ -21,11 +21,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：CreateStockReturnJson.cs
-    文件功能描述：创建代金券批次返回Json类
+    文件名：QueryMerchantsReturnJson.cs
+    文件功能描述：查询代金券可用商户返回Json
     
     
-    创建标识：Senparc - 20210823
+    创建标识：Senparc - 20210901
     
 ----------------------------------------------------------------*/
 using System;
@@ -38,23 +38,35 @@ using Senparc.Weixin.TenPayV3.Apis.Entities;
 namespace Senparc.Weixin.TenPayV3.Apis.Marketing
 {
     /// <summary>
-    /// 创建代金券批次返回Json类
-    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_1.shtml </para>
+    /// 查询代金券可用商户返回Json
+    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_7.shtml </para>
     /// </summary>
-    public class CreateStockReturnJson : ReturnJsonBase
+    public class QueryMerchantsReturnJson : ReturnJsonBase
     {
         /// <summary>
-        /// 批次号
-        /// 微信为每个代金券批次分配的唯一ID
+        /// 可用商户总数量
         /// </summary>
-        public string stock_id { get; set; }
+        public uint total_count { get; set; }
 
         /// <summary>
-        /// 创建时间
-        /// 创建时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss.sss+TIMEZONE
+        /// 可用商户列表
+        /// <para>特殊规则：单个商户号的字符长度为【1，20】,条目个数限制为【1，50】</para>
         /// </summary>
-        public DateTime create_time { get; set; }
+        public string[] data { get; set; }
+
+        /// <summary>
+        /// 分页页码
+        /// </summary>
+        public uint offset { get; set; }
+
+        /// <summary>
+        /// 分页大小
+        /// </summary>
+        public uint limit { get; set; }
+
+        /// <summary>
+        /// 批次号
+        /// </summary>
+        public string stock_id { get; set; }
     }
-
-
 }

@@ -562,6 +562,55 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
         }
 
+        /// <summary>
+        /// 上传预存code接口
+        /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_6.shtml
+        /// </summary>
+        [TestMethod()]
+        public void SetBusifavorCouponCodesAsyncTest()
+        {
+            var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
+
+            var TenPayV3Info = TenPayV3InfoCollection.Data[key];
+
+            // TODO:流水号?这样是否有效?
+            var upload_request_no = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"), TenPayV3Util.BuildRandomStr(6));
+
+            string[] coupon_code_list = { "" }; //TODO: 此处需要商家已有自己的优惠券系统生成code_list
+            var requestData = new SetBusifavorCouponCodesRequestData(createBusifavorStockResult.stock_id, coupon_code_list, upload_request_no);
+
+            var marketingApis = new MarketingApis();
+            var result = marketingApis.SetBusifavorCouponCodesAsync(requestData).GetAwaiter().GetResult();
+
+            Console.WriteLine("微信支付 V3 上传预存code结果：" + result.ToJson(true));
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ResultCode.Success);
+            Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
+        }
+
+        /// <summary>
+        /// 设置商家券事件通知地址接口
+        /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_7.shtml
+        /// </summary>
+        [TestMethod()]
+        public void SetBusifavorSetNotifyUrlAsyncTest()
+        {
+            var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
+            var TenPayV3Info = TenPayV3InfoCollection.Data[key];
+
+            var notify_url = "senparc.com/SetBusifavorCouponCodesAsyncTest";// TODO:这个url我随便设置的
+            var requestData = new SetBusifavorSetNotifyUrlRequestData(TenPayV3Info.MchId, notify_url);
+
+            var marketingApis = new MarketingApis();
+            var result = marketingApis.SetBusifavorSetNotifyUrlAsync(requestData).GetAwaiter().GetResult();
+
+            Console.WriteLine("微信支付 V3 设置商家券事件通知地址接口：" + result.ToJson(true));
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ResultCode.Success);
+            Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
+        }
         #endregion
 
         #region 委托营销接口

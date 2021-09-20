@@ -20,7 +20,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
     [TestClass()]
     public partial class MarketingApisTests : BaseTenPayTest
     {
-        string openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//换成测试人的 OpenId
+        string openId = "olPjZjiGtsfaqOhUbOd2puy1wVvc";// "olPjZjsXuQPJoV0HlruZkNzKc91E";//换成测试人的 OpenId
 
         #region 商家券接口
 

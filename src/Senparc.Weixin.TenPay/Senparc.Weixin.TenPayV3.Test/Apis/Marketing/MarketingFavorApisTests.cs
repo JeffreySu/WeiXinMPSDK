@@ -30,8 +30,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             var TenPayV3Info = TenPayV3InfoCollection.Data[key];
 
-            // var sp_billno = 
-
             // 代金券批次发放使用规则 发放10张优惠券 预算1000分 每个用户限领10张 开启防刷
             var stock_use_rule = new CreateStockRequsetData.Stock_Use_Rule(2, 4, null, 2, false, true);
 

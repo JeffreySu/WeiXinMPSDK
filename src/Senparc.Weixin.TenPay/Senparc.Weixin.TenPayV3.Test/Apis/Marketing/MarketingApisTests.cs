@@ -644,15 +644,42 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             var coupon_code = "coupon_code";// TODO: 发券似乎还是V2接口 或者 微信支付平台流量场景发放 https://pay.weixin.qq.com/wiki/doc/apiv3/open/pay/chapter5_2_1.shtml
             // TODO:流水号?这样是否有效?
-            var use_request_no = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"), TenPayV3Util.BuildRandomStr(6));
+            var out_request_no = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"), TenPayV3Util.BuildRandomStr(6));
             var out_trade_no = "";//TODO:  这里应该填上已有订单的out_trade_no
 
-            var requestData = new AssociateBusifavorRequestData(createBusifavorStockResult.stock_id, coupon_code, out_trade_no, upload_request_no);
+            var requestData = new AssociateBusifavorRequestData(createBusifavorStockResult.stock_id, coupon_code, out_trade_no, out_request_no);
 
             var marketingApis = new MarketingApis();
             var result = marketingApis.AssociateBusifavorAsync(requestData).GetAwaiter().GetResult();
 
             Console.WriteLine("微信支付 V3 关联订单信息接口：" + result.ToJson(true));
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ResultCode.Success);
+            Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
+        }
+
+        /// <summary>
+        /// 取消关联订单信息接口
+        /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_10.shtml
+        /// </summary>
+        [TestMethod()]
+        public void DisassociateBusifavorAsyncTest()
+        {
+            var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
+            var TenPayV3Info = TenPayV3InfoCollection.Data[key];
+
+            var coupon_code = "coupon_code";// TODO: 发券似乎还是V2接口 或者 微信支付平台流量场景发放 https://pay.weixin.qq.com/wiki/doc/apiv3/open/pay/chapter5_2_1.shtml
+            // TODO:流水号?这样是否有效?
+            var out_request_no = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"), TenPayV3Util.BuildRandomStr(6));
+            var out_trade_no = "";//TODO:  这里应该填上已有订单的out_trade_no
+
+            var requestData = new DisassociateBusifavorRequestData(createBusifavorStockResult.stock_id, coupon_code, out_trade_no, out_request_no);
+
+            var marketingApis = new MarketingApis();
+            var result = marketingApis.DisassociateBusifavorAsync(requestData).GetAwaiter().GetResult();
+
+            Console.WriteLine("微信支付 V3 取消关联订单信息接口：" + result.ToJson(true));
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.ResultCode.Success);

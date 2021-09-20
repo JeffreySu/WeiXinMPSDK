@@ -41,7 +41,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
     /// 查询商家券详情返回Json类
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_2.shtml </para>
     /// </summary>
-    public class QueryBusifavorStockReturnJson
+    public class QueryBusifavorStockReturnJson : ReturnJsonBase
     {
         /// <summary>
         /// 含参构造函数

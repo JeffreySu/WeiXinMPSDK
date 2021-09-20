@@ -439,13 +439,14 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
         CreateBusifavorStockReturnJson createBusifavorStockResult = null;
         DistributeStockReturnJson distributeBusifavorStockResult = null;
+        QueryBusifavorPayReceiptsReturnJson queryBusifavorPayReceiptsReturnJson = null;
 
         /// <summary>
         /// 创建商家券接口批次测试
         /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_1.shtml
         /// </summary>
         [TestMethod()]
-        public void CreateBusifavorStockRequestDataAsyncTest()
+        public void CreateBusifavorStockAsyncTest()
         {
             var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
 
@@ -478,6 +479,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
         [TestMethod()]
         public void QueryBusifavorStockAsyncTest()
         {
+            if (createBusifavorStockResult is null)
+            {
+                CreateBusifavorStockAsyncTest();
+            }
+
             var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
 
             var TenPayV3Info = TenPayV3InfoCollection.Data[key];
@@ -499,6 +505,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
         [TestMethod()]
         public void UseBusifavorCouponAsyncTest()
         {
+            if (createBusifavorStockResult is null)
+            {
+                CreateBusifavorStockAsyncTest();
+            }
+
             var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
 
             var TenPayV3Info = TenPayV3InfoCollection.Data[key];
@@ -527,6 +538,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
         [TestMethod()]
         public void QueryBusifavorCouponsAsyncTest()
         {
+            if (createBusifavorStockResult is null)
+            {
+                CreateBusifavorStockAsyncTest();
+            }
+
             var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
             var TenPayV3Info = TenPayV3InfoCollection.Data[key];
 
@@ -569,6 +585,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
         [TestMethod()]
         public void SetBusifavorCouponCodesAsyncTest()
         {
+            if (createBusifavorStockResult is null)
+            {
+                CreateBusifavorStockAsyncTest();
+            }
+
             var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
 
             var TenPayV3Info = TenPayV3InfoCollection.Data[key];
@@ -639,6 +660,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
         [TestMethod()]
         public void AssociateBusifavorAsyncTest()
         {
+            if (createBusifavorStockResult is null)
+            {
+                CreateBusifavorStockAsyncTest();
+            }
+
             var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
             var TenPayV3Info = TenPayV3InfoCollection.Data[key];
 
@@ -666,6 +692,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
         [TestMethod()]
         public void DisassociateBusifavorAsyncTest()
         {
+            if (createBusifavorStockResult is null)
+            {
+                CreateBusifavorStockAsyncTest();
+            }
+
             var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
             var TenPayV3Info = TenPayV3InfoCollection.Data[key];
 
@@ -685,17 +716,188 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             Assert.IsTrue(result.ResultCode.Success);
             Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
         }
+
+        /// <summary>
+        /// 修改批次预算接口
+        /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_11.shtml
+        /// </summary>
+        [TestMethod()]
+        public void ModifyBusifavorStockBudgetAsyncTest()
+        {
+            if (createBusifavorStockResult is null)
+            {
+                CreateBusifavorStockAsyncTest();
+            }
+
+            var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
+            var TenPayV3Info = TenPayV3InfoCollection.Data[key];
+
+            // TODO:流水号?这样是否有效?
+            var modify_budget_request_no = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"), TenPayV3Util.BuildRandomStr(6));
+            var requestData = new ModifyBusifavorStockBudgetRequestData(createBusifavorStockResult.stock_id, 20, null, null, null, modify_budget_request_no);
+
+            var marketingApis = new MarketingApis();
+            var result = marketingApis.ModifyBusifavorStockBudgetAsync(requestData).GetAwaiter().GetResult();
+
+            Console.WriteLine("微信支付 V3 修改批次预算接口：" + result.ToJson(true));
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ResultCode.Success);
+            Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
+        }
+
+        /// <summary>
+        /// 修改商家券基本信息接口
+        /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_12.shtml
+        /// </summary>
+        [TestMethod()]
+        public void ModifyBusifavorStockInformationAsyncTest()
+        {
+            if (createBusifavorStockResult is null)
+            {
+                CreateBusifavorStockAsyncTest();
+            }
+
+            var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
+            var TenPayV3Info = TenPayV3InfoCollection.Data[key];
+
+            // TODO:流水号?这样是否有效?
+            var out_request_no = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"), TenPayV3Util.BuildRandomStr(6));
+            var requestData = new ModifyBusifavorStockInformationRequestData(createBusifavorStockResult.stock_id, null, "Senparc微信支付V3商家券测试-修改", null, null, out_request_no, null, null, null, null);
+
+            var marketingApis = new MarketingApis();
+            var result = marketingApis.ModifyBusifavorStockInformationAsync(requestData).GetAwaiter().GetResult();
+
+            Console.WriteLine("微信支付 V3 修改商家券基本信息接口：" + result.ToJson(true));
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ResultCode.Success);
+            Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
+        }
+
+        /// <summary>
+        /// 申请退券接口
+        /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_13.shtml
+        /// </summary>
+        [TestMethod()]
+        public void ReturnBusifavorCouponAsyncTest()
+        {
+            if (createBusifavorStockResult is null)
+            {
+                CreateBusifavorStockAsyncTest();
+            }
+
+            var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
+            var TenPayV3Info = TenPayV3InfoCollection.Data[key];
+
+
+            var coupon_code = "coupon_code";// TODO: 发券似乎还是V2接口 或者 微信支付平台流量场景发放 https://pay.weixin.qq.com/wiki/doc/apiv3/open/pay/chapter5_2_1.shtml
+
+            // TODO:流水号?这样是否有效?
+            var return_request_no = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"), TenPayV3Util.BuildRandomStr(6));
+            var requestData = new ReturnBusifavorCouponRequestData(coupon_code, createBusifavorStockResult.stock_id, return_request_no);
+
+            var marketingApis = new MarketingApis();
+            var result = marketingApis.ReturnBusifavorCouponAsync(requestData).GetAwaiter().GetResult();
+
+            Console.WriteLine("微信支付 V3 申请退券接口：" + result.ToJson(true));
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ResultCode.Success);
+            Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
+        }
+
+        /// <summary>
+        /// 使券失效接口
+        /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_14.shtml
+        /// </summary>
+        [TestMethod()]
+        public void DeactivateBusifavorCouponAsyncTest()
+        {
+            if (createBusifavorStockResult is null)
+            {
+                CreateBusifavorStockAsyncTest();
+            }
+
+            var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
+            var TenPayV3Info = TenPayV3InfoCollection.Data[key];
+
+            var coupon_code = "coupon_code";// TODO: 发券似乎还是V2接口 或者 微信支付平台流量场景发放 https://pay.weixin.qq.com/wiki/doc/apiv3/open/pay/chapter5_2_1.shtml
+
+            // TODO:流水号?这样是否有效?
+            var deactivate_request_no = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"), TenPayV3Util.BuildRandomStr(6));
+            var requestData = new DeactivateBusifavorCouponRequestData(coupon_code, createBusifavorStockResult.stock_id, deactivate_request_no, "Senparc接口单元测试");
+
+            var marketingApis = new MarketingApis();
+            var result = marketingApis.DeactivateBusifavorCouponAsync(requestData).GetAwaiter().GetResult();
+
+            Console.WriteLine("微信支付 V3 使券失效接口：" + result.ToJson(true));
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ResultCode.Success);
+            Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
+        }
+
+        /// <summary>
+        /// 营销补差付款接口
+        /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_16.shtml
+        /// </summary>
+        [TestMethod()]
+        public void PayBusifavorReceiptsAsyncTest()
+        {
+            if (createBusifavorStockResult is null)
+            {
+                CreateBusifavorStockAsyncTest();
+            }
+
+            var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
+            var TenPayV3Info = TenPayV3InfoCollection.Data[key];
+
+            var coupon_code = "coupon_code";// TODO: 发券似乎还是V2接口 或者 微信支付平台流量场景发放 https://pay.weixin.qq.com/wiki/doc/apiv3/open/pay/chapter5_2_1.shtml
+
+            var transaction_id = "transaction_id";// TODO: 填入现有订单的transaction_id
+
+            var payer_merchant = "payer_merchant";// TODO: 收款商户号 需要另一个收款的商户号
+            // TODO:流水号?这样是否有效?
+            var out_subsidy_no = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"), TenPayV3Util.BuildRandomStr(6));
+            var requestData = new PayBusifavorReceiptsRequestData(createBusifavorStockResult.stock_id, coupon_code, out_subsidy_no, transaction_id, payer_merchant, 100, "Senparc营销补差付款接口单元测试", out_subsidy_no);
+
+            var marketingApis = new MarketingApis();
+            var result = marketingApis.PayBusifavorReceiptsAsync(requestData).GetAwaiter().GetResult();
+
+            Console.WriteLine("微信支付 V3 营销补差付款接口：" + result.ToJson(true));
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ResultCode.Success);
+            Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
+        }
+
+        /// <summary>
+        /// 查询营销补差付款单详情接口
+        /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_18.shtml
+        /// </summary>
+        [TestMethod()]
+        public void QueryBusifavorPayReceiptsAsyncTest()
+        {
+            if (queryBusifavorPayReceiptsReturnJson is null)
+            {
+                PayBusifavorReceiptsAsyncTest();
+            }
+
+            var marketingApis = new MarketingApis();
+            var result = marketingApis.QueryBusifavorPayReceiptsAsync(queryBusifavorPayReceiptsReturnJson.subsidy_receipt_id).GetAwaiter().GetResult();
+
+            Console.WriteLine("微信支付 V3 查询营销补差付款单详情接口：" + result.ToJson(true));
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ResultCode.Success);
+            Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
+        }
+
         #endregion
 
         #region 委托营销接口
 
-        [TestMethod()]
-        public void QueryPartnerships()
-        {
-            TerminatePartnershipsRequestData data = new(new("type", "appid", "mchid"), new("bussiness_type", "stock_id"));
-            var test_result = data.ToJson();
-            Console.WriteLine(data.ToJson());
-        }
 
         #endregion
     }

@@ -601,12 +601,12 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<PatchBusifavorStockBudgetReturnJson> PatchBusifavorStockBudgetAsync(PatchBusifavorStockBudgetRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<ModifyBusifavorStockBudgetReturnJson> ModifyBusifavorStockBudgetAsync(ModifyBusifavorStockBudgetRequestData data, int timeOut = Config.TIME_OUT)
         {
 
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/busifavor/stocks/{data.stock_id}/budget");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
-            return await tenPayApiRequest.RequestAsync<PatchBusifavorStockBudgetReturnJson>(url, data, timeOut, ApiRequestMethod.PATCH);
+            return await tenPayApiRequest.RequestAsync<ModifyBusifavorStockBudgetReturnJson>(url, data, timeOut, ApiRequestMethod.PATCH);
         }
 
 
@@ -618,7 +618,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<ReturnJsonBase> PatchBusifavorStockInformationAsync(PatchBusifavorStockInformationRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<ReturnJsonBase> ModifyBusifavorStockInformationAsync(ModifyBusifavorStockInformationRequestData data, int timeOut = Config.TIME_OUT)
         {
 
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/busifavor/stocks/{data.stock_id}");

@@ -21,11 +21,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：CreateStockReturnJson.cs
-    文件功能描述：创建代金券批次返回Json类
+    文件名：DownloadStockRefundFlowReturnJson.cs
+    文件功能描述：下载批次退款明细返回Json
     
     
-    创建标识：Senparc - 20210823
+    创建标识：Senparc - 20210901
     
 ----------------------------------------------------------------*/
 using System;
@@ -38,23 +38,24 @@ using Senparc.Weixin.TenPayV3.Apis.Entities;
 namespace Senparc.Weixin.TenPayV3.Apis.Marketing
 {
     /// <summary>
-    /// 创建代金券批次返回Json类
-    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_1.shtml </para>
+    /// 下载批次退款明细返回Json
+    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_11.shtml </para>
     /// </summary>
-    public class CreateStockReturnJson : ReturnJsonBase
+    public class DownloadStockRefundFlowReturnJson : ReturnJsonBase
     {
         /// <summary>
-        /// 批次号
-        /// 微信为每个代金券批次分配的唯一ID
+        /// 流水文件下载链接，30s内有效
         /// </summary>
-        public string stock_id { get; set; }
+        public string url { get; set; }
 
         /// <summary>
-        /// 创建时间
-        /// 创建时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss.sss+TIMEZONE
+        /// 文件内容的哈希值，防止篡改
         /// </summary>
-        public DateTime create_time { get; set; }
+        public string hash_value { get; set; }
+ 
+        /// <summary>
+        /// 哈希算法类型，目前只支持sha1
+        /// </summary>
+        public string hash_type { get; set; }
     }
-
-
 }

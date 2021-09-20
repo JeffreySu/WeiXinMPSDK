@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：CreateStockReturnJson.cs
-    文件功能描述：创建代金券批次返回Json类
+    文件名：DistributeStockReturnJson.cs
+    文件功能描述：发放代金券批次返回Json类
     
     
     创建标识：Senparc - 20210823
@@ -38,23 +38,15 @@ using Senparc.Weixin.TenPayV3.Apis.Entities;
 namespace Senparc.Weixin.TenPayV3.Apis.Marketing
 {
     /// <summary>
-    /// 创建代金券批次返回Json类
-    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_1.shtml </para>
+    /// 发放代金券批次返回Json类
+    /// <para><see href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_2.shtml">更多详细请参考微信支付官方文档</see></para>
     /// </summary>
-    public class CreateStockReturnJson : ReturnJsonBase
+    public class DistributeStockReturnJson : ReturnJsonBase
     {
         /// <summary>
-        /// 批次号
-        /// 微信为每个代金券批次分配的唯一ID
+        /// 代金券id
+        /// <para>微信为代金券唯一分配的id<para>
         /// </summary>
-        public string stock_id { get; set; }
-
-        /// <summary>
-        /// 创建时间
-        /// 创建时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss.sss+TIMEZONE
-        /// </summary>
-        public DateTime create_time { get; set; }
+        public string coupon_id { get; set; }
     }
-
-
 }

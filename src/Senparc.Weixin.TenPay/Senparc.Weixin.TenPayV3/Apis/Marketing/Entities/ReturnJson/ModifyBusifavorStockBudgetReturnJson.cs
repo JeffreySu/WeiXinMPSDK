@@ -41,14 +41,14 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
     /// 修改批次预算返回Json类
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_11.shtml </para>
     /// </summary>
-    public class PatchBusifavorStockBudgetReturnJson : ReturnJsonBase
+    public class ModifyBusifavorStockBudgetReturnJson : ReturnJsonBase
     {
         /// <summary>
         /// 含参构造函数
         /// </summary>
         /// <param name="max_coupons">批次当前最大发放个数 <para>批次最大发放个数</para><para>示例值：300</para></param>
         /// <param name="max_coupons_by_day">当前单天发放上限个数 <para>当前单天发放上限个数</para><para>示例值：100</para><para>可为null</para></param>
-        public PatchBusifavorStockBudgetReturnJson(int max_coupons, int max_coupons_by_day)
+        public ModifyBusifavorStockBudgetReturnJson(int max_coupons, int max_coupons_by_day)
         {
             this.max_coupons = max_coupons;
             this.max_coupons_by_day = max_coupons_by_day;
@@ -57,7 +57,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <summary>
         /// 无参构造函数
         /// </summary>
-        public PatchBusifavorStockBudgetReturnJson()
+        public ModifyBusifavorStockBudgetReturnJson()
         {
         }
 

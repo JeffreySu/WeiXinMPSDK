@@ -54,12 +54,12 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <param name="use_time">请求核销时间  <para>body商户请求核销用户券的时间。遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE，YYYY-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss表示时分秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC8小时，即北京时间）。例如：2015-05-20T13:29:35.+08:00表示，北京时间2015年5月20日13点29分35秒。</para><para>示例值：2015-05-20T13:29:35+08:00</para></param>
         /// <param name="use_request_no">核销请求单据号  <para>body每次核销请求的唯一标识，商户需保证唯一。</para><para>示例值：1002600620019090123143254435</para></param>
         /// <param name="openid">用户标识  <para>body用户的唯一标识，做安全校验使用，非必填。</para><para>校验规则：传入的openid得是调用方商户号（即请求头里面的商户号）有绑定关系的APPID获取的openid或传入的openid得是归属商户号有绑定关系的APPID获取的openid。获取openid文档</para><para>示例值：xsd3434454567676</para><para>可为null</para></param>
-        public UseBusifavorCouponRequestData(string coupon_code, string stock_id, string appid, string use_time, string use_request_no, string openid)
+        public UseBusifavorCouponRequestData(string coupon_code, string stock_id, string appid, TenpayDateTime use_time, string use_request_no, string openid)
         {
             this.coupon_code = coupon_code;
             this.stock_id = stock_id;
             this.appid = appid;
-            this.use_time = use_time;
+            this.use_time = use_time.ToString();
             this.use_request_no = use_request_no;
             this.openid = openid;
         }

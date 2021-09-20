@@ -435,12 +435,49 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
         }
         #endregion
 
+        #region 商家券接口
+
+        CreateBusifavorStockReturnJson createBusifavorStockResult = null;
+        DistributeStockReturnJson distributeBusifavorStockResult = null;
+
+        /// <summary>
+        /// 创建商家券接口批次测试
+        /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_1.shtml
+        /// </summary>
+        [TestMethod()]
+        public void CreateBusifavorStockRequestDataAsyncTest()
+        {
+            var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
+
+            var TenPayV3Info = TenPayV3InfoCollection.Data[key];
+
+            // 商家券使用规则 即刻开始 发1小时 生效1天 满100减10
+            var coupon_use_rule = new CreateBusifavorStockRequestData.Coupon_Use_Rule(new(new TenpayDateTime(DateTime.Now), new TenpayDateTime(DateTime.Now.AddHours(1)), 1, null, null, null), new(100, 10), null, null, "OFF_LINE", null, null);
+            // 商家券发放规则
+            var stock_send_rule = new CreateBusifavorStockRequestData.Stock_Send_Rule(10, 1, 10, true);
+
+            // TODO:流水号?这样是否有效?
+            var out_request_no = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"), TenPayV3Util.BuildRandomStr(6));
+
+            var requestData = new CreateBusifavorStockRequestData("Senparc微信支付V3商家券测试", TenPayV3Info.MchId, null, "微信支付V3商家券测试使用", "NORMAL", coupon_use_rule, stock_send_rule, out_request_no, null, null, "WECHATPAY_MODE", null, false);
+
+            var marketingApis = new MarketingApis();
+            createBusifavorStockResult = marketingApis.CreateBusifavorStockRequestDataAsync(requestData).GetAwaiter().GetResult();
+
+            Console.WriteLine("微信支付 V3 创建商家券接口批次结果：" + createBusifavorStockResult.ToJson(true));
+
+            Assert.IsNotNull(createBusifavorStockResult);
+            Assert.IsTrue(createBusifavorStockResult.ResultCode.Success);
+            Assert.IsTrue(createBusifavorStockResult.VerifySignSuccess == true);//通过验证
+        }
+
+        #endregion
+
         #region 委托营销接口
 
         [TestMethod()]
         public void QueryPartnerships()
         {
-
             TerminatePartnershipsRequestData data = new(new("type", "appid", "mchid"), new("bussiness_type", "stock_id"));
             var test_result = data.ToJson();
             Console.WriteLine(data.ToJson());

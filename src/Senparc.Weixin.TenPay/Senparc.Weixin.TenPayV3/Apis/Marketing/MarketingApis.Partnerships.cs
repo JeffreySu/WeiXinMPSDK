@@ -1,4 +1,5 @@
-﻿using Senparc.CO2NET.Helpers;
+﻿using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Trace;
 using Senparc.Weixin.TenPayV3.Apis.Marketing;
 using Senparc.Weixin.TenPayV3.Entities;

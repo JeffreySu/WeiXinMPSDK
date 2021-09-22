@@ -48,6 +48,7 @@
     <DocumentationFile>..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.Open.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Apis\Marketing\Entities\MarketingApis.Busifavor.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">

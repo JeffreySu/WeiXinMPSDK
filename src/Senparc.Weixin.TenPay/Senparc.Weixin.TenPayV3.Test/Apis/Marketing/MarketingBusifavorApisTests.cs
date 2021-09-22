@@ -474,6 +474,5 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
         }
 
         #endregion
-
     }
 }

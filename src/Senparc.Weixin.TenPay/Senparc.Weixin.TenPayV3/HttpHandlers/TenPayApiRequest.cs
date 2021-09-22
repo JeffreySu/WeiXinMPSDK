@@ -177,8 +177,8 @@ namespace Senparc.Weixin.TenPayV3
 
                 //获取响应结果
                 string content = await responseMessage.Content.ReadAsStringAsync();//TODO:如果不正确也要返回详情
-                //Console.WriteLine("Content:"+content+",,Headers:"+ responseMessage.Headers.ToString());
-                
+                Console.WriteLine("Content:" + content + ",,Headers:" + responseMessage.Headers.ToString());
+
                 //检查响应代码
                 TenPayApiResultCode resutlCode = TenPayApiResultCode.TryGetCode(responseMessage.StatusCode, content);
 

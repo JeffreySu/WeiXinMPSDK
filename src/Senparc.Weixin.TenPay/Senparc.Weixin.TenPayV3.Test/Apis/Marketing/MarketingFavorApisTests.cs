@@ -30,10 +30,8 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             var TenPayV3Info = TenPayV3InfoCollection.Data[key];
 
-            // var sp_billno = 
-
             // 代金券批次发放使用规则 发放10张优惠券 预算1000分 每个用户限领10张 开启防刷
-            var stock_use_rule = new CreateStockRequsetData.Stock_Use_Rule(10, 1000, null, 10, false, true);
+            var stock_use_rule = new CreateStockRequsetData.Stock_Use_Rule(2, 4, null, 2, false, true);
 
             // 代金券使用规则 指明可使用本批次代金券的商户号
             var coupon_use_rule = new CreateStockRequsetData.Coupon_Use_Rule(null, null, null, null, null, null, null, new string[] { TenPayV3Info.MchId/*"1610625015"*/ });
@@ -41,13 +39,20 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             // TODO:流水号?这样是否有效?
             var out_request_no = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"), TenPayV3Util.BuildRandomStr(6));
 
-            var requestData = new CreateStockRequsetData("单元测试代金券批次", "用于单元测试", TenPayV3Info.MchId, new TenpayDateTime(DateTime.Now.AddDays(10)), new TenpayDateTime(DateTime.Now.AddDays(20)), stock_use_rule, null, coupon_use_rule, true, "NORMAL", out_request_no);
+            var requestData = new CreateStockRequsetData("单元测试代金券批次", "用于单元测试", TenPayV3Info.MchId, new TenpayDateTime(DateTime.Now.AddMinutes(1)), new TenpayDateTime(DateTime.Now.AddMinutes(30)), stock_use_rule, null, coupon_use_rule, true, "NORMAL", out_request_no);
+
+
+
+            /* 提示：
+             * 使用此功能必须在后台【产品中心】开通【预充值代金券】功能！
+             */
+
 
             var marketingApis = new MarketingApis();
 
             try
             {
-                // stock_type = NORMAL 情况
+                // stock_type = "NORMAL" 的情况
                 createStockResult = marketingApis.CreateStockAsync(requestData).GetAwaiter().GetResult();
             }
             catch (Exception ex)
@@ -57,13 +62,36 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
                 Assert.IsTrue(ex.Message.Contains("必填"));
             }
 
+            try
+            {
+                //修改参数
+                requestData.coupon_use_rule.fixed_normal_coupon = new CreateStockRequsetData.Coupon_Use_Rule.Fixed_Normal_Coupon(6, 1);
+                createStockResult = marketingApis.CreateStockAsync(requestData).GetAwaiter().GetResult();
+            }
+            catch (Exception ex)
+            {
+                Assert.IsInstanceOfType(ex, typeof(TenpayApiRequestException));
+                Console.WriteLine(ex.Message);
+                Assert.IsTrue(ex.Message.Contains("必须等于"));
+            }
+
+            try
+            {
+                //修改参数
+                requestData.coupon_use_rule.fixed_normal_coupon.coupon_amount = 2;// coupon_amount = max_coupons * max_coupons_per_user
+                createStockResult = marketingApis.CreateStockAsync(requestData).GetAwaiter().GetResult();
+            }
+            catch (Exception ex)
+            {
+                Assert.IsInstanceOfType(ex, typeof(TenpayApiRequestException));
+                Console.WriteLine(ex.Message);
+                Assert.IsTrue(ex.Message.Contains("必须小于等于"));
+            }
+
             //修改参数
-            requestData.coupon_use_rule.fixed_normal_coupon = new CreateStockRequsetData.Coupon_Use_Rule.Fixed_Normal_Coupon(100, 200);
+            requestData.coupon_use_rule.fixed_normal_coupon.transaction_minimum = 2;// coupon_amount = max_coupons * max_coupons_per_user
             createStockResult = marketingApis.CreateStockAsync(requestData).GetAwaiter().GetResult();
 
-            /* 提示：
-             * 使用此功能必须在后台【产品中心】开通【预充值代金券】功能！
-             */
 
             Assert.IsTrue(createStockResult.ResultCode.Additional.Contains("可用商户不符合规则，请检查"));
 
@@ -358,12 +386,12 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
         public void DownloadStockUseFlowAsyncTest()
         {
             // 如果还未发放代金券 则创建代金券
-            if (createStockResult is null)
-            {
-                CreateStockAsyncTest();
-            }
+            //if (createStockResult is null)
+            //{
+            //    CreateStockAsyncTest();
+            //}
 
-            var stock_id = createStockResult.stock_id;
+            var stock_id = "15918471";//15918329,15918470  //改成上一天某一个ID //createStockResult.stock_id;
 
             var filePath = $"{stock_id}_{SystemTime.Now.ToString("HHmmss")}-StockUseFlow.csv";
             Console.WriteLine("FilePath:" + filePath);

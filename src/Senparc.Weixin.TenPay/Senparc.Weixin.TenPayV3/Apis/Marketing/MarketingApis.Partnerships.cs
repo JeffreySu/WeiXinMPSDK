@@ -27,6 +27,14 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<BuildPartnershipsReturnJson> BuildPartnershipsAsync(BuildPartnershipsRequestData data, int timeOut = Config.TIME_OUT)
         {
+            if (data.partner.type == "APPID" && (data.partner.appid is null || data.partner.merchant_id is not null))
+            {
+                throw new TenpayApiRequestException($"当 {nameof(data.partner.type)} 为 {data.partner.type} 时，{nameof(data.partner.appid)} 必填！，且{nameof(data.partner.merchant_id)}为null！");
+            }
+            if (data.partner.type == "MERCHANT" && (data.partner.appid is not null || data.partner.merchant_id is null))
+            {
+                throw new TenpayApiRequestException($"当 {nameof(data.partner.type)} 为 {data.partner.type} 时，{nameof(data.partner.merchant_id)} 必填！，且{nameof(data.partner.merchant_id)}为null！");
+            }
 
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/marketing/partnerships/build");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
@@ -49,18 +57,17 @@ namespace Senparc.Weixin.TenPayV3.Apis
             return await tenPayApiRequest.RequestAsync<TerminatePartnershipsReturnJson>(url, data, timeOut);
         }
 
-
         /// <summary>
         /// 查询合作关系接口
         /// <para>该接口主要为商户提供合作关系列表的查询能力。</para>
         /// <para>更多详细请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_5_3.shtml </para>
         /// </summary>
-        /// <param name="data">询合作关系需要的Data数据</param>
-        /// <param name="limit">分页大小<para>query分页大小，最大50。不传默认为20。</para><para>示例值：5</para><para>可为null</para></param>
-        /// <param name="offset">分页页码<para>query分页页码，页码从0开始。</para><para>示例值：10</para><para>可为null</para></param>
+        /// <param name="data">查询合作关系需要的Data数据</param>
+        /// <param name="limit">分页大小<para>query分页大小，最大50。不传默认为20。</para><para>示例值：5</para></param>
+        /// <param name="offset">分页页码<para>query分页页码，页码从0开始。</para><para>示例值：10</para></param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<QueryPartnershipsReturnJson> QueryPartnershipsAsync(TerminatePartnershipsRequestData data, ulong limit, ulong offset, int timeOut = Config.TIME_OUT)
+        public async Task<QueryPartnershipsReturnJson> QueryPartnershipsAsync(QueryPartnershipsRequestData data, ulong limit = 20, ulong offset = 0, int timeOut = Config.TIME_OUT)
         {
             // TODO: 此处序列化Json需测试时候可以换行问题
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/partnerships?authorized_data={data.authorized_data.ToJson()}&partner={data.partner.ToJson()}&offset={offset}&limit={limit}".UrlEncode());

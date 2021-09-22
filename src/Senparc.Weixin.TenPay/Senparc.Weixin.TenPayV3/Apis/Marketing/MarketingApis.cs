@@ -74,7 +74,5 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             return string.Format(urlFormat, Senparc.Weixin.Config.UseSandBoxPay ? "sandboxnew/" : "");
         }
-
-        // TODO: 图片上传接口
     }
 }

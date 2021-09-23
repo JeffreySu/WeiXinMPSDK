@@ -76,11 +76,6 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         #region 属性设置
 
         /// <summary>
-        /// 原始的加密请求（如果不加密则为null）
-        /// </summary>
-        public XDocument EcryptRequestDocument { get; set; }
-
-        /// <summary>
         /// 请求实体
         /// </summary>
         public new IRequestMessageBase RequestMessage { get => base.RequestMessage as IRequestMessageBase; set => base.RequestMessage = value; }
@@ -136,11 +131,6 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         #endregion
 
         #region 构造函数
-
-        /// <summary>
-        /// 动态去重判断委托，仅当返回值为false时，不使用消息去重功能
-        /// </summary>
-        public Func<IRequestMessageBase, bool> OmitRepeatedMessageFunc = null;
 
         /// <summary>
         /// 小程序MessageHandler构造函数
@@ -208,7 +198,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 if (result != 0)
                 {
                     //验证没有通过，取消执行
-                    CancelExcute = true;
+                    CancelExecute = true;
                     return null;
                 }
 
@@ -224,7 +214,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             //检查是否限定只能用加密模式
             if (OnlyAllowEncryptMessage && !UsingEncryptMessage)
             {
-                CancelExcute = true;
+                CancelExecute = true;
                 TextResponseMessage = "当前 MessageHandler 开启了 OnlyAllowEncryptMessage 设置，只允许处理加密消息，以提高安全性！";
                 return null;
             }

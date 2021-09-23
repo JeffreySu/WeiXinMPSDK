@@ -143,7 +143,7 @@ namespace Senparc.Weixin.TenPay.V3
                 X509Certificate2 cer = new X509Certificate2(cert, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
 
                 string responseContent = RequestUtility.HttpPost(
-                    CommonDI.CommonSP, 
+                    CommonDI.CommonSP,
                     url,
                     postStream: ms,
                     cer: cer,
@@ -409,6 +409,7 @@ namespace Senparc.Weixin.TenPay.V3
             return new OrderQueryResult(resultXml);
         }
 
+
         /// <summary>
         /// 关闭订单接口
         /// </summary>
@@ -556,7 +557,7 @@ namespace Senparc.Weixin.TenPay.V3
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut);
-           // var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            // var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
             return new ProfitSharingAddReceiverResult(resultXml);
         }
 
@@ -657,7 +658,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3ReverseRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
@@ -696,7 +697,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3RefundRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
@@ -881,7 +882,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3TransfersRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
@@ -907,7 +908,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3PayToWorkerRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
@@ -951,7 +952,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3GetTransferInfoRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
@@ -979,7 +980,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3GetTransferInfoRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
@@ -1116,7 +1117,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3RefundRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
@@ -1257,7 +1258,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3ReverseRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
@@ -1442,7 +1443,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3TransfersRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
@@ -1484,7 +1485,7 @@ namespace Senparc.Weixin.TenPay.V3
             IServiceProvider serviceProvider,
             TenPayV3GetTransferInfoRequestData dataInfo,
 #if NET45
-            string cert, string certPassword, 
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {

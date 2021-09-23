@@ -99,5 +99,27 @@ namespace Senparc.Weixin.Work.Test
             
             Assert.IsTrue(result.group_chat.admin_list[1].userid=="pony");
         }
+
+        //https://work.weixin.qq.com/api/doc/90000/90135/92114
+        [TestMethod]
+        public void GetExternalContactResultJsonTest()
+        {
+            var json =
+                "{    \"errcode\": 0,    \"errmsg\": \"ok\",    \"external_contact\":    {         \"external_userid\":\"woAJ2GCAAAXtWyujaWJHDDGi0mACHAAA\",         \"name\":\"李四\",         \"position\":\"Manager\",         \"avatar\":\"http://p.qlogo.cn/bizmail/IcsdgagqefergqerhewSdage/0\",         \"corp_name\":\"腾讯\",         \"corp_full_name\":\"腾讯科技有限公司\",         \"type\":2,         \"gender\":1,         \"unionid\":\"ozynqsulJFCZ2z1aYeS8h-nuasdAAA\",         \"external_profile\":         {              \"external_attr\":               [                 {                   \"type\":0,                   \"name\":\"文本名称\",                    \"text\":                     {                        \"value\":\"文本\"                     }                 },                 {                   \"type\":1,                   \"name\":\"网页名称\",                   \"web\":                   {                       \"url\":\"http://www.test.com\",                       \"title\":\"标题\"                   }                 },                 {                   \"type\":2,                   \"name\":\"测试app\",                   \"miniprogram\":                   {                       \"appid\": \"wx8bd80126147df384\",                       \"pagepath\": \"/index\",                       \"title\": \"my miniprogram\"                   }                 }               ]       }      },      \"follow_user\":       [         {           \"userid\":\"rocky\",           \"remark\":\"李部长\",           \"description\":\"对接采购事务\",           \"createtime\":1525779812,           \"tags\":            [                {                   \"group_name\":\"标签分组名称\",                   \"tag_name\":\"标签名称\",                   \"tag_id\":\"etAJ2GCAAAXtWyujaWJHDDGi0mACHAAA\",                   \"type\":1                }            ],            \"remark_corp_name\":\"腾讯科技\",            \"remark_mobiles\":             [               \"13800000001\",               \"13000000002\"             ],            \"oper_userid\":\"rocky\",            \"add_way\":1         },         {           \"userid\":\"tommy\",           \"remark\":\"李总\",           \"description\":\"采购问题咨询\",           \"createtime\":1525881637,           \"state\":\"外联二维码1\",           \"oper_userid\":\"woAJ2GCAAAXtWyujaWJHDDGi0mACHAAA\",            \"add_way\":3          }      ],      \"next_cursor\":\"NEXT_CUROSR\" }";
+            
+            var result=SerializerHelper.GetObject<GetExternalContactResultJson>(json);
+
+            Assert.IsTrue(result.external_contact.external_profile.external_attr.Length == 3);
+            
+            Assert.IsTrue(result.external_contact.external_profile.external_attr[2].miniprogram.appid=="wx8bd80126147df384");
+
+            Assert.IsTrue(result.follow_user.Length == 2);
+            
+            Assert.IsTrue(result.follow_user[1] .oper_userid=="woAJ2GCAAAXtWyujaWJHDDGi0mACHAAA");
+
+            Assert.IsTrue(result.follow_user[0].remark_mobiles[1]=="13000000002");
+            Assert.IsTrue(result.follow_user[0].tags[0].group_name=="标签分组名称");
+        }
+
     }
 }

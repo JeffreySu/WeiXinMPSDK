@@ -11,6 +11,7 @@ using Senparc.CO2NET.AspNet;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
 using Senparc.CO2NET.Utilities;
+using Senparc.CO2NET.WebApi.WebApiEngines;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.WebSocket;//DPBMARK WebSocket DPBMARK_END
 using Senparc.Weixin.Cache.CsRedis;//DPBMARK Redis DPBMARK_END
@@ -19,15 +20,16 @@ using Senparc.Weixin.Cache.Redis;//DPBMARK Redis DPBMARK_END
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP;//DPBMARK MP DPBMARK_END
 using Senparc.Weixin.MP.MessageHandlers.Middleware;//DPBMARK MP DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;//DPBMARK MP DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;//DPBMARK WebSocket DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;//DPBMARK Work DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;//DPBMARK MiniProgram DPBMARK_END
+using Senparc.Weixin.Sample.CommonService.CustomMessageHandler;//DPBMARK MP DPBMARK_END
+using Senparc.Weixin.Sample.CommonService.MessageHandlers.WebSocket;//DPBMARK WebSocket DPBMARK_END
+using Senparc.Weixin.Sample.CommonService.WorkMessageHandlers;//DPBMARK Work DPBMARK_END
+using Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler;//DPBMARK MiniProgram DPBMARK_END
 using Senparc.Weixin.Open;//DPBMARK Open DPBMARK_END
 using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK Open DPBMARK_END
 using Senparc.Weixin.RegisterServices;
 using Senparc.Weixin.Sample.NetCore3.WebSocket.Hubs;//DPBMARK WebSocket DPBMARK_END
 using Senparc.Weixin.TenPay;//DPBMARK TenPay DPBMARK_END
+using Senparc.Weixin.TenPayV3;//DPBMARK TenPay DPBMARK_END
 using Senparc.Weixin.Work;//DPBMARK Work DPBMARK_END
 using Senparc.Weixin.Work.MessageHandlers.Middleware;//DPBMARK Work DPBMARK_END
 using Senparc.Weixin.WxOpen;//DPBMARK MiniProgram DPBMARK_END
@@ -52,10 +54,10 @@ namespace Senparc.Weixin.Sample.NetCore3
         {
             services.AddSession();//使用Session（实践证明需要在配置 Mvc 之前）
 
-            services.AddControllersWithViews()
-                    .AddNewtonsoftJson();// 支持 NewtonsoftJson
-                    //.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
-            // Add CookieTempDataProvider after AddMvc and include ViewFeatures.
+            var builder = services.AddControllersWithViews()
+                                  .AddNewtonsoftJson();// 支持 NewtonsoftJson
+                                                       //.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+                                                       // Add CookieTempDataProvider after AddMvc and include ViewFeatures.
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
 
             //如果部署在linux系统上，需要加上下面的配置：
@@ -78,7 +80,11 @@ namespace Senparc.Weixin.Sample.NetCore3
                     .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>() //Senparc.WebSocket 注册（按需）  -- DPBMARK WebSocket DPBMARK_END
                     ;
 
-            //services.AddCertHttpClient("name", "pwd", "path");//此处可以添加更多 Cert 证书
+            //启用 WebApi（可选）
+            services.AddAndInitDynamicApi(builder, options => options.DocXmlPath = ServerUtility.ContentRootMapPath("~/App_Data"));
+
+            //此处可以添加更多 Cert 证书
+            //services.AddCertHttpClient("name", "pwd", "path");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -110,88 +116,88 @@ namespace Senparc.Weixin.Sample.NetCore3
             // 启动 CO2NET 全局注册，必须！
             // 关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore3/Startup.cs
             var registerService = app.UseSenparcGlobal(env, senparcSetting.Value, globalRegister =>
+            {
+                #region CO2NET 全局配置
+
+                #region 全局缓存配置（按需）
+
+                //当同一个分布式缓存同时服务于多个网站（应用程序池）时，可以使用命名空间将其隔离（非必须）
+                globalRegister.ChangeDefaultCacheNamespace("DefaultCO2NETCache");
+
+                #region 配置和使用 Redis          -- DPBMARK Redis
+
+                //配置全局使用Redis缓存（按需，独立）
+                if (UseRedis(senparcSetting.Value, out string redisConfigurationStr))//这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的，这里的if条件可以忽略
                 {
-                    #region CO2NET 全局配置
+                    /* 说明：
+                     * 1、Redis 的连接字符串信息会从 Config.SenparcSetting.Cache_Redis_Configuration 自动获取并注册，如不需要修改，下方方法可以忽略
+                    /* 2、如需手动修改，可以通过下方 SetConfigurationOption 方法手动设置 Redis 链接信息（仅修改配置，不立即启用）
+                     */
+                    Senparc.CO2NET.Cache.CsRedis.Register.SetConfigurationOption(redisConfigurationStr);
 
-                    #region 全局缓存配置（按需）
+                    //以下会立即将全局缓存设置为 Redis
+                    Senparc.CO2NET.Cache.CsRedis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
+                                                                                //Senparc.CO2NET.Cache.CsRedis.Register.UseHashRedisNow();//HashSet储存格式的缓存策略
 
-                    //当同一个分布式缓存同时服务于多个网站（应用程序池）时，可以使用命名空间将其隔离（非必须）
-                    globalRegister.ChangeDefaultCacheNamespace("DefaultCO2NETCache");
+                    //也可以通过以下方式自定义当前需要启用的缓存策略
+                    //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//键值对
+                    //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisHashSetObjectCacheStrategy.Instance);//HashSet
 
-                    #region 配置和使用 Redis          -- DPBMARK Redis
+                    #region 注册 StackExchange.Redis
 
-                    //配置全局使用Redis缓存（按需，独立）
-                    if (UseRedis(senparcSetting.Value, out string redisConfigurationStr))//这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的，这里的if条件可以忽略
-                    {
-                        /* 说明：
-                         * 1、Redis 的连接字符串信息会从 Config.SenparcSetting.Cache_Redis_Configuration 自动获取并注册，如不需要修改，下方方法可以忽略
-                        /* 2、如需手动修改，可以通过下方 SetConfigurationOption 方法手动设置 Redis 链接信息（仅修改配置，不立即启用）
-                         */
-                        Senparc.CO2NET.Cache.CsRedis.Register.SetConfigurationOption(redisConfigurationStr);
+                    /* 如果需要使用 StackExchange.Redis，则可以使用 Senparc.CO2NET.Cache.Redis 库
+                     * 注意：这一步注册和上述 CsRedis 库两选一即可，本 Sample 需要同时演示两个库，因此才都进行注册
+                     */
 
-                        //以下会立即将全局缓存设置为 Redis
-                        Senparc.CO2NET.Cache.CsRedis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
-                                                                                    //Senparc.CO2NET.Cache.CsRedis.Register.UseHashRedisNow();//HashSet储存格式的缓存策略
-
-                        //也可以通过以下方式自定义当前需要启用的缓存策略
-                        //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//键值对
-                        //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisHashSetObjectCacheStrategy.Instance);//HashSet
-
-                        #region 注册 StackExchange.Redis
-
-                        /* 如果需要使用 StackExchange.Redis，则可以使用 Senparc.CO2NET.Cache.Redis 库
-                         * 注意：这一步注册和上述 CsRedis 库两选一即可，本 Sample 需要同时演示两个库，因此才都进行注册
-                         */
-
-                        //Senparc.CO2NET.Cache.Redis.Register.SetConfigurationOption(redisConfigurationStr);
-                        //Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
-
-                        #endregion
-                    }
-                    //如果这里不进行Redis缓存启用，则目前还是默认使用内存缓存 
-
-                    #endregion                        // DPBMARK_END
-
-                    #region 配置和使用 Memcached      -- DPBMARK Memcached
-
-                    //配置Memcached缓存（按需，独立）
-                    if (UseMemcached(senparcSetting.Value, out string memcachedConfigurationStr)) //这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的，这里的if条件可以忽略
-                    {
-                        app.UseEnyimMemcached();
-
-                        /* 说明：
-                        * 1、Memcached 的连接字符串信息会从 Config.SenparcSetting.Cache_Memcached_Configuration 自动获取并注册，如不需要修改，下方方法可以忽略
-                    /* 2、如需手动修改，可以通过下方 SetConfigurationOption 方法手动设置 Memcached 链接信息（仅修改配置，不立即启用）
-                        */
-                        Senparc.CO2NET.Cache.Memcached.Register.SetConfigurationOption(memcachedConfigurationStr);
-
-                        //以下会立即将全局缓存设置为 Memcached
-                        Senparc.CO2NET.Cache.Memcached.Register.UseMemcachedNow();
-
-                        //也可以通过以下方式自定义当前需要启用的缓存策略
-                        CacheStrategyFactory.RegisterObjectCacheStrategy(() => MemcachedObjectCacheStrategy.Instance);
-                    }
-
-                    #endregion                        //  DPBMARK_END
+                    //Senparc.CO2NET.Cache.Redis.Register.SetConfigurationOption(redisConfigurationStr);
+                    //Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
 
                     #endregion
+                }
+                //如果这里不进行Redis缓存启用，则目前还是默认使用内存缓存 
 
-                    #region 注册日志（按需，建议）
+                #endregion                        // DPBMARK_END
 
-                    globalRegister.RegisterTraceLog(ConfigTraceLog);//配置TraceLog
+                #region 配置和使用 Memcached      -- DPBMARK Memcached
 
-                    #endregion
+                //配置Memcached缓存（按需，独立）
+                if (UseMemcached(senparcSetting.Value, out string memcachedConfigurationStr)) //这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的，这里的if条件可以忽略
+                {
+                    app.UseEnyimMemcached();
 
-                    #region APM 系统运行状态统计记录配置
+                    /* 说明：
+                    * 1、Memcached 的连接字符串信息会从 Config.SenparcSetting.Cache_Memcached_Configuration 自动获取并注册，如不需要修改，下方方法可以忽略
+                /* 2、如需手动修改，可以通过下方 SetConfigurationOption 方法手动设置 Memcached 链接信息（仅修改配置，不立即启用）
+                    */
+                    Senparc.CO2NET.Cache.Memcached.Register.SetConfigurationOption(memcachedConfigurationStr);
 
-                    //测试APM缓存过期时间（默认情况下可以不用设置）
-                    CO2NET.APM.Config.EnableAPM = true;//默认已经为开启，如果需要关闭，则设置为 false
-                    CO2NET.APM.Config.DataExpire = TimeSpan.FromMinutes(60);
+                    //以下会立即将全局缓存设置为 Memcached
+                    Senparc.CO2NET.Cache.Memcached.Register.UseMemcachedNow();
 
-                    #endregion
+                    //也可以通过以下方式自定义当前需要启用的缓存策略
+                    CacheStrategyFactory.RegisterObjectCacheStrategy(() => MemcachedObjectCacheStrategy.Instance);
+                }
 
-                    #endregion
-                }, true)
+                #endregion                        //  DPBMARK_END
+
+                #endregion
+
+                #region 注册日志（按需，建议）
+
+                globalRegister.RegisterTraceLog(ConfigTraceLog);//配置TraceLog
+
+                #endregion
+
+                #region APM 系统运行状态统计记录配置
+
+                //测试APM缓存过期时间（默认情况下可以不用设置）
+                CO2NET.APM.Config.EnableAPM = true;//默认已经为开启，如果需要关闭，则设置为 false
+                CO2NET.APM.Config.DataExpire = TimeSpan.FromMinutes(60);
+
+                #endregion
+
+                #endregion
+            }, true)
                 //使用 Senparc.Weixin SDK
                 .UseSenparcWeixin(senparcWeixinSetting.Value, weixinRegister =>
                 {
@@ -262,6 +268,8 @@ namespace Senparc.Weixin.Sample.NetCore3
                              * 请在 ConfigureServices() 方法中使用 services.AddCertHttpClient() 
                              * 添加对应证书。
                              */
+
+                            .RegisterTenpayRealV3(senparcWeixinSetting.Value, "【盛派网络小助手】公众号-RealV3")//注册最新的 TenPay V3
 
                     #endregion                          // DPBMARK_END
 
@@ -335,9 +343,16 @@ namespace Senparc.Weixin.Sample.NetCore3
                                     }
                                 }, "【盛派网络】开放平台")
 
-                        //除此以外，仍然可以在程序任意地方注册开放平台：
-                        //ComponentContainer.Register();//命名空间：Senparc.Weixin.Open.Containers
+                            //除此以外，仍然可以在程序任意地方注册开放平台：
+                            //ComponentContainer.Register();//命名空间：Senparc.Weixin.Open.Containers
                     #endregion                          // DPBMARK_END
+
+                    #region 设置自定义 ApiHandlerWapper 参数（可选，一般不需要设置）  --DPBMARK MP
+
+                            .SetMP_InvalidCredentialValues(new[] { ReturnCode.获取access_token时AppSecret错误或者access_token无效 })
+                        //.SetMP_AccessTokenContainer_GetAccessTokenResultFunc((appId, getNewToken)=> { return xxx })
+
+                    #endregion                                                          // DPBMARK_END
 
                         ;
 
@@ -376,6 +391,9 @@ namespace Senparc.Weixin.Sample.NetCore3
                 //对 MessageHandler 内异步方法未提供重写时，调用同步方法（按需）
                 options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
 
+                options.EnableRequestLog = true;//默认就为 true，如需关闭日志，可设置为 false
+                options.EnbleResponseLog = true;//默认就为 true，如需关闭日志，可设置为 false
+
                 //对发生异常进行处理（可选）
                 options.AggregateExceptionCatch = ex =>
                 {
@@ -386,10 +404,10 @@ namespace Senparc.Weixin.Sample.NetCore3
 
             //使用 小程序 MessageHandler 中间件                                                   // -- DPBMARK MiniProgram
             app.UseMessageHandlerForWxOpen("/WxOpenAsync", CustomWxOpenMessageHandler.GenerateMessageHandler, options =>
-                {
-                    options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
-                    options.AccountSettingFunc = context => senparcWeixinSetting.Value;
-                }
+            {
+                options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
+                options.AccountSettingFunc = context => senparcWeixinSetting.Value;
+            }
             );                                                                                    // DPBMARK_END
 
             //使用 企业微信 MessageHandler 中间件                                                 // -- DPBMARK Work
@@ -439,7 +457,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                 //加入每次触发WeixinExceptionLog后需要执行的代码
 
                 //发送模板消息给管理员                                   -- DPBMARK Redis
-                var eventService = new Senparc.Weixin.MP.Sample.CommonService.EventService();
+                var eventService = new CommonService.EventService();
                 await eventService.ConfigOnWeixinExceptionFunc(ex);      // DPBMARK_END
             };
         }

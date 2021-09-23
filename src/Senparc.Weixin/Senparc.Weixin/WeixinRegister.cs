@@ -166,8 +166,8 @@ namespace Senparc.Weixin
 
             /* 扩展缓存注册结束 */
 
-            //ApiBind 自动扫描
-            Senparc.NeuChar.Register.RegisterApiBind(false);
+            //注册 NeuChar
+            Senparc.NeuChar.Register.AddNeuChar();
 
             return registerService;
         }
@@ -211,7 +211,7 @@ namespace Senparc.Weixin
         //#endif
         //            SenparcSetting senparcSetting, SenparcWeixinSetting senparcWeixinSetting, Action<IRegisterService> globalRegisterConfigure, Action<IRegisterService> weixinRegisterConfigure,
         //             //CO2NET 全局设置
-        //             bool autoScanExtensionCacheStrategies = false, Func<IList<IDomainExtensionCacheStrategy>> extensionCacheStrategiesFunc = null
+        //             bool autoScanExtensionCacheStrategies = false, Func<List<IDomainExtensionCacheStrategy>> extensionCacheStrategiesFunc = null
         //            )
         //        {
         //            //注册 CO2NET 全局

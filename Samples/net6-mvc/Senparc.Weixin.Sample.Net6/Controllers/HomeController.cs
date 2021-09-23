@@ -15,7 +15,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.MP.Containers;//DPBMARK MP DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.Download;
+using Senparc.Weixin.Sample.CommonService.Download;//DPBMARK MP DPBMARK_END
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -28,9 +28,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
-        IHostingEnvironment _env;
+        Microsoft.AspNetCore.Hosting.IHostingEnvironment _env;
 
-        public HomeController(ILogger<HomeController> logger, IHostingEnvironment env)
+        public HomeController(ILogger<HomeController> logger, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
         {
             _logger = logger;
             _env = env;
@@ -54,10 +54,11 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             };
             var sdkList = new List<Home_IndexVD_AssemblyModel>();
             sdkList.Add(new Home_IndexVD_AssemblyModel("SDK 公共基础库", "Senparc.Weixin", typeof(Senparc.Weixin.WeixinRegister), gitHubUrl: sdkGitHubUrl));
-            sdkList.Add(new Home_IndexVD_AssemblyModel("公众号<br />JSSDK<br />摇一摇周边", "Senparc.Weixin.MP", typeof(Senparc.Weixin.MP.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK TenPay DPBMARK_END
+            sdkList.Add(new Home_IndexVD_AssemblyModel("公众号<br />JSSDK<br />摇一摇周边", "Senparc.Weixin.MP", typeof(Senparc.Weixin.MP.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK MP DPBMARK_END
             sdkList.Add(new Home_IndexVD_AssemblyModel("公众号MvcExtension", "Senparc.Weixin.MP.MvcExtension", typeof(Senparc.Weixin.MP.MvcExtension.WeixinResult), "Senparc.Weixin.MP.Mvc", gitHubUrl: sdkGitHubUrl));//DPBMARK MP DPBMARK_END
             sdkList.Add(new Home_IndexVD_AssemblyModel("小程序", "Senparc.Weixin.WxOpen", typeof(Senparc.Weixin.WxOpen.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK MiniProgram DPBMARK_END
-            sdkList.Add(new Home_IndexVD_AssemblyModel("微信支付", "Senparc.Weixin.TenPay", typeof(Senparc.Weixin.MP.MvcExtension.FixWeixinBugWeixinResult), gitHubUrl: sdkGitHubUrl));//DPBMARK MP DPBMARK_END
+            sdkList.Add(new Home_IndexVD_AssemblyModel("微信支付", "Senparc.Weixin.TenPay", typeof(Senparc.Weixin.TenPay.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK TenPay DPBMARK_END
+            sdkList.Add(new Home_IndexVD_AssemblyModel("微信支付V3（新）", "Senparc.Weixin.TenPayV3", typeof(Senparc.Weixin.TenPayV3.Register), supportNet45: false, gitHubUrl: sdkGitHubUrl));//DPBMARK TenPay DPBMARK_END
             sdkList.Add(new Home_IndexVD_AssemblyModel("开放平台", "Senparc.Weixin.Open", typeof(Senparc.Weixin.Open.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK Open DPBMARK_END
             //TempData["QYVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.QY.dll"));//已经停止更新
             sdkList.Add(new Home_IndexVD_AssemblyModel("企业微信", "Senparc.Weixin.Work", typeof(Senparc.Weixin.Work.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK Work DPBMARK_END
@@ -96,13 +97,13 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             var neucharGroup = new Home_IndexVD_GroupInfo()
             {
                 Title = "跨平台支持库：Senparc.NeuChar",
-                Description = "NeuChar 是盛派提供的一套跨平台服务的标准（例如跨微信公众号、微信小程序、丁丁、QQ小程序、百度小程序，等等），<br />" +
+                Description = "NeuChar 是盛派提供的一套跨平台服务的标准（例如跨微信公众号、微信小程序、钉钉、QQ小程序、百度小程序，等等），<br />" +
                 "使用一套代码，同时服务多平台。目前 Senparc.Weixin SDK 就是基于 NeuChar 标准在微信领域内的一个实现分支，<br />" +
                 "您也可以使用 NeuChar 扩展到更多的平台。<br />" +
                 "<a href=\"https://www.neuchar.com\" target=\"_blank\">https://www.neuchar.com</a> 是盛派官方提供的一个基于 NeuChar 标准实现的可视化跨平台配置操作平台。"
             };
             var neucharList = new List<Home_IndexVD_AssemblyModel>();
-            neucharList.Add(new Home_IndexVD_AssemblyModel("NeuChar 跨平台支持库", "Senparc.NeuChar", typeof(Senparc.NeuChar.ApiBindInfo), gitHubUrl: neucharGitHubUrl));// NeuChar 基础库
+            neucharList.Add(new Home_IndexVD_AssemblyModel("NeuChar 跨平台支持库", "Senparc.NeuChar", typeof(Senparc.NeuChar.Register), gitHubUrl: neucharGitHubUrl));// NeuChar 基础库
             neucharList.Add(new Home_IndexVD_AssemblyModel("NeuChar APP 以及<br />NeuChar Ending<br />的对接 SDK", "Senparc.NeuChar.App", typeof(Senparc.NeuChar.App.HttpRequestType), gitHubUrl: neucharGitHubUrl));// NeuChar 基础库
             neucharList.Add(new Home_IndexVD_AssemblyModel("NeuChar 的 ASP.NET<br />运行时支持库", "Senparc.NeuChar.AspNet", typeof(Senparc.NeuChar.Middlewares.MessageHandlerMiddlewareExtension), gitHubUrl: neucharGitHubUrl));// NeuChar 基础库
             vd.AssemblyModelCollection[neucharGroup] = neucharList;
@@ -123,12 +124,14 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             co2netList.Add(new Home_IndexVD_AssemblyModel("Memcached 库", "Senparc.CO2NET.Cache.Memcached", typeof(Senparc.CO2NET.Cache.Memcached.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.Memcached 版本信息               -- DPBMARK Memcached DPBMARK_END
             co2netList.Add(new Home_IndexVD_AssemblyModel("CO2NET 的 ASP.NET<br />运行时支持库", "Senparc.CO2NET.AspNet", typeof(Senparc.CO2NET.AspNet.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.AspNet 版本信息
             vd.AssemblyModelCollection[co2netGroup] = co2netList;
+            co2netList.Add(new Home_IndexVD_AssemblyModel("WebApi 引擎库（新）", "Senparc.CO2NET.WebApi", typeof(Senparc.CO2NET.WebApi.Register), supportNet45: false, gitHubUrl: co2netGitHubUrl));//CO2NET.AspNet 版本信息
+            vd.AssemblyModelCollection[co2netGroup] = co2netList;
 
             #endregion
 
             //当前 Sample 版本
 
-            TempData["SampleVersion"] =  Home_IndexVD_AssemblyModel.GetDisplayVersion(Assembly.GetExecutingAssembly().GetName().Version);
+            TempData["SampleVersion"] = Home_IndexVD_AssemblyModel.GetDisplayVersion(Assembly.GetExecutingAssembly().GetName().Version);
 
             //缓存
             //var containerCacheStrategy  = CacheStrategyFactory.GetContainerCacheStrategyInstance();
@@ -145,7 +148,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             }
             catch (Exception)
             {
-                TempData["NewestDocumentVersion"] = new Senparc.Weixin.MP.Sample.CommonService.Download.Config();
+                TempData["NewestDocumentVersion"] = new CommonService.Download.Config();
             }
             #endregion  DPBMARK_END
 
@@ -215,7 +218,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             return Content(HttpContext.Request.PathBase);
         }
 
-       
+
         public IActionResult Privacy()
         {
             return View();

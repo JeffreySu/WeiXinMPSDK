@@ -36,6 +36,7 @@ using Senparc.NeuChar;
 using Senparc.NeuChar.Helpers;
 using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
+using Senparc.CO2NET;
 
 namespace Senparc.Weixin.Work
 {

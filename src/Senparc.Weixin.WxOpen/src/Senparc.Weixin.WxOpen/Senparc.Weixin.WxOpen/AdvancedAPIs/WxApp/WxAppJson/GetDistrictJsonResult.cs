@@ -17,7 +17,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson
         /// <summary>
         /// 三维数组，第一维表示省的信息，第二维表示市的信息，第三维表示区的信息
         /// </summary>
-        public IList<DistrictItem[]> result { get; set; } = new List<DistrictItem[]>();
+        public List<DistrictItem[]> result { get; set; } = new List<DistrictItem[]>();
     }
     [Serializable]
     public class DistrictItem
@@ -34,14 +34,14 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson
         /// </summary>
         public string fullname { get; set; }
 
-        public IList<string> pinyin { get; set; } = new List<string>();
+        public List<string> pinyin { get; set; } = new List<string>();
 
         public Loction location { get; set; }
 
         /// <summary>
         /// 通过省的cidx，可以在 result[1] 中找到省下的所有市
         /// </summary>
-        public IList<int> cidx { get; set; } = new List<int>();
+        public List<int> cidx { get; set; } = new List<int>();
     }
     [Serializable]
     public class Loction

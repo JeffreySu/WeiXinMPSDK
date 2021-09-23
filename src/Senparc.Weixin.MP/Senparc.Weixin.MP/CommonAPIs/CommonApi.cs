@@ -81,6 +81,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
     /// 通用接口
     /// 通用接口用于和微信服务器通讯，一般不涉及自有网站服务器的通讯
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
     public partial class CommonApi
     {
         #region 同步方法
@@ -92,7 +93,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appid">第三方用户唯一凭证</param>
         /// <param name="secret">第三方用户唯一凭证密钥，既appsecret</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetToken", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetToken", false, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static AccessTokenResult GetToken(string appid, string secret, string grant_type = "client_credential")
         {
             //注意：此方法不能再使用ApiHandlerWapper.TryCommonApi()，否则会循环
@@ -117,7 +118,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetUserInfo", true)]
         public static WeixinUserInfoResult GetUserInfo(string accessTokenOrAppId, string openId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -138,7 +138,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="secret"></param>
         /// <param name="type">默认为jsapi，当作为卡券接口使用时，应当为wx_card</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetTicket", true)]
         public static JsApiTicketResult GetTicket(string appId, string secret, string type = "jsapi")
         {
             var accessToken = AccessTokenContainer.TryGetAccessToken(appId, secret);
@@ -151,7 +150,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="type">默认为jsapi，当作为卡券接口使用时，应当为wx_card</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetTicketByAccessToken", true)]
         public static JsApiTicketResult GetTicketByAccessToken(string accessTokenOrAppId, string type = "jsapi")
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -170,7 +168,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetCallBackIp", true)]
         public static GetCallBackIpResult GetCallBackIp(string accessTokenOrAppId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -189,7 +186,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.Clear_quota", true)]
         public static WxJsonResult Clear_quota(string accessTokenOrAppId, string appId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -217,7 +213,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appid">第三方用户唯一凭证</param>
         /// <param name="secret">第三方用户唯一凭证密钥，既appsecret</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetTokenAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetTokenAsync", false, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static async Task<AccessTokenResult> GetTokenAsync(string appid, string secret, string grant_type = "client_credential")
         {
             //注意：此方法不能再使用ApiHandlerWapper.TryCommonApi()，否则会循环
@@ -242,7 +238,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetUserInfoAsync", true)]
         public static async Task<WeixinUserInfoResult> GetUserInfoAsync(string accessTokenOrAppId, string openId)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -263,7 +258,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="secret"></param>
         /// <param name="type">默认为jsapi，当作为卡券接口使用时，应当为wx_card</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetTicketAsync", true)]
         public static async Task<JsApiTicketResult> GetTicketAsync(string appId, string secret, string type = "jsapi")
         {
             var accessToken = await AccessTokenContainer.TryGetAccessTokenAsync(appId, secret).ConfigureAwait(false);
@@ -276,7 +270,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="type">默认为jsapi，当作为卡券接口使用时，应当为wx_card</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetTicketByAccessTokenAsync", true)]
         public static async Task<JsApiTicketResult> GetTicketByAccessTokenAsync(string accessTokenOrAppId, string type = "jsapi")
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -295,7 +288,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetCallBackIpAsync", true)]
         public static async Task<GetCallBackIpResult> GetCallBackIpAsync(string accessTokenOrAppId)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -314,7 +306,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.Clear_quotaAsync", true)]
         public static async Task<WxJsonResult> Clear_quotaAsync(string accessTokenOrAppId, string appId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

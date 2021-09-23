@@ -28,6 +28,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Models.VD
         public bool SupportStandard21 { get; set; }
         public bool SupportNetCore22 => SupportStandard20;
         public bool SupportNetCore31 => SupportStandard21;
+        public bool SupportNet6 => SupportNetCore31;
         public string GitHubUrl { get; set; }
 
         public Home_IndexVD_AssemblyModel(string title, string name, Type versionType, string nugetName = null, string gitHubUrl = null, bool supportNet45 = true, bool supportStandard20 = true, bool supportStandard21 = true)

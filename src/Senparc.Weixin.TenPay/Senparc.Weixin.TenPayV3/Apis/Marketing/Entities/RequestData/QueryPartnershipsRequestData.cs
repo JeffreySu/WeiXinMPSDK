@@ -56,6 +56,21 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         }
 
         /// <summary>
+        /// 从BuildPartnerships接口返回Json构建请求类
+        /// </summary>
+        /// <param name="buildPartnershipsReturnJson">建立合作关系返回Json类</param>
+        public QueryPartnershipsRequestData(BuildPartnershipsReturnJson buildPartnershipsReturnJson)
+        {
+            this.partner.type = buildPartnershipsReturnJson.partner.type;
+            this.partner.appid = buildPartnershipsReturnJson.partner.appid;
+            this.partner.merchant_id = buildPartnershipsReturnJson.partner.merchant_id;
+
+
+            this.authorized_data.business_type = buildPartnershipsReturnJson.authorized_data.business_type;
+            this.authorized_data.stock_id = buildPartnershipsReturnJson.authorized_data.stock_id;
+        }
+
+        /// <summary>
         /// 无参构造函数
         /// </summary>
         public QueryPartnershipsRequestData()

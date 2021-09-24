@@ -481,6 +481,5 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
         }
         #endregion
-
     }
 }

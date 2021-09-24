@@ -21,36 +21,51 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：ReturnJsonBase.cs
-    文件功能描述：ReturnJson 的基类
+    文件名：UploadImageReturnJson.cs
+    文件功能描述：图片上传接口返回Json类
     
     
-    创建标识：Senparc - 20210804
+    创建标识：Senparc - 20210922
     
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Senparc.Weixin.TenPayV3.Apis.Entities;
 
-namespace Senparc.Weixin.TenPayV3.Apis.Entities
+namespace Senparc.Weixin.TenPayV3.Apis.Marketing
 {
     /// <summary>
-    /// ReturnJson 的基类（预留）
+    /// 图片上传接口返回Json类
+    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_0_1.shtml </para>
     /// </summary>
-    public class ReturnJsonBase
+    public class UploadImageReturnJson : ReturnJsonBase
     {
         /// <summary>
-        /// 回复状态码
+        /// 含参构造函数
         /// </summary>
-        public TenPayApiResultCode ResultCode { get; set; } = new TenPayApiResultCode();
+        /// <param name="media_url">媒体文件URL地址 <para>微信返回的媒体文件标识url。有效期为永久</para><para>示例值：https://qpic.cn/xxx</para></param>
+        public UploadImageReturnJson(string media_url)
+        {
+            this.media_url = media_url;
+        }
 
         /// <summary>
-        /// 回复签名是否正确 在有错误的情况下，或不要求验证签名时 为null
-        /// <para>通常情况下，必须为 true 才表明签名通过</para>
+        /// 无参构造函数
         /// </summary>
-        public bool? VerifySignSuccess { get; set; } = null;
+        public UploadImageReturnJson()
+        {
+        }
+
+        /// <summary>
+        /// 媒体文件URL地址
+        /// <para>微信返回的媒体文件标识url。有效期为永久</para>
+        /// <para>示例值：https://qpic.cn/xxx</para>
+        /// </summary>
+        public string media_url { get; set; }
     }
 }
+
+

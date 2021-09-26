@@ -41,7 +41,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
     /// 服务人员注册Json类
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter8_4_1.shtml </para>
     /// </summary>
-    public class RegisterGuideReturnJson
+    public class RegisterGuideReturnJson : ReturnJsonBase
     {
 
         /// <summary>

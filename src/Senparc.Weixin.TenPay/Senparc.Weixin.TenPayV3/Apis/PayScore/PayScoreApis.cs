@@ -305,6 +305,81 @@ namespace Senparc.Weixin.TenPayV3.Apis
 
         #endregion
 
+        #region 支付即服务
 
+        /// <summary>
+        /// 服务人员注册接口
+        /// <para>用于商户开发者为商户注册服务人员使用。</para>
+        /// <para>注意：调用接口前商家需完成支付即服务产品的开通和设置。若服务商为特约商户调用接口，需在特约商户开通并完成产品设置后，与特约商户建立产品授权关系。</para>
+        /// <para>更多详细请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter8_4_1.shtml </para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<RegisterGuideReturnJson> RegisterGuideAsync(RegisterGuideRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/smartguide/guides");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<RegisterGuideReturnJson>(url, data, timeOut);
+        }
+
+        /// <summary>
+        /// 服务人员分配接口
+        /// <para>用于商户开发者在顾客下单后为顾客分配服务人员使用。</para>
+        /// <para>注意：调用服务人员分配接口需在完成支付之前，若分配服务人员晚于支付完成，则将无法在支付凭证上出现服务人员名片入口。</para>
+        /// <para>更多详细请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter8_4_2.shtml </para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<ReturnJsonBase> AssignGuideAsync(AssignGuideRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/smartguide/guides/{data.guide_id}/assign");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, data, timeOut);
+        }
+
+        /// <summary>
+        /// 服务人员查询接口
+        /// <para>用于商户开发者查询已注册的服务人员ID等信息。</para>
+        /// <para><see href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter8_4_3.shtml">更多详细请参考微信支付官方文档</see></para>
+        /// </summary>
+        /// <param name="store_id">门店在微信支付商户平台的唯一标识</param>
+        /// <param name="userid">员工在商户企业微信通讯录使用的唯一标识，企业微信商家可传入该字段查询单个服务人员信息；不传则查询整个门店下的服务人员信息</param>
+        /// <param name="mobile">服务人员通过小程序注册时填写的手机号码，企业微信/个人微信商家可传入该字段查询单个服务人员信息；不传则查询整个门店下的服务人员信息。</param>
+        /// <param name="work_id">服务人员通过小程序注册时填写的工号，个人微信商家可传入该字段查询单个服务人员信息；不传则查询整个门店下的服务人员信息</param>
+        /// <param name="limit">家自定义字段，该次请求可返回的最大资源条数，不大于10，默认值为10</param>
+        /// <param name="offset">商家自定义字段，该次请求资源的起始位置，默认值为0</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<QueryGuideReturnJson> QueryServiceOrderAsync(string store_id, string userid, string service_id, string mobile, string work_id, int limit = 0, int offset = 0, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/smartguide/guides?store_id={store_id}");
+            url += userid is not null ? $"&userid={userid}" : "";
+            url += mobile is not null ? $"&mobile={mobile}" : "";//TODO: 敏感信息加密处理
+            url += work_id is not null ? $"&work_id={work_id}" : "";
+
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<QueryGuideReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+        }
+
+        /// <summary>
+        /// 服务人员信息更新接口
+        /// <para>用于商户开发者为商户更新门店服务人员的姓名、头像等信息</para>
+        /// <para>注意：个人微信商家、企业微信商家均支持服务人员信息更新</para>
+        /// <para>更多详细请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter8_4_4.shtml </para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<ReturnJsonBase> ModifyGuideAsync(ModifyGuideRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/smartguide/guides/{data.guide_id}");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, data, timeOut, ApiRequestMethod.PATCH);
+        }
+
+
+        #endregion
     }
 }

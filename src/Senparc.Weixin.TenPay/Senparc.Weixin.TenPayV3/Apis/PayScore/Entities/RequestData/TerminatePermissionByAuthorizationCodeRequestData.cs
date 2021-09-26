@@ -35,6 +35,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis.PayScore
@@ -72,6 +73,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <para>示例值：1234323JKHDFE1243252</para>
         /// <para></para>
         /// </summary>
+        [JsonIgnore]
         public string authorization_code { get; set; }
 
         /// <summary>

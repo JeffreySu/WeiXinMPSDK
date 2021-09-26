@@ -35,6 +35,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis.PayScore
@@ -74,6 +75,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <para>示例值：oUpF8uMuAJO_M2pxb1Q9zNjWeS6o</para>
         /// <para></para>
         /// </summary>
+        [JsonIgnore]
         public string openid { get; set; }
 
         /// <summary>

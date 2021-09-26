@@ -41,7 +41,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
     /// 查询用户授权记录（openid）Json类
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter6_1_5.shtml </para>
     /// </summary>
-    public class QueryPermissionByOpenidReturnJson
+    public class QueryPermissionByOpenidReturnJson : ReturnJsonBase
     {
 
         /// <summary>

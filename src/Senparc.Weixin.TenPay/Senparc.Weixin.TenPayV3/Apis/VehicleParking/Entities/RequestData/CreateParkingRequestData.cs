@@ -36,7 +36,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.TenPayV3.Apis.BusinessCircle
+namespace Senparc.Weixin.TenPayV3.Apis.VehicleParking
 {
     /// <summary>
     /// 创建停车入场接口请求数据

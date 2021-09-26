@@ -35,13 +35,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.TenPayV3.Apis.Entities;
 
-namespace Senparc.Weixin.TenPayV3.Apis.BusinessCircle
+namespace Senparc.Weixin.TenPayV3.Apis.VehicleParking
 {
     /// <summary>
     /// 查询车牌服务开通信息返回Json类
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter8_8_1.shtml </para>
     /// </summary>
-    public class FindServiceReturnJson : ReturnJsonBase
+    public class QueryServiceReturnJson : ReturnJsonBase
     {
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BusinessCircle
         /// <param name="service_open_time">车牌服务开通时间 <para>车牌服务开通时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE，YYYY-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss表示时分秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35+08:00表示，北京时间2015年5月20日 13点29分35秒。</para><para>示例值：2017-08-26T10:43:39+08:00</para><para>可为null</para></param>
         /// <param name="openid">用户标识 <para>用户在商户对应appid下的唯一标识，此处返回商户请求中的openid</para><para>示例值：oUpF8uMuAJOM2pxb1Q</para></param>
         /// <param name="service_state">车牌服务开通状态 <para>车牌服务开通状态，NORMAL：正常服务PAUSE：暂停服务，OUT_SERVICE：未开通，商户根据状态带用户跳转至对应的微信支付分停车服务小程序页面。其中NORMAL和PAUSE状态，可跳转至车牌管理页，进行车牌服务状态管理。OUT_SERVICE状态，可跳转至服务开通页面。</para><para>示例值：PAUSE</para></param>
-        public FindServiceReturnJson(string plate_number, string plate_color, string service_open_time, string openid, string service_state)
+        public QueryServiceReturnJson(string plate_number, string plate_color, string service_open_time, string openid, string service_state)
         {
             this.plate_number = plate_number;
             this.plate_color = plate_color;
@@ -64,7 +64,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BusinessCircle
         /// <summary>
         /// 无参构造函数
         /// </summary>
-        public FindServiceReturnJson()
+        public QueryServiceReturnJson()
         {
         }
 

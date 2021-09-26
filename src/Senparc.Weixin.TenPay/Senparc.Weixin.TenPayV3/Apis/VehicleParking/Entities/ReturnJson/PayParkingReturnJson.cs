@@ -35,7 +35,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.TenPayV3.Apis.Entities;
 
-namespace Senparc.Weixin.TenPayV3.Apis.BusinessCircle
+namespace Senparc.Weixin.TenPayV3.Apis.VehicleParking
 {
     /// <summary>
     /// 扣费受理返回Json类

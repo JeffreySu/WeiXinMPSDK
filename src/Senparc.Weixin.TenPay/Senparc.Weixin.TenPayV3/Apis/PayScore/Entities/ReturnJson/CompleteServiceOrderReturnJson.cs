@@ -32,6 +32,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Senparc.Weixin.TenPayV3.Apis.Entities;
 
@@ -41,7 +42,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
     /// 完结支付分订单返回Json类
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter6_1_18.shtml </para>
     /// </summary>
-    public class CompleteServiceOrderReturnJson
+    public class CompleteServiceOrderReturnJson : ReturnJsonBase
     {
 
         /// <summary>
@@ -107,6 +108,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <para>调用接口提交的商户服务订单号 </para>
         /// <para>示例值：1234323JKHDFE1243252</para>
         /// </summary>
+        [JsonIgnore]
         public string out_order_no { get; set; }
 
         /// <summary>

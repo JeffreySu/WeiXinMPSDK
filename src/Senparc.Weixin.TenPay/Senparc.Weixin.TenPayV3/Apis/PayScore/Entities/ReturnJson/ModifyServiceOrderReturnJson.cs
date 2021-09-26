@@ -41,7 +41,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
     /// 修改订单金额返回Json类
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter6_1_17.shtml </para>
     /// </summary>
-    public class ModifyServiceOrderReturnJson
+    public class ModifyServiceOrderReturnJson : ReturnJsonBase
     {
 
         /// <summary>

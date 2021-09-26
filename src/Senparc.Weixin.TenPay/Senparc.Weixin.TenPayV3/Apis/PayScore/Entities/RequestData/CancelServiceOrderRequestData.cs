@@ -35,6 +35,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis.PayScore
@@ -87,6 +88,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <para>body 该服务ID有本接口对应产品的权限。 </para>
         /// <para>示例值：500001 </para>
         /// </summary>
+        [JsonIgnore]
         public string service_id { get; set; }
 
         /// <summary>

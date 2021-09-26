@@ -177,6 +177,134 @@ namespace Senparc.Weixin.TenPayV3.Apis
 
         #endregion
 
+        #region 微信支付分（公共API）
+
+        /// <summary>
+        /// 创建支付分订单接口
+        /// <para>用户申请使用服务时，商户可通过此接口申请创建微信支付分订单。</para>
+        /// <para>更多详细请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter6_1_14.shtml </para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<CreateServiceOrderReturnJson> CreateServiceOrderAsync(CreateServiceOrderRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/payscore/serviceorder");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<CreateServiceOrderReturnJson>(url, data, timeOut);
+        }
+
+        /// <summary>
+        /// 查询支付分订单接口
+        /// <para>用于查询单笔微信支付分订单详细信息。</para>
+        /// <para><see href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter6_1_15.shtml">更多详细请参考微信支付官方文档</see></para>
+        /// </summary>
+        /// <param name="out_order_no">商户系统内部服务订单号（不是交易单号），与创建订单时一致，商户单号与回跳查询id必填其中一个.不允许都填写或都不填写。</param>
+        /// <param name="query_id">微信侧回跳到商户前端时用于查单的单据查询id。详见章节“小程序跳转接口，回跳商户接口”，商户单号与回跳查询id必填其中一个.不允许都填写或都不填写。</param>
+        /// <param name="service_id">服务ID,该服务ID有本接口对应产品的权限</param>
+        /// <param name="appid"> 微信公众平台分配的与传入的商户号建立了支付绑定关系的appid，可在公众平台查看绑定关系，此参数需在本系统先进行配置。</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<QueryServiceOrderReturnJson> QueryServiceOrderAsync(string out_order_no, string query_id, string service_id, string appid, int timeOut = Config.TIME_OUT)
+        {
+            if ((out_order_no is null && query_id is null) || (out_order_no is not null && query_id is not null))
+            {
+                throw new TenpayApiRequestException($"{nameof(out_order_no)}与{query_id}必填其中一个.不允许都填写或都不填写");
+            }
+
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/payscore/serviceorder?service_id={service_id}&appid={appid}");
+            url += query_id is not null ? $"&query_id={query_id}" : "";
+            url += query_id is not null ? $"&query_id={query_id}" : "";
+
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<QueryServiceOrderReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+        }
+
+        /// <summary>
+        /// 取消支付分订单接口
+        /// <para>微信支付分订单创建之后，由于某些原因导致订单不能正常支付时，可使用此接口取消订单。</para>
+        /// <para>订单为以下状态时可以取消订单：CREATED（已创单）、DOING（进行中）（包括商户完结支付分订单后，且支付分订单收款状态为待支付USER_PAYING）。</para>
+        /// <para>更多详细请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter6_1_16.shtml </para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<CancelServiceOrderReturnJson> CancelServiceOrderAsync(CancelServiceOrderRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/payscore/serviceorder/{data.out_order_no}/cancel");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<CancelServiceOrderReturnJson>(url, data, timeOut);
+        }
+
+        /// <summary>
+        /// 修改订单金额接口
+        /// <para>完结订单总金额与实际金额不符时，可通过该接口修改订单金额。</para>
+        /// <para>充电宝场景，由于机器计费问题导致商户完结订单时扣除用户99元，用户客诉成功后，商户需要按照实际的消费金额（如10元）扣费，当服务订单支付状态处于“待支付”时，商户可使用此能力修改订单金额。</para>
+        /// <para>更多详细请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter6_1_17.shtml </para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<ModifyServiceOrderReturnJson> ModifyServiceOrderAsync(ModifyServiceOrderRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/payscore/serviceorder/{data.out_order_no}/modify");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<ModifyServiceOrderReturnJson>(url, data, timeOut);
+        }
+
+        /// <summary>
+        /// 完结支付分订单接口
+        /// <para>完结微信支付分订单。用户使用服务完成后，商户可通过此接口完结订单。</para>
+        /// <para>特别说明：完结接口调用成功后，微信支付将自动发起免密代扣。 若扣款失败，微信支付将自动再次发起免密代扣（按照一定频次），直到扣成功为止。</para>
+        /// <para>更多详细请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter6_1_18.shtml </para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<CompleteServiceOrderReturnJson> CompleteServiceOrderAsync(CompleteServiceOrderRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/payscore/serviceorder/{data.out_order_no}/complete");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<CompleteServiceOrderReturnJson>(url, data, timeOut);
+        }
+
+        /// <summary>
+        /// 商户发起催收扣款接口
+        /// <para>当微信支付分订单支付状态处于“待支付”时，商户可使用该接口向用户发起收款。</para>
+        /// <para>特别说明：此能力不影响微信支付分代商户向用户发起收款的策略。</para>
+        /// <para>更多详细请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter6_1_19.shtml </para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<PayServiceOrderReturnJson> PayServiceOrderAsync(PayServiceOrderRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            //TODO: 方法命名是否合理?
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/payscore/serviceorder/{data.out_order_no}/pay");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<PayServiceOrderReturnJson>(url, data, timeOut);
+        }
+
+        /// <summary>
+        /// 同步服务订单信息接口
+        /// <para>由于收款商户进行的某些“线下操作”会导致微信支付侧的订单状态与实际情况不符。例如，用户通过线下付款的方式已经完成支付，而微信支付侧并未支付成功，此时可能导致用户重复支付。因此商户需要通过订单同步接口将订单状态同步给微信支付，修改订单在微信支付系统中的状态。</para>
+        /// <para>特别说明：待支付（USER_PAYING）状态下，当用户正在尝试通过收银台主动支付订单金额时，同步服务订单信息API无法调用成功，可等待3min后重试</para>
+        /// <para>更多详细请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter6_1_20.shtml </para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<SyncPayServiceOrderReturnJson> SyncPayServiceOrderAsync(SyncPayServiceOrderRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            //TODO: 方法命名是否合理?
+            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/payscore/serviceorder/{data.out_order_no}/sync");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<SyncPayServiceOrderReturnJson>(url, data, timeOut);
+        }
+
+
+        #endregion
+
 
     }
 }

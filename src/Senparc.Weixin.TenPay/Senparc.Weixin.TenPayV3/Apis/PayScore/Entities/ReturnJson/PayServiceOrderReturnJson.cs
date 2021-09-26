@@ -41,7 +41,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
     /// 商户发起催收扣款返回Json类
     /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter6_1_19.shtml </para>
     /// </summary>
-    public class PayServiceOrderReturnJson
+    public class PayServiceOrderReturnJson : ReturnJsonBase
     {
 
         /// <summary>

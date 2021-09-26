@@ -35,6 +35,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis.PayScore
@@ -71,6 +72,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <para>path商户系统内部服务订单号（不是交易单号），与创建订单时一致。 </para>
         /// <para>示例值：2304203423948239423 </para>
         /// </summary>
+        [JsonIgnore]
         public string out_order_no { get; set; }
 
         /// <summary>

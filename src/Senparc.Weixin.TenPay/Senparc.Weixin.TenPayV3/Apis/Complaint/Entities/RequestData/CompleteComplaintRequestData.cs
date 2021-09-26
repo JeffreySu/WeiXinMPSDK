@@ -21,11 +21,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
   
-    文件名：CreateComplaintNotifyUrlRequestData.cs
-    文件功能描述：创建投诉通知回调地址接口请求数据
+    文件名：CompleteComplaintRequestData.cs
+    文件功能描述：反馈处理完成请求数据
     
     
-    创建标识：Senparc - 20210925
+    创建标识：Senparc - 20210926
 
 ----------------------------------------------------------------*/
 
@@ -34,39 +34,52 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis.Complaint
 {
     /// <summary>
-    /// 商圈积分同步接口请求数据
-    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter10_2_2.shtml </para>
+    /// 反馈处理完成请求数据
+    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter10_2_15.shtml </para>
     /// </summary>
-    public class CreateComplaintNotifyUrlRequestData
+    public class CompleteComplaintRequestData
     {
 
         /// <summary>
         /// 含参构造函数
         /// </summary>
-        /// <param name="url">通知地址  <para>body通知地址，仅支持https。</para><para>示例值：https://www.xxx.com/notify</para></param>
-        public CreateComplaintNotifyUrlRequestData(string url)
+        /// <param name="complaint_id">投诉单号 <para>path投诉单对应的投诉单号</para><para>示例值：20201820200101126</para></param>
+        /// <param name="complainted_mchid">被诉商户号 <para>body投诉单对应的被诉商户号</para><para>示例值：1900012181</para></param>
+        public CompleteComplaintRequestData(string complaint_id, string complainted_mchid)
         {
-            this.url = url;
+            this.complaint_id = complaint_id;
+            this.complainted_mchid = complainted_mchid;
         }
 
         /// <summary>
         /// 无参构造函数
         /// </summary>
-        public CreateComplaintNotifyUrlRequestData()
+        public CompleteComplaintRequestData()
         {
         }
 
         /// <summary>
-        /// 通知地址 
-        /// <para>body 通知地址，仅支持https。 </para>
-        /// <para>示例值：https://www.xxx.com/notify </para>
+        /// 投诉单号
+        /// <para>path投诉单对应的投诉单号 </para>
+        /// <para>示例值：20201820200101126</para>
         /// </summary>
-        public string url { get; set; }
+        [JsonIgnore]
+        public string complaint_id { get; set; }
+
+        /// <summary>
+        /// 被诉商户号
+        /// <para>body投诉单对应的被诉商户号 </para>
+        /// <para>示例值：1900012181</para>
+        /// </summary>
+        public string complainted_mchid { get; set; }
 
     }
+
+
 }

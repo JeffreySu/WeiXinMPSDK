@@ -34,9 +34,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.TenPayV3.Apis.BusinessCircle
+namespace Senparc.Weixin.TenPayV3.Apis.Complaint
 {
     /// <summary>
     /// 提交回复接口请求数据
@@ -72,6 +73,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BusinessCircle
         /// <para>path投诉单对应的投诉单号 </para>
         /// <para>示例值：200201820200101080076610000</para>
         /// </summary>
+        [JsonIgnore]
         public string complaint_id { get; set; }
 
         /// <summary>

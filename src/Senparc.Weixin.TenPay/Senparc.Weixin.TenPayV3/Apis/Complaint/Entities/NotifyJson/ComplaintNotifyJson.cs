@@ -36,7 +36,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.TenPayV3.Apis.Entities;
 
-namespace Senparc.Weixin.TenPayV3.Apis.BusinessCircle
+namespace Senparc.Weixin.TenPayV3.Apis.Complaint
 {
     /// <summary>
     /// 投诉通知回调通知Json

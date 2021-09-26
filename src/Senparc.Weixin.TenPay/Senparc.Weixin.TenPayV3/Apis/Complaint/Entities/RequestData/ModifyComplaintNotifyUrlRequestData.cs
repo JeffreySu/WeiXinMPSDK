@@ -36,7 +36,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.TenPayV3.Apis.BusinessCircle
+namespace Senparc.Weixin.TenPayV3.Apis.Complaint
 {
     /// <summary>
     /// 更新投诉通知回调地址接口请求数据

@@ -57,7 +57,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <param name="post_discounts">后付费商户优惠 <para>body后付费商户优惠列表，最多包含30条商户优惠。如果传入，用户侧则显示此参数。</para><para>可为null</para></param>
         /// <param name="total_amount">总金额  <para>body总金额，单位为分，不能超过完结订单时候的总金额，只能为整数，详见支付金额。此参数需满足：总金额=（修改后付费项目1…+修改后完结付费项目n）-（修改后付费商户优惠项目1…+修改后付费商户优惠项目n）</para><para>示例值：50000</para></param>
         /// <param name="reason">修改原因  <para>body按照字符计算，超过长度报错处理。</para><para>示例值：用户投诉</para></param>
-        public ModifyServiceOrderRequestData(string out_order_no, string appid, string service_id, Post_Payments[] post_payments, Post_Discounts[] post_discounts, long total_amount, string reason)
+        public ModifyServiceOrderRequestData(string out_order_no, string appid, string service_id, Post_Payment[] post_payments, Post_Discount[] post_discounts, long total_amount, string reason)
         {
             this.out_order_no = out_order_no;
             this.appid = appid;
@@ -101,14 +101,14 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// 后付费项目
         /// <para>body后付费项目列表，最多包含100条付费项目。 </para>
         /// </summary>
-        public Post_Payments[] post_payments { get; set; }
+        public Post_Payment[] post_payments { get; set; }
 
         /// <summary>
         /// 后付费商户优惠
         /// <para>body后付费商户优惠列表，最多包含30条商户优惠。 如果传入，用户侧则显示此参数。 </para>
         /// <para>可为null</para>
         /// </summary>
-        public Post_Discounts[] post_discounts { get; set; }
+        public Post_Discount[] post_discounts { get; set; }
 
         /// <summary>
         /// 总金额 
@@ -125,7 +125,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         public string reason { get; set; }
 
         #region 子数据类型
-        public class Post_Payments
+        public class Post_Payment
         {
 
             /// <summary>
@@ -135,7 +135,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             /// <param name="amount">金额  <para>此付费项目总金额，大于等于0，单位为分，等于0时代表不需要扣费，只能为整数，详见支付金额。</para><para>示例值：40000</para></param>
             /// <param name="description">计费说明  <para>描述计费规则，不超过30个字符，超出报错处理。</para><para>示例值：就餐人均100元，服务费：100/小时</para><para>可为null</para></param>
             /// <param name="count">付费数量  <para>付费项目的数量。</para><para>特殊规则：数量限制100，不填时默认1</para><para>示例值：4</para><para>可为null</para></param>
-            public Post_Payments(string name, long amount, string description, uint count)
+            public Post_Payment(string name, long amount, string description, uint? count)
             {
                 this.name = name;
                 this.amount = amount;
@@ -146,7 +146,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             /// <summary>
             /// 无参构造函数
             /// </summary>
-            public Post_Payments()
+            public Post_Payment()
             {
             }
 
@@ -179,11 +179,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             /// <para>示例值：4</para>
             /// <para>可为null</para>
             /// </summary>
-            public uint count { get; set; }
+            public uint? count { get; set; }
 
         }
 
-        public class Post_Discounts
+        public class Post_Discount
         {
 
             /// <summary>
@@ -193,7 +193,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             /// <param name="description">优惠说明  <para>优惠使用条件说明。name和description若填写，则必须同时填写。</para><para>示例值：不与其他优惠叠加</para></param>
             /// <param name="amount">优惠金额  <para>优惠金额；单位为分，只能为整数，详见支付金额。</para><para>示例值：100</para></param>
             /// <param name="count">优惠数量  <para>优惠的数量。</para><para>特殊规则：数量限制100，不填时默认1。</para><para>示例值：2</para><para>可为null</para></param>
-            public Post_Discounts(string name, string description, long amount, uint count)
+            public Post_Discount(string name, string description, long amount, uint count)
             {
                 this.name = name;
                 this.description = description;
@@ -204,7 +204,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             /// <summary>
             /// 无参构造函数
             /// </summary>
-            public Post_Discounts()
+            public Post_Discount()
             {
             }
 

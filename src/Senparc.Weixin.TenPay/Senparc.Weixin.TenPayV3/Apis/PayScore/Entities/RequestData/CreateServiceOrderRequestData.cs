@@ -58,11 +58,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <param name="time_range">服务时间段 <para>body服务时间范围</para></param>
         /// <param name="location">服务位置 <para>body服务位置信息如果传入，用户侧则显示此参数。</para><para>可为null</para></param>
         /// <param name="risk_fund">订单风险金 <para>body订单风险金信息</para></param>
-        /// <param name="attach">商户数据包  <para>body商户数据包可存放本订单所需信息，需要先urlencode后传入。当商户数据包总长度超出256字符时，报错处理。</para><para>示例值：Easdfowealsdkjfnlaksjdlfkwqoi&wl3l2sald</para><para>可为null</para></param>
+        /// <param name="attach">商户数据包  <para>body商户数据包可存放本订单所需信息，需要先urlencode后传入。当商户数据包总长度超出256字符时，报错处理。</para><para>可为null</para></param>
         /// <param name="notify_url">商户回调地址  <para>body商户接收用户确认订单和付款成功回调通知的地址。</para><para>示例值：https://api.test.com</para></param>
-        /// <param name="openid">用户标识  <para>body微信用户在商户对应appid下的唯一标识。免确认订单：必填需确认订单：不填</para><para>获取用户openid指引</para><para>示例值：oUpF8uMuAJO_M2pxb1Q9zNjWeS6o</para></param>
+        /// <param name="openid">用户标识  <para>body微信用户在商户对应appid下的唯一标识。免确认订单：必填需确认订单：不填</para><para>获取用户openid指引</para></param>
         /// <param name="need_user_confirm">是否需要用户确认 <para>body枚举值：false：免确认订单true：需确认订单默认值true</para><para>示例值：true</para><para>可为null</para></param>
-        public CreateServiceOrderRequestData(string out_order_no, string appid, string service_id, string service_introduction, Post_Payments[] post_payments, Post_Discounts[] post_discounts, Time_Range time_range, Location location, Risk_Fund risk_fund, string attach, string notify_url, string openid, bool need_user_confirm)
+        public CreateServiceOrderRequestData(string out_order_no, string appid, string service_id, string service_introduction, Post_Payment[] post_payments, Post_Discount[] post_discounts, Time_Range time_range, Location location, Risk_Fund risk_fund, string attach, string notify_url, string openid, bool? need_user_confirm)
         {
             this.out_order_no = out_order_no;
             this.appid = appid;
@@ -121,14 +121,14 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <para>body后付费项目列表，最多包含100条付费项目。 如果传入，用户侧则显示此参数。 </para>
         /// <para>可为null</para>
         /// </summary>
-        public Post_Payments[] post_payments { get; set; }
+        public Post_Payment[] post_payments { get; set; }
 
         /// <summary>
         /// 后付费商户优惠
         /// <para>body后付费商户优惠列表，最多包含30条商户优惠。 如果传入，用户侧则显示此参数。 </para>
         /// <para>可为null</para>
         /// </summary>
-        public Post_Discounts[] post_discounts { get; set; }
+        public Post_Discount[] post_discounts { get; set; }
 
         /// <summary>
         /// 服务时间段
@@ -178,10 +178,10 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <para>示例值：true</para>
         /// <para>可为null</para>
         /// </summary>
-        public bool need_user_confirm { get; set; }
+        public bool? need_user_confirm { get; set; }
 
         #region 子数据类型
-        public class Post_Payments
+        public class Post_Payment
         {
 
             /// <summary>
@@ -191,7 +191,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             /// <param name="amount">金额  <para>此付费项目总金额，大于等于0，单位为分，等于0时代表不需要扣费，只能为整数，详见支付金额。如果填写了“付费项目名称”，则amount或description必须填写其一，或都填。</para><para>示例值：40000</para></param>
             /// <param name="description">计费说明  <para>描述计费规则，不超过30个字符，超出报错处理。如果填写了“付费项目名称”，则amount或description必须填写其一，或都填。</para><para>示例值：就餐人均100元，服务费：100/小时</para></param>
             /// <param name="count">付费数量  <para>付费项目的数量。</para><para>特殊规则：数量限制100，不填时默认1。</para><para>示例值：4</para><para>可为null</para></param>
-            public Post_Payments(string name, long amount, string description, uint count)
+            public Post_Payment(string name, long amount, string description, uint? count)
             {
                 this.name = name;
                 this.amount = amount;
@@ -202,7 +202,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             /// <summary>
             /// 无参构造函数
             /// </summary>
-            public Post_Payments()
+            public Post_Payment()
             {
             }
 
@@ -236,11 +236,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             /// <para>示例值：4</para>
             /// <para>可为null</para>
             /// </summary>
-            public uint count { get; set; }
+            public uint? count { get; set; }
 
         }
 
-        public class Post_Discounts
+        public class Post_Discount
         {
 
             /// <summary>
@@ -248,7 +248,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             /// </summary>
             /// <param name="name">优惠名称  <para>优惠名称说明；name和description若填写，则必须同时填写，优惠名称不可重复描述。</para><para>示例值：满20减1元</para></param>
             /// <param name="description">优惠说明  <para>条件选填</para>TODO:多选一</param>
-            public Post_Discounts(string name, string description)
+            public Post_Discount(string name, string description)
             {
                 this.name = name;
                 this.description = description;
@@ -257,7 +257,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             /// <summary>
             /// 无参构造函数
             /// </summary>
-            public Post_Discounts()
+            public Post_Discount()
             {
             }
 
@@ -286,11 +286,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             /// <param name="start_time_remark">服务开始时间备注 <para>服务开始时间备注说明，服务开始时间有填时，可填写服务开始时间备注，不超过20个字符，超出报错处理。</para><para>示例值：开始租借日期</para><para>可为null</para></param>
             /// <param name="end_time">预计服务结束时间  <para>用户端展示用途，支持两种格式：yyyyMMddHHmmss和yyyyMMdd</para><para>●传入20091225091010表示2009年12月25日9点10分10秒。</para><para>●传入20091225默认时间为2009年12月25日</para><para>根据传入时间精准度进行校验1、若传入时间精准到秒，则校验精准到秒：1）【预计服务结束时间】>【服务开始时间】2）【预计服务结束时间】>【商户调用接口时间+1分钟】2、若传入时间精准到日，则校验精准到日：1）【预计服务结束时间】>=【服务开始时间】2）【预计服务结束时间】>=【商户调用接口时间】【建议】  1、用户下单时【未确定】服务结束时间，不填写。  2、用户下单时【已确定】服务结束时间，填写。</para><para>示例值：20091225121010</para><para>可为null</para></param>
             /// <param name="end_time_remark">预计服务结束时间备注 <para>预计服务结束时间备注说明，预计服务结束时间有填时，可填写预计服务结束时间备注，不超过20个字符，超出报错处理。</para><para>示例值：结束租借时间</para><para>可为null</para></param>
-            public Time_Range(string start_time, string start_time_remark, string end_time, string end_time_remark)
+            public Time_Range(TenpayDateTime start_time, string start_time_remark, TenpayDateTime end_time, string end_time_remark)
             {
-                this.start_time = start_time;
+                this.start_time = start_time.ToString();
                 this.start_time_remark = start_time_remark;
-                this.end_time = end_time;
+                this.end_time = end_time.ToString();
                 this.end_time_remark = end_time_remark;
             }
 

@@ -59,7 +59,8 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <param name="location">服务位置 <para>body服务位置如果传入，用户侧则显示此参数。</para><para>可为null</para></param>
         /// <param name="profit_sharing">微信支付服务分账标记  <para>body完结订单分账接口标记。分账开通流程，详见false：不分账，默认：falsetrue：分账。</para><para>示例值：false</para><para>可为null</para></param>
         /// <param name="goods_tag">订单优惠标记  <para>body订单优惠标记，代金券或立减金优惠的参数，说明详见代金券或立减金优惠</para><para>示例值：goods_tag</para><para>可为null</para></param>
-        public CompleteServiceOrderRequestData(string out_order_no, string appid, string service_id, Post_Payments[] post_payments, Post_Discounts[] post_discounts, long total_amount, Time_Range time_range, Location location, bool profit_sharing, string goods_tag)
+        public CompleteServiceOrderRequestData(string out_order_no, string appid, string service_id, Post_Payment[] post_payments, Post_Discount
+            [] post_discounts, long total_amount, Time_Range time_range, Location location, bool? profit_sharing, string goods_tag)
         {
             this.out_order_no = out_order_no;
             this.appid = appid;
@@ -105,14 +106,14 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// 后付费项目
         /// <para>body 后付费项目列表，最多包含100条付费项目 </para>
         /// </summary>
-        public Post_Payments[] post_payments { get; set; }
+        public Post_Payment[] post_payments { get; set; }
 
         /// <summary>
         /// 后付费商户优惠
         /// <para>body 后付费商户优惠列表，最多包含30条商户优惠 如果传入，用户侧则显示此参数 </para>
         /// <para>可为null</para>
         /// </summary>
-        public Post_Discounts[] post_discounts { get; set; }
+        public Post_Discount[] post_discounts { get; set; }
 
         /// <summary>
         /// 总金额 
@@ -140,7 +141,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <para>示例值：false </para>
         /// <para>可为null</para>
         /// </summary>
-        public bool profit_sharing { get; set; }
+        public bool? profit_sharing { get; set; }
 
         /// <summary>
         /// 订单优惠标记 
@@ -151,7 +152,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         public string goods_tag { get; set; }
 
         #region 子数据类型
-        public class Post_Payments
+        public class Post_Payment
         {
 
             /// <summary>
@@ -161,7 +162,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             /// <param name="amount">金额  <para>此付费项目总金额，大于等于0，单位为分，等于0时代表不需要扣费，只能为整数，详见支付金额。</para><para>示例值：40000</para></param>
             /// <param name="description">计费说明  <para>描述计费规则，不超过30个字符，超出报错处理</para><para>示例值：就餐人均100元，服务费：100/小时</para><para>可为null</para></param>
             /// <param name="count">付费数量  <para>付费项目的数量</para><para>特殊规则：数量限制100，不填时默认1</para><para>示例值：4</para><para>可为null</para></param>
-            public Post_Payments(string name, long amount, string description, uint count)
+            public Post_Payment(string name, long amount, string description, uint? count)
             {
                 this.name = name;
                 this.amount = amount;
@@ -172,7 +173,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             /// <summary>
             /// 无参构造函数
             /// </summary>
-            public Post_Payments()
+            public Post_Payment()
             {
             }
 
@@ -205,11 +206,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             /// <para>示例值：4</para>
             /// <para>可为null</para>
             /// </summary>
-            public uint count { get; set; }
+            public uint? count { get; set; }
 
         }
 
-        public class Post_Discounts
+        public class Post_Discount
         {
 
             /// <summary>
@@ -219,7 +220,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             /// <param name="description">优惠说明  <para>优惠使用条件说明</para><para>示例值：不与其他优惠叠加</para><para></para></param>
             /// <param name="amount">优惠金额  <para>优惠金额，单位为分，只能为整数，详见支付金额。 </para><para>示例值：100</para></param>
             /// <param name="count">优惠数量  <para>优惠的数量</para><para>特殊规则：数量限制100，不填时默认1</para><para>示例值：2</para><para>可为null</para></param>
-            public Post_Discounts(string name, string description, long amount, uint count)
+            public Post_Discount(string name, string description, long amount, uint count)
             {
                 this.name = name;
                 this.description = description;
@@ -230,7 +231,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             /// <summary>
             /// 无参构造函数
             /// </summary>
-            public Post_Discounts()
+            public Post_Discount()
             {
             }
 
@@ -277,11 +278,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             /// <param name="start_time_remark">服务开始时间备注 <para>服务开始时间备注说明。1、服务开始时间有填时，可填写服务开始时间备注2、若与【服务开始时间备注】不一致，则以【实际服务开始时间备注】为准，不超过20个字符，超出报错处理。</para><para>示例值：出账日</para><para>可为null</para></param>
             /// <param name="end_time">服务结束时间  <para>创建订单未填写服务结束时间，则完结的时候，服务结束时间必填1、【调用完结接口时间】≥【实际服务结束时间】>【服务开始时间】2、要求时间格式必须与首次传入格式保持一致，在一致前提下可修改。3、若创建时，服务开始时间为格式3=OnAccept，则完结时间默认精确到秒级。用户端展示用途，支持两种格式：yyyyMMddHHmmss和yyyyMMdd</para><para>●传入20091225091010表示2009年12月25日9点10分10秒</para><para>●传入20091225默认时间为2009年12月25日</para><para>【建议】  实际服务结束时间和预计服务结束时间一致时，不填写</para><para>示例值：20091225121010</para></param>
             /// <param name="end_time_remark">服务结束时间备注 <para>服务结束时间备注说明。1、服务结束时间有填时，可填写服务结束时间备注2、若与【服务结束时间备注】不一致，则以【实际服务结束时间备注】为准，不超过20个字符，超出报错处理。</para><para>示例值：结束租借时间</para><para>可为null</para></param>
-            public Time_Range(string start_time, string start_time_remark, string end_time, string end_time_remark)
+            public Time_Range(TenpayDateTime start_time, string start_time_remark, TenpayDateTime end_time, string end_time_remark)
             {
-                this.start_time = start_time;
+                this.start_time = start_time.ToString();
                 this.start_time_remark = start_time_remark;
-                this.end_time = end_time;
+                this.end_time = end_time.ToString();
                 this.end_time_remark = end_time_remark;
             }
 
@@ -359,8 +360,5 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
 
         #endregion
     }
-
-
-
 
 }

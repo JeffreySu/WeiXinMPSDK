@@ -296,7 +296,11 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<SyncPayServiceOrderReturnJson> SyncPayServiceOrderAsync(SyncPayServiceOrderRequestData data, int timeOut = Config.TIME_OUT)
         {
-            //TODO: 方法命名是否合理?
+            if (data.type == "Order_Paid" && data.detail is null)
+            {
+                throw new TenpayApiRequestException($"{nameof(data.type)}为'Order_Paid'与{nameof(data.detail)});
+            }
+
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/payscore/serviceorder/{data.out_order_no}/sync");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<SyncPayServiceOrderReturnJson>(url, data, timeOut);

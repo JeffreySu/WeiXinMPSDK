@@ -93,7 +93,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             var price = 100;
             var name = "单元测试-" + DateTime.Now.ToString();
-            
+
             var sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
                          TenPayV3Util.BuildRandomStr(6));
 
@@ -118,7 +118,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             var price = 100;
             var name = "单元测试-" + DateTime.Now.ToString();
-            
+
             var sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
                          TenPayV3Util.BuildRandomStr(6));
 
@@ -144,7 +144,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             var price = 100;
             var name = "单元测试-" + DateTime.Now.ToString();
-            
+
             var sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
                          TenPayV3Util.BuildRandomStr(6));
 
@@ -175,14 +175,14 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             var orderIndex = 0;
             //获取新的子订单
             Func<CombineTransactionsRequestData.Sub_Order> getSubOrder = () =>
-               {
-                   orderIndex++;
-                   var out_trade_no = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
-                                            TenPayV3Util.BuildRandomStr(6) + orderIndex);
-                   Console.WriteLine(orderIndex + " SubOrder \t" + out_trade_no);
+            {
+                orderIndex++;
+                var out_trade_no = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
+                                         TenPayV3Util.BuildRandomStr(6) + orderIndex);
+                Console.WriteLine(orderIndex + " SubOrder \t" + out_trade_no);
 
-                   return new(TenPayV3Info.MchId, name + orderIndex, new(price + orderIndex, "CNY"), out_trade_no, null, "子订单测试" + orderIndex, null);
-               };
+                return new(TenPayV3Info.MchId, name + orderIndex, new(price + orderIndex, "CNY"), out_trade_no, null, "子订单测试" + orderIndex, null);
+            };
 
             var subOrders = new List<CombineTransactionsRequestData.Sub_Order>
             {

@@ -120,6 +120,11 @@ namespace Senparc.Weixin.TenPayV3
                         responseMessage = await client.GetAsync(url);
                         WeixinTrace.Log(url); //记录Get的Json数据
                         break;
+                    //TODO: 此处新增DELETE方法 待测试是否有问题
+                    case ApiRequestMethod.DELETE:
+                        responseMessage = await client.DeleteAsync(url);
+                        WeixinTrace.Log(url); //记录Delete的Json数据
+                        break;
                     case ApiRequestMethod.POST:
                     case ApiRequestMethod.PUT:
                     case ApiRequestMethod.PATCH:

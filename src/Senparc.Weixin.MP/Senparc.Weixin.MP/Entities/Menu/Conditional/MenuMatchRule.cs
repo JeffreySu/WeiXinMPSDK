@@ -31,6 +31,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v13.8.8 添加tag_id和language匹配项
 ----------------------------------------------------------------*/
 
+using System;
 using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.MP.Entities.Menu
@@ -52,18 +53,22 @@ namespace Senparc.Weixin.MP.Entities.Menu
         /// <summary>
         /// 性别：男（1）女（2），不填则不做匹配
         /// </summary>
+        [Obsolete("https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&announce_id=11632637451RQs8y")]
         public string sex { get; set; }
         /// <summary>
         /// 国家信息，是用户在微信中设置的地区，具体请参考地区信息表
         /// </summary>
+        [Obsolete("https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&announce_id=11632637451RQs8y")]
         public string country { get; set; }
         /// <summary>
         /// 省份信息，是用户在微信中设置的地区，具体请参考地区信息表
         /// </summary>
+        [Obsolete("https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&announce_id=11632637451RQs8y")]
         public string province { get; set; }
         /// <summary>
         /// 城市信息，是用户在微信中设置的地区，具体请参考地区信息表
         /// </summary>
+        [Obsolete("https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&announce_id=11632637451RQs8y")]
         public string city { get; set; }
         /// <summary>
         /// 客户端版本，当前只具体到系统型号：IOS(1), Android(2),Others(3)，不填则不做匹配
@@ -85,10 +90,6 @@ namespace Senparc.Weixin.MP.Entities.Menu
         public bool CheckAllNull()
         {
             return    group_id.IsNullOrWhiteSpace()
-                   && sex.IsNullOrWhiteSpace()
-                   && country.IsNullOrWhiteSpace()
-                   && province.IsNullOrWhiteSpace()
-                   && city.IsNullOrWhiteSpace()
                    && client_platform_type.IsNullOrWhiteSpace()
                    && tag_id.IsNullOrWhiteSpace()
                    && language.IsNullOrWhiteSpace();

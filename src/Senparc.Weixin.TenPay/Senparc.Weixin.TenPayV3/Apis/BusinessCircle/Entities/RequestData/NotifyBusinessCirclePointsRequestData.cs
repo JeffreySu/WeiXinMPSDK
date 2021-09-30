@@ -56,14 +56,14 @@ namespace Senparc.Weixin.TenPayV3.Apis.BusinessCircle
         /// <param name="points_update_time">积分更新时间 <para>body为顾客此笔交易成功积分的时间</para><para>示例值：2020-05-20T13:29:35.120+08:00</para></param>
         /// <param name="no_points_remarks">未获得积分的备注信息 <para>body当未获得积分时，提供未获得积分的原因等备注信息</para><para>示例值：商品不参与积分活动</para><para>可为null</para></param>
         /// <param name="total_points">顾客积分总额 <para>body当前顾客积分总额</para><para>示例值：888888</para><para>可为null</para></param>
-        public NotifyBusinessCirclePointsRequestData(string transaction_id, string appid, string openid, bool earn_points, int increased_points, string points_update_time, string no_points_remarks, int total_points)
+        public NotifyBusinessCirclePointsRequestData(string transaction_id, string appid, string openid, bool earn_points, int increased_points, TenpayDateTime points_update_time, string no_points_remarks, int? total_points)
         {
             this.transaction_id = transaction_id;
             this.appid = appid;
             this.openid = openid;
             this.earn_points = earn_points;
             this.increased_points = increased_points;
-            this.points_update_time = points_update_time;
+            this.points_update_time = points_update_time.ToString();
             this.no_points_remarks = no_points_remarks;
             this.total_points = total_points;
         }
@@ -131,9 +131,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BusinessCircle
         /// <para>示例值：888888</para>
         /// <para>可为null</para>
         /// </summary>
-        public int total_points { get; set; }
+        public int? total_points { get; set; }
 
     }
-
-
 }

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.TenPayV3.Test.net6.Apis.VehicleParking
 {
     // 测试前请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/open/pay/chapter3_7_2.shtml
-    public class VehicleParkingApisTest
+    public class VehicleParkingApisTest : BaseTenPayTest
     {
         string openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//"olPjZjiGtsfaqOhUbOd2puy1wVvc";//换成测试人的 OpenId
         string notify_url = "{notify_url}";//通知回调url 只接收https

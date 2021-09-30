@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Test.net6.Apis
 {
-    public class ProfitsharingApisTest
+    public class ProfitsharingApisTest : BaseTenPayTest
     {
         #region 分账接口
 

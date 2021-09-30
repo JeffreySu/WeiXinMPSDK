@@ -379,6 +379,23 @@ namespace Senparc.Weixin.Open.WxaAPIs
             return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
+        /// <summary>
+        /// 提审素材上传接口
+        /// 文档 https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/code/submit_audit.html
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static UploadMediaResult UploadMedia(string accessToken, string file, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/uploadmedia?access_token={0}", accessToken.AsUrlData());
+
+            var fileDictionary = new Dictionary<string, string>();
+            fileDictionary["media"] = file;
+            return Post.PostFileGetJson<UploadMediaResult>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
+        }
+
+
         #endregion
 
 
@@ -703,6 +720,24 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
             return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// 提审素材上传接口
+        /// 文档 https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/code/submit_audit.html
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="file"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<UploadMediaResult> UploadMediaAsync(string accessToken, string file, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/uploadmedia?access_token={0}", accessToken.AsUrlData());
+
+            var fileDictionary = new Dictionary<string, string>();
+            fileDictionary["media"] = file;
+            return await Post.PostFileGetJsonAsync<UploadMediaResult>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
+        }
+
         #endregion
     }
 }

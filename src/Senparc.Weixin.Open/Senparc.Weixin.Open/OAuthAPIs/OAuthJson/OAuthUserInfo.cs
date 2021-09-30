@@ -7,8 +7,12 @@
     
     创建标识：Senparc - 20150712
     
+    修改标识：Varorbc - 20210930
+    修改描述：v16.15.500 用户信息调整：不再返回用户性别及地区信息
+
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Entities;
 using System;
 
 namespace Senparc.Weixin.Open.OAuthAPIs
@@ -17,7 +21,7 @@ namespace Senparc.Weixin.Open.OAuthAPIs
     /// 通过OAuth的获取到的用户信息（snsapi_userinfo=scope）
     /// </summary>
     [Serializable]
-    public class OAuthUserInfo
+    public class OAuthUserInfo : IUserInfo
     {
         public string openid { get; set; }
         public string nickname { get; set; }

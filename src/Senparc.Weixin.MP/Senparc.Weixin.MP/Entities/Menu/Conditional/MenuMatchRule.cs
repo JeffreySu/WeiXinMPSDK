@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：lishewen - 20150628
     修改描述：v13.8.8 添加tag_id和language匹配项
+
+    修改标识：Varorbc - 20210930
+    修改描述：v16.15.500 用户信息调整：不再返回用户性别及地区信息
 ----------------------------------------------------------------*/
 
 using System;

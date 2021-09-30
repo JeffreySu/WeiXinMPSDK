@@ -45,7 +45,7 @@ namespace Senparc.Weixin.TenPayV3.Entities
     //[Serializable]
     public class TenpayDateTime //: ISerializable
     {
-        private bool _keepMillionSeconds ;
+        private bool _keepMillionSeconds;
 
         public TenpayDateTime(DateTime dateTime, bool keepMillionSeconds = true)
         {

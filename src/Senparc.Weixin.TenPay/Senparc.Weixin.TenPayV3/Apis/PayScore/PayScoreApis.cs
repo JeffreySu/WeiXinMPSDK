@@ -298,7 +298,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             if (data.type == "Order_Paid" && data.detail is null)
             {
-                throw new TenpayApiRequestException($"{nameof(data.type)}为'Order_Paid'与{nameof(data.detail)});
+                throw new TenpayApiRequestException($"{nameof(data.type)}为'Order_Paid'与{nameof(data.detail)}");
             }
 
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/payscore/serviceorder/{data.out_order_no}/sync");

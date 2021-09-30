@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.TenPayV3.Test.net6.Apis.Profitsharing
+namespace Senparc.Weixin.TenPayV3.Test.net6.Apis
 {
     public class ProfitsharingApisTest
     {

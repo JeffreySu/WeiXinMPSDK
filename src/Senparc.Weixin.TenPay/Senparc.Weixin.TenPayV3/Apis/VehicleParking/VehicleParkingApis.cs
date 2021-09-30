@@ -132,11 +132,11 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="out_trade_no">商户系统内部订单号，只能是数字、大小写字母，且在同一个商户号下唯一</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<QueryServiceReturnJson> QueryServiceAsync(string out_trade_no, int timeOut = Config.TIME_OUT)
+        public async Task<QueryParkingReturnJson> QueryParkingAsync(string out_trade_no, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/vehicle/transactions/out-trade-no/{out_trade_no}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
-            return await tenPayApiRequest.RequestAsync<QueryServiceReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+            return await tenPayApiRequest.RequestAsync<QueryParkingReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }
     }
 }

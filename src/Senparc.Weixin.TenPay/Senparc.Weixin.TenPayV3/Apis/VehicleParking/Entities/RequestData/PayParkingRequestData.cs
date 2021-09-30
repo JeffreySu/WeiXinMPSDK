@@ -30,6 +30,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.TenPayV3.Entities;
+using Senparc.Weixin.TenPayV3.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -213,6 +214,23 @@ namespace Senparc.Weixin.TenPayV3.Apis.VehicleParking
                 this.parking_name = parking_name;
                 this.charging_duration = charging_duration;
                 this.device_id = device_id;
+            }
+
+            /// <summary>
+            /// 由CreateParkingReturnJson类型生成结算停车数据 并且自动计算计费时长
+            /// </summary>
+            /// <param name="createParkingReturnJson"></param>
+            public Parking_Info(CreateParkingReturnJson createParkingReturnJson)
+            {
+                this.parking_id = createParkingReturnJson.id;
+                this.plate_number = createParkingReturnJson.plate_number;
+                this.plate_color = createParkingReturnJson.plate_color;
+                this.start_time = createParkingReturnJson.start_time;
+                this.parking_name = createParkingReturnJson.parking_name;
+
+                // 记录出场时间并计算收费时长
+                this.end_time = DateTime.Now.ToString();
+                this.charging_duration = (new TimeSpan(TenPayDateTimeHelper.PraseDateTimeFromString(end_time).Ticks) - new TimeSpan(TenPayDateTimeHelper.PraseDateTimeFromString(start_time).Ticks)).Seconds - createParkingReturnJson.free_duration;
             }
 
             /// <summary>

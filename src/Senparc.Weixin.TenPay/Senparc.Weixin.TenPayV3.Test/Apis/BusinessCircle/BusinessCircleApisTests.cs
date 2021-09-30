@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace Senparc.Weixin.TenPayV3.Apis.Tests
 {
-    //TODO: 测试前请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/open/pay/chapter3_6_2.shtml
+    //TODO: 测试前请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/open/pay/chapter6_2_2.shtml
     [TestClass()]
     public class BusinessCircleApisTests : BaseTenPayTest
     {
@@ -35,7 +35,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             var TenPayV3Info = TenPayV3InfoCollection.Data[key];
 
             var transaction_id = "{transaction_id}";// 输入微信支付推送的商圈内交易通知里携带的微信订单号
-            var requestData = new NotifyBusinessCirclePointsRequestData(transaction_id, TenPayV3Info.AppId, openId, true, 1,, null, null);
+            var requestData = new NotifyBusinessCirclePointsRequestData(transaction_id, TenPayV3Info.AppId, openId, true, 1, new TenpayDateTime(DateTime.Now), null, null);
 
             var businessCircleApis = new BusinessCircleApis();
 

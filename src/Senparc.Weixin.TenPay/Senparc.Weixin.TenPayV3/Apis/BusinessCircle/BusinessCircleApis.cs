@@ -83,7 +83,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<ReturnJsonBase> NotifyBusinessCircleAsync(NotifyBusinessCirclePointsRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<ReturnJsonBase> NotifyBusinessCirclePointsAsync(NotifyBusinessCirclePointsRequestData data, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/businesscircle/points/notify");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);

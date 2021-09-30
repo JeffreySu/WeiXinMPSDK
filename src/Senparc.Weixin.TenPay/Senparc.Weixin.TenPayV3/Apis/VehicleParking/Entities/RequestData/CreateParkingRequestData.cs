@@ -55,13 +55,13 @@ namespace Senparc.Weixin.TenPayV3.Apis.VehicleParking
         /// <param name="start_time">入场时间 <para>body入场时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE，YYYY-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss表示时分秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35+08:00表示，北京时间2015年5月20日 13点29分35秒。</para><para>示例值：2017-08-26T10:43:39+08:00</para></param>
         /// <param name="parking_name">停车场名称 <para>body所在停车位车场的名称</para><para>示例值：欢乐海岸停车场</para></param>
         /// <param name="free_duration">免费时长 <para>body停车场的免费停车时长，单位为秒</para><para>示例值：3600</para></param>
-        public CreateParkingRequestData(string out_parking_no, string plate_number, string plate_color, string notify_url, string start_time, string parking_name, int free_duration)
+        public CreateParkingRequestData(string out_parking_no, string plate_number, string plate_color, string notify_url, TenpayDateTime start_time, string parking_name, int free_duration)
         {
             this.out_parking_no = out_parking_no;
             this.plate_number = plate_number;
             this.plate_color = plate_color;
             this.notify_url = notify_url;
-            this.start_time = start_time;
+            this.start_time = start_time.ToString();
             this.parking_name = parking_name;
             this.free_duration = free_duration;
         }

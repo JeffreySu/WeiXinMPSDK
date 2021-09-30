@@ -24,9 +24,22 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         /// <summary>
         /// 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
         /// </summary>
+        [Obsolete("https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&announce_id=11632637451RQs8y")]
         public int sex { get; set; }
+        /// <summary>
+        /// 用户个人资料填写的省份
+        /// </summary>
+        [Obsolete("https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&announce_id=11632637451RQs8y")]
         public string province { get; set; }
+        /// <summary>
+        /// 普通用户个人资料填写的城市
+        /// </summary>
+        [Obsolete("https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&announce_id=11632637451RQs8y")]
         public string city { get; set; }
+        /// <summary>
+        /// 国家，如中国为CN
+        /// </summary>
+        [Obsolete("https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&announce_id=11632637451RQs8y")]
         public string country { get; set; }
         /// <summary>
         /// 用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空

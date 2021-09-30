@@ -1,0 +1,41 @@
+﻿namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Express
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    public class CancelOrderModel
+    {
+        /// <summary>
+        /// 商家id， 由配送公司分配的appkey
+        /// </summary>
+        public string shopid { get; set; }
+        /// <summary>
+        /// 唯一标识订单的 ID，由商户生成, 不超过128字节
+        /// </summary>
+        public string shop_order_id { get; set; }
+        /// <summary>
+        /// 商家门店编号，在配送公司登记，美团、闪送必填
+        /// </summary>
+        public string shop_no { get; set; }
+        /// <summary>
+        /// 用配送公司提供的appSecret加密的校验串说明
+        /// </summary>
+        public string delivery_sign { get; set; }
+        /// <summary>
+        /// 配送公司ID
+        /// </summary>
+        public string delivery_id { get; set; }
+        /// <summary>
+        /// 配送单id
+        /// </summary>
+        public string waybill_id { get; set; }
+        /// <summary>
+        /// 取消原因id
+        /// </summary>
+        public int cancel_reason_id { get; set; }
+        /// <summary>
+        /// 取消原因
+        /// </summary>
+        public string cancel_reason { get; set; }
+    }
+}

@@ -163,11 +163,11 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <returns></returns>
         public static async Task<bool> VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignature, string content, string serialNumber, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
         {
-            string contentForSign = $"{wechatpayTimestamp}\n{wechatpayNonce}\n{content}\n";
+            //string contentForSign = $"{wechatpayTimestamp}\n{wechatpayNonce}\n{content}\n";
 
             var tenpayV3InfoKey = TenPayHelper.GetRegisterKey(senparcWeixinSettingForTenpayV3.TenPayV3_MchId, senparcWeixinSettingForTenpayV3.TenPayV3_SubMchId);
             var pubKey = await TenPayV3InfoCollection.Data[tenpayV3InfoKey].GetPublicKeyAsync(serialNumber, senparcWeixinSettingForTenpayV3);
-            return VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, contentForSign, pubKey);
+            return VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content, pubKey);
         }
 
         /// <summary>

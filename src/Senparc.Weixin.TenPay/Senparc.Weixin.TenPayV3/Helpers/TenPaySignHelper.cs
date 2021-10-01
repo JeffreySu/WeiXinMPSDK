@@ -73,10 +73,12 @@ namespace Senparc.Weixin.TenPayV3.Helpers
             //    return Convert.ToBase64String(rsa.SignData(data, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
             //}
 
-            var rsa = System.Security.Cryptography.RSA.Create();
-            rsa.ImportPkcs8PrivateKey(keyData, out _);
-            byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
-            return Convert.ToBase64String(rsa.SignData(data, 0, data.Length, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
+            using (var rsa = System.Security.Cryptography.RSA.Create())
+            {
+                rsa.ImportPkcs8PrivateKey(keyData, out _);
+                byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
+                return Convert.ToBase64String(rsa.SignData(data, 0, data.Length, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
+            }
         }
 
         /// <summary>

@@ -27,6 +27,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20210819
 
+    修改标识：Senparc - 20211002
+    修改描述：v0.3.500.4-preview4.3 TenPaySignHelper.CreateSign() 支持 Linux 和 Windows 环境
     
 ----------------------------------------------------------------*/
 
@@ -35,6 +37,7 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
@@ -59,13 +62,21 @@ namespace Senparc.Weixin.TenPayV3.Helpers
             // NOTE： 私钥不包括私钥文件起始的-----BEGIN PRIVATE KEY-----
             //        亦不包括结尾的-----END PRIVATE KEY-----
             //string privateKey = "{你的私钥}";
+
             byte[] keyData = Convert.FromBase64String(privateKey);
-            using (CngKey cngKey = CngKey.Import(keyData, CngKeyBlobFormat.Pkcs8PrivateBlob))
-            using (RSACng rsa = new RSACng(cngKey))
-            {
-                byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
-                return Convert.ToBase64String(rsa.SignData(data, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
-            }
+
+            //以下方法不兼容 Linux
+            //using (CngKey cngKey = CngKey.Import(keyData, CngKeyBlobFormat.Pkcs8PrivateBlob))
+            //using (RSACng rsa = new RSACng(cngKey))
+            //{
+            //    byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
+            //    return Convert.ToBase64String(rsa.SignData(data, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
+            //}
+
+            var rsa = System.Security.Cryptography.RSA.Create();
+            rsa.ImportPkcs8PrivateKey(keyData, out _);
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
+            return Convert.ToBase64String(rsa.SignData(data, 0, data.Length, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
         }
 
         /// <summary>

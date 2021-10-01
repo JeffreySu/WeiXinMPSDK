@@ -41,12 +41,10 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             var requestData = new CreateStockRequsetData("单元测试代金券批次", "用于单元测试", TenPayV3Info.MchId, new TenpayDateTime(DateTime.Now.AddMinutes(1)), new TenpayDateTime(DateTime.Now.AddMinutes(30)), stock_use_rule, null, coupon_use_rule, true, "NORMAL", out_request_no);
 
-
-
+            
             /* 提示：
              * 使用此功能必须在后台【产品中心】开通【预充值代金券】功能！
              */
-
 
             var marketingApis = new MarketingApis();
 

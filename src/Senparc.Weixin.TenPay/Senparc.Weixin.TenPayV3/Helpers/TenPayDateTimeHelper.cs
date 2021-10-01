@@ -53,5 +53,11 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         {
             return dateTime.ToString($"yyyy-MM-ddTHH:mm:ss{(keepMillionseconds ? ".fff" : "")}zzz");//).ToString("yyyy-MM-ddTHH:mm:fff");
         }
+
+        // TODO:新加入方法 待测试可靠性
+        public static DateTime PraseDateTimeFromString(string tenPayDateTimeString, bool keepMillionseconds = true)
+        {
+            return DateTime.ParseExact(tenPayDateTimeString, $"yyyy-MM-ddTHH:mm:ss{(keepMillionseconds ? ".fff" : "")}zzz", System.Globalization.CultureInfo.InvariantCulture);
+        }
     }
 }

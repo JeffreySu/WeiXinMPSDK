@@ -34,6 +34,9 @@ using System;
 
 namespace Senparc.Weixin.Helpers
 {
+    /// <summary>
+    /// 用户帮助类
+    /// </summary>
     public static class UserHelper
     {
         /// <summary>
@@ -41,11 +44,26 @@ namespace Senparc.Weixin.Helpers
         /// </summary>
         public enum HeadImageSize
         {
-            _0 = 0,
-            _46 = 46,
-            _64 = 64,
-            _96 = 96,
-            _132 = 132,
+            /// <summary>
+            /// 640*640正方形头像
+            /// </summary>
+            x0 = 0,
+            /// <summary>
+            /// 46*46正方形头像
+            /// </summary>
+            x46 = 46,
+            /// <summary>
+            /// 64*64
+            /// </summary>
+            x64 = 64,
+            /// <summary>
+            /// 96*96正方形头像
+            /// </summary>
+            x96 = 96,
+            /// <summary>
+            /// 132*132正方形头像
+            /// </summary>
+            x132 = 132,
         }
 
         /// <summary>
@@ -54,7 +72,7 @@ namespace Senparc.Weixin.Helpers
         /// <param name="userInfo">IUserInfo，包括用户头像信息</param>
         /// <param name="headImageSize">代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像）</param>
         /// <returns></returns>
-        public static string GetHeadImageUrl(this IUserInfo userInfo, HeadImageSize headImageSize = HeadImageSize._0)
+        public static string GetHeadImageUrl(this IUserInfo userInfo, HeadImageSize headImageSize = HeadImageSize.x0)
         {
             return GetHeadImageUrl(userInfo.headimgurl, headImageSize);
         }
@@ -65,7 +83,7 @@ namespace Senparc.Weixin.Helpers
         /// <param name="headImgUrl">用户头像</param>
         /// <param name="headImageSize">代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像）</param>
         /// <returns></returns>
-        public static string GetHeadImageUrl(string headImgUrl, HeadImageSize headImageSize = HeadImageSize._0)
+        public static string GetHeadImageUrl(string headImgUrl, HeadImageSize headImageSize = HeadImageSize.x0)
         {
             if (headImgUrl == null)
                 return null;

@@ -11,8 +11,14 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar;
+
 namespace Senparc.Weixin.Work.Entities
 {
+    public interface IThirdServiceCorpBase: IThirdPartyInfoBase
+    {
+
+    }
     public interface IThirdPartyInfoBase : IWorkRequestMessageBase
     {
         ThirdPartyInfo InfoType { get; }
@@ -20,7 +26,16 @@ namespace Senparc.Weixin.Work.Entities
         string TimeStamp { get; set; }
     }
 
-    public abstract class ThirdPartyInfoBase : WorkRequestMessageBase, IThirdPartyInfoBase
+    public interface IThirdPartyAuthCorpIdInfo : IThirdPartyInfoBase
+    {
+
+        /// <summary>
+        /// 授权方企业号的corpid
+        /// </summary>
+        string AuthCorpId { get; set; }
+    }
+
+    public abstract class ThirdPartyInfoBase : RequestMessageEventBase, IThirdPartyInfoBase
     {
         #region 以下内容为第三方应用授权回调消息服务
         public virtual ThirdPartyInfo InfoType
@@ -37,6 +52,11 @@ namespace Senparc.Weixin.Work.Entities
         /// 时间戳
         /// </summary>
         public string TimeStamp { get; set; }
+
+        public override RequestMsgType MsgType
+        {
+            get { return RequestMsgType.Event; }
+        }
         #endregion
 
         protected ThirdPartyInfoBase()

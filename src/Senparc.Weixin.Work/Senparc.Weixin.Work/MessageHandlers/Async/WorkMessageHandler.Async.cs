@@ -23,22 +23,28 @@ namespace Senparc.Weixin.Work.MessageHandlers
         public override async Task BuildResponseMessageAsync(CancellationToken cancellationToken)
         {
             //TODO:改写为调用异步方法
-
+            //其他服务商模式普通事件已转入企业内部模式事件处理
+            if (RequestMessage is IThirdServiceCorpBase)
+            {
+                var thirdPartyInfo = RequestMessage as IThirdPartyInfoBase;
+                TextResponseMessage = OnThirdPartyEvent(thirdPartyInfo);
+                return;
+            }
             switch (RequestMessage.MsgType)
             {
-                case RequestMsgType.Unknown://第三方回调
-                    {
-                        if (RequestMessage is IThirdPartyInfoBase)
-                        {
-                            var thirdPartyInfo = RequestMessage as IThirdPartyInfoBase;
-                            TextResponseMessage = OnThirdPartyEvent(thirdPartyInfo);
-                        }
-                        else
-                        {
-                            throw new WeixinException("没有找到合适的消息类型。");
-                        }
-                    }
-                    break;
+                //case RequestMsgType.Unknown://第三方回调
+                //    {
+                //        if (RequestMessage is IThirdPartyInfoBase)
+                //        {
+                //            var thirdPartyInfo = RequestMessage as IThirdPartyInfoBase;
+                //            TextResponseMessage = OnThirdPartyEvent(thirdPartyInfo);
+                //        }
+                //        else
+                //        {
+                //            throw new WeixinException("没有找到合适的消息类型。");
+                //        }
+                //    }
+                //    break;
                 //以下是普通信息
                 case RequestMsgType.Text:
                     {

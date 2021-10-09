@@ -3,7 +3,7 @@
     /// <summary>
     /// 变更授权的通知
     /// </summary>
-    public class RequestMessageInfo_Create_Auth : ThirdPartyInfoBase, IThirdPartyInfoBase
+    public class RequestMessageInfo_Create_Auth : ThirdPartyInfoBase, IThirdPartyInfoBase, IThirdServiceCorpBase
     {
         public override ThirdPartyInfo InfoType
         {

@@ -21,12 +21,10 @@
 namespace Senparc.Weixin.Work.Entities.Request.Event
 {
     /// <summary>
-    /// 上报企业客户变更事件
+    /// 上报企业客户变更事件 继承服务商接口
     /// </summary>
-    public interface IRequestMessageEvent_Change_ExternalContact_Base : IRequestMessageEventBase
+    public interface IRequestMessageEvent_Change_ExternalContact_Base : IRequestMessageEventBase, IThirdPartyAuthCorpIdInfo
     {
-        string SuiteId { get; set; }
-        string AuthCorpId { get; set; }
         ExternalContactChangeType ChangeType
         {
             get;
@@ -45,6 +43,13 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
         {
             get { return ExternalContactChangeType.add_external_contact; }
         }
+
+        public virtual ThirdPartyInfo InfoType 
+        {
+            get { return ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT; }
+        }
+
+        public string TimeStamp { get; set; }
     }
 
     /// <summary>

@@ -16,7 +16,7 @@ namespace Senparc.Weixin.Work.Entities
     /// <summary>
     /// 推送suite_ticket协议
     /// </summary>
-    public class RequestMessageInfo_Suite_Ticket : ThirdPartyInfoBase, IThirdPartyInfoBase
+    public class RequestMessageInfo_Suite_Ticket : ThirdPartyInfoBase, IThirdPartyInfoBase, IThirdServiceCorpBase
     {
         public override ThirdPartyInfo InfoType
         {

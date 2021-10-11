@@ -174,7 +174,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
                     throw new TenpayApiRequestException("sub_orders 参数必须在 2 到 10 之间！");
                 }
 
-                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/jsapi");
+                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/combine-transactions/jsapi");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<JsApiReturnJson>(url, data, timeOut);
             }
@@ -185,7 +185,6 @@ namespace Senparc.Weixin.TenPayV3.Apis
             }
         }
 
-        // TODO: 待测试
         /// <summary>
         /// APP支付下单接口
         /// <para>在微信支付服务后台生成APP支付预支付交易单，返回预支付交易会话标识</para>
@@ -220,7 +219,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/app");
+                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/combine-transactions/app");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<AppReturnJson>(url, data, timeOut);
             }
@@ -231,7 +230,6 @@ namespace Senparc.Weixin.TenPayV3.Apis
             }
         }
 
-        // TODO: 待测试
         /// <summary>
         /// H5支付下单接口
         /// <para>在微信支付服务后台生成H5支付预支付交易单，返回预支付交易会话标识</para>
@@ -266,7 +264,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/h5");
+                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/combine-transactions/h5");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<H5ReturnJson>(url, data, timeOut);
             }
@@ -312,7 +310,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/combine-transactions/native");
+                var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/combine-transactions/native");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<NativeReturnJson>(url, data, timeOut);
             }
@@ -491,7 +489,6 @@ namespace Senparc.Weixin.TenPayV3.Apis
 
         #region 交易账单接口
 
-        // TODO: 待测试
         /// <summary>
         /// 申请交易账单接口
         /// 获得微信支付按天提供的交易账单文件

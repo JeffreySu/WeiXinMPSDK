@@ -13,7 +13,7 @@
 
 ## 使用 .NET Core 3.1 Demo
 
-返回上一级后见：[netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3](../netcore3.0-mvc)。
+返回上一级后见：[netcore3.1-mvc/Senparc.Weixin.Sample.NetCore3](../netcore3.1-mvc)。
 
 > 注意： .NET Core 3.1 Sample 已于 2021 年 5 月 1 日起停止小版本更新（大版本更新仍将保持同步，.NET Core 所有库更新不受影响）。
 

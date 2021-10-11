@@ -93,6 +93,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appid">第三方用户唯一凭证</param>
         /// <param name="secret">第三方用户唯一凭证密钥，既appsecret</param>
         /// <returns></returns>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetToken", false, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static AccessTokenResult GetToken(string appid, string secret, string grant_type = "client_credential")
         {
             //注意：此方法不能再使用ApiHandlerWapper.TryCommonApi()，否则会循环
@@ -111,23 +112,24 @@ namespace Senparc.Weixin.MP.CommonAPIs
             return result;
         }
 
-        /// <summary>
-        /// 用户信息接口
-        /// </summary>
-        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
-        /// <param name="openId"></param>
-        /// <returns></returns>
-        public static WeixinUserInfoResult GetUserInfo(string accessTokenOrAppId, string openId)
-        {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                var url = string.Format(Config.ApiMpHost + "/cgi-bin/user/info?access_token={0}&openid={1}",
-                                        accessToken.AsUrlData(), openId.AsUrlData());
-                WeixinUserInfoResult result = CommonJsonSend.Send<WeixinUserInfoResult>(null, url, null, CommonJsonSendType.GET);
-                return result;
+        //已经迁移到 UserApi 下
+        ///// <summary>
+        ///// 用户信息接口
+        ///// </summary>
+        ///// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        ///// <param name="openId"></param>
+        ///// <returns></returns>
+        //public static WeixinUserInfoResult GetUserInfo(string accessTokenOrAppId, string openId)
+        //{
+        //    return ApiHandlerWapper.TryCommonApi(accessToken =>
+        //    {
+        //        var url = string.Format(Config.ApiMpHost + "/cgi-bin/user/info?access_token={0}&openid={1}",
+        //                                accessToken.AsUrlData(), openId.AsUrlData());
+        //        WeixinUserInfoResult result = CommonJsonSend.Send<WeixinUserInfoResult>(null, url, null, CommonJsonSendType.GET);
+        //        return result;
 
-            }, accessTokenOrAppId);
-        }
+        //    }, accessTokenOrAppId);
+        //}
 
 
         /// <summary>
@@ -212,6 +214,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appid">第三方用户唯一凭证</param>
         /// <param name="secret">第三方用户唯一凭证密钥，既appsecret</param>
         /// <returns></returns>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetTokenAsync", false, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static async Task<AccessTokenResult> GetTokenAsync(string appid, string secret, string grant_type = "client_credential")
         {
             //注意：此方法不能再使用ApiHandlerWapper.TryCommonApi()，否则会循环
@@ -230,23 +233,24 @@ namespace Senparc.Weixin.MP.CommonAPIs
             return result;
         }
 
-        /// <summary>
-        /// 【异步方法】用户信息接口
-        /// </summary>
-        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
-        /// <param name="openId"></param>
-        /// <returns></returns>
-        public static async Task<WeixinUserInfoResult> GetUserInfoAsync(string accessTokenOrAppId, string openId)
-        {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
-           {
-               var url = string.Format(Config.ApiMpHost + "/cgi-bin/user/info?access_token={0}&openid={1}",
-                                       accessToken.AsUrlData(), openId.AsUrlData());
-               var result = CommonJsonSend.SendAsync<WeixinUserInfoResult>(null, url, null, CommonJsonSendType.GET);
-               return await result.ConfigureAwait(false);
+        //已经迁移到 UserApi 下
+        ///// <summary>
+        ///// 【异步方法】用户信息接口
+        ///// </summary>
+        ///// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        ///// <param name="openId"></param>
+        ///// <returns></returns>
+        //public static async Task<WeixinUserInfoResult> GetUserInfoAsync(string accessTokenOrAppId, string openId)
+        //{
+        //    return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+        //   {
+        //       var url = string.Format(Config.ApiMpHost + "/cgi-bin/user/info?access_token={0}&openid={1}",
+        //                               accessToken.AsUrlData(), openId.AsUrlData());
+        //       var result = CommonJsonSend.SendAsync<WeixinUserInfoResult>(null, url, null, CommonJsonSendType.GET);
+        //       return await result.ConfigureAwait(false);
 
-           }, accessTokenOrAppId).ConfigureAwait(false);
-        }
+        //   }, accessTokenOrAppId).ConfigureAwait(false);
+        //}
 
 
         /// <summary>

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>4.11.500-preview2</Version>
+    <Version>4.11.500-preview4.2</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -181,7 +181,9 @@
 		1、代小程序实现业务-提交审核接口添加UGC参数
 		2、修正截屏附件字段类型
 		v4.10.3 统一使用 Senparc.Weixin.CommonAPIs.CommonJsonSend 方法
-</PackageReleaseNotes>
+		v4.11.500 用户信息调整：不再返回用户性别及地区信息
+
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

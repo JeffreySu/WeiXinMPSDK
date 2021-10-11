@@ -18,7 +18,7 @@ using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.MessageHandlers;
-using Senparc.Weixin.MP.Sample.CommonService;
+using Senparc.Weixin.Sample.CommonService;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -29,7 +29,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
     using Senparc.Weixin.MP.Entities;
     using Senparc.Weixin.MP.Helpers;
     using Senparc.Weixin.MP.MessageContexts;
-    using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+    using Senparc.Weixin.Sample.CommonService.Utilities;
 
     //using Senparc.Weixin.MP.CoreSample.Service;
     //using Senparc.Weixin.MP.CoreSample.CustomerMessageHandler;

@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>3.12.500-preview2</Version>
+    <Version>3.12.501-preview4</Version>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -165,6 +165,7 @@
 			1、添加企业微信入群欢迎语素材
 			2、修正 CommonApi.GetTokenAsync() 的 GET 请求方式
 			v3.12.2 Register 提供对 ApiHandlerWapper 委托的设置方法
+			v3.12.501 更新 GetCheckinDataJsonResult.cs，添加标准打卡时间
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>

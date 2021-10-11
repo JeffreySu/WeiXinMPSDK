@@ -30,10 +30,6 @@ using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MP;
-using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
-using Senparc.Weixin.Sample.NetCore3.Filters;
 using Senparc.Weixin.Sample.NetCore3.Models;
 using Senparc.Weixin.TenPay.V3;
 using System;
@@ -47,6 +43,15 @@ using System.Xml.Linq;
 using ZXing;
 using ZXing.Common;
 using TenPayOldV3 = Senparc.Weixin.TenPay.V3.TenPayV3;
+
+//DPBMARK MP
+using Senparc.Weixin.MP;
+using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.Sample.CommonService.TemplateMessage;
+using Senparc.Weixin.Sample.NetCore3.Filters;
+using System.Security.Policy;
+//DPBMARK_END
+
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -104,8 +109,14 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
             var returnUrl = string.Format("https://sdk.weixin.senparc.com/TenPayV3/JsApi");
             var state = string.Format("{0}|{1}", productId, hc);
-            var url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);
+            string url = null;
 
+            url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);//   -- DPBMARK MP DPBMARK_END
+
+            if (url.IsNullOrEmpty())
+            {
+                throw new Exception("此功能需要使用微信公众号，但未获取到 OAuth URL，如果此项目为自动僧城项目，请确保已经引用“公众号”");
+            }
             return Redirect(url);
         }
 
@@ -114,6 +125,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             return View();
         }
 
+        //DPBMARK MP
         #region JsApi支付
 
         public ActionResult OAuthCallback(string code, string state, string returnUrl)
@@ -540,6 +552,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         }
 
         #endregion
+        //DPBMARK_END
 
         #region 订单及退款
 
@@ -1033,6 +1046,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
         #endregion
 
+        //DPBMARK MP
         #region H5支付
 
         /// <summary>
@@ -1163,6 +1177,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
 
         #endregion
+        //DPBMARK_END
 
         #region 付款到银行卡
 

@@ -37,7 +37,24 @@ using Senparc.Weixin.TenPayV3.Apis.Entities;
 
 namespace Senparc.Weixin.TenPayV3.Apis.Marketing
 {
+    /// <summary>
+    /// 创建代金券批次返回Json类
+    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_1.shtml </para>
+    /// </summary>
     public class CreateStockReturnJson : ReturnJsonBase
     {
+        /// <summary>
+        /// 批次号
+        /// 微信为每个代金券批次分配的唯一ID
+        /// </summary>
+        public string stock_id { get; set; }
+
+        /// <summary>
+        /// 创建时间
+        /// 创建时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss.sss+TIMEZONE
+        /// </summary>
+        public DateTime create_time { get; set; }
     }
+
+
 }

@@ -27,6 +27,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20210819
 
+    修改标识：Senparc - 20211002
+    修改描述：v0.3.500.4-preview4.3 TenPaySignHelper.CreateSign() 支持 Linux 和 Windows 环境
     
 ----------------------------------------------------------------*/
 
@@ -35,6 +37,7 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
@@ -59,13 +62,21 @@ namespace Senparc.Weixin.TenPayV3.Helpers
             // NOTE： 私钥不包括私钥文件起始的-----BEGIN PRIVATE KEY-----
             //        亦不包括结尾的-----END PRIVATE KEY-----
             //string privateKey = "{你的私钥}";
+
             byte[] keyData = Convert.FromBase64String(privateKey);
-            using (CngKey cngKey = CngKey.Import(keyData, CngKeyBlobFormat.Pkcs8PrivateBlob))
-            using (RSACng rsa = new RSACng(cngKey))
-            {
-                byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
-                return Convert.ToBase64String(rsa.SignData(data, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
-            }
+
+            //以下方法不兼容 Linux
+            //using (CngKey cngKey = CngKey.Import(keyData, CngKeyBlobFormat.Pkcs8PrivateBlob))
+            //using (RSACng rsa = new RSACng(cngKey))
+            //{
+            //    byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
+            //    return Convert.ToBase64String(rsa.SignData(data, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
+            //}
+
+            var rsa = System.Security.Cryptography.RSA.Create();
+            rsa.ImportPkcs8PrivateKey(keyData, out _);
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
+            return Convert.ToBase64String(rsa.SignData(data, 0, data.Length, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
         }
 
         /// <summary>
@@ -150,13 +161,30 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="content">应答报文主体</param>
         /// <param name="pubKey">平台公钥 可为空</param>
         /// <returns></returns>
-        public static async Task<bool> VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignature, string content, string serialNumber,ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
+        public static async Task<bool> VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignature, string content, string serialNumber, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
         {
-            string contentForSign = $"{wechatpayTimestamp}\n{wechatpayNonce}\n{content}\n";
+            //string contentForSign = $"{wechatpayTimestamp}\n{wechatpayNonce}\n{content}\n";
 
             var tenpayV3InfoKey = TenPayHelper.GetRegisterKey(senparcWeixinSettingForTenpayV3.TenPayV3_MchId, senparcWeixinSettingForTenpayV3.TenPayV3_SubMchId);
             var pubKey = await TenPayV3InfoCollection.Data[tenpayV3InfoKey].GetPublicKeyAsync(serialNumber, senparcWeixinSettingForTenpayV3);
-            return VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, contentForSign, pubKey);
+            return VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content, pubKey);
+        }
+
+        /// <summary>
+        /// 获取给 JsApi UI 使用的打包签名信息
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="prepayId"></param>
+        /// <returns></returns>
+        public static JsApiUiPackage GetJsApiUiPackage(string appId, string prepayId)
+        {
+            var timeStamp = TenPayV3Util.GetTimestamp();
+            var nonceStr = TenPayV3Util.GetNoncestr();
+            var prepayIdPackage = prepayId.Contains("prepay_id=") ? prepayId : string.Format("prepay_id={0}", prepayId);
+            var sign = TenPaySignHelper.CreatePaySign(timeStamp, nonceStr, prepayIdPackage);
+
+            JsApiUiPackage jsApiUiPackage = new(appId, timeStamp, nonceStr, prepayIdPackage, sign);
+            return jsApiUiPackage;
         }
     }
 }

@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using Microsoft.AspNetCore.Mvc;
+using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.MP;
+using Senparc.Weixin.MP.AdvancedAPIs.QrCode;
+using Senparc.Weixin.MP.Containers;
+using Senparc.Weixin.Sample.CommonService.Download;
+using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
-using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
-using Senparc.CO2NET.Extensions;
-using Senparc.Weixin.MP.AdvancedAPIs.WiFi;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Containers;
-using Senparc.Weixin.MP.Sample.CommonService.Download;
-using System.IO;
-using Senparc.Weixin.MP;
-using Senparc.Weixin.MP.AdvancedAPIs.QrCode;
-//using Senparc.Weixin.MP.Sample.CommonService.Download;
+//using Senparc.Weixin.Sample.CommonService.Download;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {

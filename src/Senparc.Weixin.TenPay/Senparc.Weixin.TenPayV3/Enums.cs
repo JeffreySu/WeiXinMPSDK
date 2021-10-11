@@ -52,7 +52,7 @@ namespace Senparc.Weixin.TenPayV3
         GET,
         POST,
         PUT,
-        PATCH
+        PATCH,
+        DELETE
     }
-
 }

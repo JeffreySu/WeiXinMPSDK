@@ -65,18 +65,21 @@ namespace Senparc.Weixin.TenPayV3.Helpers
 
             byte[] keyData = Convert.FromBase64String(privateKey);
 
-            //以下方法不兼容 Linux
+            #region 以下方法不兼容 Linux
             //using (CngKey cngKey = CngKey.Import(keyData, CngKeyBlobFormat.Pkcs8PrivateBlob))
             //using (RSACng rsa = new RSACng(cngKey))
             //{
             //    byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
             //    return Convert.ToBase64String(rsa.SignData(data, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
             //}
+            #endregion
 
-            var rsa = System.Security.Cryptography.RSA.Create();
-            rsa.ImportPkcs8PrivateKey(keyData, out _);
-            byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
-            return Convert.ToBase64String(rsa.SignData(data, 0, data.Length, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
+            using (var rsa = System.Security.Cryptography.RSA.Create())
+            {
+                rsa.ImportPkcs8PrivateKey(keyData, out _);
+                byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
+                return Convert.ToBase64String(rsa.SignData(data, 0, data.Length, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
+            }
         }
 
         /// <summary>

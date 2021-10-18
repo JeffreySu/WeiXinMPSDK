@@ -49,7 +49,6 @@ using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.Sample.CommonService.TemplateMessage;
 using Senparc.Weixin.Sample.NetCore3.Filters;
-using System.Security.Policy;
 //DPBMARK_END
 
 

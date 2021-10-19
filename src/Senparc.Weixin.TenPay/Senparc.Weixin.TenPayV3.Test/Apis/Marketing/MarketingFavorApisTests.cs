@@ -30,8 +30,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             var TenPayV3Info = TenPayV3InfoCollection.Data[key];
 
-            // var sp_billno = 
-
             // 代金券批次发放使用规则 发放10张优惠券 预算1000分 每个用户限领10张 开启防刷
             var stock_use_rule = new CreateStockRequsetData.Stock_Use_Rule(2, 4, null, 2, false, true);
 
@@ -43,12 +41,10 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             var requestData = new CreateStockRequsetData("单元测试代金券批次", "用于单元测试", TenPayV3Info.MchId, new TenpayDateTime(DateTime.Now.AddMinutes(1)), new TenpayDateTime(DateTime.Now.AddMinutes(30)), stock_use_rule, null, coupon_use_rule, true, "NORMAL", out_request_no);
 
-
-
+            
             /* 提示：
              * 使用此功能必须在后台【产品中心】开通【预充值代金券】功能！
              */
-
 
             var marketingApis = new MarketingApis();
 
@@ -483,6 +479,5 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             Assert.IsTrue(result.VerifySignSuccess == true);//通过验证
         }
         #endregion
-
     }
 }

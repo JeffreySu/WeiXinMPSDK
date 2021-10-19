@@ -85,8 +85,16 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<CreateProfitsharingReturnJson> CreateProfitsharing(CreateProfitsharingRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<CreateProfitsharingReturnJson> CreateProfitsharingAsync(CreateProfitsharingRequestData data, int timeOut = Config.TIME_OUT)
         {
+            foreach(var each in data.receivers)
+            {
+                if (each.type == "MERCHANT_ID" && each.name == null)
+                {
+                    throw new TenpayApiRequestException($"当 {nameof(each.type)} 为 {each.type} 时，{nameof(each.name)} 必填！");
+                }
+            }
+            // TODO: name 敏感信息加密
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{{0}}v3/profitsharing/orders");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<CreateProfitsharingReturnJson>(url, data, timeOut);
@@ -101,7 +109,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="out_order_no">商户系统内部的分账单号，在商户系统内部唯一</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<QueryProfitsharingReturnJson> QueryProfitsharing(string transaction_id, string out_order_no, int timeOut = Config.TIME_OUT)
+        public async Task<QueryProfitsharingReturnJson> QueryProfitsharingAsync(string transaction_id, string out_order_no, int timeOut = Config.TIME_OUT)
         {
 
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{{0}}v3/profitsharing/orders/{out_order_no}?&transaction_id={transaction_id}");
@@ -117,7 +125,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<ReturnProfitsharingReturnJson> ReturnProfitsharing(ReturnProfitsharingRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<ReturnProfitsharingReturnJson> ReturnProfitsharingAsync(ReturnProfitsharingRequestData data, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/profitsharing/return-orders");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
@@ -133,7 +141,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="out_order_no">商户系统内部的分账单号，在商户系统内部唯一</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<QueryReturnProfitsharingReturnJson> QueryReturnProfitsharing(string out_return_no, string out_order_no, int timeOut = Config.TIME_OUT)
+        public async Task<QueryReturnProfitsharingReturnJson> QueryReturnProfitsharingAsync(string out_return_no, string out_order_no, int timeOut = Config.TIME_OUT)
         {
 
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/profitsharing/return-orders/{out_return_no}?&out_order_no={out_return_no}");
@@ -149,7 +157,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<UnfreezeProfitsharingReturnJson> UnfreezeProfitsharing(UnfreezeProfitsharingRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<UnfreezeProfitsharingReturnJson> UnfreezeProfitsharingAsync(UnfreezeProfitsharingRequestData data, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/profitsharing/orders/unfreeze");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
@@ -164,7 +172,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="transaction_id">微信支付订单号</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
-        public async Task<QueryProfitsharingAmountsReturnJson> QueryProfitsharingAmounts(string transaction_id, int timeOut = Config.TIME_OUT)
+        public async Task<QueryProfitsharingAmountsReturnJson> QueryProfitsharingAmountsAsync(string transaction_id, int timeOut = Config.TIME_OUT)
         {
 
             var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/profitsharing/transactions/{transaction_id}/amounts");
@@ -180,8 +188,13 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<AddProfitsharingReceiverReturnJson> AddProfitsharingReceiver(AddProfitsharingReceiverRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<AddProfitsharingReceiverReturnJson> AddProfitsharingReceiverAsync(AddProfitsharingReceiverRequestData data, int timeOut = Config.TIME_OUT)
         {
+            // TODO: name 敏感信息加密
+            if (data.type == "MERCHANT_ID" && data.name == null)
+            {
+                throw new TenpayApiRequestException($"当 {nameof(data.type)} 为 {data.type} 时，{nameof(data.name)} 必填！");
+            }
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/profitsharing/receivers/add");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<AddProfitsharingReceiverReturnJson>(url, data, timeOut);
@@ -195,60 +208,13 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<DeleteProfitsharingReceiverReturnJson> DeleteProfitsharing(DeleteProfitsharingReceiverRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<DeleteProfitsharingReceiverReturnJson> DeleteProfitsharingAsync(DeleteProfitsharingReceiverRequestData data, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/profitsharing/receivers/delete");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<DeleteProfitsharingReceiverReturnJson>(url, data, timeOut);
         }
 
-        /// <summary>
-        /// 下载分账账单接口
-        /// 微信支付按天提供分账账单文件，商户可以通过该接口获取账单文件的下载地址。
-        /// <para>https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_1_10.shtml</para>
-        /// </summary>
-        /// <param name="bill_date">格式YYYY-MM-DD 仅支持三个月内的账单下载申请。</param>
-        /// <param name="fileStream">fileStream</param>
-        /// <param name="timeOut">超时时间，单位为ms</param>
-        /// <returns></returns>
-        public async Task<DownloadProfitsharingBillReturnJson> DownloadStockUseFlowAsync(string bill_date, Stream fileStream, int timeOut = Config.TIME_OUT)
-        {
-            try
-            {
-                var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/profitsharing/bills?bill_date={bill_date}");
-
-                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
-                var result = await tenPayApiRequest.RequestAsync<DownloadProfitsharingBillReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
-
-                //下载交易账单
-                if (result.VerifySignSuccess == true)
-                {
-                    var responseMessage = await tenPayApiRequest.GetHttpResponseMessageAsync(result.download_url, null, requestMethod: ApiRequestMethod.GET);
-                    fileStream.Seek(0, SeekOrigin.Begin);
-                    await responseMessage.Content.CopyToAsync(fileStream);
-                    fileStream.Seek(0, SeekOrigin.Begin);
-
-                    //校验文件Hash
-                    var fileHash = FileHelper.GetFileHash(fileStream, result.hash_type, false);
-                    Console.WriteLine("fileHash: " + fileHash);
-                    var fileVerify = fileHash.Equals(result.hash_value, StringComparison.OrdinalIgnoreCase);
-                    if (!fileVerify)
-                    {
-                        result.VerifySignSuccess = false;
-                        result.ResultCode.Additional += "请求成功，但文件校验错误。请查看日志！";
-                        SenparcTrace.BaseExceptionLog(new TenpayApiRequestException($"DownloadStockUseFlowAsync 下载文件成功，但校验失败，正确值：{result.hash_value}，实际值：{fileHash}（忽略大小写）"));
-                    }
-                }
-                return result;
-            }
-            catch (Exception ex)
-            {
-                SenparcTrace.BaseExceptionLog(ex);
-                return new DownloadProfitsharingBillReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
-            }
-        }
-
         #endregion
-
     }
 }

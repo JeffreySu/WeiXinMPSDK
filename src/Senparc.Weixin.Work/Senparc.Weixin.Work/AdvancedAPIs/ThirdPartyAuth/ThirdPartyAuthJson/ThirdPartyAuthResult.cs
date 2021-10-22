@@ -298,6 +298,16 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         /// </summary>
         public string appid { get; set; }
 
+        /// <summary>
+        /// 授权模式，0为管理员授权；1为成员授权
+        /// </summary>
+        public int auth_mode { get; set; }
+
+        /// <summary>
+        /// 是否为代开发自建应用
+        /// </summary>
+        public bool? is_customized_app { get; set; }
+
         ///// <summary>
         ///// 授权方应用敏感权限组，目前仅有get_location，表示是否有权限设置应用获取地理位置的开关
         ///// </summary>

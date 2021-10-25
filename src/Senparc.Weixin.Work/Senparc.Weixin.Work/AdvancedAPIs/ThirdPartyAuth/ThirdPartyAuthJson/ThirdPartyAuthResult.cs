@@ -88,6 +88,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         public string DeviceId { get; set; }
         public string user_ticket { get; set; }
         public int expires_in { get; set; }
+        /// <summary>
+        /// 全局唯一。对于同一个服务商，不同应用获取到企业内同一个成员的open_userid是相同的，最多64个字节。仅第三方应用可获取
+        /// </summary>
+        public string open_userid { get; set; }
     }
 
 

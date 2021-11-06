@@ -240,7 +240,7 @@
     <Folder Include="WxaAPIs\Template\TemplateJson\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="1.5.0-preview3" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.5.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

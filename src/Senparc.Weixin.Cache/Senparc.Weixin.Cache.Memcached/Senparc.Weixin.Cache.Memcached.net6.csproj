@@ -148,7 +148,7 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="3.9.0-preview4" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="3.10.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

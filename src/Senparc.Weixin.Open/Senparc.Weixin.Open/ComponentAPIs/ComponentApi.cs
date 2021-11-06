@@ -346,6 +346,47 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         }
 
         /// <summary>
+        /// 快速创建个人小程序
+        /// 文档：https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/Register_Mini_Programs/fastregisterpersonalweapp.html
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="idName">个人用户名字</param>
+        /// <param name="wxUser">个人用户微信号</param>
+        /// <param name="taskid">任务id</param>
+        /// <param name="action">动作类型：create或query，当为create时，taskid可不传参，当为query时，idName,wxUser可不传参</param>
+        /// <param name="componentPhone">第三方联系电话（方便法人与第三方联系）</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static FastRegisterPersonalWeAppResult FastRegisterPersonalWeApp(string componentAccessToken, string idName="", string wxUser="", string taskid="", string action = "create", string componentPhone = "", int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(
+                Config.ApiMpHost + "/cgi-bin/component/fastregisterpersonalweapp?action={0}&component_access_token={1}",
+                action.AsUrlData(),
+                componentAccessToken.AsUrlData());
+
+            //var data;
+            object data;
+            if (action == "create")
+            {
+                data = new
+                {
+                    idname = idName,
+                    wxuser = wxUser,
+                    component_phone = componentPhone
+                };
+            }
+            else
+            {
+                data = new
+                {
+                    taskid = taskid
+                };
+            }
+
+            return CommonJsonSend.Send<FastRegisterPersonalWeAppResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
         /// 拉取所有已授权的帐号信息
         /// 文档：https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/api/api_get_authorizer_list.html
         /// </summary>
@@ -639,6 +680,47 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             }
 
             return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】快速创建个人小程序
+        /// 文档：https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/Register_Mini_Programs/fastregisterpersonalweapp.html
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="idName">个人用户名字</param>
+        /// <param name="wxUser">个人用户微信号</param>
+        /// <param name="taskid">任务id</param>
+        /// <param name="action">动作类型：create或query，当为create时，taskid可不传参，当为query时，idName,wxUser可不传参</param>
+        /// <param name="componentPhone">第三方联系电话（方便法人与第三方联系）</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<FastRegisterPersonalWeAppResult> FastRegisterPersonalWeAppAsync(string componentAccessToken, string idName = "", string wxUser = "", string taskid = "", string action = "create", string componentPhone = "", int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(
+                Config.ApiMpHost + "/cgi-bin/component/fastregisterpersonalweapp?action={0}&component_access_token={1}",
+                action.AsUrlData(),
+                componentAccessToken.AsUrlData());
+
+            //var data;
+            object data;
+            if (action == "create")
+            {
+                data = new
+                {
+                    idname = idName,
+                    wxuser = wxUser,
+                    component_phone = componentPhone
+                };
+            }
+            else
+            {
+                data = new
+                {
+                    taskid = taskid
+                };
+            }
+
+            return await CommonJsonSend.SendAsync<FastRegisterPersonalWeAppResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>

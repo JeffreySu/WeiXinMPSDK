@@ -26,10 +26,10 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.AdvancedAPIs;
 //DPBMARK MP
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
+using Senparc.Weixin.Sample.CommonService.TemplateMessage;
 //DPBMARK_END
 //DPBMARK MiniProgram
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
+using Senparc.Weixin.Sample.CommonService.TemplateMessage.WxOpen;
 //DPBMARK_END
 using Senparc.Weixin.MP.Sample.Filters;
 using Senparc.Weixin.MP.Sample.Models;

@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>6.12.500-preview4.1</Version>
+    <Version>6.13</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
@@ -325,7 +325,7 @@
 		v6.11.1 TryCommonApiBase 提供 invalidCredentialValues，可设置多种重试错误代码
 		v6.12.0 升级至微信支付 V3（真）
 		v6.12.500 提供 UserHelper
-	</PackageReleaseNotes>
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

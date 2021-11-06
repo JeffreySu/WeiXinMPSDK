@@ -267,7 +267,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             try
             {
                 var accessToken = AccessTokenContainer.GetAccessToken(_appId);
-                var result = CommonApi.GetUserInfo(accessToken, _testOpenId);
+                var result = UserApi.Info(accessToken, _testOpenId);
                 Assert.IsNotNull(result);
             }
             catch (Exception ex)

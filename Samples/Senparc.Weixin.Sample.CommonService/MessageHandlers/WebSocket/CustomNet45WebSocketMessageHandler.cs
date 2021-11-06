@@ -1,5 +1,5 @@
 ﻿//DPBMARK_FILE WebSocket
-#if NET45
+#if NET451
 
 using System;
 using System.Linq;
@@ -49,7 +49,7 @@ namespace Senparc.Weixin.Sample.CommonService.MessageHandlers.WebSocket
             var result = string.Concat(message.Reverse());
             await webSocketHandler.SendMessage(result);
 
-#if NET45
+#if NET451
             var appId = Config.SenparcWeixinSetting.WxOpenAppId;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
 #else
             var appId = "WxOpenAppId";//与微信小程序账号后台的AppId设置保持一致，区分大小写。

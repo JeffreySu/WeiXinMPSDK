@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-#if NET45
+#if NET451
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
@@ -22,7 +22,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
         [TestMethod()]
         public void GenerateOAuthCallbackUrlTest()
         {
-#if NET45
+#if NET451
             Func<string, string, string, HttpContextBase> getHttpContextBase = (url, queryString, baseUrl) =>
              {
                  var context = new Mock<HttpContextBase>();
@@ -126,7 +126,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
                 var callbackUrl = Senparc.Weixin.AspNetHttpUtility.UrlUtility.GenerateOAuthCallbackUrl(httpContext, "/TenpayV3/OAuthCallback");
                 Console.WriteLine("\r\n带参数、带端口 HTTPS Url：" + callbackUrl);
 
-#if NET45
+#if NET451
                 var expectedUrl = "https://sdk.weixin.senparc.com:1433/VirtualPath/TenpayV3/OAuthCallback?returnUrl=https%3a%2f%2fsdk.weixin.senparc.com%3a1433%2fVirtualPath%2fHome%2fIndex%3fa%3d1%26b%3d2%26c%3d3-1";
 #else
                 //.NET Standard(.NET Core)下因为模拟会存在偏差（无法自动识别Url中的VirtualPath为特殊的虚拟目录，所以会出现重复），因此以下结果是可以接受的

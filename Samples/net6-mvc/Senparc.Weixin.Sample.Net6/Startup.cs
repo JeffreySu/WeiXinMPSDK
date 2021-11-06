@@ -56,8 +56,9 @@ namespace Senparc.Weixin.Sample.NetCore3
 
             var builder = services.AddControllersWithViews()
                                   .AddNewtonsoftJson();// 支持 NewtonsoftJson
-                                                       //.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
-                                                       // Add CookieTempDataProvider after AddMvc and include ViewFeatures.
+                                //.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+                                // Add CookieTempDataProvider after AddMvc and include ViewFeatures.
+
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
 
             //如果部署在linux系统上，需要加上下面的配置：

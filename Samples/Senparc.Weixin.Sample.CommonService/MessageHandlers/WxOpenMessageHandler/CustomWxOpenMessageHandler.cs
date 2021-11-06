@@ -27,7 +27,7 @@ using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP;
 
-#if NET45
+#if NET451
 using System.Web.Configuration;
 #else
 

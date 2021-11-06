@@ -20,45 +20,39 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
- 
-    文件名：RefundRequestHandler.cs
-    文件功能描述：微信支付退款 请求处理
-    
-    
-    创建标识：Senparc - 20150211
-    
-    修改标识：Senparc - 20150303
-    修改描述：整理接口
+
+    文件名：FastRegisterPersonalWeAppResult.cs
+    文件功能描述：创建个人主体小程序接口返回结果
+
+
+    创建标识： mc7246 - 20211107
+
 ----------------------------------------------------------------*/
 
-#if NET451
+using Senparc.Weixin.Entities;
 using System;
-using System.Web;
-#else
-using Microsoft.AspNetCore.Http;
-using System;
-#endif
 
-namespace Senparc.Weixin.TenPay.V2
+namespace Senparc.Weixin.Open.ComponentAPIs
 {
     /// <summary>
-    /// RefundRequestHandler
+    /// 创建个人主体小程序接口返回结果
     /// </summary>
-    public class RefundRequestHandler : ClientRequestHandler
+    [Serializable]
+    public class FastRegisterPersonalWeAppResult : WxJsonResult
     {
         /// <summary>
-        /// 退款接口
+        /// 任务id，后面query查询需要用到
         /// </summary>
-        /// <param name="httpContext"></param>
-        public RefundRequestHandler(HttpContext httpContext)
-            : base(httpContext)
-        {
-            this.SetGateUrl("https://mch.tenpay.com/refundapi/gateway/refund.xml");
-        }
+        public string taskid { get; set; }
 
-        public void SetParameter(string v, object p)
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// 给用户扫码认证的验证url
+        /// </summary>
+        public string authorize_url { get; set; }
+
+        /// <summary>
+        /// 任务的状态 0成功
+        /// </summary>
+        public int status { get; set; }
     }
 }

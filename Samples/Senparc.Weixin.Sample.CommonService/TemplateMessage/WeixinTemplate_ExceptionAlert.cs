@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 
-#if NET45
+#if NET451
 using System.Web;
 #else
 using Microsoft.Extensions.DependencyInjection;
@@ -72,7 +72,7 @@ namespace Senparc.Weixin.Sample.CommonService.TemplateMessage
                 string newMessage = null;
                 try
                 {
-#if !NET45
+#if !NET451
 
                     var httpContextAccessor = Senparc.CO2NET.SenparcDI.GetServiceProvider().GetService<IHttpContextAccessor>();
                     var httpContext = httpContextAccessor.HttpContext;

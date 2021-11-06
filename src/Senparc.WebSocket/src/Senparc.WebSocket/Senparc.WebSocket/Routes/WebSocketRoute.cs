@@ -16,13 +16,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-#if NET45
+#if NET451
 using System.Web.Routing;
 #endif
 
 namespace Senparc.WebSocket
 {
-#if NET45
+#if NET451
     /// <summary>
     /// WebSocketRoute
     /// </summary>

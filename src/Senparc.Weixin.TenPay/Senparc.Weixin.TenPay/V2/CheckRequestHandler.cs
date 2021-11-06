@@ -35,7 +35,7 @@ using System.Collections;
 using System.Text;
 using Senparc.CO2NET.Helpers;
 
-#if NET45
+#if NET451
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;

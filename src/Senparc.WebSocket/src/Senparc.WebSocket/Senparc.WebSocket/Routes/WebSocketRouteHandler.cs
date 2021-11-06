@@ -16,14 +16,14 @@ using System.Text;
 using System.Threading.Tasks;
 //using Microsoft.AspNetCore.Http;
 //using Microsoft.AspNetCore.Routing;
-#if NET45
+#if NET451
 using System.Web;
 using System.Web.Routing;
 #endif
 
 namespace Senparc.WebSocket
 {
-#if NET45
+#if NET451
     /// <summary>
     /// WebSocketHansler，处理WebSocket请求
     /// </summary>

@@ -65,7 +65,7 @@ namespace Senparc.Weixin.TenPay.V3
         public static PayBankResult PayBank(
             IServiceProvider serviceProvider,
             TenPayV3PayBankRequestData dataInfo,
-#if NET45
+#if NET451
             string cert, string certPassword, 
 #endif
            int timeOut = Config.TIME_OUT)
@@ -80,7 +80,7 @@ namespace Senparc.Weixin.TenPay.V3
             //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             //var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, url, null, ms);
             #endregion
-#if NET45
+#if NET451
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
             string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
@@ -103,7 +103,7 @@ namespace Senparc.Weixin.TenPay.V3
         public static QueryBankResult QueryBank(
             IServiceProvider serviceProvider,
             TenPayV3QueryBankRequestData dataInfo,
-#if NET45
+#if NET451
             string cert, string certPassword, 
 #endif
               int timeOut = Config.TIME_OUT)
@@ -118,7 +118,7 @@ namespace Senparc.Weixin.TenPay.V3
             //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             //var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, url, null, ms);
             #endregion
-#if NET45
+#if NET451
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
             string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
@@ -137,7 +137,7 @@ namespace Senparc.Weixin.TenPay.V3
         public static GetPublicKeyResult GetPublicKey(
             IServiceProvider serviceProvider,
             TenPayV3GetPublicKeyRequestData dataInfo,
-#if NET45
+#if NET451
             string cert, string certPassword, 
 #endif
               int timeOut = Config.TIME_OUT)
@@ -153,7 +153,7 @@ namespace Senparc.Weixin.TenPay.V3
             //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             //var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, url, null, ms);
             #endregion
-#if NET45
+#if NET451
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
             string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
@@ -178,7 +178,7 @@ namespace Senparc.Weixin.TenPay.V3
         public static async Task<PayBankResult> PayBankAsync(
             IServiceProvider serviceProvider,
             TenPayV3PayBankRequestData dataInfo,
-#if NET45
+#if NET451
             string cert, string certPassword, 
 #endif
               int timeOut = Config.TIME_OUT)
@@ -193,7 +193,7 @@ namespace Senparc.Weixin.TenPay.V3
             //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             //var resultXml = await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms);
             #endregion
-#if NET45
+#if NET451
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
             string responseContent = await CertPost_NetCoreAsync(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
@@ -214,7 +214,7 @@ namespace Senparc.Weixin.TenPay.V3
         public static async Task<QueryBankResult> QueryBankAsync(
             IServiceProvider serviceProvider,
             TenPayV3QueryBankRequestData dataInfo,
-#if NET45
+#if NET451
             string cert, string certPassword, 
 #endif
               int timeOut = Config.TIME_OUT)
@@ -229,7 +229,7 @@ namespace Senparc.Weixin.TenPay.V3
             //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             //var resultXml = await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms);
             #endregion
-#if NET45
+#if NET451
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
             string responseContent = await CertPost_NetCoreAsync(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
@@ -248,7 +248,7 @@ namespace Senparc.Weixin.TenPay.V3
         public static async Task<GetPublicKeyResult> GetPublicKeyAsync(
             IServiceProvider serviceProvider,
             TenPayV3QueryBankRequestData dataInfo,
-#if NET45
+#if NET451
             string cert, string certPassword, 
 #endif
               int timeOut = Config.TIME_OUT)
@@ -264,7 +264,7 @@ namespace Senparc.Weixin.TenPay.V3
             //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             //var resultXml = await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms);
             #endregion
-#if NET45
+#if NET451
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
             string responseContent = await CertPost_NetCoreAsync(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);

@@ -13,6 +13,9 @@
     修改标识：Senparc - 2019620
     修改描述：v3.5.6 添加 GetPermanentCodeResult.auth_user_info 属性
 
+    修改标识：77Harbor - 20211107
+    修改描述：v3.13 企业微信获取访问用户身份返回实体增加 open_userid 
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;

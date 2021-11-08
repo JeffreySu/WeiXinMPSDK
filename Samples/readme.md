@@ -4,7 +4,7 @@
 
 | 文件夹 | 说明 |
 |--------|--------|
-|   net6-mvc      |   【推荐】ASP.NET 6.0 示例，可用于直接部署
+|   net6-mvc      |   【推荐】.NET 6.0 示例，可用于直接部署
 |   netcore3.1-mvc      |   【即将停止更新】ASP.NET Core 3.1 示例，可用于直接部署
 |   console             |   命令行注册过程演示 Demo（接口调可参考 Web 项目）
 |   net45-mvc           |   【停止更新】ASP.NET 4.5 MVC 示例，可用于直接部署，此项目中包含了 CommonServices 项目，供其他各 Sample 公用
@@ -18,7 +18,7 @@
 
 ## 帮你选择
 
-> 如果你希望学习并使用最新的 .NET 6.0（preview）框架，并且已经安装了 VS2019（v16.9 以上），并且希望调试 .NET 6.0 及以上版本，那么请打开：net6-mvc/Senparc.Weixin.Sample.Net6.sln 解决方案
+> 如果你希望学习并使用最新的 .NET 6.0 框架，并且已经安装了 VS2019（v16.9 以上），并且希望调试 .NET 6.0 及以上版本，那么请打开：net6-mvc/Senparc.Weixin.Sample.Net6.sln 解决方案
 
 > 如果你已经安装了 VS2019（v16.3以上），并且希望调试 .NET Core 3.0 及以上版本，那么请打开：netcore3.1-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln 解决方案
 

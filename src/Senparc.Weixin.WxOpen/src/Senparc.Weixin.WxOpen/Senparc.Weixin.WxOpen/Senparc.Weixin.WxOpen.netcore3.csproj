@@ -178,6 +178,11 @@
     <DocumentationFile>..\..\..\..\Senparc.Weixin.BuildOutPut\netstandard2.1\Senparc.Weixin.WxOpen.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="AdvancedAPIs\Express\**" />
+    <EmbeddedResource Remove="AdvancedAPIs\Express\**" />
+    <None Remove="AdvancedAPIs\Express\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">

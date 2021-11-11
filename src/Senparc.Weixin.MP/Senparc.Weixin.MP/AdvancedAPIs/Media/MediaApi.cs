@@ -90,7 +90,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 素材管理接口（原多媒体文件接口）
     /// </summary>
-    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, true)]
     public static class MediaApi
     {
         #region 同步方法
@@ -144,6 +144,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.Get", true, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static void Get(string accessTokenOrAppId, string mediaId, Stream stream)
         {
             ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -161,6 +162,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="mediaId"></param>
         /// <param name="dir">储存目录</param>
         /// <returns>储存文件的完整路径</returns>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.Get", true, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static string Get(string accessTokenOrAppId, string mediaId, string dir)
         {
             var result = ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -180,6 +182,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="stream"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetJssdk", true, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static WxJsonResult GetJssdk(string accessTokenOrAppId, string mediaId, Stream stream, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -261,7 +264,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="title">素材的标题</param>
         /// <param name="introduction">素材的描述</param>
         /// <param name="file">上传文件的绝对路径</param>
-         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static UploadForeverMediaResult UploadForeverVideo(string accessTokenOrAppId, string file, string title, string introduction, string type, int timeOut = 40000)
         {
@@ -613,6 +616,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetAsync", true, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static async Task GetAsync(string accessTokenOrAppId, string mediaId, Stream stream)
         {
             await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -630,6 +634,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="mediaId"></param>
         /// <param name="dir"></param>
         /// <returns></returns>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetAsync", true, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static async Task<string> GetAsync(string accessTokenOrAppId, string mediaId, string dir)
         {
             var result = await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -649,6 +654,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="stream"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetJssdkAsync", true, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static async Task<WxJsonResult> GetJssdkAsync(string accessTokenOrAppId, string mediaId, Stream stream, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

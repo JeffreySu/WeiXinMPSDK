@@ -8,12 +8,12 @@
 
 | 文件名 |  说明
 |-------|---------
-| Senparc.Weixin.MP.Sample.sln | 包含示例、源代码、单元测试项目的解决方案，需要使用 VS2017 以上打开
+| Senparc.Weixin.MP.Sample.sln | 包含示例、源代码、单元测试项目的解决方案，需要使用 VS2019 以上打开（部分源码包含 C# 9.0 以上语法）
 | Senparc.Weixin.MP.Sample.Libraries.sln | 只包含少数项目源代码的解决方案，仅供自动化检测用，无实用性
 
 ## .NET Core 及所有版本 Demo
 
-返回上一级后见目录：[Senparc.Weixin.MP.Sample.vs2017.sln](../netcore2.2-mvc/) (.Net Core 2.2) / [Senparc.Weixin.Sample.NetCore3.vs2019.sln](../netcore3.0-mvc/) (.Net Core 3.0，推荐)。
+返回上一级后见目录：[Senparc.Weixin.MP.Sample.vs2017.sln](../netcore2.2-mvc/) (.Net Core 2.2) / [Senparc.Weixin.Sample.NetCore3.vs2019.sln](../netcore3.1-mvc/) (.Net Core 3.1，推荐)。
 
 
 ## 其他说明

@@ -21,7 +21,7 @@ using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.MP;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+using Senparc.Weixin.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {

@@ -73,6 +73,32 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         }
 
         /// <summary>
+        /// 获取打卡日报数据
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="userIdList"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetCheckinDayDataJsonResult GetCheckinDayData(string accessTokenOrAppKey, DateTime startTime, DateTime endTime, string[] userIdList, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = Config.ApiWorkHost + "/cgi-bin/checkin/getcheckin_daydata?access_token={0}";
+
+                var data = new
+                {
+                    starttime = DateTimeHelper.GetUnixDateTime(startTime),
+                    endtime = DateTimeHelper.GetUnixDateTime(endTime),
+                    useridlist = userIdList
+                };
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetCheckinDayDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
         /// 获取打卡规则
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
@@ -230,6 +256,31 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// 获取打卡日报数据
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="userIdList"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetCheckinDayDataJsonResult> GetCheckinDayDataAsync(string accessTokenOrAppKey, DateTime startTime, DateTime endTime, string[] userIdList, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = Config.ApiWorkHost + "/cgi-bin/checkin/getcheckin_daydata?access_token={0}";
+
+                var data = new
+                {
+                    starttime = DateTimeHelper.GetUnixDateTime(startTime),
+                    endtime = DateTimeHelper.GetUnixDateTime(endTime),
+                    useridlist = userIdList
+                };
+
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCheckinDayDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
 
         /// <summary>
         /// 【异步方法】获取审批数据【QY移植新增】

@@ -63,64 +63,84 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.CO2NET, Version=1.1.100.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.1.1.100-preview1\lib\net45\Senparc.CO2NET.dll</HintPath>
+      <HintPath>..\packages\Senparc.CO2NET.1.5.2-preview3\lib\net45\Senparc.CO2NET.dll</HintPath>
+      
     </Reference>
     <Reference Include="Senparc.CO2NET.APM, Version=0.7.100.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.APM.0.7.100-preview1\lib\net45\Senparc.CO2NET.APM.dll</HintPath>
+      <HintPath>..\packages\Senparc.CO2NET.APM.0.11.0-preview3\lib\net45\Senparc.CO2NET.APM.dll</HintPath>
+      
     </Reference>
     <Reference Include="Senparc.CO2NET.AspNet, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.AspNet.0.1.0-preview1\lib\net45\Senparc.CO2NET.AspNet.dll</HintPath>
+      <HintPath>..\packages\Senparc.CO2NET.AspNet.0.6.0-preview3\lib\net45\Senparc.CO2NET.AspNet.dll</HintPath>
+      
     </Reference>
     <Reference Include="Senparc.CO2NET.Cache.Memcached, Version=3.4.103.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.Cache.Memcached.3.4.103\lib\net45\Senparc.CO2NET.Cache.Memcached.dll</HintPath>
+      <HintPath>..\packages\Senparc.CO2NET.Cache.Memcached.3.9.0-preview3\lib\net45\Senparc.CO2NET.Cache.Memcached.dll</HintPath>
+      
     </Reference>
     <Reference Include="Senparc.CO2NET.Cache.Redis, Version=3.6.103.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.Cache.Redis.3.6.103\lib\net45\Senparc.CO2NET.Cache.Redis.dll</HintPath>
+      <HintPath>..\packages\Senparc.CO2NET.Cache.Redis.3.11.2-preview3\lib\net45\Senparc.CO2NET.Cache.Redis.dll</HintPath>
+      
     </Reference>
-    <Reference Include="Senparc.CO2NET.Cache.Redis.RedLock, Version=2.2.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.Cache.Redis.RedLock.2.2.4\lib\net45\Senparc.CO2NET.Cache.Redis.RedLock.dll</HintPath>
+    <Reference Include="Senparc.CO2NET.Cache.Redis.RedLock, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.CO2NET.Cache.Redis.RedLock.2.7.0-preview3\lib\net45\Senparc.CO2NET.Cache.Redis.RedLock.dll</HintPath>
+      
     </Reference>
     <Reference Include="Senparc.NeuChar, Version=1.1.100.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.NeuChar.1.1.100-preview1.1\lib\net45\Senparc.NeuChar.dll</HintPath>
+      <HintPath>..\packages\Senparc.NeuChar.1.5.0-preview3\lib\net45\Senparc.NeuChar.dll</HintPath>
+      
     </Reference>
     <Reference Include="Senparc.NeuChar.App, Version=0.7.100.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.NeuChar.App.0.7.100-preview1.1\lib\net45\Senparc.NeuChar.App.dll</HintPath>
+      <HintPath>..\packages\Senparc.NeuChar.App.0.11.0-preview3\lib\net45\Senparc.NeuChar.App.dll</HintPath>
+      
     </Reference>
     <Reference Include="Senparc.NeuChar.AspNet, Version=0.1.100.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.NeuChar.AspNet.0.1.100-preview1.1\lib\net45\Senparc.NeuChar.AspNet.dll</HintPath>
+      <HintPath>..\packages\Senparc.NeuChar.AspNet.0.5.0-preview3\lib\net45\Senparc.NeuChar.AspNet.dll</HintPath>
+      
     </Reference>
     <Reference Include="Senparc.WebSocket, Version=0.10.100.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.WebSocket.0.10.100-preview1\lib\net45\Senparc.WebSocket.dll</HintPath>
+      <HintPath>..\packages\Senparc.WebSocket.0.14.500-preview2\lib\net45\Senparc.WebSocket.dll</HintPath>
+      
     </Reference>
     <Reference Include="Senparc.Weixin, Version=6.7.100.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.6.7.100-preview1\lib\net45\Senparc.Weixin.dll</HintPath>
+      <HintPath>..\packages\Senparc.Weixin.6.12.500-preview2\lib\net45\Senparc.Weixin.dll</HintPath>
+      
     </Reference>
     <Reference Include="Senparc.Weixin.AspNet, Version=0.1.100.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.AspNet.0.1.100-preivew1\lib\net45\Senparc.Weixin.AspNet.dll</HintPath>
+      <HintPath>..\packages\Senparc.Weixin.AspNet.0.5.500-preview2\lib\net45\Senparc.Weixin.AspNet.dll</HintPath>
+      
     </Reference>
     <Reference Include="Senparc.Weixin.Cache.Memcached, Version=2.6.100.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.Cache.Memcached.2.6.100-preview1\lib\net45\Senparc.Weixin.Cache.Memcached.dll</HintPath>
+      <HintPath>..\packages\Senparc.Weixin.Cache.Memcached.2.10.500-preview2\lib\net45\Senparc.Weixin.Cache.Memcached.dll</HintPath>
+      
     </Reference>
     <Reference Include="Senparc.Weixin.Cache.Redis, Version=2.8.100.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.Cache.Redis.2.8.100-preivew1\lib\net45\Senparc.Weixin.Cache.Redis.dll</HintPath>
+      <HintPath>..\packages\Senparc.Weixin.Cache.Redis.2.12.500-preview2\lib\net45\Senparc.Weixin.Cache.Redis.dll</HintPath>
+      
     </Reference>
     <Reference Include="Senparc.Weixin.MP, Version=16.10.100.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.MP.16.10.100-preview1\lib\net45\Senparc.Weixin.MP.dll</HintPath>
+      <HintPath>..\packages\Senparc.Weixin.MP.16.15.500-preview2\lib\net45\Senparc.Weixin.MP.dll</HintPath>
+      
     </Reference>
     <Reference Include="Senparc.Weixin.MP.MvcExtension, Version=7.5.100.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.MP.MVC.7.5.100-preview1\lib\net45\Senparc.Weixin.MP.MvcExtension.dll</HintPath>
+      <HintPath>..\packages\Senparc.Weixin.MP.MVC.7.9.500-preview2\lib\net45\Senparc.Weixin.MP.MvcExtension.dll</HintPath>
+      
     </Reference>
     <Reference Include="Senparc.Weixin.Open, Version=4.7.104.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.Open.4.7.104\lib\net45\Senparc.Weixin.Open.dll</HintPath>
+      <HintPath>..\packages\Senparc.Weixin.Open.4.11.500-preview2\lib\net45\Senparc.Weixin.Open.dll</HintPath>
+      
     </Reference>
     <Reference Include="Senparc.Weixin.TenPay, Version=1.5.105.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.TenPay.1.5.105\lib\net45\Senparc.Weixin.TenPay.dll</HintPath>
+      <HintPath>..\packages\Senparc.Weixin.TenPay.1.9.500.1-preview2\lib\net45\Senparc.Weixin.TenPay.dll</HintPath>
+      
     </Reference>
     <Reference Include="Senparc.Weixin.Work, Version=3.7.104.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.Work.3.7.104.2\lib\net45\Senparc.Weixin.Work.dll</HintPath>
+      <HintPath>..\packages\Senparc.Weixin.Work.3.12.501-preview\lib\net45\Senparc.Weixin.Work.dll</HintPath>
+      
     </Reference>
     <Reference Include="Senparc.Weixin.WxOpen, Version=3.8.100.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.WxOpen.3.8.100-preview1\lib\net45\Senparc.Weixin.WxOpen.dll</HintPath>
+      <HintPath>..\packages\Senparc.Weixin.WxOpen.3.13.500-preview2\lib\net45\Senparc.Weixin.WxOpen.dll</HintPath>
+      
     </Reference>
     <Reference Include="StackExchange.Redis, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.1.2.6\lib\net45\StackExchange.Redis.dll</HintPath>
@@ -213,7 +233,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\net45-mvc\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.MP.Sample.CommonService.csproj">
+    <ProjectReference Include="..\..\Senparc.Weixin.Sample.CommonService\Senparc.Weixin.Net45Sample.CommonService.csproj">
       <Project>{ccd291e9-16fa-4b53-b032-ebd3f659567b}</Project>
       <Name>Senparc.Weixin.MP.Sample.CommonService</Name>
     </ProjectReference>

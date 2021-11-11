@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.MvcExtension;
-using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
+using Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 using Senparc.Weixin.WxOpen.Containers;
 using Senparc.Weixin.WxOpen.Entities;
@@ -27,7 +27,7 @@ using Senparc.Weixin.WxOpen.Helpers;
 using System;
 using System.IO;
 using Senparc.Weixin.TenPay.V3;//DPBMARK TenPay DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService;
+using Senparc.Weixin.Sample.CommonService;
 using Senparc.CO2NET.Utilities;
 using System.Threading.Tasks;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp;

@@ -126,7 +126,6 @@
     <Compile Include="RegisterServices\SenparcWeixinRegisterServiceExtension.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
-    <Compile Include="Utilities\BrowserUtility\BrowserUtility.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Utilities\HttpUtility\UrlUtility.cs" />
     <Compile Include="Utilities\WeixinUtility\ApiUtility.cs" />

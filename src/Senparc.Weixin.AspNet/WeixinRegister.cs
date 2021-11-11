@@ -1,4 +1,4 @@
-﻿#if !NET45
+﻿#if !NET451
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;

@@ -119,6 +119,23 @@
         overflow: hidden;
     }
 
+.sample-notice {
+    line-height: 120%;
+    margin: 0px auto;
+    margin-top:20px;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 5px;
+    border: 1px solid #5e85f1;
+    background: #c5d5ff;
+    box-shadow: 0px 4px 5px #888888;
+}
+
+.sample-notice-title {
+    font-weight:900;
+    margin-bottom:7px;
+}
+
 .senparc-container {
 }
 

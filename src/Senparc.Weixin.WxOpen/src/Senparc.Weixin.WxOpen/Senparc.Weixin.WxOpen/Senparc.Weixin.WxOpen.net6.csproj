@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.13-preview3</Version>
+    <TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Version>3.14</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -154,6 +154,7 @@
 		v3.10.104 添加 WxAppApi.GenerateScheme() 接口
 		v3.10.401 升级 MessageApi.SendSubscribe() 方法参数
 		v3.11.100 修改完善“附近的小程序”接口
+		v3.13.500-preview4.1 添加“Short Link”接口
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -179,9 +180,14 @@
     <DocumentationFile>..\..\..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.WxOpen.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="AdvancedAPIs\Express\**" />
+    <EmbeddedResource Remove="AdvancedAPIs\Express\**" />
+    <None Remove="AdvancedAPIs\Express\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -206,7 +212,7 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="1.5.0-preview3" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.5.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net6.csproj" />

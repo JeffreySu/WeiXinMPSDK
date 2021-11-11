@@ -36,7 +36,7 @@ namespace Senparc.Weixin.Entities
     /// <summary>
     /// <para>Senparc.Weixin JSON 配置</para>
     /// </summary>
-    public class SenparcWeixinSetting : SenparcWeixinSettingItem//继承 SenparcWeixinSettingItem 是为了可以得到一组默认的参数，方便访问
+    public record class SenparcWeixinSetting : SenparcWeixinSettingItem//继承 SenparcWeixinSettingItem 是为了可以得到一组默认的参数，方便访问
     {
         #region 微信全局
 
@@ -97,7 +97,7 @@ namespace Senparc.Weixin.Entities
         }
 
 
-#if NET45
+#if NET451
         /// <summary>
         /// 从 Web.Config 文件自动生成 SenparcWeixinSetting
         /// </summary>

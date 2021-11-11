@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.Sample.CommonService", "..\net45-mvc\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.MP.Sample.CommonService.csproj", "{CCD291E9-16FA-4B53-B032-EBD3F659567B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.Sample.CommonService", "..\Senparc.Weixin.Sample.CommonService\Senparc.Weixin.Net45Sample.CommonService.csproj", "{CCD291E9-16FA-4B53-B032-EBD3F659567B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{4AF09A77-6409-4029-ABDE-DB33B750E837}"
 	ProjectSection(SolutionItems) = preProject

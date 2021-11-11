@@ -6,7 +6,7 @@ using System.Threading;
 using System.Net.WebSockets;
 using System.Threading.Tasks;
 
-#if NET45
+#if NET451
 using System.Web.Script.Serialization;
 #else
 using Microsoft.AspNetCore.Builder;
@@ -18,7 +18,7 @@ namespace Senparc.WebSocket
 {
     public partial class WebSocketHandler
     {
-#if NET45
+#if NET451
         private static async Task HandleMessage(System.Net.WebSockets.WebSocket webSocket)
         {
             //Gets the current WebSocket object.
@@ -85,7 +85,7 @@ namespace Senparc.WebSocket
                                 };
 
 
-#if NET45
+#if NET451
                                 JavaScriptSerializer js = new JavaScriptSerializer();
                                 receivedMessage = js.Deserialize<ReceivedMessage>(receiveString);
 #else

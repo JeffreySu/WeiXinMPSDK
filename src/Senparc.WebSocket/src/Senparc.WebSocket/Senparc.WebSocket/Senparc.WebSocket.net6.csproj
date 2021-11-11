@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0;netstandard2.1;netcoreapp3.1;net6.0</TargetFrameworks>
-    <Version>0.14-preview3</Version>
+    <TargetFrameworks>net451;netstandard2.0;netstandard2.1;netcoreapp3.1;net6.0</TargetFrameworks>
+    <Version>0.15</Version>
     <AssemblyName>Senparc.WebSocket</AssemblyName>
     <RootNamespace>Senparc.WebSocket</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -65,9 +65,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net451|AnyCPU'">
     <OutputPath>..\..\..\..\BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\..\..\BuildOutPut\net45\Senparc.WebSocket.xml</DocumentationFile>
+    <DocumentationFile>..\..\..\..\BuildOutPut\net451\Senparc.WebSocket.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
     <OutputPath>..\..\..\..\BuildOutPut\</OutputPath>
@@ -85,7 +85,7 @@
     <OutputPath>..\..\..\..\BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\..\..\BuildOutPut\net6.0\Senparc.WebSocket.xml</DocumentationFile>
   </PropertyGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -132,7 +132,7 @@
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET" Version="1.5.0-preview3" />
+    <PackageReference Include="Senparc.CO2NET" Version="1.6.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>

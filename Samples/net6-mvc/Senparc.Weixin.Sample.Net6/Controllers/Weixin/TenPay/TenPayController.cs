@@ -19,10 +19,13 @@ using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.TenPay.V2;
+
+//DPBMARK MP
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.TenPay.V2;
+//DPBMARK_END
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -466,6 +469,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             return View();
         }
 
+        //DPBMARK MP
         public ActionResult SharedAddress()
         {
             var accessToken = AccessTokenContainer.TryGetAccessToken(TenPayInfo.AppId, "49b71198b776e18521659a32a97501a6");
@@ -488,5 +492,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
             return View();
         }
+        //DPBMARK_END
+
     }
 }

@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.Sample", "Senparc.Weixin.MP.Sample\Senparc.Weixin.MP.Sample.csproj", "{9A4E286B-FE2C-4985-AFBC-FA1A598F97C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.Sample.CommonService", "Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.MP.Sample.CommonService.csproj", "{CCD291E9-16FA-4B53-B032-EBD3F659567B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.Sample.CommonService", "..\Senparc.Weixin.Sample.CommonService\Senparc.Weixin.Net45Sample.CommonService.csproj", "{CCD291E9-16FA-4B53-B032-EBD3F659567B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{4C992D29-47D0-4686-BC85-D1D526AE6E83}"
 EndProject

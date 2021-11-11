@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
-		<Version>6.3.1</Version>
+		<Version>6.3.12</Version>
 		<UserSecretsId>35e58786-0820-4cde-b1ff-f4c6198d00f7</UserSecretsId>
 		<PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
 	</PropertyGroup>
@@ -43,15 +43,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Senparc.CO2NET.WebApi" Version="0.2.3.1-preview3" />
-		<PackageReference Include="Senparc.NeuChar.App" Version="0.11.0-preview3" />
-		<PackageReference Include="Senparc.NeuChar.AspNet" Version="0.5.0-preview3" />
+		<PackageReference Include="Senparc.CO2NET.WebApi" Version="0.3.0" />
+		<PackageReference Include="Senparc.NeuChar.App" Version="0.11.0" />
+		<PackageReference Include="Senparc.NeuChar.AspNet" Version="0.5.0" />
 
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
 		<PackageReference Include="System.Drawing.Common" Version="4.7.0" />
 		<PackageReference Include="System.IO.Compression.ZipFile" Version="4.3.0" />
-		<PackageReference Include="ZXing.Net" Version="0.16.4" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -70,7 +69,7 @@
 		<ProjectReference Include="..\..\..\src\Senparc.Weixin.WxOpen.Middleware\Senparc.Weixin.WxOpen.Middleware.net6.csproj" />
 		<ProjectReference Include="..\..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net6.csproj" />
 		<ProjectReference Include="..\..\..\src\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />
-		<ProjectReference Include="..\..\net45-mvc\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.Net6Sample.CommonService.csproj" />
+		<ProjectReference Include="..\..\Senparc.Weixin.Sample.CommonService\Senparc.Weixin.Net6Sample.CommonService.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

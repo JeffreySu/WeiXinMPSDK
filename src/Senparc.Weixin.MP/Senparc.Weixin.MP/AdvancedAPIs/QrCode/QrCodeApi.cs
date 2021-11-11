@@ -206,6 +206,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="ticket"></param>
         /// <param name="stream"></param>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "QrCodeApi.ShowQrCode", false, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static void ShowQrCode(string ticket, Stream stream)
         {
             var url = GetShowQrCodeUrl(ticket);
@@ -332,6 +333,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="ticket"></param>
         /// <param name="stream"></param>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "QrCodeApi.ShowQrCodeAsync", false, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static async Task ShowQrCodeAsync(string ticket, Stream stream)
         {
             var url = GetShowQrCodeUrl(ticket);

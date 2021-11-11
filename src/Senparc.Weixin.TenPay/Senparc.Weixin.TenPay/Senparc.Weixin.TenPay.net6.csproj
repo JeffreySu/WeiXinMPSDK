@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>1.9-preview3</Version>
+    <TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Version>1.10</Version>
     <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -71,7 +71,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net451|AnyCPU'">
     <OutputPath>..\..\BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\BuildOutPut\net40\Senparc.Weixin.TenPay.xml</DocumentationFile>
   </PropertyGroup>
@@ -86,7 +86,7 @@
   <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
@@ -98,7 +98,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.AspNet" Version="0.6.0-preview3" />
+    <PackageReference Include="Senparc.CO2NET.AspNet" Version="0.7.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

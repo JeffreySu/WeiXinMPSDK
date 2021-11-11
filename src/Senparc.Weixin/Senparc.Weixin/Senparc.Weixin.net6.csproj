@@ -1,17 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>6.11.1-preview3</Version>
+    <Version>6.13</Version>
+    <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
     <Description>
-      微信公众账号 - Senparc.Weixin SDK 基础模块
+			微信公众账号 - Senparc.Weixin SDK 基础模块
 
-      Senparc.Weixin SDK 开源项目：
-      https://github.com/JeffreySu/WeiXinMPSDK
-    </Description>
+			Senparc.Weixin SDK 开源项目：
+			https://github.com/JeffreySu/WeiXinMPSDK
+		</Description>
     <Copyright>Senparc Copyright © 2004~2021</Copyright>
     <PackageTags>微信,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,Cache,Redis</PackageTags>
     <Authors>Jeffrey Su</Authors>
@@ -23,82 +24,82 @@
     <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
     <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
     <PackageReleaseNotes>
-		v1.0.0
-		重构代码，从原来的Senparc.Weixin.MP.dll中分离基类代码
+			v1.0.0
+			重构代码，从原来的Senparc.Weixin.MP.dll中分离基类代码
 
-		v1.4.0
-		重构代码，完全兼容公众账号及企业号。
+			v1.4.0
+			重构代码，完全兼容公众账号及企业号。
 
-		v1.5.0
-		添加统一的消息加密接口
+			v1.5.0
+			添加统一的消息加密接口
 
-		v1.6.0
-		添加消息去重功能
+			v1.6.0
+			添加消息去重功能
 
-		v1.6.1
-		完善消息去重功能
+			v1.6.1
+			完善消息去重功能
 
-		v2.0.0
-		重构代码，加入AppStore接口
+			v2.0.0
+			重构代码，加入AppStore接口
 
-		v3.0.0
-		.NET框架升级到4.0
+			v3.0.0
+			.NET框架升级到4.0
 
-		v3.3.4
-		区分企业号与公众号的返回码
-		post表单处理修改
+			v3.3.4
+			区分企业号与公众号的返回码
+			post表单处理修改
 
-		v3.3.6
-		修改HttpUtility方法
+			v3.3.6
+			修改HttpUtility方法
 
-		v3.3.7 添加 验证服务器证书回调自动验证功能
+			v3.3.7 添加 验证服务器证书回调自动验证功能
 
-		v3.3.8 稳定版本
+			v3.3.8 稳定版本
 
-		v3.3.9 优化PostModel基类属性，稳定版本
+			v3.3.9 优化PostModel基类属性，稳定版本
 
-		v4.1.0 添加异步代码，支持.NET 4.5
+			v4.1.0 添加异步代码，支持.NET 4.5
 
-		v4.2.1 完善异步方法，添加JSON生成过程中null对象的过滤机制。
+			v4.2.1 完善异步方法，添加JSON生成过程中null对象的过滤机制。
 
-		v4.2.3 完善底层代码
+			v4.2.3 完善底层代码
 
-		v4.3.2 增加统一的Container和Bag管理器
+			v4.3.2 增加统一的Container和Bag管理器
 
-		v4.4.1 重构，增加Debug跟踪功能
+			v4.4.1 重构，增加Debug跟踪功能
 
-		v4.5 添加分布式缓存接口
-		v4.5.6 优化缓存策略
-		v4.5.12 优化缓存策略结构
-		v4.5.14 优化重构
-		v4.5.17 优化列队及缓存方案
-		v4.5.19 优化Http通讯方法
-		v4.5.20 添加消息接口IResponseMessageNoResponse
-		v4.5.22 添加BaseContainerBag.Name
+			v4.5 添加分布式缓存接口
+			v4.5.6 优化缓存策略
+			v4.5.12 优化缓存策略结构
+			v4.5.14 优化重构
+			v4.5.17 优化列队及缓存方案
+			v4.5.19 优化Http通讯方法
+			v4.5.20 添加消息接口IResponseMessageNoResponse
+			v4.5.22 添加BaseContainerBag.Name
 
-		v4.6.0
-		优化EntityHelper等方法
+			v4.6.0
+			优化EntityHelper等方法
 
-		v4.7.3
-		重构缓存及Container相关
+			v4.7.3
+			重构缓存及Container相关
 
-		v4.7.4 解决Container无法注册的问题
+			v4.7.4 解决Container无法注册的问题
 
-		v4.7.5
-		添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
+			v4.7.5
+			添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
 
-		v4.7.7
-		重构缓存键命名空间规则，添加Config.DefaultCacheNamespace
+			v4.7.7
+			重构缓存键命名空间规则，添加Config.DefaultCacheNamespace
 
-		v4.8.0
-		修正在ResponseMessage都null的情况下，没有对_textResponseMessage做判断就直接返回空字符串的问题
+			v4.8.0
+			修正在ResponseMessage都null的情况下，没有对_textResponseMessage做判断就直接返回空字符串的问题
 
-		v4.9.0 重构缓存，添加ObjectCacheStrategy
-		v4.9.1 重写WxJsonResult.ToString()方法，输出带格式的内容。
-		v4.9.2 Senparc.Weixin v4.9.2 添加FileHelper
-		v4.9.3 添加小程序返回码添加小程序返回码
-		v4.9.5 添加Sex枚举
-		v4.9.6 修改错别字Browser-&gt;Browser，请注意全局替换更新
+			v4.9.0 重构缓存，添加ObjectCacheStrategy
+			v4.9.1 重写WxJsonResult.ToString()方法，输出带格式的内容。
+			v4.9.2 Senparc.Weixin v4.9.2 添加FileHelper
+			v4.9.3 添加小程序返回码添加小程序返回码
+			v4.9.5 添加Sex枚举
+			v4.9.6 修改错别字Browser-&gt;Browser，请注意全局替换更新
 
 		v4.9.7
 		1、WeixinTrace使用同步锁，取代原先的本地锁
@@ -321,8 +322,10 @@
 		v6.8.400
 		1、引用新版本 NeuChar 及 CO2NET，解决可能导致崩溃的缓存问题
 		2、修复 CommonJsonSend.PostFailAction 公共请求失败处理抛错问题
-		v6.11.1 
-	</PackageReleaseNotes>
+		v6.11.1 TryCommonApiBase 提供 invalidCredentialValues，可设置多种重试错误代码
+		v6.12.0 升级至微信支付 V3（真）
+		v6.12.500 提供 UserHelper
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -338,9 +341,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net451|AnyCPU'">
     <OutputPath>..\..\BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\BuildOutPut\net45\Senparc.Weixin.xml</DocumentationFile>
+    <DocumentationFile>..\..\BuildOutPut\net451\Senparc.Weixin.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
     <OutputPath>..\..\BuildOutPut\</OutputPath>
@@ -360,10 +363,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="Senparc.CO2NET" Version="1.5.0-preview3" />
-    <PackageReference Include="Senparc.NeuChar" Version="1.5.0-preview3" />
+    <PackageReference Include="Senparc.CO2NET" Version="1.6.0" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.5.0" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />

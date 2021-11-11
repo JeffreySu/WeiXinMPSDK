@@ -18,7 +18,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 
-#if NET45
+#if NET451
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0;netstandard2.1;netcoreapp3.1;net6.0</TargetFrameworks>
-    <Version>7.9-preview3</Version>
+    <TargetFrameworks>net451;netstandard2.0;netstandard2.1;netcoreapp3.1;net6.0</TargetFrameworks>
+    <Version>7.10</Version>
     <AssemblyName>Senparc.Weixin.MP.MvcExtension</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.MvcExtension</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -107,9 +107,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net451|AnyCPU'">
     <OutputPath>..\..\BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\BuildOutPut\net45\Senparc.Weixin.MP.MvcExtension.xml</DocumentationFile>
+    <DocumentationFile>..\..\BuildOutPut\net451\Senparc.Weixin.MP.MvcExtension.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
     <OutputPath>..\..\BuildOutPut\</OutputPath>
@@ -135,7 +135,7 @@
   <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -172,7 +172,7 @@
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="1.5.0-preview3" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.5.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.net6.csproj" />

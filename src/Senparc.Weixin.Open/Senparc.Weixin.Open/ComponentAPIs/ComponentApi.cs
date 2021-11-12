@@ -418,11 +418,12 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/privacy_config/set_privacy_setting.html
         /// </summary>
         /// <param name="componentAccessToken">服务开发方的access_token</param>
-        /// <param name="ownerSetting">收集方（开发者）信息配置</param>
-        /// <param name="settingList">要收集的用户信息配置，可选择的用户信息类型参考下方详情</param>
+        /// <param name="privacy_ver">用户隐私保护指引的版本，1表示现网版本；2表示开发版。默认是2开发版。</param>
+        /// <param name="owner_setting">收集方（开发者）信息配置</param>
+        /// <param name="setting_list">要收集的用户信息配置，可选择的用户信息类型参考下方详情</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult SetPrivacySetting(string componentAccessToken, SetPrivacySettingData_OwnerSetting ownerSetting, List<SetPrivacySettingData_SettingList> settingList, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult SetPrivacySetting(string componentAccessToken, int privacy_ver, SetPrivacySettingData_OwnerSetting owner_setting, List<SetPrivacySettingData_SettingList> setting_list, int timeOut = Config.TIME_OUT)
         {
             var url =
                 string.Format(
@@ -431,8 +432,9 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
             var data = new
             {
-                owner_setting = ownerSetting,
-                setting_list = settingList
+                privacy_ver = privacy_ver,
+                owner_setting = owner_setting,
+                setting_list = setting_list
             };
 
             return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
@@ -823,11 +825,12 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/privacy_config/set_privacy_setting.html
         /// </summary>
         /// <param name="componentAccessToken">服务开发方的access_token</param>
-        /// <param name="ownerSetting">收集方（开发者）信息配置</param>
-        /// <param name="settingList">要收集的用户信息配置，可选择的用户信息类型参考下方详情</param>
+        /// <param name="privacy_ver">用户隐私保护指引的版本，1表示现网版本；2表示开发版。默认是2开发版。</param>
+        /// <param name="owner_setting">收集方（开发者）信息配置</param>
+        /// <param name="setting_list">要收集的用户信息配置，可选择的用户信息类型参考下方详情</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> SetPrivacySettingAsync(string componentAccessToken, SetPrivacySettingData_OwnerSetting ownerSetting, List<SetPrivacySettingData_SettingList> settingList, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> SetPrivacySettingAsync(string componentAccessToken, int privacy_ver, SetPrivacySettingData_OwnerSetting owner_setting, List<SetPrivacySettingData_SettingList> setting_list, int timeOut = Config.TIME_OUT)
         {
             var url =
                 string.Format(
@@ -836,8 +839,9 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
             var data = new
             {
-                owner_setting = ownerSetting,
-                setting_list = settingList
+                privacy_ver = privacy_ver,
+                owner_setting = owner_setting,
+                setting_list = setting_list
             };
 
             return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);

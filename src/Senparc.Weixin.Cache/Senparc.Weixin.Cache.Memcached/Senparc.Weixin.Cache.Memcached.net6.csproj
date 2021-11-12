@@ -133,7 +133,7 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
     <Compile Remove="MamcachedCacheLock.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="3.10.0" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="4.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

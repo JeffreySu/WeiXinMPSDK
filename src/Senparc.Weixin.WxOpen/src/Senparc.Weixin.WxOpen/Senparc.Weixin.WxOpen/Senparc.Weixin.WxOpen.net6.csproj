@@ -200,7 +200,7 @@
     <None Remove="AdvancedAPIs\Express\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="1.5.0" />
+    <PackageReference Include="Senparc.NeuChar" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net6.csproj" />

@@ -558,15 +558,10 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net451' ">
     <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
     <!--<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />-->
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
-    <!--<FrameworkReference Include="Microsoft.AspNetCore.App" />-->
-    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
-    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET.APM" Version="0.12.0" />

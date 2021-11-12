@@ -83,18 +83,11 @@
     <OutputPath>..\..\BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.Open.xml</DocumentationFile>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
     <Reference Include="System.Web" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
-    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.2" />
+  <ItemGroup Condition="'$(TargetFramework)' != 'net451'">
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
   </ItemGroup>
   <ItemGroup>

@@ -443,9 +443,10 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/privacy_config/get_privacy_setting.html
         /// </summary>
         /// <param name="componentAccessToken">服务开发方的access_token</param>
+        /// <param name="privacy_ver">1表示现网版本，即，传1则该接口返回的内容是现网版本的；2表示开发版，即，传2则该接口返回的内容是开发版本的。默认是2。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static GetPrivacySettingResult GetPrivacySetting(string componentAccessToken, int timeOut = Config.TIME_OUT)
+        public static GetPrivacySettingResult GetPrivacySetting(string componentAccessToken, int privacy_ver = 2, int timeOut = Config.TIME_OUT)
         {
             var url =
                 string.Format(
@@ -454,7 +455,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
             var data = new
             {
-                
+                privacy_ver
             };
 
             return CommonJsonSend.Send<GetPrivacySettingResult>(null, url, data, CommonJsonSendType.POST, timeOut);
@@ -847,9 +848,10 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/privacy_config/get_privacy_setting.html
         /// </summary>
         /// <param name="componentAccessToken">服务开发方的access_token</param>
+        /// <param name="privacy_ver">1表示现网版本，即，传1则该接口返回的内容是现网版本的；2表示开发版，即，传2则该接口返回的内容是开发版本的。默认是2。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<GetPrivacySettingResult> GetPrivacySettingAsync(string componentAccessToken, int timeOut = Config.TIME_OUT)
+        public static async Task<GetPrivacySettingResult> GetPrivacySettingAsync(string componentAccessToken, int privacy_ver = 2, int timeOut = Config.TIME_OUT)
         {
             var url =
                 string.Format(
@@ -858,7 +860,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
             var data = new
             {
-
+                privacy_ver
             };
 
             return await CommonJsonSend.SendAsync<GetPrivacySettingResult>(null, url, data, CommonJsonSendType.POST, timeOut);

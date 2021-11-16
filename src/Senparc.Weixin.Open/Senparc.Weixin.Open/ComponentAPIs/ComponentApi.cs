@@ -37,7 +37,9 @@ using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Open.ComponentAPIs.SetPrivacySettingJson;
 using Senparc.Weixin.Open.Entities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.ComponentAPIs
@@ -411,7 +413,73 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             return CommonJsonSend.Send<AuthorizerListResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
+        /// <summary>
+        /// 配置小程序用户隐私保护指引
+        /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/privacy_config/set_privacy_setting.html
+        /// </summary>
+        /// <param name="componentAccessToken">服务开发方的access_token</param>
+        /// <param name="ownerSetting">收集方（开发者）信息配置</param>
+        /// <param name="settingList">要收集的用户信息配置，可选择的用户信息类型参考下方详情</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static WxJsonResult SetPrivacySetting(string componentAccessToken, SetPrivacySettingData_OwnerSetting ownerSetting, List<SetPrivacySettingData_SettingList> settingList, int timeOut = Config.TIME_OUT)
+        {
+            var url =
+                string.Format(
+                    Config.ApiMpHost + "/cgi-bin/component/setprivacysetting?access_token={0}",
+                    componentAccessToken.AsUrlData());
 
+            var data = new
+            {
+                owner_setting = ownerSetting,
+                setting_list = settingList
+            };
+
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 查询小程序用户隐私保护指引
+        /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/privacy_config/get_privacy_setting.html
+        /// </summary>
+        /// <param name="componentAccessToken">服务开发方的access_token</param>
+        /// <param name="privacy_ver">1表示现网版本，即，传1则该接口返回的内容是现网版本的；2表示开发版，即，传2则该接口返回的内容是开发版本的。默认是2。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static GetPrivacySettingResult GetPrivacySetting(string componentAccessToken, int privacy_ver = 2, int timeOut = Config.TIME_OUT)
+        {
+            var url =
+                string.Format(
+                    Config.ApiMpHost + "/cgi-bin/component/getprivacysetting?access_token={0}",
+                    componentAccessToken.AsUrlData());
+
+            var data = new
+            {
+                privacy_ver
+            };
+
+            return CommonJsonSend.Send<GetPrivacySettingResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 上传小程序用户隐私保护指引
+        /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/privacy_config/upload_privacy_exfile.html
+        /// </summary>
+        /// <param name="componentAccessToken">服务开发方的access_token</param>
+        /// <param name="file"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static UploadPrivacyExtFileResult UploadPrivacyExtFile(string componentAccessToken, string file, int timeOut = Config.TIME_OUT)
+        {
+            var url =
+                string.Format(
+                    Config.ApiMpHost + "/cgi-bin/component/uploadprivacyextfile?access_token={0}",
+                    componentAccessToken.AsUrlData());
+
+            var fileDictionary = new Dictionary<string, string>();
+            fileDictionary["file"] = file;
+            return CO2NET.HttpUtility.Post.PostFileGetJson<UploadPrivacyExtFileResult>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
+        }
         #endregion
 
 
@@ -748,6 +816,75 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             return await CommonJsonSend.SendAsync<AuthorizerListResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
+
+
+        /// <summary>
+        /// 【异步方法】配置小程序用户隐私保护指引
+        /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/privacy_config/set_privacy_setting.html
+        /// </summary>
+        /// <param name="componentAccessToken">服务开发方的access_token</param>
+        /// <param name="ownerSetting">收集方（开发者）信息配置</param>
+        /// <param name="settingList">要收集的用户信息配置，可选择的用户信息类型参考下方详情</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> SetPrivacySettingAsync(string componentAccessToken, SetPrivacySettingData_OwnerSetting ownerSetting, List<SetPrivacySettingData_SettingList> settingList, int timeOut = Config.TIME_OUT)
+        {
+            var url =
+                string.Format(
+                    Config.ApiMpHost + "/cgi-bin/component/setprivacysetting?access_token={0}",
+                    componentAccessToken.AsUrlData());
+
+            var data = new
+            {
+                owner_setting = ownerSetting,
+                setting_list = settingList
+            };
+
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 【异步方法】查询小程序用户隐私保护指引
+        /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/privacy_config/get_privacy_setting.html
+        /// </summary>
+        /// <param name="componentAccessToken">服务开发方的access_token</param>
+        /// <param name="privacy_ver">1表示现网版本，即，传1则该接口返回的内容是现网版本的；2表示开发版，即，传2则该接口返回的内容是开发版本的。默认是2。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<GetPrivacySettingResult> GetPrivacySettingAsync(string componentAccessToken, int privacy_ver = 2, int timeOut = Config.TIME_OUT)
+        {
+            var url =
+                string.Format(
+                    Config.ApiMpHost + "/cgi-bin/component/getprivacysetting?access_token={0}",
+                    componentAccessToken.AsUrlData());
+
+            var data = new
+            {
+                privacy_ver
+            };
+
+            return await CommonJsonSend.SendAsync<GetPrivacySettingResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 【异步方法】上传小程序用户隐私保护指引
+        /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/privacy_config/upload_privacy_exfile.html
+        /// </summary>
+        /// <param name="componentAccessToken">服务开发方的access_token</param>
+        /// <param name="file"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<UploadPrivacyExtFileResult> UploadPrivacyExtFileAsync(string componentAccessToken, string file, int timeOut = Config.TIME_OUT)
+        {
+            var url =
+                string.Format(
+                    Config.ApiMpHost + "/cgi-bin/component/uploadprivacyextfile?access_token={0}",
+                    componentAccessToken.AsUrlData());
+
+            var fileDictionary = new Dictionary<string, string>();
+            fileDictionary["file"] = file;
+            return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<UploadPrivacyExtFileResult>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
+        }
         #endregion
     }
 }

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net451;netstandard2.0;netstandard2.1;netcoreapp3.1;net6.0</TargetFrameworks>
-    <Version>0.6</Version>
+    <Version>0.7</Version>
     <AssemblyName>Senparc.Weixin.WxOpen.Middleware</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen.Middleware</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -71,7 +71,12 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net451' ">
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+  </ItemGroup>
+  <!--<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
@@ -87,9 +92,9 @@
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0'">
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
+  </ItemGroup>-->
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar.AspNet" Version="0.5.0" />
+    <PackageReference Include="Senparc.NeuChar.AspNet" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net6.csproj" />

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net451;net461;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>2.13</Version>
+    <Version>2.14</Version>
     <AssemblyName>Senparc.Weixin.Cache.Redis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Redis</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -127,31 +127,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="ContainerCacheStrategy\RedisContainerCacheStrategy.RedisUtils.cs" />
-    <Compile Remove="Properties\AssemblyInfo.cs" />
     <Compile Remove="RedisCacheLock.cs" />
   </ItemGroup>
   <ItemGroup>
-    <!--<PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.1.0" />-->
     <PackageReference Include="BinaryFormatter" Version="2.1.4" />
-    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="3.12.0" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="4.0.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+  <!--<ItemGroup Condition=" '$(TargetFramework)' != 'net451'">
     <PackageReference Include="StackExchange.Redis" Version="2.0.600" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="StackExchange.Redis" Version="2.0.600" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
-    <!--<FrameworkReference Include="Microsoft.AspNetCore.App" />-->
-    <PackageReference Include="StackExchange.Redis" Version="2.0.600" />
+  </ItemGroup>-->
+  <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />
   </ItemGroup>
 </Project>

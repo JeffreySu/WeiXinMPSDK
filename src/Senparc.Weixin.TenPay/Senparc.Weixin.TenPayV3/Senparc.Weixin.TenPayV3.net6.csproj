@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.4</Version>
+    <Version>0.5</Version>
     <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
     <LangVersion>10.0</LangVersion>
@@ -52,11 +52,11 @@
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
-    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.AspNet" Version="0.7.0" />
+    <PackageReference Include="Senparc.CO2NET.AspNet" Version="1.0.0" />
     <PackageReference Include="System.Security.Cryptography.Cng" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>

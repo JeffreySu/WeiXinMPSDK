@@ -27,6 +27,9 @@
     修改标识：mc7246 - 20211107
     修改描述：新增快速创建个人小程序接口：FastRegisterPersonalWeApp
 
+    修改标识：mojinxun - 20211116
+    修改描述：v4.13 实现“小程序用户隐私指引接口”
+
 ----------------------------------------------------------------*/
 
 /*
@@ -37,8 +40,9 @@ using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.Open.ComponentAPIs.SetPrivacySettingJson;
+using Senparc.Weixin.Open.ComponentAPIs.RequestData;
 using Senparc.Weixin.Open.Entities;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -47,7 +51,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
     /// <summary>
     /// ComponentApi
     /// </summary>
-    [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
+    [NcApiBind(NeuChar.PlatformType.WeChat_Open, true)]
     public static class ComponentApi
     {
         #region 同步方法
@@ -281,7 +285,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
             return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
-        
+
         /// <summary>
         /// 文档：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1421823488&token=&lang=zh_CN
         /// 获取调用微信JS接口的临时票据 OPEN
@@ -359,7 +363,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="componentPhone">第三方联系电话（方便法人与第三方联系）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static FastRegisterPersonalWeAppResult FastRegisterPersonalWeApp(string componentAccessToken, string idName="", string wxUser="", string taskid="", string action = "create", string componentPhone = "", int timeOut = Config.TIME_OUT)
+        public static FastRegisterPersonalWeAppResult FastRegisterPersonalWeApp(string componentAccessToken, string idName = "", string wxUser = "", string taskid = "", string action = "create", string componentPhone = "", int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(
                 Config.ApiMpHost + "/cgi-bin/component/fastregisterpersonalweapp?action={0}&component_access_token={1}",
@@ -467,9 +471,10 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// </summary>
         /// <param name="componentAccessToken">服务开发方的access_token</param>
         /// <param name="file"></param>
+        /// <param name="serviceProvider">ServiceProvider</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static UploadPrivacyExtFileResult UploadPrivacyExtFile(string componentAccessToken, string file, int timeOut = Config.TIME_OUT)
+        public static UploadPrivacyExtFileResult UploadPrivacyExtFile(string componentAccessToken, string file, IServiceProvider serviceProvider = null, int timeOut = Config.TIME_OUT)
         {
             var url =
                 string.Format(
@@ -478,7 +483,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["file"] = file;
-            return CO2NET.HttpUtility.Post.PostFileGetJson<UploadPrivacyExtFileResult>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
+            return CO2NET.HttpUtility.Post.PostFileGetJson<UploadPrivacyExtFileResult>(serviceProvider ?? CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
         }
         #endregion
 
@@ -872,9 +877,10 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// </summary>
         /// <param name="componentAccessToken">服务开发方的access_token</param>
         /// <param name="file"></param>
+        /// <param name="serviceProvider">ServiceProvider</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<UploadPrivacyExtFileResult> UploadPrivacyExtFileAsync(string componentAccessToken, string file, int timeOut = Config.TIME_OUT)
+        public static async Task<UploadPrivacyExtFileResult> UploadPrivacyExtFileAsync(string componentAccessToken, string file, IServiceProvider serviceProvider = null, int timeOut = Config.TIME_OUT)
         {
             var url =
                 string.Format(
@@ -883,7 +889,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["file"] = file;
-            return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<UploadPrivacyExtFileResult>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
+            return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<UploadPrivacyExtFileResult>(serviceProvider ?? CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
         }
         #endregion
     }

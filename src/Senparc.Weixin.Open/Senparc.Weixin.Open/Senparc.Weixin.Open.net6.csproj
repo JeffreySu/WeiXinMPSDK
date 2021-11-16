@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>4.12</Version>
+    <Version>4.13</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -183,6 +183,7 @@
 		v4.10.3 统一使用 Senparc.Weixin.CommonAPIs.CommonJsonSend 方法
 		v4.11.500 用户信息调整：不再返回用户性别及地区信息
 		v4.12 新增快速创建个人小程序接口
+		v4.13 实现“小程序用户隐私指引接口”
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

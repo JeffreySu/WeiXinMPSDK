@@ -184,7 +184,7 @@
 		v4.11.500 用户信息调整：不再返回用户性别及地区信息
 		v4.12 新增快速创建个人小程序接口
 		v4.13 实现“小程序用户隐私指引接口”
-	</PackageReleaseNotes>
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

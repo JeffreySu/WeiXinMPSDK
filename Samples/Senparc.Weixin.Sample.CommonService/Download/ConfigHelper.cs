@@ -9,7 +9,7 @@ using System.Xml.Linq;
 using Senparc.CO2NET.Utilities;
 using Senparc.CO2NET.Trace;
 
-#if NET45
+#if NET451
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
@@ -112,7 +112,7 @@ namespace Senparc.Weixin.Sample.CommonService.Download
             {
                 doc.Root.Element("Versions").Add(new XElement("Version", version));
             }
-#if NET45
+#if NET451
             doc.Save(GetDatabaseFilePath());
 #else
             using (FileStream fs = new FileStream(GetDatabaseFilePath(), FileMode.OpenOrCreate, FileAccess.ReadWrite))

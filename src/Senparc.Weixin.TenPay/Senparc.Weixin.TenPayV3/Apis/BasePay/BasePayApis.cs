@@ -41,6 +41,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20210825
     修改描述：统一各支付方式请求类
+
+    修改标识：Senparc - 20211026
+    修改描述：v0.3.500.5 修复 RefundQueryAsync() 方法接口参数传递问题
     
 ----------------------------------------------------------------*/
 
@@ -475,7 +478,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-                var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/refund/domestic/refunds");
+                var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/refund/domestic/refunds{out_refund_no}");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<RefundReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
             }

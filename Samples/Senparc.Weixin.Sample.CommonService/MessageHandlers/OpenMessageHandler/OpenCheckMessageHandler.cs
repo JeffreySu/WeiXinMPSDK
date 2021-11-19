@@ -12,7 +12,7 @@ using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Helpers;
 
 
-#if NET45
+#if NET451
 using System.Web.Configuration;
 using Senparc.Weixin.Sample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.Sample.CommonService.OpenTicket;
@@ -37,7 +37,7 @@ namespace Senparc.Weixin.Sample.CommonService.MessageHandlers.OpenMessageHandler
 
         //private string testAppId = "wx570bc396a51b8ff8";
 
-#if NET45
+#if NET451
         private string componentAppId = Config.SenparcWeixinSetting.Component_Appid;
         private string componentSecret = Config.SenparcWeixinSetting.Component_Secret;
 #else

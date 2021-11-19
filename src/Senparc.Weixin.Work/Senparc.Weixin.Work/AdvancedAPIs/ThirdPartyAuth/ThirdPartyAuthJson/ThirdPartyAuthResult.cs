@@ -13,6 +13,9 @@
     修改标识：Senparc - 2019620
     修改描述：v3.5.6 添加 GetPermanentCodeResult.auth_user_info 属性
 
+    修改标识：77Harbor - 20211107
+    修改描述：v3.13 企业微信获取访问用户身份返回实体增加 open_userid 
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -88,6 +91,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         public string DeviceId { get; set; }
         public string user_ticket { get; set; }
         public int expires_in { get; set; }
+        /// <summary>
+        /// 全局唯一。对于同一个服务商，不同应用获取到企业内同一个成员的open_userid是相同的，最多64个字节。仅第三方应用可获取
+        /// </summary>
+        public string open_userid { get; set; }
     }
 
 
@@ -297,6 +304,16 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         /// 服务商套件中的对应应用id
         /// </summary>
         public string appid { get; set; }
+
+        /// <summary>
+        /// 授权模式，0为管理员授权；1为成员授权
+        /// </summary>
+        public int auth_mode { get; set; }
+
+        /// <summary>
+        /// 是否为代开发自建应用
+        /// </summary>
+        public bool? is_customized_app { get; set; }
 
         ///// <summary>
         ///// 授权方应用敏感权限组，目前仅有get_location，表示是否有权限设置应用获取地理位置的开关

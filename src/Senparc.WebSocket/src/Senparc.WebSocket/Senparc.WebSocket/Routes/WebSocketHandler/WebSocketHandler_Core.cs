@@ -6,7 +6,7 @@ using System.Net.WebSockets;
 using System.Threading.Tasks;
 using System.Threading;
 
-#if NET45
+#if NET451
 
 #else
 using Microsoft.AspNetCore.Builder;
@@ -18,7 +18,7 @@ using Senparc.WebSocket.SignalR;
 namespace Senparc.WebSocket
 {
 
-#if !NET45
+#if !NET451
 
     //.NET Core(SignalR) 不需要
 

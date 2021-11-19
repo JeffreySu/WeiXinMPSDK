@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,46 +19,30 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
- 
-    文件名：RefundRequestHandler.cs
-    文件功能描述：微信支付退款 请求处理
-    
-    
-    创建标识：Senparc - 20150211
-    
-    修改标识：Senparc - 20150303
-    修改描述：整理接口
+    Copyright (C) 2021 Yaofeng
+
+    文件名：UploadPrivacyExtFileResult.cs
+    文件功能描述：上传小程序用户隐私保护指引
+
+
+    创建标识：Yaofeng - 20211111
+
 ----------------------------------------------------------------*/
 
-#if NET451
+using Senparc.Weixin.Entities;
 using System;
-using System.Web;
-#else
-using Microsoft.AspNetCore.Http;
-using System;
-#endif
 
-namespace Senparc.Weixin.TenPay.V2
+namespace Senparc.Weixin.Open.ComponentAPIs
 {
     /// <summary>
-    /// RefundRequestHandler
+    /// 上传小程序用户隐私保护指引
     /// </summary>
-    public class RefundRequestHandler : ClientRequestHandler
+    [Serializable]
+    public class UploadPrivacyExtFileResult : WxJsonResult
     {
         /// <summary>
-        /// 退款接口
+        /// 文件的media_id
         /// </summary>
-        /// <param name="httpContext"></param>
-        public RefundRequestHandler(HttpContext httpContext)
-            : base(httpContext)
-        {
-            this.SetGateUrl("https://mch.tenpay.com/refundapi/gateway/refund.xml");
-        }
-
-        public void SetParameter(string v, object p)
-        {
-            throw new NotImplementedException();
-        }
+        public string ext_file_media_id { get; set; }
     }
 }

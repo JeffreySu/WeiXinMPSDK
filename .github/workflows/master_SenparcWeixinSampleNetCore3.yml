@@ -32,12 +32,23 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '3.1.301'
+
+    - name: Set up .NET 5.0
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0.403'
+
+    - name: Set up .NET 6.0
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.100'
+        
         
     - name: CMD1
       run: dir
       
     - name: CMD2
-      run: cd ./samples/netcore3.0-mvc/
+      run: cd ./samples/net6-mvc/
         
     - name: Restore NuGet packages
       run: nuget restore 

@@ -9,7 +9,7 @@
 
 ----------------------------------------------------------------*/
 
-#if !NET45
+#if !NET451
 using Microsoft.AspNetCore.SignalR;
 using Senparc.WebSocket.Exceptions;
 using System;

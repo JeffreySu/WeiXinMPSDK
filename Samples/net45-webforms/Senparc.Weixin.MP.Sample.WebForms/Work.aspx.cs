@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;
+using Senparc.Weixin.Sample.CommonService.WorkMessageHandlers;
 using Senparc.Weixin.Work.Entities;
 
 namespace Senparc.Weixin.MP.Sample.WebForms

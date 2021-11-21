@@ -30,6 +30,9 @@
     修改标识：mojinxun - 20211116
     修改描述：v4.13 实现“小程序用户隐私指引接口”
 
+    修改标识：mc7246 - 20211121
+    修改描述：v4.13.1 配置小程序用户隐私保护指引接口增加privacy_ver参数
+
 ----------------------------------------------------------------*/
 
 /*
@@ -427,7 +430,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="privacy_ver">用户隐私保护指引的版本，1表示现网版本；2表示开发版。默认是2开发版。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult SetPrivacySetting(string componentAccessToken, SetPrivacySettingData_OwnerSetting ownerSetting, List<SetPrivacySettingData_SettingList> settingList, int privacy_ver=2, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult SetPrivacySetting(string componentAccessToken, SetPrivacySettingData_OwnerSetting ownerSetting, List<SetPrivacySettingData_SettingList> settingList, int privacy_ver = 2, int timeOut = Config.TIME_OUT)
         {
             var url =
                 string.Format(
@@ -847,7 +850,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="privacy_ver">用户隐私保护指引的版本，1表示现网版本；2表示开发版。默认是2开发版。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> SetPrivacySettingAsync(string componentAccessToken, SetPrivacySettingData_OwnerSetting ownerSetting, List<SetPrivacySettingData_SettingList> settingList, int privacy_ver, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> SetPrivacySettingAsync(string componentAccessToken, SetPrivacySettingData_OwnerSetting ownerSetting, List<SetPrivacySettingData_SettingList> settingList, int privacy_ver = 2, int timeOut = Config.TIME_OUT)
         {
             var url =
                 string.Format(

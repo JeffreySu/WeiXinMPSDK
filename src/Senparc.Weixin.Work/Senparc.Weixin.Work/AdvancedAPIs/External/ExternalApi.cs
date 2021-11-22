@@ -123,15 +123,17 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="chat_id">客户群ID</param>
         /// <param name="timeOut"></param>
+        /// <param name="need_name">是否需要返回群成员的名字group_chat.member_list.name。0-不返回；1-返回。默认不返回</param>
         /// <returns></returns>
-        public static GroupChatGetResult GroupChatGet(string accessTokenOrAppKey, string chat_id, int timeOut = Config.TIME_OUT)
+        public static GroupChatGetResult GroupChatGet(string accessTokenOrAppKey, string chat_id, int timeOut = Config.TIME_OUT, string need_name = "0")
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/groupchat/get?access_token={0}", accessToken);
                 var data = new
                 {
-                    chat_id
+                    chat_id,
+                    need_name
                 };
                 return CommonJsonSend.Send<GroupChatGetResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
@@ -516,15 +518,17 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="chat_id">客户群ID</param>
         /// <param name="timeOut"></param>
+        /// <param name="need_name">是否需要返回群成员的名字group_chat.member_list.name。0-不返回；1-返回。默认不返回</param>
         /// <returns></returns>
-        public static async Task<GroupChatGetResult> GroupChatGetAsync(string accessTokenOrAppKey, string chat_id, int timeOut = Config.TIME_OUT)
+        public static async Task<GroupChatGetResult> GroupChatGetAsync(string accessTokenOrAppKey, string chat_id, int timeOut = Config.TIME_OUT, string need_name = "0")
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/groupchat/get?access_token={0}", accessToken);
                 var data = new
                 {
-                    chat_id
+                    chat_id,
+                    need_name
                 };
                 return await CommonJsonSend.SendAsync<GroupChatGetResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);

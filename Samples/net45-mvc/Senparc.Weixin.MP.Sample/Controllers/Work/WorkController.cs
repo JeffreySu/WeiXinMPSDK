@@ -19,7 +19,7 @@ using System.Web.Mvc;
 using System.Xml.Linq;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.MP.MvcExtension;
-using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;
+using Senparc.Weixin.Sample.CommonService.WorkMessageHandlers;
 using Senparc.Weixin.Work.Entities;
 
 namespace Senparc.Weixin.MP.Sample.Controllers

@@ -2,14 +2,10 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
-		<Version>6.3.11</Version>
+		<Version>6.5.2</Version>
 		<UserSecretsId>35e58786-0820-4cde-b1ff-f4c6198d00f7</UserSecretsId>
 		<PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
 	</PropertyGroup>
-
-	<ItemGroup>
-	  <_WebToolingArtifacts Remove="Properties\PublishProfiles\SenparcWeixinSampleNet6 - Web Deploy.pubxml" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<None Include="wwwroot\js\site.js" />
@@ -43,13 +39,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Senparc.CO2NET.WebApi" Version="0.2.7-preview4" />
-		<PackageReference Include="Senparc.NeuChar.App" Version="0.11.0-preview3" />
-		<PackageReference Include="Senparc.NeuChar.AspNet" Version="0.5.0-preview3" />
+		<PackageReference Include="Senparc.CO2NET.WebApi" Version="1.0.0" />
+		<PackageReference Include="Senparc.NeuChar.App" Version="1.0.0" />
+		<PackageReference Include="Senparc.NeuChar.AspNet" Version="1.0.0" />
 
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
-		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
-		<PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0" />
+		<PackageReference Include="System.Drawing.Common" Version="6.0.0" />
 		<PackageReference Include="System.IO.Compression.ZipFile" Version="4.3.0" />
 	</ItemGroup>
 

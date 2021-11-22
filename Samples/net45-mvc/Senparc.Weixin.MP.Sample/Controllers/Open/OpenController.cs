@@ -2,9 +2,9 @@
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.MvcExtension;
-using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
-using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHandler;
-using Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers;
+using Senparc.Weixin.Sample.CommonService.CustomMessageHandler;
+using Senparc.Weixin.Sample.CommonService.MessageHandlers.OpenMessageHandler;
+using Senparc.Weixin.Sample.CommonService.ThirdPartyMessageHandlers;
 using Senparc.Weixin.Open.AccountAPIs;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;

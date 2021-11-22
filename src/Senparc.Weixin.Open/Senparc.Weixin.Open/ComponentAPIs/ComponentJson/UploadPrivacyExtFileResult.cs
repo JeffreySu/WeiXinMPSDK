@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2021 Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -18,23 +18,31 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+/*----------------------------------------------------------------
+    Copyright (C) 2021 Yaofeng
 
-namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.Tests
+    文件名：UploadPrivacyExtFileResult.cs
+    文件功能描述：上传小程序用户隐私保护指引
+
+
+    创建标识：Yaofeng - 20211111
+
+----------------------------------------------------------------*/
+
+using Senparc.Weixin.Entities;
+using System;
+
+namespace Senparc.Weixin.Open.ComponentAPIs
 {
-    [TestClass()]
-    public class WeixinTemplate_ExceptionAlertTests
+    /// <summary>
+    /// 上传小程序用户隐私保护指引
+    /// </summary>
+    [Serializable]
+    public class UploadPrivacyExtFileResult : WxJsonResult
     {
-        [TestMethod()]
-        public void WeixinTemplate_ExceptionAlertTest()
-        {
-            //Assert.Fail();
-        }
+        /// <summary>
+        /// 文件的media_id
+        /// </summary>
+        public string ext_file_media_id { get; set; }
     }
 }

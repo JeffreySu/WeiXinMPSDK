@@ -651,9 +651,9 @@
             <p class="footer-contact">
                 &nbsp;
 
-                当前框架：.NET Core 2.1
+                当前框架：.NET Framework 4.5.1，WebForms
             </p>
-            <p class="footer-icon">&copy; 2006-2018 Senparc，苏州盛派网络科技有限公司，版权所有，保留所有权利。</p>
+            <p class="footer-icon">&copy; 2006-2021 Senparc，苏州盛派网络科技有限公司，版权所有，保留所有权利。</p>
         </div>
         
     <script>
@@ -686,4 +686,4 @@
         </div>
     </div>
 </body>
-</html>
+</html>

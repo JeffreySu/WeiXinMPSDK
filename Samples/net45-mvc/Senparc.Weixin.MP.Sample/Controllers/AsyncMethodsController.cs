@@ -13,7 +13,7 @@ using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MvcExtension;
-using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
+using Senparc.Weixin.Sample.CommonService.CustomMessageHandler;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {

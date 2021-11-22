@@ -9,13 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Properties\AssemblyInfo.cs" />
+    <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <None Remove="Properties\**" />
   </ItemGroup>
 
   <ItemGroup>
-	  <PackageReference Include="Senparc.NeuChar" Version="1.5.1-preview5" />
+	  <PackageReference Include="Senparc.NeuChar" Version="2.0.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
-	  <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+	  <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
 	  <PackageReference Include="System.Diagnostics.FileVersionInfo" Version="4.3.0" />
 	  <PackageReference Include="ZXing.Net" Version="0.16.4" />
   </ItemGroup>
@@ -30,10 +32,6 @@
     <ProjectReference Include="..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.net6.csproj" />
     <ProjectReference Include="..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net6.csproj" />
     <ProjectReference Include="..\..\src\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project> 

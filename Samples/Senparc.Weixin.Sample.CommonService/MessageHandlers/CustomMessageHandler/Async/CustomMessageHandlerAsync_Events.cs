@@ -24,7 +24,7 @@ using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.Sample.CommonService.Download;
 using Senparc.NeuChar.Entities;
 
-#if NET45
+#if NET451
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;

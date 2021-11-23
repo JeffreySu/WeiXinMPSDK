@@ -2,7 +2,7 @@
 
 Senparc.Weixin —— 微信 .NET SDK 
 =================
-[![Build status](https://mysenparc.visualstudio.com/Senparc%20SDK/_apis/build/status/Weixin%20SDK/Senparc.Weixin%20master-pipeline-status)](https://mysenparc.visualstudio.com/Senparc%20SDK/_build/latest?definitionId=40)
+[![Build status](https://mysenparc.visualstudio.com/Senparc%20SDK/_apis/build/status/Weixin%20SDK/Senparc.Weixin%20Dev-%E5%86%85%E9%83%A8-%E8%87%AA%E5%8A%A8-.Net6)](https://mysenparc.visualstudio.com/Senparc%20SDK/_build/latest?definitionId=36)
 [![NuGet](https://img.shields.io/nuget/dt/Senparc.Weixin.svg)](https://www.nuget.org/packages/Senparc.Weixin)
 [![GitHub commit activity the past week, 4 weeks, year](https://img.shields.io/github/commit-activity/4w/JeffreySu/WeiXinMPSDK.svg)](https://github.com/JeffreySu/WeiXinMPSDK/commits/master)
 [![license](https://img.shields.io/github/license/JeffreySu/WeiXinMPSDK.svg)](http://www.apache.org/licenses/LICENSE-2.0)

@@ -28,6 +28,8 @@
     修改标识：WangDrama - 20210807
     修改描述：v3.12.1 添加企业微信入群欢迎语素材
 
+    修改标识：IcedMango - 20211122
+    修改描述：v3.14.1 “企业微信获取客户群详情”接口，增加群内成员名称返回参数
 ----------------------------------------------------------------*/
 
 /*
@@ -121,15 +123,17 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="chat_id">客户群ID</param>
         /// <param name="timeOut"></param>
+        /// <param name="needName">是否需要返回群成员的名字group_chat.member_list.name。</param>
         /// <returns></returns>
-        public static GroupChatGetResult GroupChatGet(string accessTokenOrAppKey, string chat_id, int timeOut = Config.TIME_OUT)
+        public static GroupChatGetResult GroupChatGet(string accessTokenOrAppKey, string chat_id, bool needName = false, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/groupchat/get?access_token={0}", accessToken);
                 var data = new
                 {
-                    chat_id
+                    chat_id,
+                    need_name = needName ? "1" : "0"//0-不返回；1-返回。默认不返回
                 };
                 return CommonJsonSend.Send<GroupChatGetResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
@@ -514,15 +518,17 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="chat_id">客户群ID</param>
         /// <param name="timeOut"></param>
+        /// <param name="needName">是否需要返回群成员的名字group_chat.member_list.name。</param>
         /// <returns></returns>
-        public static async Task<GroupChatGetResult> GroupChatGetAsync(string accessTokenOrAppKey, string chat_id, int timeOut = Config.TIME_OUT)
+        public static async Task<GroupChatGetResult> GroupChatGetAsync(string accessTokenOrAppKey, string chat_id, bool needName = false, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/groupchat/get?access_token={0}", accessToken);
                 var data = new
                 {
-                    chat_id
+                    chat_id,
+                    need_name = needName ? "1" : "0"//0-不返回；1-返回。默认不返回
                 };
                 return await CommonJsonSend.SendAsync<GroupChatGetResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);

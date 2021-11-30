@@ -21,7 +21,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
 
-    文件名：MarketingApis.cs
+    文件名：MarketingApis.Busifavor.cs
     文件功能描述：微信支付V3营销工具接口
 
 

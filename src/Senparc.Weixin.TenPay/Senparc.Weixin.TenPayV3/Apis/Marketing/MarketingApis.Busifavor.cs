@@ -1,10 +1,40 @@
-﻿using Senparc.CO2NET.Helpers;
-using Senparc.CO2NET.Trace;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2021 Senparc
+
+    文件名：MarketingApis.cs
+    文件功能描述：微信支付V3营销工具接口
+
+
+    创建标识：Senparc - 20210922
+
+    修改标识：iwenli210 - 20211130
+    修改描述：修复PayV3营销工具商户券API
+
+----------------------------------------------------------------*/
+
+
 using Senparc.Weixin.TenPayV3.Apis.Entities;
 using Senparc.Weixin.TenPayV3.Apis.Marketing;
-using Senparc.Weixin.TenPayV3.Entities;
-using System;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis
@@ -87,7 +117,6 @@ namespace Senparc.Weixin.TenPayV3.Apis
             url += stock_id is not null ? $"&stock_id={stock_id}" : "";
             url += coupon_state is not null ? $"&coupon_state={coupon_state}" : "";
             url += creator_merchant is not null ? $"&creator_merchant={creator_merchant}" : "";
-            url += belong_merchant is not null ? $"&belong_merchant={belong_merchant}" : "";
             url += belong_merchant is not null ? $"&belong_merchant={belong_merchant}" : "";
             url += sender_merchant is not null ? $"&sender_merchant={sender_merchant}" : "";
 

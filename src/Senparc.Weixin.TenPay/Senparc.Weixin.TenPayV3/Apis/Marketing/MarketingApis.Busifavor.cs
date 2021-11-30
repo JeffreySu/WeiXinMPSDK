@@ -88,7 +88,6 @@ namespace Senparc.Weixin.TenPayV3.Apis
             url += coupon_state is not null ? $"&coupon_state={coupon_state}" : "";
             url += creator_merchant is not null ? $"&creator_merchant={creator_merchant}" : "";
             url += belong_merchant is not null ? $"&belong_merchant={belong_merchant}" : "";
-            url += belong_merchant is not null ? $"&belong_merchant={belong_merchant}" : "";
             url += sender_merchant is not null ? $"&sender_merchant={sender_merchant}" : "";
 
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);

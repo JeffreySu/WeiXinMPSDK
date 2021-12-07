@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 #endif
 using Moq;
 using Senparc.CO2NET;
@@ -15,6 +16,7 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.RegisterServices;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Senparc.WeixinTests
@@ -24,7 +26,10 @@ namespace Senparc.WeixinTests
     /// </summary>
     public class BaseTest
     {
-        protected static IServiceProvider serviceProvider;
+        protected static IServiceProvider _serviceProvider;
+        protected static SenparcSetting _senparcSetting;
+        protected static SenparcWeixinSetting _senparcWeixinSetting;
+
         public BaseTest()
         {
             RegisterStart();
@@ -47,7 +52,7 @@ namespace Senparc.WeixinTests
 
 #if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
 #if NETCOREAPP3_1 || NET6_0
-            var mockEnv = new Mock<IWebHostEnvironment>();
+            var mockEnv = new Mock<IHostEnvironment>();
 #else
             var mockEnv = new Mock<IHostingEnvironment>();
 #endif
@@ -84,14 +89,40 @@ namespace Senparc.WeixinTests
         {
             var serviceCollection = new ServiceCollection();
             var configBuilder = new ConfigurationBuilder();
+
+            var appSettingsTestFilePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UnitTestHelper.RootPath, "appsettings.Test.json"));
+            var appSettingsFileExisted = File.Exists(appSettingsTestFilePath);
+
+            if (appSettingsFileExisted)
+            {
+                configBuilder.AddJsonFile("appsettings.Test.json", false, false);//此文件可能包含敏感信息，不可上传至公共库
+            }
+            else
+            {
+                if (File.Exists(appSettingsTestFilePath.Replace(".Test", "")))
+                {
+                    configBuilder.AddJsonFile("appsettings.json", false, false);//默认使用 appsettings.json
+                    appSettingsFileExisted = true;
+                }
+            }
+
             var config = configBuilder.Build();
-            //serviceCollection.AddSenparcGlobalServices(config);
+
+            _senparcSetting = new SenparcSetting() { IsDebug = true };
+            _senparcWeixinSetting = new SenparcWeixinSetting() { IsDebug = true };
+
+            if (appSettingsFileExisted)
+            {
+                config.GetSection("SenparcSetting").Bind(_senparcSetting);
+                config.GetSection("SenparcWeixinSetting").Bind(_senparcWeixinSetting);
+            }
+
             serviceCollection.AddMemoryCache();//使用内存缓存
 
             //已经包含 AddSenparcGlobalServices()，注意：必须在所有注册完成后执行
             serviceCollection.AddSenparcWeixinServices(config);
 
-            serviceProvider = serviceCollection.BuildServiceProvider();
+            _serviceProvider = serviceCollection.BuildServiceProvider();
         }
 #endif
 

@@ -45,7 +45,7 @@ jobs:
         
         
     - name: CMD1
-      run: dir | cd ./Samples/net6-mvc/ | dir | nuget restore | msbuild /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\"
+      run: dir `n cd ./Samples/net6-mvc/ `n dir `n nuget restore `n msbuild /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\"
       
     #- name: CMD2
     #  run: cd ./Samples/net6-mvc/

@@ -180,11 +180,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 批量获取客户详情
         /// </summary>
         /// <param name="accessTokenOrAppKey"></param>
-        /// <param name="userid"></param>
-        /// <param name="cursor"></param>
-        /// <param name="limit"></param>
+        /// <param name="userid_list">（必须）企业成员的userid列表，字符串类型，最多支持100个</param>
+        /// <param name="cursor">用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填</param>
+        /// <param name="limit">返回的最大记录数，整型，最大值100，默认值50，超过最大值时取最大值</param>
         /// <param name="timeOut"></param>
-        public static GetExternalContactInfoBatchResult GetExternalContactInfoBatch(string accessTokenOrAppKey, string userid, string cursor = "", int limit = 50, int timeOut = Config.TIME_OUT)
+        public static GetExternalContactInfoBatchResult GetExternalContactInfoBatch(string accessTokenOrAppKey, string[] userid_list, string cursor = null, int limit = 50, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -192,7 +192,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 var data = new
                 {
-                    userid,
+                    userid_list,
                     cursor,
                     limit
                 };
@@ -575,11 +575,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 【异步方法】批量获取客户详情
         /// </summary>
         /// <param name="accessTokenOrAppKey"></param>
-        /// <param name="userid"></param>
-        /// <param name="cursor"></param>
-        /// <param name="limit"></param>
+        /// <param name="userid_list">（必须）企业成员的userid列表，字符串类型，最多支持100个</param>
+        /// <param name="cursor">用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填</param>
+        /// <param name="limit">返回的最大记录数，整型，最大值100，默认值50，超过最大值时取最大值</param>
         /// <param name="timeOut"></param>
-        public static async Task<GetExternalContactInfoBatchResult> GetExternalContactInfoBatchAsync(string accessTokenOrAppKey, string userid, string cursor = "", int limit = 50, int timeOut = Config.TIME_OUT)
+        public static async Task<GetExternalContactInfoBatchResult> GetExternalContactInfoBatchAsync(string accessTokenOrAppKey, string[] userid_list, string cursor = null, int limit = 50, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -587,7 +587,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 var data = new
                 {
-                    userid,
+                    userid_list,
                     cursor,
                     limit
                 };

@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
 		<FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-		<Version>3.14.2</Version>
+		<Version>3.14.3</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
 		<GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -169,6 +169,7 @@
 			v3.13 企业微信获取访问用户身份返回实体增加 open_userid
 			v3.14.1 “企业微信获取客户群详情”接口，增加群内成员名称返回参数
 			v3.14.2 “获取成员信息返回结果”添加 external_userid 属性
+			v3.14.3 修正“批量获取客户详情”接口传入参数
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

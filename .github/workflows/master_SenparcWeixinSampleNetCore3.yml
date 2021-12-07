@@ -49,7 +49,10 @@ jobs:
       
     - name: CMD2
       run: cd ./Samples/net6-mvc/
-        
+
+    - name: CMD3
+      run: dir
+      
     - name: Restore NuGet packages
       run: nuget restore 
       #-SolutionDirectory ./Samples/net6-mvc/

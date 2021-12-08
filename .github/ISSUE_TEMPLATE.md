@@ -35,7 +35,7 @@
 
 - [ ] .net 3.5
 - [ ] .net 4.0
-- [ ] .net 4.5
+- [ ] .net 4.5+
 - [ ] .net standard 2.0 / 2.1
 - [ ] .net core 1.x
 - [ ] .net core 2.x

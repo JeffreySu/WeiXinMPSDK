@@ -69,6 +69,47 @@ namespace Senparc.Weixin.Open.WxaAPIs
         }
 
         #endregion
+        #region 违规和申诉记录
+        /// <summary>
+        /// 获取小程序违规处罚记录
+        /// 如果start_time和end_time都没有指定，则表示查询距离当前时间最近的90天内的记录。
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="start_time">查询时间段的开始时间，如果不填，则表示end_time之前90天内的记录</param>
+        /// <param name="end_time">查询时间段的结束时间，如果不填，则表示start_time之后90天内的记录</param>
+        /// <returns></returns>
+        public static GetIllegalRecordsJsonResult GetIllegalRecords(string accessToken, long? start_time, long? end_time)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/getillegalrecords?access_token={accessToken.AsUrlData()}";
+
+            var data= new
+                {
+                    start_time = start_time,
+                    end_time = end_time
+                };
+
+            return CommonJsonSend.Send<GetIllegalRecordsJsonResult>(null, url, data);
+        }
+
+        /// <summary>
+        /// 获取小程序申诉记录
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="illegal_record_id">违规处罚记录id（通过getillegalrecords接口返回的记录id）</param>
+        /// <returns></returns>
+        public static GetAppealRecordsJsonResult GetAppealRecords(string accessToken, string illegal_record_id)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/getappealrecords?access_token={accessToken.AsUrlData()}";
+
+            var data = new
+            {
+                illegal_record_id
+            };
+
+            return CommonJsonSend.Send<GetAppealRecordsJsonResult>(null, url, data);
+        }
+
+        #endregion
         #endregion
 
         #region 异步方法
@@ -127,6 +168,48 @@ namespace Senparc.Weixin.Open.WxaAPIs
         }
 
         #endregion
+        #region 违规和申诉记录
+        /// <summary>
+        /// 【异步方法】获取小程序违规处罚记录
+        /// 如果start_time和end_time都没有指定，则表示查询距离当前时间最近的90天内的记录。
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="start_time">查询时间段的开始时间，如果不填，则表示end_time之前90天内的记录</param>
+        /// <param name="end_time">查询时间段的结束时间，如果不填，则表示start_time之后90天内的记录</param>
+        /// <returns></returns>
+        public static async Task<GetIllegalRecordsJsonResult> GetIllegalRecordsAsync(string accessToken, long? start_time, long? end_time)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/getillegalrecords?access_token={accessToken.AsUrlData()}";
+
+            var data = new
+            {
+                start_time = start_time,
+                end_time = end_time
+            };
+
+            return await CommonJsonSend.SendAsync<GetIllegalRecordsJsonResult>(null, url, data).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取小程序申诉记录
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="illegal_record_id">违规处罚记录id（通过getillegalrecords接口返回的记录id）</param>
+        /// <returns></returns>
+        public static async Task<GetAppealRecordsJsonResult> GetAppealRecordsAsync(string accessToken, string illegal_record_id)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/getappealrecords?access_token={accessToken.AsUrlData()}";
+
+            var data = new
+            {
+                illegal_record_id
+            };
+
+            return await CommonJsonSend.SendAsync<GetAppealRecordsJsonResult>(null, url, data).ConfigureAwait(false);
+        }
+
+        #endregion
+
         #endregion
 
     }

@@ -39,6 +39,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180121
     修改描述：v2.8.6 完善 FuncscopeCategory 枚举
 
+    修改标识：mc7246 - 20211209
+    修改描述：v4.13.2 添加“小程序违规和申诉管理”接口
+
 ----------------------------------------------------------------*/
 
 

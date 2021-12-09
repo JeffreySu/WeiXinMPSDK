@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 namespace Senparc.Weixin.MP.Sample.WebForms
 {
     using Senparc.Weixin.MP.Entities.Request;
-    using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
+    using Senparc.Weixin.Sample.CommonService.CustomMessageHandler;
 
     public partial class Weixin : System.Web.UI.Page
     {

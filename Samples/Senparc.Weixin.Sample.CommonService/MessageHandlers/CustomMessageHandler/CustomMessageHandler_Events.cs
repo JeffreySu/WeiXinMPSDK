@@ -351,7 +351,7 @@ QQ群：377815480
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
                         try
                         {
-                            var result = MP.AdvancedAPIs.MediaApi.UploadForeverMedia(appId, ServerUtility.ContentRootMapPath("~/Images/logo.jpg"));
+                            var result = MP.AdvancedAPIs.MediaApi.UploadForeverMedia(appId, ServerUtility.ContentRootMapPath("~/Images/logo.jpg"), UploadForeverMediaType.image);
                             strongResponseMessage.Content = result.media_id;
                         }
                         catch (Exception e)

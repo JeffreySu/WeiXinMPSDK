@@ -100,6 +100,18 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External
         public string userid { get; set; }
 
         /// <summary>
+        ///     在群里的昵称
+        /// </summary>
+        public string group_nickname { get; set; }
+
+        /// <summary>
+        ///     名字。仅当 need_name = 1 时返回
+        ///     如果是微信用户，则返回其在微信中设置的名字
+        ///     如果是企业微信联系人，则返回其设置对外展示的别名或实名
+        /// </summary>
+        public string name { get; set; }
+
+        /// <summary>
         ///     成员类型。
         ///     1 - 企业成员
         ///     2 - 外部联系人

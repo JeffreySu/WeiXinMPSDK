@@ -95,3 +95,4 @@ packages/
 /src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3.Test/App_Data/SenparcTraceLog
 /src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3.Test/appsettings.Test.json
 /src/ProjectFileManager2
+/src/Senparc.Weixin.MP/Senparc.WeixinTests/appsettings.Test.json

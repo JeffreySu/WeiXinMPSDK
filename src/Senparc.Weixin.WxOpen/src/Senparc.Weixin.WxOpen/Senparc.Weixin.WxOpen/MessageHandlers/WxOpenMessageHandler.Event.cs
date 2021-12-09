@@ -33,6 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20200909
     修改描述：v3.8.511 调整 MessageHandler 异步方法执行代码
 
+    修改标识：mc7246 - 20211209
+    修改描述：v4.13.2 添加 OnEvent_AppealRecordRequest()、OnEvent_IllegalRecordRequest() 方法
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;

@@ -33,6 +33,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.Open.WxaAPIs
 {
@@ -40,6 +41,14 @@ namespace Senparc.Weixin.Open.WxaAPIs
     /// “获取小程序违规处罚记录”接口返回结果
     /// </summary>
     public class GetIllegalRecordsJsonResult : WxJsonResult
+    {
+        /// <summary>
+        /// 违规处罚记录列表
+        /// </summary>
+        public List<IllegalInfo> records = new List<IllegalInfo>();
+    }
+
+    public class IllegalInfo
     {
         /// <summary>
         /// 违规处罚记录id

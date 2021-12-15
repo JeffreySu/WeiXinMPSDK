@@ -25,7 +25,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：事件之小程序违规记录推送
     
     
-   
+    创建标识：mc7246 - 20211209
+
 ----------------------------------------------------------------*/
 
 

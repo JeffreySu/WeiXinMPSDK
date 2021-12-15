@@ -57,7 +57,7 @@ jobs:
     - name: Restore NuGet packages
       run: nuget restore "./Samples/net6-mvc/"
       #-SolutionDirectory ./Samples/net6-mvc/
-
+      
     - name: Publish to folder
       run: msbuild "Samples/net6-mvc/Senparc.Weixin.Sample.Net6.sln" /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\"
 

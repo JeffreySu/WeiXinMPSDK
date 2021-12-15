@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>4.13.2</Version>
+    <Version>4.13.3</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -186,6 +186,7 @@
 		v4.13 实现“小程序用户隐私指引接口”
 		v4.13.1 配置小程序用户隐私保护指引接口增加privacy_ver参数
 		v4.13.2 添加“小程序违规和申诉管理”接口及消息事件
+		v4.13.3 修复获取小程序违规记录返回信息
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

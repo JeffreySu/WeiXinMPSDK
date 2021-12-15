@@ -87,10 +87,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         /// </summary>
         [HttpPost]
         [ActionName("Index")]
-        public ActionResult Post(PostModel postModel)
+        public async Task<ActionResult> Post(PostModel postModel)
         {
-            /* 异步请求请见 WeixinAsyncController（推荐） */
-
             if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
             {
                 return Content("参数错误！");
@@ -123,7 +121,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             {
                 messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
-                messageHandler.Execute();//执行微信处理过程（关键）
+                var ct = new CancellationToken();
+                await messageHandler.ExecuteAsync(ct);//执行微信处理过程（关键）
 
                 messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
 
@@ -183,7 +182,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
             var messageHandler = new CustomMessageHandler(Request.GetRequestMemoryStream(), postModel, 10);
 
-            messageHandler.Execute();//执行微信处理过程
+            messageHandler.Execute();//执行微信处理过程（推荐使用异步方法）
 
             //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
             //return new WeixinResult(messageHandler);//v0.8+

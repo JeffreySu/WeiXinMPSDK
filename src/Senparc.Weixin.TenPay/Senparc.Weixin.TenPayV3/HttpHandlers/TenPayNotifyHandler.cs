@@ -89,7 +89,7 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="nonce">加密的随机串 可空</param>
         /// <param name="associated_data">附加数据包 可空</param>
         /// <returns></returns>
-        // TODO: 本方法待测试
+        // TODO: 本方法持续测试
         public async Task<T> AesGcmDecryptGetObjectAsync<T>(string aes_key = null, string nonce = null, string associated_data = null) where T : ReturnJsonBase, new()
         {
             aes_key ??= _tenpayV3Setting.TenPayV3_APIv3Key;

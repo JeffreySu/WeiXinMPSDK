@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20210822
     修改描述：重构使用ISenparcWeixinSettingForTenpayV3初始化实例
+
+    修改标识：Senparc - 20211225
+    修改描述：v0.5.2 发布版本删除调试代码
     
 ----------------------------------------------------------------*/
 

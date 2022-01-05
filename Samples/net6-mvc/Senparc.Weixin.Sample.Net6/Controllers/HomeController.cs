@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-/*----------------------------------------------------------------
+﻿/*----------------------------------------------------------------
     Copyright (C) 2021 Senparc
     
     文件名：HomeController.cs
@@ -9,7 +7,8 @@ using System.Collections.Generic;
     
     创建标识：Senparc - 20190926
 ----------------------------------------------------------------*/
-
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;

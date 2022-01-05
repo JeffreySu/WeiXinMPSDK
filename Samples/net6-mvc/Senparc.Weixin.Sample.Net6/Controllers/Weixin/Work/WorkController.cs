@@ -32,7 +32,7 @@ using Senparc.Weixin.Work.Entities;
 using System;
 using System.IO;
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers
+namespace Senparc.Weixin.Sample.Net6.Controllers
 {
     /// <summary>
     /// 企业号对接测试

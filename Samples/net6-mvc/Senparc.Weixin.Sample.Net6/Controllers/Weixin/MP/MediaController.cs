@@ -23,7 +23,7 @@ using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.Sample.CommonService.Utilities;
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers
+namespace Senparc.Weixin.Sample.Net6.Controllers
 {
     public class MediaController : BaseController
     {

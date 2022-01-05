@@ -18,11 +18,11 @@ using Senparc.Weixin.Sample.CommonService.Download;//DPBMARK MP DPBMARK_END
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Senparc.Weixin.Sample.NetCore3.Models;
-using Senparc.Weixin.Sample.NetCore3.Models.VD;
+using Senparc.Weixin.Sample.Net6.Models;
+using Senparc.Weixin.Sample.Net6.Models.VD;
 using System.Reflection;
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers
+namespace Senparc.Weixin.Sample.Net6.Controllers
 {
     public class HomeController : BaseController
     {

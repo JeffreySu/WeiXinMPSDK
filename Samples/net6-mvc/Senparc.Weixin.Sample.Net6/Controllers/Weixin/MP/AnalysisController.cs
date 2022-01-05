@@ -9,9 +9,9 @@ using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Microsoft.AspNetCore.Mvc;
-using Senparc.Weixin.Sample.NetCore3.Models.VD;
+using Senparc.Weixin.Sample.Net6.Models.VD;
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers
+namespace Senparc.Weixin.Sample.Net6.Controllers
 {
     public enum AnalysisType
     {

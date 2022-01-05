@@ -1,4 +1,4 @@
-﻿namespace Senparc.Weixin.Sample.NetCore3.Controllers.NeuChar
+﻿namespace Senparc.Weixin.Sample.Net6.Controllers.NeuChar
 {
     /// <summary>
     /// NeuChar App 处理程序

@@ -37,7 +37,7 @@ using Senparc.CO2NET.AspNet.HttpUtility;
 using System.Collections;
 using Senparc.Weixin.Exceptions;
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers.WxOpen
+namespace Senparc.Weixin.Sample.Net6.Controllers.WxOpen
 {
     /// <summary>
     /// 微信小程序Controller

@@ -25,7 +25,7 @@ using Senparc.Weixin.MP.CommonAPIs;
 using System.Text;
 using Senparc.Weixin.MP;
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers
+namespace Senparc.Weixin.Sample.Net6.Controllers
 {
     public class OAuth2Controller : BaseController
     {

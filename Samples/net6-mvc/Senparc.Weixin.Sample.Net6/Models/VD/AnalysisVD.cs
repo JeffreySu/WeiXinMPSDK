@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.Sample.NetCore3.Controllers;
+using Senparc.Weixin.Sample.Net6.Controllers;
 
-namespace Senparc.Weixin.Sample.NetCore3.Models.VD
+namespace Senparc.Weixin.Sample.Net6.Models.VD
 {
     public class Analysis_IndexVD
     {

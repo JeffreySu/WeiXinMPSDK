@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 //using Senparc.Weixin.Sample.CommonService.Download;
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers
+namespace Senparc.Weixin.Sample.Net6.Controllers
 {
     public class DocumentController : BaseController
     {

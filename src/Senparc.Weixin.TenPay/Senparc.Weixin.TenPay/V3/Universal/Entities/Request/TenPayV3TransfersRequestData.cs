@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
   
     文件名：TenPayV3TransfersRequestData.cs
     文件功能描述：微信支付企业付款请求参数 https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=14_2

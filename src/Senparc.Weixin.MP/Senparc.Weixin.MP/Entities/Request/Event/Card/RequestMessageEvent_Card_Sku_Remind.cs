@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：RequestMessageEvent_Card_Sku_Remind.cs
     文件功能描述：卡券库存报警事件：当某个card_id的初始库存数大于200且当前库存小于等于100时

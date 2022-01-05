@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：ConditionalButtonGroup.cs
     文件功能描述：个性化菜单按钮设置（可以直接用ConditionalButtonGroup实例返回JSON对象）

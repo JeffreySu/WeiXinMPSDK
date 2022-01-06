@@ -54,8 +54,18 @@ namespace Senparc.Weixin.MP.Entities
 
         /// <summary>
         /// 消息id
+        /// 2022-01-06 YZQ Modify
         /// </summary>
-        public long MsgID { get; set; }
+        public long MsgID
+        {
+            get { return this._MsgID; }
+            set
+            {
+                base.MsgId = value;
+                this._MsgID = value;
+            }
+        }
+        private long _MsgID;
 
         [Obsolete("请使用MsgID")]
         public new long MsgId { get; set; }

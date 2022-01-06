@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：TenPayController.cs
     文件功能描述：微信支付Controller
@@ -27,7 +27,7 @@ using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Helpers;
 //DPBMARK_END
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers
+namespace Senparc.Weixin.Sample.Net6.Controllers
 {
     /// <summary>
     /// 根据官方的Webforms Demo改写，所以可以看到直接result +=)之类的用法，实际项目中不提倡这么做。

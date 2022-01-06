@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：MediaController.cs
     文件功能描述：根据mediaId获取语音
@@ -23,7 +23,7 @@ using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.Sample.CommonService.Utilities;
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers
+namespace Senparc.Weixin.Sample.Net6.Controllers
 {
     public class MediaController : BaseController
     {

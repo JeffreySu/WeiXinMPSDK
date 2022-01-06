@@ -6,7 +6,7 @@
  
  
  /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：WeixinAsyncController.cs
     文件功能描述：此Controller为异步Controller（Action），使用异步线程处理并发请求。
@@ -44,7 +44,7 @@
 //using Senparc.NeuChar.MessageHandlers;
 //using Senparc.Weixin.MP;
 
-//namespace Senparc.Weixin.Sample.NetCore3.Controllers
+//namespace Senparc.Weixin.Sample.Net6.Controllers
 //{
 //    /// <summary>
 //    /// 此Controller为异步Controller（Action），使用异步线程处理并发请求。

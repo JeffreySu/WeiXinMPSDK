@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
   
     文件名：TerminatePermissionByAuthorizationCodeRequestData.cs
     文件功能描述：微信支付V3解除用户授权关系（授权协议号）接口请求数据

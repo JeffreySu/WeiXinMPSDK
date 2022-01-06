@@ -27,7 +27,7 @@ using Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler;//DPBMARK MiniPro
 using Senparc.Weixin.Open;//DPBMARK Open DPBMARK_END
 using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK Open DPBMARK_END
 using Senparc.Weixin.RegisterServices;
-using Senparc.Weixin.Sample.NetCore3.WebSocket.Hubs;//DPBMARK WebSocket DPBMARK_END
+using Senparc.Weixin.Sample.Net6.WebSocket.Hubs;//DPBMARK WebSocket DPBMARK_END
 using Senparc.Weixin.TenPay;//DPBMARK TenPay DPBMARK_END
 using Senparc.Weixin.TenPayV3;//DPBMARK TenPay DPBMARK_END
 using Senparc.Weixin.Work;//DPBMARK Work DPBMARK_END
@@ -38,7 +38,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace Senparc.Weixin.Sample.NetCore3
+namespace Senparc.Weixin.Sample.Net6
 {
     public class Startup
     {
@@ -138,7 +138,8 @@ namespace Senparc.Weixin.Sample.NetCore3
 
                     //以下会立即将全局缓存设置为 Redis
                     Senparc.CO2NET.Cache.CsRedis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
-                                                                                //Senparc.CO2NET.Cache.CsRedis.Register.UseHashRedisNow();//HashSet储存格式的缓存策略
+                    
+                    //Senparc.CO2NET.Cache.CsRedis.Register.UseHashRedisNow();//HashSet储存格式的缓存策略
 
                     //也可以通过以下方式自定义当前需要启用的缓存策略
                     //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//键值对
@@ -216,7 +217,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     if (UseRedis(senparcSetting.Value, out _))
                     {
                         weixinRegister.UseSenparcWeixinCacheCsRedis();//CsRedis，两选一
-                        weixinRegister.UseSenparcWeixinCacheRedis();//StackExchange.Redis，两选一
+                        //weixinRegister.UseSenparcWeixinCacheRedis();//StackExchange.Redis，两选一
                     }                                                                                     // DPBMARK_END
 
                     // 微信的 Memcached 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）    -- DPBMARK Memcached

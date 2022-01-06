@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：RequestMessageEvent_Update_Member_Card.cs
     文件功能描述：事件之会员卡内容更新事件：会员卡积分余额发生变动时

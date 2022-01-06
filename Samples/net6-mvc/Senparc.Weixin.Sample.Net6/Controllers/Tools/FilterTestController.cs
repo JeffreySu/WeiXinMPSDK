@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：FilterTestController.cs
     文件功能描述：演示Senparc.Weixin.MP.MvcExtension.WeixinInternalRequestAttribute
@@ -14,7 +14,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers
+namespace Senparc.Weixin.Sample.Net6.Controllers
 {
     using Microsoft.AspNetCore.Http;
     using Senparc.Weixin.MP.MvcExtension;

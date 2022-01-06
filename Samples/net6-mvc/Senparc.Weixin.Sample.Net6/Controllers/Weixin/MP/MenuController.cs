@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：MenuController.cs
     文件功能描述：自定义菜单设置工具Controller
@@ -27,7 +27,7 @@ using Senparc.Weixin.MP.Entities.Menu;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.MP;
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers
+namespace Senparc.Weixin.Sample.Net6.Controllers
 {
     public class MenuController : BaseController
     {

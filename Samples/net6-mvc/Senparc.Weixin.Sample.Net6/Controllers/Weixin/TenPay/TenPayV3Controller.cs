@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：TenPayV3Controller.cs
     文件功能描述：微信支付V3Controller
@@ -30,7 +30,7 @@ using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Sample.NetCore3.Models;
+using Senparc.Weixin.Sample.Net6.Models;
 using Senparc.Weixin.TenPay.V3;
 using System;
 using System.IO;
@@ -48,11 +48,11 @@ using TenPayOldV3 = Senparc.Weixin.TenPay.V3.TenPayV3;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.Sample.CommonService.TemplateMessage;
-using Senparc.Weixin.Sample.NetCore3.Filters;
+using Senparc.Weixin.Sample.Net6.Filters;
 //DPBMARK_END
 
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers
+namespace Senparc.Weixin.Sample.Net6.Controllers
 {
     /* 
      * 友情提示：微信支付正式上线之前，请进行沙箱测试！ 

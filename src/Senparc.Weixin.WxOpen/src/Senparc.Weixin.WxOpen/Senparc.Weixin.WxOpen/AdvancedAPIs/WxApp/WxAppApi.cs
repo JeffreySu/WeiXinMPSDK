@@ -828,6 +828,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             }, accessTokenOrAppId);
         }
 
+
         #endregion
 
 

@@ -1,7 +1,7 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2022 Senparc
     
-    文件名：Short Link.cs
+    文件名：ShortLinkApi.cs
     文件功能描述：小程序 Short Link
     官方文档：https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/short-link/shortlink.generate.html
     

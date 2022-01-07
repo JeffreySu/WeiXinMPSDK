@@ -42,6 +42,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：mc7246 - 20211209
     修改描述：v4.13.2 添加“小程序违规和申诉管理”接口
 
+    修改标识：Senparc - 20220107
+    修改描述：v4.13.4 完善“公众号权限集”
+
 ----------------------------------------------------------------*/
 
 
@@ -171,6 +174,9 @@ namespace Senparc.Weixin.Open
         素材管理权限 = 11,
         微信摇周边权限 = 12,
         微信门店权限 = 13,
+        /// <summary>
+        /// <see href="https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/product/offical_account_authority.html">文档</see>中已取消
+        /// </summary>
         微信支付权限 = 14,
         自定义菜单权限 = 15,
         获取认证状态及信息 = 16,
@@ -186,7 +192,15 @@ namespace Senparc.Weixin.Open
         微信电子发票权限 = 26,
         快速注册小程序权限 = 27,
         小程序管理权限 = 33,
-        微信卡路里权限 = 35
+        微信商品库权限 = 34,
+        微信卡路里权限 = 35,
+        好物圈权限 = 44,
+        微信一物一码权限 = 46,
+        微信财政电子票据权限 = 47,
+        服务号对话权限 = 54,
+        服务平台管理权限 = 66,
+        订阅通知权限 = 89,
+
 #pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释
     }
 

@@ -140,14 +140,12 @@ namespace Senparc.Weixin.MP.Entities
         /// </summary>
         public long MsgID
         {
-            get { return this._MsgID; }
+            get { return base.MsgId; }
             set
             {
                 base.MsgId = value;
-                this._MsgID = value;
             }
         }
-        private long _MsgID;
 
         [Obsolete("请使用MsgID")]
         public new long MsgId { get; set; }

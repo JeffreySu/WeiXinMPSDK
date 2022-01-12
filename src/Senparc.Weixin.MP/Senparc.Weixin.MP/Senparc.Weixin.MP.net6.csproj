@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>16.17.3</Version>
+    <Version>16.17.4</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -514,6 +514,7 @@
 		v16.17.1 完善永久素材上传接口
 		v16.17.2 优化永久素材上传接口，提供素材类型枚举：UploadForeverMediaType
 		v16.17.3 UserApi.Info() 接口返回值，将 headimgurl、nickname 设为过期
+		v16.17.4 
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

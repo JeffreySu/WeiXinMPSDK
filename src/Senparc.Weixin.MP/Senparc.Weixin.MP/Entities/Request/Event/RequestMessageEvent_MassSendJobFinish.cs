@@ -36,6 +36,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;
+
 using System;
 using System.Collections.Generic;
 
@@ -135,8 +136,16 @@ namespace Senparc.Weixin.MP.Entities
 
         /// <summary>
         /// 群发的消息ID
+        /// 2022-01-06 YZQ Modify
         /// </summary>
-        public long MsgID { get; set; }
+        public long MsgID
+        {
+            get { return base.MsgId; }
+            set
+            {
+                base.MsgId = value;
+            }
+        }
 
         [Obsolete("请使用MsgID")]
         public new long MsgId { get; set; }

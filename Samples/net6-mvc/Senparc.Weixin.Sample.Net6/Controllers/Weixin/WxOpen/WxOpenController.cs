@@ -530,5 +530,23 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
 
         #endregion
 
+        /// <summary>
+        /// 获取用户手机号
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public async Task<ActionResult> GetUserPhoneNumber(string code)
+        {
+            try
+            {
+                var result = await BusinessApi.GetUserPhoneNumberAsync(WxOpenAppId, code);
+                return Json(new { success = true, phoneInfo = result.phone_info });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, msg = ex.Message });
+            }
+        }
+
     }
 }

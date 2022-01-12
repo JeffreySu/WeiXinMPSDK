@@ -460,7 +460,7 @@ namespace Senparc.Weixin.Sample.Net6
 
                 //发送模板消息给管理员                                   -- DPBMARK Redis
                 var eventService = new CommonService.EventService();
-                await eventService.ConfigOnWeixinExceptionFunc(ex);      // DPBMARK_END
+                //await eventService.ConfigOnWeixinExceptionFunc(ex);      // DPBMARK_END
             };
         }
 

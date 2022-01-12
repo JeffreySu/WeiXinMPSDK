@@ -105,12 +105,12 @@ namespace Senparc.Weixin.WxOpen.Helpers
             var sessionBag = SessionContainer.GetSession(sessionId);
             if (sessionBag == null)
             {
-                throw new WxOpenException("SessionId无效");
+                throw new WxOpenException("SessionId无效（01）");
             }
 
             if (string.IsNullOrEmpty(sessionBag.SessionKey))
             {
-                throw new WxOpenException("SessionKey无效");
+                throw new WxOpenException("SessionKey无效（02）");
             }
 
             var signature = GetSignature(rawData, sessionBag.SessionKey);

@@ -10,11 +10,11 @@
     <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </view>
-    <view class="usermotto">
+  </block>
+  <view class="usermotto">
       <text class="user-motto">{{motto}}</text>
     </view>
-  </block>
-
+    
     <!-- 时间 -->
     <view id="clientTime">
     <text>{{time}}</text>

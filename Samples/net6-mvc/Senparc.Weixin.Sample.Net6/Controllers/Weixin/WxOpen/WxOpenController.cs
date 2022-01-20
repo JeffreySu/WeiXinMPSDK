@@ -491,7 +491,7 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
         }
 
         /// <summary>
-        /// 
+        /// 下发小程序和公众号统一的服务消息
         /// </summary>
         /// <param name="sessionId"></param>
         /// <returns></returns>
@@ -530,10 +530,20 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
                 };
                 #endregion                      DPBMARK_END
 
+                var miniprogram = new Miniprogram_PagePath(WxOpenAppId, pagePath);//使用 pagepath 参数
+                //var miniprogram = new Miniprogram_Page(WxOpenAppId, pagePath);// 使用 page 参数
+                //https://weixin.senparc.com/QA-17333
 
-                UniformSendData msgData = new(sessionBag.OpenId, new Mp_Template_Msg(mpAppId, mpTemplateId, "https://dev.senparc.com", new Miniprogram_PagePath(WxOpenAppId, pagePath), templateData));
+                UniformSendData msgData = new(
+                    sessionBag.OpenId,
+                    new Mp_Template_Msg(mpAppId,
+                                        mpTemplateId,
+                                        "https://dev.senparc.com", 
+                                        miniprogram,
+                                        templateData)
+                    );
 
-                var result = await Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateApi.UniformSendAsync(WxOpenAppId, msgData);
+                var result = await TemplateApi.UniformSendAsync(WxOpenAppId, msgData);
 
                 if (result.errcode == ReturnCode.请求成功)
                 {

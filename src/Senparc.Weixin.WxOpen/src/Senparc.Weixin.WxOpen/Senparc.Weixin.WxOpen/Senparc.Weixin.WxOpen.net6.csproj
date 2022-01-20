@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.14.4</Version>
+    <Version>3.14.5</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -159,6 +159,7 @@
 		v3.14.2 添加“小程序违规和申诉管理”消息事件
 		v3.14.3 添加 UrlLinkApi.Generate() 接口
 		v3.14.4 添加 BusinessApi.GetUserPhoneNumber() 接口
+		v3.14.5 修改“下发小程序和公众号统一的服务消息”接口参数，提升兼容性
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

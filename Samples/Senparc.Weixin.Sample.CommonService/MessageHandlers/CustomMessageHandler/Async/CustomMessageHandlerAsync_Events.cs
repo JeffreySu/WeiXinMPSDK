@@ -98,5 +98,41 @@ MsgId：{1}
             //    .CreateResponseMessage<ResponseMessageNoResponse>();
             return null;
         }
+
+        public override async Task<IResponseMessageBase> OnEvent_SubscribeRequestAsync(RequestMessageEvent_Subscribe requestMessage)
+        {
+            var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);
+            responseMessage.Content = GetWelcomeInfo();
+            if (!string.IsNullOrEmpty(requestMessage.EventKey))
+            {
+                responseMessage.Content += "\r\n============\r\n场景值：" + requestMessage.EventKey;
+            }
+
+            //推送消息
+            //下载文档
+            if (requestMessage.EventKey.StartsWith("qrscene_"))
+            {
+                var sceneId = long.Parse(requestMessage.EventKey.Replace("qrscene_", ""));
+                //var configHelper = new ConfigHelper(new HttpContextWrapper(HttpContext.Current));
+                var codeRecord =
+                    ConfigHelper.CodeCollection.Values.FirstOrDefault(z => z.QrCodeTicket != null && z.QrCodeId == sceneId);
+
+                if (codeRecord != null)
+                {
+                    if (codeRecord.AllowDownload)
+                    {
+                        await CustomApi.SendTextAsync(null, OpenId, "下载已经开始，如需下载其他版本，请刷新页面后重新扫一扫。");
+                    }
+                    else
+                    {
+                        //确认可以下载
+                        codeRecord.AllowDownload = true;
+                        await CustomApi.SendTextAsync(null, OpenId, GetDownloadInfo(codeRecord));
+                    }
+                }
+            }
+
+            return responseMessage;
+        }
     }
 }

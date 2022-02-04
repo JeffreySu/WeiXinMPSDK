@@ -48,7 +48,7 @@ steps:
   displayName: Senparc.Weixin.CLI
   inputs:
     command: push
-    packagesToPush: '**/Senparc.Weixin.*.nupkg'
+    packagesToPush: '**/Weixin.*.nupkg'
     nuGetFeedType: external
     publishFeedCredentials: 'Nuget Official （V2）'
   continueOnError: true

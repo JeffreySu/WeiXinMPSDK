@@ -96,3 +96,4 @@ packages/
 /src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3.Test/appsettings.Test.json
 /src/ProjectFileManager2
 /src/Senparc.Weixin.MP/Senparc.WeixinTests/appsettings.Test.json
+/tools/Senparc.Weixin.CLI/BuildOutPut/

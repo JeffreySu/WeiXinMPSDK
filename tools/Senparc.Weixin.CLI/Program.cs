@@ -94,7 +94,6 @@ namespace Senparc.Weixin.CLI
                 return 0;
             }
 
-
             if (QqGroup == true)
             {
                 var dt1 = SystemTime.Now;

@@ -35,7 +35,7 @@ steps:
     command: 'restore'
     restoreSolution: '$(solution)'
     feedsToUse: 'config'
-    externalFeedCredentials: 'Nuget Official （V2）'
+    externalFeedCredentials: 'Nuget-V3-SupportSymbol'
    
 - task: DotNetCoreCLI@2
   displayName: Build
@@ -48,9 +48,9 @@ steps:
   displayName: Senparc.Weixin.CLI
   inputs:
     command: push
-    packagesToPush: '**/Senparc.Weixin.*.nupkg'
+    packagesToPush: '**/Weixin.*.nupkg'
     nuGetFeedType: external
-    publishFeedCredentials: 'Nuget Official （V2）'
+    publishFeedCredentials: 'Nuget-V3-SupportSymbol'
   continueOnError: true
   condition: succeededOrFailed()
 

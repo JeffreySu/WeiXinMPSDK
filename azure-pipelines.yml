@@ -55,6 +55,17 @@ steps:
   condition: succeededOrFailed()
 
 
+- task: NuGetCommand@2
+  displayName: Senparc.WeChat.CLI
+  inputs:
+    command: push
+    packagesToPush: '**/WeChat.*.nupkg'
+    nuGetFeedType: external
+    publishFeedCredentials: 'Nuget-V3-SupportSymbol'
+  continueOnError: true
+  condition: succeededOrFailed()
+
+
 # - task: VSTest@2
 #   inputs:
 #     platform: '$(buildPlatform)'

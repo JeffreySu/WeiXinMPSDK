@@ -6,7 +6,7 @@
 		<Version>0.1.0</Version>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<Nullable>enable</Nullable>
-		<AssemblyName>Weixin</AssemblyName>
+		<AssemblyName>Weixin.CLI</AssemblyName>
 		<RootNamespace>Senparc.Weixin</RootNamespace>
 		<PackAsTool>true</PackAsTool>
 		<ToolCommandName>weixin</ToolCommandName>
@@ -29,33 +29,7 @@
 		<PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
 		<PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
 		<PackageReleaseNotes>
-			v0.1.1 完成MessageHandler、WebSocketHandler等基础架构，完成基本消息通讯
-
-			v0.1.3 优化WebSocket通讯机制
-
-			v0.2.0 支持 .NET Core
-
-			v0.3.0 支持 .NET Core 2.0
-			v0.3.1
-			1、提供WebSocketHandler.IsReusable返回值（true）
-			2、升级Newtonsoft.Json版本至10.0.1
-			v0.3.2 注册WebSocketMessageHandler，自定义对象的实例化方法，用以支持Spring等框架的注入
-			v0.3.3 常规优化
-			v0.4.0 停止对 .net core 1.1 生成的独立版本
-
-			v0.5.0-rc1 支持 .NET Core 2.1.0
-
-			v0.5.5 发布支持 .net core 2.1 的正式版
-			v0.6.0 支持最新基础库，使用 .NETStandard2.0 统一支持 .NET Core，放弃对 .NET Core 1.x 的单独适配
-			v0.7.3 全局使用 .ConfigureAwait(false) 应对异步锁死问题
-			v0.8.0
-			1、支持 .NET Core SignalR
-			2、提供 Register 注册方法
-			3、优化 WebSocketMesssageHandler
-			v0.8.1 引用最新版本 CO2NET
-			v0.8.2 引用最新版本 CO2NET
-			v0.8.3 提供带符号的 nuget 包（.snupkg)
-			v0.9.0 使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
+			v0.1 创世
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		

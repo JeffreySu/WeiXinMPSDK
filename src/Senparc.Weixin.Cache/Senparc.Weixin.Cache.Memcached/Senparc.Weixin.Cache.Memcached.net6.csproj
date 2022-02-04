@@ -4,7 +4,7 @@
     <Version>2.12</Version>
     <AssemblyName>Senparc.Weixin.Cache.Memcached</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Memcached</RootNamespace>
-    <Description>微信公众账号 - Memcached 模块
+    <Description>微信 SDK - Memcached 模块
 
 Senparc.Weixin SDK 开源项目：
 https://github.com/JeffreySu/WeiXinMPSDK</Description>

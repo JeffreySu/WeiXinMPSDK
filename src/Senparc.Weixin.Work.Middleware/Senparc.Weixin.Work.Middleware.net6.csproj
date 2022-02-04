@@ -6,7 +6,7 @@
     <RootNamespace>Senparc.Weixin.Work.Middleware</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
     <Description>
-			微信公众账号 - Senparc.Weixin.Work.Middleware 模块
+			微信 SDK - Senparc.Weixin.Work.Middleware 模块
 
 			Senparc.Weixin SDK 开源项目：
 			https://github.com/JeffreySu/WeiXinMPSDK

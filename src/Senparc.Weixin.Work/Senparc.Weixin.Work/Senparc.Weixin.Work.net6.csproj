@@ -7,7 +7,7 @@
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
 		<GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
 		<Description>
-			微信公众账号 - 企业微信 模块
+			微信 SDK - 企业微信 模块
 
 			Senparc.Weixin SDK 开源项目：
 			https://github.com/JeffreySu/WeiXinMPSDK

@@ -35,7 +35,7 @@ steps:
     command: 'restore'
     restoreSolution: '$(solution)'
     feedsToUse: 'config'
-    externalFeedCredentials: 'nuget-jeffrey-full-key'
+    externalFeedCredentials: 'Nuget Official （V2）'
    
 - task: DotNetCoreCLI@2
   displayName: Build
@@ -50,7 +50,7 @@ steps:
     command: push
     packagesToPush: '**/Senparc.Weixin.*.nupkg'
     nuGetFeedType: external
-    publishFeedCredentials: 'nuget-jeffrey-full-key'
+    publishFeedCredentials: 'Nuget Official （V2）'
   continueOnError: true
   condition: succeededOrFailed()
 

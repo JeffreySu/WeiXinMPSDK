@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>16.17.4</Version>
+    <Version>16.17.5</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -11,7 +11,7 @@
       Senparc.Weixin SDK 开源项目：
       https://github.com/JeffreySu/WeiXinMPSDK
     </Description>
-    <Copyright>Senparc Copyright © 2004~2021</Copyright>
+    <Copyright>Senparc Copyright © 2004~2022</Copyright>
     <PackageTags>微信,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,JSSDK,微信支付,摇一摇周边</PackageTags>
     <Authors>Jeffrey Su</Authors>
     <Owners>Senparc</Owners>
@@ -514,8 +514,8 @@
 		v16.17.1 完善永久素材上传接口
 		v16.17.2 优化永久素材上传接口，提供素材类型枚举：UploadForeverMediaType
 		v16.17.3 UserApi.Info() 接口返回值，将 headimgurl、nickname 设为过期
-		v16.17.4 
-	</PackageReleaseNotes>
+		v16.17.4
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

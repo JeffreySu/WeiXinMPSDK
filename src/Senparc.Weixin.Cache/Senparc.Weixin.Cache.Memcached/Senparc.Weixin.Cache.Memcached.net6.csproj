@@ -13,7 +13,7 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
     <Authors>Jeffrey Su</Authors>
     <Owners>Senparc</Owners>
-    <PackageLicenseUrl>https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</PackageLicenseUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
     <Title>Senparc.Weixin.Cache.Memcached.dll</Title>
     <Summary>微信公众号SDK for C#</Summary>

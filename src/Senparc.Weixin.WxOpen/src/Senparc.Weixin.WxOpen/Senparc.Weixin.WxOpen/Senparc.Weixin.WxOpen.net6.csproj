@@ -15,7 +15,7 @@
     <PackageTags>微信,weixin,小程序,wxopen,MiniProgram,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式</PackageTags>
     <Authors>Jeffrey Su</Authors>
     <Owners>Senparc</Owners>
-    <PackageLicenseUrl>https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</PackageLicenseUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
     <Title>Senparc.Weixin.WxOpen.dll</Title>
     <Summary>微信公众号SDK for C#</Summary>

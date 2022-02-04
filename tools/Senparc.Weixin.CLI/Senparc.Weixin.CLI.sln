@@ -20,7 +20,6 @@ Global
 		{B2BDB137-9773-4162-8533-8759381AD4AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B2BDB137-9773-4162-8533-8759381AD4AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2BDB137-9773-4162-8533-8759381AD4AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B2BDB137-9773-4162-8533-8759381AD4AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

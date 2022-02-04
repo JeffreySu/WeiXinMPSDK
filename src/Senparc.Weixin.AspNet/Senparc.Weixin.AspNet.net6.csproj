@@ -20,7 +20,7 @@
     <Title>Senparc.Weixin.AspNet.dll</Title>
     <Summary>微信公众号SDK for C#</Summary>
     <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
-    <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
+    <PackageIcon>icon.jpg</PackageIcon>
     <PackageReleaseNotes>
 			v0.1.0 创世
 </PackageReleaseNotes>
@@ -60,6 +60,9 @@
     <OutputPath>..\BuildOutPut\</OutputPath>
     <DocumentationFile>..\BuildOutPut\net6.0\Senparc.Weixin.AspNet.xml</DocumentationFile>
   </PropertyGroup>
+	<ItemGroup>
+		<None Include="..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
+	</ItemGroup>
   <ItemGroup>
     <Compile Remove="AdvancedAPIs\Card\Store\**" />
     <EmbeddedResource Remove="AdvancedAPIs\Card\Store\**" />

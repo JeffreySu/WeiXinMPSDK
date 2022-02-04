@@ -20,7 +20,7 @@
     <Title>Senparc.Weixin.WxOpen.dll</Title>
     <Summary>微信公众号SDK for C#</Summary>
     <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
-    <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
+    <PackageIcon>icon.jpg</PackageIcon>
     <PackageReleaseNotes>
 		v0.1.0 添加基础解决方案，包括模板消息API
 
@@ -184,6 +184,9 @@
     <OutputPath>..\..\..\..\BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.WxOpen.xml</DocumentationFile>
   </PropertyGroup>
+	<ItemGroup>
+		<None Include="..\..\..\..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
+	</ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />

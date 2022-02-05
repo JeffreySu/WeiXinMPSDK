@@ -6,14 +6,17 @@
 ## Senparc.Weixin.CLI
 Senparc.Weixin SDK 命令行工具
 
-## ClearDotNetCoreBadFiles
-ClearDotNetCoreBadFiles.exe 用于解决当项目在.NET Core（或.NET Standard）环境下编译后，会在obj文件夹下生成一些文件，
+## ClearDotNetCoreBadFiles （.NET 6.0 及之后 Sample 版本已不需要）
+文件夹 [ClearDotNetCoreBadFiles](./ClearDotNetCoreBadFiles) 内解决方案可编译生成：`ClearDotNetCoreBadFiles.exe`，
+
+用于解决当项目在.NET Core（或.NET Standard）环境下编译后，会在obj文件夹下生成一些文件，
 导致无法让.NET Framework成功编译的问题。
 
 使用方法：执行 ClearDotNetCoreBadFiles.exe，按照提示按任意键开始清理，再按任意键退出。
 
 
-## SupportNet35And40
+## SupportNet35And40 （.NET Core 3.1/ .NET 6.0 及之后 Sample 版本已不需要）
+文件夹 [SupportNet35And40](./SupportNet35And40) 内解决方案可编译生成：`SupportNet35And40.exe`，
 
 > 当前最新版本已经不支持 .NET 3.5 和 4.0，使用最新源代码时，此工具可以忽略。
 
@@ -21,7 +24,10 @@ SupportNet35And40.exe 用于项目提供 .NET 3.5/4.0支持的文件自动处理
 
 使用方法：执行 SupportNet35And40.exe，等待扫描结束，文件会被自动修改。
 
-## SyncVersion
+## SyncVersion （.NET Core 3.1/ .NET 6.0 及之后 Sample 版本已不需要）
+文件夹 [SyncVersion](./SyncVersion) 内解决方案可编译生成：`SyncVersion.exe`，
+
+
 SyncVersion.exe 用于提供将 VS2017 的 Multi-Targeting 项目版本号同步到 .NET 4.5 项目的 AssemblyInfo.cs 文件中的方法。
 
 使用方法：执行 SyncVersion.exe，结束后窗口将自动关闭，对应项目版本号将自动修改，请注意重新再 .NET 4.5 项目中编译 dll，以确保获得最新版本的文件。

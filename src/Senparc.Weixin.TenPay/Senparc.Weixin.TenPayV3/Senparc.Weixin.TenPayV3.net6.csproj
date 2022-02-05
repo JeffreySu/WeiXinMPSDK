@@ -60,7 +60,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Senparc.CO2NET.AspNet" Version="1.0.0" />
+		<PackageReference Include="Senparc.CO2NET.AspNet" Version="1.0.2" />
 		<PackageReference Include="System.Security.Cryptography.Cng" Version="5.0.0" />
 	</ItemGroup>
 	<ItemGroup>

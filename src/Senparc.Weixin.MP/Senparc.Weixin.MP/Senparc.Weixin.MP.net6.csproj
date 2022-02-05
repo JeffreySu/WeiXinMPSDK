@@ -571,9 +571,9 @@
 		<!--<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />-->
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Senparc.CO2NET.APM" Version="1.0.0" />
-		<PackageReference Include="Senparc.NeuChar" Version="2.0.0" />
-		<PackageReference Include="Senparc.NeuChar.App" Version="1.0.0" />
+		<PackageReference Include="Senparc.CO2NET.APM" Version="1.1.1" />
+		<PackageReference Include="Senparc.NeuChar" Version="2.0.3" />
+		<PackageReference Include="Senparc.NeuChar.App" Version="1.0.3" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

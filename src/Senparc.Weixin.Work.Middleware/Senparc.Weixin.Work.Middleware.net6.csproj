@@ -92,7 +92,7 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>-->
 	<ItemGroup>
-		<PackageReference Include="Senparc.NeuChar.AspNet" Version="1.0.0" />
+		<PackageReference Include="Senparc.NeuChar.AspNet" Version="1.0.3" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.net6.csproj" />

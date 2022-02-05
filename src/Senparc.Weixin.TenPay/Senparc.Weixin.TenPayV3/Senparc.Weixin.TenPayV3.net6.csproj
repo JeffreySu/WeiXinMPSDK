@@ -49,7 +49,7 @@
 		<DocumentationFile>..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.Open.xml</DocumentationFile>
 	</PropertyGroup>
 	<ItemGroup>
-		<None Include="..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
+		<None Include="..\..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Remove="Apis\Marketing\Entities\MarketingApis.Busifavor.cs" />

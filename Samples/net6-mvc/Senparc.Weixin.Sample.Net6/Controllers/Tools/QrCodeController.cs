@@ -44,7 +44,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             var dt0 = SystemTime.Now;
 
             //QrCode 根目录
-            var qrCodeDir = Path.Combine(CO2NET.Config.RootDictionaryPath, "App_Data", "QrCode");
+            var qrCodeDir = Path.Combine(CO2NET.Config.RootDirectoryPath, "App_Data", "QrCode");
             if (!Directory.Exists(qrCodeDir))
             {
                 Directory.CreateDirectory(qrCodeDir);

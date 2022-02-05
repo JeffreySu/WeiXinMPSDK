@@ -105,10 +105,20 @@ namespace Senparc.Weixin
         /// <summary>
         /// 网站根目录绝对路径
         /// </summary>
+        [Obsolete("请使用 RootDirectoryPath", true)]
         public static string RootDictionaryPath
         {
-            get => CO2NET.Config.RootDictionaryPath;
-            set => CO2NET.Config.RootDictionaryPath = value;
+            get => CO2NET.Config.RootDirectoryPath;
+            set => CO2NET.Config.RootDirectoryPath = value;
+        }
+
+        /// <summary>
+        /// 网站根目录绝对路径
+        /// </summary>
+        public static string RootDirectoryPath
+        {
+            get => CO2NET.Config.RootDirectoryPath;
+            set => CO2NET.Config.RootDirectoryPath = value;
         }
 
         /// <summary>

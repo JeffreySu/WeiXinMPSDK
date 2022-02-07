@@ -3,8 +3,8 @@
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<!--<TargetFramework>net5.0</TargetFramework>-->
-		<Version>0.1.0</Version>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<Version>0.1.1</Version>
+		<TargetFrameworks>netcoreapp3.1;net6.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<AssemblyName>WeChat.CLI</AssemblyName>
 		<RootNamespace>Senparc.Weixin</RootNamespace>

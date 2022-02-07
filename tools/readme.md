@@ -6,6 +6,8 @@
 ## Senparc.Weixin.CLI
 Senparc.Weixin SDK 命令行工具
 
+使用教程：https://www.cnblogs.com/szw/p/weixin-cli-v1_0.html
+
 ## ClearDotNetCoreBadFiles （.NET 6.0 及之后 Sample 版本已不需要）
 文件夹 [ClearDotNetCoreBadFiles](./ClearDotNetCoreBadFiles) 内解决方案可编译生成：`ClearDotNetCoreBadFiles.exe`，
 

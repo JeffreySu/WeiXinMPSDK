@@ -20,11 +20,13 @@
 
 			可使用命令行安装：
 
-			`dotnet tool install -g Weixin.CLI`
+			dotnet tool install -g Weixin.CLI
 
 			使用命令行卸载：
 
-			`dotnet tool uninstall -g Weixin.CLI`
+			dotnet tool uninstall -g Weixin.CLI
+			
+			教程：https://www.cnblogs.com/szw/p/weixin-cli-v1_0.html
 
 		</Description>
 
@@ -39,7 +41,8 @@
 		<PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
 		<PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
 		<PackageReleaseNotes>
-			v0.1 创世
+			v1.0 创世
+			v1.1 支持 .NET Core 3.1 和 .NET 6 SDK
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		

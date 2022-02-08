@@ -19,6 +19,8 @@
     修改标识：WangDrama - 20210630
     修改描述：v3.9.600 添加 CHANGE_EXTERNAL_CHAT 对 ChangeType 的判断
 
+    修改标识：Senparc - 20210324
+    修改描述：v3.14.6 添加：审批申请状态变化回调通知： "SYS_APPROVAL_CHANGE"
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;
@@ -192,6 +194,9 @@ namespace Senparc.Weixin.Work.MessageContexts
                             break;
                         case "LIVING_STATUS_CHANGE"://直播回调事件(living_status_change)
                             requestMessage = new RequestMessageEvent_Living_Status_Change_Base();
+                            break;
+                        case "SYS_APPROVAL_CHANGE":
+                            requestMessage = new RequestMessageEvent_SysApprovalChange();
                             break;
                         default://其他意外类型（也可以选择抛出异常）
                             requestMessage = new RequestMessageEventBase();

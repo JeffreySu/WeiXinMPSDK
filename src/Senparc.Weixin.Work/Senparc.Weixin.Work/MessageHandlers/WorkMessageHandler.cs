@@ -56,7 +56,9 @@
 
     修改标识：WangDrama - 20210630
     修改描述：v3.9.600 添加 RequestMessageEvent_Change_External_Chat_Base 事件中 ChangeType 的判断
-
+    
+    修改标识：Senparc - 20210324
+    修改描述：v3.14.6 添加：审批申请状态变化回调通知
 ----------------------------------------------------------------*/
 
 using System;
@@ -202,16 +204,23 @@ namespace Senparc.Weixin.Work.MessageHandlers
         {
             _postModel = postModel as PostModel ?? new PostModel();
 
-
-            UsingEncryptMessage = true;//Work中消息都是强制加密的
             var postDataStr = postDataDocument.ToString();
+
+            //Work中消息默认都是强制加密的，但通知似乎没有加密
+            UsingEncryptMessage = postDataDocument.Root.Element("Encrypt") != null;
+
             EncryptPostData = RequestMessageFactory.GetEncryptPostData(postDataStr);
 
+            XDocument requestDocument;
             //2、解密：获得明文字符串
-            WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.CorpId);
-            string msgXml = null;
-            var result = msgCrype.DecryptMsg(_postModel.Msg_Signature, _postModel.Timestamp, _postModel.Nonce, postDataStr, ref msgXml);
-            /* msgXml
+            if (UsingEncryptMessage)
+            {
+                string msgXml = null;
+
+                WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.CorpId);
+                var result = msgCrype.DecryptMsg(_postModel.Msg_Signature, _postModel.Timestamp, _postModel.Nonce, postDataStr, ref msgXml);
+
+                /* msgXml
 <xml><ToUserName><![CDATA[wx7618c0a6d9358622]]></ToUserName>
 <FromUserName><![CDATA[001]]></FromUserName>
 <CreateTime>1412585107</CreateTime>
@@ -220,18 +229,23 @@ namespace Senparc.Weixin.Work.MessageHandlers
 <MsgId>4299263624800632834</MsgId>
 <AgentID>2</AgentID>
 </xml>
-             */
+           */
 
-            //判断result类型
-            if (result != 0)
-            {
-                //验证没有通过，取消执行
-                CancelExecute = true;
-                return null;
+                //判断result类型
+                if (result != 0)
+                {
+                    //验证没有通过，取消执行
+                    CancelExecute = true;
+                    return null;
+                }
+
+                requestDocument = XDocument.Parse(msgXml);
             }
-
-            var requestDocument = XDocument.Parse(msgXml);
-
+            else
+            {
+                requestDocument = postDataDocument;//TODO:深拷贝
+            }
+            
             RequestMessage = RequestMessageFactory.GetRequestEntity<TMC>(new TMC(), doc: requestDocument);
 
             return requestDocument;
@@ -480,6 +494,9 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     break;
                 case Event.LIVING_STATUS_CHANGE://直播事件回调
                     responseMessage = OnEvent_Living_Status_ChangeRequest(RequestMessage as RequestMessageEvent_Living_Status_Change_Base);
+                    break;
+                case Event.SYS_APPROVAL_CHANGE:
+                    responseMessage = OnEvent_Sys_Approval_Change_Status_ChangeRequest(RequestMessage as RequestMessageEvent_SysApprovalChange);
                     break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -775,6 +792,20 @@ namespace Senparc.Weixin.Work.MessageHandlers
         {
             return DefaultResponseMessage(requestMessage);
         }
+
+        #region 审批事件
+        /// <summary>
+        /// 审批申请状态变化回调通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_Sys_Approval_Change_Status_ChangeRequest(
+          RequestMessageEvent_SysApprovalChange requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        #endregion
+
         #endregion //Event 下属分类
         #endregion
 

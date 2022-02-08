@@ -27,6 +27,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.NeuChar;
 using Senparc.NeuChar.Context;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Helpers;
@@ -66,10 +67,17 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
                 return responseMessage;
             }
 
-            public override Task BuildResponseMessageAsync(CancellationToken cancellationToken)
+            public override IWorkResponseMessageBase OnEvent_Sys_Approval_Change_Status_ChangeRequest(RequestMessageEvent_SysApprovalChange requestMessage)
             {
-                throw new NotImplementedException();
+                var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+                responseMessage.Content = "收到了审批消息："+ requestMessage.ApprovalInfo.SpName;
+                return responseMessage;
             }
+
+            //public override Task BuildResponseMessageAsync(CancellationToken cancellationToken)
+            //{
+            //    throw new NotImplementedException();
+            //}
         }
 
         private string testXml = @"<xml><ToUserName><![CDATA[wx7618c0a6d9358622]]></ToUserName>
@@ -187,6 +195,129 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
 
             var messageHandler = new CustomMessageHandlers(XDocument.Parse(testFileXml), postModel, 10);
 
+        }
+
+        [TestMethod]
+        public void RequestMessageEvent_SysApprovalChangeTest()
+        {
+            var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+  <ToUserName><![CDATA[wx7618c0a6d9358622]]></ToUserName>
+  <FromUserName><![CDATA[sys]]></FromUserName>
+  <CreateTime>1644320363</CreateTime>
+  <MsgType><![CDATA[event]]></MsgType>
+  <Event><![CDATA[sys_approval_change]]></Event>
+  <AgentID>3010040</AgentID>
+  <ApprovalInfo>
+    <SpNo>202202080001</SpNo>
+    <SpName><![CDATA[报销]]></SpName>
+    <SpStatus>1</SpStatus>
+    <TemplateId><![CDATA[1970325096986444_1688852629383336_27728810_1510570226]]></TemplateId>
+    <ApplyTime>1644320363</ApplyTime>
+    <Applyer>
+      <UserId><![CDATA[001]]></UserId>
+      <Party><![CDATA[1]]></Party>
+    </Applyer>
+    <SpRecord>
+      <SpStatus>1</SpStatus>
+      <ApproverAttr>1</ApproverAttr>
+      <Details>
+        <Approver>
+          <UserId><![CDATA[MyName]]></UserId>
+        </Approver>
+        <Speech><![CDATA[]]></Speech>
+        <SpStatus>1</SpStatus>
+        <SpTime>0</SpTime>
+      </Details>
+    </SpRecord>
+    <StatuChangeEvent>1</StatuChangeEvent>
+  </ApprovalInfo>
+</xml>
+";
+
+            var postModel = new PostModel()
+            {
+                Msg_Signature = "22cb38c34ae9ba4bdec938405b931ad3ece7e19e",
+                Timestamp = "1644320363",
+                Nonce = "1645172247",
+
+                Token = "",
+                EncodingAESKey = "",
+                CorpId = ""
+            };
+
+            var messageHandler = new CustomMessageHandlers(XDocument.Parse(xml), postModel, 10);
+            messageHandler.Execute();
+            var responseMessage = messageHandler.ResponseDocument;
+
+            Assert.IsNotNull(messageHandler.RequestMessage);
+            Assert.AreEqual(RequestMsgType.Event, messageHandler.RequestMessage.MsgType);
+            Assert.IsInstanceOfType(messageHandler.RequestMessage,typeof(RequestMessageEvent_SysApprovalChange));
+
+            var requestMessage = messageHandler.RequestMessage as RequestMessageEvent_SysApprovalChange;
+
+            Assert.AreEqual(Event.SYS_APPROVAL_CHANGE, requestMessage.Event);
+            
+            Assert.IsNotNull(requestMessage.ApprovalInfo);
+            Assert.AreEqual((ulong)202202080001, requestMessage.ApprovalInfo.SpNo);
+            //Assert.AreEqual("LiuZhi", requestMessage.ApprovalInfo.Comments.CommentUserInfo.UserId);
+
+            Assert.IsNotNull(requestMessage.ApprovalInfo.SpRecord);
+            Assert.IsNotNull(requestMessage.ApprovalInfo.SpRecord.Details);
+            Assert.IsNotNull(requestMessage.ApprovalInfo.SpRecord.Details.Approver);
+            Assert.AreEqual("MyName", requestMessage.ApprovalInfo.SpRecord.Details.Approver.UserId);
+
+            /* TODO: 多条注释的情况：
+             <?xml version="1.0" encoding="utf-8"?>
+<xml>
+  <ToUserName><![CDATA[wx7618c0a6d9358622]]></ToUserName>
+  <FromUserName><![CDATA[sys]]></FromUserName>
+  <CreateTime>1644327691</CreateTime>
+  <MsgType><![CDATA[event]]></MsgType>
+  <Event><![CDATA[sys_approval_change]]></Event>
+  <AgentID>3010040</AgentID>
+  <ApprovalInfo>
+    <SpNo>202202080004</SpNo>
+    <SpName><![CDATA[报销]]></SpName>
+    <SpStatus>1</SpStatus>
+    <TemplateId><![CDATA[1970325096986444_1688852629383336_27728810_1510570226]]></TemplateId>
+    <ApplyTime>1644327587</ApplyTime>
+    <Applyer>
+      <UserId><![CDATA[001]]></UserId>
+      <Party><![CDATA[1]]></Party>
+    </Applyer>
+    <SpRecord>
+      <SpStatus>1</SpStatus>
+      <ApproverAttr>1</ApproverAttr>
+      <Details>
+        <Approver>
+          <UserId><![CDATA[HuQingXia]]></UserId>
+        </Approver>
+        <Speech><![CDATA[]]></Speech>
+        <SpStatus>1</SpStatus>
+        <SpTime>0</SpTime>
+      </Details>
+    </SpRecord>
+    <Comments>
+      <CommentUserInfo>
+        <UserId><![CDATA[001]]></UserId>
+      </CommentUserInfo>
+      <CommentTime>1644327628</CommentTime>
+      <CommentContent><![CDATA[添加注释]]></CommentContent>
+      <CommentId><![CDATA[7062333390172254653]]></CommentId>
+    </Comments>
+    <Comments>
+      <CommentUserInfo>
+        <UserId><![CDATA[001]]></UserId>
+      </CommentUserInfo>
+      <CommentTime>1644327691</CommentTime>
+      <CommentContent><![CDATA[添加备注2]]></CommentContent>
+      <CommentId><![CDATA[7062333660755190911]]></CommentId>
+    </Comments>
+    <StatuChangeEvent>10</StatuChangeEvent>
+  </ApprovalInfo>
+</xml>
+             */
         }
     }
 }

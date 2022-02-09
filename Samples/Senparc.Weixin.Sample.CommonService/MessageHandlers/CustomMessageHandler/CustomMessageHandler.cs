@@ -334,7 +334,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                     var userInfo = MP.AdvancedAPIs.UserApi.Info(appId, openId, Language.zh_CN);
 
                     defaultResponseMessage.Content = string.Format(
-                        "您的OpenID为：{0}\r\n昵称：{1}\r\n性别：{2}\r\n地区（国家/省/市）：{3}/{4}/{5}\r\n关注时间：{6}\r\n关注状态：{7}",
+                        "您的OpenID为：{0}\r\n昵称：{1}\r\n性别：{2}\r\n地区（国家/省/市）：{3}/{4}/{5}\r\n关注时间：{6}\r\n关注状态：{7}\r\n\r\n说明：从2021年12月27日起，公众号无法直接获取用户昵称、性别、地区等信息，如需获取相关信息，需要使用<a href=\"https://sdk.weixin.senparc.com/oauth2?returnUrl=%2FOAuth2%2FTestReturnUrl\">OAuth 2.0 接口</a>。",
                         requestMessage.FromUserName, userInfo.nickname, (WeixinSex)userInfo.sex, userInfo.country, userInfo.province, userInfo.city, DateTimeHelper.GetDateTimeFromXml(userInfo.subscribe_time), userInfo.subscribe);
                     return defaultResponseMessage;
                 })
@@ -443,7 +443,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                                 historyMessage.MsgType.ToString(),
                                 (historyMessage is RequestMessageText)
                                     ? (historyMessage as RequestMessageText).Content
-                                    : "[非文字类型]"
+                                    : $"[非文字类型{((historyMessage is IRequestMessageEventKey eventKey) ? $"-{eventKey.EventKey}" : "")}]"
                                 );
                         }
                         result.AppendLine("\r\n");
@@ -565,8 +565,8 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
 
             _ = Task.Factory.StartNew(async () =>
                {
-                 //上传素材
-                 var dir = ServerUtility.ContentRootMapPath("~/App_Data/TempVideo/");
+                   //上传素材
+                   var dir = ServerUtility.ContentRootMapPath("~/App_Data/TempVideo/");
                    var file = await MediaApi.GetAsync(appId, requestMessage.MediaId, dir);
                    var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, UploadMediaFileType.video, file, 50000);
                    await CustomApi.SendVideoAsync(appId, base.OpenId, uploadResult.media_id, "这是您刚才发送的视频", "这是一条视频消息");
@@ -639,7 +639,7 @@ MD5:{3}", requestMessage.Title, requestMessage.Description, requestMessage.FileT
             */
 
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
-            responseMessage.Content = "这条消息来自DefaultResponseMessage。";
+            responseMessage.Content = $"这条消息来自DefaultResponseMessage。\r\n您收到这条消息，表明该公众号没有对【{requestMessage.MsgType}】类型做处理。";
             return responseMessage;
         }
 

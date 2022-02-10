@@ -308,12 +308,14 @@ namespace Senparc.Weixin.Work.Containers
         /// <returns></returns>
         public static async Task<JsApiTicketResult> GetTicketResultAsync(string appId, string appSecret, bool getNewTicket = false)
         {
-            if (!await CheckRegisteredAsync(BuildingKey(appId, appSecret)).ConfigureAwait(false))
+            var shortKey = BuildingKey(appId, appSecret);
+            if (!await CheckRegisteredAsync(shortKey).ConfigureAwait(false))
             {
+                Senparc.Weixin.WeixinTrace.BaseExceptionLog(new Exception($"{UN_REGISTER_ALERT} AppId：{appId}"));
                 throw new WeixinWorkException(UN_REGISTER_ALERT);
             }
 
-            var jsApiTicketBag = await TryGetItemAsync(BuildingKey(appId, appSecret)).ConfigureAwait(false);
+            var jsApiTicketBag = await TryGetItemAsync(shortKey).ConfigureAwait(false);
             //lock (jsApiTicketBag.Lock)
             {
                 if (getNewTicket || jsApiTicketBag.ExpireTime <= SystemTime.Now)

@@ -422,6 +422,13 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
 
                     return defaultResponseMessage;
                 })
+                //企业微信审批
+                .Keyword("审批", () =>
+                 {
+                     MP.AdvancedAPIs.CustomApi.SendText(appId, OpenId, "请将下方地址在企业微信内打开（如果您还没有加入企业微信测试账号，可在QQ群内联系管理员申请）：");
+                     defaultResponseMessage.Content = "https://sdk.weixin.senparc.com/Work/Approval";
+                     return defaultResponseMessage;
+                 })
 
                 //当 Default 使用异步方法时，需要写在最后一个，且 requestMessage.StartHandler() 前需要使用 await 等待异步方法执行；
                 //当 Default 使用同步方法，不一定要在最后一个,并且不需要使用 await

@@ -21,44 +21,44 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2022 Senparc
     
-    文件名：MsgTypeHelper.cs
-    文件功能描述：根据xml信息返回MsgType、ThirdPartyInfo、RequestInfoType
+    文件名：JsApiUiPackage.cs
+    文件功能描述：为 JsApi 在 UI 输出准备的信息包
     
     
-    创建标识：Senparc - 20150313
+    创建标识：Senparc - 20220210
     
-    修改标识：Senparc - 20150313
-    修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
-using System.Xml.Linq;
-
-namespace Senparc.Weixin.Work.Helpers
+namespace Senparc.Weixin.Work
 {
-    public static class MsgTypeHelper
+    /// <summary>
+    /// 为UI输出准备的JSSDK信息包
+    /// </summary>
+    public class JsApiUiPackage
     {
-
-
-        #region ThirdPartyInfo
         /// <summary>
-        /// 根据xml信息，返回ThirdPartyInfo
+        /// 微信AppId
         /// </summary>
-        /// <returns></returns>
-        public static ThirdPartyInfo GetThirdPartyInfo(XDocument doc)
-        {
-            return GetThirdPartyInfo(doc.Root.Element("InfoType").Value);
-        }
+        public string AppId { get; set; }
         /// <summary>
-        /// 根据xml信息，返回RequestInfoType
+        /// 时间戳
         /// </summary>
-        /// <returns></returns>
-        public static ThirdPartyInfo GetThirdPartyInfo(string str)
+        public string Timestamp { get; set; }
+        /// <summary>
+        /// 随机码
+        /// </summary>
+        public string NonceStr { get; set; }
+        /// <summary>
+        /// 签名
+        /// </summary>
+        public string Signature { get; set; }
+
+        public JsApiUiPackage(string appId, string timestamp, string nonceStr,string signature)
         {
-            return (ThirdPartyInfo)Enum.Parse(typeof(ThirdPartyInfo), str, true);
+            AppId = appId;
+            Timestamp = timestamp;
+            NonceStr = nonceStr;
+            Signature = signature;
         }
-
-        #endregion
-
     }
 }

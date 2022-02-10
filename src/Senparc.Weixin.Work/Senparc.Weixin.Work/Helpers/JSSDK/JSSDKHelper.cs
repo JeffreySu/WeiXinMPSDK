@@ -21,9 +21,11 @@
 
 using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.Helpers;
+using Senparc.Weixin.Work.Containers;
 using System;
 using System.Collections;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Work.Helpers
 {
@@ -69,6 +71,22 @@ namespace Senparc.Weixin.Work.Helpers
             return EncryptHelper.GetSha1(sb.ToString()).ToLower();
         }
 
+        /// <summary>
+        /// 获取给 JsApi UI 使用的打包签名信息
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="prepayId"></param>
+        /// <returns></returns>
+        public static async Task<JsApiUiPackage> GetJsApiUiPackageAsync(string appId, string secret, string url,string jsApiTicket)
+        {
+            var nonceStr = GetNoncestr();
+            var timeStamp = GetTimestamp();
+            jsApiTicket ??= await JsApiTicketContainer.GetTicketAsync(appId, secret);
+            var sign = GetSignature(jsApiTicket, nonceStr, timeStamp, url);
+
+            JsApiUiPackage jsApiUiPackage = new(appId, timeStamp.ToString(), nonceStr, sign);
+            return jsApiUiPackage;
+        }
 
     }
 }

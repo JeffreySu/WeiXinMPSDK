@@ -109,12 +109,14 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
             var messageHandler = new CustomMessageHandler(Request.GetRequestMemoryStream(), postModel, maxRecordCount);
 
-            #region 设置消息去重设置
+            #region 设置消息去重设置 + 优先调用同步、异步方法设置
 
             /* 如果需要添加消息去重功能，只需打开OmitRepeatedMessage功能，SDK会自动处理。
              * 收到重复消息通常是因为微信服务器没有及时收到响应，会持续发送2-5条不等的相同内容的 RequestMessage */
             messageHandler.OmitRepeatedMessage = true;//默认已经是开启状态，此处仅作为演示，也可以设置为 false 在本次请求中停用此功能
 
+            //当同步方法被重写，且异步方法未被重写时，尝试调用同步方法
+            messageHandler.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
             #endregion
 
             try

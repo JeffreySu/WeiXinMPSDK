@@ -135,9 +135,5 @@ MsgId：{1}
             return responseMessage;
         }
 
-        public override async Task<IResponseMessageBase> OnEvent_ScanRequestAsync(RequestMessageEvent_Scan requestMessage)
-        {
-            return OnEvent_ScanRequest(requestMessage);
-        }
     }
 }

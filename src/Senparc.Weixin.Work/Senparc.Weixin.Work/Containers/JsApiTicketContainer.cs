@@ -173,13 +173,13 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="appSecret"></param>
         /// <param name="getNewTicket"></param>
         /// <returns></returns>
-        public static string TryGetTicket(string appId, string appSecret, bool getNewTicket = false)
+        public static string TryGetTicket(string appId, string appSecret, bool isAgentConfig, bool getNewTicket = false)
         {
             if (!CheckRegistered(BuildingKey(appId, appSecret)) || getNewTicket)
             {
                 Register(appId, appSecret);
             }
-            return GetTicket(appId, appSecret, getNewTicket);
+            return GetTicket(appId, appSecret, isAgentConfig, getNewTicket);
         }
 
         /// <summary>
@@ -188,9 +188,9 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="appId"></param>
         /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
         /// <returns></returns>
-        public static string GetTicket(string appId, string appSecret, bool getNewTicket = false)
+        public static string GetTicket(string appId, string appSecret, bool isAgentConfig, bool getNewTicket = false)
         {
-            return GetTicketResult(appId, appSecret, getNewTicket).ticket;
+            return GetTicketResult(appId, appSecret, isAgentConfig, getNewTicket).ticket;
         }
 
         /// <summary>
@@ -199,7 +199,7 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="appId"></param>
         /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
         /// <returns></returns>
-        public static JsApiTicketResult GetTicketResult(string appId, string appSecret, bool getNewTicket = false)
+        public static JsApiTicketResult GetTicketResult(string appId, string appSecret, bool isAgentConfig, bool getNewTicket = false)
         {
             if (!CheckRegistered(BuildingKey(appId, appSecret)))
             {
@@ -212,7 +212,7 @@ namespace Senparc.Weixin.Work.Containers
                 if (getNewTicket || jsApiTicketBag.ExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
-                    jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.CorpId, jsApiTicketBag.CorpSecret);
+                    jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.CorpId, jsApiTicketBag.CorpSecret, isAgentConfig);
                     jsApiTicketBag.ExpireTime = ApiUtility.GetExpireTime(jsApiTicketBag.JsApiTicketResult.expires_in);
                     Update(jsApiTicketBag, null);//更新到缓存
                 }
@@ -279,13 +279,13 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="appSecret"></param>
         /// <param name="getNewTicket"></param>
         /// <returns></returns>
-        public static async Task<string> TryGetTicketAsync(string appId, string appSecret, bool getNewTicket = false)
+        public static async Task<string> TryGetTicketAsync(string appId, string appSecret, bool isAgentConfig, bool getNewTicket = false)
         {
             if (!await CheckRegisteredAsync(BuildingKey(appId, appSecret)).ConfigureAwait(false) || getNewTicket)
             {
                 await RegisterAsync(appId, appSecret).ConfigureAwait(false);
             }
-            return await GetTicketAsync(appId, appSecret, getNewTicket).ConfigureAwait(false);
+            return await GetTicketAsync(appId, appSecret, isAgentConfig, getNewTicket).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -294,9 +294,9 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="appId"></param>
         /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
         /// <returns></returns>
-        public static async Task<string> GetTicketAsync(string appId, string appSecret, bool getNewTicket = false)
+        public static async Task<string> GetTicketAsync(string appId, string appSecret, bool isAgentConfig, bool getNewTicket = false)
         {
-            var result = await GetTicketResultAsync(appId, appSecret, getNewTicket).ConfigureAwait(false);
+            var result = await GetTicketResultAsync(appId, appSecret, isAgentConfig, getNewTicket).ConfigureAwait(false);
             return result.ticket;
         }
 
@@ -306,7 +306,7 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="appId"></param>
         /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
         /// <returns></returns>
-        public static async Task<JsApiTicketResult> GetTicketResultAsync(string appId, string appSecret, bool getNewTicket = false)
+        public static async Task<JsApiTicketResult> GetTicketResultAsync(string appId, string appSecret, bool isAgentConfig, bool getNewTicket = false)
         {
             var shortKey = BuildingKey(appId, appSecret);
             if (!await CheckRegisteredAsync(shortKey).ConfigureAwait(false))
@@ -321,7 +321,7 @@ namespace Senparc.Weixin.Work.Containers
                 if (getNewTicket || jsApiTicketBag.ExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
-                    var jsApiTicketResult = await CommonApi.GetTicketAsync(jsApiTicketBag.CorpId, jsApiTicketBag.CorpSecret).ConfigureAwait(false);
+                    var jsApiTicketResult = await CommonApi.GetTicketAsync(jsApiTicketBag.CorpId, jsApiTicketBag.CorpSecret, isAgentConfig).ConfigureAwait(false);
                     jsApiTicketBag.JsApiTicketResult = jsApiTicketResult;
                     //jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
                     jsApiTicketBag.ExpireTime = ApiUtility.GetExpireTime(jsApiTicketBag.JsApiTicketResult.expires_in);

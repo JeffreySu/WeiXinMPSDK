@@ -77,11 +77,11 @@ namespace Senparc.Weixin.Work.Helpers
         /// <param name="appId"></param>
         /// <param name="prepayId"></param>
         /// <returns></returns>
-        public static async Task<JsApiUiPackage> GetJsApiUiPackageAsync(string appId, string secret, string url,string jsApiTicket)
+        public static async Task<JsApiUiPackage> GetJsApiUiPackageAsync(string appId, string secret, string url,string jsApiTicket,bool isAgentConfig)
         {
             var nonceStr = GetNoncestr();
             var timeStamp = GetTimestamp();
-            jsApiTicket ??= await JsApiTicketContainer.GetTicketAsync(appId, secret);
+            jsApiTicket ??= await JsApiTicketContainer.GetTicketAsync(appId, secret, isAgentConfig);
             var sign = GetSignature(jsApiTicket, nonceStr, timeStamp, url);
 
             JsApiUiPackage jsApiUiPackage = new(appId, timeStamp.ToString(), nonceStr, sign);

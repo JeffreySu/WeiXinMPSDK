@@ -40,12 +40,12 @@ namespace Senparc.Weixin.Work.Test.CommonAPIs
             JsApiTicketContainer.Register(base._corpId, base._corpSecret);
 
             //获取Ticket完整结果（包括当前过期秒数）
-            var ticketResult = JsApiTicketContainer.GetTicketResult(base._corpId,base._corpSecret);
+            var ticketResult = JsApiTicketContainer.GetTicketResult(base._corpId, base._corpSecret, false);
             Assert.IsNotNull(ticketResult);
             Console.WriteLine(ticketResult.ticket);
 
             //只获取Ticket字符串
-            var ticket = JsApiTicketContainer.GetTicket(base._corpId, base._corpSecret);
+            var ticket = JsApiTicketContainer.GetTicket(base._corpId, base._corpSecret, false);
             Assert.AreEqual(ticketResult.ticket, ticket);
 
             //getNewTicket

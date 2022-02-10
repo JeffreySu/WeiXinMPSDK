@@ -121,12 +121,14 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
         /// <returns></returns>
-        public static JsApiTicketResult GetTicket(string corpId, string corpSecret)
+        public static JsApiTicketResult GetTicket(string corpId, string corpSecret, bool isAgentConfig)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/get_jsapi_ticket?access_token={0}",
-                                       accessToken.AsUrlData());
+                //https://developer.work.weixin.qq.com/document/10029#%E8%8E%B7%E5%8F%96%E5%BA%94%E7%94%A8%E7%9A%84jsapi_ticket
+                var agentConfigParam = isAgentConfig ? "&type=agent_config" : "";
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/get_jsapi_ticket?access_token={0}{1}",
+                                    accessToken.AsUrlData(), agentConfigParam);
 
                 JsApiTicketResult result = CommonJsonSend.Send<JsApiTicketResult>(null, url, null, CommonJsonSendType.GET);
                 return result;
@@ -240,13 +242,15 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
         /// <returns></returns>
-        public static async Task<JsApiTicketResult> GetTicketAsync(string corpId, string corpSecret)
+        public static async Task<JsApiTicketResult> GetTicketAsync(string corpId, string corpSecret,bool isAgentConfig)
         {
 
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/get_jsapi_ticket?access_token={0}",
-                                    accessToken.AsUrlData());
+                //https://developer.work.weixin.qq.com/document/10029#%E8%8E%B7%E5%8F%96%E5%BA%94%E7%94%A8%E7%9A%84jsapi_ticket
+                var agentConfigParam = isAgentConfig ? "&type=agent_config" : "";
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/get_jsapi_ticket?access_token={0}{1}",
+                                    accessToken.AsUrlData(), agentConfigParam);
 
                 return await CommonJsonSend.SendAsync<JsApiTicketResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
             }, AccessTokenContainer.BuildingKey(corpId, corpSecret)).ConfigureAwait(false);

@@ -251,7 +251,8 @@ namespace Senparc.Weixin.Sample.Net6
 
                             //注册企业微信（可注册多个）
                             .RegisterWorkAccount(senparcWeixinSetting.Value, "【盛派网络】企业微信")
-                            .RegisterWorkAccount(senparcWeixinSetting.Value["企业微信审批"], "【盛派网络】企业微信审批应用")
+                            .RegisterWorkAccount(senparcWeixinSetting.Value["企业微信审批"], "【盛派网络】企业微信审批")
+                            .RegisterWorkAccount(senparcWeixinSetting.Value["企业微信审批"].WeixinCorpAgentId, senparcWeixinSetting.Value["企业微信审批"].WeixinCorpSecret, "【盛派网络】企业微信审批应用-自建应用")
 
                             //除此以外，仍然可以在程序任意地方注册企业微信：
                             //AccessTokenContainer.Register(corpId, corpSecret, name);//命名空间：Senparc.Weixin.Work.Containers

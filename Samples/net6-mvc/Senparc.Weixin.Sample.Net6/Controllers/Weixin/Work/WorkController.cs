@@ -172,6 +172,15 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             ViewData["jsApiUiPackage"] = jsApiUiPackage;
             ViewData["thirdNo"] = DateTime.Now.Ticks + Guid.NewGuid().ToString("n");
             ViewData["jsApiTicket"] = jsApiTicket;
+            ViewData["corpId"] = workSetting.WeixinCorpId;
+            ViewData["agentId"] = workSetting.WeixinCorpAgentId;
+
+            //注意这里需要使用 WeixinCorpAgentId，而不是 CorpId
+            var agentConfigJsApiTicket = await JsApiTicketContainer.GetTicketAsync(workSetting.WeixinCorpAgentId, workSetting.WeixinCorpSecret);
+            var agentJsApiUiPackage = await JSSDKHelper.GetJsApiUiPackageAsync(workSetting.WeixinCorpAgentId, workSetting.WeixinCorpSecret, url, jsApiTicket);
+            ViewData["agentJsApiUiPackage"] = agentJsApiUiPackage;
+
+
             return View();
         }
     }

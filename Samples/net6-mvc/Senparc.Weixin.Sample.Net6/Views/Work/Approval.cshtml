@@ -2,6 +2,7 @@
 @{
     Layout = null;
     var jsApiUiPackage = ViewData["jsApiUiPackage"] as  Senparc.Weixin.Work.JsApiUiPackage;
+    var agentJsApiUiPackage = ViewData["agentJsApiUiPackage"] as  Senparc.Weixin.Work.JsApiUiPackage;
 }
 
 <!DOCTYPE html>
@@ -33,6 +34,15 @@
                     signature: '@jsApiUiPackage.Signature',// 必填，签名，见 附录-JS-SDK使用权限签名算法
                     jsApiList: ['thirdPartyOpenPage'] // 必填，需要使用的JS接口列表，凡是要调用的接口都需要传进来
                 });
+
+                wx.checkJsApi({
+                    jsApiList: ['thirdPartyOpenPage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                    success: function(res) {
+                        // 以键值对的形式返回，可用的api值true，不可用为false
+                        // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+                        alert(JSON.stringify(res));
+                    }
+                });
         });
 
         wx.ready(function(){
@@ -47,27 +57,46 @@
         });
 
         function invoke(){
-        wx.invoke('thirdPartyOpenPage', {
-                "oaType": "10001",// String
-                "templateId": "C4NxepvGj51gbkeGXHQgYRArW96WrxRinNfyCxo7N",// String
-                "thirdNo": "@ViewData["thirdNo"]",// String
-                "extData": {
-                    'fieldList': [{
-                        'title': '采购类型',
-                        'type': 'text',
-                        'value': '市场活动',
+            alert('run invoke');
+            wx.agentConfig({
+                corpid: '@ViewData["corpId"]', // 必填，企业微信的corpid，必须与当前登录的企业一致
+                agentid: '@ViewData["agentId"]', // 必填，企业微信的应用id （e.g. 1000247）
+                timestamp: @agentJsApiUiPackage.Timestamp, // 必填，生成签名的时间戳
+                nonceStr: '@agentJsApiUiPackage.NonceStr', // 必填，生成签名的随机串
+                signature: '@agentJsApiUiPackage.Signature',// 必填，签名，见附录-JS-SDK使用权限签名算法
+                jsApiList: ['thirdPartyOpenPage'], //必填，传入需要使用的接口名称
+	            success: function(res) {
+                    // 回调
+                    wx.invoke('thirdPartyOpenPage', {
+                        "oaType": "10001",// String
+                        "templateId": "247bcb886d0374a0a1f749c52794ba1a_622421053",// String
+                        "thirdNo": "@ViewData["thirdNo"]",// String
+                        "extData": {
+                            'fieldList': [{
+                                'title': '采购类型',
+                                'type': 'text',
+                                'value': '市场活动',
+                            },
+                            {
+                                'title': '订单链接',
+                                'type': 'link',
+                                'value': 'https://sdk.weixin.senparc.com/Work/Approval',
+                            }],
+                        }
                     },
-                    {
-                        'title': '订单链接',
-                        'type': 'link',
-                        'value': 'https://sdk.weixin.senparc.com/Work/Approval',
-                    }],
+                    function(res) {
+                        // 输出接口的回调信息
+                        console.log(res);
+                        alert(JSON.stringify(res));
+                    });
+                },
+                fail: function(res) {
+                    if(res.errMsg.indexOf('function not exist') > -1){
+                        alert('版本过低请升级')
+                    }
                 }
-            },
-            function(res) {
-                // 输出接口的回调信息
-                console.log(res);
             });
+            
         }
     </script>
 </head>

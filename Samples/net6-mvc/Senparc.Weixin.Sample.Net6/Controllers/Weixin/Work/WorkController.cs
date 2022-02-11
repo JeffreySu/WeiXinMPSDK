@@ -171,15 +171,17 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             var jsApiUiPackage = await JSSDKHelper.GetJsApiUiPackageAsync(workSetting.WeixinCorpId, workSetting.WeixinCorpSecret, url, jsApiTicket, false);
             ViewData["jsApiUiPackage"] = jsApiUiPackage;
             ViewData["thirdNo"] = DateTime.Now.Ticks + Guid.NewGuid().ToString("n");
-            ViewData["jsApiTicket"] = jsApiTicket;
             ViewData["corpId"] = workSetting.WeixinCorpId;
             ViewData["agentId"] = workSetting.WeixinCorpAgentId;
 
             //注意这里需要使用 WeixinCorpAgentId，而不是 CorpId
-            var agentConfigJsApiTicket = await JsApiTicketContainer.GetTicketAsync(workSetting.WeixinCorpAgentId, workSetting.WeixinCorpSecret, true);
-            var agentJsApiUiPackage = await JSSDKHelper.GetJsApiUiPackageAsync(workSetting.WeixinCorpAgentId, workSetting.WeixinCorpSecret, url, jsApiTicket, true);
+            var agentConfigJsApiTicket = await JsApiTicketContainer.GetTicketAsync(workSetting.WeixinCorpId, workSetting.WeixinCorpSecret, true);
+            var agentJsApiUiPackage = await JSSDKHelper.GetJsApiUiPackageAsync(workSetting.WeixinCorpId, workSetting.WeixinCorpSecret, url, agentConfigJsApiTicket, true);
             ViewData["agentJsApiUiPackage"] = agentJsApiUiPackage;
 
+            //TODO：需要删除：
+            ViewData["jsApiTicket"] = jsApiTicket;
+            ViewData["agentConfigJsApiTicket"] = agentConfigJsApiTicket;
 
             return View();
         }

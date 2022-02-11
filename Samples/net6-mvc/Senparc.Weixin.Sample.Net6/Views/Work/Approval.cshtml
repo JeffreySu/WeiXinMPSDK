@@ -1,8 +1,8 @@
 ﻿@*DPBMARK_FILE Work*@
 @{
     Layout = null;
-    var jsApiUiPackage = ViewData["jsApiUiPackage"] as  Senparc.Weixin.Work.JsApiUiPackage;
-    var agentJsApiUiPackage = ViewData["agentJsApiUiPackage"] as  Senparc.Weixin.Work.JsApiUiPackage;
+    var jsApiUiPackage = ViewData["jsApiUiPackage"] as Senparc.Weixin.Work.JsApiUiPackage;
+    var agentJsApiUiPackage = ViewData["agentJsApiUiPackage"] as Senparc.Weixin.Work.JsApiUiPackage;
 }
 
 <!DOCTYPE html>
@@ -23,7 +23,8 @@
     <script src="//open.work.weixin.qq.com/wwopen/js/jwxwork-1.0.0.js"></script>
 
     <script>
-        //ViewData["jsApiTicket"] : @ViewData["jsApiTicket"] = jsApiTicket;
+        //ViewData["jsApiTicket"] : @ViewData["jsApiTicket"]
+        //ViewData["agentConfigJsApiTicket"]  : @ViewData["agentConfigJsApiTicket"]
         $(function(){
             wx.config({
                     beta: true,// 必须这么写，否则wx.invoke调用形式的jsapi会有问题
@@ -40,14 +41,14 @@
                     success: function(res) {
                         // 以键值对的形式返回，可用的api值true，不可用为false
                         // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
-                        alert(JSON.stringify(res));
+                        alert("wx.config success:"+JSON.stringify(res));
                     }
                 });
         });
 
         wx.ready(function(){
             // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
-            
+            alert("wx.ready:");
         });
 
         wx.error(function(res){
@@ -65,7 +66,9 @@
                 nonceStr: '@agentJsApiUiPackage.NonceStr', // 必填，生成签名的随机串
                 signature: '@agentJsApiUiPackage.Signature',// 必填，签名，见附录-JS-SDK使用权限签名算法
                 jsApiList: ['thirdPartyOpenPage'], //必填，传入需要使用的接口名称
-	            success: function(res) {
+                success: function(res) {
+                    alert("wx.agentConfig success:"+JSON.stringify(res));
+
                     // 回调
                     wx.invoke('thirdPartyOpenPage', {
                         "oaType": "10001",// String
@@ -73,30 +76,33 @@
                         "thirdNo": "@ViewData["thirdNo"]",// String
                         "extData": {
                             'fieldList': [{
-                                'title': '采购类型',
+                                'title': '审批类型',
                                 'type': 'text',
-                                'value': '市场活动',
+                                'value': '豪森快报-企业文化',
                             },
                             {
-                                'title': '订单链接',
+                                'title': '预览',
                                 'type': 'link',
-                                'value': 'https://sdk.weixin.senparc.com/Work/Approval',
+                                'value': 'https://weixin.senparc.com',
                             }],
                         }
                     },
                     function(res) {
                         // 输出接口的回调信息
                         console.log(res);
-                        alert(JSON.stringify(res));
+                        alert('wx.invoke result:'+JSON.stringify(res));
                     });
                 },
                 fail: function(res) {
                     if(res.errMsg.indexOf('function not exist') > -1){
                         alert('版本过低请升级')
                     }
+                    else{
+                        alert('wx.invoke fail:'+JSON.stringify(res));
+                    }
                 }
             });
-            
+
         }
     </script>
 </head>
@@ -105,7 +111,7 @@
     <h2>说明</h2>
     <p>自定义审批流程可以在 HTML5 页面中发起审批流程</p>
     <p>
-       <a href="javascript:void(0)" onclick="invoke()">点击唤起审批流程</a>
+        <a href="javascript:void(0)" onclick="invoke()">点击唤起审批流程</a>
     </p>
 </body>
 </html>

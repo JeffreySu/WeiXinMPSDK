@@ -2,7 +2,7 @@
     Copyright (C) 2022 Senparc
     
     文件名：RequestMessageEvent_SysApprovalChange.cs
-    文件功能描述：审批申请状态变化回调通知
+    文件功能描述：系统审批申请状态变化回调通知
     官方文档：https://developer.work.weixin.qq.com/document/path/91815
     
     
@@ -28,18 +28,17 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         /// 申请信息
         /// </summary>
-        public ApprovalInfo ApprovalInfo { get; set; }
+        public SysApprovalInfo ApprovalInfo { get; set; }
     }
 
     /// <summary>
     /// 申请信息
     /// </summary>
-    public partial class ApprovalInfo
+    public partial class SysApprovalInfo
     {
         /// <summary>
         /// 审批编号
         /// </summary>
-
         public ulong SpNo { get; set; }
 
         /// <summary>
@@ -70,9 +69,10 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         /// 审批流程信息，可能有多个审批节点。
         /// </summary>
-        /// TODO：官方示例中XML只支持一个节点
-        public ApprovalInfoSpRecord SpRecord { get; set; }
-        //public ApprovalInfoSpRecord[] SpRecord { get; set; }
+        //[System.Xml.Serialization.XmlArrayAttribute("SpRecord", IsNullable = false)]
+        [System.Xml.Serialization.XmlElement("SpRecord")]
+        public ApprovalInfoSpRecord[] SpRecord { get; set; }
+
 
         /// <summary>
         /// 抄送信息，可能有多个抄送节点

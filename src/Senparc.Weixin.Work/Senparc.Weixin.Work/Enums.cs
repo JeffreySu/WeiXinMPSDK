@@ -166,9 +166,13 @@ namespace Senparc.Weixin.Work
 
         #region 审批事件
         /// <summary>
-        /// 审批申请状态变化回调通知
+        /// （系统应用）审批申请状态变化回调通知
         /// </summary>
-        SYS_APPROVAL_CHANGE
+        SYS_APPROVAL_CHANGE,
+        /// <summary>
+        /// 自建应用审批状态变化通知回调
+        /// </summary>
+        OPEN_APPROVAL_CHANGE
         #endregion
     }
 

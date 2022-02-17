@@ -23,6 +23,7 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
         [TestMethod]
         public void RequestMessageEvent_SysApprovalChangeTest()
         {
+            //官方提供
             var xml = @"<xml>
   <ToUserName><![CDATA[ww1cSD21f1e9c0caaa]]></ToUserName>
   <FromUserName><![CDATA[sys]]></FromUserName>
@@ -145,39 +146,66 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
 
 
             /* 实际收到的：
-            <?xml version=""1.0"" encoding=""utf-8""?>
+            <?xml version="1.0" encoding="utf-8"?>
 <xml>
-  <ToUserName><![CDATA[wx7618c0a6d9358622]]></ToUserName>
+  <ToUserName><![CDATA[ww8533bff007c0b489]]></ToUserName>
   <FromUserName><![CDATA[sys]]></FromUserName>
-  <CreateTime>1644320363</CreateTime>
+  <CreateTime>1645070366</CreateTime>
   <MsgType><![CDATA[event]]></MsgType>
   <Event><![CDATA[sys_approval_change]]></Event>
-  <AgentID>3010040</AgentID>
+  <AgentID>1000002</AgentID>
   <ApprovalInfo>
-    <SpNo>202202080001</SpNo>
-    <SpName><![CDATA[报销]]></SpName>
+    <SpNo>202202170001</SpNo>
+    <SpName><![CDATA[SYS微信SDK审批]]></SpName>
     <SpStatus>1</SpStatus>
-    <TemplateId><![CDATA[1970325096986444_1688852629383336_27728810_1510570226]]></TemplateId>
-    <ApplyTime>1644320363</ApplyTime>
+    <TemplateId><![CDATA[C4NxepvGj51gbkeGXHQgYRArW96WrxRinNfyCxo7N]]></TemplateId>
+    <ApplyTime>1645070220</ApplyTime>
     <Applyer>
-      <UserId><![CDATA[001]]></UserId>
+      <UserId><![CDATA[SuZhenWei]]></UserId>
       <Party><![CDATA[1]]></Party>
     </Applyer>
     <SpRecord>
       <SpStatus>1</SpStatus>
-      <ApproverAttr>1</ApproverAttr>
+      <ApproverAttr>2</ApproverAttr>
       <Details>
         <Approver>
-          <UserId><![CDATA[MyName]]></UserId>
+          <UserId><![CDATA[FuYunKun]]></UserId>
         </Approver>
         <Speech><![CDATA[]]></Speech>
         <SpStatus>1</SpStatus>
         <SpTime>0</SpTime>
       </Details>
-
+      <Details>
+        <Approver>
+          <UserId><![CDATA[LiShiJie]]></UserId>
+        </Approver>
+        <Speech><![CDATA[]]></Speech>
+        <SpStatus>1</SpStatus>
+        <SpTime>0</SpTime>
+      </Details>
     </SpRecord>
-
-    <StatuChangeEvent>1</StatuChangeEvent>
+    <Notifyer>
+      <UserId><![CDATA[FuYunKun]]></UserId>
+    </Notifyer>
+    <Comments>
+      <CommentUserInfo>
+        <UserId><![CDATA[SuZhenWei]]></UserId>
+      </CommentUserInfo>
+      <CommentTime>1645070277</CommentTime>
+      <CommentContent><![CDATA[添加附件的备注]]></CommentContent>
+      <CommentId><![CDATA[7065523039889409558]]></CommentId>
+      <Attach><![CDATA[WWCISP_HKLFyKUsme6wsuH4ZZm6qEqVOO0MkefA9pby86N7D4emHdGDnOrVnC7epnwvEwxTis83LEFPyPs4fDFuAoSQHJVs_OBl4OCeg0Hblv17oE5HcW7YebDNWB0pi_zopBcqDfmPHnpb_BG36mBhqhzrDQEe0DjAvzGeOsmCPK7S1mxUF9s_8-gyax2Z3HiSeKwLYlX-JgAQMKiawoDVDf3TY_EvzAo7Xlu1Jnd4aeBxLUWpjnXwpXSxlTaM680Yj-UmPVStbqQHTjHO8oL7B-3lmaoKqVbrFoDVuS0-JhkHPYs8kQO4IU7BUKKZ7y1gRRVcU9x0eVyOzWysujcrF44XXMMt6_kZ1NtL-eCbQCD4JRdzdZRXhMPlGJwPTFAxC3Idab9S-q1RgVqWThUdvoGs_Ykw82IzGOVBXEgobS1Bu_doXgSkBp_YQuL23vAt1ETlirNEQSpK1Fk3GdnYcBfsaJ-Q35FGMQ6_zlGGDLCzGmVLbGTIXiCe2nyELMBAgIzy7PI56YYtbCjJ-et8biXrLMvugAx3W0GHGTiz5uHEhcTwMAa288yMQm1-Ez9bDo8kPuNA3QJEMZ05kE40rxQxVXGmDiFqa8VSAooQmhYUqOsBYk7ZAYvGSxbchMVVr7Epk6RzOM9DSMjXLTCKfuSmovkHs8p_A4LeAdVxoZtcrUg]]></Attach>
+    </Comments>
+    <Comments>
+      <CommentUserInfo>
+        <UserId><![CDATA[SuZhenWei]]></UserId>
+      </CommentUserInfo>
+      <CommentTime>1645070366</CommentTime>
+      <CommentContent><![CDATA[第二条备注]]></CommentContent>
+      <CommentId><![CDATA[7065523422141540548]]></CommentId>
+      <Attach><![CDATA[WWCISP_HKLFyKUsme6wsuH4ZZm6qEqVOO0MkefA9pby86N7D4emHdGDnOrVnC7epnwvEwxTis83LEFPyPs4fDFuAoSQHJVs_OBl4OCeg0Hblv17oE5x75XL8TRkcDWGiB_h9OidJp_VuR7kou5pSfo01qVecYUqgz6HElWdivjIrZX6U_w6xHGZ_8IvB6KJodYQ27IMh4Za2UdxuEjBqnLBJBDPyNqOV66i8JgYmKq2imHJlpAhqwQKUDNzHJ2J53yPbj_UlzaRDnGa3pS6d8D617F9s5hEPggdQuVXxShGRZLlFLweU2o5HInA_LX8Ch4KIYtvP1GxBzboAOOiBvLv4rnwbcAQwcugsgvCJ7Cd5Hz_g_U1JsA1-4FGXNPNNdYnlwzuCVeBiIr48mV0DebXHqul7Vfnw6_9jaOqgif1uO28ZaumhmKHmw7B0-Frz3zOqJuZZSdw2c8ofgU10ALomcVkchuDdDx3Md9NLPtpBWKV4RqAx4p4Udc782TAmMxvjKNSWhj3Acseto59ZVGOtBI_-R6uTFT2t2JyQeh64h-77saFkTfbe1PsJh6nMXWfpMGg8RyZL78IX3N8z1aGxBQYPbWuIOEO80l3rMaRI7JCSjNQ5zLTQ8tXZnZdugqk_HUEhhkK0h-mN6HppUarOopJFwTfSokKHDp7Yrm0OHf01O0]]></Attach>
+    </Comments>
+    <StatuChangeEvent>10</StatuChangeEvent>
   </ApprovalInfo>
 </xml>
              */

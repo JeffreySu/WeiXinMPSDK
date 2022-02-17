@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.14.8</Version>
+    <Version>3.14.9</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>

@@ -101,7 +101,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<QueryUserAuthorizationReturnJson> QueryUserAuthorizationAsync(string appid, string openid, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/businesscircle/user-authorizations/{openid}?appid={appid}");
+            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/businesscircle/user-authorizations/{openid}?appid={appid}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryUserAuthorizationReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }

@@ -144,7 +144,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<QueryReturnProfitsharingReturnJson> QueryReturnProfitsharingAsync(string out_return_no, string out_order_no, int timeOut = Config.TIME_OUT)
         {
 
-            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/profitsharing/return-orders/{out_return_no}?&out_order_no={out_return_no}");
+            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/profitsharing/return-orders/{out_return_no}?&out_order_no={out_return_no}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryReturnProfitsharingReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }
@@ -175,7 +175,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<QueryProfitsharingAmountsReturnJson> QueryProfitsharingAmountsAsync(string transaction_id, int timeOut = Config.TIME_OUT)
         {
 
-            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/profitsharing/transactions/{transaction_id}/amounts");
+            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/profitsharing/transactions/{transaction_id}/amounts");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryProfitsharingAmountsReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }

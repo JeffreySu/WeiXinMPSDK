@@ -41,13 +41,42 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
       <Party><![CDATA[1]]></Party>
     </Applyer>
     <SpRecord>
-      
+      <SpStatus>1</SpStatus>
+      <ApproverAttr>2</ApproverAttr>
+      <Details>
+        <Approver>
+          <UserId><![CDATA[WangXiaoMing]]></UserId>
+        </Approver>
+        <Speech><![CDATA[]]></Speech>
+        <SpStatus>1</SpStatus>
+        <SpTime>0</SpTime>
+      </Details>
+      <Details>
+        <Approver>
+          <UserId><![CDATA[XiaoGangHuang]]></UserId>
+        </Approver>
+        <Speech><![CDATA[]]></Speech>
+        <SpStatus>1</SpStatus>
+        <SpTime>0</SpTime>
+      </Details>
     </SpRecord>
     <SpRecord>
-
+      <SpStatus>1</SpStatus>
+      <ApproverAttr>1</ApproverAttr>
+      <Details>
+        <Approver>
+          <UserId><![CDATA[XiaoHongLiu]]></UserId>
+        </Approver>
+        <Speech><![CDATA[]]></Speech>
+        <SpStatus>1</SpStatus>
+        <SpTime>0</SpTime>
+      </Details>
     </SpRecord>
     <Notifyer>
       <UserId><![CDATA[ChengLiang]]></UserId>
+    </Notifyer>
+    <Notifyer>
+      <UserId><![CDATA[ChengLiang2]]></UserId>
     </Notifyer>
     <Comments>
       <CommentUserInfo>
@@ -56,6 +85,15 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
       <CommentTime>1571732272</CommentTime>
       <CommentContent><![CDATA[这是一个备注]]></CommentContent>
       <CommentId><![CDATA[6750538708562308220]]></CommentId>
+    </Comments>
+    <Comments>
+      <CommentUserInfo>
+        <UserId><![CDATA[LiuZhi2]]></UserId>
+      </CommentUserInfo>
+      <CommentTime>15717322723</CommentTime>
+      <CommentContent><![CDATA[这又是一个备注]]></CommentContent>
+      <CommentId><![CDATA[6750538708562308221]]></CommentId>
+      <Attach>MediaId</Attach>
     </Comments>
     <StatuChangeEvent>10</StatuChangeEvent>
   </ApprovalInfo>
@@ -88,11 +126,23 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
             Assert.IsNotNull(requestMessage.ApprovalInfo);
             Assert.AreEqual((ulong)201910220003, requestMessage.ApprovalInfo.SpNo);
             Assert.AreEqual("示例模板", requestMessage.ApprovalInfo.SpName);
-            //Assert.AreEqual("LiuZhi", requestMessage.ApprovalInfo.Comments.CommentUserInfo.UserId);
+            Assert.AreEqual((byte)1, requestMessage.ApprovalInfo.SpStatus);
 
-            Assert.IsNotNull(requestMessage.ApprovalInfo.SpRecord);
-            //Assert.IsNotNull(requestMessage.ApprovalInfo.SpRecord.Approver);
-            //Assert.AreEqual("MyName", requestMessage.ApprovalInfo.SpRecord.Details.Approver.UserId);
+            Assert.IsNotNull(requestMessage.ApprovalInfo.SpRecords);
+            Assert.AreEqual(2, requestMessage.ApprovalInfo.SpRecords.Length);
+            Assert.AreEqual(2, requestMessage.ApprovalInfo.SpRecords[0].ApproverAttr);
+            Assert.AreEqual(2, requestMessage.ApprovalInfo.SpRecords[0].Details.Length);
+            Assert.AreEqual(1, requestMessage.ApprovalInfo.SpRecords[0].Details[0].SpStatus);
+
+            Assert.AreEqual(2, requestMessage.ApprovalInfo.Notifyers.Length);
+            Assert.AreEqual("ChengLiang2", requestMessage.ApprovalInfo.Notifyers[1].UserId);
+
+            Assert.AreEqual(2, requestMessage.ApprovalInfo.Comments.Length);
+            Assert.AreEqual("LiuZhi2", requestMessage.ApprovalInfo.Comments[1].CommentUserInfo.UserId);
+            Assert.AreEqual("这又是一个备注", requestMessage.ApprovalInfo.Comments[1].CommentContent);
+            Assert.AreEqual("6750538708562308221", requestMessage.ApprovalInfo.Comments[1].CommentId);
+            Assert.AreEqual("MediaId", requestMessage.ApprovalInfo.Comments[1].Attach);
+
 
             /* 实际收到的：
             <?xml version=""1.0"" encoding=""utf-8""?>
@@ -247,7 +297,7 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
             Assert.IsInstanceOfType(messageHandler.RequestMessage, typeof(RequestMessageEvent_OpenApprovalChange));
 
             var requestMessage = messageHandler.RequestMessage as RequestMessageEvent_OpenApprovalChange;
-            
+
             Console.WriteLine(requestMessage.ToJson(true));
 
             Assert.AreEqual(Event.OPEN_APPROVAL_CHANGE, requestMessage.Event);
@@ -259,19 +309,19 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
 
 
             Assert.IsNotNull(requestMessage.ApprovalInfo.ApprovalNodes);
-          
-            Assert.IsTrue(requestMessage.ApprovalInfo.ApprovalNodes.Length ==2);
+
+            Assert.IsTrue(requestMessage.ApprovalInfo.ApprovalNodes.Length == 2);
             var firstApprovalNode = requestMessage.ApprovalInfo.ApprovalNodes.First();
 
             Assert.IsNotNull(firstApprovalNode.Items);
-            Assert.IsTrue(firstApprovalNode.Items.Length ==2);
+            Assert.IsTrue(firstApprovalNode.Items.Length == 2);
             var firstItem = firstApprovalNode.Items.First();
             Assert.AreEqual("chauvetxiao", firstItem.ItemName);
             Assert.AreEqual("http://www.qq.com/xxx.png", firstItem.ItemImage);
 
             var secondApprovalNode = requestMessage.ApprovalInfo.ApprovalNodes[1];
             Assert.IsNotNull(secondApprovalNode.Items);
-            Assert.IsTrue(secondApprovalNode.Items.Length ==2);
+            Assert.IsTrue(secondApprovalNode.Items.Length == 2);
             var secondItem = secondApprovalNode.Items[1];
             Assert.AreEqual("chauvetxiao2", secondItem.ItemName);
             Assert.AreEqual("产品部2", secondItem.ItemParty);

@@ -71,20 +71,21 @@ namespace Senparc.Weixin.Work.Entities
         /// </summary>
         //[System.Xml.Serialization.XmlArrayAttribute("SpRecord", IsNullable = false)]
         [System.Xml.Serialization.XmlElement("SpRecord")]
-        public ApprovalInfoSpRecord[] SpRecord { get; set; }
+        public ApprovalInfoSpRecord[] SpRecords { get; set; }
 
 
         /// <summary>
         /// 抄送信息，可能有多个抄送节点
         /// </summary>
-        public ApprovalInfoNotifyer Notifyer { get; set; }
+        [System.Xml.Serialization.XmlElement("Notifyer")]
+        public ApprovalInfoNotifyer[] Notifyers { get; set; }
 
         /// <summary>
         /// 审批申请备注信息，可能有多个备注节点
         /// TODO：官方示例中XML只支持一个节点
         /// </summary>
-        public ApprovalInfoComments Comments { get; set; }
-        //public ApprovalInfoComments[] Comments { get; set; }
+        [System.Xml.Serialization.XmlElement("Comments")]
+        public ApprovalInfoComments[] Comments { get; set; }
 
         /// <summary>
         /// 审批申请状态变化类型：1-提单；2-同意；3-驳回；4-转审；5-催办；6-撤销；8-通过后撤销；10-添加备注
@@ -121,8 +122,8 @@ namespace Senparc.Weixin.Work.Entities
         /// 审批节点详情。当节点为标签或上级时，一个节点可能有多个分支
         /// TODO：官方示例中XML只支持一个节点
         /// </summary>
-        public ApprovalInfoSpRecordDetails Details { get; set; }
-        //public ApprovalInfoSpRecordDetails[] Details { get; set; }
+        [System.Xml.Serialization.XmlElement("Details")]
+        public ApprovalInfoSpRecordDetails[] Details { get; set; }
     }
 
     /// <summary>
@@ -182,7 +183,7 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         /// 备注提交时间
         /// </summary>
-        public uint CommentTime { get; set; }
+        public ulong CommentTime { get; set; }
 
         /// <summary>
         /// 备注文本内容

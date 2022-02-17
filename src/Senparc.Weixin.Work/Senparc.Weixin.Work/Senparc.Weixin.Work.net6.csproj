@@ -227,4 +227,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="AdvancedAPIs\OA\" />
+	</ItemGroup>
 </Project>

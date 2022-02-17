@@ -101,7 +101,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<QueryPartnershipsReturnJson> QueryPartnershipsAsync(QueryPartnershipsRequestData data, ulong limit = 20, ulong offset = 0, int timeOut = Config.TIME_OUT)
         {
             // TODO: 此处序列化Json需测试时候可以换行问题
-            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/marketing/partnerships?authorized_data={data.authorized_data.ToJson()}&partner={data.partner.ToJson()}&offset={offset}&limit={limit}".UrlEncode());
+            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/marketing/partnerships?authorized_data={data.authorized_data.ToJson()}&partner={data.partner.ToJson()}&offset={offset}&limit={limit}".UrlEncode());
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryPartnershipsReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }

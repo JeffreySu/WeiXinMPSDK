@@ -339,7 +339,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-                var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/pay/transactions/id/{transaction_id}?mchid={mchid}");
+                var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/pay/transactions/id/{transaction_id}?mchid={mchid}");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<OrderReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
             }
@@ -363,7 +363,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-                var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/pay/transactions/out-trade-no/{out_trade_no}?mchid={mchid}");
+                var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/pay/transactions/out-trade-no/{out_trade_no}?mchid={mchid}");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<OrderReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
             }
@@ -385,7 +385,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-                var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/combine-transactions/out-trade-no/{combine_out_trade_no}");
+                var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/combine-transactions/out-trade-no/{combine_out_trade_no}");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<CombineOrderReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
             }
@@ -408,7 +408,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-                var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/pay/transactions/out-trade-no/{out_trade_no}/close");
+                var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/pay/transactions/out-trade-no/{out_trade_no}/close");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, mchid, timeOut);
             }
@@ -431,7 +431,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-                var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/combine-transactions/out-trade-no/{combine_out_trade_no}/close");
+                var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/combine-transactions/out-trade-no/{combine_out_trade_no}/close");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, data, timeOut);
             }
@@ -456,7 +456,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-                var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/refund/domestic/refunds");
+                var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/refund/domestic/refunds");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<RefundReturnJson>(url, data, timeOut);
             }
@@ -478,7 +478,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-                var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/refund/domestic/refunds{out_refund_no}");
+                var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/refund/domestic/refunds{out_refund_no}");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<RefundReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
             }
@@ -506,7 +506,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-                var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/bill/tradebill?bill_date={bill_date}&bill_type={bill_type}");
+                var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/bill/tradebill?bill_date={bill_date}&bill_type={bill_type}");
                 if (tar_type != null)
                 {
                     url += $"&tar_type={tar_type}";
@@ -554,7 +554,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-                var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/bill/fundflowbill?bill_date={bill_date}&account_type={account_type}");
+                var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/bill/fundflowbill?bill_date={bill_date}&account_type={account_type}");
                 if (tar_type != null)
                 {
                     url += $"&tar_type={tar_type}";

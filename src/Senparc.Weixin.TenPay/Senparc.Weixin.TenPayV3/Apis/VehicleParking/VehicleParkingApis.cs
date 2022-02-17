@@ -88,7 +88,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<QueryServiceReturnJson> QueryServiceAsync(string appid, string plate_number, string plate_color, string openid, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/vehicle/parking/services/find?appid={appid}&plate_number={plate_number}&plate_color={plate_color}&openid={openid}");
+            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/vehicle/parking/services/find?appid={appid}&plate_number={plate_number}&plate_color={plate_color}&openid={openid}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryServiceReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }
@@ -134,7 +134,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<QueryParkingReturnJson> QueryParkingAsync(string out_trade_no, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/vehicle/transactions/out-trade-no/{out_trade_no}");
+            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/vehicle/transactions/out-trade-no/{out_trade_no}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryParkingReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }

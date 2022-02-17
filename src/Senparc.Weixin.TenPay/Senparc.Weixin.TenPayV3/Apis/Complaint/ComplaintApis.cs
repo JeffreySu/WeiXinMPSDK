@@ -90,7 +90,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<QueryComplaintsReturnJson> QueryComplaintsAsync(TenpayDateTime begin_date, TenpayDateTime end_date, string complainted_mchid, int limit = 10, int offset = 0, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/merchant-service/complaints-v2?limit={limit}&offset={offset}&begin_date={begin_date?.ToString()}&end_date={end_date?.ToString()}");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/merchant-service/complaints-v2?limit={limit}&offset={offset}&begin_date={begin_date?.ToString()}&end_date={end_date?.ToString()}");
             url += complainted_mchid is not null ? $"&complainted_mchid={complainted_mchid}" : "";
 
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
@@ -107,7 +107,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<QueryComplaintReturnJson> QueryComplaintAsync(string complaint_id, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/merchant-service/complaints-v2/{complaint_id}");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/merchant-service/complaints-v2/{complaint_id}");
 
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryComplaintReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
@@ -125,7 +125,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<QueryNegotiationHistorysReturnJson> QueryNegotiationHistorysAsync(string complaint_id, int limit = 10, int offset = 0, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/merchant-service/complaints-v2/{complaint_id}/negotiation-historys?limit={limit}&offset={offset}");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/merchant-service/complaints-v2/{complaint_id}/negotiation-historys?limit={limit}&offset={offset}");
 
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryNegotiationHistorysReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
@@ -141,7 +141,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<CreateComplaintNotifyUrlReturnJson> CreateComplaintNotifyUrlAsync(CreateComplaintNotifyUrlRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/merchant-service/complaint-notifications");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/merchant-service/complaint-notifications");
 
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<CreateComplaintNotifyUrlReturnJson>(url, data, timeOut);
@@ -157,7 +157,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<QueryComplaintNotifyUrlReturnJson> QueryComplaintNotifyUrlAsync(int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/merchant-service/complaint-notifications");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/merchant-service/complaint-notifications");
 
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryComplaintNotifyUrlReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
@@ -173,7 +173,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<ModifyComplaintNotifyUrlReturnJson> ModifyComplaintNotifyUrlAsync(ModifyComplaintNotifyUrlRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/merchant-service/complaint-notifications");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/merchant-service/complaint-notifications");
 
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<ModifyComplaintNotifyUrlReturnJson>(url, data, timeOut);
@@ -188,7 +188,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<ReturnJsonBase> DeleteComplaintNotifyUrlAsync(int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/merchant-service/complaint-notifications");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/merchant-service/complaint-notifications");
             //TODO: 此处新增DELETE方法 待测试是否有问题
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, null, timeOut, ApiRequestMethod.DELETE);
@@ -204,7 +204,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<ReturnJsonBase> ResponseAsync(ResponseRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/merchant-service/complaints-v2/{data.complaint_id}/response");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/merchant-service/complaints-v2/{data.complaint_id}/response");
 
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, data, timeOut);
@@ -220,7 +220,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<ReturnJsonBase> CompleteComplaintAsync(CompleteComplaintRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/merchant-service/complaints-v2/{data.complaint_id}/complete");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/merchant-service/complaints-v2/{data.complaint_id}/complete");
 
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, data, timeOut);

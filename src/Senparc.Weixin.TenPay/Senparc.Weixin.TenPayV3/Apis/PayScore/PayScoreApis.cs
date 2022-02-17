@@ -87,7 +87,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<CreateDirectCompleteServiceOrderReturnJson> CreateDirectCompleteServiceOrderAsync(CreateDirectCompleteServiceOrderRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}payscore/serviceorder/direct-complete");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}payscore/serviceorder/direct-complete");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<CreateDirectCompleteServiceOrderReturnJson>(url, data, timeOut);
         }
@@ -106,7 +106,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<GivePermissionReturnJson> GivePermissionAsync(GivePermissionRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/payscore/permissions");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/payscore/permissions");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<GivePermissionReturnJson>(url, data, timeOut);
         }
@@ -122,7 +122,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<QueryPermissionByAuthorizationCodeReturnJson> QueryPermissionByAuthorizationCodeAsync(string service_id, string authorization_code, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/payscore/permissions/authorization-code/{authorization_code}&service_id={service_id}");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/payscore/permissions/authorization-code/{authorization_code}&service_id={service_id}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryPermissionByAuthorizationCodeReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }
@@ -137,7 +137,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<ReturnJsonBase> TerminatePermissionByAuthorizationCodeAsync(TerminatePermissionByAuthorizationCodeRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/payscore/permissions/authorization-code/{data.authorization_code}/terminate");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/payscore/permissions/authorization-code/{data.authorization_code}/terminate");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, data, timeOut);
         }
@@ -154,7 +154,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<QueryPermissionByOpenidReturnJson> QueryPermissionByOpenidAsync(string service_id, string appid, string openid, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/payscore/permissions/openid/{openid}?appid={appid}&service_id={service_id}");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/payscore/permissions/openid/{openid}?appid={appid}&service_id={service_id}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryPermissionByOpenidReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }
@@ -169,7 +169,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<ReturnJsonBase> TerminatePermissionByOpenidAsync(TerminatePermissionByOpenidRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/payscore/permissions/openid/{data.openid}/terminate");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/payscore/permissions/openid/{data.openid}/terminate");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, data, timeOut);
         }
@@ -189,7 +189,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<CreateServiceOrderReturnJson> CreateServiceOrderAsync(CreateServiceOrderRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/payscore/serviceorder");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/payscore/serviceorder");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<CreateServiceOrderReturnJson>(url, data, timeOut);
         }
@@ -212,7 +212,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 throw new TenpayApiRequestException($"{nameof(out_order_no)}与{query_id}必填其中一个.不允许都填写或都不填写");
             }
 
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/payscore/serviceorder?service_id={service_id}&appid={appid}");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/payscore/serviceorder?service_id={service_id}&appid={appid}");
             url += query_id is not null ? $"&query_id={query_id}" : "";
             url += query_id is not null ? $"&query_id={query_id}" : "";
 
@@ -231,7 +231,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<CancelServiceOrderReturnJson> CancelServiceOrderAsync(CancelServiceOrderRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/payscore/serviceorder/{data.out_order_no}/cancel");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/payscore/serviceorder/{data.out_order_no}/cancel");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<CancelServiceOrderReturnJson>(url, data, timeOut);
         }
@@ -247,7 +247,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<ModifyServiceOrderReturnJson> ModifyServiceOrderAsync(ModifyServiceOrderRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/payscore/serviceorder/{data.out_order_no}/modify");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/payscore/serviceorder/{data.out_order_no}/modify");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<ModifyServiceOrderReturnJson>(url, data, timeOut);
         }
@@ -263,7 +263,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<CompleteServiceOrderReturnJson> CompleteServiceOrderAsync(CompleteServiceOrderRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/payscore/serviceorder/{data.out_order_no}/complete");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/payscore/serviceorder/{data.out_order_no}/complete");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<CompleteServiceOrderReturnJson>(url, data, timeOut);
         }
@@ -280,7 +280,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<PayServiceOrderReturnJson> PayServiceOrderAsync(PayServiceOrderRequestData data, int timeOut = Config.TIME_OUT)
         {
             //TODO: 方法命名是否合理?
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/payscore/serviceorder/{data.out_order_no}/pay");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/payscore/serviceorder/{data.out_order_no}/pay");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<PayServiceOrderReturnJson>(url, data, timeOut);
         }
@@ -301,7 +301,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 throw new TenpayApiRequestException($"{nameof(data.type)}为'Order_Paid'与{nameof(data.detail)}");
             }
 
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/payscore/serviceorder/{data.out_order_no}/sync");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/payscore/serviceorder/{data.out_order_no}/sync");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<SyncPayServiceOrderReturnJson>(url, data, timeOut);
         }
@@ -322,7 +322,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<RegisterGuideReturnJson> RegisterGuideAsync(RegisterGuideRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/smartguide/guides");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/smartguide/guides");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<RegisterGuideReturnJson>(url, data, timeOut);
         }
@@ -338,7 +338,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<ReturnJsonBase> AssignGuideAsync(AssignGuideRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/smartguide/guides/{data.guide_id}/assign");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/smartguide/guides/{data.guide_id}/assign");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, data, timeOut);
         }
@@ -358,7 +358,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<QueryGuideReturnJson> QueryServiceOrderAsync(string store_id, string userid, string service_id, string mobile, string work_id, int limit = 0, int offset = 0, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/smartguide/guides?store_id={store_id}");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/smartguide/guides?store_id={store_id}");
             url += userid is not null ? $"&userid={userid}" : "";
             url += mobile is not null ? $"&mobile={mobile}" : "";//TODO: 敏感信息加密处理
             url += work_id is not null ? $"&work_id={work_id}" : "";
@@ -378,7 +378,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<ReturnJsonBase> ModifyGuideAsync(ModifyGuideRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/smartguide/guides/{data.guide_id}");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/smartguide/guides/{data.guide_id}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, data, timeOut, ApiRequestMethod.PATCH);
         }

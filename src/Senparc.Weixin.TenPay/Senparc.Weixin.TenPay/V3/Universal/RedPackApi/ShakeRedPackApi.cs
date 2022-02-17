@@ -146,7 +146,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             string data = packageReqHandler.ParseXML();
 
             //发红包接口地址
-            string url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/hbpreorder";
+            string url = Senparc.Weixin.Config.TenPayV3Host + "/mmpaymkttransfers/hbpreorder";
             //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
             string cert = tenPayCertPath;
             //私钥（在安装证书时设置）

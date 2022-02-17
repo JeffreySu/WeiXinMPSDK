@@ -70,7 +70,7 @@ namespace Senparc.Weixin.TenPay.V3
 #endif
            int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaysptrans/pay_bank");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}mmpaysptrans/pay_bank");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
             #region 弃用
@@ -108,7 +108,7 @@ namespace Senparc.Weixin.TenPay.V3
 #endif
               int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaysptrans/query_bank");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}mmpaysptrans/query_bank");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
             #region 弃用
@@ -183,7 +183,7 @@ namespace Senparc.Weixin.TenPay.V3
 #endif
               int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaysptrans/pay_bank");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}mmpaysptrans/pay_bank");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
             #region 弃用
@@ -219,7 +219,7 @@ namespace Senparc.Weixin.TenPay.V3
 #endif
               int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaysptrans/query_bank");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}mmpaysptrans/query_bank");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
             #region 弃用

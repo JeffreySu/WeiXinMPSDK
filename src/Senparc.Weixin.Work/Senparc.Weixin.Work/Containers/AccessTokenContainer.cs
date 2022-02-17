@@ -144,7 +144,7 @@ namespace Senparc.Weixin.Work.Containers
     public class AccessTokenContainer : BaseContainer<AccessTokenBag>
     {
         private const string UN_REGISTER_ALERT = "此CorpId尚未注册，AccessTokenContainer.Register完成注册（全局执行一次即可）！";
-       private const string LockResourceName = "Work.AccessTokenContainer";
+        private const string LockResourceName = "Work.AccessTokenContainer";
 
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token。

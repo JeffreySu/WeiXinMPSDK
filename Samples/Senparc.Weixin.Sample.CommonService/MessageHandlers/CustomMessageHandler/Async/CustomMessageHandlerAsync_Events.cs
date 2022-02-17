@@ -9,25 +9,18 @@
 ----------------------------------------------------------------*/
 
 //DPBMARK_FILE MP
-using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Senparc.NeuChar.Context;
-using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.Extensions;
-using Senparc.Weixin.HttpUtility;
+using Senparc.NeuChar.Entities;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.Sample.CommonService.Download;
-using Senparc.NeuChar.Entities;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 #if NET451
 using System.Web;
-#else
-using Microsoft.AspNetCore.Http;
 #endif
 
 

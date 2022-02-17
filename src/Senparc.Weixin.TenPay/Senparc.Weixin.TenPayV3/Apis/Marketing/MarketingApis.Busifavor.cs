@@ -58,7 +58,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<CreateBusifavorStockReturnJson> CreateBusifavorStockRequestDataAsync(CreateBusifavorStockRequestData data, int timeOut = Config.TIME_OUT)
         {
 
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/marketing/busifavor/stocks");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/marketing/busifavor/stocks");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<CreateBusifavorStockReturnJson>(url, data, timeOut);
         }
@@ -74,7 +74,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<QueryBusifavorStockReturnJson> QueryBusifavorStockAsync(string stock_id, int timeOut = Config.TIME_OUT)
         {
 
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/busifavor/stocks/{stock_id}");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/marketing/busifavor/stocks/{stock_id}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryBusifavorStockReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }
@@ -89,7 +89,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<UseBusifavorCouponReturnJson> UseBusifavorCouponAsync(UseBusifavorCouponRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/marketing/busifavor/coupons/use");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/marketing/busifavor/coupons/use");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<UseBusifavorCouponReturnJson>(url, data, timeOut);
         }
@@ -112,7 +112,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<QueryBusifavorCouponsReturnJson> QueryBusifavorCouponsAsync(string openid, string appid, string stock_id, string coupon_state, string creator_merchant, string belong_merchant, string sender_merchant, int offset = 0, int limit = 20, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/busifavor/users/{openid}/coupons?appid={appid}&offset={offset}&limit={limit}");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/marketing/busifavor/users/{openid}/coupons?appid={appid}&offset={offset}&limit={limit}");
 
             url += stock_id is not null ? $"&stock_id={stock_id}" : "";
             url += coupon_state is not null ? $"&coupon_state={coupon_state}" : "";
@@ -136,7 +136,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<QueryBusifavorCouponReturnJson> QueryBusifavorCouponAsync(string coupon_code, string appid, string openid, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/busifavor/users/{openid}/coupons/{coupon_code}/appids/{appid}");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/marketing/busifavor/users/{openid}/coupons/{coupon_code}/appids/{appid}");
 
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryBusifavorCouponReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
@@ -153,7 +153,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<SetBusifavorCouponCodesReturnJson> SetBusifavorCouponCodesAsync(SetBusifavorCouponCodesRequestData data, int timeOut = Config.TIME_OUT)
         {
 
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/busifavor/stocks/{data.stock_id}/couponcodes");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/marketing/busifavor/stocks/{data.stock_id}/couponcodes");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<SetBusifavorCouponCodesReturnJson>(url, data, timeOut);
         }
@@ -169,7 +169,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<SetBusifavorSetNotifyUrlReturnJson> SetBusifavorSetNotifyUrlAsync(SetBusifavorSetNotifyUrlRequestData data, int timeOut = Config.TIME_OUT)
         {
 
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/busifavor/callbacks");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/marketing/busifavor/callbacks");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<SetBusifavorSetNotifyUrlReturnJson>(url, data, timeOut);
         }
@@ -185,7 +185,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<QueryBusifavorNotifyUrlReturnJson> QueryBusifavorNotifyUrlAsync(string mchid, int timeOut = Config.TIME_OUT)
         {
 
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/busifavor/callbacks?mchid={mchid}");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/marketing/busifavor/callbacks?mchid={mchid}");
 
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryBusifavorNotifyUrlReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
@@ -201,7 +201,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<AssociateBusifavorReturnJson> AssociateBusifavorAsync(AssociateBusifavorRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/busifavor/coupons/associate");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/marketing/busifavor/coupons/associate");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<AssociateBusifavorReturnJson>(url, data, timeOut);
         }
@@ -216,7 +216,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<DisassociateBusifavorReturnJson> DisassociateBusifavorAsync(DisassociateBusifavorRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/busifavor/coupons/disassociate");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/marketing/busifavor/coupons/disassociate");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<DisassociateBusifavorReturnJson>(url, data, timeOut);
         }
@@ -232,7 +232,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<ModifyBusifavorStockBudgetReturnJson> ModifyBusifavorStockBudgetAsync(ModifyBusifavorStockBudgetRequestData data, int timeOut = Config.TIME_OUT)
         {
 
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/busifavor/stocks/{data.stock_id}/budget");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/marketing/busifavor/stocks/{data.stock_id}/budget");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<ModifyBusifavorStockBudgetReturnJson>(url, data, timeOut, ApiRequestMethod.PATCH);
         }
@@ -249,7 +249,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<ReturnJsonBase> ModifyBusifavorStockInformationAsync(ModifyBusifavorStockInformationRequestData data, int timeOut = Config.TIME_OUT)
         {
 
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/busifavor/stocks/{data.stock_id}");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/marketing/busifavor/stocks/{data.stock_id}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, data, timeOut, ApiRequestMethod.PATCH);
         }
@@ -265,7 +265,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<ReturnBusifavorCouponReturnJson> ReturnBusifavorCouponAsync(ReturnBusifavorCouponRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/busifavor/coupons/return");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/marketing/busifavor/coupons/return");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<ReturnBusifavorCouponReturnJson>(url, data, timeOut);
         }
@@ -280,7 +280,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<DeactivateBusifavorCouponReturnJson> DeactivateBusifavorCouponAsync(DeactivateBusifavorCouponRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/busifavor/coupons/deactivate");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/marketing/busifavor/coupons/deactivate");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<DeactivateBusifavorCouponReturnJson>(url, data, timeOut);
         }
@@ -295,7 +295,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<PayBusifavorReceiptsReturnJson> PayBusifavorReceiptsAsync(PayBusifavorReceiptsRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/busifavor/subsidy/pay-receipts");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/marketing/busifavor/subsidy/pay-receipts");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<PayBusifavorReceiptsReturnJson>(url, data, timeOut);
         }
@@ -311,7 +311,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<QueryBusifavorPayReceiptsReturnJson> QueryBusifavorPayReceiptsAsync(string subsidy_receipt_id, int timeOut = Config.TIME_OUT)
         {
 
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/busifavor/subsidy/pay-receipts/{subsidy_receipt_id}");
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/marketing/busifavor/subsidy/pay-receipts/{subsidy_receipt_id}");
 
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryBusifavorPayReceiptsReturnJson>(url, null, timeOut, ApiRequestMethod.GET);

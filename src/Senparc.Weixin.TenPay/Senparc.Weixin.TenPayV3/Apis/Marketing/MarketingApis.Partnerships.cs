@@ -67,7 +67,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 throw new TenpayApiRequestException($"当 {nameof(data.partner.type)} 为 {data.partner.type} 时，{nameof(data.partner.merchant_id)} 必填！，且{nameof(data.partner.merchant_id)}为null！");
             }
 
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/marketing/partnerships/build");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/marketing/partnerships/build");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<BuildPartnershipsReturnJson>(url, data, timeOut);
         }
@@ -83,7 +83,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<TerminatePartnershipsReturnJson> TerminatePartnershipsAsync(TerminatePartnershipsRequestData data, int timeOut = Config.TIME_OUT)
         {
 
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/marketing/partnerships/terminate");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/marketing/partnerships/terminate");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<TerminatePartnershipsReturnJson>(url, data, timeOut);
         }
@@ -101,7 +101,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<QueryPartnershipsReturnJson> QueryPartnershipsAsync(QueryPartnershipsRequestData data, ulong limit = 20, ulong offset = 0, int timeOut = Config.TIME_OUT)
         {
             // TODO: 此处序列化Json需测试时候可以换行问题
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/partnerships?authorized_data={data.authorized_data.ToJson()}&partner={data.partner.ToJson()}&offset={offset}&limit={limit}".UrlEncode());
+            var url = ReurnPayApiUrl($Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/marketing/partnerships?authorized_data={data.authorized_data.ToJson()}&partner={data.partner.ToJson()}&offset={offset}&limit={limit}".UrlEncode());
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryPartnershipsReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }

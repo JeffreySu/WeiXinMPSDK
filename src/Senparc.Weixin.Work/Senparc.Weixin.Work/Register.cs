@@ -31,7 +31,7 @@ namespace Senparc.Weixin.Work
     public static class Register
     {
         /// <summary>
-        /// 注册公众号（或小程序）信息
+        /// 注册企业微信
         /// </summary>
         /// <param name="registerService">RegisterService</param>
         /// <param name="weixinCorpId">weixinCorpId</param>
@@ -40,7 +40,7 @@ namespace Senparc.Weixin.Work
         /// <returns></returns>
         public static IRegisterService RegisterWorkAccount(this IRegisterService registerService, string weixinCorpId, string weixinCorpSecret, string name = null)
         {
-            ProviderTokenContainer.Register(weixinCorpId, weixinCorpSecret, name);
+            AccessTokenContainer.Register(weixinCorpId, weixinCorpSecret, name);
             return registerService;
         }
 

@@ -198,6 +198,9 @@ namespace Senparc.Weixin.Work.MessageContexts
                         case "SYS_APPROVAL_CHANGE":
                             requestMessage = new RequestMessageEvent_SysApprovalChange();
                             break;
+                        case "OPEN_APPROVAL_CHANGE":
+                            requestMessage = new RequestMessageEvent_OpenApprovalChange();
+                            break;
                         default://其他意外类型（也可以选择抛出异常）
                             requestMessage = new RequestMessageEventBase();
                             break;

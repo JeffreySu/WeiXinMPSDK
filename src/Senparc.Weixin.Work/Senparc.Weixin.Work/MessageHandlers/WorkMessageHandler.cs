@@ -495,8 +495,11 @@ namespace Senparc.Weixin.Work.MessageHandlers
                 case Event.LIVING_STATUS_CHANGE://直播事件回调
                     responseMessage = OnEvent_Living_Status_ChangeRequest(RequestMessage as RequestMessageEvent_Living_Status_Change_Base);
                     break;
-                case Event.SYS_APPROVAL_CHANGE:
+                case Event.SYS_APPROVAL_CHANGE://系统应用审批状态变化通知回调
                     responseMessage = OnEvent_Sys_Approval_Change_Status_ChangeRequest(RequestMessage as RequestMessageEvent_SysApprovalChange);
+                    break;
+                case Event.OPEN_APPROVAL_CHANGE://自建应用审批状态变化通知回调
+                    responseMessage = OnEvent_Open_Approval_Change_Status_ChangeRequest(RequestMessage as RequestMessageEvent_OpenApprovalChange);
                     break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -795,12 +798,23 @@ namespace Senparc.Weixin.Work.MessageHandlers
 
         #region 审批事件
         /// <summary>
-        /// 审批申请状态变化回调通知
+        /// 系统审批申请状态变化回调通知
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
         public virtual IWorkResponseMessageBase OnEvent_Sys_Approval_Change_Status_ChangeRequest(
           RequestMessageEvent_SysApprovalChange requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 自建审批申请状态变化回调通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_Open_Approval_Change_Status_ChangeRequest(
+          RequestMessageEvent_OpenApprovalChange requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

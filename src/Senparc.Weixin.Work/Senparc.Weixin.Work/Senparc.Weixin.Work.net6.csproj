@@ -2,7 +2,8 @@
   <PropertyGroup>
     <TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>3.14.6</Version>
+    <Version>3.14.9</Version>
+    <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -171,6 +172,8 @@
 			v3.14.2 “获取成员信息返回结果”添加 external_userid 属性
 			v3.14.3 修正“批量获取客户详情”接口传入参数
 			v3.14.6 添加“审批申请状态变化回调通知”接口
+			v3.14.7 添加“自建应用&gt;审批流程引擎”接口及 Sample
+			v3.14.8 为 JsApiTicket 提供 IsAgentConfig 参数
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>
@@ -219,9 +222,12 @@
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="2.0.5" />
+    <PackageReference Include="Senparc.NeuChar" Version="2.0.5.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AdvancedAPIs\OA\" />
   </ItemGroup>
 </Project>

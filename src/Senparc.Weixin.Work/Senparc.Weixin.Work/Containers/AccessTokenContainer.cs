@@ -159,6 +159,19 @@ namespace Senparc.Weixin.Work.Containers
         }
 
         /// <summary>
+        /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token。
+        /// 执行此注册过程，会连带注册ProviderTokenContainer。
+        /// </summary>
+        /// <param name="corpId">corpId</param>
+        /// <param name="corpSecret">corpSecret</param>
+        /// 此接口无异步方法
+        public static string BuildingKey(ISenparcWeixinSettingForWork setting)
+        {
+            return BuildingKey(setting.WeixinCorpId, setting.WeixinCorpSecret);
+        }
+
+
+        /// <summary>
         /// 根据Key获取corpId和corpSecret
         /// </summary>
         /// <param name="appKey">由BuildingKey()方法生成的Key</param>

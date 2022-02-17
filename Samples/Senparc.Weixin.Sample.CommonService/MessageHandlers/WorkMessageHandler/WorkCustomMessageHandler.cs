@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.Sample.CommonService.WorkMessageHandler;
 using Senparc.Weixin.Work.AdvancedAPIs;
 using Senparc.Weixin.Work.Containers;
@@ -30,10 +32,12 @@ namespace Senparc.Weixin.Sample.CommonService.WorkMessageHandlers
         public static Func<Stream, PostModel, int, IServiceProvider, WorkCustomMessageHandler> GenerateMessageHandler =
             (stream, postModel, maxRecordCount, serviceProvider) => new WorkCustomMessageHandler(stream, postModel, maxRecordCount, serviceProvider);
 
+        readonly ISenparcWeixinSettingForWork _workSetting;
 
         public WorkCustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, IServiceProvider serviceProvider = null)
             : base(inputStream, postModel, maxRecordCount, serviceProvider: serviceProvider)
         {
+            _workSetting = Senparc.Weixin.Config.SenparcWeixinSetting.WorkSetting;
         }
 
         public override IWorkResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
@@ -75,6 +79,14 @@ namespace Senparc.Weixin.Sample.CommonService.WorkMessageHandlers
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "欢迎进入应用！现在时间是：" + SystemTime.Now.DateTime.ToString();
             return responseMessage;
+        }
+
+        public override IWorkResponseMessageBase OnEvent_ChangeContactUpdateUserRequest(RequestMessageEvent_Change_Contact_User_Update requestMessage)
+        {
+            //发送消息
+            Senparc.Weixin.Work.AdvancedAPIs.ChatApi.SendChatSimpleMessage(AccessTokenContainer.BuildingKey(_workSetting), "001", Work.ChatMsgType.text, $"用户信息已被修改：{requestMessage.ToJson(true)}", 1);
+
+            return base.OnEvent_ChangeContactUpdateUserRequest(requestMessage);
         }
 
         public override Work.Entities.IWorkResponseMessageBase DefaultResponseMessage(Work.Entities.IWorkRequestMessageBase requestMessage)

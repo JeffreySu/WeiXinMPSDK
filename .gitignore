@@ -97,3 +97,4 @@ packages/
 /src/ProjectFileManager2
 /src/Senparc.Weixin.MP/Senparc.WeixinTests/appsettings.Test.json
 /tools/Senparc.Weixin.CLI/BuildOutPut/
+/Samples/net6-mvc/nuget.exe

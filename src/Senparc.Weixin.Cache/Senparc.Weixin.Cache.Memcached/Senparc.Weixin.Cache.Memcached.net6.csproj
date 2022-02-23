@@ -1,27 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
-		<Version>2.12.1</Version>
-		<AssemblyName>Senparc.Weixin.Cache.Memcached</AssemblyName>
-		<RootNamespace>Senparc.Weixin.Cache.Memcached</RootNamespace>
-		<Description>
+  <PropertyGroup>
+    <TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Version>2.12.3</Version>
+    <AssemblyName>Senparc.Weixin.Cache.Memcached</AssemblyName>
+    <RootNamespace>Senparc.Weixin.Cache.Memcached</RootNamespace>
+    <Description>
 			微信 SDK - Memcached 模块
 
 			Senparc.Weixin SDK 开源项目：
 			https://github.com/JeffreySu/WeiXinMPSDK
 		</Description>
-		<Copyright>Senparc Copyright © 2004~2022</Copyright>
-		<PackageTags>微信,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,Cache,Memcached</PackageTags>
-		<GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
-		<Authors>Jeffrey Su</Authors>
-		<Owners>Senparc</Owners>
-		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-		<ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
-		<Title>Senparc.Weixin.Cache.Memcached.dll</Title>
-		<Summary>微信公众号SDK for C#</Summary>
-		<PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
-		<PackageIcon>icon.jpg</PackageIcon>
-		<PackageReleaseNotes>
+    <Copyright>Senparc Copyright © 2004~2022</Copyright>
+    <PackageTags>微信,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,Cache,Memcached</PackageTags>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <Authors>Jeffrey Su</Authors>
+    <Owners>Senparc</Owners>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
+    <Title>Senparc.Weixin.Cache.Memcached.dll</Title>
+    <Summary>微信公众号SDK for C#</Summary>
+    <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
+    <PackageIcon>icon.jpg</PackageIcon>
+    <PackageReleaseNotes>
 			v0.0.1
 			提供分布式缓存支持
 			.NET 4.0版本暂时未提供
@@ -74,76 +74,76 @@
 			v2.5.0 使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
 			v2.5.101 提供 .Net Core 3.0 独立版本
 			v2.7.102 RegisterDomainCache() 方法重命名为 ActivityDomainCache()
-		</PackageReleaseNotes>
-		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
-		<!--<Product>Senparc.Weixin.Cache.Memcached.dll</Product>-->
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-		<OutputPath>..\..\BuildOutPut</OutputPath>
-		<DefineConstants>TRACE</DefineConstants>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-		<OutputPath>..\..\BuildOutPut</OutputPath>
-		<DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
-		<DocumentationFile>..\..\BuildOutPut\Senparc.Weixin.Cache.Memcached.XML</DocumentationFile>
-		<Optimize>true</Optimize>
-		<DebugType>pdbonly</DebugType>
-		<ErrorReport>prompt</ErrorReport>
-		<CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-	</PropertyGroup>
-	<!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
+</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
+    <!--<Product>Senparc.Weixin.Cache.Memcached.dll</Product>-->
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>..\..\BuildOutPut</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\..\BuildOutPut</OutputPath>
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+    <DocumentationFile>..\..\BuildOutPut\Senparc.Weixin.Cache.Memcached.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
     <OutputPath>..\..\BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\BuildOutPut\netstandard1.6\Senparc.Cache.Memcached.xml</DocumentationFile>
   </PropertyGroup>-->
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net451|AnyCPU'">
-		<OutputPath>..\..\BuildOutPut\</OutputPath>
-		<DocumentationFile>..\..\BuildOutPut\net451\Senparc.Cache.Memcached.xml</DocumentationFile>
-	</PropertyGroup>
-	<!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net451|AnyCPU'">
+    <OutputPath>..\..\BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\BuildOutPut\net451\Senparc.Cache.Memcached.xml</DocumentationFile>
+  </PropertyGroup>
+  <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
     <OutputPath>..\..\BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\BuildOutPut\netstandard1.6\Senparc.Cache.Memcached.xml</DocumentationFile>
   </PropertyGroup>-->
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-		<OutputPath>..\..\BuildOutPut\</OutputPath>
-		<DocumentationFile>..\..\BuildOutPut\netstandard2.0\Senparc.Cache.Memcached.xml</DocumentationFile>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
-		<OutputPath>..\..\BuildOutPut\</OutputPath>
-		<DocumentationFile>..\..\BuildOutPut\netstandard2.1\Senparc.Cache.Memcached.xml</DocumentationFile>
-	</PropertyGroup>
-	<ItemGroup>
-		<None Include="..\..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
-	</ItemGroup>
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
-		<Reference Include="System.Core" />
-		<Reference Include="System.Data" />
-		<Reference Include="System.Data.DataSetExtensions" />
-		<Reference Include="System.Net.Http" />
-		<Reference Include="System.Runtime.Serialization" />
-		<Reference Include="System.Web" />
-		<Reference Include="System.Web.Extensions" />
-		<Reference Include="System.Xml" />
-		<Reference Include="System.Xml.Linq" />
-		<PackageReference Include="EnyimMemcached">
-			<Version>2.16.0</Version>
-		</PackageReference>
-		<PackageReference Include="Enyim.Caching.Web">
-			<Version>1.0.0.1</Version>
-		</PackageReference>
-	</ItemGroup>
-	<ItemGroup Condition=" '$(TargetFramework)' != 'net451' ">
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-	</ItemGroup>
-	<ItemGroup>
-		<Compile Remove="MamcachedCacheLock.cs" />
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="4.0.1" />
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-		<Folder Include="Properties\" />
-	</ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <OutputPath>..\..\BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\BuildOutPut\netstandard2.0\Senparc.Cache.Memcached.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
+    <OutputPath>..\..\BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\BuildOutPut\netstandard2.1\Senparc.Cache.Memcached.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <PackageReference Include="EnyimMemcached">
+      <Version>2.16.0</Version>
+    </PackageReference>
+    <PackageReference Include="Enyim.Caching.Web">
+      <Version>1.0.0.1</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net451' ">
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="MamcachedCacheLock.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="4.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
 </Project>

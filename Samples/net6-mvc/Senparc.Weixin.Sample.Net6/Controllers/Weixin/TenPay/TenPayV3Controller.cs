@@ -673,7 +673,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             //string data = packageReqHandler.ParseXML();
 
             ////退款接口地址
-            //string url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+            //string url = Senparc.Weixin.Config.TenPayV3Host + "/secapi/pay/refund";
             ////本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
             //string cert = @"D:\cert\apiclient_cert_SenparcRobot.p12";
             ////私钥（在安装证书时设置）
@@ -885,7 +885,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             string data = packageReqHandler.ParseXML();
 
             //发红包接口地址
-            string url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendgroupredpack";
+            string url = Senparc.Weixin.Config.TenPayV3Host + "/mmpaymkttransfers/sendgroupredpack";
             //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
             string cert = @"F:\apiclient_cert.p12";
             //私钥（在安装证书时设置）
@@ -934,7 +934,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             string data = packageReqHandler.ParseXML();
 
             //发红包接口地址
-            string url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo";
+            string url = Senparc.Weixin.Config.TenPayV3Host + "/mmpaymkttransfers/gethbinfo";
             //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
             string cert = @"F:\apiclient_cert.p12";
             //私钥（在安装证书时设置）

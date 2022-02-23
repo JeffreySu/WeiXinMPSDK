@@ -1,27 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
-		<Version>1.11.1</Version>
-		<AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
-		<RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
-		<GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
-		<Description>
+  <PropertyGroup>
+    <TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Version>1.11.4</Version>
+    <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
+    <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <Description>
 			微信 SDK - 微信支付 模块
 
 			Senparc.Weixin SDK 开源项目：
 			https://github.com/JeffreySu/WeiXinMPSDK
 		</Description>
-		<Copyright>Senparc Copyright © 2004~2022</Copyright>
-		<PackageTags>微信,微信支付,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,分布式,小程序,JSSDK,微信支付,摇一摇周边</PackageTags>
-		<Authors>Jeffrey Su</Authors>
-		<Owners>Senparc</Owners>
-		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-		<ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
-		<Title>Senparc.Weixin.TenPay.dll</Title>
-		<Summary>微信支付 SDK for C#</Summary>
-		<PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
-		<PackageIcon>icon.jpg</PackageIcon>
-		<PackageReleaseNotes>
+    <Copyright>Senparc Copyright © 2004~2022</Copyright>
+    <PackageTags>微信,微信支付,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,分布式,小程序,JSSDK,微信支付,摇一摇周边</PackageTags>
+    <Authors>Jeffrey Su</Authors>
+    <Owners>Senparc</Owners>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
+    <Title>Senparc.Weixin.TenPay.dll</Title>
+    <Summary>微信支付 SDK for C#</Summary>
+    <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
+    <PackageIcon>icon.jpg</PackageIcon>
+    <PackageReleaseNotes>
 			v0.1.0 从 Senparc.Weixin.MP 和 Senparc.Weixin.Work 抽象并分离独立的微信支付模块
 			v0.2.0 支持 Senparc.Weixin v6.0.1
 			v0.2.1 优化支付模板Html5Order方法
@@ -55,48 +55,49 @@
 			1、更新 TenPayV3UnifiedorderRequestData 构造函数，单独提供 version 参数，修正问题：https://github.com/JeffreySu/WeiXinMPSDK/pull/2151
 			2、删除 TenpayV3ProtfitRequestDataVersion 的定义
 			v1.6.200.2 修复：调用分账查询接口, 结果返回"验证签名失败"问题
-		</PackageReleaseNotes>
-		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-		<OutputPath>..\..\BuildOutPut</OutputPath>
-		<DefineConstants>TRACE</DefineConstants>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-		<OutputPath>..\..\BuildOutPut</OutputPath>
-		<DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
-		<DocumentationFile>..\..\BuildOutPut\Senparc.Weixin.TenPay.xml</DocumentationFile>
-		<Optimize>true</Optimize>
-		<DebugType>pdbonly</DebugType>
-		<ErrorReport>prompt</ErrorReport>
-		<CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net451|AnyCPU'">
-		<OutputPath>..\..\BuildOutPut\</OutputPath>
-		<DocumentationFile>..\..\BuildOutPut\net40\Senparc.Weixin.TenPay.xml</DocumentationFile>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-		<OutputPath>..\..\BuildOutPut\</OutputPath>
-		<DocumentationFile>..\..\BuildOutPut\netstandard2.0\Senparc.Weixin.TenPay.xml</DocumentationFile>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
-		<OutputPath>..\..\BuildOutPut\</OutputPath>
-		<DocumentationFile>..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.Open.xml</DocumentationFile>
-	</PropertyGroup>
-	<ItemGroup>
-		<None Include="..\..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
-	</ItemGroup>
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
-		<Reference Include="System.Web" />
-	</ItemGroup>
-	<ItemGroup Condition="'$(TargetFramework)' != 'net451'">
-		<PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="Senparc.CO2NET.AspNet" Version="1.0.2" />
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />
-	</ItemGroup>
+			v1.11.4 使用 Senparc.Weixin.Config.TenPayV3Host 提供可配置的 API 域名
+</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>..\..\BuildOutPut</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\..\BuildOutPut</OutputPath>
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+    <DocumentationFile>..\..\BuildOutPut\Senparc.Weixin.TenPay.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net451|AnyCPU'">
+    <OutputPath>..\..\BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\BuildOutPut\net40\Senparc.Weixin.TenPay.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <OutputPath>..\..\BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\BuildOutPut\netstandard2.0\Senparc.Weixin.TenPay.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
+    <OutputPath>..\..\BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.Open.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' != 'net451'">
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Senparc.CO2NET.AspNet" Version="1.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />
+  </ItemGroup>
 </Project>

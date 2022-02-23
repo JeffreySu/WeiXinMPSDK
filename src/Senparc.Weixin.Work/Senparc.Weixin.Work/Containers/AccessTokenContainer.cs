@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -144,7 +144,7 @@ namespace Senparc.Weixin.Work.Containers
     public class AccessTokenContainer : BaseContainer<AccessTokenBag>
     {
         private const string UN_REGISTER_ALERT = "此CorpId尚未注册，AccessTokenContainer.Register完成注册（全局执行一次即可）！";
-       private const string LockResourceName = "Work.AccessTokenContainer";
+        private const string LockResourceName = "Work.AccessTokenContainer";
 
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token。
@@ -157,6 +157,19 @@ namespace Senparc.Weixin.Work.Containers
         {
             return string.Format("{0}@{1}", corpId, corpSecret);
         }
+
+        /// <summary>
+        /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token。
+        /// 执行此注册过程，会连带注册ProviderTokenContainer。
+        /// </summary>
+        /// <param name="corpId">corpId</param>
+        /// <param name="corpSecret">corpSecret</param>
+        /// 此接口无异步方法
+        public static string BuildingKey(ISenparcWeixinSettingForWork setting)
+        {
+            return BuildingKey(setting.WeixinCorpId, setting.WeixinCorpSecret);
+        }
+
 
         /// <summary>
         /// 根据Key获取corpId和corpSecret

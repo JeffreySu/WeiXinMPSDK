@@ -26,11 +26,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.AspNet.HttpUtility;
 using Senparc.CO2NET.Utilities;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.Sample.CommonService.WorkMessageHandlers;
+using Senparc.Weixin.Work.Containers;
 using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.Helpers;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Sample.Net6.Controllers
 {
@@ -42,7 +46,6 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         public static readonly string Token = Config.SenparcWeixinSetting.WorkSetting.WeixinCorpToken;//与企业微信账号后台的Token设置保持一致，区分大小写。
         public static readonly string EncodingAESKey = Config.SenparcWeixinSetting.WorkSetting.WeixinCorpEncodingAESKey;//与微信企业账号后台的EncodingAESKey设置保持一致，区分大小写。
         public static readonly string CorpId = Config.SenparcWeixinSetting.WorkSetting.WeixinCorpId;//与微信企业账号后台的CorpId设置保持一致，区分大小写。
-
 
         public WorkController()
         {
@@ -104,6 +107,8 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
 
             try
             {
+                Senparc.Weixin.WeixinTrace.SendApiLog("企业微信收到消息", messageHandler.RequestDocument.ToString());
+
                 //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
                 messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
@@ -154,6 +159,31 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             messageHandler.Execute();
             //自动返回加密后结果
             return new FixWeixinBugWeixinResult(messageHandler);
+        }
+
+        public async Task<ActionResult> Approval()
+        {
+            var workSetting = Senparc.Weixin.Config.SenparcWeixinSetting["企业微信审批"] as ISenparcWeixinSettingForWork;
+            var url = "https://sdk.weixin.senparc.com/Work/Approval";
+
+            //获取 UI 信息包
+            var jsApiTicket = await JsApiTicketContainer.GetTicketAsync(workSetting.WeixinCorpId, workSetting.WeixinCorpSecret, false);
+            var jsApiUiPackage = await JSSDKHelper.GetJsApiUiPackageAsync(workSetting.WeixinCorpId, workSetting.WeixinCorpSecret, url, jsApiTicket, false);
+            ViewData["jsApiUiPackage"] = jsApiUiPackage;
+            ViewData["thirdNo"] = DateTime.Now.Ticks + Guid.NewGuid().ToString("n");
+            ViewData["corpId"] = workSetting.WeixinCorpId;
+            ViewData["agentId"] = workSetting.WeixinCorpAgentId;
+
+            //注意这里需要使用 WeixinCorpAgentId，而不是 CorpId
+            var agentConfigJsApiTicket = await JsApiTicketContainer.GetTicketAsync(workSetting.WeixinCorpId, workSetting.WeixinCorpSecret, true);
+            var agentJsApiUiPackage = await JSSDKHelper.GetJsApiUiPackageAsync(workSetting.WeixinCorpId, workSetting.WeixinCorpSecret, url, agentConfigJsApiTicket, true);
+            ViewData["agentJsApiUiPackage"] = agentJsApiUiPackage;
+
+            //TODO：需要删除：
+            ViewData["jsApiTicket"] = jsApiTicket;
+            ViewData["agentConfigJsApiTicket"] = agentConfigJsApiTicket;
+
+            return View();
         }
     }
 }

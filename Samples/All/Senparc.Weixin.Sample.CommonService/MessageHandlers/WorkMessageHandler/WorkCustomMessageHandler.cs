@@ -84,7 +84,8 @@ namespace Senparc.Weixin.Sample.CommonService.WorkMessageHandlers
         public override IWorkResponseMessageBase OnEvent_ChangeContactUpdateUserRequest(RequestMessageEvent_Change_Contact_User_Update requestMessage)
         {
             //发送消息
-            Senparc.Weixin.Work.AdvancedAPIs.ChatApi.SendChatSimpleMessage(AccessTokenContainer.BuildingKey(_workSetting), "001", Work.ChatMsgType.text, $"用户信息已被修改：{requestMessage.ToJson(true)}", 1);
+            Senparc.Weixin.Work.AdvancedAPIs.ChatApi.SendChatSimpleMessage(AccessTokenContainer.BuildingKey(_workSetting.WeixinCorpId, _workSetting.WeixinCorpSecret), "001", Work.ChatMsgType.text, $"用户信息已被修改：{requestMessage.ToJson(true)}", 1);
+            //Senparc.Weixin.Work.AdvancedAPIs.ChatApi.SendChatSimpleMessage(AccessTokenContainer.BuildingKey(_workSetting), "001", Work.ChatMsgType.text, $"用户信息已被修改：{requestMessage.ToJson(true)}", 1);
 
             return base.OnEvent_ChangeContactUpdateUserRequest(requestMessage);
         }

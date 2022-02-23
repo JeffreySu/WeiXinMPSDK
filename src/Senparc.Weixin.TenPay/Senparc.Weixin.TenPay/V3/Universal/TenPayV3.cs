@@ -1022,9 +1022,8 @@ namespace Senparc.Weixin.TenPay.V3
         /// <summary>
         /// 获取验签秘钥API
         /// </summary>
-        /// <param name="mchId">商户号</param>
-        /// <param name="nonceStr">随机字符串</param>
-        /// <param name="sign">签名</param>
+        /// <param name="dataInfo"></param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
         public static async Task<TenpayV3GetSignKeyResult> GetSignKeyAsync(TenPayV3GetSignKeyRequestData dataInfo, int timeOut = Config.TIME_OUT)
         {

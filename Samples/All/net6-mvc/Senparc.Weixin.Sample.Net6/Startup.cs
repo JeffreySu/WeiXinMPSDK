@@ -56,8 +56,8 @@ namespace Senparc.Weixin.Sample.Net6
 
             var builder = services.AddControllersWithViews()
                                   .AddNewtonsoftJson();// 支持 NewtonsoftJson
-                                //.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
-                                // Add CookieTempDataProvider after AddMvc and include ViewFeatures.
+                                                       //.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+                                                       // Add CookieTempDataProvider after AddMvc and include ViewFeatures.
 
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
 
@@ -138,7 +138,7 @@ namespace Senparc.Weixin.Sample.Net6
 
                     //以下会立即将全局缓存设置为 Redis
                     Senparc.CO2NET.Cache.CsRedis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
-                    
+
                     //Senparc.CO2NET.Cache.CsRedis.Register.UseHashRedisNow();//HashSet储存格式的缓存策略
 
                     //也可以通过以下方式自定义当前需要启用的缓存策略
@@ -201,7 +201,7 @@ namespace Senparc.Weixin.Sample.Net6
                 #endregion
             }, true)
                 //使用 Senparc.Weixin SDK
-                .UseSenparcWeixin(senparcWeixinSetting.Value, weixinRegister =>
+                .UseSenparcWeixin(senparcWeixinSetting.Value, (weixinRegister, weixinSetting) =>
                 {
                     #region 微信相关配置
 

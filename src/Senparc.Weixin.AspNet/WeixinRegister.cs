@@ -1,6 +1,7 @@
 ﻿#if !NET451
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
 using Senparc.CO2NET.AspNet;
@@ -28,15 +29,16 @@ namespace Senparc.Weixin.AspNet
 #else
             Microsoft.Extensions.Hosting.IHostEnvironment/*IWebHostEnvironment*/ env,
 #endif
-            SenparcSetting senparcSetting, SenparcWeixinSetting senparcWeixinSetting, Action<IRegisterService> globalRegisterConfigure, Action<IRegisterService> weixinRegisterConfigure,
+            SenparcSetting senparcSetting, SenparcWeixinSetting senparcWeixinSetting, Action<IRegisterService/*, SenparcSetting*/> globalRegisterConfigure, Action<IRegisterService, SenparcWeixinSetting> weixinRegisterConfigure,
              //CO2NET 全局设置
              bool autoScanExtensionCacheStrategies = false, Func<List<IDomainExtensionCacheStrategy>> extensionCacheStrategiesFunc = null
             )
         {
             //注册 CO2NET 全局
             var register = app.UseSenparcGlobal(env, senparcSetting, globalRegisterConfigure, autoScanExtensionCacheStrategies, extensionCacheStrategiesFunc);
+
             //注册微信
-            register.UseSenparcWeixin(senparcWeixinSetting, weixinRegisterConfigure);
+            register.UseSenparcWeixin(senparcWeixinSetting, weixinRegisterConfigure, app.ApplicationServices);
 
             return register;
         }

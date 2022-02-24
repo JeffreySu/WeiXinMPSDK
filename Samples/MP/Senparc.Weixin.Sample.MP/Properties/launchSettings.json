@@ -3,16 +3,16 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:6796",
-      "sslPort": 44308
+      "applicationUrl": "http://localhost:17965",
+      "sslPort": 44325
     }
   },
   "profiles": {
-    "Senparc.Weixin.MP.Sample": {
+    "Senparc.Weixin.Sample.MP": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:7026;http://localhost:5026",
+      "applicationUrl": "https://localhost:7078;http://localhost:5078",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

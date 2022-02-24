@@ -47,7 +47,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
 #endif
 
-namespace Senparc.Weixin.MP.Sample.CustomMessageHandler
+namespace Senparc.Weixin.Sample.MP
 {
     /// <summary>
     /// 自定义MessageHandler
@@ -331,7 +331,7 @@ namespace Senparc.Weixin.MP.Sample.CustomMessageHandler
                 .Keyword("OPENID", () =>
                 {
                     var openId = requestMessage.FromUserName;//获取OpenId
-                    var userInfo = MP.AdvancedAPIs.UserApi.Info(appId, openId, Language.zh_CN);
+                    var userInfo = Weixin.MP.AdvancedAPIs.UserApi.Info(appId, openId, Language.zh_CN);
 
                     defaultResponseMessage.Content = string.Format(
                         "您的OpenID为：{0}\r\n昵称：{1}\r\n性别：{2}\r\n地区（国家/省/市）：{3}/{4}/{5}\r\n关注时间：{6}\r\n关注状态：{7}\r\n\r\n说明：从2021年12月27日起，公众号无法直接获取用户昵称、性别、地区等信息，如需获取相关信息，需要使用<a href=\"https://sdk.weixin.senparc.com/oauth2?returnUrl=%2FOAuth2%2FTestReturnUrl\">OAuth 2.0 接口</a>。",
@@ -425,7 +425,7 @@ namespace Senparc.Weixin.MP.Sample.CustomMessageHandler
                 //企业微信审批
                 .Keyword("审批", () =>
                  {
-                     MP.AdvancedAPIs.CustomApi.SendText(appId, OpenId, "请将下方地址在企业微信内打开（如果您还没有加入企业微信测试账号，可在QQ群内联系管理员申请）：");
+                     Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, OpenId, "请将下方地址在企业微信内打开（如果您还没有加入企业微信测试账号，可在QQ群内联系管理员申请）：");
                      defaultResponseMessage.Content = "https://sdk.weixin.senparc.com/Work/Approval";
                      return defaultResponseMessage;
                  })
@@ -536,7 +536,7 @@ namespace Senparc.Weixin.MP.Sample.CustomMessageHandler
             var responseMessage = CreateResponseMessage<ResponseMessageMusic>();
             //上传缩略图
             //var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
-            var uploadResult = MP.AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image,
+            var uploadResult = Weixin.MP.AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image,
                                                          ServerUtility.ContentRootMapPath("~/Images/Logo.jpg"));
 
             //设置音乐信息

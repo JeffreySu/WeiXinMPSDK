@@ -1,5 +1,4 @@
-﻿@page
-@model ErrorModel
+﻿@model ErrorViewModel
 @{
     ViewData["Title"] = "Error";
 }
@@ -7,16 +6,16 @@
 <h1 class="text-danger">Error.</h1>
 <h2 class="text-danger">An error occurred while processing your request.</h2>
 
-@if (Model.ShowRequestId)
+@if (Model?.ShowRequestId ?? false)
 {
     <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+        <strong>Request ID:</strong> <code>@Model?.RequestId</code>
     </p>
 }
 
 <h3>Development Mode</h3>
 <p>
-    Swapping to the <strong>Development</strong> environment displays detailed information about the error that occurred.
+    Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
 </p>
 <p>
     <strong>The Development environment shouldn't be enabled for deployed applications.</strong>

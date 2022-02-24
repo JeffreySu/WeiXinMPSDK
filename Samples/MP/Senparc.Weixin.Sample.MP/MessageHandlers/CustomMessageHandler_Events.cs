@@ -29,7 +29,7 @@ using System.Threading.Tasks;
 //#endif
 
 
-namespace Senparc.Weixin.MP.Sample.CustomMessageHandler
+namespace Senparc.Weixin.Sample.MP
 {
     /// <summary>
     /// 自定义MessageHandler
@@ -182,7 +182,7 @@ QQ群：377815480
                         var filePath = "~/wwwroot/Images/Logo.thumb.jpg";
 #endif
 
-                        var uploadResult = MP.AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.thumb,
+                        var uploadResult = Weixin.MP.AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.thumb,
                                                                     ServerUtility.ContentRootMapPath(filePath));
                         //PS：缩略图官方没有特别提示文件大小限制，实际测试哪怕114K也会返回文件过大的错误，因此尽量控制在小一点（当前图片39K）
 
@@ -205,7 +205,7 @@ QQ群：377815480
                         var filePath = "~/wwwroot/Images/Logo.jpg";
 #endif
 
-                        var uploadResult = MP.AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image,
+                        var uploadResult = Weixin.MP.AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image,
                                                                      ServerUtility.ContentRootMapPath(filePath));
                         //设置图片信息
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageImage>();
@@ -338,7 +338,7 @@ QQ群：377815480
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
                         try
                         {
-                            var result = MP.AdvancedAPIs.MediaApi.UploadForeverMedia(appId, ServerUtility.ContentRootMapPath("~/Images/logo.jpg"), UploadForeverMediaType.image);
+                            var result = Weixin.MP.AdvancedAPIs.MediaApi.UploadForeverMedia(appId, ServerUtility.ContentRootMapPath("~/Images/logo.jpg"), UploadForeverMediaType.image);
                             strongResponseMessage.Content = result.media_id;
                         }
                         catch (Exception e)

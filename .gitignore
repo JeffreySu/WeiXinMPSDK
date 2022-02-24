@@ -99,3 +99,4 @@ packages/
 /tools/Senparc.Weixin.CLI/BuildOutPut/
 /Samples/All/net6-mvc/nuget.exe
 /Samples/All/All/net45-mvc/Senparc.Weixin.MP.Sample/App_Data/SenparcTraceLog
+*/**/App_Data/SenparcTraceLog/

@@ -23,7 +23,7 @@ using System.Web;
 #endif
 
 
-namespace Senparc.Weixin.MP.Sample.CustomMessageHandler
+namespace Senparc.Weixin.Sample.MP
 {
     /// <summary>
     /// 自定义MessageHandler

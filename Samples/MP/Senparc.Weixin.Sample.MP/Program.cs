@@ -1,15 +1,15 @@
-using Senparc.CO2NET.AspNet;
+using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.AspNet;
-using Senparc.Weixin.RegisterServices;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.MessageHandlers.Middleware;
-using Senparc.NeuChar.MessageHandlers;
-using Senparc.Weixin.MP.Sample.CustomMessageHandler;
+using Senparc.Weixin.RegisterServices;
+using Senparc.Weixin.Sample.MP;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddControllersWithViews();
+
 
 //使用本地缓存必须添加
 builder.Services.AddMemoryCache();
@@ -18,6 +18,7 @@ builder.Services.AddMemoryCache();
 builder.Services.AddSenparcWeixinServices(builder.Configuration);
 
 var app = builder.Build();
+
 
 var senparcWeixinSetting = app.Services.GetService<Microsoft.Extensions.Options.IOptions<Senparc.Weixin.Entities.SenparcWeixinSetting>>()!.Value;
 
@@ -70,10 +71,11 @@ app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageH
 });
 #endregion
 
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error");
+    app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -85,6 +87,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapRazorPages();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

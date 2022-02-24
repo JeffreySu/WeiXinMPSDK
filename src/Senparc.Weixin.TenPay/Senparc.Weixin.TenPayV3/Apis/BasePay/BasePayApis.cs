@@ -76,6 +76,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public BasePayApis(ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null)
         {
             _tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
+           
         }
 
         //private readonly IServiceProvider _serviceProvider;
@@ -524,7 +525,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
 
                     //校验文件Hash
                     var fileHash = FileHelper.GetFileHash(fileStream, result.hash_type, false);
-                    Console.WriteLine("fileHash: "+ fileHash);
+                    Console.WriteLine("fileHash: " + fileHash);
                     var fileVerify = fileHash.Equals(result.hash_value, StringComparison.OrdinalIgnoreCase);
                     if (!fileVerify)
                     {

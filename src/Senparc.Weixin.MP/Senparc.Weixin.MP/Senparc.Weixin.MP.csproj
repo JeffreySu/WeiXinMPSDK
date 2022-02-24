@@ -126,6 +126,12 @@
     <Compile Include="AdvancedAPIs\Custom\CardExt.cs" />
     <Compile Include="AdvancedAPIs\Custom\CustomApi.cs" />
     <Compile Include="AdvancedAPIs\Custom\SendMenuContent.cs" />
+    <Compile Include="AdvancedAPIs\Draft\DraftApi.cs" />
+    <Compile Include="AdvancedAPIs\Draft\DraftJson\CreateDraftResult.cs" />
+    <Compile Include="AdvancedAPIs\Draft\DraftJson\GetDraftCountResult.cs" />
+    <Compile Include="AdvancedAPIs\Draft\DraftJson\GetDraftListResult.cs" />
+    <Compile Include="AdvancedAPIs\Draft\DraftJson\GetDraftResult.cs" />
+    <Compile Include="AdvancedAPIs\Draft\DraftJson\UpdateDraftData.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageApi.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\ByFilter\BaseGroupMessageDataByFilter.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\ByFilter\GroupMessageByTagId.cs" />

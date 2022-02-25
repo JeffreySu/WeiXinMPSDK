@@ -11,11 +11,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 
+#region 添加微信配置
+
 //使用本地缓存必须添加
 builder.Services.AddMemoryCache();
 
 //Senparc.Weixin 注册（必须）
 builder.Services.AddSenparcWeixinServices(builder.Configuration);
+
+#endregion
+
 
 var app = builder.Build();
 
@@ -24,13 +29,18 @@ var app = builder.Build();
 var senparcWeixinSetting = app.Services.GetService<Microsoft.Extensions.Options.IOptions<Senparc.Weixin.Entities.SenparcWeixinSetting>>()!.Value;
 
 //启用微信配置（必须）
-var registerService = app.UseSenparcWeixin(app.Environment, null, null, register => { }, (register, weixinSetting) =>
+var registerService = app.UseSenparcWeixin(app.Environment, 
+    null /* 不为 null 则覆盖 appsettings  中的 SenpacSetting 配置*/,
+    null /* 不为 null 则覆盖 appsettings  中的 SenpacWeixinSetting 配置*/,
+    register => { /* CO2NET 全局配置 */ }, 
+    (register, weixinSetting) =>
 {
-    //注册公众号信息（可以执行多次注册多个公众号）
+    //注册公众号信息（可以执行多次，注册多个公众号）
     register.RegisterMpAccount(weixinSetting, "【盛派网络小助手】公众号");
 });
 
 #region 使用 MessageHadler 中间件，用于取代创建独立的 Controller
+
 //MessageHandler 中间件介绍：https://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html
 
 //使用公众号的 MessageHandler 中间件（不再需要创建 Controller）                       --DPBMARK MP
@@ -50,10 +60,10 @@ app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageH
         //方法一：使用默认配置
         Senparc.Weixin.Config.SenparcWeixinSetting;
 
-    //方法二：使用指定配置：
-    //Config.SenparcWeixinSetting["<Your SenparcWeixinSetting's name filled with Token, AppId and EncodingAESKey>"]; 
+        //方法二：使用指定配置：
+        //Config.SenparcWeixinSetting["<Your SenparcWeixinSetting's name filled with Token, AppId and EncodingAESKey>"]; 
 
-    //方法三：结合 context 参数动态判断返回Setting值
+        //方法三：结合 context 参数动态判断返回Setting值
 
     #endregion
 
@@ -75,7 +85,6 @@ app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageH
 #endregion
 
 #endregion
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

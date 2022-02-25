@@ -16,6 +16,7 @@
 ----------------------------------------------------------------*/
 
 //DPBMARK_FILE MP
+using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Utilities;
 using Senparc.NeuChar.Agents;
@@ -23,29 +24,13 @@ using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Entities.Request;
 using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageHandlers;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Xml.Linq;
-using Senparc.CO2NET.Cache;
-using Senparc.Weixin.MP;
-
-#if NET451
-using System.Web;
-using System.Configuration;
-using System.Web.Configuration;
-#else
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Http;
-#endif
 
 namespace Senparc.Weixin.Sample.MP
 {
@@ -211,11 +196,7 @@ namespace Senparc.Weixin.Sample.MP
                     #endregion
 
                     var responseXml = MessageAgent.RequestXml(this,
-#if NET451
-                        null,
-#else
                         Senparc.CO2NET.SenparcDI.GetServiceProvider(),
-#endif
                         agentUrl, agentToken, agentXml);
                     //获取返回的XML
                     //上面的方法也可以使用扩展方法：this.RequestResponseMessage(this,agentUrl, agentToken, RequestDocument.ToString());
@@ -266,23 +247,6 @@ namespace Senparc.Weixin.Sample.MP
                 .Keyword("AsyncTest", () =>
                 {
                     //异步并发测试（提供给单元测试使用）
-#if NET451
-                    var begin = SystemTime.Now;
-                    int t1, t2, t3;
-                    System.Threading.ThreadPool.GetAvailableThreads(out t1, out t3);
-                    System.Threading.ThreadPool.GetMaxThreads(out t2, out t3);
-                    System.Threading.Thread.Sleep(TimeSpan.FromSeconds(4));
-                    var end = SystemTime.Now;
-                    var thread = System.Threading.Thread.CurrentThread;
-                    defaultResponseMessage.Content = string.Format("TId:{0}\tApp:{1}\tBegin:{2:mm:ss,ffff}\tEnd:{3:mm:ss,ffff}\tTPool：{4}",
-                            thread.ManagedThreadId,
-                            HttpContext.Current != null ? HttpContext.Current.ApplicationInstance.GetHashCode() : -1,
-                            begin,
-                            end,
-                            t2 - t1
-                            );
-#endif
-
                     return defaultResponseMessage;
                 })
                 .Keyword("OPEN", () =>
@@ -413,10 +377,8 @@ namespace Senparc.Weixin.Sample.MP
                     }
                     else
                     {
-#if !NET451
                         var httpContextAccessor = base.ServiceProvider.GetService<IHttpContextAccessor>();
                         defaultResponseMessage.Content = $"ServiceProvider 载入成功，从 IHttpContextAccessor 读取当前服务器协议：{httpContextAccessor.HttpContext.Request.Scheme}";
-#endif
                     }
 
 

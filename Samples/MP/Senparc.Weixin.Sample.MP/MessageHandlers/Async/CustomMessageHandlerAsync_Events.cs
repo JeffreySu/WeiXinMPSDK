@@ -18,11 +18,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-#if NET451
-using System.Web;
-#endif
-
-
 namespace Senparc.Weixin.Sample.MP
 {
     /// <summary>

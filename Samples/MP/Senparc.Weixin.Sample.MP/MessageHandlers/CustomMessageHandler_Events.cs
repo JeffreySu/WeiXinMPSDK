@@ -9,24 +9,14 @@
 ----------------------------------------------------------------*/
 
 //DPBMARK_FILE MP
-using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Utilities;
 using Senparc.NeuChar.Agents;
 using Senparc.NeuChar.Entities;
-using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Entities;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-
-//#if NET451
-//using System.Web;
-//#endif
 
 
 namespace Senparc.Weixin.Sample.MP
@@ -39,12 +29,8 @@ namespace Senparc.Weixin.Sample.MP
         private string GetWelcomeInfo()
         {
             //获取Senparc.Weixin.MP.dll版本信息
-#if NET451
-            var filePath = ServerUtility.ContentRootMapPath("~/bin/Senparc.Weixin.MP.dll");//发布路径
-#else
             //var filePath = ServerUtility.ContentRootMapPath("~/bin/Release/netcoreapp2.2/Senparc.Weixin.MP.dll");//本地测试路径
             var filePath = ServerUtility.ContentRootMapPath("~/Senparc.Weixin.MP.dll");//发布路径
-#endif
             var fileVersionInfo = FileVersionInfo.GetVersionInfo(filePath);
 
             string version = fileVersionInfo == null
@@ -176,11 +162,7 @@ QQ群：377815480
                     {
                         //上传缩略图
 
-#if NET451
-                        var filePath = "~/Images/Logo.thumb.jpg";
-#else   
                         var filePath = "~/wwwroot/Images/Logo.thumb.jpg";
-#endif
 
                         var uploadResult = Weixin.MP.AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.thumb,
                                                                     ServerUtility.ContentRootMapPath(filePath));
@@ -199,11 +181,7 @@ QQ群：377815480
                 case "SubClickRoot_Image":
                     {
                         //上传图片
-#if NET451
-                        var filePath = "~/Images/Logo.jpg";
-#else
                         var filePath = "~/wwwroot/Images/Logo.jpg";
-#endif
 
                         var uploadResult = Weixin.MP.AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image,
                                                                      ServerUtility.ContentRootMapPath(filePath));
@@ -235,11 +213,7 @@ QQ群：377815480
                         //获取返回的XML
                         var dt1 = SystemTime.Now;
                         reponseMessage = MessageAgent.RequestResponseMessage(this,
-#if NET451
-                        null,
-#else
-                        Senparc.CO2NET.SenparcDI.GetServiceProvider(), 
-# endif
+                        Senparc.CO2NET.SenparcDI.GetServiceProvider(),
                         agentUrl, agentToken, RequestDocument.ToString());
                         //上面的方法也可以使用扩展方法：this.RequestResponseMessage(this,agentUrl, agentToken, RequestDocument.ToString());
 
@@ -257,11 +231,7 @@ QQ群：377815480
                     {
                         //原始方法为：MessageAgent.RequestXml(this,agentUrl, agentToken, RequestDocument.ToString());//获取返回的XML
                         reponseMessage = this.RequestResponseMessage(
-#if NET451
-                        null,
-#else
-                        Senparc.CO2NET.SenparcDI.GetServiceProvider(), 
-#endif
+                        Senparc.CO2NET.SenparcDI.GetServiceProvider(),
                         agentUrl, agentToken, RequestDocument.ToString());
                     }
                     break;
@@ -527,7 +497,7 @@ QQ群：377815480
             return responseMessage;
         }
 
-#region 微信认证事件推送
+        #region 微信认证事件推送
 
         public override IResponseMessageBase OnEvent_QualificationVerifySuccessRequest(RequestMessageEvent_QualificationVerifySuccess requestMessage)
         {
@@ -538,6 +508,6 @@ QQ群：377815480
             return new SuccessResponseMessage();//返回"success"字符串
         }
 
-#endregion
+        #endregion
     }
 }

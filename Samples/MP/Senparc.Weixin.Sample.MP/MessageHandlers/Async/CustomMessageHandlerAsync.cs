@@ -12,10 +12,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-#if NET451
-using System.Web;
-#else
-#endif
 
 namespace Senparc.Weixin.Sample.MP
 {

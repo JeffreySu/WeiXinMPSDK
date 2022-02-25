@@ -1,15 +1,10 @@
 ﻿//DPBMARK_FILE MP
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.Analysis;
 using Senparc.Weixin.MP.Containers;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Helpers;
-using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.Sample.Net6.Models.VD;
+using System;
 
 namespace Senparc.Weixin.Sample.Net6.Controllers
 {
@@ -43,8 +38,6 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 StartDate = SystemTime.Now.AddDays(-1).ToString("yyyy-MM-dd"),
                 EndDate = SystemTime.Now.AddDays(-1).ToString("yyyy-MM-dd"),
             };
-
-
 
             return View(vd);
         }

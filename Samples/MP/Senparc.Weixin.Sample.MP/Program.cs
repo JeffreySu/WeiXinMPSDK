@@ -19,6 +19,7 @@ builder.Services.AddSenparcWeixinServices(builder.Configuration);
 
 var app = builder.Build();
 
+#region 启用微信配置
 
 var senparcWeixinSetting = app.Services.GetService<Microsoft.Extensions.Options.IOptions<Senparc.Weixin.Entities.SenparcWeixinSetting>>()!.Value;
 
@@ -56,6 +57,8 @@ app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageH
 
     #endregion
 
+    //以下都为可选配置
+
     //对 MessageHandler 内异步方法未提供重写时，调用同步方法（按需）
     options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
 
@@ -69,6 +72,8 @@ app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageH
         return false;//系统层面抛出异常
     };
 });
+#endregion
+
 #endregion
 
 

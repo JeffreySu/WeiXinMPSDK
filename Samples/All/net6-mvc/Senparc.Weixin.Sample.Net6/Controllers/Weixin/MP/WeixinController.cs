@@ -107,7 +107,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             var maxRecordCount = 10;
 
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
-            var messageHandler = new CustomMessageHandler(Request.GetRequestMemoryStream(), postModel, maxRecordCount);
+            var messageHandler = new CustomMessageHandler(await Request.GetRequestMemoryStreamAsync(), postModel, maxRecordCount);
 
             #region 设置消息去重设置 + 优先调用同步、异步方法设置
 

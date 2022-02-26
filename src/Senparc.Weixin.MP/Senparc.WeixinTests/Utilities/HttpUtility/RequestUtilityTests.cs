@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -80,7 +80,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
                 cookieContainer, stream, useAjax: true);
 
             Assert.IsNotNull(result);
-#if !NET45
+#if !NET451
             var resultString = result.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             Console.WriteLine("resultString:{0}", resultString);
 #endif

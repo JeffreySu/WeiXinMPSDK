@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：WeixinController_OldPost.cs
     文件功能描述：用户发送消息后，微信平台自动Post一个请求到这里，并等待响应XML
@@ -18,9 +18,9 @@ using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.MessageHandlers;
-using Senparc.Weixin.MP.Sample.CommonService;
+using Senparc.Weixin.Sample.CommonService;
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers
+namespace Senparc.Weixin.Sample.Net6.Controllers
 {
     using Senparc.CO2NET.Utilities;
     using Senparc.NeuChar;
@@ -29,7 +29,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
     using Senparc.Weixin.MP.Entities;
     using Senparc.Weixin.MP.Helpers;
     using Senparc.Weixin.MP.MessageContexts;
-    using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+    using Senparc.Weixin.Sample.CommonService.Utilities;
 
     //using Senparc.Weixin.MP.CoreSample.Service;
     //using Senparc.Weixin.MP.CoreSample.CustomerMessageHandler;

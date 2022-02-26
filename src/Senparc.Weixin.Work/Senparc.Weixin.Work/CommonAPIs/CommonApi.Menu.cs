@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：CommonApi.Menu.cs
     文件功能描述：自定义菜单API
@@ -41,7 +41,7 @@ using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.CO2NET.Helpers;
 
-#if NET45
+#if NET451
 using System.Web.Script.Serialization;
 #else
 using Newtonsoft.Json;
@@ -121,7 +121,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
             {
                 //@"{""menu"":{""button"":[{""type"":""click"",""name"":""单击测试"",""key"":""OneClick"",""sub_button"":[]},{""name"":""二级菜单"",""sub_button"":[{""type"":""click"",""name"":""返回文本"",""key"":""SubClickRoot_Text"",""sub_button"":[]},{""type"":""click"",""name"":""返回图文"",""key"":""SubClickRoot_News"",""sub_button"":[]},{""type"":""click"",""name"":""返回音乐"",""key"":""SubClickRoot_Music"",""sub_button"":[]}]}]}}"
                 object jsonResult = null;
-#if NET45
+#if NET451
 
 #else
                 jsonResult = JsonConvert.DeserializeObject<object>(jsonString);

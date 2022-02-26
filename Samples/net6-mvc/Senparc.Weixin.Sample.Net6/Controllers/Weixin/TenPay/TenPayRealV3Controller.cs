@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：TenPayRealV3Controller.cs
     文件功能描述：微信支付V3 Controller
@@ -22,13 +22,8 @@ using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MP;
-using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
-using Senparc.Weixin.Sample.NetCore3.Controllers;
-using Senparc.Weixin.Sample.NetCore3.Filters;
-using Senparc.Weixin.Sample.NetCore3.Models;
+using Senparc.Weixin.Sample.Net6.Controllers;
+using Senparc.Weixin.Sample.Net6.Models;
 using Senparc.Weixin.TenPayV3;
 using Senparc.Weixin.TenPayV3.Apis;
 using Senparc.Weixin.TenPayV3.Apis.BasePay;
@@ -38,15 +33,18 @@ using Senparc.Weixin.TenPayV3.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
 using System;
 using System.Collections.Concurrent;
-using System.Drawing;
 using System.IO;
-using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZXing;
-using ZXing.Common;
-using ZXing.Rendering;
+
+//DPBMARK MP
+using Senparc.Weixin.MP;
+using Senparc.Weixin.Sample.Net6.Filters;
+using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.Sample.CommonService.TemplateMessage;
+using Senparc.Weixin.Sample.CommonService.Utilities;
+//DPBMARK_END
 
 namespace Senparc.Weixin.Sample.Net6.Controllers
 {
@@ -102,7 +100,14 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
 
             var returnUrl = string.Format("https://sdk.weixin.senparc.com/TenPayRealV3/JsApi");
             var state = string.Format("{0}|{1}", productId, hc);
-            var url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);
+            string url = null;
+
+            url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);//   -- DPBMARK MP DPBMARK_END
+
+            if (url.IsNullOrEmpty())
+            {
+                throw new Exception("此功能需要使用微信公众号，但未获取到 OAuth URL，如果此项目为自动僧城项目，请确保已经引用“公众号”");
+            }
 
             return Redirect(url);
         }
@@ -211,6 +216,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
 
         #endregion
 
+        //DPBMARK MP
         #region OAuth授权
         public ActionResult OAuthCallback(string code, string state, string returnUrl)
         {
@@ -403,7 +409,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 throw;
             }
         }
-        #endregion
+        #endregion  
 
         #region H5支付
         /// <summary>
@@ -503,6 +509,8 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         }
 
         #endregion
+        //DPBMARK_END
+
 
         #region 订单及退款
 
@@ -601,7 +609,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             catch (Exception ex)
             {
                 returnData.code = "FAILD";
-                returnData.message= ex.Message;
+                returnData.message = ex.Message;
                 WeixinTrace.WeixinExceptionLog(new WeixinException(ex.Message, ex));
             }
 

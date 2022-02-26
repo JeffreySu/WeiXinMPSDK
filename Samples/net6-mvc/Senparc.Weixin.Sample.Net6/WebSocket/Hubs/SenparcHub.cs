@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.SignalR;
 using Senparc.WebSocket.SignalR;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.Sample.NetCore3.WebSocket.Hubs
+namespace Senparc.Weixin.Sample.Net6.WebSocket.Hubs
 {
     public class SenparcHub : SenparcWebSocketHubBase
     {

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
   
     文件名：CreateStockRequsetData.cs
     文件功能描述：创建代金券批次请求数据
@@ -55,9 +55,9 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <param name="stock_use_rule">发放规则</param>
         /// <param name="pattern_info">样式设置，可为null</param>
         /// <param name="coupon_use_rule">核销规则</param>
-        /// <param name="no_cash">营销经费</param>
+        /// <param name="no_cash">营销经费 <para>枚举值: true：免充值 false：预充值</para></param>
         /// <param name="stock_type">批次类型，仅支持：NORMAL：固定面额满减券批次</param>
-        /// <param name="out_request_no">商户单据号</param>
+        /// <param name="out_request_no">商户单据号 <para>格式：商户id+日期+流水号</para></param>
         public CreateStockRequsetData(string stock_name, string comment, string belong_merchant, TenpayDateTime available_begin_time, TenpayDateTime available_end_time, Stock_Use_Rule stock_use_rule, Pattern_Info pattern_info, Coupon_Use_Rule coupon_use_rule, bool no_cash, string stock_type, string out_request_no)
         {
             this.stock_name = stock_name;
@@ -171,9 +171,9 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             /// <param name="max_amount">最大发券预算</param>
             /// <param name="max_amount_by_day">单天预算发放上限，可为null</param>
             /// <param name="max_coupons_per_user">单个用户可领个数</param>
-            /// <param name="natural_person_limit">是否开启自然人限制</param>
-            /// <param name="prevent_api_abuse">是否开启防刷拦截</param>
-            public Stock_Use_Rule(int max_coupons, int max_amount, int max_amount_by_day, int max_coupons_per_user, bool natural_person_limit, bool prevent_api_abuse)
+            /// <param name="natural_person_limit">是否开启自然人限制 <para>枚举值: true：是 false：否</para></param>
+            /// <param name="prevent_api_abuse">是否开启防刷拦截 <para>枚举值: true：是 false：否</para></param>
+            public Stock_Use_Rule(ulong max_coupons, ulong max_amount, ulong? max_amount_by_day, uint max_coupons_per_user, bool natural_person_limit, bool prevent_api_abuse)
             {
                 this.max_coupons = max_coupons;
                 this.max_amount = max_amount;
@@ -197,7 +197,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             /// 2、发放总个数最多1000万个
             /// 示例值：100
             /// </summary>
-            public int max_coupons { get; set; }
+            public ulong max_coupons { get; set; }
 
             /// <summary>
             /// 总预算
@@ -206,7 +206,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             /// 校验规则：批次总预算最多1亿元
             /// 示例值：5000
             /// </summary>
-            public int max_amount { get; set; }
+            public ulong max_amount { get; set; }
 
             /// <summary>
             /// 单天预算发放上限
@@ -215,7 +215,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             /// 校验规则：批次总预算最多1亿元
             /// 示例值：5000
             /// </summary>
-            public int max_amount_by_day { get; set; }
+            public ulong? max_amount_by_day { get; set; }
 
             /// <summary>
             /// 单个用户可领个数
@@ -225,7 +225,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             /// 2、最少为1个，最多为60个
             /// 示例值：3
             /// </summary>
-            public int max_coupons_per_user { get; set; }
+            public uint max_coupons_per_user { get; set; }
 
             /// <summary>
             /// 是否开启自然人限制
@@ -335,7 +335,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             /// <param name="combine_use">是否可叠加其他优惠，可为null</param>
             /// <param name="available_items">可核销商品编码，可为null</param>
             /// <param name="available_merchants">可用商户号</param>
-            public Coupon_Use_Rule(Fixed_Normal_Coupon fixed_normal_coupon, string[] goods_tag, string[] limit_pay, Limit_Card limit_card, string[] trade_type, bool combine_use, string[] available_items, string[] available_merchants)
+            public Coupon_Use_Rule(Fixed_Normal_Coupon fixed_normal_coupon, string[] goods_tag, string[] limit_pay, Limit_Card limit_card, string[] trade_type, bool? combine_use, string[] available_items, string[] available_merchants)
             {
                 this.fixed_normal_coupon = fixed_normal_coupon;
                 this.goods_tag = goods_tag;
@@ -405,7 +405,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             /// false：否
             /// 示例值：false
             /// </summary>
-            public bool combine_use { get; set; }
+            public bool? combine_use { get; set; }
 
             /// <summary>
             /// 可核销商品编码
@@ -443,7 +443,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
                 /// </summary>
                 /// <param name="coupon_amount">面额，单位：分</param>
                 /// <param name="transaction_minimum">使用券金额门槛，单位：分</param>
-                public Fixed_Normal_Coupon(int coupon_amount, int transaction_minimum)
+                public Fixed_Normal_Coupon(ulong coupon_amount, ulong transaction_minimum)
                 {
                     this.coupon_amount = coupon_amount;
                     this.transaction_minimum = transaction_minimum;
@@ -462,7 +462,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
                 /// 2、必须大于1分且小于等于1000元
                 /// 示例值：100
                 /// </summary>
-                public int coupon_amount { get; set; }
+                public ulong coupon_amount { get; set; }
 
                 /// <summary>
                 /// 门槛
@@ -471,7 +471,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
                 /// 校验规则：使用门槛必须大于优惠金额
                 /// 示例值：100
                 /// </summary>
-                public int transaction_minimum { get; set; }
+                public ulong transaction_minimum { get; set; }
             }
 
             public class Limit_Card
@@ -481,7 +481,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
                 /// </summary>
                 /// <param name="name">银行卡名称，将在微信支付收银台向用户展示，最多4个中文汉字</param>
                 /// <param name="bin">指定卡BIN，使用指定卡BIN的银行卡支付方可享受优惠</param>
-                public Limit_Card(int name, string[] bin)
+                public Limit_Card(string name, string[] bin)
                 {
                     this.name = name;
                     this.bin = bin;
@@ -499,7 +499,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
                 /// 将在微信支付收银台向用户展示，最多4个中文汉字
                 /// 示例值：精粹白金
                 /// </summary>
-                public int name { get; set; }
+                public string name { get; set; }
 
                 /// <summary>
                 /// 指定卡BIN

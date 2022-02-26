@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：SimulateToolController.cs
     文件功能描述：消息模拟工具
@@ -36,7 +36,7 @@ using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Cache;
 using System.Linq;
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers
+namespace Senparc.Weixin.Sample.Net6.Controllers
 {
     /// <summary>
     /// 消息模拟器

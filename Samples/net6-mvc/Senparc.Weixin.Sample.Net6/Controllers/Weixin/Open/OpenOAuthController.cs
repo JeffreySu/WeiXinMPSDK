@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.Extensions;
-using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
+using Senparc.Weixin.Sample.CommonService.OpenTicket;
 using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers
+namespace Senparc.Weixin.Sample.Net6.Controllers
 {
 
     public class OpenOAuthController : BaseController

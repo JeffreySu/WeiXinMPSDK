@@ -25,7 +25,7 @@ using Senparc.Weixin.Cache;
 //DPBMARK MP
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;//DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.Download;
+using Senparc.Weixin.Sample.CommonService.Download;
 //DPBMARK Open
 using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK_END
 
@@ -45,7 +45,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             };
             TempData["SampleVersion"] = getTypeVersionInfo(this.GetType());//当前Demo的版本号
             TempData["CO2NETVersion"] = getTypeVersionInfo(typeof(CO2NET.Config));//CO2NET版本号
-            TempData["NeuCharVersion"] = getTypeVersionInfo(typeof(Senparc.NeuChar.ApiBindInfo));//NeuChar版本号
+            TempData["NeuCharVersion"] = getTypeVersionInfo(typeof(Senparc.NeuChar.Register));//NeuChar版本号
 
             TempData["WeixinVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Config));
             TempData["TenPayVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.TenPay.Register));//DPBMARK TenPay DPBMARK_END

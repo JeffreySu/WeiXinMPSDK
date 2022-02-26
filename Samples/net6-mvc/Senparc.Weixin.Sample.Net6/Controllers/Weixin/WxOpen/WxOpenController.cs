@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.MvcExtension;
-using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
+using Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 using Senparc.Weixin.WxOpen.Containers;
 using Senparc.Weixin.WxOpen.Entities;
@@ -27,7 +27,7 @@ using Senparc.Weixin.WxOpen.Helpers;
 using System;
 using System.IO;
 using Senparc.Weixin.TenPay.V3;//DPBMARK TenPay DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService;
+using Senparc.Weixin.Sample.CommonService;
 using Senparc.CO2NET.Utilities;
 using System.Threading.Tasks;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp;
@@ -36,8 +36,9 @@ using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.CO2NET.AspNet.HttpUtility;
 using System.Collections;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.WxOpen.AdvancedAPIs.Template;
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers.WxOpen
+namespace Senparc.Weixin.Sample.Net6.Controllers.WxOpen
 {
     /// <summary>
     /// 微信小程序Controller
@@ -489,6 +490,87 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
             }
         }
 
+        /// <summary>
+        /// 下发小程序和公众号统一的服务消息
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <returns></returns>
+        public async Task<ActionResult> UniformSend(string sessionId)
+        {
+            var sessionBag = SessionContainer.GetSession(sessionId);
+            if (sessionBag == null)
+            {
+                return Json(new { success = false, msg = "请先登录！" });
+            }
+
+            await Task.Delay(1000);//停1秒钟，实际开发过程中可以将权限存入数据库，任意时间发送。
+
+            try
+            {
+                var mpAppId = Config.SenparcWeixinSetting.MpSetting.WeixinAppId;//公众号ID
+                var mpTemplateId = "ur6TqESOo-32FEUk4qJxeWZZVt4KEOPjqbAFDGWw6gg";//公众号模板消息ID
+                var pagePath = "pages/websocket_signalr/websocket_signalr";
+
+                object templateData = null;
+
+                //{"touser":"oeaTy0DgoGq-lyqvTauWVjbIVuP0","weapp_template_msg":null,"mp_template_msg":{"appid":"wx669ef95216eef885","template_id":null,"url":"https://dev.senparc.com","miniprogram":{"appid":"wx12b4f63276b14d4c","pagepath":"websocket/websocket"},"data":{"first":{"value":"小程序和公众号统一的服务消息","color":"#173177"},"keyword1":{"value":"2022/1/20 23:22:12","color":"#173177"},"keyword2":{"value":"dev.senparc.com","color":"#173177"},"keyword3":{"value":"小程序接口测试","color":"#173177"},"keyword4":{"value":"正常","color":"#173177"},"keyword5":{"value":"测试“小程序和公众号统一的服务消息”接口，服务正常","color":"#173177"},"remark":{"value":"您的 OpenId：oeaTy0DgoGq-lyqvTauWVjbIVuP0","color":"#173177"},"TemplateId":"ur6TqESOo-32FEUk4qJxeWZZVt4KEOPjqbAFDGWw6gg","Url":"https://dev.senparc.com","TemplateName":"系统异常告警通知"}}}
+
+
+                #region 公众号模板消息信息       -- DPBMARK MP
+
+                //可选参数（需要和公众号模板消息匹配）：
+                templateData = templateData = new
+                {
+                    first = new MP.AdvancedAPIs.TemplateMessage.TemplateDataItem("小程序和公众号统一的服务消息"),
+                    keyword1 = new MP.AdvancedAPIs.TemplateMessage.TemplateDataItem("dev.senparc.com"),
+                    keyword2 = new MP.AdvancedAPIs.TemplateMessage.TemplateDataItem("小程序接口测试"),
+                    keyword3 = new MP.AdvancedAPIs.TemplateMessage.TemplateDataItem("正常"),
+                    keyword4 = new MP.AdvancedAPIs.TemplateMessage.TemplateDataItem("测试“小程序和公众号统一的服务消息”接口，服务正常"),
+                    remark = new MP.AdvancedAPIs.TemplateMessage.TemplateDataItem("您的 OpenId：" + sessionBag.OpenId),
+                };
+                #endregion                      DPBMARK_END
+
+                var miniprogram = new Miniprogram_PagePath(WxOpenAppId, pagePath);//使用 pagepath 参数
+                //var miniprogram = new Miniprogram_Page(WxOpenAppId, pagePath);// 使用 page 参数
+                //https://weixin.senparc.com/QA-17333
+
+                UniformSendData msgData = new(
+                    sessionBag.OpenId,
+                    new Mp_Template_Msg(mpAppId,
+                                        mpTemplateId,
+                                        "https://dev.senparc.com", 
+                                        miniprogram,
+                                        templateData)
+                    );
+
+                var result = await TemplateApi.UniformSendAsync(WxOpenAppId, msgData);
+
+                if (result.errcode == ReturnCode.请求成功)
+                {
+                    return Json(new { success = true, title = "服务消息已发送，请注意查收", content = result.errmsg });
+                }
+                else
+                {
+                    string msg;
+
+                    if (result.errmsg.Contains("require subscribe"))
+                    {
+                        msg = "您需要关注公众号【盛派网络小助手】才能收到公众号内的模板消息！";
+                    }
+                    else
+                    {
+                        msg = result.errmsg;
+                    }
+
+                    return Json(new { success = false, title = "出错啦！", msg = msg });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, msg = ex.Message });
+            }
+        }
+
 
         #region GetUrlScheme
         public async Task<IActionResult> GetUrlScheme(int tickid, string ntype = "gclub")
@@ -529,6 +611,24 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
 
 
         #endregion
+
+        /// <summary>
+        /// 获取用户手机号
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public async Task<ActionResult> GetUserPhoneNumber(string code)
+        {
+            try
+            {
+                var result = await BusinessApi.GetUserPhoneNumberAsync(WxOpenAppId, code);
+                return Json(new { success = true, phoneInfo = result.phone_info });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, msg = ex.Message });
+            }
+        }
 
     }
 }

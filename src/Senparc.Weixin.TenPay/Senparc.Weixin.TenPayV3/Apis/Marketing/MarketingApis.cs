@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
   
     文件名：MarketingApis.cs
     文件功能描述：微信支付V3营销工具接口
@@ -29,20 +29,27 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Trace;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.TenPayV3.Apis.Entities;
+using Senparc.Weixin.TenPayV3.Apis.Marketing;
+using Senparc.Weixin.TenPayV3.Entities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.TenPayV3.Apis.Marketing
+namespace Senparc.Weixin.TenPayV3.Apis
 {
     /// <summary>
     /// 微信支付V3营销工具接口
     /// https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_1_1.shtml 下的【营销工具】所有接口
     /// </summary>
-    public class MarketingApis
+    public partial class MarketingApis
     {
 
         private ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting;
@@ -53,6 +60,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <param name="senparcWeixinSettingForTenpayV3"></param>
         public MarketingApis(ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null)
         {
+
             _tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
         }
 
@@ -66,23 +74,5 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         {
             return string.Format(urlFormat, Senparc.Weixin.Config.UseSandBoxPay ? "sandboxnew/" : "");
         }
-
-        #region 代金券接口
-
-        /// <summary>
-        /// 创建代金券批次接口
-        /// <para>调用此接口创建微信支付代金券批次，创建完成后将获得代金券批次id。</para>
-        /// </summary>
-        /// <param name="data">微信支付需要POST的Data数据</param>
-        /// <param name="timeOut">超时时间，单位为ms </param>
-        /// <returns></returns>
-        public async Task<CreateStockReturnJson> CreateStocks(CreateStockRequsetData data, int timeOut = Config.TIME_OUT)
-        {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/jsapi");
-            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
-            return await tenPayApiRequest.RequestAsync<CreateStockReturnJson>(url, data, timeOut);
-        }
-
-        #endregion
     }
 }

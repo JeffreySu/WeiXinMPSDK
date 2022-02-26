@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2022 Senparc
     
     文件名：HomeController.cs
     文件功能描述：首页Controller
@@ -9,21 +7,22 @@ using System.Collections.Generic;
     
     创建标识：Senparc - 20190926
 ----------------------------------------------------------------*/
-
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.MP.Containers;//DPBMARK MP DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.Download;
+using Senparc.Weixin.Sample.CommonService.Download;//DPBMARK MP DPBMARK_END
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Senparc.Weixin.Sample.NetCore3.Models;
-using Senparc.Weixin.Sample.NetCore3.Models.VD;
+using Senparc.Weixin.Sample.Net6.Models;
+using Senparc.Weixin.Sample.Net6.Models.VD;
 using System.Reflection;
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers
+namespace Senparc.Weixin.Sample.Net6.Controllers
 {
     public class HomeController : BaseController
     {
@@ -54,7 +53,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             };
             var sdkList = new List<Home_IndexVD_AssemblyModel>();
             sdkList.Add(new Home_IndexVD_AssemblyModel("SDK 公共基础库", "Senparc.Weixin", typeof(Senparc.Weixin.WeixinRegister), gitHubUrl: sdkGitHubUrl));
-            sdkList.Add(new Home_IndexVD_AssemblyModel("公众号<br />JSSDK<br />摇一摇周边", "Senparc.Weixin.MP", typeof(Senparc.Weixin.MP.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK TenPay DPBMARK_END
+            sdkList.Add(new Home_IndexVD_AssemblyModel("公众号<br />JSSDK<br />摇一摇周边", "Senparc.Weixin.MP", typeof(Senparc.Weixin.MP.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK MP DPBMARK_END
             sdkList.Add(new Home_IndexVD_AssemblyModel("公众号MvcExtension", "Senparc.Weixin.MP.MvcExtension", typeof(Senparc.Weixin.MP.MvcExtension.WeixinResult), "Senparc.Weixin.MP.Mvc", gitHubUrl: sdkGitHubUrl));//DPBMARK MP DPBMARK_END
             sdkList.Add(new Home_IndexVD_AssemblyModel("小程序", "Senparc.Weixin.WxOpen", typeof(Senparc.Weixin.WxOpen.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK MiniProgram DPBMARK_END
             sdkList.Add(new Home_IndexVD_AssemblyModel("微信支付", "Senparc.Weixin.TenPay", typeof(Senparc.Weixin.TenPay.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK TenPay DPBMARK_END
@@ -148,7 +147,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             }
             catch (Exception)
             {
-                TempData["NewestDocumentVersion"] = new Senparc.Weixin.MP.Sample.CommonService.Download.Config();
+                TempData["NewestDocumentVersion"] = new CommonService.Download.Config();
             }
             #endregion  DPBMARK_END
 

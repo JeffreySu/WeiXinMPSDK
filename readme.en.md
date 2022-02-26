@@ -64,7 +64,7 @@ Index
 The library contains the source code (the Core logic is exactly the same) that includes .Net 3.5/4.0/4.5/.NET Standard 2.0/.NET Core/.NET 6.
 
 * Use Visual Studio 2019 open Demo(support for all .NET Versions)：.NET 6.0 - [Senparc.Weixin.Sample.Net6.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net6-mvc) (referenced source code, recommanded)
-* Use Visual Studio 2019 open .NET 3.1 Demo - [Senparc.Weixin.Sample.NetCore3.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.0-mvc) (NOT referenced source code)
+* Use Visual Studio 2019 open .NET 3.1 Demo - [Senparc.Weixin.Sample.NetCore3.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.1-mvc) (NOT referenced source code)
 * Use other versions of Visual Studio to open the Demo (support .net 4.5 only) :
 [Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net45-mvc)
 * Use Visual Studio 2017/2019 to open Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/console)
@@ -93,11 +93,12 @@ SDK Modules
 
 | ![.NET 4.5][net45Y] | ![.NET Standard 2.x][core20Y] |  ![.NET Core][netcore] | ![.NET 5.0 / 6.0][net6]  
 |--|--|--|--|
-| .NET 4.5            |  .NET Standard 2.0 / 2.1  |   .NET Core 2.x / 3.x  |  .NET 5.0 / .NET 6.0
+| .NET 4.5.1            |  .NET Standard 2.0 / 2.1  |   .NET Core 2.x / 3.x  |  .NET 5.0 / .NET 6.0
 
 > Tip:<br>
-> 1. ![.NET 3.5][net35Y]  ![.NET 4.0][net40Y] last stable release [click here](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.6.15), since May 1, 2019 to stop updating.
+> 1. ![.NET 3.5][net35Y]  ![.NET 4.0][net40Y] last stable release [click here](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.6.15) (minimum .NET 4.5.1 support from November 7, 2021), since May 1, 2019 to stop updating.
 > 2. The .NET Framework 4.5 update is scheduled to end on December 31, 2024. It's strongly advice you to use .NET 3.1 or .NET 6.0+ for new projects.
+
 
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
 [1.2]: https://www.nuget.org/packages/Senparc.Weixin
@@ -139,10 +140,10 @@ SDK Modules
 [coreY]: https://img.shields.io/badge/standard2.0-Y-brightgreen.svg
 [coreN]: https://img.shields.io/badge/standard2.0-N-lightgrey.svg
 [coreN-]: https://img.shields.io/badge/standard2.0----lightgrey.svg
-[core20Y]: https://img.shields.io/badge/standard%202.0%2F2.1-Y-brightgreen.svg
-[core20N]: https://img.shields.io/badge/standard%202.0%2F-N-lightgrey.svg
-[netcore]: https://img.shields.io/badge/.Net%20Core%202.x%2F3.x-Y-brightgreen.svg
-[net6]: https://img.shields.io/badge/5.0%2F6.0-Y-brightgreen.svg
+[core20Y]: https://img.shields.io/badge/standard%202.x-Y-brightgreen.svg
+[core20N]: https://img.shields.io/badge/standard%202.x-N-lightgrey.svg
+[netcore]: https://img.shields.io/badge/.Net%20Core-Y-brightgreen.svg
+[net6]: https://img.shields.io/badge/6.0-Y-brightgreen.svg
 
 
 [nuget-img-base]: https://img.shields.io/nuget/dt/Senparc.Weixin.svg
@@ -303,7 +304,7 @@ Senparc official tutorials
 |--------|--------|-------|
 |[net45-mvc](Samples/net45-mvc)						  |Demo, can be released directly(.NET Framework 4.5 + ASP.NET MVC)| Nuget Packages
 |[net45-webforms](Samples/net45-webforms)		  |Demo, can be released directly(.NET Framework 4.5 + ASP.NET WebForms)| Nuget Packages
-|[netcore3.0-mvc](Samples/netcore3.0-mvc)			  |Demo, can be released directly(.NET Core 3.1 + MVC)| Source Code
+|[netcore3.1-mvc](Samples/netcore3.1-mvc)			  |Demo, can be released directly(.NET Core 3.1 + MVC)| Source Code
 |[Samples/console](Samples/console)			| Console Demo（.NET Core）| Source Code
 |[net6-mvc](Samples/net6-mvc)			|Demo, can be released directly(.NET 6.0), compatible with .NET 5.0 | Source Code
 
@@ -659,8 +660,7 @@ Donate:
 
 
 ## Stargazers over time
-
-[![Stargazers over time](https://starcharts.herokuapp.com/JeffreySu/WeiXinMPSDK.svg)](https://starcharts.herokuapp.com/JeffreySu/WeiXinMPSDK)
+[![starcharts stargazers over time](https://starchart.cc/JeffreySu/WeiXinMPSDK.svg)](https://starchart.cc/JeffreySu/WeiXinMPSDK)
 
 
 License

@@ -8,16 +8,16 @@ using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.MvcExtension;
-using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandler;
+using Senparc.Weixin.Sample.CommonService.WorkMessageHandler;
 using Senparc.Weixin.Work.Entities;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
-using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;
+using Senparc.Weixin.Sample.CommonService.Utilities;
+using Senparc.Weixin.Sample.CommonService.WorkMessageHandlers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.CO2NET.Utilities;
 using Senparc.CO2NET.AspNet.HttpUtility;
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers
+namespace Senparc.Weixin.Sample.Net6.Controllers
 {
     /// <summary>
     /// 企业号对接测试

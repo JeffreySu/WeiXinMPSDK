@@ -5,9 +5,9 @@ using Senparc.CO2NET.Cache.Memcached;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.Sample.CommonService;
+using Senparc.Weixin.Sample.CommonService;
 //DPBMARK WebSocket
-using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;//DPBMARK_END
+using Senparc.Weixin.Sample.CommonService.MessageHandlers.WebSocket;//DPBMARK_END
 //DPBMARK Open
 using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK_END

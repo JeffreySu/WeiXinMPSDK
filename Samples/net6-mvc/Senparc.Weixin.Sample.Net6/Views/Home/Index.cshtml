@@ -1,24 +1,24 @@
-﻿@model Senparc.Weixin.Sample.NetCore3.Models.VD.Home_IndexVD
+﻿@model Senparc.Weixin.Sample.Net6.Models.VD.Home_IndexVD
 @{
     ViewBag.Title = "微信SDK,微信公众平台,小程序SDK - Senparc.Weixin SDK - 公众号 企业号 开放平台 盛派微信号";
 
 }
 @section scripts
     {
-    <script>
-        $(function () {
-            $(".test table td:not(:empty)").hover(function () {
-                $(this).addClass('currentTestItem');
-            },
-                function () {
-                    $(this).removeClass('currentTestItem');
-                });
-
-            $('#showTest').click(function () {
-                $(this).fadeOut(function () { $('#testTip').slideDown(); });
+<script>
+    $(function () {
+        $(".test table td:not(:empty)").hover(function () {
+            $(this).addClass('currentTestItem');
+        },
+            function () {
+                $(this).removeClass('currentTestItem');
             });
+
+        $('#showTest').click(function () {
+            $(this).fadeOut(function () { $('#testTip').slideDown(); });
         });
-    </script>
+    });
+</script>
 }
 @functions {
 
@@ -29,6 +29,14 @@
 }
 <div class="wrapper">
     <div class="weixin-bottom">
+        <div class="sample-notice">
+        <span class="sample-notice-title">说明：</span>
+            当前 Sample 为比较全面的微信公众号 + 企业微信 + 小程序 + 微信支付的综合 Sample，<br />
+            可直接用于大型系统的多平台集成的参考，或根据代码注释的提示选用某个模块的对应代码，<br />
+            如需查看只包含公众号的最小化 Sample 教程，请【<a href="https://www.cnblogs.com/szw/p/wecaht-minimization-example.html" target="_blank">点击这里</a>】。
+        </div>
+
+
         <h1 class="weixin-item-title">
             目前 Senparc.Weixin SDK 已支持微信 8.x API 中几乎所有接口以及<strong>小程序</strong>
         </h1>
@@ -39,7 +47,7 @@
         <p>&nbsp;</p>
         <p>支持 .NET Framework 4.5+ / .NET Core 2.x / .NET Core 3.x / .NET 5 / .NET 6</p>
         <p>&nbsp;</p>
-
+        <p>&nbsp;</p>
         <div class="weixin-bottom-buttons">
             <p class="weixin-item-button">
                 <a href="https://book.weixin.senparc.com/book/link?code=sdk-homepage" class="application" target="_blank">购买正版 Senparc 官方教程</a>
@@ -63,7 +71,7 @@
                     </p>
                     <p class="weixin-item-button">
                 *@
-                <a href="http://mp.weixin.qq.com/wiki/index.php?title=%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E6%8C%87%E5%8D%97" class="application" target="_blank">微信官方API</a>
+                <a href="https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Overview" class="application" target="_blank">微信官方API</a>
             </p>
         </div>
         <div class="clear"></div>
@@ -103,7 +111,7 @@
                                 <th>Nuget 版本</th>
                                 @*<th>Nuget 下载量</th>*@
                                 <th>当前站点运行版本</th>
-                                <th>.NET 4.5</th>
+                                <th>.NET 4.5.1</th>
                                 @*<th>.NET Standard<br />2.0 / 2.1</th>*@
                                 <th>.NET Core<br />2.x / 3.x</th>
                                 <th>.NET<br />5.0 / 6.0</th>
@@ -112,37 +120,37 @@
                         <tbody>
                             @foreach (var value in model)
                             {
-                            <tr>
-                                <td>@(++i)</td>
-                                <td>@Html.Raw(value.Title)</td>
-                                <td>
-                                    <a class="sdk-version" href="https://www.nuget.org/packages/@(value.NugetName)" target="_blank">
-                                        @*@(value.AssemblyName)*@@(value.NugetName)
-                                    </a>
-                                </td>
-                                <td>
-                                    <a class="sdk-version" href="https://www.nuget.org/packages/@(value.NugetName)" target="_blank">
-                                        <img src="https://img.shields.io/nuget/v/@(value.NugetName).svg?style=flat" />
-                                    </a>
-                                </td>
-                                @*<td>
-                                    <img src="https://img.shields.io/nuget/dt/@(value.NugetName).svg" alt="NuGet" style="max-width:100%;">
-                                </td>*@
-                                <td>
-                                    @if (value.GitHubUrl != null)
-                                    {
-                                        <a class="sdk-version" href="@value.GitHubUrl" target="_blank">v@(value.Version)</a>
-                                    }
-                                    else
-                                    {
-                                        <text>v@(value.Version)</text>
-                                    }
-                                </td>
-                                <td><img title=".NET 4.5" alt=".NET 4.5" src="https://img.shields.io/badge/4.5-@(YesOrNo(value.SupportNet45)).svg" /></td>
-                                @*<td><img title=".NET Standard 2.0 / 2.1" alt=".NET Standard 2.0 / 2.1" src="https://img.shields.io/badge/standard2.1-@(YesOrNo(value.SupportStandard21)).svg" /></td>*@
-                                <td><img title=".NET Core 2.x / 3.x" alt=".NET Core 2.x / 3.x" src="https://img.shields.io/badge/netcore3.1-@(YesOrNo(value.SupportNetCore31)).svg" /></td>
-                                <td><img title=".NET 5.0 / 6.0" alt=".NET 5.0 / 6.0" src="https://img.shields.io/badge/net6.0-@(YesOrNo(value.SupportNet6)).svg" /></td>
-                            </tr>
+                                <tr>
+                                    <td>@(++i)</td>
+                                    <td>@Html.Raw(value.Title)</td>
+                                    <td>
+                                        <a class="sdk-version" href="https://www.nuget.org/packages/@(value.NugetName)" target="_blank">
+                                            @*@(value.AssemblyName)*@@(value.NugetName)
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="sdk-version" href="https://www.nuget.org/packages/@(value.NugetName)" target="_blank">
+                                            <img src="https://img.shields.io/nuget/v/@(value.NugetName).svg?style=flat" />
+                                        </a>
+                                    </td>
+                                    @*<td>
+                                        <img src="https://img.shields.io/nuget/dt/@(value.NugetName).svg" alt="NuGet" style="max-width:100%;">
+                                        </td>*@
+                                    <td>
+                                        @if (value.GitHubUrl != null)
+                                        {
+                                            <a class="sdk-version" href="@value.GitHubUrl" target="_blank">v@(value.Version)</a>
+                                        }
+                                        else
+                                        {
+                                            <text>v@(value.Version)</text>
+                                        }
+                                    </td>
+                                    <td><img title=".NET 4.5.1" alt=".NET 4.5.1" src="https://img.shields.io/badge/4.5.1-@(YesOrNo(value.SupportNet45)).svg" /></td>
+                                    @*<td><img title=".NET Standard 2.0 / 2.1" alt=".NET Standard 2.0 / 2.1" src="https://img.shields.io/badge/standard2.1-@(YesOrNo(value.SupportStandard21)).svg" /></td>*@
+                                    <td><img title=".NET Core 2.x / 3.x" alt=".NET Core 2.x / 3.x" src="https://img.shields.io/badge/netcore3.1-@(YesOrNo(value.SupportNetCore31)).svg" /></td>
+                                    <td><img title=".NET 5.0 / 6.0" alt=".NET 5.0 / 6.0" src="https://img.shields.io/badge/net6.0-@(YesOrNo(value.SupportNet6)).svg" /></td>
+                                </tr>
                             }
 
                         </tbody>

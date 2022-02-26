@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：OAuth2Api.cs
     文件功能描述：OAuth2接口
@@ -24,7 +24,9 @@
 ----------------------------------------------------------------*/
 
 /*
-    官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=OAuth2%E9%AA%8C%E8%AF%81%E6%8E%A5%E5%8F%A3
+    官方文档：
+    http://qydev.weixin.qq.com/wiki/index.php?title=OAuth2%E9%AA%8C%E8%AF%81%E6%8E%A5%E5%8F%A3
+    2021.12.04 - https://work.weixin.qq.com/api/doc/90000/90135/91023
  */
 
 using System;
@@ -116,7 +118,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         #endregion
-
 
         #region 异步方法
         /// <summary>

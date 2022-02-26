@@ -1,4 +1,5 @@
 ﻿@model Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthUserInfo
+@using Senparc.Weixin.Helpers
 @*DPBMARK_FILE MP*@
 @{
     Layout = null;
@@ -32,7 +33,30 @@
     }
     <p>
         头像：<br />
-        <img src="@Model.headimgurl" style="width: 50%" />（直接调用可能看不到，需要抓取）
+        <img src="@Model.headimgurl" />
+        <br />
+        默认（某些情况下直接调用可能看不到，需要抓取）
+    </p>
+
+    <p>
+        <img src="@Model?.GetHeadImageUrl(UserHelper.HeadImageSize.x46)" /><br />
+        46x46
+    </p>
+    <p>
+        <img src="@Model?.GetHeadImageUrl(UserHelper.HeadImageSize.x64)" /><br />
+        64x64
+    </p>
+    <p>
+        <img src="@Model?.GetHeadImageUrl(UserHelper.HeadImageSize.x96)" /><br />
+        96x96
+    </p>
+    <p>
+        <img src="@Model?.GetHeadImageUrl(UserHelper.HeadImageSize.x132)" /><br />
+        132x132
+    </p>
+    <p>
+        <img src="@Model?.GetHeadImageUrl(UserHelper.HeadImageSize.x0)" /><br />
+        640x640
     </p>
 </body>
 </html>

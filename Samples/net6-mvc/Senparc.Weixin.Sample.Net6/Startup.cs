@@ -20,14 +20,14 @@ using Senparc.Weixin.Cache.Redis;//DPBMARK Redis DPBMARK_END
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP;//DPBMARK MP DPBMARK_END
 using Senparc.Weixin.MP.MessageHandlers.Middleware;//DPBMARK MP DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;//DPBMARK MP DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;//DPBMARK WebSocket DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;//DPBMARK Work DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;//DPBMARK MiniProgram DPBMARK_END
+using Senparc.Weixin.Sample.CommonService.CustomMessageHandler;//DPBMARK MP DPBMARK_END
+using Senparc.Weixin.Sample.CommonService.MessageHandlers.WebSocket;//DPBMARK WebSocket DPBMARK_END
+using Senparc.Weixin.Sample.CommonService.WorkMessageHandlers;//DPBMARK Work DPBMARK_END
+using Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler;//DPBMARK MiniProgram DPBMARK_END
 using Senparc.Weixin.Open;//DPBMARK Open DPBMARK_END
 using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK Open DPBMARK_END
 using Senparc.Weixin.RegisterServices;
-using Senparc.Weixin.Sample.NetCore3.WebSocket.Hubs;//DPBMARK WebSocket DPBMARK_END
+using Senparc.Weixin.Sample.Net6.WebSocket.Hubs;//DPBMARK WebSocket DPBMARK_END
 using Senparc.Weixin.TenPay;//DPBMARK TenPay DPBMARK_END
 using Senparc.Weixin.TenPayV3;//DPBMARK TenPay DPBMARK_END
 using Senparc.Weixin.Work;//DPBMARK Work DPBMARK_END
@@ -38,7 +38,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace Senparc.Weixin.Sample.NetCore3
+namespace Senparc.Weixin.Sample.Net6
 {
     public class Startup
     {
@@ -56,8 +56,9 @@ namespace Senparc.Weixin.Sample.NetCore3
 
             var builder = services.AddControllersWithViews()
                                   .AddNewtonsoftJson();// 支持 NewtonsoftJson
-                                                       //.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
-                                                       // Add CookieTempDataProvider after AddMvc and include ViewFeatures.
+                                //.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+                                // Add CookieTempDataProvider after AddMvc and include ViewFeatures.
+
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
 
             //如果部署在linux系统上，需要加上下面的配置：
@@ -137,7 +138,8 @@ namespace Senparc.Weixin.Sample.NetCore3
 
                     //以下会立即将全局缓存设置为 Redis
                     Senparc.CO2NET.Cache.CsRedis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
-                                                                                //Senparc.CO2NET.Cache.CsRedis.Register.UseHashRedisNow();//HashSet储存格式的缓存策略
+                    
+                    //Senparc.CO2NET.Cache.CsRedis.Register.UseHashRedisNow();//HashSet储存格式的缓存策略
 
                     //也可以通过以下方式自定义当前需要启用的缓存策略
                     //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//键值对
@@ -215,7 +217,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     if (UseRedis(senparcSetting.Value, out _))
                     {
                         weixinRegister.UseSenparcWeixinCacheCsRedis();//CsRedis，两选一
-                        weixinRegister.UseSenparcWeixinCacheRedis();//StackExchange.Redis，两选一
+                        //weixinRegister.UseSenparcWeixinCacheRedis();//StackExchange.Redis，两选一
                     }                                                                                     // DPBMARK_END
 
                     // 微信的 Memcached 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）    -- DPBMARK Memcached
@@ -249,6 +251,8 @@ namespace Senparc.Weixin.Sample.NetCore3
 
                             //注册企业微信（可注册多个）
                             .RegisterWorkAccount(senparcWeixinSetting.Value, "【盛派网络】企业微信")
+                            .RegisterWorkAccount(senparcWeixinSetting.Value["企业微信审批"], "【盛派网络】企业微信审批")
+                            //.RegisterWorkAccount(senparcWeixinSetting.Value["企业微信审批"].WeixinCorpAgentId, senparcWeixinSetting.Value["企业微信审批"].WeixinCorpSecret, "【盛派网络】企业微信审批应用-自建应用")
 
                             //除此以外，仍然可以在程序任意地方注册企业微信：
                             //AccessTokenContainer.Register(corpId, corpSecret, name);//命名空间：Senparc.Weixin.Work.Containers
@@ -457,8 +461,8 @@ namespace Senparc.Weixin.Sample.NetCore3
                 //加入每次触发WeixinExceptionLog后需要执行的代码
 
                 //发送模板消息给管理员                                   -- DPBMARK Redis
-                var eventService = new Senparc.Weixin.MP.Sample.CommonService.EventService();
-                await eventService.ConfigOnWeixinExceptionFunc(ex);      // DPBMARK_END
+                var eventService = new CommonService.EventService();
+                //await eventService.ConfigOnWeixinExceptionFunc(ex);      // DPBMARK_END
             };
         }
 

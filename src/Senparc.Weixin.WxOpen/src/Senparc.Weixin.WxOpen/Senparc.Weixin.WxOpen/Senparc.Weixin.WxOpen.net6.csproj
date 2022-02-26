@@ -1,26 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.13.500-preview2</Version>
+    <TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Version>3.14.9</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
     <Description>
-      微信公众账号 - 微信小程序 模块
+      微信 SDK - 微信小程序 模块
 
       Senparc.Weixin SDK 开源项目：
       https://github.com/JeffreySu/WeiXinMPSDK
     </Description>
-    <Copyright>Senparc Copyright © 2004~2021</Copyright>
+    <Copyright>Senparc Copyright © 2004~2022</Copyright>
     <PackageTags>微信,weixin,小程序,wxopen,MiniProgram,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式</PackageTags>
     <Authors>Jeffrey Su</Authors>
     <Owners>Senparc</Owners>
-    <PackageLicenseUrl>https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</PackageLicenseUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
     <Title>Senparc.Weixin.WxOpen.dll</Title>
     <Summary>微信公众号SDK for C#</Summary>
     <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
-    <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
+    <PackageIcon>icon.jpg</PackageIcon>
     <PackageReleaseNotes>
 		v0.1.0 添加基础解决方案，包括模板消息API
 
@@ -154,6 +154,12 @@
 		v3.10.104 添加 WxAppApi.GenerateScheme() 接口
 		v3.10.401 升级 MessageApi.SendSubscribe() 方法参数
 		v3.11.100 修改完善“附近的小程序”接口
+		v3.13.500-preview4.1 添加“Short Link”接口
+		v3.14 添加 ExpressApi 接口
+		v3.14.2 添加“小程序违规和申诉管理”消息事件
+		v3.14.3 添加 UrlLinkApi.Generate() 接口
+		v3.14.4 添加 BusinessApi.GetUserPhoneNumber() 接口
+		v3.14.5 修改“下发小程序和公众号统一的服务消息”接口参数，提升兼容性
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -179,9 +185,9 @@
     <DocumentationFile>..\..\..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.WxOpen.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Properties\AssemblyInfo.cs" />
+    <None Include="..\..\..\..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -192,21 +198,12 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
-    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
-    <!--<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />-->
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
-    <!--<FrameworkReference Include="Microsoft.AspNetCore.App" />-->
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net451' ">
     <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="1.5.0-preview3" />
+    <PackageReference Include="Senparc.NeuChar" Version="2.0.5.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net6.csproj" />

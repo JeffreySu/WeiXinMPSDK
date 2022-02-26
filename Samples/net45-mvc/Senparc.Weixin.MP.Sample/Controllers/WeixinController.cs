@@ -19,7 +19,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 {
     using Senparc.CO2NET.Utilities;
     using Senparc.Weixin.MP.MvcExtension;
-    using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
+    using Senparc.Weixin.Sample.CommonService.CustomMessageHandler;
 
     public partial class WeixinController : Controller
     {

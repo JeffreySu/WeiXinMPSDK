@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：TenPayV3Controller.cs
     文件功能描述：微信支付V3Controller
@@ -30,11 +30,7 @@ using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MP;
-using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
-using Senparc.Weixin.Sample.NetCore3.Filters;
-using Senparc.Weixin.Sample.NetCore3.Models;
+using Senparc.Weixin.Sample.Net6.Models;
 using Senparc.Weixin.TenPay.V3;
 using System;
 using System.IO;
@@ -48,7 +44,15 @@ using ZXing;
 using ZXing.Common;
 using TenPayOldV3 = Senparc.Weixin.TenPay.V3.TenPayV3;
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers
+//DPBMARK MP
+using Senparc.Weixin.MP;
+using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.Sample.CommonService.TemplateMessage;
+using Senparc.Weixin.Sample.Net6.Filters;
+//DPBMARK_END
+
+
+namespace Senparc.Weixin.Sample.Net6.Controllers
 {
     /* 
      * 友情提示：微信支付正式上线之前，请进行沙箱测试！ 
@@ -104,8 +108,14 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
             var returnUrl = string.Format("https://sdk.weixin.senparc.com/TenPayV3/JsApi");
             var state = string.Format("{0}|{1}", productId, hc);
-            var url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);
+            string url = null;
 
+            url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);//   -- DPBMARK MP DPBMARK_END
+
+            if (url.IsNullOrEmpty())
+            {
+                throw new Exception("此功能需要使用微信公众号，但未获取到 OAuth URL，如果此项目为自动僧城项目，请确保已经引用“公众号”");
+            }
             return Redirect(url);
         }
 
@@ -114,6 +124,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             return View();
         }
 
+        //DPBMARK MP
         #region JsApi支付
 
         public ActionResult OAuthCallback(string code, string state, string returnUrl)
@@ -540,6 +551,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         }
 
         #endregion
+        //DPBMARK_END
 
         #region 订单及退款
 
@@ -661,7 +673,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             //string data = packageReqHandler.ParseXML();
 
             ////退款接口地址
-            //string url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+            //string url = Senparc.Weixin.Config.TenPayV3Host + "/secapi/pay/refund";
             ////本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
             //string cert = @"D:\cert\apiclient_cert_SenparcRobot.p12";
             ////私钥（在安装证书时设置）
@@ -873,7 +885,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             string data = packageReqHandler.ParseXML();
 
             //发红包接口地址
-            string url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendgroupredpack";
+            string url = Senparc.Weixin.Config.TenPayV3Host + "/mmpaymkttransfers/sendgroupredpack";
             //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
             string cert = @"F:\apiclient_cert.p12";
             //私钥（在安装证书时设置）
@@ -922,7 +934,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             string data = packageReqHandler.ParseXML();
 
             //发红包接口地址
-            string url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo";
+            string url = Senparc.Weixin.Config.TenPayV3Host + "/mmpaymkttransfers/gethbinfo";
             //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
             string cert = @"F:\apiclient_cert.p12";
             //私钥（在安装证书时设置）
@@ -1033,6 +1045,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
         #endregion
 
+        //DPBMARK MP
         #region H5支付
 
         /// <summary>
@@ -1163,6 +1176,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
 
         #endregion
+        //DPBMARK_END
 
         #region 付款到银行卡
 

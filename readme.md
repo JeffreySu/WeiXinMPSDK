@@ -2,7 +2,7 @@
 
 Senparc.Weixin —— 微信 .NET SDK 
 =================
-[![Build status](https://mysenparc.visualstudio.com/Senparc%20SDK/_apis/build/status/Weixin%20SDK/Senparc.Weixin%20master-pipeline-status)](https://mysenparc.visualstudio.com/Senparc%20SDK/_build/latest?definitionId=40)
+[![Build status](https://mysenparc.visualstudio.com/Senparc%20SDK/_apis/build/status/Weixin%20SDK/Senparc.Weixin%20Dev-%E5%86%85%E9%83%A8-%E8%87%AA%E5%8A%A8-.Net6)](https://mysenparc.visualstudio.com/Senparc%20SDK/_build/latest?definitionId=36)
 [![NuGet](https://img.shields.io/nuget/dt/Senparc.Weixin.svg)](https://www.nuget.org/packages/Senparc.Weixin)
 [![GitHub commit activity the past week, 4 weeks, year](https://img.shields.io/github/commit-activity/4w/JeffreySu/WeiXinMPSDK.svg)](https://github.com/JeffreySu/WeiXinMPSDK/commits/master)
 [![license](https://img.shields.io/github/license/JeffreySu/WeiXinMPSDK.svg)](http://www.apache.org/licenses/LICENSE-2.0)
@@ -61,7 +61,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 本库包含了 .NET4.5/.NET Standard 2.0/.NET Core/.NET 6 多个版本的源代码（核心逻辑完全一致）：
 
 * 使用 Visual Studio 2019 打开 Demo（支持所有版本）：.NET 6.0 - [Senparc.Weixin.Sample.Net6.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net6-mvc)（包含源码引用推荐）
-* 使用 Visual Studio 2019 打开 .NET 3.1 Demo - [Senparc.Weixin.Sample.NetCore3.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.0-mvc) （不包含源码，仅引用类库）
+* 使用 Visual Studio 2019 打开 .NET 3.1 Demo - [Senparc.Weixin.Sample.NetCore3.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.1-mvc) （不包含源码，仅引用类库）
 * 使用 Visual Studio 2019 或其他版本打开 .NET 4.5 Demo：[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net45-mvc)（不包含源码，仅引用类库）
 * 使用 Visual Studio 2017/2019 打开命令行 Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/console)
 
@@ -87,11 +87,11 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 #### 图例
 |![.NET 3.5][net35Y] | ![.NET 4.0][net40Y] | ![.NET 4.5][net45Y] | ![.NET Standard 2.x][core20Y] |  ![.NET Core][netcore] | ![.NET 5.0 / 6.0][net6]  
 |--|--|--|--|--|--|
-| .NET Framework 3.5 | .NET Framework 4.0 | .NET Framework 4.5            |  .NET Standard 2.0 / 2.1  |   .NET Core 2.x / 3.x  |  .NET 5.0 / .NET 6.0
+| .NET Framework 3.5 | .NET Framework 4.0 | .NET Framework 4.5.1            |  .NET Standard 2.0 / 2.1  |   .NET Core 2.x / 3.x  |  .NET 5.0 / .NET 6.0
 
 > 提示：<br>
 > 1. ![.NET 3.5][net35Y]  ![.NET 4.0][net40Y]  最后一个稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.6.15)，自 2019 年 5 月 1 日起停止更新。<br>
-> 2. .NET 4.5 版本更新计划于 2024 年 12 月 31 日停止更新，新项目建议使用 .NET 3.1 或 .NET 6.0+。
+> 2. .NET 4.5 版本更新计划于 2024 年 12 月 31 日停止更新（2021 年 11 月 7 日起最低支持 .NET 4.5.1），新项目建议使用 .NET 3.1 或 .NET 6.0+。
 
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
 [1.2]: https://www.nuget.org/packages/Senparc.Weixin
@@ -133,10 +133,10 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 [coreY]: https://img.shields.io/badge/standard2.0-Y-brightgreen.svg
 [coreN]: https://img.shields.io/badge/standard2.0-N-lightgrey.svg
 [coreN-]: https://img.shields.io/badge/standard2.0----lightgrey.svg
-[core20Y]: https://img.shields.io/badge/standard%202.0%2F2.1-Y-brightgreen.svg
-[core20N]: https://img.shields.io/badge/standard%202.0%2F-N-lightgrey.svg
-[netcore]: https://img.shields.io/badge/.Net%20Core%202.x%2F3.x-Y-brightgreen.svg
-[net6]: https://img.shields.io/badge/5.0%2F6.0-Y-brightgreen.svg
+[core20Y]: https://img.shields.io/badge/standard%202.x-Y-brightgreen.svg
+[core20N]: https://img.shields.io/badge/standard%202.x-N-lightgrey.svg
+[netcore]: https://img.shields.io/badge/.Net%20Core-Y-brightgreen.svg
+[net6]: https://img.shields.io/badge/6.0-Y-brightgreen.svg
 
 
 [nuget-img-base]: https://img.shields.io/nuget/dt/Senparc.Weixin.svg
@@ -260,7 +260,7 @@ Senparc 官方视频教程
 
 > 当前分支包含了 .NET Framework 3.5 / 4.0 / 4.5 / 4.6.1 及 .NET Core 2.0 + 2.1 / .NET 5.0 + 6.0 的全版本代码。<br>
 > 其中 .NET Framework 4.5 的 Demo 位于 `/src/Senparc.Weixin.MP.Sample` 目录下，<br>
-> .NET Core 3.1 的 Demo 位于 `/Samples/netcore3.0-mvc` 目录下，<br>
+> .NET Core 3.1 的 Demo 位于 `/Samples/netcore3.1-mvc` 目录下，<br>
 > 【推荐】.NET 6.0（兼容 .NET 5.0） 的 Demo 位于 `/Samples/net6-mvc` 目录下。<br><br>
 > 注意：以上多个 Demo 所引用的 Senparc.Weixin SDK 库源代码是完全一致的，只是在编译运行的时候会根据条自动选择输出版本。
 
@@ -303,7 +303,7 @@ Senparc 官方视频教程
 |--------|--------|----|
 |[net45-mvc](Samples/net45-mvc)						|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET MVC）|  Nuget 包
 |[net45-webforms](Samples/net45-webforms)		|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET WebForms）| Nuget 包
-|[netcore3.0-mvc](Samples/netcore3.0-mvc)			|可以直接发布使用的Demo（.NET Core 3.1 + MVC）| 源码
+|[netcore3.1-mvc](Samples/netcore3.1-mvc)			|可以直接发布使用的Demo（.NET Core 3.1 + MVC）| 源码
 |[Samples/console](Samples/console)			|命令行 Console Demo（.NET Core）| 源码
 |[net6-mvc](Samples/net6-mvc)			|可以直接发布使用的 Demo（.NET 6.0），兼容 .NET 5.0| 源码
 
@@ -463,7 +463,7 @@ Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理�
 
 ### 2) 部署到任意服务器的 FTP
 
-在 Web 服务器上安装 FTP 服务（推荐 [FileZilla Server](https://filezilla-project.org/download.php?type=server)），直接使用 FTP 直接上传本地已经编译好的代码（本项项目 [Samples](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Samples) 中对应的是 [Senparc.Weixin.Sample.Net6](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net6-mvc) 或 [Senparc.Weixin.Sample.NetCore3](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.0-mvc)，编译后即可直接使用，无需修改代码）。如果使用 Azure App Service 或其他云服务，通常 FTP 也都是开通的。
+在 Web 服务器上安装 FTP 服务（推荐 [FileZilla Server](https://filezilla-project.org/download.php?type=server)），直接使用 FTP 直接上传本地已经编译好的代码（本项项目 [Samples](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Samples) 中对应的是 [Senparc.Weixin.Sample.Net6](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net6-mvc) 或 [Senparc.Weixin.Sample.NetCore3](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.1-mvc)，编译后即可直接使用，无需修改代码）。如果使用 Azure App Service 或其他云服务，通常 FTP 也都是开通的。
 
 
 <!--
@@ -570,7 +570,7 @@ Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理�
 [![donate](http://sdk.weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png)](http://sdk.weixin.senparc.com#donate)
 
 ## Star 数量统计 
-[![Stargazers over time](https://starcharts.herokuapp.com/JeffreySu/WeiXinMPSDK.svg)](https://starcharts.herokuapp.com/JeffreySu/WeiXinMPSDK)
+[![starcharts stargazers over time](https://starchart.cc/JeffreySu/WeiXinMPSDK.svg)](https://starchart.cc/JeffreySu/WeiXinMPSDK)
 
 License
 --------------

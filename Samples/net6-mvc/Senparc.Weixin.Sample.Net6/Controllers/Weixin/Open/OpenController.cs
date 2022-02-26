@@ -10,16 +10,16 @@ using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.MvcExtension;
-using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
-using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHandler;
-using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
+using Senparc.Weixin.Sample.CommonService.CustomMessageHandler;
+using Senparc.Weixin.Sample.CommonService.MessageHandlers.OpenMessageHandler;
+using Senparc.Weixin.Sample.CommonService.OpenTicket;
 using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.MessageHandlers;
-using Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers;
+using Senparc.Weixin.Sample.CommonService.ThirdPartyMessageHandlers;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
 using Senparc.Weixin.Open.Entities.Request;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+using Senparc.Weixin.Sample.CommonService.Utilities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.Open.AccountAPIs;
@@ -28,7 +28,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.MP.MessageContexts;
 using Senparc.CO2NET.AspNet.HttpUtility;
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers
+namespace Senparc.Weixin.Sample.Net6.Controllers
 {
     /// <summary>
     /// 第三方开放平台演示

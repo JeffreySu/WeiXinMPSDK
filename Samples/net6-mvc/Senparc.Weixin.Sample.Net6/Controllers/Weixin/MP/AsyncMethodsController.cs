@@ -6,11 +6,10 @@ using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
-using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using System;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.Sample.NetCore3.Controllers
+namespace Senparc.Weixin.Sample.Net6.Controllers
 {
     public class AsyncMethodsController : BaseController
     {

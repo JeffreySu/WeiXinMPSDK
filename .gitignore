@@ -17,6 +17,7 @@ bak.zip
 #/Tools/*
 *.DotSettings
 .vs
+.idea
 applicationhost.config
 packages/
 /src/Senparc.Weixin.QY/Senparc.Weixin.QY.Test/test.config

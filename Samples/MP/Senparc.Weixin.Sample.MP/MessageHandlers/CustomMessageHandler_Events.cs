@@ -88,7 +88,7 @@ QQ群：377815480
                 version);
         }
 
-        public override IResponseMessageBase OnTextOrEventRequest(RequestMessageText requestMessage)
+        public override async Task<IResponseMessageBase> OnTextOrEventRequestAsync(RequestMessageText requestMessage)
         {
             // 预处理文字或事件类型请求。
             // 这个请求是一个比较特殊的请求，通常用于统一处理来自文字或菜单按钮的同一个执行逻辑，
@@ -111,222 +111,10 @@ QQ群：377815480
         /// </summary>
         /// <param name="requestMessage">请求消息</param>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
+        public override async Task<IResponseMessageBase> OnEvent_ClickRequestAsync(RequestMessageEvent_Click requestMessage)
         {
-            IResponseMessageBase reponseMessage = null;
-            //菜单点击，需要跟创建菜单时的Key匹配
-
-            switch (requestMessage.EventKey)
-            {
-                case "OneClick":
-                    {
-                        //这个过程实际已经在OnTextOrEventRequest中命中“OneClick”关键字，并完成回复，这里不会执行到。
-                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
-                        reponseMessage = strongResponseMessage;
-                        strongResponseMessage.Content = "您点击了底部按钮。\r\n为了测试微信软件换行bug的应对措施，这里做了一个——\r\n换行";
-                    }
-                    break;
-                case "SubClickRoot_Text":
-                    {
-                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
-                        reponseMessage = strongResponseMessage;
-                        strongResponseMessage.Content = "您点击了子菜单按钮。";
-                    }
-                    break;
-                case "SubClickRoot_News":
-                    {
-                        var strongResponseMessage = CreateResponseMessage<ResponseMessageNews>();
-                        reponseMessage = strongResponseMessage;
-                        strongResponseMessage.Articles.Add(new Article()
-                        {
-                            Title = "您点击了子菜单图文按钮",
-                            Description = "您点击了子菜单图文按钮，这是一条图文信息。这个区域是Description内容\r\n可以使用\\r\\n进行换行。",
-                            PicUrl = "https://sdk.weixin.senparc.com/Images/qrcode.jpg",
-                            Url = "https://sdk.weixin.senparc.com"
-                        });
-
-                        //随机添加一条图文，或只输出一条图文信息
-                        if (SystemTime.Now.Second % 2 == 0)
-                        {
-                            strongResponseMessage.Articles.Add(new Article()
-                            {
-                                Title = "这是随机产生的第二条图文信息，用于测试多条图文的样式",
-                                Description = "这是随机产生的第二条图文信息，用于测试多条图文的样式",
-                                PicUrl = "https://sdk.weixin.senparc.com/Images/qrcode.jpg",
-                                Url = "https://sdk.weixin.senparc.com"
-                            });
-                        }
-                    }
-                    break;
-                case "SubClickRoot_Music":
-                    {
-                        //上传缩略图
-
-                        var filePath = "~/wwwroot/Images/Logo.thumb.jpg";
-
-                        var uploadResult = Weixin.MP.AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.thumb,
-                                                                    ServerUtility.ContentRootMapPath(filePath));
-                        //PS：缩略图官方没有特别提示文件大小限制，实际测试哪怕114K也会返回文件过大的错误，因此尽量控制在小一点（当前图片39K）
-
-                        //设置音乐信息
-                        var strongResponseMessage = CreateResponseMessage<ResponseMessageMusic>();
-                        reponseMessage = strongResponseMessage;
-                        strongResponseMessage.Music.Title = "天籁之音";
-                        strongResponseMessage.Music.Description = "真的是天籁之音";
-                        strongResponseMessage.Music.MusicUrl = "https://sdk.weixin.senparc.com/Content/music1.mp3";
-                        strongResponseMessage.Music.HQMusicUrl = "https://sdk.weixin.senparc.com/Content/music1.mp3";
-                        strongResponseMessage.Music.ThumbMediaId = uploadResult.thumb_media_id;
-                    }
-                    break;
-                case "SubClickRoot_Image":
-                    {
-                        //上传图片
-                        var filePath = "~/wwwroot/Images/Logo.jpg";
-
-                        var uploadResult = Weixin.MP.AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image,
-                                                                     ServerUtility.ContentRootMapPath(filePath));
-                        //设置图片信息
-                        var strongResponseMessage = CreateResponseMessage<ResponseMessageImage>();
-                        reponseMessage = strongResponseMessage;
-                        strongResponseMessage.Image.MediaId = uploadResult.media_id;
-                    }
-                    break;
-                case "SendMenu"://菜单消息
-                    {
-                        //注意：
-                        //1、此接口可以在任意地方调用（包括后台线程），此处演示为通过
-                        //2、一下"s:"前缀只是 Senparc.Weixin 的内部约定，可以使用 OnTextRequest事件中的 requestHandler.SelectMenuKeyword() 方法自动匹配到后缀（如101）
-
-                        var menuContentList = new List<SendMenuContent>(){
-                            new SendMenuContent("101","满意"),
-                            new SendMenuContent("102","一般"),
-                            new SendMenuContent("103","不满意")
-                        };
-                        //使用异步接口
-                        CustomApi.SendMenuAsync(appId, OpenId, "请对 Senparc.Weixin SDK 给出您的评价", menuContentList, "感谢您的参与！");
-
-                        reponseMessage = new ResponseMessageNoResponse();//不返回任何消息
-                    }
-                    break;
-                case "SubClickRoot_Agent"://代理消息
-                    {
-                        //获取返回的XML
-                        var dt1 = SystemTime.Now;
-                        reponseMessage = MessageAgent.RequestResponseMessage(this,
-                        Senparc.CO2NET.SenparcDI.GetServiceProvider(),
-                        agentUrl, agentToken, RequestDocument.ToString());
-                        //上面的方法也可以使用扩展方法：this.RequestResponseMessage(this,agentUrl, agentToken, RequestDocument.ToString());
-
-                        var dt2 = SystemTime.Now;
-
-                        if (reponseMessage is ResponseMessageNews)
-                        {
-                            (reponseMessage as ResponseMessageNews)
-                                .Articles[0]
-                                .Description += string.Format("\r\n\r\n代理过程总耗时：{0}毫秒", (dt2 - dt1).Milliseconds);
-                        }
-                    }
-                    break;
-                case "Member"://托管代理会员信息
-                    {
-                        //原始方法为：MessageAgent.RequestXml(this,agentUrl, agentToken, RequestDocument.ToString());//获取返回的XML
-                        reponseMessage = this.RequestResponseMessage(
-                        Senparc.CO2NET.SenparcDI.GetServiceProvider(),
-                        agentUrl, agentToken, RequestDocument.ToString());
-                    }
-                    break;
-                case "OAuth"://OAuth授权测试
-                    {
-                        var strongResponseMessage = CreateResponseMessage<ResponseMessageNews>();
-
-                        strongResponseMessage.Articles.Add(new Article()
-                        {
-                            Title = "OAuth2.0测试",
-                            Description = "选择下面两种不同的方式进行测试，区别在于授权成功后，最后停留的页面。",
-                            //Url = "https://sdk.weixin.senparc.com/oauth2",
-                            //PicUrl = "https://sdk.weixin.senparc.com/Images/qrcode.jpg"
-                        });
-
-                        strongResponseMessage.Articles.Add(new Article()
-                        {
-                            Title = "OAuth2.0测试（不带returnUrl），测试环境可使用",
-                            Description = "OAuth2.0测试（不带returnUrl）",
-                            Url = "https://sdk.weixin.senparc.com/oauth2",
-                            PicUrl = "https://sdk.weixin.senparc.com/Images/qrcode.jpg"
-                        });
-
-                        var returnUrl = "/OAuth2/TestReturnUrl";
-                        strongResponseMessage.Articles.Add(new Article()
-                        {
-                            Title = "OAuth2.0测试（带returnUrl），生产环境强烈推荐使用",
-                            Description = "OAuth2.0测试（带returnUrl）",
-                            Url = "https://sdk.weixin.senparc.com/oauth2?returnUrl=" + returnUrl.UrlEncode(),
-                            PicUrl = "https://sdk.weixin.senparc.com/Images/qrcode.jpg"
-                        });
-
-                        reponseMessage = strongResponseMessage;
-
-                    }
-                    break;
-                case "Description":
-                    {
-                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
-                        strongResponseMessage.Content = GetWelcomeInfo();
-                        reponseMessage = strongResponseMessage;
-                    }
-                    break;
-                case "SubClickRoot_PicPhotoOrAlbum":
-                    {
-                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
-                        reponseMessage = strongResponseMessage;
-                        strongResponseMessage.Content = "您点击了【微信拍照】按钮。系统将会弹出拍照或者相册发图。";
-                    }
-                    break;
-                case "SubClickRoot_ScancodePush":
-                    {
-                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
-                        reponseMessage = strongResponseMessage;
-                        strongResponseMessage.Content = "您点击了【微信扫码】按钮。";
-                    }
-                    break;
-                case "ConditionalMenu_Male":
-                    {
-                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
-                        reponseMessage = strongResponseMessage;
-                        strongResponseMessage.Content = "您点击了个性化菜单按钮，您的微信性别设置为：男。";
-                    }
-                    break;
-                case "ConditionalMenu_Femle":
-                    {
-                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
-                        reponseMessage = strongResponseMessage;
-                        strongResponseMessage.Content = "您点击了个性化菜单按钮，您的微信性别设置为：女。";
-                    }
-                    break;
-                case "GetNewMediaId"://获取新的MediaId
-                    {
-                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
-                        try
-                        {
-                            var result = Weixin.MP.AdvancedAPIs.MediaApi.UploadForeverMedia(appId, ServerUtility.ContentRootMapPath("~/Images/logo.jpg"), UploadForeverMediaType.image);
-                            strongResponseMessage.Content = result.media_id;
-                        }
-                        catch (Exception e)
-                        {
-                            strongResponseMessage.Content = "发生错误：" + e.Message;
-                            WeixinTrace.SendCustomLog("调用UploadForeverMedia()接口发生异常", e.Message);
-                        }
-                    }
-                    break;
-                default:
-                    {
-                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
-                        strongResponseMessage.Content = "您点击了按钮，EventKey：" + requestMessage.EventKey;
-                        reponseMessage = strongResponseMessage;
-                    }
-                    break;
-            }
-
+            var reponseMessage = CreateResponseMessage<ResponseMessageText>();
+            reponseMessage.Content = "您点击了按钮：" + requestMessage.EventName;
             return reponseMessage;
         }
 
@@ -335,7 +123,7 @@ QQ群：377815480
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_EnterRequest(RequestMessageEvent_Enter requestMessage)
+        public override async Task<IResponseMessageBase> OnEvent_EnterRequestAsync(RequestMessageEvent_Enter requestMessage)
         {
             var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);
             responseMessage.Content = "您刚才发送了ENTER事件请求。";
@@ -347,7 +135,7 @@ QQ群：377815480
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_LocationRequest(RequestMessageEvent_Location requestMessage)
+        public override async Task<IResponseMessageBase> OnEvent_LocationRequestAsync(RequestMessageEvent_Location requestMessage)
         {
             //这里是微信客户端（通过微信服务器）自动发送过来的位置信息
             var responseMessage = CreateResponseMessage<ResponseMessageText>();
@@ -360,7 +148,7 @@ QQ群：377815480
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_ScanRequest(RequestMessageEvent_Scan requestMessage)
+        public override async Task<IResponseMessageBase> OnEvent_ScanRequestAsync(RequestMessageEvent_Scan requestMessage)
         {
             //通过扫描关注
             var responseMessage = CreateResponseMessage<ResponseMessageText>();
@@ -375,7 +163,7 @@ QQ群：377815480
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_ViewRequest(RequestMessageEvent_View requestMessage)
+        public override async Task<IResponseMessageBase> OnEvent_ViewRequestAsync(RequestMessageEvent_View requestMessage)
         {
             //说明：这条消息只作为接收，下面的responseMessage到达不了客户端，类似OnEvent_UnsubscribeRequest
             var responseMessage = CreateResponseMessage<ResponseMessageText>();
@@ -388,7 +176,7 @@ QQ群：377815480
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_MassSendJobFinishRequest(RequestMessageEvent_MassSendJobFinish requestMessage)
+        public override async Task<IResponseMessageBase> OnEvent_MassSendJobFinishRequestAsync(RequestMessageEvent_MassSendJobFinish requestMessage)
         {
             var responseMessage = CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "接收到了群发完成的信息。";
@@ -399,7 +187,7 @@ QQ群：377815480
         /// 订阅（关注）事件
         /// </summary>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_SubscribeRequest(RequestMessageEvent_Subscribe requestMessage)
+        public override async Task<IResponseMessageBase> OnEvent_SubscribeRequestAsync(RequestMessageEvent_Subscribe requestMessage)
         {
             var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);
             responseMessage.Content = GetWelcomeInfo();
@@ -417,7 +205,7 @@ QQ群：377815480
         /// unsubscribe事件的意义在于及时删除网站应用中已经记录的OpenID绑定，消除冗余数据。并且关注用户流失的情况。
         /// </summary>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_UnsubscribeRequest(RequestMessageEvent_Unsubscribe requestMessage)
+        public override async Task<IResponseMessageBase> OnEvent_UnsubscribeRequestAsync(RequestMessageEvent_Unsubscribe requestMessage)
         {
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "有空再来";
@@ -429,7 +217,7 @@ QQ群：377815480
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_ScancodePushRequest(RequestMessageEvent_Scancode_Push requestMessage)
+        public override async Task<IResponseMessageBase> OnEvent_ScancodePushRequestAsync(RequestMessageEvent_Scancode_Push requestMessage)
         {
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "事件之扫码推事件";
@@ -441,7 +229,7 @@ QQ群：377815480
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_ScancodeWaitmsgRequest(RequestMessageEvent_Scancode_Waitmsg requestMessage)
+        public override async Task<IResponseMessageBase> OnEvent_ScancodeWaitmsgRequestAsync(RequestMessageEvent_Scancode_Waitmsg requestMessage)
         {
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "事件之扫码推事件且弹出“消息接收中”提示框";
@@ -453,7 +241,7 @@ QQ群：377815480
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_PicPhotoOrAlbumRequest(RequestMessageEvent_Pic_Photo_Or_Album requestMessage)
+        public override async Task<IResponseMessageBase> OnEvent_PicPhotoOrAlbumRequestAsync(RequestMessageEvent_Pic_Photo_Or_Album requestMessage)
         {
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "事件之弹出拍照或者相册发图";
@@ -466,7 +254,7 @@ QQ群：377815480
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_PicSysphotoRequest(RequestMessageEvent_Pic_Sysphoto requestMessage)
+        public override async Task<IResponseMessageBase> OnEvent_PicSysphotoRequestAsync(RequestMessageEvent_Pic_Sysphoto requestMessage)
         {
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "事件之弹出系统拍照发图";
@@ -478,7 +266,7 @@ QQ群：377815480
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_PicWeixinRequest(RequestMessageEvent_Pic_Weixin requestMessage)
+        public override async Task<IResponseMessageBase> OnEvent_PicWeixinRequestAsync(RequestMessageEvent_Pic_Weixin requestMessage)
         {
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "事件之弹出微信相册发图器";
@@ -490,7 +278,7 @@ QQ群：377815480
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_LocationSelectRequest(RequestMessageEvent_Location_Select requestMessage)
+        public override async Task<IResponseMessageBase> OnEvent_LocationSelectRequestAsync(RequestMessageEvent_Location_Select requestMessage)
         {
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "事件之弹出地理位置选择器";
@@ -499,7 +287,7 @@ QQ群：377815480
 
         #region 微信认证事件推送
 
-        public override IResponseMessageBase OnEvent_QualificationVerifySuccessRequest(RequestMessageEvent_QualificationVerifySuccess requestMessage)
+        public override async Task<IResponseMessageBase> OnEvent_QualificationVerifySuccessRequestAsync(RequestMessageEvent_QualificationVerifySuccess requestMessage)
         {
             //以下方法可以强制定义返回的字符串值
             //TextResponseMessage = "your content";

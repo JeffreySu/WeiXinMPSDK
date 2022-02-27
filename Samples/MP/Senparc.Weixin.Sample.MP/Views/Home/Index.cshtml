@@ -2,11 +2,54 @@
     ViewData["Title"] = "Home Page";
 }
 <style>
+    .sdk-doc p{
+    text-indent:2em;
+    }
+
+    .sdk-doc h5:before{
+        content: "▶ ";
+    }
     .home-img {
         width: 96%;
     }
-</style>
 
+    .tab-pane {
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 0px 0px 5px 5px;
+        border-top: none;
+    }
+
+    h3 {
+        padding: 5px;
+        color: #fff;
+        margin-top: 30px;
+        background: linear-gradient(to right, #026da7 0%,#8ff9b7 30%, #ffffff 40%);
+    }
+
+    figure.file {
+        background: #eee;
+        padding: 5px;
+        border-left: 2px solid #026da7;
+    }
+
+        figure.file cite {
+            font-weight: 900;
+        }
+
+    blockquote.blockquote {
+        border-left: 2px solid #026da7;
+        padding-left: 10px;
+        background: #e6f0f5;
+    }
+
+    figure.file blockquote.blockquote {
+        border-left: none;
+        background: none;
+        padding-left: 0px;
+    }
+</style>
+<div class="sdk-doc">
 <div class="text-center">
     <h1 class="display-4">Senparc.Weixin.MP 微信公众号模块</h1>
     <p><a href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">Senparc.Weixin.MP</a> 模块用于提供微信公众号的支持能力。</p>
@@ -20,7 +63,7 @@
         <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-cli" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">dotnet 命令行</button>
     </div>
 </nav>
-<div class="tab-content" id="nav-tabContent">
+<div class="tab-content" id="nav-tabContent-install">
     <div class="tab-pane fade show active" id="nav-vs" role="tabpanel" aria-labelledby="nav-home-tab">
         <p>
             在开发项目【解决方案资源管理器】中，对需要添加 Senparc.Weixin.MP 的模块点击右键，点击【管理 Nuget 程序包】，在【浏览】标签中输入 <strong>Senparc.Weixin.MP</strong>，点击右侧【安装】按钮。如下图所示：<br />
@@ -37,12 +80,12 @@
         <p>首先，确认已经安装好 dotnet 命令行（安装 <a href="https://dotnet.microsoft.com/en-us/download" target="_blank">.NET SDK</a> 后会自动安装）。</p>
         <p>进入需要添加 Senparc.Weixin.MP 的模块的项目的目录，输入：</p>
         <blockquote class="blockquote">
-            <p>dotnet add package Senparc.Weixin.MP</p>
+            <code>dotnet add package Senparc.Weixin.MP</code>
         </blockquote>
 
         <p>
             <figure class="figure">
-                <img src="~/images/home-install-02.png" class="figure-img img-fluid rounded" alt="通过 Visual Studio 安装" />
+                <img src="~/images/home-install-02.png" class="figure-img img-fluid rounded" alt="通过 dotnet CLI 安装" />
                 <figcaption class="figure-caption text-center">通过 dotnet CLI 安装</figcaption>
             </figure>
         </p>
@@ -70,24 +113,155 @@
         <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-oauth" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">OAuth 2.0</button>
     </div>
 </nav>
-<div class="tab-content" id="nav-tabContent">
+<div class="tab-content" id="nav-tabContent-setting">
     <div class="tab-pane fade show active" id="nav-register" role="tabpanel" aria-labelledby="nav-home-tab">
-        <p>所有的 Senparc.Weixin SDK 注册过程都是类似的。首先，完成所有 Senparc.Weixin SDK 的整体注册代码。在 Program.cs 中加入以下代码：</p>
+        <h5>全局注册</h5>
+        <p>所有的 Senparc.Weixin SDK 注册过程都是类似的。</p>
         <p>
-
+            首先，完成所有 Senparc.Weixin SDK 的整体注册代码。在 Program.cs 中加入以下代码：</p>
+        <p>
+            <figure class="figure">
+                <img src="~/images/home-dev-register-01.png" class="figure-img img-fluid rounded" alt="注册 Senparc.Weixin" />
+                <figcaption class="figure-caption text-center">注册 Senparc.Weixin</figcaption>
+            </figure>
         </p>
+        <p>
+            Senparc.Weixin 支持本机缓存、Redis、Memcached 等多种缓存策略，默认使用本机缓存，此时需要激活本地缓存：<br />
+            <code>builder.Services.AddMemoryCache();</code>
+        </p>
+        <p>
+            <code>builder.Services.AddSenparcWeixinServices(builder.Configuration);</code> 用于完成 Senparc.Weixin 的注册。
+        </p>
+        <p>
+            <code>app.UseSenparcWeixin()</code> 方法用于配置和启用 Senparc.Weixin。
+        </p>
+        <p>
+            以上代码对于所有的 Senparc.Weixin 下级模块都是相同的，只需要 3 句代码。
+        </p>
+        <figure class="file">
+            <blockquote class="blockquote">
+                <p>本项目参考文件：</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+                /<cite title="Source Title">Program.cs</cite>
+            </figcaption>
+        </figure>
+
+        <h5>公众号注册</h5>
+        <p>在上述代码中的第 17 行委托方法中插入代码，即可完成默认公众号的注册：</p>
+        <p><code>register.RegisterMpAccount(weixinSetting, "【盛派网络小助手】公众号");</code></p>
+        <p>
+            <figure class="figure">
+                <img src="~/images/home-dev-register-02.png" class="figure-img img-fluid rounded" alt="注册微信公众号" />
+                <figcaption class="figure-caption text-center">注册微信公众号</figcaption>
+            </figure>
+        </p>
+        <p>其中，<code>weixinSetting</code> 的值默认来自于 <code>appsettings.json</code>：</p>
+        <p>
+            <pre><code>
+  "SenparcWeixinSetting": {
+    "IsDebug": true,
+
+    "Token": "#{Token}#",
+    "EncodingAESKey": "#{EncodingAESKey}#",
+    "WeixinAppId": "#{WeixinAppId}#",
+    "WeixinAppSecret": "#{WeixinAppSecret}#"
+  }
+        </code></pre>
+        </p>
+        <p>
+            <figure class="figure">
+                <img src="~/images/home-dev-register-03.png" class="figure-img img-fluid rounded" alt="配置参数" />
+                <figcaption class="figure-caption text-center">配置参数</figcaption>
+            </figure>
+        </p>
+        <p>其中，<code>Token</code>、<code>EncodingAESKey</code>、<code>WeixinAppId</code> 和 <code>WeixinAppSecret</code> 对应了微信公众号后台的配置参数。</p>
+        <figure class="file">
+            <blockquote class="blockquote">
+                <p>本项目参考文件：</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+                /<cite title="Source Title">appsettings.json</cite>
+            </figcaption>
+        </figure>
+
+        <p>配置完成。</p>
+
     </div>
 
     <div class="tab-pane fade" id="nav-messagehandler" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <p><code>MessageHandler</code> 用于处理微信对话窗口的消息。</p>
+        <p>MessageHandler 有两种实现方式，分别是<strong>中间件方式</strong>（推荐）和<strong> Controller 方式</strong>。</p>
+        <p>首先，无论使用何种方式，我们都需要创建一个用于接收和处理消息的工具，当前示例中为 <code>CustomMessageHandler.cs</code></p>
+        <figure class="file">
+            <blockquote class="blockquote">
+                <p> CustomMessageHandler.cs 本项目参考文件：</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+                /MessageHandlers/ 目录<br />
+                <cite title="Source Title">CustomMessageHandler.cs</cite> MessageHandler 主文件 + 普通消息处理<br />
+                <cite title="Source Title">CustomMessageHandler_Events.cs</cite> MessageHandler 事件消息处理<br />
+                <cite title="Source Title">CustomMessageContext.cs</cite> 自定义重写 DefaultMpMessageContext 上下文（可选）<br />
+            </figcaption>
+        </figure>
+        <p><code>CustomMessageHandler*.cs</code> 中所有演示的重写（<code>override</code>）方法中，只有 <code>DefaultResponseMessage()</code> 方法是必须重写的，其他所有 <code>OnXxxRequest()</code> 方法都为可选，当用户发送的消息，找不到对应重写方法时，则调用 <code>DefaultResponseMessage()</code> 方法。</p>
+
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab-messagehandler" role="tablist">
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-middleware" type="button" role="tab" aria-controls="nav-home" aria-selected="true">中间件方式</button>
+                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-controller" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Controller 方式</button>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent-dev">
+            <div class="tab-pane fade show active" id="nav-middleware" role="tabpanel" aria-labelledby="nav-home-tab">
+                <p>中间件方式是推荐的方式，也是最简化的方式，无需创建任何新文件，只需在 <code>Program.cs</code> 文件所有 Senparc.Weixin 注册代码执行后的下方，引入中间件：</p>
+                <p>
+                    <pre><code>
+app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
+{
+    options.AccountSettingFunc = context =>  Senparc.Weixin.Config.SenparcWeixinSetting;
+});
+                </code></pre>
+                </p>
+
+                <figure class="file">
+                    <blockquote class="blockquote">
+                        <p> 本项目参考文件：</p>
+                    </blockquote>
+                    <figcaption class="blockquote-footer">
+                        /<cite title="Source Title">Program.cs</cite>
+                    </figcaption>
+                </figure>
+
+                <p>更多中间件方式请参考：<a href="https://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html" target="_blank">《在 .NET Core 2.0/3.0 中使用 MessageHandler 中间件》</a>（同样适用于 .NET 6.0 及以上）。</p>
+
+            </div>
+            <div class="tab-pane fade" id="nav-controller" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <p>当中间件的方式满足不了需求时，可以使用 Controller 将执行过程“展开”，对每一步执行进行更加精确的控制或干预。</p>
+                <p>使用 Controller 方式，需要创建 2 个 Action，分别对应微信后台验证（Get 请求），以及真实消息推送（Post 请求）。本项目示例位于 WeixinController.cs 中。</p>
+                <figure class="file">
+                    <blockquote class="blockquote">
+                        <p>WeixinController.cs 本项目参考文件：</p>
+                    </blockquote>
+                    <figcaption class="blockquote-footer">
+                        /Controllers/ <cite title="Source Title">WeixinController.cs</cite>
+                    </figcaption>
+                </figure>
+                <p>更多中间件方式请参考：<a href="https://www.cnblogs.com/szw/p/3414862.html" target="_blank">《了解MessageHandler》</a>（推荐使用全套异步方法）</p>
+            </div>
+        </div>
+
+
     </div>
 
     <div class="tab-pane fade" id="nav-advanced-api" role="tabpanel" aria-labelledby="nav-profile-tab">
     </div>
 
-    
+
     <div class="tab-pane fade" id="nav-jssdk" role="tabpanel" aria-labelledby="nav-profile-tab">
     </div>
-    
+
     <div class="tab-pane fade" id="nav-oauth" role="tabpanel" aria-labelledby="nav-profile-tab">
     </div>
+</div>
 </div>

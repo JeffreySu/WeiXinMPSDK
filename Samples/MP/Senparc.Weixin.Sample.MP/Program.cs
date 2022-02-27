@@ -37,41 +37,7 @@ var registerService = app.UseSenparcWeixin(app.Environment,
 //使用公众号的 MessageHandler 中间件（不再需要创建 Controller）                       --DPBMARK MP
 app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
 {
-    /* 说明：
-     * 1、此代码块中演示了较为全面的功能点，简化的使用可以参考下面小程序和企业微信
-     * 2、使用中间件也支持多账号，可以使用 URL 添加参数的方式（如：/Weixin?id=1），
-     *    在options.AccountSettingFunc = context => {...} 中，从 context.Request 中获取 [id] 值，
-     *    并反馈对应的 senparcWeixinSetting 信息
-     */
-
-    #region 配置 SenparcWeixinSetting 参数，以自动提供 Token、EncodingAESKey 等参数
-
-    //此处为委托，可以根据条件动态判断输入条件（必须）
-    options.AccountSettingFunc = context =>
-        //方法一：使用默认配置
-        Senparc.Weixin.Config.SenparcWeixinSetting;
-
-        //方法二：使用指定配置：
-        //Config.SenparcWeixinSetting["<Your SenparcWeixinSetting's name filled with Token, AppId and EncodingAESKey>"]; 
-
-        //方法三：结合 context 参数动态判断返回Setting值
-
-    #endregion
-
-    //以下都为可选配置
-
-    //对 MessageHandler 内异步方法未提供重写时，调用同步方法（按需）
-    options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
-
-    options.EnableRequestLog = true;//默认就为 true，如需关闭日志，可设置为 false
-    options.EnbleResponseLog = true;//默认就为 true，如需关闭日志，可设置为 false
-
-    //对发生异常进行处理（可选）
-    options.AggregateExceptionCatch = ex =>
-    {
-        //逻辑处理...
-        return false;//系统层面抛出异常
-    };
+    options.AccountSettingFunc = context =>  Senparc.Weixin.Config.SenparcWeixinSetting;
 });
 #endregion
 

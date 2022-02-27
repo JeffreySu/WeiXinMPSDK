@@ -137,6 +137,7 @@ namespace Senparc.Weixin.RegisterServices
             #endregion
         }
 
+
         /// <summary>
         /// 注册 HttpClient 请求证书
         /// </summary>

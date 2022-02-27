@@ -1,4 +1,18 @@
-﻿using Senparc.NeuChar.Context;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2022 Senparc
+    
+    文件名：WorkMessageHandler.cs
+    文件功能描述：企业号请求的集中处理方法
+    
+    
+    创建标识：Senparc - 20150313
+    
+    修改标识：ccccccmd - 20220227
+    修改描述：v3.14.10 添加异步方法
+    
+----------------------------------------------------------------*/
+
+using Senparc.NeuChar.Context;
 using Senparc.Weixin.Exceptions;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.Work.Entities;

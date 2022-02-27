@@ -1,4 +1,35 @@
-﻿using System.Threading.Tasks;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2022 Senparc
+    
+    文件名：DraftApi.cs
+    文件功能描述：草稿箱接口
+    
+    
+    创建标识：dupeng0811 - 20220227
+
+----------------------------------------------------------------*/
+
+using System.Threading.Tasks;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
@@ -134,7 +165,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Draft
         /// <param name="no_content">1 表示不返回 content 字段，0 表示正常返回，默认为 0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static DraftList_Result GetDraftList(string accessTokenOrAppId, int offset, int count,int no_content=0, int timeOut = Config.TIME_OUT)
+        public static DraftListResultJson GetDraftList(string accessTokenOrAppId, int offset, int count,int no_content=0, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -147,14 +178,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Draft
                     no_content = no_content
                 };
 
-                return CommonJsonSend.Send<DraftList_Result>(accessToken, url, date, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<DraftListResultJson>(accessToken, url, date, CommonJsonSendType.POST, timeOut);
 
             }, accessTokenOrAppId);
         }
 
         #endregion
-
-
 
         #region 异步方法
         /// <summary>
@@ -276,7 +305,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Draft
         /// <param name="no_content">1 表示不返回 content 字段，0 表示正常返回，默认为 0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<DraftList_Result> GetDraftListAsync(string accessTokenOrAppId, int offset, int count, int no_content = 0, int timeOut = Config.TIME_OUT)
+        public static async Task<DraftListResultJson> GetDraftListAsync(string accessTokenOrAppId, int offset, int count, int no_content = 0, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
@@ -289,7 +318,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Draft
                     no_content = no_content
                 };
 
-                return CommonJsonSend.SendAsync<DraftList_Result>(accessToken, url, date, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.SendAsync<DraftListResultJson>(accessToken, url, date, CommonJsonSendType.POST, timeOut);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }

@@ -209,7 +209,4 @@
     <ProjectReference Include="..\..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net6.csproj" />
     <ProjectReference Include="..\..\..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Entities\Request\Event\RequestMessageEvent_WxaMediaCheck.cs" />
-  </ItemGroup>
 </Project>

@@ -1,15 +1,7 @@
-using Senparc.NeuChar.MessageHandlers;
-using Senparc.Weixin.AspNet;
-using Senparc.Weixin.MP;
-using Senparc.Weixin.MP.MessageHandlers.Middleware;
-using Senparc.Weixin.RegisterServices;
-using Senparc.Weixin.Sample.MP;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
 
 #region ÃÌº”Œ¢–≈≈‰÷√
 
@@ -21,12 +13,11 @@ builder.Services.AddSenparcWeixinServices(builder.Configuration);
 
 #endregion
 
-
 var app = builder.Build();
 
 #region ∆Ù”√Œ¢–≈≈‰÷√
 
-var senparcWeixinSetting = app.Services.GetService<Microsoft.Extensions.Options.IOptions<Senparc.Weixin.Entities.SenparcWeixinSetting>>()!.Value;
+var senparcWeixinSetting = app.Services.GetService<IOptions<SenparcWeixinSetting>>()!.Value;
 
 //∆Ù”√Œ¢–≈≈‰÷√£®±ÿ–Î£©
 var registerService = app.UseSenparcWeixin(app.Environment, 

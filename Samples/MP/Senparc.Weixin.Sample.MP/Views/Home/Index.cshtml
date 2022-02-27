@@ -1,8 +1,93 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<style>
+    .home-img {
+        width: 96%;
+    }
+</style>
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Senparc.Weixin.MP 微信公众号模块</h1>
+    <p><a href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">Senparc.Weixin.MP</a> 模块用于提供微信公众号的支持能力。</p>
+</div>
+
+<h3>如何安装？</h3>
+
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-vs" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Visual Studio</button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-cli" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">dotnet 命令行</button>
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-vs" role="tabpanel" aria-labelledby="nav-home-tab">
+        <p>
+            在开发项目【解决方案资源管理器】中，对需要添加 Senparc.Weixin.MP 的模块点击右键，点击【管理 Nuget 程序包】，在【浏览】标签中输入 <strong>Senparc.Weixin.MP</strong>，点击右侧【安装】按钮。如下图所示：<br />
+        </p>
+        <p>
+            <figure class="figure">
+                <img src="~/images/home-install-01.png" class="figure-img img-fluid rounded" alt="通过 Visual Studio 安装" />
+                <figcaption class="figure-caption text-center">通过 Visual Studio 安装</figcaption>
+            </figure>
+        </p>
+
+    </div>
+    <div class="tab-pane fade" id="nav-cli" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <p>首先，确认已经安装好 dotnet 命令行（安装 <a href="https://dotnet.microsoft.com/en-us/download" target="_blank">.NET SDK</a> 后会自动安装）。</p>
+        <p>进入需要添加 Senparc.Weixin.MP 的模块的项目的目录，输入：</p>
+        <blockquote class="blockquote">
+            <p>dotnet add package Senparc.Weixin.MP</p>
+        </blockquote>
+
+        <p>
+            <figure class="figure">
+                <img src="~/images/home-install-02.png" class="figure-img img-fluid rounded" alt="通过 Visual Studio 安装" />
+                <figcaption class="figure-caption text-center">通过 dotnet CLI 安装</figcaption>
+            </figure>
+        </p>
+
+        <p>
+            安装完成后，可查看对应 .csproj 文件，被添加引用，如：
+        </p>
+        <pre><code>
+    &lt;ItemGroup&gt;
+        &lt;PackageReference Include="Senparc.Weixin.MP" Version="16.17.7" /&gt;
+    &lt;/ItemGroup&gt;
+      </code></pre>
+
+    </div>
+</div>
+
+<h3>如何使用？</h3>
+
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-home" aria-selected="true">注册</button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-messagehandler" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">MessageHandler</button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-advanced-api" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">高级接口</button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-jssdk" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">JSSDK</button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-oauth" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">OAuth 2.0</button>
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-register" role="tabpanel" aria-labelledby="nav-home-tab">
+        <p>所有的 Senparc.Weixin SDK 注册过程都是类似的。首先，完成所有 Senparc.Weixin SDK 的整体注册代码。在 Program.cs 中加入以下代码：</p>
+        <p>
+
+        </p>
+    </div>
+
+    <div class="tab-pane fade" id="nav-messagehandler" role="tabpanel" aria-labelledby="nav-profile-tab">
+    </div>
+
+    <div class="tab-pane fade" id="nav-advanced-api" role="tabpanel" aria-labelledby="nav-profile-tab">
+    </div>
+
+    
+    <div class="tab-pane fade" id="nav-jssdk" role="tabpanel" aria-labelledby="nav-profile-tab">
+    </div>
+    
+    <div class="tab-pane fade" id="nav-oauth" role="tabpanel" aria-labelledby="nav-profile-tab">
+    </div>
 </div>

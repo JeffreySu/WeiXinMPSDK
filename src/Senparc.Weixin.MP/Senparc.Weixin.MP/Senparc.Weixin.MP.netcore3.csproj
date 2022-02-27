@@ -566,4 +566,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.netcore3.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AdvancedAPIs\FreePublish\FreePublishJson\" />
+  </ItemGroup>
 </Project>

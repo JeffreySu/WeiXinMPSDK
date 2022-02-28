@@ -9,6 +9,11 @@
     .sdk-doc h5:before{
         content: "▶ ";
     }
+    
+    .sdk-doc h5{
+    margin-top:10px 0px;
+    }
+
     .home-img {
         width: 96%;
     }
@@ -126,14 +131,12 @@
             </figure>
         </p>
         <p>
-            Senparc.Weixin 支持本机缓存、Redis、Memcached 等多种缓存策略，默认使用本机缓存，此时需要激活本地缓存：<br />
-            <code>builder.Services.AddMemoryCache();</code>
-        </p>
-        <p>
-            <code>builder.Services.AddSenparcWeixinServices(builder.Configuration);</code> 用于完成 Senparc.Weixin 的注册。
-        </p>
-        <p>
-            <code>app.UseSenparcWeixin()</code> 方法用于配置和启用 Senparc.Weixin。
+            说明：
+            <ol>
+                <li><code>builder.Services.AddMemoryCache()</code> Senparc.Weixin 支持本机缓存、Redis、Memcached 等多种缓存策略，默认使用本机缓存，此时需要激活本地缓存</li>
+                <li><code>builder.Services.AddSenparcWeixinServices(builder.Configuration)</code> 用于完成 Senparc.Weixin 的注册。</li>
+                <li><code>app.UseSenparcWeixin()</code> 方法用于配置和启用 Senparc.Weixin。</li>
+            </ol>
         </p>
         <p>
             以上代码对于所有的 Senparc.Weixin 下级模块都是相同的，只需要 3 句代码。
@@ -158,8 +161,7 @@
         </p>
         <p>其中，<code>weixinSetting</code> 的值默认来自于 <code>appsettings.json</code>：</p>
         <p>
-            <pre><code>
-  "SenparcWeixinSetting": {
+            <pre><code>  "SenparcWeixinSetting": {
     "IsDebug": true,
 
     "Token": "#{Token}#",
@@ -216,8 +218,7 @@
             <div class="tab-pane fade show active" id="nav-middleware" role="tabpanel" aria-labelledby="nav-home-tab">
                 <p>中间件方式是推荐的方式，也是最简化的方式，无需创建任何新文件，只需在 <code>Program.cs</code> 文件所有 Senparc.Weixin 注册代码执行后的下方，引入中间件：</p>
                 <p>
-                    <pre><code>
-app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
+                    <pre><code>app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
 {
     options.AccountSettingFunc = context =>  Senparc.Weixin.Config.SenparcWeixinSetting;
 });

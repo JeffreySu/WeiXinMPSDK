@@ -6,6 +6,10 @@
         position: relative;
     }
 
+    .sdk-doc{
+        position: relative
+    }
+
     .sdk-doc p {
         text-indent: 2em;
     }
@@ -57,20 +61,36 @@
         background: none;
         padding-left: 0px;
     }
+
+    .bd-main {
+        grid-area: intro;
+    }
+
+    #leftMenu {
+        grid-area: toc;
+
+        position: sticky;
+        top: 5rem;
+        right: 0;
+        z-index: 2;
+        height: calc(100vh - 7rem);
+        overflow-y: auto;
+    }
+
 </style>
 
 <div class="sdk-doc">
-    <div class="row" data-bs-spy="scroll" data-bs-target="#navbar_left" data-bs-offset="50" tabindex="0" style="position: relative;">
-        <div class="col-2">
-            <nav id="navbar_left" class="navbar navbar-light bg-light flex-column align-items-stretch p-3 fixed">
+    <div class="row" style="position:relative;">
+        <div class="col-2" id="leftMenu">
+            <nav id="navbar_left" class="navbar navbar-light bg-light flex-column align-items-stretch p-3">
                 <a class="navbar-brand" href="#">索引</a>
                 <nav class="nav nav-pills flex-column">
-                    <a class="nav-link" href="#title-install">如何安装？</a>
+                    <a class="nav-link" href="#title_install">如何安装？</a>
                     @*<nav class="nav nav-pills flex-column">
                         <a class="nav-link ms-3 my-1" href="#item-1-1">Item 1-1</a>
                         <a class="nav-link ms-3 my-1" href="#item-1-2">Item 1-2</a>
                         </nav>*@
-                    <a class="nav-link" href="#title-setting">如何使用？</a>
+                    <a class="nav-link" href="#title_setting">如何使用？</a>
                     @*<a class="nav-link" href="#item-3">Item 3</a>
                         <nav class="nav nav-pills flex-column">
                         <a class="nav-link ms-3 my-1" href="#item-3-1">Item 3-1</a>
@@ -80,14 +100,14 @@
             </nav>
         </div>
 
-        <div class="col-10">
-            <div @*data-bs-spy="scroll" data-bs-target="#navbar-home" data-bs-offset="0" tabindex="0"*@>
+        <div class="col-10 bd-main" data-bs-spy="scroll" data-bs-target="#navbar_left" data-bs-offset="0" tabindex="0">
+            <div>
                 <div class="text-center">
                     <h1 class="display-4">Senparc.Weixin.MP 微信公众号模块</h1>
                     <p><a href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">Senparc.Weixin.MP</a> 模块用于提供微信公众号的支持能力。</p>
                 </div>
 
-                <div id="title-install" class="mt-5">
+                <div id="title_install" class="mt-5 pt-5">
                     <h3>如何安装？</h3>
 
                     <nav>
@@ -131,14 +151,13 @@
         &lt;PackageReference Include="Senparc.Weixin.MP" Version="16.17.7" /&gt;
     &lt;/ItemGroup&gt;
       </code></pre>
-
                         </div>
                     </div>
                 </div>
 
-                <div id="title-setting" class="mt-5">
+                <div id="title_setting" class="mt-5 pt-5">
 
-                    <h3 id="title-setting">如何使用？</h3>
+                    <h3>如何使用？</h3>
 
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">

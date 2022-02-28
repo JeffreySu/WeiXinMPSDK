@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title - 微信公众号 Senparc.Weixin SDK</title>
     <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
-    <link href="~/Content/danktooltip/css/darktooltip.min.css" rel="stylesheet" />
+    @*<link href="~/Content/danktooltip/css/darktooltip.min.css" rel="stylesheet" />*@
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-reboot.min.css" />
@@ -17,9 +17,9 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Senparc.Weixin.Sample.MP.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body data-bs-spy="scroll" data-bs-target="#navbar_top" data-bs-offset="50" tabindex="0">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav id="navbar_top" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Senparc.Weixin.MP 微信公众号模块</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -43,7 +43,7 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3 pt-5 mt-5">
             @RenderBody()
         </main>
     </div>
@@ -56,6 +56,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

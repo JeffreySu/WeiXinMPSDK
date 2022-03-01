@@ -62,6 +62,11 @@
         padding-left: 0px;
     }
 
+        figure.file blockquote.blockquote p {
+            text-indent: 0em;
+            font-size: 1rem;
+        }
+
     .bd-main {
         grid-area: intro;
     }
@@ -82,6 +87,14 @@
         display: block;
         height: 0;
     }
+
+    pre {
+        border-radius: 4px;
+        border: 1px solid #555;
+        padding: 10px 15px;
+        background: #026da7;
+        color: #fff;
+    }
 </style>
 
 <div class="sdk-doc">
@@ -90,14 +103,14 @@
             <nav id="navbar_left" class="navbar navbar-light bg-light flex-column align-items-stretch p-3">
                 <a class="navbar-brand" href="#">索引</a>
                 <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#source_code">源码</a>
                     <a class="nav-link" href="#title_install">如何安装？</a>
                     @*<nav class="nav nav-pills flex-column">
                         <a class="nav-link ms-3 my-1" href="#item-1-1">Item 1-1</a>
                         <a class="nav-link ms-3 my-1" href="#item-1-2">Item 1-2</a>
                         </nav>*@
                     <a class="nav-link" href="#title_setting">如何使用？</a>
-                    @*<a class="nav-link" href="#item-3">Item 3</a>
-                        <nav class="nav nav-pills flex-column">
+                    @*  <nav class="nav nav-pills flex-column">
                         <a class="nav-link ms-3 my-1" href="#item-3-1">Item 3-1</a>
                         <a class="nav-link ms-3 my-1" href="#item-3-2">Item 3-2</a>
                         </nav>*@
@@ -112,6 +125,12 @@
                     <p><a href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">Senparc.Weixin.MP</a> 模块用于提供微信公众号的支持能力。</p>
                 </div>
 
+                <div id="source_code" class="target-fix"></div>
+                <div>
+                    <h3>源码</h3>
+                    <p>Senparc.Weixin.MP 源码位置：<a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP" target="_blank">/src/Senparc.Weixin.MP/</a></p>
+                    <p>Nuget 包地址：<a href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">https://www.nuget.org/packages/Senparc.Weixin.MP</a></p>
+                </div>
 
                 <div id="title_install" class="target-fix"></div>
 
@@ -162,9 +181,8 @@
                                 安装完成后，可查看对应 .csproj 文件，被添加引用，如：
                             </p>
                             <pre><code>&lt;ItemGroup&gt;
-        &lt;PackageReference Include="Senparc.Weixin.MP" Version="16.17.7" /&gt;
-    &lt;/ItemGroup&gt;
-      </code></pre>
+    &lt;PackageReference Include="Senparc.Weixin.MP" Version="16.17.7" /&gt;
+&lt;/ItemGroup&gt;</code></pre>
                         </div>
                         <div class="tab-pane fade" id="nav-cli" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <p>首先，确认已经安装好 dotnet 命令行（安装 <a href="https://dotnet.microsoft.com/en-us/download" target="_blank">.NET SDK</a> 后会自动安装）。</p>
@@ -183,11 +201,9 @@
                             <p>
                                 安装完成后，可查看对应 .csproj 文件，被添加引用，如：
                             </p>
-                            <pre><code>
-    &lt;ItemGroup&gt;
-        &lt;PackageReference Include="Senparc.Weixin.MP" Version="16.17.7" /&gt;
-    &lt;/ItemGroup&gt;
-      </code></pre>
+                            <pre><code>&lt;ItemGroup&gt;
+    &lt;PackageReference Include="Senparc.Weixin.MP" Version="16.17.7" /&gt;
+&lt;/ItemGroup&gt;</code></pre>
                         </div>
                     </div>
                 </div>
@@ -257,8 +273,7 @@
     "EncodingAESKey": "#{EncodingAESKey}#",
     "WeixinAppId": "#{WeixinAppId}#",
     "WeixinAppSecret": "#{WeixinAppSecret}#"
-  }
-        </code></pre>
+  }</code></pre>
                             </p>
                             <p>
                                 <figure class="figure">
@@ -283,6 +298,7 @@
                         </div>
 
                         <div class="tab-pane fade" id="nav-messagehandler" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <h5>自定义 MessageHandler</h5>
                             <p><code>MessageHandler</code> 用于处理微信对话窗口的消息。</p>
                             <p>MessageHandler 有两种实现方式，分别是<strong>中间件方式</strong>（推荐）和<strong> Controller 方式</strong>。</p>
                             <p>首先，无论使用何种方式，我们都需要创建一个用于接收和处理消息的工具，当前示例中为 <code>CustomMessageHandler.cs</code></p>
@@ -299,52 +315,43 @@
                             </figure>
                             <p><code>CustomMessageHandler*.cs</code> 中所有演示的重写（<code>override</code>）方法中，只有 <code>DefaultResponseMessage()</code> 方法是必须重写的，其他所有 <code>OnXxxRequest()</code> 方法都为可选，当用户发送的消息，找不到对应重写方法时，则调用 <code>DefaultResponseMessage()</code> 方法。</p>
 
-                            <nav>
-                                <div class="nav nav-tabs" id="nav-tab-messagehandler" role="tablist">
-                                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-middleware" type="button" role="tab" aria-controls="nav-home" aria-selected="true">中间件方式</button>
-                                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-controller" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Controller 方式</button>
-                                </div>
-                            </nav>
-                            <div class="tab-content" id="nav-tabContent-dev">
-                                <div class="tab-pane fade show active" id="nav-middleware" role="tabpanel" aria-labelledby="nav-home-tab">
-                                    <p>中间件方式是推荐的方式，也是最简化的方式，无需创建任何新文件，只需在 <code>Program.cs</code> 文件所有 Senparc.Weixin 注册代码执行后的下方，引入中间件：</p>
-                                    <p>
-                                        <pre><code>app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
+                            <h5>中间件方式承载 MessageHandler</h5>
+
+                            <p>中间件方式是推荐的方式，也是最简化的方式，无需创建任何新文件，只需在 <code>Program.cs</code> 文件所有 Senparc.Weixin 注册代码执行后的下方，引入中间件：</p>
+                            <p>
+                                <pre><code>app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
 {
     options.AccountSettingFunc = context =>  Senparc.Weixin.Config.SenparcWeixinSetting;
 });
                 </code></pre>
-                                    </p>
+                            </p>
 
-                                    <figure class="file">
-                                        <blockquote class="blockquote">
-                                            <p> 本项目参考文件：</p>
-                                        </blockquote>
-                                        <figcaption class="blockquote-footer">
-                                            /<cite title="Source Title">Program.cs</cite>
-                                        </figcaption>
-                                    </figure>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p> 本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /<cite title="Source Title">Program.cs</cite>
+                                </figcaption>
+                            </figure>
 
-                                    <p>更多中间件方式请参考：<a href="https://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html" target="_blank">《在 .NET Core 2.0/3.0 中使用 MessageHandler 中间件》</a>（同样适用于 .NET 6.0 及以上）。</p>
+                            <p>更多中间件方式请参考：<a href="https://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html" target="_blank">《在 .NET Core 2.0/3.0 中使用 MessageHandler 中间件》</a>（同样适用于 .NET 6.0 及以上）。</p>
 
-                                </div>
-                                <div class="tab-pane fade" id="nav-controller" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                    <p>当中间件的方式满足不了需求时，可以使用 Controller 将执行过程“展开”，对每一步执行进行更加精确的控制或干预。</p>
-                                    <p>使用 Controller 方式，需要创建 2 个 Action，分别对应微信后台验证（Get 请求），以及真实消息推送（Post 请求）。本项目示例位于 WeixinController.cs 中。</p>
-                                    <figure class="file">
-                                        <blockquote class="blockquote">
-                                            <p>WeixinController.cs 本项目参考文件：</p>
-                                        </blockquote>
-                                        <figcaption class="blockquote-footer">
-                                            /Controllers/ <cite title="Source Title">WeixinController.cs</cite>
-                                        </figcaption>
-                                    </figure>
-                                    <p>更多中间件方式请参考：<a href="https://www.cnblogs.com/szw/p/3414862.html" target="_blank">《了解MessageHandler》</a>（推荐使用全套异步方法）</p>
-                                </div>
-                            </div>
+                            <h5>Controller 方式承载 MessageHandler</h5>
 
-
+                            <p>当中间件的方式满足不了需求时，可以使用 Controller 将执行过程“展开”，对每一步执行进行更加精确的控制或干预。</p>
+                            <p>使用 Controller 方式，需要创建 2 个 Action，分别对应微信后台验证（Get 请求），以及真实消息推送（Post 请求）。本项目示例位于 WeixinController.cs 中。</p>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>WeixinController.cs 本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/ <cite title="Source Title">WeixinController.cs</cite>
+                                </figcaption>
+                            </figure>
+                            <p>更多中间件方式请参考：<a href="https://www.cnblogs.com/szw/p/3414862.html" target="_blank">《了解MessageHandler》</a>（推荐使用全套异步方法）</p>
                         </div>
+
 
                         <div class="tab-pane fade" id="nav-advanced-api" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <p>完成 <code>Program.cs</code> 文件中的常规注册后，即可在程序的任意地方使用高级接口。</p>
@@ -354,27 +361,22 @@
                             <h5>使用 AppId 调用接口（推荐）</h5>
                             <p>例如，我们可以在任意一个方法中调用一个高级接口：</p>
                             <p>
-                                <code>
-                                    <pre>var appId = Senparc.Weixin.Config.SenparcWeixinSetting.AppId;
-                                var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(appId);//获取关注者 OpenId 信息
-                            </pre>
-                                </code>
+                                <pre><code>var appId = Senparc.Weixin.Config.SenparcWeixinSetting.AppId;
+var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(appId);//获取关注者 OpenId 信息</code></pre>
                             </p>
                             <blockquote class="blockquote">
                                 appId 参数，必须是已经经过注册的，及时令牌（AccessToken 过期，SDK也会全自动处理）。如果是未经过注册的 appId，则需要先获取 AccessToken，然后调用接口。
                             </blockquote>
 
-                             <h5>使用 AccessToken 调用接口</h5>
+                            <h5>使用 AccessToken 调用接口</h5>
 
-                                <p>
-                                    <code>
-                                        <pre>var accessToken = Senparc.Weixin.MP.CommonApi.GetTokenAsync(appId, appSecret);//获取 AccessToken
-var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(accessToken);//获取关注者 OpenId 信息
-                                </pre>
-                                    </code>
-                                </p>
+                            <p>
+                                <pre><code>var accessToken = Senparc.Weixin.MP.CommonApi.GetTokenAsync(appId, appSecret);//获取 AccessToken
+var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(accessToken);//获取关注者 OpenId 信息</code></pre>
 
-                                 <blockquote class="blockquote">
+                            </p>
+
+                            <blockquote class="blockquote">
                                 注意：使用 AccessToken 方式调用接口，无法保证当前 AccessToken 的有效性，因此建议使用前进行有效性校验，并使用 <code>try-catch</code> 方式捕获 AccessToken 不可用的异常，然后进行重试。因此直接使用 AccessToken 调用接口的方式并不推荐在常规情况下使用。
                             </blockquote>
                         </div>

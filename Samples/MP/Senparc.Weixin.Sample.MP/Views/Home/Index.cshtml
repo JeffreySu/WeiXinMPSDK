@@ -52,7 +52,7 @@
 
     blockquote.blockquote {
         border-left: 2px solid #026da7;
-        padding-left: 10px;
+        padding: 10px 16px;
         background: #e6f0f5;
     }
 
@@ -220,6 +220,7 @@
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-advanced-api" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">高级接口</button>
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-jssdk" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">JSSDK</button>
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-oauth" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">OAuth 2.0</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-menu" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">菜单设置</button>
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent-setting">
@@ -368,7 +369,7 @@ var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(appId);//获�
                                 appId 参数，必须是已经经过注册的，及时令牌（AccessToken 过期，SDK也会全自动处理）。如果是未经过注册的 appId，则需要先获取 AccessToken，然后调用接口。
                             </blockquote>
 
-                            <h5>使用 AccessToken 调用接口</h5>
+                            <h5>使用 AccessToken 调用接口（不推荐）</h5>
 
                             <p>
                                 <pre><code>var accessToken = Senparc.Weixin.MP.CommonApi.GetTokenAsync(appId, appSecret);//获取 AccessToken
@@ -383,9 +384,15 @@ var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(accessToken);
 
 
                         <div class="tab-pane fade" id="nav-jssdk" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            待补充
                         </div>
 
                         <div class="tab-pane fade" id="nav-oauth" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            待补充
+                        </div>
+
+                        <div class="tab-pane fade" id="nav-menu" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            待补充
                         </div>
                     </div>
                 </div>

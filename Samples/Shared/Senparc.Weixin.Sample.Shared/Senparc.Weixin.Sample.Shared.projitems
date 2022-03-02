@@ -9,6 +9,14 @@
     <Import_RootNamespace>Senparc.Weixin.Sample.MP</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Views\Shared\_CarouselPartial.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Views\Shared\_FooterPartial.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="$(MSBuildThisFileDirectory)Views\Shared\_IconsPartial.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -26,5 +34,8 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\images\banner\chicago.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\images\banner\la.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\images\banner\ny.jpg" />
   </ItemGroup>
 </Project>

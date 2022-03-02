@@ -7,7 +7,6 @@
 
 		<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
 		<GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
-
 	</PropertyGroup>
 
 	<ItemGroup>

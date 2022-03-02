@@ -57,10 +57,15 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-#region 此节点为 Sample 共享文件需要而添加，实际项目无需添加
+#region 此部分代码为 Sample 共享文件需要而添加，实际项目无需添加
+//app.UseStaticFiles(new StaticFileOptions
+//{
+//    FileProvider = new ManifestEmbeddedFileProvider(Assembly.GetExecutingAssembly(), "wwwroot"),
+//    RequestPath = new PathString("")
+//});
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new ManifestEmbeddedFileProvider(Assembly.GetExecutingAssembly(), "wwwroot"),
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"..", "..", "Shared", "Senparc.Weixin.Sample.Shared", "wwwroot")),
     RequestPath = new PathString("")
 });
 #endregion

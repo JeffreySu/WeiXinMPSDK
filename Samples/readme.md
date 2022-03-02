@@ -14,3 +14,4 @@
 |   TenPayV3    |   微信支付 V3（TenPay APIv3） （准备中）
 |   Work        |   企业微信 （准备中）
 |   WxOpen      |   企业微信 （准备中）
+|   Shared      |   所有 Sample 都需要用到的共享文件

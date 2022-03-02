@@ -12,8 +12,4 @@
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net6.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Senparc.Weixin.MP" Version="16.17.8" />
-  </ItemGroup>
-
 </Project>

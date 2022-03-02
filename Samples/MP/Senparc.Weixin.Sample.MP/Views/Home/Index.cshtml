@@ -1,178 +1,128 @@
 ﻿@{
     ViewData["Title"] = "Senparc.Weixin.MP 微信公众号模块";
 }
-<style>
-    body {
-        position: relative;
-    }
-
-    .sdk-doc {
-        position: relative
-    }
-
-        .sdk-doc p {
-            text-indent: 2em;
-        }
-
-        .sdk-doc h5:before {
-            content: "▶ ";
-        }
-
-        .sdk-doc h5 {
-            margin-top: 10px 0px;
-        }
-
-    .home-img {
-        width: 96%;
-    }
-
-    .tab-pane {
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-bottom: 2px solid #ddd;
-        border-radius: 0px 0px 5px 5px;
-        border-top: none;
-        box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 5%);
-    }
-
-    h3 {
-        padding: 5px;
-        color: #fff;
-        margin-top: 30px;
-        background: linear-gradient(to right, #026da7 0%,#8ff9b7 30%, #ffffff 40%);
-    }
-
-    figure.file {
-        background: #eee;
-        padding: 5px;
-        border-left: 2px solid #026da7;
-    }
-
-        figure.file cite {
-            font-weight: 900;
-        }
-
-    blockquote.blockquote {
-        border-left: 2px solid #026da7;
-        padding: 10px 16px;
-        background: #e6f0f5;
-    }
-
-    figure.file blockquote.blockquote {
-        border-left: none;
-        background: none;
-        padding-left: 0px;
-    }
-
-        figure.file blockquote.blockquote p {
-            text-indent: 0em;
-            font-size: 1rem;
-        }
-
-    .bd-main {
-        grid-area: intro;
-    }
-
-    #leftMenu {
-        grid-area: toc;
-        position: sticky;
-        top: 5rem;
-        right: 0;
-        z-index: 2;
-        height: calc(100vh - 7rem);
-        overflow-y: auto;
-    }
-
-    .target-fix {
-        position: relative;
-        top: -5em;
-        display: block;
-        height: 0;
-    }
-
-    pre {
-        border-radius: 4px;
-        border: 1px solid #555;
-        padding: 10px 15px;
-        background: #026da7;
-        color: #fff;
-    }
-</style>
-
-
-<div id="banner-top" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#banner-top" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#banner-top" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    @*<button type="button" data-bs-target="#banner-top" data-bs-slide-to="2" aria-label="Slide 3"></button>*@
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="" class="d-block w-100" alt="">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>First slide label</h5>
-        <p>Some representative placeholder content for the first slide.</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="" class="d-block w-100" alt="">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Second slide label</h5>
-        <p>Some representative placeholder content for the second slide.</p>
-      </div>
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#banner-top" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#banner-top" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-
 <div class="sdk-doc">
     <div class="row" style="position:relative;">
-        <div class="col-2" id="leftMenu">
-            <nav id="navbar_left" class="navbar navbar-light bg-light flex-column align-items-stretch p-3">
-                <a class="navbar-brand" href="#">索引</a>
-                <nav class="nav nav-pills flex-column">
-                    <a class="nav-link" href="#source_code">源码</a>
-                    <a class="nav-link" href="#title_install">如何安装？</a>
-                    @*<nav class="nav nav-pills flex-column">
-                        <a class="nav-link ms-3 my-1" href="#item-1-1">Item 1-1</a>
-                        <a class="nav-link ms-3 my-1" href="#item-1-2">Item 1-2</a>
-                        </nav>*@
-                    <a class="nav-link" href="#title_setting">如何使用？</a>
-                    <a class="nav-link" href="#title_advance">进阶</a>
-                    @*  <nav class="nav nav-pills flex-column">
-                        <a class="nav-link ms-3 my-1" href="#item-3-1">Item 3-1</a>
-                        <a class="nav-link ms-3 my-1" href="#item-3-2">Item 3-2</a>
-                        </nav>*@
+        <div class="col-sm-2" id="leftMenu">
+            <div class="row">
+                <nav id="navbar_left" class="navbar navbar-light bg-light flex-column align-items-stretch p-3">
+                    <a class="navbar-brand" href="#">索引</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link" href="#source_code">源码</a>
+                        <a class="nav-link" href="#title_install">如何安装？</a>
+                        @*<nav class="nav nav-pills flex-column">
+                            <a class="nav-link ms-3 my-1" href="#item-1-1">Item 1-1</a>
+                            <a class="nav-link ms-3 my-1" href="#item-1-2">Item 1-2</a>
+                            </nav>*@
+                        <a class="nav-link" href="#title_setting">如何使用？</a>
+                        <a class="nav-link" href="#title_advance">进阶</a>
+                        <a class="nav-link" href="#title_about">关于</a>
+                        <nav class="nav nav-pills flex-column">
+                            <a class="nav-link ms-3 my-1" href="#title_about_team">团队</a>
+                            <a class="nav-link ms-3 my-1" href="#title_about_support">支持</a>
+                            <a class="nav-link ms-3 my-1" href="#title_about_license">开源协议</a>
+                        </nav>
+                    </nav>
                 </nav>
-            </nav>
+            </div>
+            <div class="row" id="qqGroups">
+            </div>
         </div>
 
-        <div class="col-10 bd-main" data-bs-spy="scroll" data-bs-target="#navbar_left" data-bs-offset="0" tabindex="0">
-            <div>
-                <div class="text-center">
-                    <h1 class="display-4">Senparc.Weixin.MP 微信公众号模块</h1>
-                    <p><a href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">Senparc.Weixin.MP</a> 模块用于提供微信公众号的支持能力。</p>
+        <div class="col-sm-10 bd-main" data-bs-spy="scroll" data-bs-target="#navbar_left" data-bs-offset="0" tabindex="0">
+
+            <div class="text-center">
+                <h1 id="top-title" class="display-4">Senparc.Weixin.MP 微信公众号模块</h1>
+                <p><a href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">Senparc.Weixin.MP</a> 模块用于提供微信公众号的支持能力。</p>
+                <p>
+                    <a href="https://mysenparc.visualstudio.com/Senparc%20SDK/_build/latest?definitionId=36" target="_blank"><img src="https://mysenparc.visualstudio.com/Senparc%20SDK/_apis/build/status/Weixin%20SDK/Senparc.Weixin%20Dev-%E5%86%85%E9%83%A8-%E8%87%AA%E5%8A%A8-.Net6" alt="Build status"></a>
+
+                    <a href="https://github.com/JeffreySu/WeiXinMPSDK/commits/master" target="_blank"><img src="https://img.shields.io/github/commit-activity/4w/JeffreySu/WeiXinMPSDK.svg" alt="GitHub commit activity the past week, 4 weeks, year"></a>
+
+                    <a href="https://www.nuget.org/packages/Senparc.Weixin" target="_blank"><img src="https://img.shields.io/nuget/dt/Senparc.Weixin.MP.svg" alt="Senparc.Weixin.MP"></a>
+
+                    <a href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.MP.svg?style=flat" alt="MP"></a>
+
+                    <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank"><img src="https://img.shields.io/github/license/JeffreySu/WeiXinMPSDK.svg" alt="Senparc.Weixin.MP"></a>
+                </p>
+            </div>
+
+            <!-- Carousel -->
+            <div id="banner-top" class="carousel slide" data-bs-ride="carousel">
+
+                <!-- Indicators/dots -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#banner-top" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#banner-top" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#banner-top" data-bs-slide-to="2"></button>
                 </div>
 
+                <!-- The slideshow/carousel -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://www.w3schools.com/bootstrap5/la.jpg" alt="Los Angeles" class="d-block" style="width:100%">
+                        <div class="carousel-caption">
+                            <h3>微信全平台支持</h3>
+                            <p>微信公众号、小程序、企业微信、微信支付 V2 / V3、开放平台……</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://www.w3schools.com/bootstrap5/chicago.jpg" alt="Chicago" class="d-block" style="width:100%">
+                        <div class="carousel-caption">
+                            <h3>强大技术社区支持</h3>
+                            <p>线上讨论社区、图书、视频课程、各类文档</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://www.w3schools.com/bootstrap5/ny.jpg" alt="New York" class="d-block" style="width:100%">
+                        <div class="carousel-caption">
+                            <h3>2012 开源至今</h3>
+                            <p>十年如一日持续更新 盛派出品值得信赖</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Left and right controls/icons -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#banner-top" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#banner-top" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+
+            <div id="main-doc">
                 <div id="source_code" class="target-fix"></div>
                 <div>
                     <h3>源码</h3>
+                    <h5>本地代码</h5>
                     <p>Senparc.Weixin.MP 源码位置：<a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP" target="_blank">/src/Senparc.Weixin.MP/</a></p>
+                    <h5>打包代码</h5>
                     <p>Nuget 包地址：<a href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">https://www.nuget.org/packages/Senparc.Weixin.MP</a></p>
+                    <h5>Senparc.Weixin SDK 源码</h5>
+                    <p>GitHub：<a href="https://github.com/JeffreySu/WeiXinMPSDK" target="_blank">https://github.com/JeffreySu/WeiXinMPSDK</a>（更新更快）</p>
+                    <p>Gitee：<a href="https://gitee.com/JeffreySu/WeiXinMPSDK" target="_blank">https://gitee.com/JeffreySu/WeiXinMPSDK</a> （从 GitHub 同步）</p>
                 </div>
 
                 <div id="title_install" class="target-fix"></div>
 
                 <div>
                     <h3>如何安装？</h3>
-                    <p>您可以直接应用 Senparc.Weixin 的源码进行开发，也可以引用已经打包完成的 dll（通过 Nuget 包），以方便随时获取官方的更新（推荐）。</p>
+                    <p>您可以直接引用 Senparc.Weixin 的源码进行开发，也可以引用已经打包完成的 dll（通过 Nuget 包，推荐），以方便随时获取官方的更新。注意：直接引用源码和引用 Nuget 包只能二选一。</p>
+
+                    <h5>引用源码</h5>
+                    <p>您可以将当前解决方案中，<strong>Libraries</strong> 目录下，将所需要引用的程序集引用（复制）到您开发环境的解决方案中，请注意需要同时引用被依赖的项目，如 <code>Senparc.Weixin</code> 项目是所有项目都需要依赖的。</p>
+                    <blockquote class="blockquote">
+                        当前示例项目默认就使用了直接引用源码的方式，可从 .csproj 文件中看到：
+                        <pre><code>&lt;ItemGroup&gt;
+    &lt;ProjectReference Include="..\..\..\src\Senparc.Weixin.MP.Middleware\Senparc.Weixin.MP.Middleware.net6.csproj" /&gt;
+    &lt;ProjectReference Include="..\..\..\src\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.net6.csproj" /&gt;
+    &lt;ProjectReference Include="..\..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net6.csproj" /&gt;
+  &lt;/ItemGroup&gt;</code></pre>
+                    </blockquote>
+
+                    <h5>引用程序集（推荐）</h5>
+
                     <p>您可以通过 <code>Visual Studio</code>、<code>Visual Studio Code</code>、<code>dotnet 命令行</code> 等多种方式自动安装 Nuget 包。</p>
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -617,7 +567,7 @@ var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(accessToken);
     }
 }</code></pre>
                             <p>上述代码中，传入的 <code>returnUrl</code> 即第一步 <code>Index()</code> 方法中传入到 <strong>AuthorizeUrl</strong> 中的 <code>returnUrl</code>，当所有用户信息获取、保存等操作完成后，借助 <code>returnUrl</code> 跳转到登陆之前的页面，完成整个闭环的登录操作。</p>
-                            
+
                             <figure class="file">
                                 <blockquote class="blockquote">
                                     <p>本项目参考文件：</p>
@@ -629,7 +579,6 @@ var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(accessToken);
 
                         </div>
                         <!-- OAuth 2.0 结束 -->
-
                         <!-- 菜单 开始 -->
                         <div class="tab-pane fade" id="nav-menu" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <p>公众号菜单是公众号界面的重要元素，菜单的使用分为 <strong>设置</strong> 和 <strong>使用</strong> 两个环节。</p>
@@ -688,7 +637,7 @@ var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(accessToken);
     return reponseMessage;
 }</code></pre>
 
- <figure class="file">
+                            <figure class="file">
                                 <blockquote class="blockquote">
                                     <p>本项目参考文件：</p>
                                 </blockquote>
@@ -720,6 +669,25 @@ var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(accessToken);
                         </figure>
                     </div>
 
+                    <div id="title_about" class="target-fix"></div>
+                    <h3>关于</h3>
+                    <p>使用 Senparc.Weixin，您可以方便快速地开发微信全平台的应用（包括微信公众号、小程序、小游戏、企业号、开放平台、微信支付、JS-SDK、微信硬件/蓝牙，等等）。本项目的 Demo 同样适合初学者进行 .NET 编程学习。</p>
+                    <p>
+                        目前 Senparc.Weixin 已经支持几乎所有微信平台模块和接口，并同时支持
+                        <a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer" target="_blank">.NET 3.5 / 4.0 / 4.5 / .NET Standard 2.x / .NET Core 2.x / .NET Core 3.x / .NET 6.0</a> 多种框架。
+                    </p>
+                    <p>Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最受欢迎的 .NET 开源项目之一，是唯一入选 2021“科创中国”开源创新榜的 .NET 项目。</p>
+                    <p>项目自 2012 年开源，2013 年 1 月起正式发布到 GitHub。10 年来，我们一直保持着项目的持续更新，并将完整的源代码以及设计思想毫无保留地分享给大家，希望有更多的人可以从中受益，理解并传播开源的精神，一同助力中国开源事业！感恩一路上给我们提供帮助的朋友们！</p>
+                    <div id="title_about_team" class="target-fix"></div>
+                    <h5>团队</h5>
+                    <p>Senparc.Weixin 由盛派网络及盛派开发者社区核心团队负责维护，同时正在得到大量来自社区成员和社会各界的支持，欢迎加入我们！</p>
+                    <div id="title_about_support" class="target-fix"></div>
+                    <h5>支持</h5>
+                    <p>Senparc.Weixin 提供 100% 源码、线上 Sample、文档、图书、视频课程、线上开发者平台、问答平台、QQ / 微信群，以及不定期的线上/线下分享会等各种形式的支持服务，并坚持不间断维护源码，发布新版本。</p>
+                    <p>联系邮箱：zsu@senparc.com</p>
+                    <div id="title_about_license" class="target-fix"></div>
+                    <h5>开源协议</h5>
+                    <p>Senaprc.Weixin 使用 <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank">APACHE LICENSE V2.0</a> 开源协议，支持商用。</p>
                 </div>
             </div>
         </div>

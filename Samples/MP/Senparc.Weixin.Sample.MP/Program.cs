@@ -1,3 +1,6 @@
+using Microsoft.Extensions.FileProviders;
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -20,10 +23,10 @@ var app = builder.Build();
 var senparcWeixinSetting = app.Services.GetService<IOptions<SenparcWeixinSetting>>()!.Value;
 
 //启用微信配置（必须）
-var registerService = app.UseSenparcWeixin(app.Environment, 
+var registerService = app.UseSenparcWeixin(app.Environment,
     null /* 不为 null 则覆盖 appsettings  中的 SenpacSetting 配置*/,
     null /* 不为 null 则覆盖 appsettings  中的 SenpacWeixinSetting 配置*/,
-    register => { /* CO2NET 全局配置 */ }, 
+    register => { /* CO2NET 全局配置 */ },
     (register, weixinSetting) =>
 {
     //注册公众号信息（可以执行多次，注册多个公众号）
@@ -37,7 +40,7 @@ var registerService = app.UseSenparcWeixin(app.Environment,
 //使用公众号的 MessageHandler 中间件（不再需要创建 Controller）                       --DPBMARK MP
 app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
 {
-    options.AccountSettingFunc = context =>  Senparc.Weixin.Config.SenparcWeixinSetting;
+    options.AccountSettingFunc = context => Senparc.Weixin.Config.SenparcWeixinSetting;
 });
 #endregion
 
@@ -53,6 +56,15 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+#region 此节点为 Sample 共享文件需要而添加，实际项目无需添加
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new ManifestEmbeddedFileProvider(Assembly.GetExecutingAssembly(), "wwwroot"),
+    RequestPath = new PathString("")
+});
+#endregion
+
 
 app.UseRouting();
 

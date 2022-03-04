@@ -9,13 +9,6 @@
 		<GenerateEmbeddedFilesManifest Condition=" '$(Configuration)' != 'Release' ">true</GenerateEmbeddedFilesManifest>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\..\src\Senparc.Weixin.MP.Middleware\Senparc.Weixin.MP.Middleware.net6.csproj" />
-		<ProjectReference Include="..\..\..\src\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.net6.csproj" />
-		<ProjectReference Include="..\..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net6.csproj" />
-	</ItemGroup>
-
-
 	<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
 	<ItemGroup Condition=" '$(Configuration)' != 'Release' ">
 		<PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
@@ -26,10 +19,18 @@
 		</EmbeddedResource>-->
 		<EmbeddedResource Include="wwwroot\**\*" />
 	</ItemGroup>
+
+	<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
+	<Import Project="..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems" Label="Shared" />
+
+	<ItemGroup>
+<ProjectReference Include="..\..\..\src\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.net6.csproj" />
+<ProjectReference Include="..\..\..\src\Senparc.Weixin.Work.Middleware\Senparc.Weixin.Work.Middleware.net6.csproj" />
+<ProjectReference Include="..\..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.net6.csproj" />
+	</ItemGroup>
+
 	<ItemGroup>
 	  <Folder Include="wwwroot\css\" />
 	</ItemGroup>
-	<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
-	<Import Project="..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems" Label="Shared" />
 
 </Project>

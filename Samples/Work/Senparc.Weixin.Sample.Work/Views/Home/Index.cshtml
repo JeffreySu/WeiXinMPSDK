@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Senparc.Weixin.MP 微信公众号模块";
+    ViewData["Title"] = "Senparc.Weixin.Work 企业微信模块";
 }
 <div class="sdk-doc">
     <div class="row" style="position:relative;">
@@ -28,10 +28,10 @@
         <div class="col-sm-10 bd-main" data-bs-spy="scroll" data-bs-target="#navbar_left" data-bs-offset="0" tabindex="0">
 
             <div class="text-center">
-                <h1 id="top-title" class="display-4">Senparc.Weixin.MP 微信公众号模块</h1>
+                <h1 id="top-title" class="display-4">Senparc.Weixin.Work 企业微信模块</h1>
 
 
-                <p><a href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">Senparc.Weixin.MP</a> 模块用于提供微信公众号的支持能力。</p>
+                <p><a href="https://www.nuget.org/packages/Senparc.Weixin.Work" target="_blank">Senparc.Weixin.Work</a> 模块用于提供微信公众号的支持能力。</p>
                 @(await Html.PartialAsync("_IconsPartial"))
 
             </div>
@@ -62,7 +62,7 @@
 
             <div id="main-doc">
                 <div id="source_code" class="target-fix"></div>
-                @(await Html.PartialAsync("_SourceCode",@"Senparc.Weixin.MP 源码位置：<a href=""https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP"" target=""_blank"">/src/Senparc.Weixin.MP/</a>"))
+                @(await Html.PartialAsync("_SourceCode",@"Senparc.Weixin.Work 源码位置：<a href=""https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.Work"" target=""_blank"">/src/Senparc.Weixin.Work/</a>"))
 
                 <div id="title_install" class="target-fix"></div>
 
@@ -74,9 +74,9 @@
                     <p>您可以在当前解决方案中，<strong>Libraries</strong> 目录下，将所需要引用的程序集引用（复制）到您开发环境的解决方案中，请注意需要同时引用被依赖的项目，如 <code>Senparc.Weixin</code> 项目是所有项目都需要依赖的。</p>
                     <p>当前示例项目默认就使用了直接引用源码的方式，可从 .csproj 文件中看到引用方式：</p>
                     <pre><code>&lt;ItemGroup&gt;
-    &lt;ProjectReference Include="..\..\..\src\Senparc.Weixin.MP.Middleware\Senparc.Weixin.MP.Middleware.net6.csproj" /&gt;
-    &lt;ProjectReference Include="..\..\..\src\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.net6.csproj" /&gt;
-    &lt;ProjectReference Include="..\..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net6.csproj" /&gt;
+    &lt;ProjectReference Include="..\..\..\src\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.net6.csproj" /&gt;
+    &lt;ProjectReference Include="..\..\..\src\Senparc.Weixin.Work.Middleware\Senparc.Weixin.Work.Middleware.net6.csproj" /&gt;
+    &lt;ProjectReference Include="..\..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.net6.csproj" /&gt;
 &lt;/ItemGroup&gt;</code></pre>
 
                     <h5>引用程序集（推荐）</h5>
@@ -92,7 +92,7 @@
                     <div class="tab-content" id="nav-tabContent-install">
                         <div class="tab-pane fade show active" id="nav-vs" role="tabpanel" aria-labelledby="nav-home-tab">
                             <p>
-                                在开发项目【解决方案资源管理器】中，对需要添加 Senparc.Weixin.MP 的模块点击右键，点击【管理 Nuget 程序包】，在【浏览】标签中输入 <strong>Senparc.Weixin.MP</strong>，点击右侧【安装】按钮。如下图所示：<br />
+                                在开发项目【解决方案资源管理器】中，对需要添加 Senparc.Weixin.Work 的模块点击右键，点击【管理 Nuget 程序包】，在【浏览】标签中输入 <strong>Senparc.Weixin.Work</strong>，点击右侧【安装】按钮。如下图所示：<br />
                             </p>
                             <p>
                                 <figure class="figure">
@@ -104,21 +104,16 @@
                         </div>
                         <div class="tab-pane fade" id="nav-vscode" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <p>首先，确认已经安装好 <a href="https://code.visualstudio.com/">VS Code</a> 以及 dotnet 命令行（安装 <a href="https://dotnet.microsoft.com/en-us/download" target="_blank">.NET SDK</a> 后会自动安装）。</p>
-                            <p>然后，打开解决方案或项目所在目录，按 <kbd>Ctrl</kbd>+<kbd>~</kbd>，打开终端面板：</p>
-                            <figure class="figure">
-                                <img src="~/images/home-install-03.png" class="figure-img img-fluid rounded" alt="通过 VS Code 安装" />
-                                <figcaption class="figure-caption text-center">打开 VS Code 终端面板</figcaption>
-                            </figure>
-
-                            <p>进入需要添加 Senparc.Weixin.MP 的模块的项目的目录，输入：</p>
-                            <blockquote class="blockquote">
-                                <code>dotnet add package Senparc.Weixin.MP</code>
-                            </blockquote>
+                            <p>
+                                然后，打开解决方案或项目所在目录，按 <kbd>Ctrl</kbd>+<kbd>~</kbd>，打开终端面板，进入需要添加 Senparc.Weixin.Work 的模块的项目的目录，输入：</>
+                                <blockquote class="blockquote">
+                                    <code>dotnet add package Senparc.Weixin.Work</code>
+                                </blockquote>
 
                             <p>
                                 <figure class="figure">
-                                    <img src="~/images/home-install-04.png" class="figure-img img-fluid rounded" alt="通过 VS Code 安装" />
-                                    <figcaption class="figure-caption text-center">安装 Senparc.Weixin.MP 模块</figcaption>
+                                    <img src="~/images/home-install-03.png" class="figure-img img-fluid rounded" alt="通过 VS Code 安装" />
+                                    <figcaption class="figure-caption text-center">安装 Senparc.Weixin.Work 模块</figcaption>
                                 </figure>
                             </p>
 
@@ -126,14 +121,14 @@
                                 安装完成后，可查看对应 .csproj 文件，被添加引用，如：
                             </p>
                             <pre><code>&lt;ItemGroup&gt;
-    &lt;PackageReference Include="Senparc.Weixin.MP" Version="16.17.7" /&gt;
+    &lt;PackageReference Include="Senparc.Weixin.Work" Version="3.14.10" /&gt;
 &lt;/ItemGroup&gt;</code></pre>
                         </div>
                         <div class="tab-pane fade" id="nav-cli" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <p>首先，确认已经安装好 dotnet 命令行（安装 <a href="https://dotnet.microsoft.com/en-us/download" target="_blank">.NET SDK</a> 后会自动安装）。</p>
-                            <p>进入需要添加 Senparc.Weixin.MP 的模块的项目的目录，输入：</p>
+                            <p>进入需要添加 Senparc.Weixin.Work 的模块的项目的目录，输入：</p>
                             <blockquote class="blockquote">
-                                <code>dotnet add package Senparc.Weixin.MP</code>
+                                <code>dotnet add package Senparc.Weixin.Work</code>
                             </blockquote>
 
                             <p>
@@ -147,7 +142,7 @@
                                 安装完成后，可查看对应 .csproj 文件，被添加引用，如：
                             </p>
                             <pre><code>&lt;ItemGroup&gt;
-    &lt;PackageReference Include="Senparc.Weixin.MP" Version="16.17.7" /&gt;
+    &lt;PackageReference Include="Senparc.Weixin.Work" Version="3.14.10" /&gt;
 &lt;/ItemGroup&gt;</code></pre>
                         </div>
                     </div>
@@ -201,9 +196,9 @@
                                 </figcaption>
                             </figure>
 
-                            <h5>公众号注册</h5>
+                            <h5>企业微信</h5>
                             <p>在上述代码中的第 17 行委托方法中插入代码，即可完成默认公众号的注册：</p>
-                            <p><code>register.RegisterMpAccount(weixinSetting, "【盛派网络小助手】公众号");</code></p>
+                            <p><code>register.RegisterWorkAccount(weixinSetting, "【盛派网络】企业微信");</code></p>
                             <p>
                                 <figure class="figure">
                                     <img src="~/images/home-dev-register-02.png" class="figure-img img-fluid rounded" alt="注册微信公众号" />
@@ -212,22 +207,27 @@
                             </p>
                             <p>其中，<code>weixinSetting</code> 的值默认来自于 <code>appsettings.json</code>：</p>
                             <p>
-                                <pre><code>  "SenparcWeixinSetting": {
-    "IsDebug": true,
+                                <pre><code>"SenparcWeixinSetting": {
+  //以下为 Senparc.Weixin 的 SenparcWeixinSetting 微信配置
+  //注意：所有的字符串值都可能被用于字典索引，因此请勿留空字符串（但可以根据需要，删除对应的整条设置）！
 
-    "Token": "#{Token}#",
-    "EncodingAESKey": "#{EncodingAESKey}#",
-    "WeixinAppId": "#{WeixinAppId}#",
-    "WeixinAppSecret": "#{WeixinAppSecret}#"
-  }</code></pre>
+  //微信全局
+  "IsDebug": true,
+
+  //以下不使用的参数可以删除，key 修改后将会失效
+
+  //企业微信
+  "WeixinCorpId": "#{WeixinCorpId}#",
+  "WeixinCorpAgentId": "#{WeixinCorpAgentId}#",
+  "WeixinCorpSecret": "#{WeixinCorpSecret}#",
+  "WeixinCorpToken": "#{WeixinCorpToken}#",
+  "WeixinCorpEncodingAESKey": "#{WeixinCorpEncodingAESKey}#"
+
+  //可以追加更多其他平台的配置信息
+}</code></pre>
                             </p>
-                            <p>
-                                <figure class="figure">
-                                    <img src="~/images/home-dev-register-03.png" class="figure-img img-fluid rounded" alt="配置参数" />
-                                    <figcaption class="figure-caption text-center">配置参数</figcaption>
-                                </figure>
-                            </p>
-                            <p>其中，<code>Token</code>、<code>EncodingAESKey</code>、<code>WeixinAppId</code> 和 <code>WeixinAppSecret</code> 对应了微信公众号后台的配置参数。</p>
+
+                            <p>其中，<code>WeixinCorpId</code> 是每个企业微信账号独有的 <strong>corpId</strong>，<code>WeixinCorpAgentId</code> 和 <code>WeixinCorpSecret</code> 对应每个不同应用的 <strong>agentId</strong> 和 <strong>secret</strong>， <code>WeixinCorpToken</code> 和 <code>WeixinCorpEncodingAESKey</code> 对应了当前应用消息接口的后台的配置参数。</p>
                             <figure class="file">
                                 <blockquote class="blockquote">
                                     <p>本项目参考文件：</p>
@@ -244,37 +244,35 @@
                         </div>
 
                         <div class="tab-pane fade" id="nav-messagehandler" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            <p><code>MessageHandler</code> 用于处理微信公众号对话窗口的消息。</p>
+                            <p><code>MessageHandler</code> 用于处理企业微信对话窗口的消息。</p>
                             <p>SDK 已经为开发者准备好了所有需要的基础功能，开发者只需要创建一个自定义的子类，补充需要自定义的业务逻辑。</p>
                             <h5>自定义 MessageHandler</h5>
-                            <p>当前示例中，我们给自定义的 MessageHandler 取名 <code>CustomMessageHandler</code>。</p>
+                            <p>当前示例中，我们给自定义的 MessageHandler 取名 <code>WorkCustomMessageHandler</code>。</p>
                             <figure class="file">
                                 <blockquote class="blockquote">
-                                    <p> CustomMessageHandler.cs 本项目参考文件：</p>
+                                    <p> WorkCustomMessageHandler.cs 本项目参考文件：</p>
                                 </blockquote>
                                 <figcaption class="blockquote-footer">
                                     /MessageHandlers/ 目录<br />
-                                    <cite title="Source Title">CustomMessageHandler.cs</cite> MessageHandler 主文件 + 普通消息处理<br />
-                                    <cite title="Source Title">CustomMessageHandler_Events.cs</cite> MessageHandler 事件消息处理<br />
-                                    <cite title="Source Title">CustomMessageContext.cs</cite> 自定义重写 DefaultMpMessageContext 上下文（可选）<br />
+                                    <cite title="Source Title">WorkCustomMessageHandler.cs</cite> MessageHandler 主文件，负责普通消息处理<br />
+                                    <cite title="Source Title">WorkCustomMessageContext.cs</cite> 自定义重写 DefaultMpMessageContext 上下文（可选）<br />
                                 </figcaption>
                             </figure>
-                            <p><code>CustomMessageHandler*.cs</code> 中所有演示的重写（<code>override</code>）方法中，只有 <code>DefaultResponseMessage()</code> 方法是必须重写的，其他所有 <code>OnXxxRequest()</code> 方法都为可选，当用户发送的消息，找不到对应重写方法时，则调用 <code>DefaultResponseMessage()</code> 方法。</p>
+                            <p><code>WorkCustomMessageHandler.cs</code> 中所有演示的重写（<code>override</code>）方法中，只有 <code>DefaultResponseMessage()</code> 方法是必须重写的，其他所有 <code>OnXxxRequest()</code> 方法都为可选，当用户发送的消息，找不到对应重写方法时，则调用 <code>DefaultResponseMessage()</code> 方法。</p>
 
-                            <p>MessageHandler 有两种承载方式，使其可以被外部（微信服务器）通过 URL 访问到。分别是<strong>中间件方式</strong>（推荐）和<strong> Controller 方式</strong>。两种方式所使用的 <code>CustomMessageHandler</code> 是通用的，因此可以随时切换和共存。</p>
+                            <p>MessageHandler 有两种承载方式，使其可以被外部（微信服务器）通过 URL 访问到。分别是<strong>中间件方式</strong>（推荐）和<strong> Controller 方式</strong>。两种方式所使用的 <code>WorkCustomMessageHandler</code> 是通用的，因此可以随时切换和共存。</p>
 
                             <h5>中间件方式承载 MessageHandler</h5>
 
                             <p>中间件方式是推荐的方式，也是最简化的方式，无需创建任何新文件，只需在 <code>Program.cs</code> 文件所有 Senparc.Weixin 注册代码执行后的下方，引入中间件：</p>
                             <p>
-                                <pre><code>app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
+                                <pre><code>app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMessageHandler, options =>
 {
     options.AccountSettingFunc = context =>  Senparc.Weixin.Config.SenparcWeixinSetting;
-});
-                </code></pre>
+});</code></pre>
                             </p>
-                            <p>完成后，即可通过Url <strong><code>域名/WeixinAsync</code></strong> 访问 MessageHandler，设置为公众号后台的消息 URL。</p>
-                            <p><a href="/WeixinAsync" target="_blank">测试 /WeixinAsync</a></p>
+                            <p>完成后，即可通过Url <strong><code>域名/WorkAsync</code></strong> 访问 MessageHandler，设置为公众号后台的消息 URL。</p>
+                            <p><a href="/WorkAsync" target="_blank">测试 /WorkAsync</a></p>
                             <figure class="file">
                                 <blockquote class="blockquote">
                                     <p> 本项目参考文件：</p>
@@ -283,57 +281,111 @@
                                     /<cite title="Source Title">Program.cs</cite>
                                 </figcaption>
                             </figure>
+                            <p><a href="/Work" target="_blank">测试 /Work</a></p>
 
-                            <p>更多中间件方式请参考：<a href="https://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html" target="_blank">《在 .NET Core 2.0/3.0 中使用 MessageHandler 中间件》</a>（同样适用于 .NET 6.0 及以上）。</p>
+                            <p>更多中间件方式请参考（和公众号使用方法相同）：<a href="https://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html" target="_blank">《在 .NET Core 2.0/3.0 中使用 MessageHandler 中间件》</a>（同样适用于 .NET 6.0 及以上）。</p>
 
                             <h5>Controller 方式承载 MessageHandler</h5>
 
                             <p>当中间件的方式满足不了需求时，可以使用 Controller 将执行过程“展开”，对每一步执行进行更加精确的控制或干预。</p>
-                            <p>使用 Controller 方式，需要创建 2 个 Action，分别对应微信后台验证（Get 请求），以及真实消息推送（Post 请求）。本项目示例位于 WeixinController.cs 中。</p>
+                            <p>使用 Controller 方式，需要创建 2 个 Action，分别对应微信后台验证（Get 请求），以及真实消息推送（Post 请求）。本项目示例位于 WorkController.cs 中。</p>
                             <figure class="file">
                                 <blockquote class="blockquote">
-                                    <p>WeixinController.cs 本项目参考文件：</p>
+                                    <p>WorkController.cs 本项目参考文件：</p>
                                 </blockquote>
                                 <figcaption class="blockquote-footer">
-                                    /Controllers/ <cite title="Source Title">WeixinController.cs</cite>
+                                    /Controllers/ <cite title="Source Title">WorkController.cs</cite>
                                 </figcaption>
                             </figure>
-                            <p>完成后，即可通过Url <strong><code>域名/Weixin</code></strong> 访问 MessageHandler，设置为公众号后台的消息 URL。</p>
-                            <p><a href="/Weixin" target="_blank">测试 /Weixin</a></p>
+                            <p>完成后，即可通过Url <strong><code>域名/Work</code></strong> 访问 MessageHandler，设置为公众号后台的消息 URL。</p>
+                            <p><a href="/Work" target="_blank">测试 /Work</a></p>
 
-                            <p>更多 Controller 方式请参考：<a href="https://www.cnblogs.com/szw/p/3414862.html" target="_blank">《了解MessageHandler》</a>（推荐使用全套异步方法）</p>
+                            <p>更多 Controller 方式请参考（和公众号使用方法相同）：<a href="https://www.cnblogs.com/szw/p/3414862.html" target="_blank">《了解MessageHandler》</a>（推荐使用全套异步方法）</p>
                         </div>
-
 
                         <div class="tab-pane fade" id="nav-advanced-api" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <p>完成 <code>Program.cs</code> 文件中的常规注册后，即可在程序的任意地方使用高级接口。</p>
                             <blockquote class="blockquote">
                                 注意：<br />
                                 1、高级接口的配置和 <code>MessageHandler</code> 没有关联，两者可以独立或配合使用。<br />
-                                2、SDK 内几乎所有高级接口的第一个参数同时支持传入 AppId 或 AccessToken，通常名称为 <code>appIdOrAccessToken</code>，SDK 会根据参数特征自动识别输入的是 AppId 还是 AccessToken，并做区分处理。
+                                2、由于企业微信使用 CorpId + Secret 来定位（区别）每个应用的授权信息，因此，SDK 中将两者合并成一个唯一参数，命名为 <strong>AppKey</strong>，可通过 <code>AccessTokenContainer.BuildingKey(string corpId, string corpSecret)</code> 方法获取合成后的 <strong>AppKey</strong>。<br />
+                                3、企业微信 SDK 内几乎所有高级接口的第一个参数同时支持传入 AppKey 或 AccessToken，通常名称为 <code>accessTokenOrAppKey</code>，SDK 会根据参数特征自动识别输入的是 AppKey 还是 AccessToken，并做区分处理。
                             </blockquote>
-                            <h5>使用 AppId 调用接口（推荐）</h5>
+                            <h5>使用 AppKey 调用接口（推荐）</h5>
                             <p>例如，我们可以在任意一个方法中调用一个高级接口：</p>
                             <p>
-                                <pre><code>var appId = Senparc.Weixin.Config.SenparcWeixinSetting.AppId;
-var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(appId);//获取关注者 OpenId 信息</code></pre>
+                                <pre><code>public async Task&lt;IActionResult&gt; TryApiTryApiByAppKey()
+{
+    // 获取注册信息
+    var workWeixinSetting = Config.SenparcWeixinSetting.WorkSetting;
+    // 获取 AppKey
+    var appKey = AccessTokenContainer.BuildingKey(workWeixinSetting);
+    //发送请求
+    try
+    {
+        //发送文字提醒
+        var result = await Senparc.Weixin.Work.AdvancedAPIs.MassApi.SendTextAsync(appKey, &quot;001&quot;, &quot;这是一条来企业微信的消息&quot;);
+        return Content(&quot;OK&quot;);
+    }
+    catch (ErrorJsonResultException ex)
+    {
+        return Content($&quot;出错啦：{ex.Message}&quot;);
+    }
+}</code></pre>
                             </p>
                             <blockquote class="blockquote">
-                                appId 参数，必须是已经经过注册的，这样即使AccessToken 过期，SDK也会全自动处理。如果是未经过注册的 appId，则需要先获取 AccessToken，然后调用接口。
+                                <code>workWeixinSetting</code> 参数，必须是已经经过注册的企业微信信息（内部包括 CorpId 和 Secret），这样即使AccessToken 过期，SDK也会全自动处理。如果是未经过注册的 CorpId 和 Secret，则需要先获取 AccessToken，然后调用接口。
                             </blockquote>
+
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/ <cite title="Source Title">AdvancedApiController.cs</cite>
+                                </figcaption>
+                            </figure>
 
                             <h5>使用 AccessToken 调用接口（不推荐）</h5>
 
                             <p>
-                                <pre><code>var accessToken = Senparc.Weixin.MP.CommonApi.GetTokenAsync(appId, appSecret);//获取 AccessToken
-var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(accessToken);//获取关注者 OpenId 信息</code></pre>
+                                <pre><code>public async Task&lt;IActionResult&gt; TryApiByAccessToken()
+{
+    // 获取注册信息
+    var workWeixinSetting = Config.SenparcWeixinSetting.WorkSetting;
+    // 获取 AccessToken
+    var accessToken = await AccessTokenContainer.GetTokenAsync(workWeixinSetting.WeixinCorpId, workWeixinSetting.WeixinCorpSecret);
+    //发送请求
+    try
+    {
+        //发送文字提醒
+        var result = await Senparc.Weixin.Work.AdvancedAPIs.MassApi.SendTextAsync(accessToken, &quot;001&quot;, &quot;这是一条来企业微信的消息&quot;);
+        return Content(&quot;OK&quot;);
+    }
+    catch (ErrorJsonResultException ex)
+    {
+        return Content($&quot;出错啦：{ex.Message}&quot;);
+    }
+}</code></pre>
 
                             </p>
 
                             <blockquote class="blockquote">
                                 注意：使用 AccessToken 方式调用接口，无法保证当前 AccessToken 的有效性，因此建议使用前进行有效性校验，并使用 <code>try-catch</code> 方式捕获 AccessToken 不可用的异常，然后进行重试。因此直接使用 AccessToken 调用接口的方式并不推荐在常规情况下使用。
                             </blockquote>
+
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/ <cite title="Source Title">AdvancedApiController.cs</cite>
+                                </figcaption>
+                            </figure>
+
                         </div>
+
+
 
                         <!-- JSSDK 开始 -->
                         <div class="tab-pane fade" id="nav-jssdk" role="tabpanel" aria-labelledby="nav-profile-tab">

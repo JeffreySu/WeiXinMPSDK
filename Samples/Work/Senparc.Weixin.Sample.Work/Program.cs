@@ -17,25 +17,21 @@ var app = builder.Build();
 
 #region 启用微信配置
 
-var senparcWeixinSetting = app.Services.GetService<IOptions<SenparcWeixinSetting>>()!.Value;
-
 //启用微信配置（必须）
-var registerService = app.UseSenparcWeixin(app.Environment,
-    null /* 不为 null 则覆盖 appsettings  中的 SenpacSetting 配置*/,
-    null /* 不为 null 则覆盖 appsettings  中的 SenpacWeixinSetting 配置*/,
-    register => { /* CO2NET 全局配置 */ },
+var registerService = app.UseSenparcWeixin(app.Environment, null, null, 
+    register => { },
     (register, weixinSetting) =>
 {
-    //注册公众号信息（可以执行多次，注册多个公众号）
-    register.RegisterMpAccount(weixinSetting, "【盛派网络小助手】公众号");
+    //注册企业微信（可以执行多次，注册多个账号）
+    register.RegisterWorkAccount(weixinSetting, "【盛派网络】企业微信");
 });
 
 #region 使用 MessageHadler 中间件，用于取代创建独立的 Controller
 
-//MessageHandler 中间件介绍：https://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html
+//MessageHandler 中间件介绍（参考公众号）：https://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html
 
-//使用公众号的 MessageHandler 中间件（不再需要创建 Controller）                       --DPBMARK MP
-app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
+//使用企业微信的 MessageHandler 中间件（不再需要创建 Controller）                       --DPBMARK Work
+app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMessageHandler, options =>
 {
     options.AccountSettingFunc = context => Senparc.Weixin.Config.SenparcWeixinSetting;
 });
@@ -69,7 +65,6 @@ app.UseStaticFiles(new StaticFileOptions
 });
 #endif
 #endregion
-
 
 app.UseRouting();
 

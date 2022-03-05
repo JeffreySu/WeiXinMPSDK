@@ -158,7 +158,8 @@
                             <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-home" aria-selected="true">注册</button>
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-messagehandler" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">MessageHandler</button>
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-advanced-api" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">高级接口</button>
-                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-jssdk" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">JSSDK</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-jssdk" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">JSSDK（常规）</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-jssdk-agentconfig" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">JSSDK（agentConfig）</button>
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-oauth" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">OAuth 2.0</button>
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-menu" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">菜单设置</button>
                         </div>
@@ -294,7 +295,7 @@
                                     <p>WorkController.cs 本项目参考文件：</p>
                                 </blockquote>
                                 <figcaption class="blockquote-footer">
-                                    /Controllers/ <cite title="Source Title">WorkController.cs</cite>
+                                    /Controllers/<cite title="Source Title">WorkController.cs</cite>
                                 </figcaption>
                             </figure>
                             <p>完成后，即可通过Url <strong><code>域名/Work</code></strong> 访问 MessageHandler，设置为公众号后台的消息 URL。</p>
@@ -342,7 +343,7 @@
                                     <p>本项目参考文件：</p>
                                 </blockquote>
                                 <figcaption class="blockquote-footer">
-                                    /Controllers/ <cite title="Source Title">AdvancedApiController.cs</cite>
+                                    /Controllers/<cite title="Source Title">AdvancedApiController.cs</cite>
                                 </figcaption>
                             </figure>
 
@@ -379,7 +380,7 @@
                                     <p>本项目参考文件：</p>
                                 </blockquote>
                                 <figcaption class="blockquote-footer">
-                                    /Controllers/ <cite title="Source Title">AdvancedApiController.cs</cite>
+                                    /Controllers/<cite title="Source Title">AdvancedApiController.cs</cite>
                                 </figcaption>
                             </figure>
 
@@ -387,96 +388,217 @@
 
 
 
-                        <!-- JSSDK 开始 -->
+                        <!-- JSSDK（常规） 开始 -->
                         <div class="tab-pane fade" id="nav-jssdk" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <p>JSSDK 用于提供微信内置浏览器接口的能力，例如转发控制、调用摄像头权限（拍照、视频）、文件上传、关闭窗口、唤起扫码窗口，等等。</p>
                             <p>要在内置浏览器中只用 JSSDK，分为“服务端获取签名信息”和“网页端配置 JSSDK”两步。</p>
+                            <p>企业微信的网页端 JSSDK 配置，和公众号类似，不过多了一个名为 <code>wx.agentConfig()</code> 的配置方法。这里介绍常规的方法，<code>wx.agentConfig()</code> 配套方法请见【JSSDK（agentConfig】标签。</p>
+
                             <h5>服务端获取签名信息</h5>
                             <p>后端通过 <code>JSSDKHelper.GetJsSdkUiPackageAsync()</code> 方法即可自动获取前端所需的所有 JSSDK 运行所需参数：</p>
-                            <pre><code>public async Task<ActionResult> Index()
+                            <pre><code>public async Task&lt;ActionResult&gt; Index()
 {
-    var jssdkUiPackage = await JSSDKHelper.GetJsSdkUiPackageAsync(appId, appSecret, Request.AbsoluteUri());
-    return View(jssdkUiPackage);
+    // 当前 URL
+    var url = &quot;https://sdk.work.weixin.senparc.com/JSSDK/&quot;;
+    // 获取企业微信配置
+    var workSetting = Senparc.Weixin.Config.SenparcWeixinSetting.WorkSetting;
+    // 获取 JsApiTicket（保密信息，不可外传）
+    var jsApiTicket = await JsApiTicketContainer.GetTicketAsync(workSetting.WeixinCorpId, workSetting.WeixinCorpSecret, false);
+    // 获取 UI 打包信息
+    var jsApiUiPackage = await JSSDKHelper.GetJsApiUiPackageAsync(workSetting.WeixinCorpId, workSetting.WeixinCorpSecret, url, jsApiTicket, false);
+
+    ViewData[&quot;jsApiUiPackage&quot;] = jsApiUiPackage;
+    return View();
 }</code></pre>
                             <figure class="file">
                                 <blockquote class="blockquote">
                                     <p>本项目参考文件：</p>
                                 </blockquote>
                                 <figcaption class="blockquote-footer">
-                                    /Controllers/ <cite title="Source Title">WeixiJSSDKnController.cs</cite>
+                                    /Controllers/<cite title="Source Title">JSSDKnController.cs</cite>  - Index() 方法
                                 </figcaption>
                             </figure>
 
                             <h5>网页端配置 JSSDK</h5>
-                            <p>后端配置完成的参数，直接在前端 JS 中使用 <code>wx.config</code> 进行设置，例如以下代码将完成在转发网页时自定义转发消息的标题和图片：</p>
-                            <pre><code>wx.config({
-        debug: false, // 开启调试模式
-        appId: '@@Model.AppId', // 必填，公众号的唯一标识
-        timestamp: '@@Model.Timestamp', // 必填，生成签名的时间戳
-        nonceStr: '@@Model.NonceStr', // 必填，生成签名的随机串
-        signature: '@@Model.Signature',// 必填，签名
-        jsApiList: [
-                'checkJsApi',
-                'onMenuShareTimeline',
-                'onMenuShareAppMessage'
-        ]
-    });
+                            <p>后端配置完成的参数，直接在前端 JS 中使用 <code>wx.config</code> 进行设置，例如以下代码将完成从企业微信内转发网页到<strong>个人微信</strong>：</p>
+                            <pre><code>$(function(){
+    wx.config({
+            beta: true,// 必须这么写，否则wx.invoke调用形式的jsapi会有问题
+            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '@@jsApiUiPackage.AppId', // 必填，企业微信的corpID
+            timestamp: @@jsApiUiPackage.Timestamp, // 必填，生成签名的时间戳
+            nonceStr: '@@jsApiUiPackage.NonceStr', // 必填，生成签名的随机串
+            signature: '@@jsApiUiPackage.Signature',// 必填，签名，见 附录-JS-SDK使用权限签名算法
+            jsApiList: ['shareWechatMessage'] // 必填，需要使用的JS接口列表，凡是要调用的接口都需要传进来
+        });
 
-    wx.error(function (res) {
-        console.log(res);
-        alert('验证失败');
-    });
-
-    wx.ready(function () {
-        var url = '@(Context.Request.Scheme)://sdk.weixin.senparc.com';
-        var link = url + '@(Context.Request.PathAndQuery())';
-        var imgUrl = url + '/images/v2/ewm_01.png';
-
-        //转发到朋友圈
-        wx.onMenuShareTimeline({
-            title: 'JSSDK朋友圈转发测试',
-            link: link,
-            imgUrl: imgUrl,
-            success: function () {
-                alert('转发成功！');
-            },
-            cancel: function () {
-                alert('转发失败！');
+        wx.checkJsApi({
+            jsApiList: ['shareWechatMessage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+            success: function(res) {
+                // 以键值对的形式返回，可用的api值true，不可用为false
+                // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+                //alert("wx.config success:"+JSON.stringify(res));
             }
         });
-        //转发给朋友
-        wx.onMenuShareAppMessage({
-            title: 'JSSDK朋友圈转发测试',
-            desc: '转发给朋友',
-            link: link,
-            imgUrl: imgUrl,
-            type: 'link',
-            dataUrl: '',
-            success: function () {
-                alert('转发成功！');
-            },
-            cancel: function () {
-                alert('转发失败！');
-            }
-        });
-    });
-</code></pre>
-                            <blockquote class="blockquote">
-                                提示：在 MVC 中传递 ViewModel 需要在 .cshtml 文件顶部定义：
-                                <pre><code>@@model Senparc.Weixin.MP.Helpers.JsSdkUiPackage</code></pre>
-                            </blockquote>
+});
+
+wx.ready(function(){
+    // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+});
+
+wx.error(function(res){
+    // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+    console.log(res);
+    alert(res);
+}
+
+function invoke(){
+    wx.invoke(
+    "shareWechatMessage", {
+            title: '企业微信JSSDK 演示-转发', // 分享标题
+            desc: '来自 Senparc.Weixin.Work', // 分享描述
+            link: 'https://sdk.work.weixin.senparc.com/JSSDK', // 分享链接
+            imgUrl: '' // 分享封面
+    }, function(res) {
+    if (res.err_msg == "shareWechatMessage:ok") {
+        }
+        }
+    );
+}</code></pre>
+                            <p>HTML 页面进行触发：<code>&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;invoke()&quot;&gt;转发到微信&lt;/a&gt;</code></p>
                             <figure class="file">
                                 <blockquote class="blockquote">
                                     <p>本项目参考文件：</p>
                                 </blockquote>
                                 <figcaption class="blockquote-footer">
-                                    /Views/WeixinJSSDK/ <cite title="Source Title">Index.cshtml</cite>
+                                    /Views/JSSDK/<cite title="Source Title">Index.cshtml</cite>
                                 </figcaption>
                             </figure>
-                            <p>更多设置详情请参考：<a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html" target="_blank">JS-SDK说明文档</a>。</p>
-                            <!-- JSSDK 结束 -->
-                        </div>
 
+
+                            <p>更多设置详情请参考：<a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html" target="_blank">JS-SDK说明文档</a>。</p>
+                        </div>
+                        <!-- JSSDK（常规） 结束 -->
+                        <!-- JSSDK（agentConfig） 开始 -->
+                        <div class="tab-pane fade" id="nav-jssdk-agentconfig" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p><code>wx.agentConfig()</code> 用于某些特定的接口（如审批流接口、剪切板接口等），但一般前提都需要先使用到常规的 JSSDK（参考【JSSDK（常规）】标签），因此这是一个增加项。</p>
+                            <p><code>wx.agentConfig()</code> 同样分为服务器端和客户端两部分。</p>
+                            <h5>服务端获取签名信息</h5>
+                            <p>后端除了后端通过 <code>JSSDKHelper.GetJsSdkUiPackageAsync()</code> 方法获取常规 JSSDK 运行所需参数以外，还需要使用同一个方法，传入不同参数来获取 <code>agetntConfig</code> 的对应参数：</p>
+                            <pre><code>public async Task&lt;ActionResult&gt; AgentConfig()
+{
+    //此处演示同时支持多个应用的注册，请参考 appsettings.json 文件
+    var workSetting = Senparc.Weixin.Config.SenparcWeixinSetting[&quot;企业微信审批&quot;] as ISenparcWeixinSettingForWork;
+    var url = &quot;https://sdk.weixin.senparc.com/Work/Approval&quot;;
+
+    //获取 UI 信息包
+
+    /* 注意：
+    * 所有应用中，jsApiUiPackage 是必备的
+    */
+    var jsApiTicket = await JsApiTicketContainer.GetTicketAsync(workSetting.WeixinCorpId, workSetting.WeixinCorpSecret, false);
+    var jsApiUiPackage = await JSSDKHelper.GetJsApiUiPackageAsync(workSetting.WeixinCorpId, workSetting.WeixinCorpSecret, url, jsApiTicket, false);
+    ViewData[&quot;jsApiUiPackage&quot;] = jsApiUiPackage;
+
+    /* 注意：
+    * 1、这里需要使用 WeixinCorpAgentId，而不是 CorpId
+    * 2、agentJsApiUiPackage 是否需要提供，请参考官方文档，此处演示了最复杂的情况
+    */
+    ViewData[&quot;thirdNo&quot;] = DateTime.Now.Ticks + Guid.NewGuid().ToString(&quot;n&quot;);
+    ViewData[&quot;corpId&quot;] = workSetting.WeixinCorpId;
+    ViewData[&quot;agentId&quot;] = workSetting.WeixinCorpAgentId;
+    var agentConfigJsApiTicket = await JsApiTicketContainer.GetTicketAsync(workSetting.WeixinCorpId, workSetting.WeixinCorpSecret, true);
+    var agentJsApiUiPackage = await JSSDKHelper.GetJsApiUiPackageAsync(workSetting.WeixinCorpId, workSetting.WeixinCorpSecret, url, agentConfigJsApiTicket, true);
+    ViewData[&quot;agentJsApiUiPackage&quot;] = agentJsApiUiPackage;
+
+    return View();
+}</code></pre>
+<blockquote class="blockquote">
+    注意：上述方法中，使用了 <code>Senparc.Weixin.Config.SenparcWeixinSetting["企业微信审批"]</code> 来获取与之前不同的微信配置，请参考本项目中 <code>appsetting.json</code> 文件中的设置方法：
+    <pre><code>"Items": {
+  //添加多个企业微信应用
+  "企业微信审批": {
+    "WeixinCorpId": "#{WeixinCorpId2}#",
+    "WeixinCorpAgentId": "#{WeixinCorpAgentId2}#",
+    "WeixinCorpSecret": "#{WeixinCorpSecret2}#",
+    "WeixinCorpToken": "#{WeixinCorpToken2}#",
+    "WeixinCorpEncodingAESKey": "#{WeixinCorpEncodingAESKey2}#"
+  }</code></pre>
+  此方法对所有其他模块也通用（如公众号、小程序、微信支付等）。
+</blockquote>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">JSSDKnController.cs</cite>  - AgentConfig() 方法
+                                </figcaption>
+                                <figcaption class="blockquote-footer">
+                                    /<cite title="Source Title">appsettings.json</cite>
+                                </figcaption>
+                            </figure>
+
+                            <h5>网页端配置 JSSDK</h5>
+                            <p>网页端除了进行常规的 JSSDK 配置以外，还需要在执行特定的 JsApi 方法之前，添加 <code>wx.agentConfig()</code> 的配置：</p>
+                            <pre><code>function invoke(){
+    wx.agentConfig({
+        corpid: '@@ViewData["corpId"]', // 必填，企业微信的corpid，必须与当前登录的企业一致
+        agentid: '@@ViewData["agentId"]', // 必填，企业微信的应用id （e.g. 1000247）
+        timestamp: @@agentJsApiUiPackage.Timestamp, // 必填，生成签名的时间戳
+        nonceStr: '@@agentJsApiUiPackage.NonceStr', // 必填，生成签名的随机串
+        signature: '@@agentJsApiUiPackage.Signature',// 必填，签名，见附录-JS-SDK使用权限签名算法
+        jsApiList: ['thirdPartyOpenPage'], //必填，传入需要使用的接口名称
+        success: function(res) {
+
+            // 回调
+            wx.invoke('thirdPartyOpenPage', {
+                "oaType": "10001",// String
+                //"templateId": "C4NxepvGj51gbkeGXHQgYRArW96WrxRinNfyCxo7N",//SYS
+                "templateId":"247bcb886d0374a0a1f749c52794ba1a_622421053",// Open
+                "thirdNo": "@ViewData["thirdNo"]",// String
+                "extData": {
+                    'fieldList': [{
+                        'title': '审批类型',
+                        'type': 'text',
+                        'value': '文章审批',
+                    },
+                    {
+                        'title': '预览',
+                        'type': 'link',
+                        'value': 'https://weixin.senparc.com',
+                    }],
+                }
+            },
+            function(res) {
+                // 输出接口的回调信息
+                console.log(res);
+                alert('wx.invoke result:'+JSON.stringify(res));
+            });
+        },
+        fail: function(res) {
+            if(res.errMsg.indexOf('function not exist') > -1){
+                alert('版本过低请升级')
+            }
+            else{
+                alert('wx.invoke fail:'+JSON.stringify(res));
+            }
+        }
+    });
+}</code></pre>
+
+                            <p>HTML 页面进行触发：<code>&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;invoke()&quot;&gt;点击唤起审批流程&lt;/a&gt;</code></p>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Views/JSSDK/<cite title="Source Title">Index.cshtml</cite>
+                                </figcaption>
+                            </figure>
+
+
+                        </div>
+                        <!-- JSSDK（agentConfig） 结束 -->
                         <!-- OAuth 2.0 开始 -->
                         <div class="tab-pane fade" id="nav-oauth" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <p>当你需要在网页上获取用户的 OpenId、头像、昵称等信息的时候，就需要使用 OAuth 2.0 的方式和微信服务器通讯。</p>
@@ -511,7 +633,7 @@
                                     <p>本项目参考文件：</p>
                                 </blockquote>
                                 <figcaption class="blockquote-footer">
-                                    /Controllers/ <cite title="Source Title">OAuth2Controller.cs</cite>
+                                    /Controllers/<cite title="Source Title">OAuth2Controller.cs</cite>
                                 </figcaption>
                             </figure>
 
@@ -528,7 +650,7 @@
                                     <p>本项目参考文件：</p>
                                 </blockquote>
                                 <figcaption class="blockquote-footer">
-                                    /Views/OAuth2/ <cite title="Source Title">Index.cshtml</cite>
+                                    /Views/OAuth2/<cite title="Source Title">Index.cshtml</cite>
                                 </figcaption>
                             </figure>
 
@@ -585,7 +707,7 @@
                                     <p>本项目参考文件：</p>
                                 </blockquote>
                                 <figcaption class="blockquote-footer">
-                                    /Controllers/ <cite title="Source Title">OAuth2Controller.cs</cite>
+                                    /Controllers/<cite title="Source Title">OAuth2Controller.cs</cite>
                                 </figcaption>
                             </figure>
 
@@ -654,7 +776,7 @@
                                     <p>本项目参考文件：</p>
                                 </blockquote>
                                 <figcaption class="blockquote-footer">
-                                    /MessageHandlers/ <cite title="Source Title">CustomMessageHandler_Events.cs</cite>
+                                    /MessageHandlers/<cite title="Source Title">CustomMessageHandler_Events.cs</cite>
                                 </figcaption>
                             </figure>
                         </div>

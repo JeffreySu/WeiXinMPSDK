@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>3.14.9</Version>
+    <Version>3.14.10-beta1</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -173,8 +173,10 @@
 			v3.14.3 修正“批量获取客户详情”接口传入参数
 			v3.14.6 添加“审批申请状态变化回调通知”接口
 			v3.14.7 添加“自建应用&gt;审批流程引擎”接口及 Sample
-			v3.14.8 为 JsApiTicket 提供 IsAgentConfig 参数
-</PackageReleaseNotes>
+		v3.14.8 为 JsApiTicket 提供 IsAgentConfig 参数
+		v3.14.10 添加异步方法
+		v3.14.11 优化OAuth相关接口
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>
   </PropertyGroup>

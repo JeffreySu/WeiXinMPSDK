@@ -25,26 +25,26 @@ namespace Senparc.Weixin.Sample.MP.Controllers
         private readonly string appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
         /// <summary>
-        /// 
+        /// 登录入口
         /// </summary>
         /// <param name="returnUrl">用户尝试进入的需要登录的页面</param>
         /// <returns></returns>
-public ActionResult Index(string returnUrl)
-{
-    ViewData["returnUrl"] = returnUrl;
+        public ActionResult Index(string returnUrl)
+        {
+            ViewData["returnUrl"] = returnUrl;
 
-    //此页面引导用户点击授权
-    ViewData["UrlUserInfo"] =
-        OAuthApi.GetAuthorizeUrl(appId,
-        "http://sdk.weixin.senparc.com/oauth2/UserInfoCallback?returnUrl=" + returnUrl.UrlEncode(),
-        null, OAuthScope.snsapi_userinfo);//snsapi_userinfo方式回调地址
+            //此页面引导用户点击授权
+            ViewData["UrlUserInfo"] =
+                OAuthApi.GetAuthorizeUrl(appId,
+                "http://sdk.weixin.senparc.com/oauth2/UserInfoCallback?returnUrl=" + returnUrl.UrlEncode(),
+                null, OAuthScope.snsapi_userinfo);//snsapi_userinfo方式回调地址
 
-    ViewData["UrlBase"] =
-        OAuthApi.GetAuthorizeUrl(appId,
-        "http://sdk.weixin.senparc.com/oauth2/BaseCallback?returnUrl=" + returnUrl.UrlEncode(),
-        null, OAuthScope.snsapi_base);//snsapi_base方式回调地址
-    return View();
-}
+            ViewData["UrlBase"] =
+                OAuthApi.GetAuthorizeUrl(appId,
+                "http://sdk.weixin.senparc.com/oauth2/BaseCallback?returnUrl=" + returnUrl.UrlEncode(),
+                null, OAuthScope.snsapi_base);//snsapi_base方式回调地址
+            return View();
+        }
 
         /// <summary>
         /// OAuthScope.snsapi_userinfo方式回调

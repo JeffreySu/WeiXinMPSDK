@@ -6,3 +6,4 @@ global using Senparc.Weixin.RegisterServices;
 global using Senparc.Weixin.Sample.MP;
 global using Microsoft.Extensions.Options;
 global using Senparc.Weixin.Entities;
+global using Microsoft.Extensions.FileProviders;

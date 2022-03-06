@@ -109,7 +109,7 @@ namespace Senparc.Weixin.TenPayV3
                 TenPayHttpHandler httpHandler = new(_tenpayV3Setting);
 
                 //创建 HttpClient
-                HttpClient client = new HttpClient(httpHandler);
+                HttpClient client = new HttpClient(httpHandler);//TODO: 有资源消耗和效率问题
                 //设置超时时间
                 client.Timeout = TimeSpan.FromMilliseconds(timeOut);
 

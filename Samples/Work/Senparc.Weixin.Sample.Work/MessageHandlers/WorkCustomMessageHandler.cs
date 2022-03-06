@@ -60,11 +60,20 @@ namespace Senparc.Weixin.Sample.Work.MessageHandlers
             return responseMessage;
         }
 
-        public override IWorkResponseMessageBase OnEvent_PicPhotoOrAlbumRequest(RequestMessageEvent_Pic_Photo_Or_Album requestMessage)
+        public override IWorkResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
         {
-            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
-            responseMessage.Content = "您刚发送的图片如下：";
-            return responseMessage;
+            var reponseMessage = CreateResponseMessage<ResponseMessageText>();
+
+            if (requestMessage.EventKey == "SubClickRoot_Text")
+            {
+                reponseMessage.Content = "您点击了【返回文本】按钮";
+            }
+            else
+            {
+                reponseMessage.Content = "您点击了其他事件按钮";
+            }
+
+            return reponseMessage;
         }
 
         public override IWorkResponseMessageBase OnEvent_LocationRequest(RequestMessageEvent_Location requestMessage)

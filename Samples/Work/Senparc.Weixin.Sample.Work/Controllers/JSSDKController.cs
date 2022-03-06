@@ -45,7 +45,7 @@ public async Task<ActionResult> AgentConfig()
     ViewData["jsApiUiPackage"] = jsApiUiPackage;
 
     /* 注意：
-        * 1、这里需要使用 WeixinCorpAgentId，而不是 CorpId
+        * 1、这里需要使用 WeixinCorpAgentId，而不是 WeixinCorpId
         * 2、agentJsApiUiPackage 是否需要提供，请参考官方文档，此处演示了最复杂的情况
         */
     ViewData["thirdNo"] = DateTime.Now.Ticks + Guid.NewGuid().ToString("n");

@@ -9,11 +9,15 @@
     <Import_RootNamespace>Senparc.Weixin.Sample.MP</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Views\Shared\_SideTopNote.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="$(MSBuildThisFileDirectory)Views\Shared\_SourceCode.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="$(MSBuildThisFileDirectory)Views\Shared\_SideNote.cshtml">
+    <Content Include="$(MSBuildThisFileDirectory)Views\Shared\_SideBottomNote.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
@@ -42,9 +46,7 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="$(MSBuildThisFileDirectory)wwwroot\images\banner\chicago.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)wwwroot\images\banner\la.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)wwwroot\images\banner\ny.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\images\banner\01.jpg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\js\site.js" />

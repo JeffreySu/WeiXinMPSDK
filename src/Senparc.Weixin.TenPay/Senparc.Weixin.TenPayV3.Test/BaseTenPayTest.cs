@@ -53,7 +53,7 @@ namespace Senparc.Weixin.TenPayV3.Test
 
             //×¢²áÎ¢ÐÅ
             //var senparcWeixinSetting = new SenparcWeixinSetting(true);
-            register.UseSenparcWeixin(_senparcWeixinSetting, senparcSetting).RegisterTenpayRealV3(_senparcWeixinSetting, "Î¢ÐÅ V3");
+            register.UseSenparcWeixin(_senparcWeixinSetting, senparcSetting).RegisterTenpayApiV3(_senparcWeixinSetting, "Î¢ÐÅ V3");
             register.ChangeDefaultCacheNamespace("Senparc.Weixin Test Cache");
         }
 

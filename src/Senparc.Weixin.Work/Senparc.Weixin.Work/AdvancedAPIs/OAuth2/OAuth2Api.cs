@@ -56,7 +56,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="state">重定向后会带上state参数，企业可以填写a-zA-Z0-9的参数值</param>
         /// <param name="agentId">企业应用的id。当scope是snsapi_userinfo或snsapi_privateinfo时，该参数必填。注意redirect_uri的域名必须与该应用的可信域名一致。</param>
         /// <param name="responseType">返回类型，此时固定为：code</param>
-        /// <param name="scope">应用授权作用域，此时固定为：snsapi_base</param>
+        /// <param name="scope">应用授权作用域。企业自建应用固定填写：snsapi_base</param>
         /// #wechat_redirect 微信终端使用此参数判断是否需要带上身份信息
         /// 员工点击后，页面将跳转至 redirect_uri/?code=CODE&state=STATE，企业可根据code参数获得员工的userid。
         /// <returns></returns>

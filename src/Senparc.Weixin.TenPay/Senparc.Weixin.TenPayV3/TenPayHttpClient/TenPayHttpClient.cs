@@ -2,6 +2,7 @@
 using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.CO2NET.Trace;
 using Senparc.Weixin;
 using Senparc.Weixin.Entities;
@@ -22,15 +23,19 @@ namespace Senparc.Weixin.TenPayV3.TenPayHttpClient
 
     public class BasePayApis2
     {
+        private readonly SenparcHttpClient _httpClient;
         private ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting;
+        private readonly CertType _certType;
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="senparcWeixinSettingForTenpayV3"></param>
-        public BasePayApis2(ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null)
+        public BasePayApis2(SenparcHttpClient httpClient, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null, CertType certType = CertType.RSA)
         {
+            this._httpClient = httpClient;
             _tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
+            this._certType = certType;
         }
 
         /// <summary>
@@ -56,22 +61,27 @@ namespace Senparc.Weixin.TenPayV3.TenPayHttpClient
             var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/pay/transactions/jsapi");
 
             HttpClient hc = null;//注入
-            TenPayHttpClient tenPayApiRequest = new(hc, _tenpayV3Setting);
+            TenPayHttpClient tenPayApiRequest = new(_httpClient, _tenpayV3Setting);
             return await tenPayApiRequest.SendAsync<JsApiReturnJson>(url, data, timeOut);
         }
     }
 
     public class TenPayHttpClient
     {
+        private readonly SenparcHttpClient _httpClient;
         private ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting;
         private readonly HttpClient _client;
         private readonly ISigner _signer;
         private readonly IVerifier _verifier;
 
-        public TenPayHttpClient(HttpClient client, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null)
+        public TenPayHttpClient(SenparcHttpClient httpClient, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null, CertType certType = CertType.RSA)
         {
-            _client = client;
+            this._httpClient = httpClient;
             _tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
+
+            //从工厂获得签名和验签的方法类
+            _signer = TenPayCertFactory.GetSigner(certType);
+            _verifier = TenPayCertFactory.GetVerifier(certType);
 
             #region 配置UA
 

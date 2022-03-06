@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
-		<Version>0.5.6</Version>
+		<Version>0.5.7-beta1</Version>
 		<AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
 		<RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
 		<LangVersion>10.0</LangVersion>
@@ -29,6 +29,7 @@
 			v0.3.500.4 完成商家券接口、委托营销接口、消费卡接口、支付有礼接口
 			v0.5.1 修复PayV3营销工具商户券API
 			v0.5.6 使用 Senparc.Weixin.Config.TenPayV3Host 提供可配置的 API 域名
+			v0.5.7 升级微信支付请求的方法，支持多种加密方式
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 	</PropertyGroup>

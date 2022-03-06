@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Senparc.Weixin.TenPayV3.TenPayHttpClient.Verifier
 {
-    internal interface IVerifier
+    public interface IVerifier
     {
         bool Verify(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignatureBase64, string content, string pubKey); // 验证签名
     }

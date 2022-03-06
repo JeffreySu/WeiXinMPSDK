@@ -6,6 +6,7 @@ using Senparc.CO2NET.Trace;
 using Senparc.Weixin;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.TenPayV3;
+using Senparc.Weixin.TenPayV3.Apis.BasePay;
 using Senparc.Weixin.TenPayV3.Apis.Entities;
 using Senparc.Weixin.TenPayV3.TenPayHttpClient.Verifier;
 using System;
@@ -18,6 +19,48 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.TenPayHttpClient
 {
+
+    public class BasePayApis2
+    {
+        private ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting;
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="senparcWeixinSettingForTenpayV3"></param>
+        public BasePayApis2(ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null)
+        {
+            _tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
+        }
+
+        /// <summary>
+        /// 返回可用的微信支付地址（自动判断是否使用沙箱）
+        /// </summary>
+        /// <param name="urlFormat">如：<code>https://api.mch.weixin.qq.com/{0}pay/unifiedorder</code></param>
+        /// <returns></returns>
+        private static string ReurnPayApiUrl(string urlFormat)
+        {
+            //注意：目前微信支付 V3 还没有支持沙箱，此处只是预留
+            return string.Format(urlFormat, Senparc.Weixin.Config.UseSandBoxPay ? "sandboxnew/" : "");
+        }
+
+        /// <summary>
+        /// JSAPI下单接口
+        /// <para>在微信支付服务后台生成JSAPI预支付交易单，返回预支付交易会话标识</para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms </param>
+        /// <returns></returns>
+        public async Task<JsApiReturnJson> JsApiAsync(TransactionsRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/pay/transactions/jsapi");
+
+            HttpClient hc = null;//注入
+            TenPayHttpClient tenPayApiRequest = new(hc, _tenpayV3Setting);
+            return await tenPayApiRequest.SendAsync<JsApiReturnJson>(url, data, timeOut);
+        }
+    }
+
     public class TenPayHttpClient
     {
         private ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting;

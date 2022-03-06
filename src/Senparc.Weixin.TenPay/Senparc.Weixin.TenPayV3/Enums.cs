@@ -55,4 +55,13 @@ namespace Senparc.Weixin.TenPayV3
         PATCH,
         DELETE
     }
+
+    /// <summary>
+    /// 支付请求签名算法类型
+    /// </summary>
+    public enum CertType
+    {
+        RSA,
+        SM
+    }
 }

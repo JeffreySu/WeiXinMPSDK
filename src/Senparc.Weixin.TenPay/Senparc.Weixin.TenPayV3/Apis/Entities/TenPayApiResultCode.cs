@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Senparc.Weixin.TenPayV3.TenPayApiRequest;
 
-namespace Senparc.Weixin.TenPayV3.TenPayHttpClient.TenPayV3
+namespace Senparc.Weixin.TenPayV3.Apis.Entities
 {
     /// <summary>
     /// 微信支付 API 请求返回 HTTP 状态代码

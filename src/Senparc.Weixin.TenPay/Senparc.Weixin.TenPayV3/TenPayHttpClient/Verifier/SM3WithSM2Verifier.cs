@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Senparc.Weixin.TenPayV3.TenPayHttpClient.Verifier
 {
-    public class SHA256WithRSAVerifier : IVerifier
+    public class SM3WithSM2Verifier : IVerifier
     {
         public bool Verify(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignatureBase64, string content, string pubKey)
         {
@@ -23,8 +23,8 @@ namespace Senparc.Weixin.TenPayV3.TenPayHttpClient.Verifier
 
             //RSAPKCS1SignatureDeformatter 对象
             RSAPKCS1SignatureDeformatter df = new RSAPKCS1SignatureDeformatter(key);
-            //指定 SHA256
-            df.SetHashAlgorithm("SHA256");
+            //指定 SM3        TODO：需要从文档确定
+            df.SetHashAlgorithm("SM3");
             //SHA256Managed 方法已弃用，使用 SHA256.Create() 生成 SHA256 对象
             var sha256 = SHA256.Create();
             //应答签名

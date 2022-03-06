@@ -273,7 +273,7 @@ namespace Senparc.Weixin.Sample.Net6
                              * 添加对应证书。
                              */
 
-                            .RegisterTenpayRealV3(senparcWeixinSetting.Value, "【盛派网络小助手】公众号-RealV3")//注册最新的 TenPay V3
+                            .RegisterTenpayApiV3(senparcWeixinSetting.Value, "【盛派网络小助手】公众号-RealV3")//注册最新的 TenPay V3
 
                     #endregion                          // DPBMARK_END
 

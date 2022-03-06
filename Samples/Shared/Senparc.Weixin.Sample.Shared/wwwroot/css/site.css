@@ -18,6 +18,11 @@ body {
     margin-bottom: 60px;
 }
 
+img#top-logo {
+    height: 40px;
+    margin-right: 40px;
+}
+
 .sdk-doc {
     position: relative
 }
@@ -35,7 +40,6 @@ body {
     }
 
 #top-title {
-
 }
 
 .carousel p {

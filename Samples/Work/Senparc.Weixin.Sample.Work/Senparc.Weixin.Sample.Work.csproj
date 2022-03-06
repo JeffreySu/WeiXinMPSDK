@@ -22,6 +22,12 @@
 
 	<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
 	<Import Project="..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems" Label="Shared" />
+	<ItemGroup>
+	  <None Remove="Views\Shared\_Layout.cshtml.css" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Include="Views\Shared\_Layout.cshtml.css" />
+	</ItemGroup>
 
 	<ItemGroup>
 <ProjectReference Include="..\..\..\src\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.net6.csproj" />

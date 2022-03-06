@@ -1,4 +1,4 @@
-﻿html {
+html {
     font-size: 14px;
 }
 
@@ -21,6 +21,10 @@ body {
 img#top-logo {
     height: 40px;
     margin-right: 40px;
+}
+
+.sdk-doc .no-text-indent {
+    text-indent: 0em;
 }
 
 .sdk-doc {

@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.Sample.MP.Controllers
+namespace Senparc.Weixin.Sample.WxOpen.Controllers
 {
     public class BaseController : Controller
     {
@@ -20,15 +20,15 @@ namespace Senparc.Weixin.Sample.MP.Controllers
         {
             get
             {
-                return Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
+                return Config.SenparcWeixinSetting.WxOpenAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
             }
         }
 
-        protected static ISenparcWeixinSettingForMP MpSetting
+        protected static ISenparcWeixinSettingForWxOpen WxOpenSetting
         {
             get
             {
-                return Config.SenparcWeixinSetting.MpSetting;
+                return Config.SenparcWeixinSetting.WxOpenSetting;
             }
         }
     }

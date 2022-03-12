@@ -2,7 +2,7 @@
 using Senparc.Weixin.Sample.Models;
 using System.Diagnostics;
 
-namespace Senparc.Weixin.Sample.Work.Controllers
+namespace Senparc.Weixin.Sample.WxOpen.Controllers
 {
     public class HomeController : BaseController
     {
@@ -17,7 +17,6 @@ namespace Senparc.Weixin.Sample.Work.Controllers
         {
             return View();
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

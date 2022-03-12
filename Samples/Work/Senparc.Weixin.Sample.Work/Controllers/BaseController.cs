@@ -32,11 +32,5 @@ namespace Senparc.Weixin.Sample.Work.Controllers
             }
         }
 
-        public override void OnActionExecuting(ActionExecutingContext context)
-        {
-            //给模板页 footer 输出使用，根据实际需要配置
-            ViewData["CacheType"] = CO2NET.Cache.CacheStrategyFactory.GetObjectCacheStrategyInstance().GetType().Name;
-            base.OnActionExecuting(context);
-        }
     }
 }

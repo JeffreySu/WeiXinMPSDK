@@ -42,6 +42,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20220217
     修改描述：v3.14.9 增加微信小程序生成无限制二维码的参数
 
+    修改标识：Senparc - 20220313
+    修改描述：v3.14.10.1 修复 WxAppApi.GetWxaCodeUnlimitAsync() 接口参数错误
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -915,7 +918,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 {
                     scene = scene,
                     page = page,
-                    heck_path = check_path,
+                    check_path = check_path,
                     env_version = env_version,
                     width = width,
                     line_color = lineColor,

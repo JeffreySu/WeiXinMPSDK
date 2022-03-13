@@ -44,6 +44,7 @@ using Senparc.Weixin.Sample.Net6.Filters;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.Sample.CommonService.TemplateMessage;
 using Senparc.Weixin.Sample.CommonService.Utilities;
+using Senparc.CO2NET.HttpUtility;
 //DPBMARK_END
 
 namespace Senparc.Weixin.Sample.Net6.Controllers
@@ -73,6 +74,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         private readonly ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting;
 
         private readonly BasePayApis _basePayApis;
+        private readonly SenparcHttpClient _httpClient;
 
         /// <summary>
         /// trade_no 和 transaction_id 对照表
@@ -81,10 +83,11 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         public static ConcurrentDictionary<string, string> TradeNumberToTransactionId = new ConcurrentDictionary<string, string>();
 
 
-        public TenPayRealV3Controller()
+        public TenPayRealV3Controller(SenparcHttpClient httpClient)
         {
             _tenpayV3Setting = Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
             _basePayApis = new BasePayApis(_tenpayV3Setting);
+            this._httpClient = httpClient;
         }
 
         /// <summary>
@@ -297,7 +300,8 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 TransactionsRequestData jsApiRequestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name + " - 微信支付 V3", sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1), false), null, notifyUrl, null, new() { currency = "CNY", total = price }, new(openId), null, null, null);
 
                 //请求接口
-                var result = await _basePayApis.JsApiAsync(jsApiRequestData);
+                var basePayApis2 = new TenPayV3.TenPayHttpClient.BasePayApis2(_httpClient, _tenpayV3Setting);
+                var result = await basePayApis2.JsApiAsync(jsApiRequestData);
 
                 if (result.VerifySignSuccess != true)
                 {

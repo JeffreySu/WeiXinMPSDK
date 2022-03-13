@@ -204,7 +204,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
         #endregion
 
-
         #region 异步方法
 
         /// <summary>

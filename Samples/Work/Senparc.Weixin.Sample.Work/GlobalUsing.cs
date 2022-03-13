@@ -1,0 +1,10 @@
+﻿global using Senparc.NeuChar.MessageHandlers;
+global using Senparc.Weixin.AspNet;
+global using Senparc.Weixin.Work;
+global using Senparc.Weixin.Work.MessageHandlers.Middleware;
+global using Senparc.Weixin.RegisterServices;
+global using Senparc.Weixin.Sample.Work;
+global using Microsoft.Extensions.Options;
+global using Senparc.Weixin.Entities;
+global using Senparc.Weixin.Sample.Work.MessageHandlers;
+global using Microsoft.Extensions.FileProviders;

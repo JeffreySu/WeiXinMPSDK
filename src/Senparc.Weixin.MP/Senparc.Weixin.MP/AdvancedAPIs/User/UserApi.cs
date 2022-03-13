@@ -240,7 +240,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 【异步方法】获取关注者OpenId信息
+        /// 【异步方法】获取关注者 OpenId 信息
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="nextOpenId"></param>

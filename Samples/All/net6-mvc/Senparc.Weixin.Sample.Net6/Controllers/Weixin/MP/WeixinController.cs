@@ -37,6 +37,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
     using Senparc.CO2NET.HttpUtility;
     using Senparc.CO2NET.Utilities;
     using Senparc.NeuChar.MessageHandlers;
+    using Senparc.Weixin.AspNet.MvcExtension;
     using Senparc.Weixin.Entities;
     using Senparc.Weixin.HttpUtility;
     using Senparc.Weixin.MP;

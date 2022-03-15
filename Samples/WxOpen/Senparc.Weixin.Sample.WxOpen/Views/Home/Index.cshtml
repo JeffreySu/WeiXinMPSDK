@@ -316,23 +316,31 @@
                             <h5>使用 AppId 调用接口（推荐）</h5>
                             <p>例如，我们可以在任意一个方法中调用一个高级接口：</p>
                             <p>
-                                <pre><code>var appId = Senparc.Weixin.Config.SenparcWeixinSetting.AppId;
-var result = await Senparc.Weixin.WxOpen.AdvancedAPIs.UserApi.GetAsync(appId);//获取关注者 OpenId 信息</code></pre>
+                                <pre><code>using Senparc.Weixin.WxOpen.AdvancedAPIs;
+                                    
+var appId = Senparc.Weixin.Config.SenparcWeixinSetting.WxOpenAppId;
+var openId = "xxx";
+var content = "这是一条客服消息";
+var result = await CustomApi.SendTextAsync(appId, openId, content);//发送客服消息</code></pre>
                             </p>
                             <blockquote class="blockquote">
-                                appId 参数，必须是已经经过注册的，这样即使AccessToken 过期，SDK也会全自动处理。如果是未经过注册的 appId，则需要先获取 AccessToken，然后调用接口。
+                                appId 参数，必须是已经经过注册的，这样即使 AccessToken 过期，SDK也会全自动处理。如果是未经过注册的 appId，则需要先获取 AccessToken，然后调用接口。
                             </blockquote>
 
                             <h5>使用 AccessToken 调用接口（不推荐）</h5>
 
                             <p>
-                                <pre><code>var accessToken = Senparc.Weixin.WxOpen.CommonApi.GetTokenAsync(appId, appSecret);//获取 AccessToken
-var result = await Senparc.Weixin.WxOpen.AdvancedAPIs.UserApi.GetAsync(accessToken);//获取关注者 OpenId 信息</code></pre>
+                                <pre><code>var accessToken = Senparc.Weixin.MP.CommonApi.GetTokenAsync(appId, appSecret);//获取 AccessToken
+var openId = "xxx";
+var content = "这是一条客服消息";
+var result = await CustomApi.SendTextAsync(accessToken, openId, content);//发送客服消息</code></pre>
 
                             </p>
 
                             <blockquote class="blockquote">
-                                注意：使用 AccessToken 方式调用接口，无法保证当前 AccessToken 的有效性，因此建议使用前进行有效性校验，并使用 <code>try-catch</code> 方式捕获 AccessToken 不可用的异常，然后进行重试。因此直接使用 AccessToken 调用接口的方式并不推荐在常规情况下使用。
+                                注意：<br />
+                                1、使用 AccessToken 方式调用接口，无法保证当前 AccessToken 的有效性，因此建议使用前进行有效性校验，并使用 <code>try-catch</code> 方式捕获 AccessToken 不可用的异常，然后进行重试。因此直接使用 AccessToken 调用接口的方式并不推荐在常规情况下使用。<br />
+                                2、小程序和公众号使用相同的 AccessToken 获取接口，因此，此处调用了 <code>Senparc.Weixin.MP</code> 类库中公众号的相同方法。因为 <code>Senparc.Weixin.WxOpen</code> 模块默认已经依赖了 <code>Senparc.Weixin.MP</code>，所以不必再手动安装 MP 模块。
                             </blockquote>
                         </div>
 

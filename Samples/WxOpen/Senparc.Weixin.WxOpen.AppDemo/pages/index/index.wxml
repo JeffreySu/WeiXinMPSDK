@@ -1,0 +1,130 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+  <block class="auth-notice" wx:if="{{!hasUserInfo && canIUse}}">
+        <button bindtap="getUserInfo"> 获取头像昵称 </button>
+       <view class="line"></view>
+  </block>
+  <block wx:else>
+    <view  bindtap="bindViewTap" class="userinfo">
+    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </view>
+  </block>
+  <view class="usermotto">
+      <text class="user-motto">{{motto}}</text>
+    </view>
+    
+    <!-- 时间 -->
+    <view id="clientTime">
+    <text>{{time}}</text>
+    </view>
+
+    
+    <!-- WebSocket -->
+    <view id="websocket_buttons">
+    <button type="devalut" bindtap="bindWebsocketTap">
+    WebSocket
+    </button>
+    </view>
+    <!-- 进入客服 -->
+    <view class="btn-contact">
+        <button 
+          size="20"
+          session-from="Senparc.Weixin" 
+          open-type='contact'
+          class='service-btn'
+          send-message-title='《微信开发深度解析》（自定义标题）'
+          send-message-path='../websocket_signalr/websocket_signalr'
+          send-message-img='../../images/Senparc.Weixin.SDK.jpg'
+          show-message-card='true'
+          >进入客服</button>
+    </view>
+
+    <view class="flex-wrp" style="flex-direction:row;">
+      <!-- 请求数据 -->
+      <view class="flex-item">
+        <button type="primary" bindtap="doRequest" 
+        hover-class="other-button-hover" class="btn-DoRequest">
+        获取数据
+        </button>
+      </view>
+      <view class="flex-item">
+        <!-- 一次性订阅消息 -->
+        <button bindtap='subscribeMessage' type="primary"
+        class="btn-DoRequest" hover-class="other-button-hover" >订阅消息</button>
+      </view>
+    </view>
+
+    
+    <view class="flex-wrp" style="flex-direction:row;">
+      <view class="flex-item">
+        <!-- 模板消息 -->
+        <form report-submit="true" bindsubmit="formTemplateMessageSubmit">
+        <button formType="submit"
+        hover-class="other-button-hover" class="btn-DoRequest">
+        测试模板消息
+        </button>
+        </form>
+      </view>
+      <view class="flex-item">
+        <!-- 小程序和公众号统一的服务消息 -->
+        <button bindtap='uniformSend'
+        class="btn-DoRequest" hover-class="other-button-hover" >统一服务消息</button>
+      </view>
+    </view>
+
+    <view class="flex-wrp" style="flex-direction:row;">
+      <view class="flex-item">
+        <!-- 获取手机号 -->
+        <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" type="primary"
+        class="btn-DoRequest" hover-class="other-button-hover" >获取手机号</button>
+      </view>
+      <view class="flex-item">
+        <!-- 获取手机号（服务器） -->
+        <button open-type="getPhoneNumber" bindgetphonenumber="getUserPhoneNumber" type="primary"
+        class="btn-DoRequest" hover-class="other-button-hover" >获取手机号（code）</button>
+      </view>
+    </view>
+
+    <view class="flex-wrp" style="flex-direction:row;">
+      <view class="flex-item">
+        <!-- 获取运动步数 -->
+        <button bindtap="getRunData" 
+        class="btn-DoRequest" hover-class="other-button-hover" >获取运动步数</button>
+      </view>
+    </view>
+
+    <view class="flex-wrp" style="flex-direction:row;">
+      <view class="flex-item">
+        <!-- 自定义二维码1 -->
+        <button bindtap='openQrCodePage' type="primary" data-codetype="1"
+        class="btn-DoRequest" hover-class="other-button-hover" >生成二维码1</button>
+      </view>
+    <view class="flex-item">
+        <!-- 自定义二维码2 -->
+        <button bindtap='openQrCodePage' type="primary" data-codetype="2"
+        class="btn-DoRequest" hover-class="other-button-hover" >生成二维码2</button>
+      </view>
+    </view>
+
+
+    <view class="flex-wrp" style="flex-direction:row;">
+
+      <view class="flex-item">
+        <!-- Live Pusher  -->
+        <button bindtap="openLivePusher" type="primary"
+        hover-class="other-button-hover" class="btn-DoRequest">Live Pusher</button>
+      </view>
+    </view>
+
+    <view class="flex-wrp" style="flex-direction:row;">
+        <view class="flex-item hide">
+          <!-- 由于发布的小程序不允许虚拟支付，因此发布Demo已经关闭微信支付，开发者测试可以去掉上面的class->hide进行本地调试 -->
+          <button bindtap="wxPay" class="btn-DoRequest"  hover-class="other-button-hover">微信支付(1分钱)</button>
+        </view>
+    </view>
+
+  </view>
+
+</view>

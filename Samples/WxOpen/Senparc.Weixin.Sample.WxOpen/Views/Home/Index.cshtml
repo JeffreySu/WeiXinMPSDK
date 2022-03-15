@@ -76,9 +76,9 @@
                     <p>您可以在当前解决方案中，<strong>Libraries</strong> 目录下，将所需要引用的程序集引用（复制）到您开发环境的解决方案中，请注意需要同时引用被依赖的项目，如 <code>Senparc.Weixin</code> 项目是所有项目都需要依赖的。</p>
                     <p>当前示例项目默认就使用了直接引用源码的方式，可从 .csproj 文件中看到引用方式：</p>
                     <pre><code>&lt;ItemGroup&gt;
-	&lt;ProjectReference Include=&quot;..\..\..\src\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.net6.csproj&quot; /&gt;
-	&lt;ProjectReference Include=&quot;..\..\..\src\Senparc.Weixin.WxOpen.Middleware\Senparc.Weixin.WxOpen.Middleware.net6.csproj&quot; /&gt;
-	&lt;ProjectReference Include=&quot;..\..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net6.csproj&quot; /&gt;
+    &lt;ProjectReference Include=&quot;..\..\..\src\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.net6.csproj&quot; /&gt;
+    &lt;ProjectReference Include=&quot;..\..\..\src\Senparc.Weixin.WxOpen.Middleware\Senparc.Weixin.WxOpen.Middleware.net6.csproj&quot; /&gt;
+    &lt;ProjectReference Include=&quot;..\..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net6.csproj&quot; /&gt;
 &lt;/ItemGroup&gt;</code></pre>
 
                     <h5>引用程序集（推荐）</h5>
@@ -165,9 +165,9 @@
                             <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-home" aria-selected="true">注册</button>
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-messagehandler" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">MessageHandler</button>
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-advanced-api" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">高级接口</button>
-                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-jssdk" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">JSSDK</button>
-                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-oauth" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">OAuth 2.0</button>
-                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-menu" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">菜单设置</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-login" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">登录</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-phone-number" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">获取手机号</button>
+
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent-setting">
@@ -317,7 +317,7 @@
                             <p>例如，我们可以在任意一个方法中调用一个高级接口：</p>
                             <p>
                                 <pre><code>using Senparc.Weixin.WxOpen.AdvancedAPIs;
-                                    
+
 var appId = Senparc.Weixin.Config.SenparcWeixinSetting.WxOpenAppId;
 var openId = "xxx";
 var content = "这是一条客服消息";
@@ -345,277 +345,16 @@ var result = await CustomApi.SendTextAsync(accessToken, openId, content);//发�
                         </div>
 
                         <!-- JSSDK 开始 -->
-                        <div class="tab-pane fade" id="nav-jssdk" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            <p>JSSDK 用于提供微信内置浏览器接口的能力，例如转发控制、调用摄像头权限（拍照、视频）、文件上传、关闭窗口、唤起扫码窗口，等等。</p>
-                            <p>要在内置浏览器中只用 JSSDK，分为“服务端获取签名信息”和“网页端配置 JSSDK”两步。</p>
-                            <h5>服务端获取签名信息</h5>
-                            <p>后端通过 <code>JSSDKHelper.GetJsSdkUiPackageAsync()</code> 方法即可自动获取前端所需的所有 JSSDK 运行所需参数：</p>
-                            <pre><code>public async Task<ActionResult> Index()
-{
-    var jssdkUiPackage = await JSSDKHelper.GetJsSdkUiPackageAsync(appId, appSecret, Request.AbsoluteUri());
-    return View(jssdkUiPackage);
-}</code></pre>
-                            <figure class="file">
-                                <blockquote class="blockquote">
-                                    <p>本项目参考文件：</p>
-                                </blockquote>
-                                <figcaption class="blockquote-footer">
-                                    /Controllers/<cite title="Source Title">WeixiJSSDKnController.cs</cite>
-                                </figcaption>
-                            </figure>
-
-                            <h5>网页端配置 JSSDK</h5>
-                            <p>后端配置完成的参数，直接在前端 JS 中使用 <code>wx.config</code> 进行设置，例如以下代码将完成在转发网页时自定义转发消息的标题和图片：</p>
-                            <pre><code>wx.config({
-        debug: false, // 开启调试模式
-        appId: '@@Model.AppId', // 必填，公众号的唯一标识
-        timestamp: '@@Model.Timestamp', // 必填，生成签名的时间戳
-        nonceStr: '@@Model.NonceStr', // 必填，生成签名的随机串
-        signature: '@@Model.Signature',// 必填，签名
-        jsApiList: [
-                'checkJsApi',
-                'onMenuShareTimeline',
-                'onMenuShareAppMessage'
-        ]
-    });
-
-    wx.error(function (res) {
-        console.log(res);
-        alert('验证失败');
-    });
-
-    wx.ready(function () {
-        var url = '@(Context.Request.Scheme)://sdk.weixin.senparc.com';
-        var link = url + '@(Context.Request.PathAndQuery())';
-        var imgUrl = url + '/images/v2/ewm_01.png';
-
-        //转发到朋友圈
-        wx.onMenuShareTimeline({
-            title: 'JSSDK朋友圈转发测试',
-            link: link,
-            imgUrl: imgUrl,
-            success: function () {
-                alert('转发成功！');
-            },
-            cancel: function () {
-                alert('转发失败！');
-            }
-        });
-        //转发给朋友
-        wx.onMenuShareAppMessage({
-            title: 'JSSDK朋友圈转发测试',
-            desc: '转发给朋友',
-            link: link,
-            imgUrl: imgUrl,
-            type: 'link',
-            dataUrl: '',
-            success: function () {
-                alert('转发成功！');
-            },
-            cancel: function () {
-                alert('转发失败！');
-            }
-        });
-    });
-</code></pre>
-                            <blockquote class="blockquote">
-                                提示：在 MVC 中传递 ViewModel 需要在 .cshtml 文件顶部定义：
-                                <pre><code>@@model Senparc.Weixin.WxOpen.Helpers.JsSdkUiPackage</code></pre>
-                            </blockquote>
-                            <figure class="file">
-                                <blockquote class="blockquote">
-                                    <p>本项目参考文件：</p>
-                                </blockquote>
-                                <figcaption class="blockquote-footer">
-                                    /Views/WeixinJSSDK/<cite title="Source Title">Index.cshtml</cite>
-                                </figcaption>
-                            </figure>
-                            <p>更多设置详情请参考：<a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html" target="_blank">JS-SDK说明文档</a>。</p>
-                            <!-- JSSDK 结束 -->
+                        <div class="tab-pane fade" id="nav-login" role="tabpanel" aria-labelledby="nav-profile-tab">
                         </div>
+                        <!-- JSSDK 结束 -->
 
-                        <!-- OAuth 2.0 开始 -->
-                        <div class="tab-pane fade" id="nav-oauth" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            <p>当你需要在网页上获取用户的 OpenId、头像、昵称等信息的时候，就需要使用 OAuth 2.0 的方式和微信服务器通讯。</p>
-                            <p>更多信息请参考官方文档：<a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html#4" target="_blank">网页授权</a>。</p>
-                            <p>SDK 已经封装了所有相关的过程，您只需要参考示例进行简单的 3 步配置即可。</p>
-                            <h5>第一步：设置登录页面</h5>
-                            <p>登录页面中需要设置官方 OAuth 2.0 的请求 URL（称为 <strong>AuthorizeUrl</strong>），并带上登录成功后的 returnUrl。</p>
-                            <p>由于微信授权具有两种方式（<strong>snsapi_userinfo</strong> 和 <strong>snsapi_base</strong>，下方代码直接提供了两种获取  <strong>AuthorizeUrl</strong> 的方式：</p>
-                            <pre><code>public ActionResult Index(string returnUrl)
-{
-    ViewData["returnUrl"] = returnUrl;
 
-    //此页面引导用户点击授权
-    ViewData["UrlUserInfo"] =
-        OAuthApi.GetAuthorizeUrl(appId,
-        "http://sdk.weixin.senparc.com/oauth2/UserInfoCallback?returnUrl=" + returnUrl.UrlEncode(),
-        null, OAuthScope.snsapi_userinfo);//snsapi_userinfo方式回调地址
-
-    ViewData["UrlBase"] =
-        OAuthApi.GetAuthorizeUrl(appId,
-        "http://sdk.weixin.senparc.com/oauth2/BaseCallback?returnUrl=" + returnUrl.UrlEncode(),
-        null, OAuthScope.snsapi_base);//snsapi_base方式回调地址
-    return View();
-}</code></pre>
-                            <p>上述 <code>returnUrl</code> 参数一般为跳转到登陆页面之前的 URL，也可以是希望用户完成授权之后跳转到的 URL。</p>
-                            <blockquote class="blockquote">
-                                注意：上述的网址和路径需要在公众号后台匹配成你自己服务器的地址（参考文档：<a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html#4" target="_blank">网页授权</a>）。
-                            </blockquote>
-
-                            <figure class="file">
-                                <blockquote class="blockquote">
-                                    <p>本项目参考文件：</p>
-                                </blockquote>
-                                <figcaption class="blockquote-footer">
-                                    /Controllers/<cite title="Source Title">OAuth2Controller.cs</cite>
-                                </figcaption>
-                            </figure>
-
-                            <h5>第二步：前端登录页面设置</h5>
-                            <p>登录页面最终的功能是引导用户打开  <strong>AuthorizeUrl</strong>，可以直接使用连接的方式：</p>
-                            <pre><code>&lt;!-- snsapi_userinfo方式回调地址 --&gt;
-&lt;a href="@@ViewData["UrlUserInfo"]"&gt;点击这里测试snsapi_userinfo&lt;/a&gt;
-
-&lt;!-- snsapi_base方式回调地址 --&gt;
-&lt;a href="@@ViewData["UrlBase"]"&gt;点击这里测试snsapi_userinfo&lt;/a&gt;</code></pre>
-
-                            <figure class="file">
-                                <blockquote class="blockquote">
-                                    <p>本项目参考文件：</p>
-                                </blockquote>
-                                <figcaption class="blockquote-footer">
-                                    /Views/OAuth2/<cite title="Source Title">Index.cshtml</cite>
-                                </figcaption>
-                            </figure>
-
-                            <h5>第三步：配置登陆后回调页面</h5>
-                            <p>授权成功后，网页将自动跳转到第一步中设置的回调 URL（<code>"http://sdk.weixin.senparc.com/oauth2/UserInfoCallback?returnUrl=" + returnUrl.UrlEncode()</code>），以 <strong>UserInfoCallback</strong> 为例：</p>
-                            <pre><code>public ActionResult UserInfoCallback(string code, string returnUrl)
-{
-    if (string.IsNullOrEmpty(code))
-    {
-        return Content("您拒绝了授权！");
-    }
-
-    OAuthAccessTokenResult result = null;
-
-    //通过，用code换取access_token
-    try
-    {
-        result = OAuthApi.GetAccessToken(appId, appSecret, code);
-    }
-    catch (Exception ex)
-    {
-        return Content(ex.Message);
-    }
-    if (result.errcode != ReturnCode.请求成功)
-    {
-        return Content("错误：" + result.errmsg);
-    }
-
-    //下面2个数据也可以自己封装成一个类，储存在数据库中（建议结合缓存）
-    //如果可以确保安全，可以将access_token存入用户的cookie中，每一个人的access_token是不一样的
-    HttpContext.Session.SetString("OAuthAccessTokenStartTime", SystemTime.Now.ToString());
-    HttpContext.Session.SetString("OAuthAccessToken", result.ToJson());
-
-    //因为第一步选择的是OAuthScope.snsapi_userinfo，这里可以进一步获取用户详细信息
-    try
-    {
-        if (!string.IsNullOrEmpty(returnUrl))
-        {
-            return Redirect(returnUrl);
-        }
-
-        OAuthUserInfo userInfo = OAuthApi.GetUserInfo(result.access_token, result.openid);
-        return View(userInfo);
-    }
-    catch (ErrorJsonResultException ex)
-    {
-        return Content(ex.Message);
-    }
-}</code></pre>
-                            <p>上述代码中，传入的 <code>returnUrl</code> 即第一步 <code>Index()</code> 方法中传入到 <strong>AuthorizeUrl</strong> 中的 <code>returnUrl</code>，当所有用户信息获取、保存等操作完成后，借助 <code>returnUrl</code> 跳转到登陆之前的页面，完成整个闭环的登录操作。</p>
-
-                            <figure class="file">
-                                <blockquote class="blockquote">
-                                    <p>本项目参考文件：</p>
-                                </blockquote>
-                                <figcaption class="blockquote-footer">
-                                    /Controllers/<cite title="Source Title">OAuth2Controller.cs</cite>
-                                </figcaption>
-                            </figure>
-
+                        <!-- 获取手机号 开始 -->
+                        <div class="tab-pane fade" id="nav-phone-number" role="tabpanel" aria-labelledby="nav-profile-tab">
                         </div>
-                        <!-- OAuth 2.0 结束 -->
-                        <!-- 菜单 开始 -->
-                        <div class="tab-pane fade" id="nav-menu" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            <p>公众号菜单是公众号界面的重要元素，菜单的使用分为 <strong>设置</strong> 和 <strong>使用</strong> 两个环节。</p>
-                            <h5>设置</h5>
-                            <p>方法一：使用微信公众号后台界面设置（不使用开发模式），此处略。</p>
-                            <p>方法二（推荐）：使用可视化编辑器（No Code）：<a href="https://sdk.weixin.senparc.com/Menu" target="_blank">点击查看介绍</a>。</p>
-                            <p>方法三：使用代码进行设置（只需要执行一次，建议放在管理员后台，手动运行），如：</p>
-                            <pre><code>public async Task CreateMenuAsync()
-{
-    ButtonGroup bg = new ButtonGroup();
+                        <!-- 获取手机号 结束 -->
 
-    //定义一级菜单
-    var subButton = new SubButton()
-    {
-        name = "一级菜单"
-    };
-    bg.button.Add(subButton);
-
-    //下属二级菜单
-    subButton.sub_button.Add(new SingleViewButton()
-    {
-        url = "https://book.weixin.senparc.com/book/link?code=SenparcRobotMenu",
-        name = "《微信开发深度解析》"
-    });
-    subButton.sub_button.Add(new SingleClickButton()
-    {
-        key = "OneClick",
-        name = "单击测试"
-    });
-    subButton.sub_button.Add(new SingleViewButton()
-    {
-        url = "https://weixin.senparc.com/",
-        name = "Url跳转"
-    });
-
-    //最多可添加 3 个一级自定义菜单，每个菜单下最多 5 个子菜单
-
-    var result = await CommonApi.CreateMenuAsync(appId, bg);
-}</code></pre>
-
-                            <h5>使用</h5>
-                            <p>设置完菜单后，当客户端点击菜单时，微信服务器会自动推送响应的回调信息到消息 URL（即已经设置好的 MessageHandler 内），只需在 CustomMessageHandler 中重写（<code>override</code>）对应的方法即可。如针对上述 <strong>方法三</strong> 已经设定生效的菜单，当用户点击【单击测试】按钮时，我们可以在 CustomMessageHandler 中进行接收和处理：</p>
-                            <pre><code>public override async Task<IResponseMessageBase> OnEvent_ClickRequestAsync(RequestMessageEvent_Click requestMessage)
-{
-    var reponseMessage = CreateResponseMessage<ResponseMessageText>();
-
-    if (requestMessage.EventKey == "OneClick")
-    {
-        reponseMessage.Content = "您点击了【单击测试】按钮";
-    }
-    else
-    {
-        reponseMessage.Content = "您点击了其他事件按钮";
-    }
-
-    return reponseMessage;
-}</code></pre>
-
-                            <figure class="file">
-                                <blockquote class="blockquote">
-                                    <p>本项目参考文件：</p>
-                                </blockquote>
-                                <figcaption class="blockquote-footer">
-                                    /MessageHandlers/<cite title="Source Title">CustomMessageHandler_Events.cs</cite>
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <!-- 菜单 结束 -->
                     </div>
 
 

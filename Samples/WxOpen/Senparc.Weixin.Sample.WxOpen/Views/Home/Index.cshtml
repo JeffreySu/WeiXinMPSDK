@@ -165,6 +165,8 @@
                             <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-home" aria-selected="true">注册</button>
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-messagehandler" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">MessageHandler</button>
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-advanced-api" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">高级接口</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-client" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">客户端开发</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-request" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">小程序请求服务器</button>
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-login" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">登录</button>
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-phone-number" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">获取手机号</button>
 
@@ -344,12 +346,146 @@ var result = await CustomApi.SendTextAsync(accessToken, openId, content);//发�
                             </blockquote>
                         </div>
 
-                        <!-- JSSDK 开始 -->
+                        <!-- 客户端开发 开始 -->
+                        <div class="tab-pane fade" id="nav-client" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <h5>准备开发</h5>
+                            <p>开发小程序客户端（手机微信内展示的小程序界面），需要使用 <a href="https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html" target="_blank">微信开发者工具</a>。</p>
+
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>微信小程序示例项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin SDK 源文件根目录/<cite title="Source Title">Samples/WxOpen/Senparc.Weixin.WxOpen.AppDemo/</cite>
+                                </figcaption>
+                            </figure>
+
+                            <p>上述示例项目打开后如下图所示：</p>
+                            <figure class="figure">
+                                <img src="~/images/use-client-01.png" class="figure-img img-fluid rounded" alt="小程序客户端" />
+                                <figcaption class="figure-caption text-center">小程序客户端</figcaption>
+                            </figure>
+
+                        </div>
+                        <!-- 客户端开发 结束 -->
+                        <!-- 小程序请求服务器 开始 -->
+                        <div class="tab-pane fade" id="nav-request" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p>小程序客户端可以使用类似 Ajax 的功能对服务器端发送请求，并且获取响应信息（一般为 JSON）。</p>
+                            <h5>放置触发请求的按钮</h5>
+                            <p>在完成【客户端开发】的基本准备工作后，在页面上（如 <strong>/pages/index/index.wxml</strong>），创建一个按钮，用于触发请求：</p>
+                            <pre><code>&lt;button type=&quot;primary&quot; bindtap=&quot;doRequest&quot; 
+hover-class=&quot;other-button-hover&quot; class=&quot;btn-DoRequest&quot;&gt;
+获取数据
+&lt;/button&gt;</code></pre>
+                            <p>上述代码中，<code>type</code>、<code>class</code>、<code>hover-class</code> 分别设置了按钮的类型、常规样式、点击样式，<code>bindtap="doRequest"</code> 指定了点击之后，由 <code>doRequest()</code> 方法（function）进行处理。</p>
+                                                             <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/index/index.wxml</cite>
+                                </figcaption>
+                            </figure>
+
+                            <h5>请求服务器方法</h5>
+                            <p><code>doRequest() </code> 方法写在 <strong>index.js</strong> 文件中：</p>
+
+<pre><code>//处理wx.request请求
+doRequest:function(){
+  var that = this;
+  wx.request({
+    url: wx.getStorageSync('domainName') + '/WxOpen/RequestData',
+    data: { nickName : that.data.userInfo.nickName},
+    method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+    header: { 'content-type':'application/x-www-form-urlencoded'}, 
+    success: function(res){
+      // success
+      var json = res.data;
+      //模组对话框
+      wx.showModal({
+        title: '收到消息',
+        content: json.msg,
+        showCancel:false,
+        success: function(res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          }
+        }
+      });
+    },
+    fail: function() {
+      // fail
+    },
+    complete: function() {
+      // complete
+    }
+  })
+},</code></pre>
+                            <p>
+                                上述代码中：<br />
+                                <ol>
+                                    <li><code>wx.request(...)</code> 方法用于向服务器端发起请求，类似其他 JS 框架中的 <strong>axios.get() / .post()</strong> 或 <strong>$.ajax()</strong> 等。</li>
+                                    <li>
+                                        <code>url</code> 用于指定需要发送到的 API 地址。其中，<code>wx.getStorageSync('domainName')</code> 用于灵活指定开发环境或生产环境的域名（见本目录 <strong>app.js</strong> 文件。
+                                    </li>
+                                    <li>
+                                        <code>data</code> 用于存放需要提交的数据，此处我们从本地数据中心取 <code>userInfo.nickName</code>，当用户登陆后，即可取到<strong>微信昵称</strong>，否则为 <strong>undefined</strong>。
+                                    </li>
+                                    <li><code>method</code> 为请求的方法名称，当前使用 POST 方式提交。</li>
+                                    <li><code>header</code> 用于指定当前请求 Header 中的参数，通常也可以在 JWT 模式中提供用于用户身份验证的 Token。</li>
+                                    <li><code>success</code> 为当前请求成功响应（200）后的回调，示例中的代码展示了当收到成功信息后，弹出一个模组对话框，显示返回的内容，并在点击【确定】按钮后，在控制台输出相关日志。</li>
+                                    <li><code>fail</code> 和 <code>complete</code> 方法分别用于处理失败的请求，以及整个请求完成后的统一操作。</li>
+                                </ol>
+                                 <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/index/index.js</cite>
+                                </figcaption>
+                            </figure>
+                            </p>
+                            <h5>服务器端接口</h5>
+                            <p>服务器端可以使用各类能够接受请求的方式，如页面、MVC 中的 Action、Web Api、中间件（Middleware），甚至 aspx、ashx 等。</p>
+                            <p>上述请求地址在本地环境下为：<strong>https://localhost:44367/WxOpen/RequestData</strong>，我们在 WxOpenController 下面创建一个 RequestData 的 Action 用于接收请求：</p>
+                            <pre><code>[HttpPost]
+public ActionResult RequestData(string nickName)
+{
+    var data = new
+    {
+        msg = string.Format("服务器时间：{0}，昵称：{1}", SystemTime.Now.LocalDateTime, nickName)
+    };
+    return Json(data);
+}</code></pre>
+ <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">WxOpenController.cs</cite>
+                                </figcaption>
+                            </figure>
+                            <h5>测试</h5>
+                            <p>点击【获取数据】按钮：</p>
+                            <figure class="figure">
+                                <img src="~/images/use-request-01.png" class="figure-img img-fluid rounded" alt="发送请求" />
+                                <figcaption class="figure-caption text-center">发送请求</figcaption>
+                            </figure>
+                            <p>由于当前没有登录，所以昵称无法获取到，登陆后即可显示昵称。</p>
+                            <blockquote class="blockquote">
+    提示：登录操作请见【登录】标签。
+</blockquote>
+                            <p>点击【确定】按钮：</p>
+                            <figure class="figure">
+                                <img src="~/images/use-request-02.png" class="figure-img img-fluid rounded" alt="点击确定按钮" />
+                                <figcaption class="figure-caption text-center">点击确定按钮</figcaption>
+                            </figure>
+                        </div>
+                        <!-- 小程序请求服务器 结束 -->
+                        <!-- 登录 开始 -->
                         <div class="tab-pane fade" id="nav-login" role="tabpanel" aria-labelledby="nav-profile-tab">
                         </div>
-                        <!-- JSSDK 结束 -->
-
-
+                        <!-- 登录 结束 -->
                         <!-- 获取手机号 开始 -->
                         <div class="tab-pane fade" id="nav-phone-number" role="tabpanel" aria-labelledby="nav-profile-tab">
                         </div>

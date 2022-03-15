@@ -27,8 +27,8 @@ App({
       // wx.setStorageSync('wssDomainName', "wss://localhost:44381")
 
       //使用 .NET 6.0 Samole（Senparc.Weixin.Sample.Net6.sln）配置：
-      wx.setStorageSync('domainName', "https://localhost:44382")
-      wx.setStorageSync('wssDomainName', "wss://localhost:44382")
+      wx.setStorageSync('domainName', "https://localhost:44367")
+      wx.setStorageSync('wssDomainName', "wss://localhost:44367")
     }
 
     // 打开调试

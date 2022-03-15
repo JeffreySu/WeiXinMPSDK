@@ -146,15 +146,15 @@ namespace Senparc.Weixin.Sample.WxOpen.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult RequestData(string nickName)
-        {
-            var data = new
-            {
-                msg = string.Format("服务器时间：{0}，昵称：{1}", SystemTime.Now.LocalDateTime, nickName)
-            };
-            return Json(data);
-        }
+[HttpPost]
+public ActionResult RequestData(string nickName)
+{
+    var data = new
+    {
+        msg = string.Format("服务器时间：{0}，昵称：{1}", SystemTime.Now.LocalDateTime, nickName)
+    };
+    return Json(data);
+}
 
         /// <summary>
         /// wx.login登陆成功之后发送的请求

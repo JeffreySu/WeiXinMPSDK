@@ -22,31 +22,27 @@
  */
 
 //DPBMARK_FILE MP
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System;
 using System.IO;
-
-using Microsoft.AspNetCore.Mvc;
-using Senparc.Weixin.MP.Entities.Request;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Sample.Net6.Controllers
 {
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.Extensions.Options;
     using Senparc.CO2NET.AspNet.HttpUtility;
     using Senparc.CO2NET.Cache;
-    using Senparc.CO2NET.HttpUtility;
     using Senparc.CO2NET.Utilities;
     using Senparc.NeuChar.MessageHandlers;
     using Senparc.Weixin.AspNet.MvcExtension;
     using Senparc.Weixin.Entities;
-    using Senparc.Weixin.HttpUtility;
     using Senparc.Weixin.MP;
-    using Senparc.Weixin.MP.MvcExtension;
+    using Senparc.Weixin.MP.Entities.Request;
     using Senparc.Weixin.Sample.CommonService.CustomMessageHandler;
-    using Senparc.Weixin.Sample.CommonService.Utilities;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
+
 
     public partial class WeixinController : BaseController
     {

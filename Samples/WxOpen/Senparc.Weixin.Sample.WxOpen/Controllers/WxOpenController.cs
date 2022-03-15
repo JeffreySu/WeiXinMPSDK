@@ -17,8 +17,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
-using Senparc.Weixin.MP.MvcExtension;
-using Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler;
+using Senparc.Weixin.Sample.WxOpen.MessageHandlers;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 using Senparc.Weixin.WxOpen.Containers;
 using Senparc.Weixin.WxOpen.Entities;
@@ -26,8 +25,6 @@ using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.WxOpen.Helpers;
 using System;
 using System.IO;
-using Senparc.Weixin.TenPay.V3;//DPBMARK TenPay DPBMARK_END
-using Senparc.Weixin.Sample.CommonService;
 using Senparc.CO2NET.Utilities;
 using System.Threading.Tasks;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp;
@@ -38,9 +35,8 @@ using System.Collections;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Template;
 using Senparc.Weixin.AspNet.MvcExtension;
-using System.Threading;
 
-namespace Senparc.Weixin.Sample.Net6.Controllers.WxOpen
+namespace Senparc.Weixin.Sample.WxOpen.Controllers
 {
     /// <summary>
     /// 微信小程序Controller
@@ -80,7 +76,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers.WxOpen
         /// </summary>
         [HttpPost]
         [ActionName("Index")]
-        public async Task<ActionResult> Post(PostModel postModel)
+        public ActionResult Post(PostModel postModel)
         {
             if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
             {
@@ -101,7 +97,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers.WxOpen
             }
 
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
-            var messageHandler = new CustomWxOpenMessageHandler(await Request.GetRequestMemoryStreamAsync(), postModel, maxRecordCount);
+            var messageHandler = new CustomWxOpenMessageHandler(Request.GetRequestMemoryStream(), postModel, maxRecordCount);
 
 
             try
@@ -113,8 +109,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers.WxOpen
                 //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
                 messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
-                var ct = new CancellationToken();
-                await messageHandler.ExecuteAsync(ct);//执行微信处理过程（关键）
+                messageHandler.Execute();//执行微信处理过程（关键）
 
                 messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
 
@@ -126,25 +121,25 @@ namespace Senparc.Weixin.Sample.Net6.Controllers.WxOpen
             {
                 using (TextWriter tw = new StreamWriter(ServerUtility.ContentRootMapPath("~/App_Data/Error_WxOpen_" + _getRandomFileName() + ".txt")))
                 {
-                    await tw.WriteLineAsync("ExecptionMessage:" + ex.Message);
-                    await tw.WriteLineAsync(ex.Source);
-                    await tw.WriteLineAsync(ex.StackTrace);
+                    tw.WriteLine("ExecptionMessage:" + ex.Message);
+                    tw.WriteLine(ex.Source);
+                    tw.WriteLine(ex.StackTrace);
                     //tw.WriteLine("InnerExecptionMessage:" + ex.InnerException.Message);
 
                     if (messageHandler.ResponseDocument != null)
                     {
-                        await tw.WriteLineAsync(messageHandler.ResponseDocument.ToString());
+                        tw.WriteLine(messageHandler.ResponseDocument.ToString());
                     }
 
                     if (ex.InnerException != null)
                     {
-                        await tw.WriteLineAsync("========= InnerException =========");
-                        await tw.WriteLineAsync(ex.InnerException.Message);
-                        await tw.WriteLineAsync(ex.InnerException.Source);
-                        await tw.WriteLineAsync(ex.InnerException.StackTrace);
+                        tw.WriteLine("========= InnerException =========");
+                        tw.WriteLine(ex.InnerException.Message);
+                        tw.WriteLine(ex.InnerException.Source);
+                        tw.WriteLine(ex.InnerException.StackTrace);
                     }
 
-                    await tw.FlushAsync();
+                    tw.Flush();
                     tw.Close();
                 }
                 return Content("");
@@ -281,27 +276,6 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
             });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> TemplateTest(string sessionId, string formId)
-        {
-            //注意：2020年01月10日起，新发布的小程序将不能使用模板消息，请迁移至“订阅消息”功能。
-
-            var templateMessageService = new TemplateMessageService();
-            try
-            {
-                //var sessionBag = await templateMessageService.RunTemplateTestAsync(WxOpenAppId, sessionId, formId);
-
-                return Json(new { success = true, msg = "2020年01月10日起，新发布的小程序将不能使用模板消息，请迁移至“订阅消息”功能。" });
-            }
-            catch (Exception ex)
-            {
-                var sessionBag = await SessionContainer.GetSessionAsync(sessionId);
-                var openId = sessionBag != null ? sessionBag.OpenId : "用户未正确登陆";
-
-                return Json(new { success = false, openId = openId, formId = formId, msg = ex.Message });
-            }
-        }
-
         /// <summary>
         /// 解密电话号码
         /// </summary>
@@ -350,65 +324,6 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
 
             }
         }
-
-        #region DPBMARK TenPay 
-
-        public ActionResult GetPrepayid(string sessionId)
-        {
-            try
-            {
-                var sessionBag = SessionContainer.GetSession(sessionId);
-                var openId = sessionBag.OpenId;
-
-
-                //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-                var sp_billno = string.Format("{0}{1}{2}", Config.SenparcWeixinSetting.TenPayV3_MchId /*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
-                        TenPayV3Util.BuildRandomStr(6));
-
-                var timeStamp = TenPayV3Util.GetTimestamp();
-                var nonceStr = TenPayV3Util.GetNoncestr();
-
-                var body = "小程序微信支付Demo";
-                var price = 1;//单位：分
-                var xmlDataInfo = new TenPayV3UnifiedorderRequestData(WxOpenAppId, Config.SenparcWeixinSetting.TenPayV3_MchId, body, sp_billno,
-                    price, HttpContext.UserHostAddress().ToString(), Config.SenparcWeixinSetting.TenPayV3_WxOpenTenpayNotify, TenPay.TenPayV3Type.JSAPI, openId, Config.SenparcWeixinSetting.TenPayV3_Key, nonceStr);
-
-                var result = Senparc.Weixin.TenPay.V3.TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
-
-                WeixinTrace.SendCustomLog("统一订单接口调用结束", "请求：" + xmlDataInfo.ToJson() + "\r\n\r\n返回结果：" + result.ToJson());
-
-                var packageStr = "prepay_id=" + result.prepay_id;
-
-                //记录到缓存
-
-                var cacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance();
-                cacheStrategy.Set($"WxOpenUnifiedorderRequestData-{openId}", xmlDataInfo, TimeSpan.FromDays(4));//3天内可以发送模板消息
-                cacheStrategy.Set($"WxOpenUnifiedorderResultData-{openId}", result, TimeSpan.FromDays(4));//3天内可以发送模板消息
-
-                return Json(new
-                {
-                    success = true,
-                    prepay_id = result.prepay_id,
-                    appId = Config.SenparcWeixinSetting.WxOpenAppId,
-                    timeStamp,
-                    nonceStr,
-                    package = packageStr,
-                    //signType = "MD5",
-                    paySign = Senparc.Weixin.TenPay.V3.TenPayV3.GetJsPaySign(WxOpenAppId, timeStamp, nonceStr, packageStr, Config.SenparcWeixinSetting.TenPayV3_Key)
-                });
-            }
-            catch (Exception ex)
-            {
-                return Json(new
-                {
-                    success = false,
-                    msg = ex.Message
-                });
-            }
-        }
-
-        #endregion DPBMARK_END
-
 
         /// <summary>
         /// 获取二维码
@@ -541,7 +456,7 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
                     sessionBag.OpenId,
                     new Mp_Template_Msg(mpAppId,
                                         mpTemplateId,
-                                        "https://dev.senparc.com",
+                                        "https://dev.senparc.com", 
                                         miniprogram,
                                         templateData)
                     );

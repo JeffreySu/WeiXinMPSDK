@@ -10,6 +10,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="wwwroot\css\**" />
+	  <Content Remove="wwwroot\css\**" />
+	  <EmbeddedResource Remove="wwwroot\css\**" />
+	  <None Remove="wwwroot\css\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Views\Shared\_Layout.cshtml.css" />
 	</ItemGroup>
 
@@ -34,9 +41,6 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</EmbeddedResource>-->
 		<EmbeddedResource Include="wwwroot\**\*" />
-	</ItemGroup>
-	<ItemGroup>
-		<Folder Include="wwwroot\css\" />
 	</ItemGroup>
 	<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
 	<Import Project="..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems" Label="Shared" />

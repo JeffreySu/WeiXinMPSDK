@@ -16,6 +16,7 @@ using Senparc.Weixin.HttpUtility;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.CO2NET.Utilities;
 using Senparc.CO2NET.AspNet.HttpUtility;
+using Senparc.Weixin.AspNet.MvcExtension;
 
 namespace Senparc.Weixin.Sample.Net6.Controllers
 {

@@ -37,6 +37,8 @@ using Senparc.CO2NET.AspNet.HttpUtility;
 using System.Collections;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Template;
+using Senparc.Weixin.AspNet.MvcExtension;
+using System.Threading;
 
 namespace Senparc.Weixin.Sample.Net6.Controllers.WxOpen
 {
@@ -78,7 +80,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers.WxOpen
         /// </summary>
         [HttpPost]
         [ActionName("Index")]
-        public ActionResult Post(PostModel postModel)
+        public async Task<ActionResult> Post(PostModel postModel)
         {
             if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
             {
@@ -99,7 +101,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers.WxOpen
             }
 
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
-            var messageHandler = new CustomWxOpenMessageHandler(Request.GetRequestMemoryStream(), postModel, maxRecordCount);
+            var messageHandler = new CustomWxOpenMessageHandler(await Request.GetRequestMemoryStreamAsync(), postModel, maxRecordCount);
 
 
             try
@@ -111,7 +113,8 @@ namespace Senparc.Weixin.Sample.Net6.Controllers.WxOpen
                 //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
                 messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
-                messageHandler.Execute();//执行微信处理过程（关键）
+                var ct = new CancellationToken();
+                await messageHandler.ExecuteAsync(ct);//执行微信处理过程（关键）
 
                 messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
 
@@ -123,25 +126,25 @@ namespace Senparc.Weixin.Sample.Net6.Controllers.WxOpen
             {
                 using (TextWriter tw = new StreamWriter(ServerUtility.ContentRootMapPath("~/App_Data/Error_WxOpen_" + _getRandomFileName() + ".txt")))
                 {
-                    tw.WriteLine("ExecptionMessage:" + ex.Message);
-                    tw.WriteLine(ex.Source);
-                    tw.WriteLine(ex.StackTrace);
+                    await tw.WriteLineAsync("ExecptionMessage:" + ex.Message);
+                    await tw.WriteLineAsync(ex.Source);
+                    await tw.WriteLineAsync(ex.StackTrace);
                     //tw.WriteLine("InnerExecptionMessage:" + ex.InnerException.Message);
 
                     if (messageHandler.ResponseDocument != null)
                     {
-                        tw.WriteLine(messageHandler.ResponseDocument.ToString());
+                        await tw.WriteLineAsync(messageHandler.ResponseDocument.ToString());
                     }
 
                     if (ex.InnerException != null)
                     {
-                        tw.WriteLine("========= InnerException =========");
-                        tw.WriteLine(ex.InnerException.Message);
-                        tw.WriteLine(ex.InnerException.Source);
-                        tw.WriteLine(ex.InnerException.StackTrace);
+                        await tw.WriteLineAsync("========= InnerException =========");
+                        await tw.WriteLineAsync(ex.InnerException.Message);
+                        await tw.WriteLineAsync(ex.InnerException.Source);
+                        await tw.WriteLineAsync(ex.InnerException.StackTrace);
                     }
 
-                    tw.Flush();
+                    await tw.FlushAsync();
                     tw.Close();
                 }
                 return Content("");
@@ -538,7 +541,7 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
                     sessionBag.OpenId,
                     new Mp_Template_Msg(mpAppId,
                                         mpTemplateId,
-                                        "https://dev.senparc.com", 
+                                        "https://dev.senparc.com",
                                         miniprogram,
                                         templateData)
                     );

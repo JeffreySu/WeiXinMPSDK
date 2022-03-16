@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net451;netstandard2.0;netstandard2.1;netcoreapp3.1;net6.0</TargetFrameworks>
-    <Version>0.7.4</Version>
+    <Version>0.7.5</Version>
     <AssemblyName>Senparc.Weixin.Work.Middleware</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work.Middleware</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>

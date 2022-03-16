@@ -54,7 +54,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             var sdkList = new List<Home_IndexVD_AssemblyModel>();
             sdkList.Add(new Home_IndexVD_AssemblyModel("SDK 公共基础库", "Senparc.Weixin", typeof(Senparc.Weixin.WeixinRegister), gitHubUrl: sdkGitHubUrl));
             sdkList.Add(new Home_IndexVD_AssemblyModel("公众号<br />JSSDK<br />摇一摇周边", "Senparc.Weixin.MP", typeof(Senparc.Weixin.MP.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK MP DPBMARK_END
-            sdkList.Add(new Home_IndexVD_AssemblyModel("公众号MvcExtension", "Senparc.Weixin.MP.MvcExtension", typeof(Senparc.Weixin.MP.MvcExtension.WeixinResult), "Senparc.Weixin.MP.Mvc", gitHubUrl: sdkGitHubUrl));//DPBMARK MP DPBMARK_END
+            sdkList.Add(new Home_IndexVD_AssemblyModel("公众号MvcExtension", "Senparc.Weixin.MP.MvcExtension", typeof(Senparc.Weixin.MP.MvcExtension.SenparcOAuthAttribute), "Senparc.Weixin.MP.Mvc", gitHubUrl: sdkGitHubUrl));//DPBMARK MP DPBMARK_END
             sdkList.Add(new Home_IndexVD_AssemblyModel("小程序", "Senparc.Weixin.WxOpen", typeof(Senparc.Weixin.WxOpen.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK MiniProgram DPBMARK_END
             sdkList.Add(new Home_IndexVD_AssemblyModel("微信支付", "Senparc.Weixin.TenPay", typeof(Senparc.Weixin.TenPay.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK TenPay DPBMARK_END
             sdkList.Add(new Home_IndexVD_AssemblyModel("微信支付V3（新）", "Senparc.Weixin.TenPayV3", typeof(Senparc.Weixin.TenPayV3.Register), supportNet45: false, gitHubUrl: sdkGitHubUrl));//DPBMARK TenPay DPBMARK_END

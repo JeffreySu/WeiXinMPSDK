@@ -81,10 +81,12 @@ figure.file {
         color: #810303;
     }
 
+
 blockquote.blockquote {
     border-left: 2px solid #026da7;
     padding: 10px 16px;
     background: #e6f0f5;
+    font-size: 1.05rem;
 }
 
 figure.file blockquote.blockquote {

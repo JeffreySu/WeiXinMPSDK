@@ -1,4 +1,4 @@
-namespace Senparc.Weixin.Sample.Work.Models
+namespace Senparc.Weixin.Sample.Models
 {
     public class ErrorViewModel
     {

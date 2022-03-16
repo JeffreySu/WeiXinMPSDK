@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Senparc.Weixin.Sample.Work.Models;
+using Senparc.Weixin.Sample.Models;
 using System.Diagnostics;
 
 namespace Senparc.Weixin.Sample.Work.Controllers

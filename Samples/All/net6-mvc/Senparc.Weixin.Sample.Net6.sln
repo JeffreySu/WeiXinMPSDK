@@ -89,8 +89,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common Files", "Common File
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.Work", "..\..\Work\Senparc.Weixin.Sample.Work\Senparc.Weixin.Sample.Work.csproj", "{DEFD229C-0482-4924-8746-73D21B9DAB02}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.WxOpen", "..\..\WxOpen\Senparc.Weixin.Sample.WxOpen\Senparc.Weixin.Sample.WxOpen.csproj", "{5CDE163E-A083-418F-B70A-63F25A957666}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{5cde163e-a083-418f-b70a-63f25a957666}*SharedItemsImports = 5
 		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{81a078a9-97d1-446d-88ed-87f4bb484d91}*SharedItemsImports = 5
 		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{9fe36012-8b32-488e-96ad-ba7cedaeeab8}*SharedItemsImports = 13
 		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{defd229c-0482-4924-8746-73d21b9dab02}*SharedItemsImports = 5
@@ -595,6 +598,24 @@ Global
 		{DEFD229C-0482-4924-8746-73D21B9DAB02}.Test|x64.Build.0 = Debug|Any CPU
 		{DEFD229C-0482-4924-8746-73D21B9DAB02}.Test|x86.ActiveCfg = Debug|Any CPU
 		{DEFD229C-0482-4924-8746-73D21B9DAB02}.Test|x86.Build.0 = Debug|Any CPU
+		{5CDE163E-A083-418F-B70A-63F25A957666}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CDE163E-A083-418F-B70A-63F25A957666}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CDE163E-A083-418F-B70A-63F25A957666}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5CDE163E-A083-418F-B70A-63F25A957666}.Debug|x64.Build.0 = Debug|Any CPU
+		{5CDE163E-A083-418F-B70A-63F25A957666}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5CDE163E-A083-418F-B70A-63F25A957666}.Debug|x86.Build.0 = Debug|Any CPU
+		{5CDE163E-A083-418F-B70A-63F25A957666}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CDE163E-A083-418F-B70A-63F25A957666}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CDE163E-A083-418F-B70A-63F25A957666}.Release|x64.ActiveCfg = Release|Any CPU
+		{5CDE163E-A083-418F-B70A-63F25A957666}.Release|x64.Build.0 = Release|Any CPU
+		{5CDE163E-A083-418F-B70A-63F25A957666}.Release|x86.ActiveCfg = Release|Any CPU
+		{5CDE163E-A083-418F-B70A-63F25A957666}.Release|x86.Build.0 = Release|Any CPU
+		{5CDE163E-A083-418F-B70A-63F25A957666}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CDE163E-A083-418F-B70A-63F25A957666}.Test|Any CPU.Build.0 = Debug|Any CPU
+		{5CDE163E-A083-418F-B70A-63F25A957666}.Test|x64.ActiveCfg = Debug|Any CPU
+		{5CDE163E-A083-418F-B70A-63F25A957666}.Test|x64.Build.0 = Debug|Any CPU
+		{5CDE163E-A083-418F-B70A-63F25A957666}.Test|x86.ActiveCfg = Debug|Any CPU
+		{5CDE163E-A083-418F-B70A-63F25A957666}.Test|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -635,6 +656,7 @@ Global
 		{1B168C93-E3E3-4939-8EDC-19CE4E041874} = {35139CB3-610E-4922-98AD-08A5D12BFC35}
 		{9FE36012-8B32-488E-96AD-BA7CEDAEEAB8} = {34CFB1D8-6025-4E93-A67F-D94DD3B9198F}
 		{DEFD229C-0482-4924-8746-73D21B9DAB02} = {34CFB1D8-6025-4E93-A67F-D94DD3B9198F}
+		{5CDE163E-A083-418F-B70A-63F25A957666} = {34CFB1D8-6025-4E93-A67F-D94DD3B9198F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC7AD3EC-AB37-497E-925B-DCD5129FE6D3}

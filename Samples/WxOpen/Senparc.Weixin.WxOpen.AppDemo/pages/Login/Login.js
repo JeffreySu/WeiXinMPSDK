@@ -52,7 +52,6 @@ Page({
         url: '../index/index',
       })
     });
-   
   },
 
   /**

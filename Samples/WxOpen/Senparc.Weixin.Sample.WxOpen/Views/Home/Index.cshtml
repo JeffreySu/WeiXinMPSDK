@@ -378,7 +378,7 @@ hover-class=&quot;other-button-hover&quot; class=&quot;btn-DoRequest&quot;&gt;
 获取数据
 &lt;/button&gt;</code></pre>
                             <p>上述代码中，<code>type</code>、<code>class</code>、<code>hover-class</code> 分别设置了按钮的类型、常规样式、点击样式，<code>bindtap="doRequest"</code> 指定了点击之后，由 <code>doRequest()</code> 方法（function）进行处理。</p>
-                                                             <figure class="file">
+                            <figure class="file">
                                 <blockquote class="blockquote">
                                     <p>本项目参考文件：</p>
                                 </blockquote>
@@ -436,14 +436,14 @@ doRequest:function(){
                                     <li><code>success</code> 为当前请求成功响应（200）后的回调，示例中的代码展示了当收到成功信息后，弹出一个模组对话框，显示返回的内容，并在点击【确定】按钮后，在控制台输出相关日志。</li>
                                     <li><code>fail</code> 和 <code>complete</code> 方法分别用于处理失败的请求，以及整个请求完成后的统一操作。</li>
                                 </ol>
-                                 <figure class="file">
-                                <blockquote class="blockquote">
-                                    <p>本项目参考文件：</p>
-                                </blockquote>
-                                <figcaption class="blockquote-footer">
-                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/index/index.js</cite>
-                                </figcaption>
-                            </figure>
+                                <figure class="file">
+                                    <blockquote class="blockquote">
+                                        <p>本项目参考文件：</p>
+                                    </blockquote>
+                                    <figcaption class="blockquote-footer">
+                                        Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/index/index.js</cite>
+                                    </figcaption>
+                                </figure>
                             </p>
                             <h5>服务器端接口</h5>
                             <p>服务器端可以使用各类能够接受请求的方式，如页面、MVC 中的 Action、Web Api、中间件（Middleware），甚至 aspx、ashx 等。</p>
@@ -457,7 +457,7 @@ public ActionResult RequestData(string nickName)
     };
     return Json(data);
 }</code></pre>
- <figure class="file">
+                            <figure class="file">
                                 <blockquote class="blockquote">
                                     <p>本项目参考文件：</p>
                                 </blockquote>
@@ -473,8 +473,8 @@ public ActionResult RequestData(string nickName)
                             </figure>
                             <p>由于当前没有登录，所以昵称无法获取到，登陆后即可显示昵称。</p>
                             <blockquote class="blockquote">
-    提示：登录操作请见【登录】标签。
-</blockquote>
+                                提示：登录操作请见【登录】标签。
+                            </blockquote>
                             <p>点击【确定】按钮：</p>
                             <figure class="figure">
                                 <img src="~/images/use-request-02.png" class="figure-img img-fluid rounded" alt="点击确定按钮" />
@@ -484,6 +484,183 @@ public ActionResult RequestData(string nickName)
                         <!-- 小程序请求服务器 结束 -->
                         <!-- 登录 开始 -->
                         <div class="tab-pane fade" id="nav-login" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <h5>简介</h5>
+                            <p>大部分的小程序都需要识别用的身份信息（OpenId）以及获取用户的头像、昵称等信息为用户提供身份识别、个性化信息展示的服务。此时就需要使用到小程序登录接口。</p>
+                            <h5>客户端 - 进入登录页</h5>
+                            <p>用户的登录是在小程序端发起的，一般而言可以做一个独立的页面用于放置说明及登录按钮。首先，在入口网页放置一个入口按钮：</p>
+                            <pre><code>&lt;button bindtap=&quot;getUserInfo&quot;&gt; 获取头像昵称 &lt;/button&gt;</code></pre>
+                            <p>点击按钮后，触发 .js 文件中的 <code>getUserInfo()</code> 方法：</p>
+                            <pre><code>  getUserInfo: function(){
+    wx.navigateTo({
+      url: '../Login/Login',
+    })
+  }</code></pre>
+                            <p>此按钮将引导页面跳转到独立的 Login 页面。</p>
+                            <figure class="figure">
+                                <img src="~/images/use-login-01.png" class="figure-img img-fluid rounded" alt="跳转到登录页" />
+                                <figcaption class="figure-caption text-center">跳转到登录页</figcaption>
+                            </figure>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/index/index.wxml</cite>
+                                </figcaption>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/index/index.js</cite>
+                                </figcaption>
+                            </figure>
+                            <h5>客户端 - 登录页</h5>
+                            <p>登录页包含系统登录展示、隐私协议等内容，并包含一个触发最终小程序客户端登录事件的按钮：</p>
+                            <pre><code>&lt;!--pages/Login/Login.wxml--&gt;
+&lt;view class=&quot;auth-notice&quot;&gt;
+      &lt;text class=&quot;auth-notice&quot;&gt;您好，&lt;/text&gt;&lt;open-data type=&quot;userNickName&quot; id=&quot;login-nickname&quot;&gt;&lt;/open-data&gt;，
+      &lt;text class=&quot;auth-notice&quot;&gt;当前小程序为 Senparc.Weixin SDK 的功能体验小程序，包括了订阅消息、获取用户授权信息、手机号、WebSocket、客服消息等演示内容，大部分内容需要授权后进行，点击【获取头像昵称】按钮进行授权，才能进入测试页面。&lt;/text&gt;
+      &lt;text class=&quot;auth-notice&quot;&gt;如果您不希望授权，请直接关闭此页面。&lt;/text&gt;
+      &lt;button class=&quot;auth-btn&quot; bindtap=&quot;getUserInfo&quot;&gt; 获取头像昵称 &lt;/button&gt;
+&lt;/view&gt;</code></pre>
+
+                            <figure class="figure">
+                                <img src="~/images/use-login-02.png" class="figure-img img-fluid rounded" alt="登录页面" />
+                                <figcaption class="figure-caption text-center">登录页面</figcaption>
+                            </figure>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/Login/Login.wxml</cite>
+                                </figcaption>
+                            </figure>
+                            <p>【获取头像昵称】按钮绑定了方法 <code>getUserInfo()</code>，在 <strong>Login.js</strong> 中添加：</p>
+                            <pre><code>var app = getApp()
+getUserInfo: function (e) {
+    console.log('getUserInfo（已更新至 2021.4.13 新版本）', e)
+    var that = this;
+    app.getUserInfo(e, function(userInfo){
+      app.globalData.userInfo = userInfo
+      that.setData({
+        userInfo: userInfo,
+        hasUserInfo: true
+      });
+      wx.navigateTo({
+        url: '../index/index',
+      })
+    });
+  }</code></pre>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/Login/Login.js</cite>
+                                </figcaption>
+                            </figure>
+                            <p>上述代码中，使用 <code>var app = getApp()</code> 引入了全局方法（代码在根目录 <strong>app.js</strong>中），其中，<code>app.getUserInfo()</code> 方法代码如下：</p>
+                            <pre><code>getUserInfo:function(cb,callback){
+    var that = this
+    if(this.globalData.userInfo){
+      typeof cb == "function" && cb(this.globalData.userInfo)
+    }else{
+    //获取userInfo并校验
+    console.log('准备调用 wx.getUserProfile');
+    wx.getUserProfile({
+      desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+      success: function (userInfoRes) {
+        console.log('get getUserProfile', userInfoRes);
+        that.globalData.userInfo = userInfoRes.userInfo
+        typeof cb == "function" && cb(that.globalData.userInfo)
+        typeof callback == "function" && callback(userInfoRes.userInfo)
+        
+        //调用登录接口
+        wx.login({
+            success: function (res) {
+              //换取openid & session_key
+              wx.request({
+                url: wx.getStorageSync('domainName') + '/WxOpen/OnLogin',
+                method: 'POST',
+                header: { 'content-type': 'application/x-www-form-urlencoded' },
+                data: {
+                  code: res.code
+                },
+                success:function(json){
+                  console.log('wx.login - request-/WxOpen/OnLogin Result:', json);
+                  var result = json.data;
+                  if(result.success)
+                  {
+                    wx.setStorageSync('sessionId', result.sessionId);
+                    //校验
+                    wx.request({
+                      url: wx.getStorageSync('domainName') + '/WxOpen/CheckWxOpenSignature',
+                      method: 'POST',
+                      header: { 'content-type': 'application/x-www-form-urlencoded' },
+                      data: {
+                        sessionId: result.sessionId,//wx.getStorageSync('sessionId'),
+                        rawData:userInfoRes.rawData,
+                        signature:userInfoRes.signature
+                      },
+                      success:function(json){
+                        console.log(json.data);
+                      }
+                    });
+
+                    //解密数据（建议放到校验success回调函数中，此处仅为演示）
+                    wx.request({
+                      url: wx.getStorageSync('domainName') + '/WxOpen/DecodeEncryptedData',
+                      method: 'POST',
+                      header: { 'content-type': 'application/x-www-form-urlencoded' },
+                      data: {
+                        'type':"userInfo",
+                        sessionId: result.sessionId,//wx.getStorageSync('sessionId'),
+                        encryptedData: userInfoRes.encryptedData,
+                        iv: userInfoRes.iv
+                      },
+                      success:function(json){
+                        console.log('数据解密：', json.data);
+                      }
+                    });
+                  }else{
+                    console.log('储存session失败！',json);
+                  }
+                }
+              })
+            }
+          })
+        }
+      });
+    }
+  }</code></pre>
+  <blockquote class="blockquote">
+    上述代码是整个微信登录客户端的核心代码。
+</blockquote>
+  <p>其中：</p>
+  <ol><li>
+      <code>wx.getUserProfile</code> 用于调起获取用户信息的接口，此接口本身和登录行为本身无直接联系，但是为了保证用户信息的正确性，后续需要在登录成功后的回调中使用到其中的加密信息来获取真实的用户信息，因此需要首先触发。
+  </li><li>
+      <code></code> 
+  </li><li>
+      <code></code> 
+  </li><li>
+      <code></code> 
+  </li><li>
+      <code></code> 
+  </li><li>
+      <code></code> 
+  </li><li>
+      <code></code> 
+  </li><li>
+      <code></code> 
+  </li></ol>
+  <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">app.js</cite>
+                                </figcaption>
+                            </figure>
+
                         </div>
                         <!-- 登录 结束 -->
                         <!-- 获取手机号 开始 -->

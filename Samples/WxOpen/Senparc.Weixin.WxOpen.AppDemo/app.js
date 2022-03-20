@@ -79,7 +79,10 @@ App({
                         signature:userInfoRes.signature
                       },
                       success:function(json){
-                        console.log(json.data);
+                        console.log('CheckWxOpenSignature Result',json.data);
+                        if(!json.data.success){
+                          alert(json.data.msg);
+                        }
                       }
                     });
 

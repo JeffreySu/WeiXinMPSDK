@@ -536,7 +536,6 @@ public ActionResult RequestData(string nickName)
                             <p>【获取头像昵称】按钮绑定了方法 <code>getUserInfo()</code>，在 <strong>Login.js</strong> 中添加：</p>
                             <pre><code>var app = getApp()
 getUserInfo: function (e) {
-    console.log('getUserInfo（已更新至 2021.4.13 新版本）', e)
     var that = this;
     app.getUserInfo(e, function(userInfo){
       app.globalData.userInfo = userInfo
@@ -557,7 +556,7 @@ getUserInfo: function (e) {
                                     Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/Login/Login.js</cite>
                                 </figcaption>
                             </figure>
-                            <p>上述代码中，使用 <code>var app = getApp()</code> 引入了全局方法（代码在根目录 <strong>app.js</strong>中），其中，<code>app.getUserInfo()</code> 方法代码如下：</p>
+                            <p>上述代码中，使用 <code>var app = getApp()</code> 引入了全局方法（代码在根目录 <strong>app.js</strong>中），其中，<code>app.getUserInfo()</code> 方法代码如下（为了更加贴近实际使用场景，我们将 <strong>登录</strong> + <strong>获取用户信息</strong> 放在连贯的代码中展示）：</p>
                             <pre><code>getUserInfo:function(cb,callback){
     var that = this
     if(this.globalData.userInfo){
@@ -572,7 +571,7 @@ getUserInfo: function (e) {
         that.globalData.userInfo = userInfoRes.userInfo
         typeof cb == "function" && cb(that.globalData.userInfo)
         typeof callback == "function" && callback(userInfoRes.userInfo)
-        
+
         //调用登录接口
         wx.login({
             success: function (res) {
@@ -602,6 +601,9 @@ getUserInfo: function (e) {
                       },
                       success:function(json){
                         console.log(json.data);
+                        if(!json.data.success){
+                          alert(json.data.msg);
+                        }
                       }
                     });
 
@@ -631,28 +633,29 @@ getUserInfo: function (e) {
       });
     }
   }</code></pre>
-  <blockquote class="blockquote">
-    上述代码是整个微信登录客户端的核心代码。
+                            <blockquote class="blockquote">
+                                上述代码是整个微信登录客户端的核心代码。
+                            </blockquote>
+                            <p>其中：</p>
+                            <ol>
+                                <li>
+                                    <code>wx.getUserProfile</code> 用于调起获取用户信息的接口，此接口本身和登录行为本身无直接联系，但是为了保证用户信息的正确性，后续需要在登录成功后的回调中使用到其中的加密信息来获取真实的用户信息，因此需要首先触发。
+                                </li>
+                                <li>
+                                    <code>wx.login</code> 是小程序客户端的登录接口，其中 <code>success</code> 为登录自后的回调函数。在回调函数中，我们使用 <code>wx.request</code> 向服务器端 <strong>/WxOpen/OnLogin</strong> 地址发送一条请求，带上 <code>success</code> 回调的参数 <code>res.code</code>，其中将使用 <code>code</code> 利用服务器端的 API 换取 <code>session_key</code>，并储存在服务器端，同时生成临时的用户身份标记 <code>SessionId</code> 并返回给客户端。<br />  成功回调后，再使用 <code>wx.setStorageSync('sessionId', result.sessionId);</code> 将收到的 <code>SessionId</code> 储存在本地缓存中。<br />
+                                </li>
+                                <li>
+                                    虽然 <code>userInfoRes.rawData</code> 已经提供了明文的用户信息，但并不能确保其是安全（未经篡改或完整）的，因此需要向服务器发送请求，验证其真实性。<br />
+                                    继续使用 <code>wx.request</code> 方法请求 <strong>/WxOpen/CheckWxOpenSignature</strong> 地址，发送 <code>sessionId</code>以及第 1 步中获取到的 <code>userInfoRes.rawData</code> 以及 <code>userInfoRes.signature</code>，校验信息的真实性。验证通过后，可以在客户端直接使用 <code>rawData</code>。
+                                    <blockquote class="blockquote">
+                                    注意：有的开发者会把经过验证后的 <code>rawData</code> 发送给服务器保存，认为此信息是有效的，<strong>这是具有风险的做法，应当抛弃</strong>，正确的做法是使用上述代码中后续的方式（<strong>/WxOpen/DecodeEncryptedData</strong>）发送 <code>userInfoRes.encryptedData</code> 给服务器解密。因为：第一，<code>rawData</code> 从被验证成功到明文发送给服务器的过程中无法确保是否被篡改；第二，明文传输用户的敏感信息容易被监听和窃取，这种做法本身不应该出现在整个项目的任何地方。
 </blockquote>
-  <p>其中：</p>
-  <ol><li>
-      <code>wx.getUserProfile</code> 用于调起获取用户信息的接口，此接口本身和登录行为本身无直接联系，但是为了保证用户信息的正确性，后续需要在登录成功后的回调中使用到其中的加密信息来获取真实的用户信息，因此需要首先触发。
-  </li><li>
-      <code></code> 
-  </li><li>
-      <code></code> 
-  </li><li>
-      <code></code> 
-  </li><li>
-      <code></code> 
-  </li><li>
-      <code></code> 
-  </li><li>
-      <code></code> 
-  </li><li>
-      <code></code> 
-  </li></ol>
-  <figure class="file">
+                                </li>
+                                <li>
+                                    真实性（签名）验证通过后，继续使用 <code>wx.request</code> 请求服务器 <strong>/WxOpen/DecodeEncryptedData</strong> 地址，发送 <code>sessionId</code>以及第 1 步中获取到的 <code>userInfoRes.encryptedData</code> 以及 <code>userInfoRes.iv</code>，服务器端将解密 <code>encryptedData</code> 获得用户信息，并储存。
+                                </li>
+                            </ol>
+                            <figure class="file">
                                 <blockquote class="blockquote">
                                     <p>本项目参考文件：</p>
                                 </blockquote>
@@ -660,7 +663,157 @@ getUserInfo: function (e) {
                                     Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">app.js</cite>
                                 </figcaption>
                             </figure>
+                            <h5>服务器端 - OnLogin</h5>
+                            <p>
+                            服务器端 <strong>/WxOpen/OnLogin</strong> 代码如下：
+                            </p>
+                            <pre><code>[HttpPost]
+public ActionResult OnLogin(string code)
+{
+    try
+    {
+        var jsonResult = SnsApi.JsCode2Json(WxOpenAppId, WxOpenAppSecret, code);
+        if (jsonResult.errcode == ReturnCode.请求成功)
+        {
+            //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
+            //使用SessionContainer管理登录信息（推荐）
+            var unionId = "";
+            var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key, unionId);
 
+            //注意：生产环境下SessionKey属于敏感信息，不能进行传输！
+            return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key, sessionKey = sessionBag.SessionKey/* 此参数千万不能暴露给客户端！处仅作演示！ */ });
+        }
+        else
+        {
+            return Json(new { success = false, msg = jsonResult.errmsg });
+        }
+    }
+    catch (Exception ex)
+    {
+        return Json(new { success = false, msg = ex.Message });
+    }
+}</code></pre>
+<blockquote class="blockquote">
+    特别注意：<code>SessionKey</code> 是非常敏感的信息，上述代码只是做演示，向客户端证明已经生成，实际开发过程中不可传递到客户端！
+</blockquote>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">WxOpenController.cs</cite>
+                                </figcaption>
+                            </figure>
+                            <h5>服务器端 - CheckWxOpenSignature</h5>
+                                 <p>
+                            服务器端 <strong>/WxOpen/CheckWxOpenSignature</strong> 代码如下：
+                            </p>
+                            <pre><code>[HttpPost]
+public ActionResult CheckWxOpenSignature(string sessionId, string rawData, string signature)
+{
+    try
+    {
+        var checkSuccess = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.CheckSignature(sessionId, rawData, signature);
+        return Json(new { success = checkSuccess, msg = checkSuccess ? "签名校验成功" : "签名校验失败" });
+    }
+    catch (Exception ex)
+    {
+        return Json(new { success = false, msg = ex.Message });
+    }
+}</code></pre>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">WxOpenController.cs</cite>
+                                </figcaption>
+                            </figure>
+                            <h5>服务器端 - DecodeEncryptedData</h5>
+                                 <p>
+                            服务器端 <strong>/WxOpen/DecodeEncryptedData</strong> 代码如下：
+                            </p>
+                            <pre><code>public async Task&lt;IActionResult&gt; DecodeEncryptedData(string type, string sessionId, string encryptedData, string iv)
+{
+    DecodeEntityBase decodedEntity = null;
+
+    try
+    {
+        switch (type.ToUpper())
+        {
+            case "USERINFO"://wx.getUserInfo()
+                decodedEntity = EncryptHelper.DecodeUserInfoBySessionId(
+                    sessionId,
+                    encryptedData, iv);
+                break;
+            default:
+                break;
+        }
+    }
+    catch (Exception ex)
+    {
+        WeixinTrace.SendCustomLog("EncryptHelper.DecodeUserInfoBySessionId 方法出错",
+            $@@"sessionId: {sessionId}
+encryptedData: {encryptedData}
+iv: {iv}
+sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
+        ? (await SessionContainer.GetSessionAsync(sessionId)).SessionKey
+        : "未保存sessionId")}
+
+异常信息：
+{ex.ToString()}
+");
+    }
+
+    //检验水印
+    var checkWatermark = false;
+    if (decodedEntity != null)
+    {
+        checkWatermark = decodedEntity.CheckWatermark(WxOpenAppId);
+
+        //保存用户信息（可选）
+        if (checkWatermark && decodedEntity is DecodedUserInfo decodedUserInfo)
+        {
+            var sessionBag = await SessionContainer.GetSessionAsync(sessionId);
+            if (sessionBag != null)
+            {
+                await SessionContainer.AddDecodedUserInfoAsync(sessionBag, decodedUserInfo);
+            }
+        }
+    }
+
+    //注意：此处仅为演示，敏感信息请勿传递到客户端！
+    return Json(new
+    {
+        success = checkWatermark,
+        //decodedEntity = decodedEntity,
+        msg = $"水印验证：{(checkWatermark ? "通过" : "不通过")}"
+    });
+}</code></pre>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">WxOpenController.cs</cite>
+                                </figcaption>
+                            </figure>
+                            <h5>完成</h5>
+                            <p>完成代码后，运行服务器端程序和小程序客户端，在客户端中点击【获取头像昵称】按钮，进入登录页面，点击【获取头像昵称】按钮，即可看到弹出系统确认授权对话窗口：</p>
+                            <figure class="figure">
+                                <img src="~/images/use-login-03.png" class="figure-img img-fluid rounded" alt="授权界面" />
+                                <figcaption class="figure-caption text-center">授权界面</figcaption>
+                            </figure>
+                            <p>点击【允许】按钮，即可自动完成整个自动登录、用户信息抓取过程：</p>
+                            <figure class="figure">
+                                <img src="~/images/use-login-04.png" class="figure-img img-fluid rounded" alt="完成登录和用户信息获取" />
+                                <figcaption class="figure-caption text-center">完成登录和用户信息获取</figcaption>
+                            </figure>
+                            <p>此时，再点击【获取数据】按钮，即可看到已经获取到的用户信息：</p>
+                            <figure class="figure">
+                                <img src="~/images/use-login-05.png" class="figure-img img-fluid rounded" alt="用户信息" />
+                                <figcaption class="figure-caption text-center">用户信息</figcaption>
+                            </figure>
                         </div>
                         <!-- 登录 结束 -->
                         <!-- 获取手机号 开始 -->

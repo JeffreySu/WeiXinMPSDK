@@ -6,6 +6,3 @@
 --------|------------
 Senparc.Weixin.Sample.WxOpen | 微信小程序服务器代码端示例 + 说明文档
 Senparc.Weixin.WxOpen.AppDemo | 微信小程序客户端代码示例
-
-
-持续更新中，敬请期待！

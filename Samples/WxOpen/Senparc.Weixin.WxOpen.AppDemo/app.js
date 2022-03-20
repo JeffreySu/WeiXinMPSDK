@@ -53,64 +53,64 @@ App({
         
         //调用登录接口
         wx.login({
-        success: function (res) {
-          //换取openid & session_key
-          wx.request({
-            url: wx.getStorageSync('domainName') + '/WxOpen/OnLogin',
-            method: 'POST',
-            header: { 'content-type': 'application/x-www-form-urlencoded' },
-            data: {
-              code: res.code
-            },
-            success:function(json){
-              console.log('wx.login - request-/WxOpen/OnLogin Result:', json);
-              var result = json.data;
-              if(result.success)
-              {
-                wx.setStorageSync('sessionId', result.sessionId);
-                //校验
-                wx.request({
-                  url: wx.getStorageSync('domainName') + '/WxOpen/CheckWxOpenSignature',
-                  method: 'POST',
-                  header: { 'content-type': 'application/x-www-form-urlencoded' },
-                  data: {
-                    sessionId: result.sessionId,//wx.getStorageSync('sessionId'),
-                    rawData:userInfoRes.rawData,
-                    signature:userInfoRes.signature
-                  },
-                  success:function(json){
-                    console.log(json.data);
-                  }
-                });
+            success: function (res) {
+              //换取openid & session_key
+              wx.request({
+                url: wx.getStorageSync('domainName') + '/WxOpen/OnLogin',
+                method: 'POST',
+                header: { 'content-type': 'application/x-www-form-urlencoded' },
+                data: {
+                  code: res.code
+                },
+                success:function(json){
+                  console.log('wx.login - request-/WxOpen/OnLogin Result:', json);
+                  var result = json.data;
+                  if(result.success)
+                  {
+                    wx.setStorageSync('sessionId', result.sessionId);
+                    //校验
+                    wx.request({
+                      url: wx.getStorageSync('domainName') + '/WxOpen/CheckWxOpenSignature',
+                      method: 'POST',
+                      header: { 'content-type': 'application/x-www-form-urlencoded' },
+                      data: {
+                        sessionId: result.sessionId,//wx.getStorageSync('sessionId'),
+                        rawData:userInfoRes.rawData,
+                        signature:userInfoRes.signature
+                      },
+                      success:function(json){
+                        console.log('CheckWxOpenSignature Result',json.data);
+                        if(!json.data.success){
+                          alert(json.data.msg);
+                        }
+                      }
+                    });
 
-                //解密数据（建议放到校验success回调函数中，此处仅为演示）
-                wx.request({
-                  url: wx.getStorageSync('domainName') + '/WxOpen/DecodeEncryptedData',
-                  method: 'POST',
-                  header: { 'content-type': 'application/x-www-form-urlencoded' },
-                  data: {
-                    'type':"userInfo",
-                    sessionId: result.sessionId,//wx.getStorageSync('sessionId'),
-                    encryptedData: userInfoRes.encryptedData,
-                    iv: userInfoRes.iv
-                  },
-                  success:function(json){
-                    console.log('数据解密：', json.data);
+                    //解密数据（建议放到校验success回调函数中，此处仅为演示）
+                    wx.request({
+                      url: wx.getStorageSync('domainName') + '/WxOpen/DecodeEncryptedData',
+                      method: 'POST',
+                      header: { 'content-type': 'application/x-www-form-urlencoded' },
+                      data: {
+                        'type':"userInfo",
+                        sessionId: result.sessionId,//wx.getStorageSync('sessionId'),
+                        encryptedData: userInfoRes.encryptedData,
+                        iv: userInfoRes.iv
+                      },
+                      success:function(json){
+                        console.log('数据解密：', json.data);
+                      }
+                    });
+                  }else{
+                    console.log('储存session失败！',json);
                   }
-                });
-                
-              }else{
-                console.log('储存session失败！',json);
-              }
+                }
+              })
             }
           })
         }
-      })
-      
-        }
       });
     }
-
   },
   globalData:{
     userInfo:null

@@ -14,7 +14,7 @@
   <view class="usermotto">
       <text class="user-motto">{{motto}}</text>
     </view>
-    
+
     <!-- 时间 -->
     <view id="clientTime">
     <text>{{time}}</text>

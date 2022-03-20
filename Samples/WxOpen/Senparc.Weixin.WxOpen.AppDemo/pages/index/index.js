@@ -169,7 +169,7 @@ Page({
   getUserPhoneNumber:function(e){
     console.log(e.detail.code)
     wx.request({
-      url: wx.getStorageSync('domainName') + '/WxOpen/GetUserPhoneNumber?code='+e.detail.code,
+      url: wx.getStorageSync('domainName') + '/WxOpen/GetUserPhoneNumber?code=' + e.detail.code,
       success: function (res) {
         // success
         var json = res.data;

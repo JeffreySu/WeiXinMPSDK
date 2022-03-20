@@ -13,28 +13,21 @@
  */
 
 //DPBMARK_FILE MiniProgram
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.AspNet.HttpUtility;
 using Senparc.CO2NET.Extensions;
-using Senparc.Weixin.Sample.WxOpen.MessageHandlers;
+using Senparc.CO2NET.Utilities;
+using Senparc.Weixin.AspNet.MvcExtension;
+using Senparc.Weixin.Entities.TemplateMessage;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MP;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
+using Senparc.Weixin.WxOpen.AdvancedAPIs.Template;
+using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp;
 using Senparc.Weixin.WxOpen.Containers;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.WxOpen.Helpers;
-using System;
-using System.IO;
-using Senparc.CO2NET.Utilities;
-using System.Threading.Tasks;
-using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp;
-using Senparc.Weixin.MP;
-using Senparc.Weixin.Entities.TemplateMessage;
-using Senparc.CO2NET.AspNet.HttpUtility;
-using System.Collections;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.WxOpen.AdvancedAPIs.Template;
-using Senparc.Weixin.AspNet.MvcExtension;
 
 namespace Senparc.Weixin.Sample.WxOpen.Controllers
 {

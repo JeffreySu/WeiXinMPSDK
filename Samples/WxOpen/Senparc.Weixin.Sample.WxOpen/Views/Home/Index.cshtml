@@ -169,7 +169,7 @@
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-request" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">小程序请求服务器</button>
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-login" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">登录</button>
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-phone-number" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">获取手机号</button>
-
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-others" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">其他</button>
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent-setting">
@@ -648,8 +648,8 @@ getUserInfo: function (e) {
                                     虽然 <code>userInfoRes.rawData</code> 已经提供了明文的用户信息，但并不能确保其是安全（未经篡改或完整）的，因此需要向服务器发送请求，验证其真实性。<br />
                                     继续使用 <code>wx.request</code> 方法请求 <strong>/WxOpen/CheckWxOpenSignature</strong> 地址，发送 <code>sessionId</code>以及第 1 步中获取到的 <code>userInfoRes.rawData</code> 以及 <code>userInfoRes.signature</code>，校验信息的真实性。验证通过后，可以在客户端直接使用 <code>rawData</code>。
                                     <blockquote class="blockquote">
-                                    注意：有的开发者会把经过验证后的 <code>rawData</code> 发送给服务器保存，认为此信息是有效的，<strong>这是具有风险的做法，应当抛弃</strong>，正确的做法是使用上述代码中后续的方式（<strong>/WxOpen/DecodeEncryptedData</strong>）发送 <code>userInfoRes.encryptedData</code> 给服务器解密。因为：第一，<code>rawData</code> 从被验证成功到明文发送给服务器的过程中无法确保是否被篡改；第二，明文传输用户的敏感信息容易被监听和窃取，这种做法本身不应该出现在整个项目的任何地方。
-</blockquote>
+                                        注意：有的开发者会把经过验证后的 <code>rawData</code> 发送给服务器保存，认为此信息是有效的，<strong>这是具有风险的做法，应当抛弃</strong>，正确的做法是使用上述代码中后续的方式（<strong>/WxOpen/DecodeEncryptedData</strong>）发送 <code>userInfoRes.encryptedData</code> 给服务器解密。因为：第一，<code>rawData</code> 从被验证成功到明文发送给服务器的过程中无法确保是否被篡改；第二，明文传输用户的敏感信息容易被监听和窃取，这种做法本身不应该出现在整个项目的任何地方。
+                                    </blockquote>
                                 </li>
                                 <li>
                                     真实性（签名）验证通过后，继续使用 <code>wx.request</code> 请求服务器 <strong>/WxOpen/DecodeEncryptedData</strong> 地址，发送 <code>sessionId</code>以及第 1 步中获取到的 <code>userInfoRes.encryptedData</code> 以及 <code>userInfoRes.iv</code>，服务器端将解密 <code>encryptedData</code> 获得用户信息，并储存。
@@ -665,7 +665,7 @@ getUserInfo: function (e) {
                             </figure>
                             <h5>服务器端 - OnLogin</h5>
                             <p>
-                            服务器端 <strong>/WxOpen/OnLogin</strong> 代码如下：
+                                服务器端 <strong>/WxOpen/OnLogin</strong> 代码如下：
                             </p>
                             <pre><code>[HttpPost]
 public ActionResult OnLogin(string code)
@@ -693,9 +693,9 @@ public ActionResult OnLogin(string code)
         return Json(new { success = false, msg = ex.Message });
     }
 }</code></pre>
-<blockquote class="blockquote">
-    特别注意：<code>SessionKey</code> 是非常敏感的信息，上述代码只是做演示，向客户端证明已经生成，实际开发过程中不可传递到客户端！
-</blockquote>
+                            <blockquote class="blockquote">
+                                特别注意：<code>SessionKey</code> 是非常敏感的信息，上述代码只是做演示，向客户端证明已经生成，实际开发过程中不可传递到客户端！
+                            </blockquote>
                             <figure class="file">
                                 <blockquote class="blockquote">
                                     <p>本项目参考文件：</p>
@@ -705,8 +705,8 @@ public ActionResult OnLogin(string code)
                                 </figcaption>
                             </figure>
                             <h5>服务器端 - CheckWxOpenSignature</h5>
-                                 <p>
-                            服务器端 <strong>/WxOpen/CheckWxOpenSignature</strong> 代码如下：
+                            <p>
+                                服务器端 <strong>/WxOpen/CheckWxOpenSignature</strong> 代码如下：
                             </p>
                             <pre><code>[HttpPost]
 public ActionResult CheckWxOpenSignature(string sessionId, string rawData, string signature)
@@ -730,8 +730,8 @@ public ActionResult CheckWxOpenSignature(string sessionId, string rawData, strin
                                 </figcaption>
                             </figure>
                             <h5>服务器端 - DecodeEncryptedData</h5>
-                                 <p>
-                            服务器端 <strong>/WxOpen/DecodeEncryptedData</strong> 代码如下：
+                            <p>
+                                服务器端 <strong>/WxOpen/DecodeEncryptedData</strong> 代码如下：
                             </p>
                             <pre><code>public async Task&lt;IActionResult&gt; DecodeEncryptedData(string type, string sessionId, string encryptedData, string iv)
 {
@@ -818,8 +818,133 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
                         <!-- 登录 结束 -->
                         <!-- 获取手机号 开始 -->
                         <div class="tab-pane fade" id="nav-phone-number" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <blockquote class="blockquote">
+                                <p>注意：小程序获取手机号的接口，进行过一次升级，先前在客户端直接获取手机号的方式已经被淘汰（示例中左侧【获取手机号】按钮），目前最新的接口是使用 code 到服务器端后台获取手机号（示例中右侧【获取手机号（Code）】按钮。</p>
+                                <figure class="figure">
+                                    <img src="~/images/use-phone-01.png" class="figure-img img-fluid rounded" alt="入口页面" />
+                                    <figcaption class="figure-caption text-center">入口页面</figcaption>
+                                </figure>
+                                <p>当用户点击后，系统进行授权提示：</p>
+                                <figure class="figure">
+                                    <img src="~/images/use-phone-02.png" class="figure-img img-fluid rounded" alt="授权手机号" />
+                                    <figcaption class="figure-caption text-center">授权手机号</figcaption>
+                                </figure>
+                                <p>
+                                    点击【允许】按钮，通过访问后端接口，获取到手机号：
+                                </p>
+                                <figure class="figure">
+                                    <img src="~/images/use-phone-03.png" class="figure-img img-fluid rounded" alt="授权手机号" />
+                                    <figcaption class="figure-caption text-center">授权手机号</figcaption>
+                                </figure>
+                            </blockquote>
+                            <h5>客户端</h5>
+                            <p>在 Index.wxml 文件中放置按钮：</p>
+                            <pre><code>&lt;button open-type=&quot;getPhoneNumber&quot; bindgetphonenumber=&quot;getUserPhoneNumber&quot; type=&quot;primary&quot;
+        class=&quot;btn-DoRequest&quot; hover-class=&quot;other-button-hover&quot; &gt;获取手机号（code）&lt;/button&gt;</code></pre>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">/pages/index/index.wxml</cite>
+                                </figcaption>
+                            </figure>
+                            <p>上述代码中，<code>open-type="getPhoneNumber"</code> 指定了当前按钮获取手机号的用途，<code>bindgetphonenumber="getUserPhoneNumber"</code> 指定了处理方法为 <code>getUserPhoneNumber</code>（对应于 .js 文件中）：</p>
+                            <pre><code>getUserPhoneNumber:function(e){
+    wx.request({
+      url: wx.getStorageSync('domainName') + '/WxOpen/GetUserPhoneNumber?code=' + e.detail.code,
+      success: function (res) {
+        // success
+        var json = res.data;
+
+        if(!json.success){
+          wx.showModal({
+            title: '解密过程发生异常',
+            content: json.msg,
+            showCancel: false
+          });          
+          return;
+        }
+
+        //模组对话框
+        var phoneNumberData = json.phoneInfo;
+        var msg = '手机号：' + phoneNumberData.phoneNumber+
+          '\r\n手机号（不带区号）：' + phoneNumberData.purePhoneNumber+
+          '\r\n区号（国别号）' + phoneNumberData.countryCode+
+          '\r\n水印信息：' + JSON.stringify(phoneNumberData.watermark);
+
+        wx.showModal({
+          title: '收到服务器端通过 code 获取的手机号信息',
+          content: msg,
+          showCancel: false
+        });
+      }
+    })
+  }</code></pre>
+                            <p>当用户点击按钮，并授权手机号后，就会触发上述方法，通过 <code>e</code> 参数提供的 <code>e.code</code>，将其提交给服务器后台 <strong>/WxOpen/GetUserPhoneNumber</strong> 地址，后台将使用 <code>code</code> 换取用户的手机号，然后进行储存或返回给前端。上述代码的模组对话框只是演示作用，实际项目中一般不需要再次弹出信息。</p>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">/pages/index/index.js</cite>
+                                </figcaption>
+                            </figure>
+                            <h5>后端代码 - GetUserPhoneNumber</h5>
+                            <pre><code>public async Task<ActionResult> GetUserPhoneNumber(string code)
+{
+    try
+    {
+        var result = await BusinessApi.GetUserPhoneNumberAsync(WxOpenAppId, code);
+        return Json(new { success = true, phoneInfo = result.phone_info });
+    }
+    catch (Exception ex)
+    {
+        return Json(new { success = false, msg = ex.Message });
+    }
+}</code></pre>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">WxOpenController.cs</cite>
+                                </figcaption>
+                            </figure>
                         </div>
                         <!-- 获取手机号 结束 -->
+                        <!-- 其他 开始 -->
+                        <div class="tab-pane fade" id="nav-others" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p>更多接口用法，可参考【获取手机号】中的方法，参考客户端（.wxml、.js）以及后端（WxController.cs）文件，用法几乎都是一致的。</p>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>后端本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">WxOpenController.cs</cite>
+                                </figcaption>
+
+                                 <blockquote class="blockquote">
+                                    <p>客户端参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">app.js</cite> - 全局方法
+                                </figcaption>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/index</cite> - 首页文件
+                                </figcaption>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/Login</cite> - 登录页文件
+                                </figcaption>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/QrCode</cite> - 获取二维码文件
+                                </figcaption>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/websocket_signalr</cite> - WebSocket 文件（进阶）
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <!-- 其他 结束 -->
 
                     </div>
 

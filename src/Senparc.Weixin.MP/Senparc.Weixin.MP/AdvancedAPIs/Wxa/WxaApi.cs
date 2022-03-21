@@ -1,15 +1,57 @@
-﻿using Senparc.CO2NET.Extensions;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2022 Senparc
+
+    文件名：WxaApi.cs
+    文件功能描述：门店小程序接口
+
+
+    创建标识：Senparc - 20200619
+
+    修改标识：Senparc - 20200619
+    修改描述：增加从腾讯地图拉取省市区信息接口
+            增加在腾讯地图中创建门店接口
+  
+----------------------------------------------------------------*/
+
+using Newtonsoft.Json;
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson;
 using Senparc.Weixin.MP.CommonAPIs;
+using System.IO;
+using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 门店小程序接口
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
     public static class WxaApi
     {
 
@@ -27,7 +69,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns>小程序类目</returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.GetMerchantCategoryResult", true)]
         public static GetMerchantCategoryResult GetMerchantCategoryResult(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -46,7 +87,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="data">申请数据</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.ApplyMerchant", true)]
         public static WxJsonResult ApplyMerchant(string accessTokenOrAppId, ApplyMerchantData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -63,7 +103,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.GetMerchantAuditInfo", true)]
         public static GetMerchantAuditInfoJson GetMerchantAuditInfo(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -82,13 +121,27 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="intro">门店小程序的介绍,如果不想改，参数传空值</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.ModifyMerchant", true)]
         public static WxJsonResult ModifyMerchant(string accessTokenOrAppId, string headimg_mediaid, string intro, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = string.Format(Config.ApiMpHost + "/wxa/modify_merchant?access_token={0}", accessToken.AsUrlData());
                 return CommonJsonSend.Send<WxJsonResult>(null, url, new { headimg_mediaid, intro }, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 从腾讯地图拉取省市区信息
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="timeOut">请求超时时长</param>
+        /// <returns></returns>
+        public static DistrictResultJson GetDistrict(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiMpHost + "/wxa/get_district?access_token={0}", accessToken.AsUrlData());
+                return CommonJsonSend.Send<DistrictResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
             }, accessTokenOrAppId);
         }
 
@@ -100,7 +153,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="keyword">搜索的关键词</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.SearchMapPoi", true)]
         public static SearchMapPoiJson SearchMapPoi(string accessTokenOrAppId, int districtid, string keyword, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -112,13 +164,32 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
+        /// 在腾讯地图中创建门店
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="data">门店数据</param>
+        /// <param name="timeout">请求超时时长</param>
+        /// <returns></returns>
+        public static CreateMapPoiJsonResult CreateMapPoi(string accessTokenOrAppId, CreateMapPoiData data, int timeout =
+            Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/create_map_poi?access_token={0}";
+
+                return CommonJsonSend.Send<CreateMapPoiJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeout);
+
+            }, accessTokenOrAppId);
+
+        }
+
+        /// <summary>
         /// 添加门店
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="data">门店数据</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.Addstore", true)]
         public static AddStoreJsonResult Addstore(string accessTokenOrAppId, AddStoreJsonData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -136,7 +207,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="data">门店数据</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.UpdateStore", true)]
         public static UpdateStoreJsonResult UpdateStore(string accessTokenOrAppId, UpdateStoreData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -154,7 +224,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="poi_id">为门店小程序添加门店，审核成功后返回的门店id</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.GetStoreInfo", true)]
         public static StoreJsonResult GetStoreInfo(string accessTokenOrAppId, string poi_id, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -174,7 +243,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="offset">获取门店列表的初始偏移位置，从0开始计数</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.GetStoreInfo", true)]
         public static StoreListJsonResult GetStoreInfo(string accessTokenOrAppId, int offset, int limit, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -192,7 +260,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="poi_id">为门店小程序添加门店，审核成功后返回的门店id</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.DeleteStore", true)]
         public static WxJsonResult DeleteStore(string accessTokenOrAppId, string poi_id, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -207,13 +274,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #endregion
         #region 异步方法
 
-                /// <summary>
+        /// <summary>
         /// 拉取门店小程序类目
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns>小程序类目</returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.GetMerchantCategoryResult", true)]
         public static async Task<GetMerchantCategoryResult> GetMerchantCategoryResultAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -232,7 +298,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="data">申请数据</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.ApplyMerchant", true)]
         public static async Task<WxJsonResult> ApplyMerchantGetMerchantCategoryResultAsync(string accessTokenOrAppId, ApplyMerchantData data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -249,7 +314,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.GetMerchantAuditInfo", true)]
         public static async Task<GetMerchantAuditInfoJson> GetMerchantAuditInfoAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -268,13 +332,28 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="intro">门店小程序的介绍,如果不想改，参数传空值</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.ModifyMerchant", true)]
         public static async Task<WxJsonResult> ModifyMerchantAsync(string accessTokenOrAppId, string headimg_mediaid, string intro, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiMpHost + "/wxa/modify_merchant?access_token={0}", accessToken.AsUrlData());
                 return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, new { headimg_mediaid, intro }, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】从腾讯地图拉取省市区信息
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="timeOut">请求超时时长</param>
+        /// <returns></returns>
+        public static async Task<DistrictResultJson> GetDistrictAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiMpHost + "/wxa/get_district?access_token={0}", accessToken.AsUrlData());
+                return await CommonJsonSend.SendAsync<DistrictResultJson>(null, url, null, CommonJsonSendType.GET, timeOut)
+                .ConfigureAwait(false);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
@@ -286,7 +365,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="keyword">搜索的关键词</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.SearchMapPoi", true)]
         public static async Task<SearchMapPoiJson> SearchMapPoiAsync(string accessTokenOrAppId, int districtid, string keyword, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -304,7 +382,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="data">门店数据</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.Addstore", true)]
         public static async Task<AddStoreJsonResult> AddstoreAsync(string accessTokenOrAppId, AddStoreJsonData data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -316,13 +393,30 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
+        /// 【异步方法】在腾讯地图中创建门店
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="data">门店数据</param>
+        /// <param name="timeout">请求超时时长</param>
+        /// <returns></returns>
+        public static async Task<CreateMapPoiJsonResult> CreateMapPoiAsync(string accessTokenOrAppId, CreateMapPoiData data, int timeout =
+            Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiMpHost + "/wxa/create_map_poi?access_token={0}", accessToken.AsUrlData());
+                return await CommonJsonSend.SendAsync<CreateMapPoiJsonResult>(null, url, data, CommonJsonSendType.POST, timeout)
+                .ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// 更新门店信息
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="data">门店数据</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.UpdateStore", true)]
         public static async Task<UpdateStoreJsonResult> UpdateStoreAsync(string accessTokenOrAppId, UpdateStoreData data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -340,7 +434,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="poi_id">为门店小程序添加门店，审核成功后返回的门店id</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.GetStoreInfo", true)]
         public static async Task<StoreJsonResult> GetStoreInfoAsync(string accessTokenOrAppId, string poi_id, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -360,7 +453,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="offset">获取门店列表的初始偏移位置，从0开始计数</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.GetStoreInfo", true)]
         public static async Task<StoreListJsonResult> GetStoreInfoAsync(string accessTokenOrAppId, int offset, int limit, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -378,7 +470,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="poi_id">为门店小程序添加门店，审核成功后返回的门店id</param>
         /// <param name="timeOut">请求超时时长</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.DeleteStore", true)]
         public static async Task<WxJsonResult> DeleteStoreAsync(string accessTokenOrAppId, string poi_id, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

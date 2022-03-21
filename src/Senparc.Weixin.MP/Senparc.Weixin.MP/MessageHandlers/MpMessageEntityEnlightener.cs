@@ -2,11 +2,6 @@
 using Senparc.NeuChar.Exceptions;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.MP.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -109,6 +104,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public override IResponseMessageVoice NewResponseMessageVoice()
         {
             return new ResponseMessageVoice();
+        }
+
+        public override IRequestMessageMiniProgramPage NewRequestMessageMiniProgramPage()
+        {
+            throw new MessageHandlerException("微信公众号不支持 IRequestMessageMiniProgramPage 响应类型");
         }
     }
 }

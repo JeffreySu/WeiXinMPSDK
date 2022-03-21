@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：ResponseMessageBase.cs
     文件功能描述：响应回复消息基类
@@ -25,7 +25,7 @@ namespace Senparc.Weixin.Work.Entities
 {
 	public interface IWorkResponseMessageBase : Senparc.NeuChar.Entities.IResponseMessageBase, IMessageBase
 	{
-		ResponseMsgType MsgType { get; }
+		//ResponseMsgType MsgType { get; }
 		//string Content { get; set; }
 		//bool FuncFlag { get; set; }
 	}

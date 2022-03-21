@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：SnsApi.cs
     文件功能描述：小程序微信登录
@@ -41,6 +41,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sns
     /// <summary>
     /// 微信SNS接口
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
     public static class SnsApi
     {
         #region 同步方法
@@ -55,7 +56,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sns
         /// <param name="grantType">保持默认：authorization_code</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "SnsApi.JsCode2Json", true)]
         public static JsCode2JsonResult JsCode2Json(string appId, string componentAppId, string componentAccessToken, string jsCode, string grantType = "authorization_code", int timeOut = Config.TIME_OUT)
         {
             string urlFormat =
@@ -81,7 +81,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sns
         /// <param name="grantType">保持默认：authorization_code</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "SnsApi.JsCode2JsonAsync", true)]
         public static async Task<JsCode2JsonResult> JsCode2JsonAsync(string appId, string componentAppId, string componentAccessToken, string jsCode, string grantType = "authorization_code", int timeOut = Config.TIME_OUT)
         {
             string urlFormat =

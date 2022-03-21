@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
   
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -95,6 +95,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20191206
     修改描述：AutoReplyType 添加卡券（card）枚举
+
+    修改标识：Senparc - 20201211
+    修改描述：v1.6.101.1 修改 TenPayV3Type 过期提示
+
+    修改标识：lishewen - 20210809
+    修改描述：v16.14.2 添加 Event.submit_invoice_title
 
 ----------------------------------------------------------------*/
 
@@ -279,101 +285,143 @@ namespace Senparc.Weixin.MP
         /// 摇一摇事件通知
         /// </summary>
         ShakearoundUserShake,
+
         /// <summary>
         /// 卡券转赠事件推送
         /// </summary>
         user_gifting_card,
+
         /// <summary>
         /// 微信买单完成
         /// </summary>
         user_pay_from_pay_cell,
+
         /// <summary>
         /// 会员卡内容更新事件：会员卡积分余额发生变动时
         /// </summary>
         update_member_card,
+
         /// <summary>
         /// 卡券库存报警事件：当某个card_id的初始库存数大于200且当前库存小于等于100时
         /// </summary>
         card_sku_remind,
+
         /// <summary>
         /// 券点流水详情事件：当商户朋友的券券点发生变动时
         /// </summary>
         card_pay_order,
+
         /// <summary>
         /// 创建门店小程序审核事件
         /// </summary>
         apply_merchant_audit_info,
+
         /// <summary>
         /// 从腾讯地图中创建门店审核事件
         /// </summary>
         create_map_poi_audit_info,
+
         /// <summary>
         /// 门店小程序中创建门店审核事件
         /// </summary>
         add_store_audit_info,
+
         /// <summary>
         /// 修改门店图片审核事件
         /// </summary>
         modify_store_audit_info,
+
         /// <summary>
         /// 点击菜单跳转小程序的事件推送
         /// </summary>
         view_miniprogram,
         #region 微信认证事件推送
-
         /// <summary>
         /// 资质认证成功（此时立即获得接口权限）
         /// </summary>
         qualification_verify_success,
+
         /// <summary>
         /// 名称认证成功（即命名成功）
         /// </summary>
         qualification_verify_fail,
+
         /// <summary>
         /// 名称认证成功（即命名成功）
         /// </summary>
         naming_verify_success,
+
         /// <summary>
         /// 名称认证失败（这时虽然客户端不打勾，但仍有接口权限）
         /// </summary>
         naming_verify_fail,
+
         /// <summary>
         /// 年审通知
         /// </summary>
         annual_renew,
+
         /// <summary>
         /// 认证过期失效通知
         /// </summary>
         verify_expired,
-
         #endregion
 
         #region 小程序审核事件推送
-
         /// <summary>
         /// 小程序审核成功
         /// </summary>
         weapp_audit_success,
+
         /// <summary>
         /// 小程序审核失败
         /// </summary>
         weapp_audit_fail,
-
         #endregion
 
-        #region 卡券回调：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=215143440770UT7Y
+        #region 卡券回调：https: //mp.weixin.qq.com/wiki?t=resource/res_main&id=215143440770UT7Y
         /// <summary>
         /// 用户购买礼品卡付款成功
         /// </summary>
         giftcard_pay_done,
+
         /// <summary>
         /// 用户购买后赠送
         /// </summary>
         giftcard_send_to_friend,
+
         /// <summary>
         /// 用户领取礼品卡成功
         /// </summary>
         giftcard_user_accept,
+        #endregion
+
+        #region 微信电子发票
+        /// <summary>
+        /// 2.3 接收授权完成事件 用户授权完成后，执收单位的公众号会收到授权完成的事件，关于事件推送请参考接受callback推送
+        /// </summary>
+        user_authorize_invoice,
+        /// <summary>
+        /// 用户提交抬头后，商户会收到用户提交的事件。
+        /// https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/Quick_issuing/Interface_Instructions.html
+        /// </summary>
+        submit_invoice_title,
+        #endregion
+        #region 订阅通知
+        /// <summary>
+        /// 用户操作订阅通知弹窗 场景：用户在图文等场景内订阅通知的操作
+        /// </summary>
+        subscribe_msg_popup_event,
+
+        /// <summary>
+        /// 用户管理订阅通知 场景：用户在服务通知管理页面做通知管理时的操作
+        /// </summary>
+        subscribe_msg_change_event,
+
+        /// <summary>
+        /// 发送订阅通知  场景：调用 bizsend 接口发送通知
+        /// </summary>
+        subscribe_msg_sent_event
         #endregion
     }
 
@@ -411,8 +459,6 @@ namespace Senparc.Weixin.MP
     //}
 
     /// <summary>
-
-    /// <summary>
     /// 上传媒体文件类型
     /// </summary>
     public enum UploadMediaFileType
@@ -421,22 +467,49 @@ namespace Senparc.Weixin.MP
         /// 图片: 128K，支持JPG格式
         /// </summary>
         image,
+
         /// <summary>
         /// 语音：256K，播放长度不超过60s，支持AMR\MP3格式
         /// </summary>
         voice,
+
         /// <summary>
         /// 视频：1MB，支持MP4格式
         /// </summary>
         video,
+
         /// <summary>
         /// thumb：64KB，支持JPG格式
         /// </summary>
         thumb,
+
         /// <summary>
         /// 图文消息
         /// </summary>
         news
+    }
+
+    public enum UploadForeverMediaType
+    {
+        /// <summary>
+        /// 图片，支持JPG格式
+        /// </summary>
+        image,
+
+        /// <summary>
+        /// 语音
+        /// </summary>
+        voice,
+
+        /// <summary>
+        /// 视频
+        /// </summary>
+        video,
+
+        /// <summary>
+        /// thumb
+        /// </summary>
+        thumb
     }
 
 
@@ -464,27 +537,33 @@ namespace Senparc.Weixin.MP
         /// 图文消息
         /// </summary>
         mpnews = 0,
+
         /// <summary>
         /// 文本
         /// </summary>
         text = 1,
+
         /// <summary>
         /// 语音
         /// </summary>
         voice = 2,
+
         /// <summary>
         /// 图片
         /// </summary>
         image = 3,
+
         /// <summary>
         /// 视频
         /// </summary>
         video = 4,
+
         /// <summary>
         /// 卡券
         /// </summary>
         wxcard = 5
     }
+
     /// <summary>
     /// 卡券类型
     /// </summary>
@@ -494,47 +573,58 @@ namespace Senparc.Weixin.MP
         /// 通用券
         /// </summary>
         GENERAL_COUPON = 0,
+
         /// <summary>
         /// 团购券
         /// </summary>
         GROUPON = 1,
+
         /// <summary>
         /// 折扣券
         /// </summary>
         DISCOUNT = 2,
+
         /// <summary>
         /// 礼品券
         /// </summary>
         GIFT = 3,
+
         /// <summary>
         /// 代金券
         /// </summary>
         CASH = 4,
+
         /// <summary>
         /// 会员卡
         /// </summary>
         MEMBER_CARD = 5,
+
         /// <summary>
         /// 门票
         /// </summary>
         SCENIC_TICKET = 6,
+
         /// <summary>
         /// 电影票
         /// </summary>
         MOVIE_TICKET = 7,
+
         /// <summary>
         /// 飞机票
         /// </summary>
         BOARDING_PASS = 8,
+
         /// <summary>
         /// 红包
         /// </summary>
         LUCKY_MONEY = 9,
+
         /// <summary>
         /// 会议门票
         /// </summary>
         MEETING_TICKET = 10,
     }
+
     /// <summary>
     /// 卡券code码展示类型
     /// </summary>
@@ -544,27 +634,33 @@ namespace Senparc.Weixin.MP
         /// 文本
         /// </summary>
         CODE_TYPE_TEXT = 0,
+
         /// <summary>
         /// 一维码
         /// </summary>
         CODE_TYPE_BARCODE = 1,
+
         /// <summary>
         /// 二维码
         /// </summary>
         CODE_TYPE_QRCODE = 2,
+
         ///
         /// 二维码无code显示
         ///
         CODE_TYPE_ONLY_QRCODE = 3,
+
         ///
         /// 一维码无code显示
         ///
         CODE_TYPE_ONLY_BARCODE = 4,
+
         ///
         /// 不显示code和条形码类型
         ///
         CODE_TYPE_NONE = 5
     }
+
     /// <summary>
     /// 卡券 商户自定义cell 名称
     /// </summary>
@@ -574,22 +670,27 @@ namespace Senparc.Weixin.MP
         /// 外卖
         /// </summary>
         URL_NAME_TYPE_TAKE_AWAY = 0,
+
         /// <summary>
         /// 在线预订
         /// </summary>
         URL_NAME_TYPE_RESERVATION = 1,
+
         /// <summary>
         /// 立即使用
         /// </summary>
         URL_NAME_TYPE_USE_IMMEDIATELY = 2,
+
         /// <summary>
         /// 在线预约
         /// </summary>
         URL_NAME_TYPE_APPOINTMENT = 3,
+
         /// <summary>
         /// 在线兑换
         /// </summary>
         URL_NAME_TYPE_EXCHANGE = 4,
+
         /// <summary>
         /// 车辆信息
         /// </summary>
@@ -602,29 +703,34 @@ namespace Senparc.Weixin.MP
         /// 等级
         /// </summary>
         FIELD_NAME_TYPE_LEVEL = 0,
+
         /// <summary>
         /// 优惠券
         /// </summary>
         FIELD_NAME_TYPE_COUPON = 1,
+
         /// <summary>
         /// 印花
         /// </summary>
         FIELD_NAME_TYPE_STAMP = 2,
+
         /// <summary>
         /// 折扣
         /// </summary>
         FIELD_NAME_TYPE_DISCOUNT = 3,
+
         /// <summary>
         /// 成就
         /// </summary>
         FIELD_NAME_TYPE_ACHIEVEMEN = 4,
+
         /// <summary>
         /// 里程
         /// </summary>
         FIELD_NAME_TYPE_MILEAGE = 5,
 
         /// <summary>
-        /// 未知类型（新加入，文档中没有：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025272）
+        /// 未知类型（新加入，文档中没有：<see href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1451025272"/>）
         /// </summary>
         FIELD_NAME_TYPE_UNKNOW = -1
     }
@@ -638,6 +744,7 @@ namespace Senparc.Weixin.MP
         /// 不弹出授权页面，直接跳转，只能获取用户openid
         /// </summary>
         snsapi_base,
+
         /// <summary>
         /// 弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息
         /// </summary>
@@ -671,10 +778,12 @@ namespace Senparc.Weixin.MP
         /// 固定日期区间
         /// </summary>
         DATE_TYPE_FIX_TIME_RANGE = 0,
+
         /// <summary>
         /// 固定时长（自领取后按天算）
         /// </summary>
         DATE_TYPE_FIX_TERM = 1,
+
         /// <summary>
         /// 永久有效
         /// </summary>
@@ -691,22 +800,27 @@ namespace Senparc.Weixin.MP
         /// 文本
         /// </summary>
         text = 0,
+
         /// <summary>
         /// 图片
         /// </summary>
         img = 1,
+
         /// <summary>
         /// 语音
         /// </summary>
         voice = 2,
+
         /// <summary>
         /// 视频
         /// </summary>
         video = 3,
+
         /// <summary>
         /// 图文消息
         /// </summary>
         news = 4,
+
         /// <summary>
         /// 卡券
         /// </summary>
@@ -722,6 +836,7 @@ namespace Senparc.Weixin.MP
         /// 全部回复
         /// </summary>
         reply_all = 0,
+
         /// <summary>
         /// 随机回复其中一条
         /// </summary>
@@ -737,6 +852,7 @@ namespace Senparc.Weixin.MP
         /// 消息中含有该关键词即可
         /// </summary>
         contain = 0,
+
         /// <summary>
         /// 消息内容必须和关键词严格相同
         /// </summary>
@@ -752,26 +868,32 @@ namespace Senparc.Weixin.MP
         /// 附近
         /// </summary>
         SCENE_NEAR_BY = 0,
+
         /// <summary>
         /// 自定义菜单
         /// </summary>
         SCENE_MENU = 1,
+
         /// <summary>
         /// 二维码
         /// </summary>
         SCENE_QRCODE = 2,
+
         /// <summary>
         /// 公众号文章
         /// </summary>
         SCENE_ARTICLE = 3,
+
         /// <summary>
         /// h5页面
         /// </summary>
         SCENE_H5 = 4,
+
         /// <summary>
         /// 自动回复
         /// </summary>
         SCENE_IVR = 5,
+
         /// <summary>
         /// 卡券自定义cell
         /// </summary>
@@ -793,22 +915,27 @@ namespace Senparc.Weixin.MP
         /// 已过期
         /// </summary>
         EXPIRE,
+
         /// <summary>
         /// 转赠中
         /// </summary>
         GIFTING,
+
         /// <summary>
         /// 转赠成功
         /// </summary>
         GIFT_SUCC,
+
         /// <summary>
         /// 转赠超时
         /// </summary>
         GIFT_TIMEOUT,
+
         /// <summary>
         /// 已删除
         /// </summary>
         DELETE,
+
         /// <summary>
         /// 已失效
         /// </summary>
@@ -964,14 +1091,17 @@ namespace Senparc.Weixin.MP
         /// 临时的整型参数值
         /// </summary>
         QR_SCENE = 0,
+
         /// <summary>
         /// 临时的字符串参数值
         /// </summary>
         QR_STR_SCENE = 3,
+
         /// <summary>
         /// 永久的整型参数值
         /// </summary>
         QR_LIMIT_SCENE = 1,
+
         /// <summary>
         /// 永久的字符串参数值
         /// </summary>
@@ -982,8 +1112,7 @@ namespace Senparc.Weixin.MP
     /// <summary>
     /// 支付类型
     /// </summary>
-
-    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay 中的对应方法")]
     public enum TenPayV3Type
     {
         /// <summary>
@@ -1037,8 +1166,8 @@ namespace Senparc.Weixin.MP
         折扣,
         被折扣
     }
-    #region 过期
 
+    #region 过期
     /// <summary>
     /// 红包的场景id（scene_id），最中输出为字符串
     /// </summary>
@@ -1049,30 +1178,37 @@ namespace Senparc.Weixin.MP
         /// 商品促销
         /// </summary>
         PRODUCT_1,
+
         /// <summary>
         /// 抽奖
         /// </summary>
         PRODUCT_2,
+
         /// <summary>
         /// 虚拟物品兑奖
         /// </summary>
         PRODUCT_3,
+
         /// <summary>
         /// 企业内部福利
         /// </summary>
         PRODUCT_4,
+
         /// <summary>
         /// 渠道分润
         /// </summary>
         PRODUCT_5,
+
         /// <summary>
         /// 保险回馈
         /// </summary>
         PRODUCT_6,
+
         /// <summary>
         /// 彩票派奖
         /// </summary>
         PRODUCT_7,
+
         /// <summary>
         /// 税务刮奖
         /// </summary>
@@ -1088,19 +1224,21 @@ namespace Senparc.Weixin.MP
         /// 发票初始状态，未锁定
         /// </summary>
         INVOICE_REIMBURSE_INIT,
+
         /// <summary>
         /// 发票已锁定
         /// </summary>
         INVOICE_REIMBURSE_LOCK,
+
         /// <summary>
         /// 发票已核销
         /// </summary>
         INVOICE_REIMBURSE_CLOSURE,
+
         /// <summary>
         /// 发票被冲红
         /// </summary>
         INVOICE_REIMBURSE_CANCEL
     }
-
     #endregion
 }

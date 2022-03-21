@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：CustomServiceAPI.cs
     文件功能描述：多客服接口
@@ -75,6 +75,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 多客服接口
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
     public static class CustomServiceApi
     {
         #region 同步方法
@@ -90,7 +91,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="pageIndex">查询第几页，从1开始</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.GetRecord", true)]
         public static GetRecordResult GetRecord(string accessTokenOrAppId, DateTime startTime, DateTime endTime, int pageSize = 10, int pageIndex = 1, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -127,7 +127,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.GetCustomBasicInfo", true)]
         public static CustomInfoJson GetCustomBasicInfo(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -145,7 +144,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.GetCustomOnlineInfo", true)]
         public static CustomOnlineJson GetCustomOnlineInfo(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -173,7 +171,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="passWord">客服账号登录密码，格式为密码明文的32位加密MD5值</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.AddCustom", true)]
         public static WxJsonResult AddCustom(string accessTokenOrAppId, string kfAccount, string nickName, string passWord, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -200,7 +197,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.InviteWorker", true)]
         public static WxJsonResult InviteWorker(string accessTokenOrAppId, string kfAccount, string inviteWx, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -227,7 +223,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="passWord">客服账号登录密码，格式为密码明文的32位加密MD5值</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.UpdateCustom", true)]
         public static WxJsonResult UpdateCustom(string accessTokenOrAppId, string kfAccount, string nickName, string passWord, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -254,7 +249,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="file">form-data中媒体文件标识，有filename、filelength、content-type等信息</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.UploadCustomHeadimg", true)]
         public static WxJsonResult UploadCustomHeadimg(string accessTokenOrAppId, string kfAccount, string file, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -262,7 +256,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var url = string.Format(Config.ApiMpHost + "/customservice/kfaccount/uploadheadimg?access_token={0}&kf_account={1}", accessToken.AsUrlData(), kfAccount.AsUrlData());
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
-                return Post.PostFileGetJson<WxJsonResult>(url, null, fileDictionary, null, timeOut: timeOut);
+                return Post.PostFileGetJson<WxJsonResult>(CommonDI.CommonSP,url, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -274,7 +268,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.DeleteCustom", true)]
         public static WxJsonResult DeleteCustom(string accessTokenOrAppId, string kfAccount, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -294,7 +287,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="text">附加信息，文本会展示在客服人员的多客服客户端(非必须)</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.CreateSession", true)]
         public static WxJsonResult CreateSession(string accessTokenOrAppId, string openId, string kfAccount, string text = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -322,7 +314,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="text">附加信息，文本会展示在客服人员的多客服客户端(非必须)</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.CloseSession", true)]
         public static WxJsonResult CloseSession(string accessTokenOrAppId, string openId, string kfAccount, string text = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -348,7 +339,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openId">客户openid</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.GetSessionState", true)]
         public static GetSessionStateResultJson GetSessionState(string accessTokenOrAppId, string openId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -367,7 +357,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号，账号前缀最多10个字符，必须是英文或者数字字符。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.GetSessionList", true)]
         public static GetSessionListResultJson GetSessionList(string accessTokenOrAppId, string kfAccount, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -385,7 +374,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.GetWaitCase", true)]
         public static GetWaitCaseResultJson GetWaitCase(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -407,7 +395,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="number">每次获取条数，最多10000条</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.GetMsgList", true)]
         public static GetMsgListResultJson GetMsgList(string accessTokenOrAppId, DateTime startTime, DateTime endTime, long msgId, int number, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -439,7 +426,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="pageIndex">查询第几页，从1开始</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.GetRecordAsync", true)]
         public static async Task<GetRecordResult> GetRecordAsync(string accessTokenOrAppId, DateTime startTime, DateTime endTime, int pageSize = 10, int pageIndex = 1, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -476,7 +462,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.GetCustomBasicInfoAsync", true)]
         public static async Task<CustomInfoJson> GetCustomBasicInfoAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -494,7 +479,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.GetCustomOnlineInfoAsync", true)]
         public static async Task<CustomOnlineJson> GetCustomOnlineInfoAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -522,7 +506,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="passWord">客服账号登录密码，格式为密码明文的32位加密MD5值</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.AddCustomAsync", true)]
         public static async Task<WxJsonResult> AddCustomAsync(string accessTokenOrAppId, string kfAccount, string nickName, string passWord, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -548,7 +531,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="inviteWx">接收绑定邀请的客服微信号</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.InviteWorkerAsync", true)]
         public static async Task<WxJsonResult> InviteWorkerAsync(string accessTokenOrAppId, string kfAccount, string inviteWx, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -575,7 +557,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="passWord">客服账号登录密码，格式为密码明文的32位加密MD5值</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.UpdateCustomAsync", true)]
         public static async Task<WxJsonResult> UpdateCustomAsync(string accessTokenOrAppId, string kfAccount, string nickName, string passWord, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -602,7 +583,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="file">form-data中媒体文件标识，有filename、filelength、content-type等信息</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.UploadCustomHeadimgAsync", true)]
         public static async Task<WxJsonResult> UploadCustomHeadimgAsync(string accessTokenOrAppId, string kfAccount, string file, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -610,7 +590,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                var url = string.Format(Config.ApiMpHost + "/customservice/kfaccount/uploadheadimg?access_token={0}&kf_account={1}", accessToken.AsUrlData(), kfAccount.AsUrlData());
                var fileDictionary = new Dictionary<string, string>();
                fileDictionary["media"] = file;
-               return await Post.PostFileGetJsonAsync<WxJsonResult>(url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
+               return await Post.PostFileGetJsonAsync<WxJsonResult>(CommonDI.CommonSP,url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
 
            }, accessTokenOrAppId).ConfigureAwait(false);
         }
@@ -622,7 +602,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.DeleteCustomAsync", true)]
         public static async Task<WxJsonResult> DeleteCustomAsync(string accessTokenOrAppId, string kfAccount, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -642,7 +621,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="text">附加信息，文本会展示在客服人员的多客服客户端(非必须)</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.CreateSessionAsync", true)]
         public static async Task<WxJsonResult> CreateSessionAsync(string accessTokenOrAppId, string openId, string kfAccount, string text = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -670,7 +648,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="text">附加信息，文本会展示在客服人员的多客服客户端(非必须)</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.CloseSessionAsync", true)]
         public static async Task<WxJsonResult> CloseSessionAsync(string accessTokenOrAppId, string openId, string kfAccount, string text = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -696,7 +673,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openId">客户openid</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.GetSessionStateAsync", true)]
         public static async Task<GetSessionStateResultJson> GetSessionStateAsync(string accessTokenOrAppId, string openId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -715,7 +691,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号，账号前缀最多10个字符，必须是英文或者数字字符。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.GetSessionListAsync", true)]
         public static async Task<GetSessionListResultJson> GetSessionListAsync(string accessTokenOrAppId, string kfAccount, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -733,7 +708,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.GetWaitCaseAsync", true)]
         public static async Task<GetWaitCaseResultJson> GetWaitCaseAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -755,7 +729,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="number">每次获取条数，最多10000条</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomServiceApi.GetMsgListAsync", true)]
         public static async Task<GetMsgListResultJson> GetMsgListAsync(string accessTokenOrAppId, DateTime startTime, DateTime endTime, long msgId, int number, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

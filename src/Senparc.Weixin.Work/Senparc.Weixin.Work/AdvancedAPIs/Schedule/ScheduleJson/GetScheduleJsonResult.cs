@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：GetScheduleJsonResult.cs
     文件功能描述：获取日程接口返回参数
@@ -34,7 +34,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
         /// <summary>
         /// 日程列表
         /// </summary>
-        public IEnumerable<Schedule_Item> schedule_list { get; set; }
+        public List<Schedule_Item> schedule_list { get; set; }
     }
 
     public class Schedule_Item
@@ -50,7 +50,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
         /// <summary>
         /// 日程参与者列表。最多支持2000人
         /// </summary>
-        public IEnumerable<AttendeeResult> attendees { get; set; }
+        public List<AttendeeResult> attendees { get; set; }
         /// <summary>
         /// 日程标题。0 ~ 128 字符。不填会默认显示为“新建事件”
         /// </summary>

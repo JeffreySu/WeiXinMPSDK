@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：QrCodeAPI.cs
     文件功能描述：二维码接口
@@ -66,12 +66,14 @@ using Senparc.Weixin.CommonAPIs;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.QrCode;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.CO2NET;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 二维码接口
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
     public static class QrCodeApi
     {
         #region 同步方法
@@ -86,7 +88,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="actionName">二维码类型，当actionName为QR_LIMIT_STR_SCENE或QR_STR_SCENE时，sceneId会被忽略</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "QrCodeApi.Create", true)]
         public static CreateQrCodeResult Create(string accessTokenOrAppId, int expireSeconds, int sceneId, QrCode_ActionName actionName, string sceneStr = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -166,6 +167,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///// <param name="sceneStr">场景值ID（字符串形式的ID），字符串类型，长度限制为1到64，仅永久二维码支持此字段</param>
         ///// <param name="timeOut"></param>
         ///// <returns></returns>
+        [IgnoreApiBind]
         //public static CreateQrCodeResult CreateByStr(string accessTokenOrAppId, string sceneStr, int timeOut = Config.TIME_OUT)
         //{
         //    return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -192,7 +194,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="ticket"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "QrCodeApi.GetShowQrCodeUrl", true)]
         public static string GetShowQrCodeUrl(string ticket)
         {
             var urlFormat = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket={0}";
@@ -205,11 +206,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="ticket"></param>
         /// <param name="stream"></param>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "QrCodeApi.ShowQrCode", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "QrCodeApi.ShowQrCode", false, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static void ShowQrCode(string ticket, Stream stream)
         {
             var url = GetShowQrCodeUrl(ticket);
-            Get.Download(url, stream);
+            Get.Download(CommonDI.CommonSP, url, stream);
         }
 
         #endregion
@@ -226,7 +227,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="actionName">二维码类型，当actionName为QR_LIMIT_STR_SCENE或QR_STR_SCENE时，sceneId会被忽略</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "QrCodeApi.CreateAsync", true)]
         public static async Task<CreateQrCodeResult> CreateAsync(string accessTokenOrAppId, int expireSeconds, int sceneId, QrCode_ActionName actionName, string sceneStr = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -306,6 +306,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///// <param name="sceneStr">场景值ID（字符串形式的ID），字符串类型，长度限制为1到64，仅永久二维码支持此字段</param>
         ///// <param name="timeOut"></param>
         ///// <returns></returns>
+        [IgnoreApiBind]
         //public static async Task<CreateQrCodeResult> CreateByStrAsync(string accessTokenOrAppId, string sceneStr, int timeOut = Config.TIME_OUT)
         //{
         //    return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -332,11 +333,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="ticket"></param>
         /// <param name="stream"></param>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "QrCodeApi.ShowQrCodeAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "QrCodeApi.ShowQrCodeAsync", false, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static async Task ShowQrCodeAsync(string ticket, Stream stream)
         {
             var url = GetShowQrCodeUrl(ticket);
-            await Get.DownloadAsync(url, stream).ConfigureAwait(false);
+            await Get.DownloadAsync(CommonDI.CommonSP,url, stream).ConfigureAwait(false);
         }
 
         #endregion

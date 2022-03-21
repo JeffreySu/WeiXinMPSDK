@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
 
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -26,6 +26,17 @@
     修改标识：Senparc - 20180909
     修改描述：v3.1.2 枚举 ThirdPartyInfo.CONTACT_SYNC 改名为 ThirdPartyInfo.CHANGE_CONTACT；
 
+    修改标识：jiehanlin - 20200430
+    修改描述：v3.7.502 添加枚举“客户群变更事件”（CHANGE_EXTERNAL_CHAT）
+
+    修改标识：gokeiyou - 20201013
+    修改描述：v3.7.604 添加外部联系人管理 > 客户管理相关接口
+
+    修改标识：WangDrama - 20210630
+    修改描述：v3.9.600 添加 Event.CHANGE_EXTERNAL_CHAT 和 Event.LIVING_STATUS_CHANGE 枚举
+
+    修改标识：Senparc - 20210324
+    修改描述：v3.14.6 添加：审批申请状态变化回调通知：Event.SYS_APPROVAL_CHANGE
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work
@@ -143,7 +154,26 @@ namespace Senparc.Weixin.Work
         /// <summary>
         /// 外部联系人变更事件
         /// </summary>
-        CHANGE_EXTERNAL_CONTACT
+        CHANGE_EXTERNAL_CONTACT,
+        /// <summary>
+        /// 客户群变更事件
+        /// </summary>
+        CHANGE_EXTERNAL_CHAT,
+        /// <summary>
+        /// 直播回调事件
+        /// </summary>
+        LIVING_STATUS_CHANGE,
+
+        #region 审批事件
+        /// <summary>
+        /// （系统应用）审批申请状态变化回调通知
+        /// </summary>
+        SYS_APPROVAL_CHANGE,
+        /// <summary>
+        /// 自建应用审批状态变化通知回调
+        /// </summary>
+        OPEN_APPROVAL_CHANGE
+        #endregion
     }
 
     public enum ThirdPartyInfo
@@ -176,7 +206,17 @@ namespace Senparc.Weixin.Work
         /// <summary>
         /// 通讯录变更通知
         /// </summary>
-        CHANGE_CONTACT//更新前字符串：CONTACT_SYNC
+        CHANGE_CONTACT,//更新前字符串：CONTACT_SYNC
+
+        /// <summary>
+        /// 外部联系人变更通知
+        /// </summary>
+        CHANGE_EXTERNAL_CONTACT,
+
+        /// <summary>
+        /// 推广码注册完成通知
+        /// </summary>
+        REGISTER_CORP
     }
 
 

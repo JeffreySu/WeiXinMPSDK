@@ -82,7 +82,13 @@
     <Compile Include="AdvancedAPIs\Chat\ChatJson\ChatResult.cs" />
     <Compile Include="AdvancedAPIs\Concern\ConcernApi.cs" />
     <Compile Include="AdvancedAPIs\External\ExternalApi.cs" />
+    <Compile Include="AdvancedAPIs\External\ExternalJson\GetExternalContactInfoBatchResult.cs" />
+    <Compile Include="AdvancedAPIs\External\ExternalJson\GetExternalContactListResult.cs" />
+    <Compile Include="AdvancedAPIs\External\ExternalJson\UpdateExternalContactRemarkRequest.cs" />
     <Compile Include="AdvancedAPIs\External\GetExternalContactResult.cs" />
+    <Compile Include="AdvancedAPIs\External\GroupChatGetResult.cs" />
+    <Compile Include="AdvancedAPIs\External\GroupChatListParam.cs" />
+    <Compile Include="AdvancedAPIs\External\GroupChatListResult.cs" />
     <Compile Include="AdvancedAPIs\Invoice\InvoiceApi.cs" />
     <Compile Include="AdvancedAPIs\Invoice\InvoiceJson\InvoiceData.cs" />
     <Compile Include="AdvancedAPIs\Invoice\InvoiceJson\InvoiceResultJson.cs" />

@@ -17,7 +17,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <summary>
         /// 公众号信息列表
         /// </summary>
-        public IList<BizInfo> biz_info_list { get; set; }
+        public List<BizInfo> biz_info_list { get; set; }
     }
 
     public class BizInfo

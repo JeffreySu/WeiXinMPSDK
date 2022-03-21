@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：ShakeAroundApi.cs
     文件功能描述：摇一摇周边接口
@@ -25,6 +25,7 @@ using Senparc.Weixin.Work.CommonAPIs;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {
+    [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
     public static class ShakeAroundApi
     {
         #region 同步方法
@@ -36,7 +37,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="ticket">摇周边业务的ticket，可在摇到的URL中得到，ticket生效时间为30分钟，每一次摇都会重新生成新的ticket</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ShakeAroundApi.GetSuiteToken", true)]
         public static GetShakeInfoResult GetSuiteToken(string accessTokenOrAppKey, string ticket, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -64,7 +64,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="ticket">摇周边业务的ticket，可在摇到的URL中得到，ticket生效时间为30分钟，每一次摇都会重新生成新的ticket</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ShakeAroundApi.GetSuiteTokenAsync", true)]
         public static async Task<GetShakeInfoResult> GetSuiteTokenAsync(string accessTokenOrAppKey, string ticket, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

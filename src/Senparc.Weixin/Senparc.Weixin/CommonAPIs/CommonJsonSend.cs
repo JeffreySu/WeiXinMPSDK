@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
 
     文件名：CommonJsonSend.cs
     文件功能描述：通过CommonJsonSend中的方法调用接口
@@ -35,6 +35,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190602
     修改描述：v6.4.8 根据 Config.ThrownWhenJsonResultFaild 优化 getFailAction 和 postFailAction 抛出异常逻辑
+
+    修改标识：Senparc - 20210413
+    修改描述：v6.8.400 修复 CommonJsonSend.PostFailAction 公共请求失败处理抛错问题
+
 
 ----------------------------------------------------------------*/
 
@@ -98,8 +102,8 @@ namespace Senparc.Weixin.CommonAPIs
                  ErrorJsonResultException ex = null;
                  if (errorResult.errcode != ReturnCode.请求成功)
                  {
-                     //发生错误，记录异常
-                     throw new ErrorJsonResultException(
+                    //发生错误，记录异常
+                    ex = new ErrorJsonResultException(
                           string.Format("微信 POST 请求发生错误！错误代码：{0}，说明：{1}",
                                         (int)errorResult.errcode,
                                         errorResult.errmsg),
@@ -152,11 +156,10 @@ namespace Senparc.Weixin.CommonAPIs
             try
             {
                 var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken.AsUrlData());
-
                 switch (sendType)
                 {
                     case CommonJsonSendType.GET:
-                        return Get.GetJson<T>(url, afterReturnText: getFailAction);
+                        return Get.GetJson<T>(CommonDI.CommonSP, url, afterReturnText: getFailAction);
                     case CommonJsonSendType.POST:
                         var jsonString = SerializerHelper.GetJsonString(data, jsonSetting);
                         using (MemoryStream ms = new MemoryStream())
@@ -168,7 +171,7 @@ namespace Senparc.Weixin.CommonAPIs
                             WeixinTrace.SendApiPostDataLog(url, jsonString);//记录Post的Json数据
 
                             //PostGetJson方法中将使用WeixinTrace记录结果
-                            return Post.PostGetJson<T>(url, null, ms,
+                            return Post.PostGetJson<T>(CommonDI.CommonSP, url, null, ms,
                                 timeOut: timeOut,
                                 afterReturnText: postFailAction,
                                 checkValidationResult: checkValidationResult);
@@ -229,7 +232,7 @@ namespace Senparc.Weixin.CommonAPIs
                 switch (sendType)
                 {
                     case CommonJsonSendType.GET:
-                        return await Get.GetJsonAsync<T>(url, afterReturnText: getFailAction).ConfigureAwait(false);
+                        return await Get.GetJsonAsync<T>(CommonDI.CommonSP, url, afterReturnText: getFailAction).ConfigureAwait(false);
                     case CommonJsonSendType.POST:
                         var jsonString = SerializerHelper.GetJsonString(data, jsonSetting);
                         using (MemoryStream ms = new MemoryStream())
@@ -241,7 +244,7 @@ namespace Senparc.Weixin.CommonAPIs
                             WeixinTrace.SendApiPostDataLog(url, jsonString);//记录Post的Json数据
 
                             //PostGetJson方法中将使用WeixinTrace记录结果
-                            return await Post.PostGetJsonAsync<T>(url, null, ms,
+                            return await Post.PostGetJsonAsync<T>(CommonDI.CommonSP, url, null, ms,
                                 timeOut: timeOut,
                                 afterReturnText: postFailAction,
                                 checkValidationResult: checkValidationResult).ConfigureAwait(false);

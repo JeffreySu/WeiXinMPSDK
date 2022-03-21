@@ -1,0 +1,5 @@
+/* pages/Login/Login.wxss */
+
+.auth-notice{ padding:20px; line-height:1.6em;}
+#login-nickname{ font-weight: 800;}
+.auth-btn{margin-top: 40px; background: #07b84a; color:#d8f0e1;}

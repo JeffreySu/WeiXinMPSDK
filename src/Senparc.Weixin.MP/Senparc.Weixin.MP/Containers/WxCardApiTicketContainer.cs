@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
 
     文件名：WxCardApiTicketContainer.cs
     文件功能描述：WxCardApiTicketContainer
@@ -70,69 +70,9 @@ namespace Senparc.Weixin.MP.Containers
     public class WxCardApiTicketBag : BaseContainerBag, IBaseContainerBag_AppId
     {
         public string AppId { get; set; }
-        //        {
-        //            get
-        //            {
-        //                return _appId;
-        //            }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _appId, value, "AppId"); }
-        //#else
-        //            set
-        //            {
-        //                this.SetContainerProperty(ref _appId, value);
-        //            }
-        //#endif
-        //        }
-
         public string AppSecret { get; set; }
-        //        {
-        //            get
-        //            {
-        //                return _appSecret;
-        //            }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
-        //#else
-        //            set
-        //            {
-        //                this.SetContainerProperty(ref _appSecret, value);
-        //            }
-        //#endif
-        //        }
-
         public JsApiTicketResult WxCardApiTicketResult { get; set; }
-        //        {
-        //            get
-        //            {
-        //                return _WxCardApiTicketResult;
-        //            }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _WxCardApiTicketResult, value, "WxCardApiTicketResult"); }
-        //#else
-        //            set
-        //            {
-        //                this.SetContainerProperty(ref _WxCardApiTicketResult, value);
-        //            }
-        //#endif
-        //        }
-
         public DateTimeOffset WxCardApiTicketExpireTime { get; set; }
-        //        {
-        //            get
-        //            {
-        //                return _WxCardApiTicketExpireTime;
-        //            }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _WxCardApiTicketExpireTime, value, "WxCardApiExpireTime"); }
-        //#else
-        //            set
-        //            {
-        //                this.SetContainerProperty(ref _WxCardApiTicketExpireTime, value);
-        //            }
-        //#endif
-        //        }
-
         /// <summary>
         /// 只针对这个AppId的锁
         /// </summary>

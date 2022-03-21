@@ -33,6 +33,9 @@ namespace Senparc.Weixin.WxOpen.MessageContexts
                 case RequestMsgType.Image:
                     requestMessage = new RequestMessageImage();
                     break;
+                case RequestMsgType.MiniProgramPage://小程序页面
+                    requestMessage = new RequestMessageMiniProgramPage();
+                    break;
                 case RequestMsgType.NeuChar:
                     requestMessage = new RequestMessageNeuChar();
                     break;

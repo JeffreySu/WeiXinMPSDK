@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
   
     文件名：RequestMessageFactory.cs
     文件功能描述：获取XDocument转换后的IRequestMessageBase实例
@@ -15,6 +15,13 @@
 
     修改标识：Senparc - 20180909
     修改描述：v3.1.2 RequestMessageInfo_Contact_Sync 改名为 RequestMessageInfo_Change_Contact
+
+    修改标识：gokeiyou - 20201013
+    修改描述：v3.7.604 添加外部联系人管理 > 客户管理相关接口
+
+    修改标识：Senparc - 20210324
+    修改描述：v3.8.202 解决且有微信消息时间返回为 null 的问题
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -23,10 +30,10 @@ using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.Entities.Request.Event;
 using Senparc.NeuChar;
 using Senparc.NeuChar.Helpers;
 using Senparc.NeuChar.Context;
-using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.Work
 {
@@ -50,10 +57,20 @@ namespace Senparc.Weixin.Work
                 //常规推送信息
                 try
                 {
+                    //获取消息类型
                     msgType = MsgTypeHelper.GetRequestMsgType(doc);
 
+                    //自动获取对应类型的 RequestMessage
                     requestMessage = messageContext.GetRequestEntityMappingResult(msgType, doc) as WorkRequestMessageBase;
 
+                    ////特殊对象处理（不使用底层 EntityHelper）
+                    //if (requestMessage is RequestMessageEvent_SysApprovalChange)
+                    //{
+                    //    var requestXml = doc.Root.ToString();
+                    //    XmlUtility.Deserialize<RequestMessageEvent_SysApprovalChange>(requestXml);
+                    //}
+
+                    //将 XML 内容填充到 requestMessage 中
                     EntityHelper.FillEntityWithXml(requestMessage, doc);
                 }
                 catch (ArgumentException ex)
@@ -83,6 +100,32 @@ namespace Senparc.Weixin.Work
                             break;
                         case ThirdPartyInfo.CHANGE_CONTACT://通讯录变更通知
                             requestMessage = new RequestMessageInfo_Change_Contact();
+                            break;
+                        case ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT:
+                            switch (doc.Root.Element("ChangeType").Value.ToUpper())
+                            {
+                                case "ADD_EXTERNAL_CONTACT":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Add();
+                                    break;
+                                case "ADD_HALF_EXTERNAL_CONTACT":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Add_Half();
+                                    break;
+                                case "EDIT_EXTERNAL_CONTACT":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Modified();
+                                    break;
+                                case "DEL_EXTERNAL_CONTACT":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Del();
+                                    break;
+                                case "DEL_FOLLOW_USER":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Del_FollowUser();
+                                    break;
+                                case "MSG_AUDIT_APPROVED":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_MsgAudit();
+                                    break;
+                                default:
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Base();
+                                    break;
+                            }
                             break;
                         default:
                             throw new UnknownRequestMsgTypeException(string.Format("InfoType：{0} 在RequestMessageFactory中没有对应的处理程序！", infoType), new ArgumentOutOfRangeException());//为了能够对类型变动最大程度容错（如微信目前还可以对公众账号suscribe等未知类型，但API没有开放），建议在使用的时候catch这个异常

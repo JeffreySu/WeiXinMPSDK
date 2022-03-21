@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：WorkMessageHandler.cs
     文件功能描述：企业号请求的集中处理方法
@@ -42,6 +42,26 @@
     修改标识：OrchesAdam - 2019119
     修改描述：v3.7.104.2 添加“上报企业客户变更事件”
 
+    修改标识：OrchesAdam - 20200430
+    修改描述：添加“外部联系人编辑企业客户”消息推送
+
+    修改标识：OrchesAdam - 20200430
+    修改描述：添加“客户群变更事件”（OnEvent_ChangeExternalChatRequest）
+
+    修改标识：gokeiyou - 20201013
+    修改描述：v3.7.604 添加外部联系人管理 > 客户管理相关接口
+
+    修改标识：Billzjh - 20201210
+    修改描述：v3.8.101 添加 OnThirdPartyEvent_REGISTER_CORP() 事件
+
+    修改标识：WangDrama - 20210630
+    修改描述：v3.9.600 添加 RequestMessageEvent_Change_External_Chat_Base 事件中 ChangeType 的判断
+    
+    修改标识：Senparc - 20210324
+    修改描述：v3.14.6 添加：审批申请状态变化回调通知
+    
+    修改标识：ccccccmd - 20220227
+    修改描述：v3.14.10 添加异步方法
 ----------------------------------------------------------------*/
 
 using System;
@@ -70,7 +90,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
         new IWorkResponseMessageBase ResponseMessage { get; set; }
     }
 
-    public  abstract partial class WorkMessageHandler<TMC>
+    public abstract partial class WorkMessageHandler<TMC>
         : MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>, IWorkMessageHandler
         where TMC : class, IMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>, new()
     {
@@ -172,13 +192,13 @@ namespace Senparc.Weixin.Work.MessageHandlers
         public override ApiEnlightener ApiEnlightener { get { return WorkApiEnlightener.Instance; } }
 
 
-        public WorkMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
-            : base(inputStream, postModel, maxRecordCount)
+        public WorkMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, IServiceProvider serviceProvider = null)
+            : base(inputStream, postModel, maxRecordCount, serviceProvider: serviceProvider)
         {
         }
 
-        public WorkMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0)
-            : base(requestDocument, postModel, maxRecordCount)
+        public WorkMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0, IServiceProvider serviceProvider = null)
+            : base(requestDocument, postModel, maxRecordCount, serviceProvider: serviceProvider)
         {
         }
 
@@ -187,16 +207,23 @@ namespace Senparc.Weixin.Work.MessageHandlers
         {
             _postModel = postModel as PostModel ?? new PostModel();
 
-
-            UsingEcryptMessage = true;//Work中消息都是强制加密的
             var postDataStr = postDataDocument.ToString();
+
+            //Work中消息默认都是强制加密的，但通知似乎没有加密
+            UsingEncryptMessage = postDataDocument.Root.Element("Encrypt") != null;
+
             EncryptPostData = RequestMessageFactory.GetEncryptPostData(postDataStr);
 
+            XDocument requestDocument;
             //2、解密：获得明文字符串
-            WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.CorpId);
-            string msgXml = null;
-            var result = msgCrype.DecryptMsg(_postModel.Msg_Signature, _postModel.Timestamp, _postModel.Nonce, postDataStr, ref msgXml);
-            /* msgXml
+            if (UsingEncryptMessage)
+            {
+                string msgXml = null;
+
+                WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.CorpId);
+                var result = msgCrype.DecryptMsg(_postModel.Msg_Signature, _postModel.Timestamp, _postModel.Nonce, postDataStr, ref msgXml);
+
+                /* msgXml
 <xml><ToUserName><![CDATA[wx7618c0a6d9358622]]></ToUserName>
 <FromUserName><![CDATA[001]]></FromUserName>
 <CreateTime>1412585107</CreateTime>
@@ -205,18 +232,23 @@ namespace Senparc.Weixin.Work.MessageHandlers
 <MsgId>4299263624800632834</MsgId>
 <AgentID>2</AgentID>
 </xml>
-             */
+           */
 
-            //判断result类型
-            if (result != 0)
-            {
-                //验证没有通过，取消执行
-                CancelExcute = true;
-                return null;
+                //判断result类型
+                if (result != 0)
+                {
+                    //验证没有通过，取消执行
+                    CancelExecute = true;
+                    return null;
+                }
+
+                requestDocument = XDocument.Parse(msgXml);
             }
-
-            var requestDocument = XDocument.Parse(msgXml);
-
+            else
+            {
+                requestDocument = postDataDocument;//TODO:深拷贝
+            }
+            
             RequestMessage = RequestMessageFactory.GetRequestEntity<TMC>(new TMC(), doc: requestDocument);
 
             return requestDocument;
@@ -335,116 +367,148 @@ namespace Senparc.Weixin.Work.MessageHandlers
         /// <summary>
         /// Event事件类型请求
         /// </summary>
-        public virtual IWorkResponseMessageBase OnEventRequest(IRequestMessageEventBase requestMessage)
-        {
-            var strongRequestMessage = RequestMessage as IRequestMessageEventBase;
-            IWorkResponseMessageBase responseMessage = null;
-            switch (strongRequestMessage.Event)
-            {
-                case Event.CLICK://菜单点击
-                    responseMessage = OnEvent_ClickRequest(RequestMessage as RequestMessageEvent_Click);
-                    break;
-                case Event.VIEW://URL跳转（view视图）
-                    responseMessage = OnEvent_ViewRequest(RequestMessage as RequestMessageEvent_View);
-                    break;
-                case Event.PIC_PHOTO_OR_ALBUM://弹出拍照或者相册发图
-                    responseMessage = OnEvent_PicPhotoOrAlbumRequest(RequestMessage as RequestMessageEvent_Pic_Photo_Or_Album);
-                    break;
-                case Event.SCANCODE_PUSH://扫码推事件
-                    responseMessage = OnEvent_ScancodePushRequest(RequestMessage as RequestMessageEvent_Scancode_Push);
-                    break;
-                case Event.SCANCODE_WAITMSG://扫码推事件且弹出“消息接收中”提示框
-                    responseMessage = OnEvent_ScancodeWaitmsgRequest(RequestMessage as RequestMessageEvent_Scancode_Waitmsg);
-                    break;
-                case Event.LOCATION_SELECT://弹出地理位置选择器
-                    responseMessage = OnEvent_LocationSelectRequest(RequestMessage as RequestMessageEvent_Location_Select);
-                    break;
-                case Event.PIC_WEIXIN://弹出微信相册发图器
-                    responseMessage = OnEvent_PicWeixinRequest(RequestMessage as RequestMessageEvent_Pic_Weixin);
-                    break;
-                case Event.PIC_SYSPHOTO://弹出系统拍照发图
-                    responseMessage = OnEvent_PicSysphotoRequest(RequestMessage as RequestMessageEvent_Pic_Sysphoto);
-                    break;
-                case Event.subscribe://订阅
-                    responseMessage = OnEvent_SubscribeRequest(RequestMessage as RequestMessageEvent_Subscribe);
-                    break;
-                case Event.unsubscribe://取消订阅
-                    responseMessage = OnEvent_UnSubscribeRequest(RequestMessage as RequestMessageEvent_UnSubscribe);
-                    break;
-                case Event.LOCATION://上报地理位置事件
-                    responseMessage = OnEvent_LocationRequest(RequestMessage as RequestMessageEvent_Location);
-                    break;
-                case Event.ENTER_AGENT://用户进入应用的事件推送(enter_agent)
-                    responseMessage = OnEvent_EnterAgentRequest(RequestMessage as RequestMessageEvent_Enter_Agent);
-                    break;
-                case Event.BATCH_JOB_RESULT://异步任务完成事件推送(batch_job_result)
-                    responseMessage = OnEvent_BatchJobResultRequest(RequestMessage as RequestMessageEvent_Batch_Job_Result);
-                    break;
-                case Event.change_contact:
-                    var ccRequestMessage = RequestMessage as IRequestMessageEvent_Change_Contact_Base;
-                    switch (ccRequestMessage.ChangeType)
-                    {
-                        case ContactChangeType.create_user:
-                            responseMessage = OnEvent_ChangeContactCreateUserRequest(RequestMessage as RequestMessageEvent_Change_Contact_User_Create);
-                            break;
-                        case ContactChangeType.update_user:
-                            responseMessage = OnEvent_ChangeContactUpdateUserRequest(RequestMessage as RequestMessageEvent_Change_Contact_User_Update);
-                            break;
-                        case ContactChangeType.delete_user:
-                            responseMessage = OnEvent_ChangeContactDeleteUserRequest(RequestMessage as RequestMessageEvent_Change_Contact_User_Base);
-                            break;
-                        case ContactChangeType.create_party:
-                            responseMessage = OnEvent_ChangeContactCreatePartyRequest(RequestMessage as RequestMessageEvent_Change_Contact_Party_Create);
-                            break;
-                        case ContactChangeType.update_party:
-                            responseMessage = OnEvent_ChangeContactUpdatePartyRequest(RequestMessage as RequestMessageEvent_Change_Contact_Party_Update);
-                            break;
-                        case ContactChangeType.delete_party:
-                            responseMessage = OnEvent_ChangeContactDeletePartyRequest(RequestMessage as RequestMessageEvent_Change_Contact_Party_Base);
-                            break;
-                        case ContactChangeType.update_tag:
-                            responseMessage = OnEvent_ChangeContactUpdateTagRequest(RequestMessage as RequestMessageEvent_Change_Contact_Tag_Update);
-                            break;
-                        default:
-                            throw new UnknownRequestMsgTypeException("未知的Event.change_contact下属请求信息", null);
-                    }
-                    break;
-                //外部联系人事件相关
-                case Event.CHANGE_EXTERNAL_CONTACT:
-                    var cecRequestMessage = RequestMessage as IRequestMessageEvent_Change_ExternalContact_Base;
-                    switch (cecRequestMessage.ChangeType)
-                    {
-                        case ExternalContactChangeType.add_external_contact:
-                            responseMessage =
-                                OnEvent_ChangeExternalContactAddRequest(
-                                    RequestMessage as RequestMessageEvent_Change_ExternalContact_Add);
-                            break;
-                        case ExternalContactChangeType.add_half_external_contact:
-                            responseMessage =
-                                OnEvent_ChangeExternalContactAddHalfRequest(
-                                    RequestMessage as RequestMessageEvent_Change_ExternalContact_Add_Half);
-                            break;
-                        case ExternalContactChangeType.del_external_contact:
-                            responseMessage =
-                                OnEvent_ChangeExternalContactDelRequest(
-                                    RequestMessage as RequestMessageEvent_Change_ExternalContact_Del);
-                            break;
-                        case ExternalContactChangeType.del_follow_user:
-                            responseMessage = OnEvent_ChangeExternalContactDelFollowUserRequest(
-                                RequestMessage as RequestMessageEvent_Change_ExternalContact_Del_FollowUser);
-                            break;
-                        case ExternalContactChangeType.msg_audit_approved:
-                            responseMessage =
-                                OnEvent_ChangeExternalContactMsgAudit(
-                                    RequestMessage as RequestMessageEvent_Change_ExternalContact_MsgAudit);
-                            break;
-                    }
-                    break;
-                default:
-                    throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
-            }
-            return responseMessage;
-        }
+        // public virtual IWorkResponseMessageBase OnEventRequest(IRequestMessageEventBase requestMessage)
+        // {
+        //     var strongRequestMessage = RequestMessage as IRequestMessageEventBase;
+        //     IWorkResponseMessageBase responseMessage = null;
+        //     switch (strongRequestMessage.Event)
+        //     {
+        //         case Event.CLICK://菜单点击
+        //             responseMessage = OnEvent_ClickRequest(RequestMessage as RequestMessageEvent_Click);
+        //             break;
+        //         case Event.VIEW://URL跳转（view视图）
+        //             responseMessage = OnEvent_ViewRequest(RequestMessage as RequestMessageEvent_View);
+        //             break;
+        //         case Event.PIC_PHOTO_OR_ALBUM://弹出拍照或者相册发图
+        //             responseMessage = OnEvent_PicPhotoOrAlbumRequest(RequestMessage as RequestMessageEvent_Pic_Photo_Or_Album);
+        //             break;
+        //         case Event.SCANCODE_PUSH://扫码推事件
+        //             responseMessage = OnEvent_ScancodePushRequest(RequestMessage as RequestMessageEvent_Scancode_Push);
+        //             break;
+        //         case Event.SCANCODE_WAITMSG://扫码推事件且弹出“消息接收中”提示框
+        //             responseMessage = OnEvent_ScancodeWaitmsgRequest(RequestMessage as RequestMessageEvent_Scancode_Waitmsg);
+        //             break;
+        //         case Event.LOCATION_SELECT://弹出地理位置选择器
+        //             responseMessage = OnEvent_LocationSelectRequest(RequestMessage as RequestMessageEvent_Location_Select);
+        //             break;
+        //         case Event.PIC_WEIXIN://弹出微信相册发图器
+        //             responseMessage = OnEvent_PicWeixinRequest(RequestMessage as RequestMessageEvent_Pic_Weixin);
+        //             break;
+        //         case Event.PIC_SYSPHOTO://弹出系统拍照发图
+        //             responseMessage = OnEvent_PicSysphotoRequest(RequestMessage as RequestMessageEvent_Pic_Sysphoto);
+        //             break;
+        //         case Event.subscribe://订阅
+        //             responseMessage = OnEvent_SubscribeRequest(RequestMessage as RequestMessageEvent_Subscribe);
+        //             break;
+        //         case Event.unsubscribe://取消订阅
+        //             responseMessage = OnEvent_UnSubscribeRequest(RequestMessage as RequestMessageEvent_UnSubscribe);
+        //             break;
+        //         case Event.LOCATION://上报地理位置事件
+        //             responseMessage = OnEvent_LocationRequest(RequestMessage as RequestMessageEvent_Location);
+        //             break;
+        //         case Event.ENTER_AGENT://用户进入应用的事件推送(enter_agent)
+        //             responseMessage = OnEvent_EnterAgentRequest(RequestMessage as RequestMessageEvent_Enter_Agent);
+        //             break;
+        //         case Event.BATCH_JOB_RESULT://异步任务完成事件推送(batch_job_result)
+        //             responseMessage = OnEvent_BatchJobResultRequest(RequestMessage as RequestMessageEvent_Batch_Job_Result);
+        //             break;
+        //         case Event.change_contact:
+        //             var ccRequestMessage = RequestMessage as IRequestMessageEvent_Change_Contact_Base;
+        //             switch (ccRequestMessage.ChangeType)
+        //             {
+        //                 case ContactChangeType.create_user:
+        //                     responseMessage = OnEvent_ChangeContactCreateUserRequest(RequestMessage as RequestMessageEvent_Change_Contact_User_Create);
+        //                     break;
+        //                 case ContactChangeType.update_user:
+        //                     responseMessage = OnEvent_ChangeContactUpdateUserRequest(RequestMessage as RequestMessageEvent_Change_Contact_User_Update);
+        //                     break;
+        //                 case ContactChangeType.delete_user:
+        //                     responseMessage = OnEvent_ChangeContactDeleteUserRequest(RequestMessage as RequestMessageEvent_Change_Contact_User_Base);
+        //                     break;
+        //                 case ContactChangeType.create_party:
+        //                     responseMessage = OnEvent_ChangeContactCreatePartyRequest(RequestMessage as RequestMessageEvent_Change_Contact_Party_Create);
+        //                     break;
+        //                 case ContactChangeType.update_party:
+        //                     responseMessage = OnEvent_ChangeContactUpdatePartyRequest(RequestMessage as RequestMessageEvent_Change_Contact_Party_Update);
+        //                     break;
+        //                 case ContactChangeType.delete_party:
+        //                     responseMessage = OnEvent_ChangeContactDeletePartyRequest(RequestMessage as RequestMessageEvent_Change_Contact_Party_Base);
+        //                     break;
+        //                 case ContactChangeType.update_tag:
+        //                     responseMessage = OnEvent_ChangeContactUpdateTagRequest(RequestMessage as RequestMessageEvent_Change_Contact_Tag_Update);
+        //                     break;
+        //                 default:
+        //                     throw new UnknownRequestMsgTypeException("未知的Event.change_contact下属请求信息", null);
+        //             }
+        //             break;
+        //         //外部联系人事件相关
+        //         case Event.CHANGE_EXTERNAL_CONTACT:
+        //             var cecRequestMessage = RequestMessage as IRequestMessageEvent_Change_ExternalContact_Base;
+        //             switch (cecRequestMessage.ChangeType)
+        //             {
+        //                 case ExternalContactChangeType.add_external_contact:
+        //                     responseMessage =
+        //                         OnEvent_ChangeExternalContactAddRequest(
+        //                             RequestMessage as RequestMessageEvent_Change_ExternalContact_Add);
+        //                     break;
+        //                 case ExternalContactChangeType.edit_external_contact:
+        //                     OnEvent_ChangeExternalContactUpdateRequest(
+        //                         requestMessage as RequestMessageEvent_Change_ExternalContact_Modified);
+        //                     break;
+        //                 case ExternalContactChangeType.add_half_external_contact:
+        //                     responseMessage =
+        //                         OnEvent_ChangeExternalContactAddHalfRequest(
+        //                             RequestMessage as RequestMessageEvent_Change_ExternalContact_Add_Half);
+        //                     break;
+        //                 case ExternalContactChangeType.del_external_contact:
+        //                     responseMessage =
+        //                         OnEvent_ChangeExternalContactDelRequest(
+        //                             RequestMessage as RequestMessageEvent_Change_ExternalContact_Del);
+        //                     break;
+        //                 case ExternalContactChangeType.del_follow_user:
+        //                     responseMessage = OnEvent_ChangeExternalContactDelFollowUserRequest(
+        //                         RequestMessage as RequestMessageEvent_Change_ExternalContact_Del_FollowUser);
+        //                     break;
+        //                 case ExternalContactChangeType.msg_audit_approved:
+        //                     responseMessage =
+        //                         OnEvent_ChangeExternalContactMsgAudit(
+        //                             RequestMessage as RequestMessageEvent_Change_ExternalContact_MsgAudit);
+        //                     break;
+        //                 default:
+        //                     throw new UnknownRequestMsgTypeException("未知的外部联系人事件Event.CHANGE_EXTERNAL_CONTACT下属请求信息", null);
+        //             }
+        //             break;
+        //         case Event.CHANGE_EXTERNAL_CHAT://客户群变更事件
+        //             var cechat = RequestMessage as RequestMessageEvent_Change_External_Chat_Base;
+        //             switch (cechat.ChangeType)
+        //             {
+        //                 case ExternalChatChangeType.create:
+        //                     responseMessage = OnEvent_ChangeExternalChatCreateRequest(RequestMessage as RequestMessageEvent_Change_External_Chat_Create);
+        //                     break;
+        //                 case ExternalChatChangeType.update:
+        //                     responseMessage = OnEvent_ChangeExternalChatUpdateRequest(RequestMessage as RequestMessageEvent_Change_External_Chat_Update);
+        //                     break;
+        //                 case ExternalChatChangeType.dismiss:
+        //                     responseMessage = OnEvent_ChangeExternalChatDismissRequest(RequestMessage as RequestMessageEvent_Change_External_Chat_Dismiss);
+        //                     break;
+        //                 default:
+        //                     throw new UnknownRequestMsgTypeException("未知的客户群变更事件Event.CHANGE_EXTERNAL_CHAT下属请求信息", null);
+        //             }
+        //             break;
+        //         case Event.LIVING_STATUS_CHANGE://直播事件回调
+        //             responseMessage = OnEvent_Living_Status_ChangeRequest(RequestMessage as RequestMessageEvent_Living_Status_Change_Base);
+        //             break;
+        //         case Event.SYS_APPROVAL_CHANGE://系统应用审批状态变化通知回调
+        //             responseMessage = OnEvent_Sys_Approval_Change_Status_ChangeRequest(RequestMessage as RequestMessageEvent_SysApprovalChange);
+        //             break;
+        //         case Event.OPEN_APPROVAL_CHANGE://自建应用审批状态变化通知回调
+        //             responseMessage = OnEvent_Open_Approval_Change_Status_ChangeRequest(RequestMessage as RequestMessageEvent_OpenApprovalChange);
+        //             break;
+        //         default:
+        //             throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
+        //     }
+        //     return responseMessage;
+        // }
 
         #region Event 下属分类
 
@@ -641,6 +705,17 @@ namespace Senparc.Weixin.Work.MessageHandlers
         }
 
         /// <summary>
+        /// 外部联系人编辑企业客户
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalContactUpdateRequest(
+            RequestMessageEvent_Change_ExternalContact_Modified requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
         /// 外部联系人免验证添加成员事件 推送
         /// </summary>
         /// <param name="requestMessage"></param>
@@ -684,33 +759,129 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
+        /// <summary>
+        /// 客户群创建事件 推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalChatCreateRequest(
+            RequestMessageEvent_Change_External_Chat_Create requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+
+        /// <summary>
+        /// 客户群变更事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalChatUpdateRequest(
+            RequestMessageEvent_Change_External_Chat_Update requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 客户群解散事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalChatDismissRequest(
+            RequestMessageEvent_Change_External_Chat_Dismiss requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        public virtual IWorkResponseMessageBase OnEvent_Living_Status_ChangeRequest(
+            RequestMessageEvent_Living_Status_Change_Base requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        #region 审批事件
+        /// <summary>
+        /// 系统审批申请状态变化回调通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_Sys_Approval_Change_Status_ChangeRequest(
+          RequestMessageEvent_SysApprovalChange requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 自建审批申请状态变化回调通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_Open_Approval_Change_Status_ChangeRequest(
+          RequestMessageEvent_OpenApprovalChange requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
         #endregion
 
-
+        #endregion //Event 下属分类
         #endregion
 
         #region 第三方回调事件
         public const string ThirdPartyEventSuccessResult = "success";
-        private string OnThirdPartyEvent(IThirdPartyInfoBase thirdPartyInfo)
-        {
-            switch (thirdPartyInfo.InfoType)
-            {
-                case ThirdPartyInfo.SUITE_TICKET:
-                    return OnThirdPartyEvent_Suite_Ticket((RequestMessageInfo_Suite_Ticket)thirdPartyInfo);
-                case ThirdPartyInfo.CHANGE_AUTH:
-                    return OnThirdPartyEvent_Change_Auth((RequestMessageInfo_Change_Auth)thirdPartyInfo);
-                case ThirdPartyInfo.CANCEL_AUTH:
-                    return OnThirdPartyEvent_Cancel_Auth((RequestMessageInfo_Cancel_Auth)thirdPartyInfo);
-                case ThirdPartyInfo.CREATE_AUTH:
-                    return OnThirdPartyEvent_Create_Auth((RequestMessageInfo_Create_Auth)thirdPartyInfo);
-                case ThirdPartyInfo.CHANGE_CONTACT:
-                    return OnThirdPartyEvent_Change_Contact((RequestMessageInfo_Change_Contact)thirdPartyInfo);
-                default:
-                    throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
-            }
-        }
+        // private string OnThirdPartyEvent(IThirdPartyInfoBase thirdPartyInfo)
+        // {
+        //     switch (thirdPartyInfo.InfoType)
+        //     {
+        //         case ThirdPartyInfo.SUITE_TICKET:
+        //             return OnThirdPartyEvent_Suite_Ticket((RequestMessageInfo_Suite_Ticket)thirdPartyInfo);
+        //         case ThirdPartyInfo.CHANGE_AUTH:
+        //             return OnThirdPartyEvent_Change_Auth((RequestMessageInfo_Change_Auth)thirdPartyInfo);
+        //         case ThirdPartyInfo.CANCEL_AUTH:
+        //             return OnThirdPartyEvent_Cancel_Auth((RequestMessageInfo_Cancel_Auth)thirdPartyInfo);
+        //         case ThirdPartyInfo.CREATE_AUTH:
+        //             return OnThirdPartyEvent_Create_Auth((RequestMessageInfo_Create_Auth)thirdPartyInfo);
+        //         case ThirdPartyInfo.CHANGE_CONTACT:
+        //             return OnThirdPartyEvent_Change_Contact((RequestMessageInfo_Change_Contact)thirdPartyInfo);
+        //         case ThirdPartyInfo.REGISTER_CORP:
+        //             return OnThirdPartyEvent_REGISTER_CORP((RequestMessager_Register_Corp)thirdPartyInfo);
+        //         case ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT:
+        //             {
+        //                 var cecRequestMessage = RequestMessage as IRequestMessageEvent_Change_ExternalContact_Base;
+        //                 switch (cecRequestMessage.ChangeType)
+        //                 {
+        //                     case ExternalContactChangeType.add_external_contact:
+        //                         return OnThirdPartyEvent_ChangeExternalContactAddRequest(
+        //                                 RequestMessage as RequestMessageEvent_Change_ExternalContact_Add);
+        //                     case ExternalContactChangeType.edit_external_contact:
+        //                         return OnThirdPartyEvent_ChangeExternalContactUpdateRequest(
+        //                             RequestMessage as RequestMessageEvent_Change_ExternalContact_Modified);
+        //                     case ExternalContactChangeType.add_half_external_contact:
+        //                         return OnThirdPartyEvent_ChangeExternalContactAddHalfRequest(
+        //                                 RequestMessage as RequestMessageEvent_Change_ExternalContact_Add_Half);
+        //                     case ExternalContactChangeType.del_external_contact:
+        //                         return OnThirdPartyEvent_ChangeExternalContactDelRequest(
+        //                                 RequestMessage as RequestMessageEvent_Change_ExternalContact_Del);
+        //                     case ExternalContactChangeType.del_follow_user:
+        //                         return OnThirdPartyEvent_ChangeExternalContactDelFollowUserRequest(
+        //                             RequestMessage as RequestMessageEvent_Change_ExternalContact_Del_FollowUser);
+        //                     case ExternalContactChangeType.msg_audit_approved:
+        //                         return OnThirdPartyEvent_ChangeExternalContactMsgAudit(
+        //                                 RequestMessage as RequestMessageEvent_Change_ExternalContact_MsgAudit);
+        //                     default:
+        //                         throw new UnknownRequestMsgTypeException("未知的外部联系人事件Event.CHANGE_EXTERNAL_CONTACT下属请求信息", null);
+        //                 }
+        //             }
+        //         default:
+        //             throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
+        //     }
+        // }
 
         protected virtual string OnThirdPartyEvent_Change_Contact(RequestMessageInfo_Change_Contact thirdPartyInfo)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        protected virtual string OnThirdPartyEvent_REGISTER_CORP(RequestMessager_Register_Corp thirdPartyInfo)
         {
             return ThirdPartyEventSuccessResult;
         }
@@ -734,6 +905,40 @@ namespace Senparc.Weixin.Work.MessageHandlers
         {
             return ThirdPartyEventSuccessResult;
         }
+
+        #region 外部联系人
+
+        protected virtual string OnThirdPartyEvent_ChangeExternalContactAddRequest(RequestMessageEvent_Change_ExternalContact_Add requestMessage)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        protected virtual string OnThirdPartyEvent_ChangeExternalContactUpdateRequest(RequestMessageEvent_Change_ExternalContact_Modified requestMessage)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        protected virtual string OnThirdPartyEvent_ChangeExternalContactAddHalfRequest(RequestMessageEvent_Change_ExternalContact_Add_Half requestMessage)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        protected virtual string OnThirdPartyEvent_ChangeExternalContactDelRequest(RequestMessageEvent_Change_ExternalContact_Del requestMessage)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        protected virtual string OnThirdPartyEvent_ChangeExternalContactDelFollowUserRequest(RequestMessageEvent_Change_ExternalContact_Del_FollowUser requestMessage)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        protected virtual string OnThirdPartyEvent_ChangeExternalContactMsgAudit(RequestMessageEvent_Change_ExternalContact_MsgAudit requestMessage)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        #endregion
 
         #endregion
     }

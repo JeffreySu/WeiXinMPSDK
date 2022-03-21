@@ -1,15 +1,10 @@
 ﻿using Senparc.CO2NET.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Open.AccountAPIs.AccountBasicInfoJson;
 using Senparc.Weixin.Open.AccountAPIs.FastRegisterJson;
-using Senparc.Weixin.Open.MpAPIs.Open;
-using Senparc.NeuChar;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.AccountAPIs
 {
@@ -19,6 +14,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
     /// <para>包含 复用公众号主体快速注册小程序</para>
     /// <para>https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=21521706765hLoMO&token=&lang=zh_CN</para>
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
     public class AccountApi
     {
         #region 同步方法
@@ -36,7 +32,6 @@ namespace Senparc.Weixin.Open.AccountAPIs
         /// 公众号管理员扫码后在手机端完成授权确认。跳转回第三方平台，会在上述 redirect_uri后拼接 ticket=*
         /// </param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "AccountApi.FastRegisterAuth", true)]
         public static string FastRegisterAuth(string componentAppId, string appid, bool copy_wx_verify,
             string redirect_uri)
         {
@@ -52,11 +47,10 @@ namespace Senparc.Weixin.Open.AccountAPIs
         /// <param name="accessToken">使用公众号appid换取authorizer_access_token</param>
         /// <param name="ticket">公众号扫码授权的凭证(公众平台扫码页面回跳到第三方平台时携带)</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "AccountApi.FastRegister", true)]
         public static FastRegisterJsonResult FastRegister(string accessToken, string ticket)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/account/fastregister?access_token={accessToken.AsUrlData()}";
-            var data = new {ticket = ticket};
+            var data = new { ticket = ticket };
             return CommonJsonSend.Send<FastRegisterJsonResult>(null, url, data);
         }
 
@@ -72,7 +66,6 @@ namespace Senparc.Weixin.Open.AccountAPIs
         /// <para>新创建小程序appid及authorization_code换取authorizer_refresh_token进而得到authorizer_access_token。</para>
         /// </param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "AccountApi.GetAccountBasicInfo", true)]
         public static AccountBasicInfoJsonResult GetAccountBasicInfo(string accessToken)
         {
             var url =
@@ -92,7 +85,6 @@ namespace Senparc.Weixin.Open.AccountAPIs
         /// <param name="x2">裁剪框右下角x坐标（取值范围：[0, 1]）</param>
         /// <param name="y2">裁剪框右下角y坐标（取值范围：[0, 1]）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "AccountApi.ModifyHeadImage", true)]
         public static WxJsonResult ModifyHeadImage(string accessToken, string head_img_media_id, float x1, float y1,
             float x2, float y2)
         {
@@ -114,7 +106,6 @@ namespace Senparc.Weixin.Open.AccountAPIs
         /// <param name="accessToken">小程序的access_token</param>
         /// <param name="signature">功能介绍</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "AccountApi.ModifySignature", true)]
         public static WxJsonResult ModifySignature(string accessToken, string signature)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/account/modifysignature?access_token={accessToken.AsUrlData()}";
@@ -136,11 +127,10 @@ namespace Senparc.Weixin.Open.AccountAPIs
         /// <param name="taskid">换绑管理员任务序列号(公众平台最终点击提交回跳到第三方平台时携带)
         /// <para><see cref="Senparc.Weixin.Open.WxOpenAPIs.WxOpenApi.ComponentRebindAdmin"/></para></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "AccountApi.ComponentRebindAdmin", true)]
         public static WxJsonResult ComponentRebindAdmin(string accessToken, string taskid)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/account/componentrebindadmin?access_token={accessToken.AsUrlData()}";
-            var data = new {taskid = taskid};
+            var data = new { taskid = taskid };
             return CommonJsonSend.Send<WxJsonResult>(null, url, data);
         }
 
@@ -159,7 +149,6 @@ namespace Senparc.Weixin.Open.AccountAPIs
         /// <param name="accessToken">使用公众号appid换取authorizer_access_token</param>
         /// <param name="ticket">公众号扫码授权的凭证(公众平台扫码页面回跳到第三方平台时携带)</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "AccountApi.FastRegisterAsync", true)]
         public static async Task<FastRegisterJsonResult> FastRegisterAsync(string accessToken, string ticket)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/account/fastregister?access_token={accessToken.AsUrlData()}";
@@ -176,7 +165,6 @@ namespace Senparc.Weixin.Open.AccountAPIs
         /// </summary>
         /// <param name="accessToken">新创建小程序appid及authorization_code换取authorizer_refresh_token进而得到authorizer_access_token。</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "AccountApi.GetAccountBasicInfoAsync", true)]
         public static async Task<AccountBasicInfoJsonResult> GetAccountBasicInfoAsync(string accessToken)
         {
             var url =
@@ -196,7 +184,6 @@ namespace Senparc.Weixin.Open.AccountAPIs
         /// <param name="x2">裁剪框右下角x坐标（取值范围：[0, 1]）</param>
         /// <param name="y2">裁剪框右下角y坐标（取值范围：[0, 1]）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "AccountApi.ModifyHeadImageAsync", true)]
         public static async Task<WxJsonResult> ModifyHeadImageAsync(string accessToken, string head_img_media_id, float x1, float y1,
             float x2, float y2)
         {
@@ -218,7 +205,6 @@ namespace Senparc.Weixin.Open.AccountAPIs
         /// <param name="accessToken">小程序的access_token</param>
         /// <param name="signature">功能介绍</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "AccountApi.ModifySignatureAsync", true)]
         public static async Task<WxJsonResult> ModifySignatureAsync(string accessToken, string signature)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/account/modifysignature?access_token={accessToken.AsUrlData()}";
@@ -240,7 +226,6 @@ namespace Senparc.Weixin.Open.AccountAPIs
         /// <param name="taskid">换绑管理员任务序列号(公众平台最终点击提交回跳到第三方平台时携带)
         /// <para><see cref="Senparc.Weixin.Open.WxOpenAPIs.WxOpenApi.ComponentRebindAdmin"/></para></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "AccountApi.ComponentRebindAdminAsync", true)]
         public static async Task<WxJsonResult> ComponentRebindAdminAsync(string accessToken, string taskid)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/account/componentrebindadmin?access_token={accessToken.AsUrlData()}";

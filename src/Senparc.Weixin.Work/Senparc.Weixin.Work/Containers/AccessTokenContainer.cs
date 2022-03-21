@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
 
     文件名：AccessTokenContainer.cs
     文件功能描述：通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
@@ -85,6 +85,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190929
     修改描述：v3.7.101 优化 Container 异步注册方法
 
+    修改标识：Senparc - 20210719
+    修改描述：v3.11.2 AccessTokenContainer 支持分布式同步锁
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -112,54 +115,18 @@ namespace Senparc.Weixin.Work.Containers
 
         [Obsolete("请使用 CorpId 属性")]
         public string CoprId { get { return CorpId; } set { CorpId = value; } }
-        //        {
-        //            get { return _corpId; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _corpId, value, "CorpId"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _corpId, value); }
-        //#endif
-        //        }
-
         /// <summary>
         /// CorpSecret
         /// </summary>
         public string CorpSecret { get; set; }
-        //        {
-        //            get { return _corpSecret; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _corpSecret, value, "CorpSecret"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _corpSecret, value); }
-        //#endif
-        //        }
-
         /// <summary>
         /// 过期时间
         /// </summary>
         public DateTimeOffset ExpireTime { get; set; }
-        //        {
-        //            get { return _expireTime; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _expireTime, value, "ExpireTime"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _expireTime, value); }
-        //#endif
-        //        }
-
         /// <summary>
         /// AccessTokenResult
         /// </summary>
         public AccessTokenResult AccessTokenResult { get; set; }
-        //        {
-        //            get { return _accessTokenResult; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _accessTokenResult, value, "AccessTokenResult"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _accessTokenResult, value); }
-        //#endif
-        //        }
-
         /// <summary>
         /// 只针对这个CorpId的锁
         /// </summary>
@@ -177,6 +144,7 @@ namespace Senparc.Weixin.Work.Containers
     public class AccessTokenContainer : BaseContainer<AccessTokenBag>
     {
         private const string UN_REGISTER_ALERT = "此CorpId尚未注册，AccessTokenContainer.Register完成注册（全局执行一次即可）！";
+        private const string LockResourceName = "Work.AccessTokenContainer";
 
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token。
@@ -189,6 +157,19 @@ namespace Senparc.Weixin.Work.Containers
         {
             return string.Format("{0}@{1}", corpId, corpSecret);
         }
+
+        /// <summary>
+        /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token。
+        /// 执行此注册过程，会连带注册ProviderTokenContainer。
+        /// </summary>
+        /// <param name="corpId">corpId</param>
+        /// <param name="corpSecret">corpSecret</param>
+        /// 此接口无异步方法
+        public static string BuildingKey(ISenparcWeixinSettingForWork setting)
+        {
+            return BuildingKey(setting.WeixinCorpId, setting.WeixinCorpSecret);
+        }
+
 
         /// <summary>
         /// 根据Key获取corpId和corpSecret
@@ -308,7 +289,7 @@ namespace Senparc.Weixin.Work.Containers
             }
 
             var accessTokenBag = TryGetItem(appKey);
-            lock (accessTokenBag.Lock)
+            using (Cache.BeginCacheLock(LockResourceName, appKey))//同步锁
             {
                 if (getNewToken || accessTokenBag.ExpireTime <= SystemTime.Now)
                 {
@@ -401,6 +382,7 @@ namespace Senparc.Weixin.Work.Containers
         /// 【异步方法】获取可用Token
         /// </summary>
         /// <param name="corpId"></param>
+        /// <param name="corpSecret"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
         public static async Task<string> GetTokenAsync(string corpId, string corpSecret, bool getNewToken = false)
@@ -413,6 +395,7 @@ namespace Senparc.Weixin.Work.Containers
         /// 【异步方法】获取可用Token
         /// </summary>
         /// <param name="corpId"></param>
+        /// <param name="corpSecret"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
         public static async Task<IAccessTokenResult> GetTokenResultAsync(string corpId, string corpSecret, bool getNewToken = false)
@@ -441,7 +424,7 @@ namespace Senparc.Weixin.Work.Containers
             }
 
             var accessTokenBag = await TryGetItemAsync(appKey).ConfigureAwait(false);
-            // lock (accessTokenBag.Lock)
+            using (await Cache.BeginCacheLockAsync(LockResourceName, appKey).ConfigureAwait(false))//同步锁
             {
                 if (getNewToken || accessTokenBag.ExpireTime <= SystemTime.Now)
                 {

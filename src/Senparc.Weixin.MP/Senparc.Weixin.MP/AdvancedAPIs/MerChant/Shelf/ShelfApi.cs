@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：ShelfApi.cs
     文件功能描述：微小店货架接口
@@ -46,6 +46,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
     /// <summary>
     /// 微小店货架接口
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
     public static class ShelfApi
     {
         #region 同步方法
@@ -61,7 +62,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="shelfBanner">货架招牌图片Url</param>
         /// <param name="shelfName">货架名称</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ShelfApi.AddShelves", true)]
         public static AddShelfResult AddShelves(string accessToken, M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, string shelfBanner, string shelfName)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/shelf/add?access_token={0}";
@@ -92,7 +92,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="shelfId">货架Id</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ShelfApi.DeleteShelves", true)]
         public static WxJsonResult DeleteShelves(string accessToken, int shelfId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/shelf/del?access_token={0}";
@@ -118,7 +117,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="shelfBanner">货架招牌图片Url</param>
         /// <param name="shelfName">货架名称</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ShelfApi.ModShelves", true)]
         public static WxJsonResult ModShelves(string accessToken, M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, int shelfId, string shelfBanner, string shelfName)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/shelf/mod?access_token={0}";
@@ -149,7 +147,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ShelfApi.GetAllShelves", true)]
         public static GetAllShelfResult GetAllShelves(string accessToken)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/shelf/getall?access_token=ACCESS_TOKEN";
@@ -163,7 +160,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="shelfId">货架Id</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ShelfApi.GetByIdShelves", true)]
         public static GetByIdShelfResult GetByIdShelves(string accessToken, int shelfId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/shelf/getbyid?access_token={0}";
@@ -190,7 +186,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="shelfBanner">货架招牌图片Url</param>
         /// <param name="shelfName">货架名称</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ShelfApi.AddShelvesAsync", true)]
         public static async Task<AddShelfResult> AddShelvesAsync(string accessToken, M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, string shelfBanner, string shelfName)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/shelf/add?access_token={0}";
@@ -221,7 +216,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="shelfId">货架Id</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ShelfApi.DeleteShelvesAsync", true)]
         public static async Task<WxJsonResult> DeleteShelvesAsync(string accessToken, int shelfId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/shelf/del?access_token={0}";
@@ -247,7 +241,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="shelfBanner">货架招牌图片Url</param>
         /// <param name="shelfName">货架名称</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ShelfApi.ModShelvesAsync", true)]
         public static async Task<WxJsonResult> ModShelvesAsync(string accessToken, M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, int shelfId, string shelfBanner, string shelfName)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/shelf/mod?access_token={0}";
@@ -278,7 +271,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ShelfApi.GetAllShelvesAsync", true)]
         public static async Task<GetAllShelfResult> GetAllShelvesAsync(string accessToken)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/shelf/getall?access_token=ACCESS_TOKEN";
@@ -292,7 +284,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="shelfId">货架Id</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ShelfApi.GetByIdShelvesAsync", true)]
         public static async Task<GetByIdShelfResult> GetByIdShelvesAsync(string accessToken, int shelfId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/shelf/getbyid?access_token={0}";

@@ -3,7 +3,7 @@
 var app = getApp()
 Page({
   data: {
-    motto: 'Senparc.Weixin SDK Demo v2019.10.19',
+    motto: 'Senparc.Weixin SDK Demo v2022.1.21',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -55,13 +55,51 @@ Page({
   //测试模板消息提交form
   formTemplateMessageSubmit:function(e)
   {
-       var submitData = {
-          sessionId:wx.getStorageSync("sessionId"),
-          formId:e.detail.formId
-        };
+      wx.showModal({
+        title: '模板消息 API 已过期',
+        content: '2020年01月10日起，新发布的小程序将不能使用模板消息，请使用“订阅消息”功能。',
+        showCancel:false
+      })
+      return;
+      
+      /* 以下代码 API 已过期
+      var submitData = {
+        sessionId:wx.getStorageSync("sessionId"),
+        formId:e.detail.formId
+      };
 
+      wx.request({
+        url: wx.getStorageSync('domainName') + '/WxOpen/TemplateTest',
+        data: submitData,
+        method: 'POST', 
+        header: { 'content-type': 'application/x-www-form-urlencoded' }, 
+        success: function(res){
+          // success
+          var json = res.data;
+          console.log(res.data);
+          //模组对话框
+          wx.showModal({
+            title: '已尝试发送模板消息',
+            content: json.msg,
+            showCancel:false
+          });
+        }
+      })
+      */
+  },
+  //小程序和公众号统一的服务消息
+  uniformSend:function(){
+    wx.showModal({
+      title: '可能的过期提醒',
+      content: '2020年01月10日起，新发布的小程序将不能使用模板消息，公众号模板消息也一度被宣布要取消，因此请关注此接口可用性的公告，点击【确定】继续发送',
+      showCancel:false,
+      success(res){
+        var submitData = {
+          sessionId:wx.getStorageSync("sessionId")
+        };
+    
         wx.request({
-          url: wx.getStorageSync('domainName') + '/WxOpen/TemplateTest',
+          url: wx.getStorageSync('domainName') + '/WxOpen/UniformSend',
           data: submitData,
           method: 'POST', 
           header: { 'content-type': 'application/x-www-form-urlencoded' }, 
@@ -69,14 +107,17 @@ Page({
             // success
             var json = res.data;
             console.log(res.data);
+
             //模组对话框
             wx.showModal({
-              title: '已尝试发送模板消息',
+              title: res.data.title,
               content: json.msg,
               showCancel:false
             });
           }
         })
+      }
+    })
   },
   getPhoneNumber: function (e) {
     console.log(e.detail.errMsg)
@@ -124,6 +165,41 @@ Page({
     })
 
   } ,
+  //使用服务器端获取用户手机号
+  getUserPhoneNumber:function(e){
+    console.log(e.detail.code)
+    wx.request({
+      url: wx.getStorageSync('domainName') + '/WxOpen/GetUserPhoneNumber?code='+e.detail.code,
+      success: function (res) {
+        // success
+        var json = res.data;
+        console.log(res.data);
+
+        if(!json.success){
+
+          wx.showModal({
+            title: '解密过程发生异常',
+            content: json.msg,
+            showCancel: false
+          });          
+          return;
+        }
+
+        //模组对话框
+        var phoneNumberData = json.phoneInfo;
+        var msg = '手机号：' + phoneNumberData.phoneNumber+
+          '\r\n手机号（不带区号）：' + phoneNumberData.purePhoneNumber+
+          '\r\n区号（国别号）' + phoneNumberData.countryCode+
+          '\r\n水印信息：' + JSON.stringify(phoneNumberData.watermark);
+
+        wx.showModal({
+          title: '收到服务器端通过 code 获取的手机号信息',
+          content: msg,
+          showCancel: false
+        });
+      }
+    })
+  },
   wxPay: function(){
     wx.request({
       url: wx.getStorageSync('domainName') + '/WxOpen/GetPrepayid',//注意：必须使用https
@@ -246,40 +322,6 @@ Page({
       }
     })
   },
-  getRunData:function(){
-    wx.getWeRunData({
-      success(res) {
-        const encryptedData = res.encryptedData;
-
-        wx.request({
-          url: wx.getStorageSync('domainName') + '/WxOpen/DecryptRunData',
-          data: {
-            sessionId: wx.getStorageSync('sessionId'),
-            encryptedData: encryptedData,
-            iv: res.iv, 
-          },
-          method: 'POST',
-          header: { 'content-type': 'application/x-www-form-urlencoded' },
-          success: function (runDataRes) {
-            if (runDataRes.data.success) {
-              wx.showModal({
-                title: '成功获得步数信息！',
-                content: JSON.stringify(runDataRes.data.runData),
-                showCancel: false
-              });
-            } else {
-              wx.showModal({
-                title: '获取步数信息失败！',
-                content: runDataRes.data.msg,
-                showCancel: false
-              });
-            }
-          }
-        });
-
-      }
-    })
-  },
   //生成二维码
   openLivePusher:function(){
     wx.navigateTo({
@@ -336,6 +378,9 @@ Page({
        }
     })
   },
+  //分享
+  onShareAppMessage: function () {
+  },
   onLoad: function () {
     console.log('onLoad')
     var that = this
@@ -381,13 +426,9 @@ Page({
         that.setData({time:new Date().toLocaleTimeString()});
     },1000);
   },
-  getUserInfo: function (e) {
-    console.log(e)
-    app.getUserInfo(e);
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+  getUserInfo: function(){
+    wx.navigateTo({
+      url: '../Login/Login',
     })
   }
 })

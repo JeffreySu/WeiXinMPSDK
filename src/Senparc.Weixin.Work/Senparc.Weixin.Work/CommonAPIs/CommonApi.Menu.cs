@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：CommonApi.Menu.cs
     文件功能描述：自定义菜单API
@@ -19,6 +19,8 @@
     修改标识：Senparc - 20190129
     修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口；使用 ApiHandlerWapper.TryCommonApi
 
+    修改标识：Senparc - 20220306
+    修改描述：添加 CreateMenuAsync() 异步方法
 
 ----------------------------------------------------------------*/
 
@@ -41,7 +43,7 @@ using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.CO2NET.Helpers;
 
-#if NET45
+#if NET451
 using System.Web.Script.Serialization;
 #else
 using Newtonsoft.Json;
@@ -49,6 +51,7 @@ using Newtonsoft.Json;
 
 namespace Senparc.Weixin.Work.CommonAPIs
 {
+    [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
     public partial class CommonApi
     {
         #region 同步方法
@@ -61,8 +64,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="buttonData">菜单内容</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.CreateMenu", true)]
-        public static WorkJsonResult CreateMenu(string accessTokenOrAppId, int agentId, ButtonGroup buttonData, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult CreateMenu(string accessTokenOrAppKey, int agentId, ButtonGroup buttonData, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -83,7 +85,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
                 var urlFormat = string.Format(Config.ApiWorkHost + "/cgi-bin/menu/create?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
                 return CommonJsonSend.Send<WorkJsonResult>(accessToken, urlFormat, buttonData, CommonJsonSendType.POST, timeOut: timeOut);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
         }
 
         #region GetMenu
@@ -94,7 +96,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="objs"></param>
         /// <returns></returns>
         [Obsolete("配合GetMenuFromJson方法使用")]
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.GetSingleButtonFromJsonObject", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         private static SingleClickButton GetSingleButtonFromJsonObject(Dictionary<string, object> objs)
         {
             var sb = new SingleClickButton()
@@ -113,7 +115,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="jsonString"></param>
         /// <returns></returns>
         [Obsolete("此方法通过判断GetMenuResult并结合object类型转换得到结果。结果准确。但更推荐使用GetMenuFromJsonResult方法。")]
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.GetMenuFromJson", true)]
         public static GetMenuResult GetMenuFromJson(string jsonString)
         {
             var finalResult = new GetMenuResult();
@@ -122,7 +123,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
             {
                 //@"{""menu"":{""button"":[{""type"":""click"",""name"":""单击测试"",""key"":""OneClick"",""sub_button"":[]},{""name"":""二级菜单"",""sub_button"":[{""type"":""click"",""name"":""返回文本"",""key"":""SubClickRoot_Text"",""sub_button"":[]},{""type"":""click"",""name"":""返回图文"",""key"":""SubClickRoot_News"",""sub_button"":[]},{""type"":""click"",""name"":""返回音乐"",""key"":""SubClickRoot_Music"",""sub_button"":[]}]}]}}"
                 object jsonResult = null;
-#if NET45
+#if NET451
 
 #else
                 jsonResult = JsonConvert.DeserializeObject<object>(jsonString);
@@ -181,7 +182,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="agentId">企业应用的id，整型。可在应用的设置页面查看</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.GetMenu", true)]
         public static GetMenuResult GetMenu(string accessTokenOrAppId, int agentId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -189,7 +189,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
 
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/menu/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
 
-                var jsonString = RequestUtility.HttpGet(url, Encoding.UTF8);
+                var jsonString = RequestUtility.HttpGet(CommonDI.CommonSP, url, Encoding.UTF8);
                 //var finalResult = GetMenuFromJson(jsonString);
 
                 GetMenuResult finalResult;
@@ -220,7 +220,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// </summary>
         /// <param name="resultFull"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.GetMenuFromJsonResult", true)]
         public static GetMenuResult GetMenuFromJsonResult(GetMenuResultFull resultFull)
         {
             GetMenuResult result = null;
@@ -450,7 +449,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="agentId">企业应用的id，整型。可在应用的设置页面查看</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.DeleteMenu", true)]
         public static WorkJsonResult DeleteMenu(string accessTokenOrAppId, int agentId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -466,12 +464,30 @@ namespace Senparc.Weixin.Work.CommonAPIs
         #region 异步方法
 
         /// <summary>
+        /// 【异步方法】创建菜单
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="agentId"></param>
+        /// <param name="buttonData">菜单内容</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> CreateMenuAsync(string accessTokenOrAppKey, int agentId, ButtonGroup buttonData, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiWorkHost + "/cgi-bin/menu/create?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
+                
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, urlFormat, buttonData, CommonJsonSendType.POST, timeOut: timeOut);
+
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
         /// 【异步方法】删除菜单
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="agentId">企业应用的id，整型。可在应用的设置页面查看</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.DeleteMenuAsync", true)]
         public static async Task<WorkJsonResult> DeleteMenuAsync(string accessTokenOrAppId, int agentId)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

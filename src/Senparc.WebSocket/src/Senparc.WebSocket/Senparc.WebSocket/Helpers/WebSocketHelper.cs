@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
 
     文件名：WebSocketHelper.cs
     文件功能描述：WebSocket处理类
@@ -19,7 +19,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-#if NET45
+#if NET451
 using System.Web.Routing;
 using System.Web.WebSockets;
 #else
@@ -35,7 +35,7 @@ namespace Senparc.WebSocket
     /// </summary>
     public class WebSocketHelper
     {
-#if NET45
+#if NET451
         public System.Net.WebSockets.WebSocket WebSocket { get; set; }
 #else
         public SenparcWebSocketHubBase WebSocket { get; set; }
@@ -50,7 +50,7 @@ namespace Senparc.WebSocket
         /// </summary>
         ///// <param name="webSocketContext"></param>
         /// <param name="cancellationToken"></param>
-#if NET45
+#if NET451
         public WebSocketHelper(System.Net.WebSockets.WebSocket socket,/*AspNetWebSocketContext webSocketContext,*/ CancellationToken cancellationToken)
         {
             WebSocket = socket;
@@ -68,7 +68,7 @@ namespace Senparc.WebSocket
         /// </summary>
         /// <param name="message">文字消息</param>
         /// <returns></returns>
-#if NET45
+#if NET451
         public async Task SendMessage(string message)
 #else
         public async Task SendMessage(string message, IClientProxy clientProxy)
@@ -83,7 +83,7 @@ namespace Senparc.WebSocket
             var newString = Senparc.CO2NET.Helpers.SerializerHelper.GetJsonString(data);
             //String.Format("Hello, " + receiveString + " ! Time {0}", DateTimeOffset.Now.ToString());
 
-#if NET45
+#if NET451
             Byte[] bytes = System.Text.Encoding.UTF8.GetBytes(newString);
             await WebSocket.SendAsync(new ArraySegment<byte>(bytes),
                               WebSocketMessageType.Text, true, _cancellationToken).ConfigureAwait(false);

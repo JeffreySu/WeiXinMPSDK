@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
   
     修改标识：Senparc - 20160621
     修改描述：修改命名空间
@@ -46,6 +46,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 长短链接接口
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
     public class UrlApi
     {
         /*
@@ -63,7 +64,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///  <param name="action">此处填long2short，代表长链接转短链接</param>
         ///  <param name="longUrl">需要转换的长链接，支持http://、https://、weixin://wxpay 格式的url</param>
         /// <param name="timeOut">请求超时时间</param>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UrlApi.ShortUrl", true)]
         public static ShortUrlResult ShortUrl(string accessTokenOrAppId, string action, string longUrl, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -88,7 +88,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///  <param name="action">此处填long2short，代表长链接转短链接</param>
         ///  <param name="longUrl">需要转换的长链接，支持http://、https://、weixin://wxpay 格式的url</param>
         /// <param name="timeOut">请求超时时间</param>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UrlApi.ShortUrlAsync", true)]
         public static async Task<ShortUrlResult> ShortUrlAsync(string accessTokenOrAppId, string action, string longUrl, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

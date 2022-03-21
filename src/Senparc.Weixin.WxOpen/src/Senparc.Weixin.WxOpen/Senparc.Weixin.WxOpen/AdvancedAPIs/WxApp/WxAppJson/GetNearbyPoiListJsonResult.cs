@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,16 +19,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：GetNearbyPoiListJsonResult.cs
     文件功能描述：GetNearbyPoiList 接口结果
     
     
-    创建标识：Senparc - 20180106
+    创建标识：Senparc - 20210528
     
-    修改标识：Senparc - 20190615
-    修改描述：修复附近的小程序添加地点
 
 ----------------------------------------------------------------*/
 
@@ -52,6 +50,21 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson
     [Serializable]
     public class Data
     {
+        public int category_status { get; set; }
+
+        /// <summary>
+        /// true表示小程序没有被下架
+        /// </summary>
+        public bool show_wxopen_shelf_state { get; set; }
+
+
+        public int upgrade_status { get; set; }
+
+        /// <summary>
+        /// 0表示未申请类目，1 类目审核通过，2 类目审核中，3 类目审核失败
+        /// </summary>
+        public int apply_status { get; set; }
+
         /// <summary>
         /// 剩余可添加地点个数
         /// </summary>
@@ -65,54 +78,55 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson
         /// <summary>
         /// 地址列表的 JSON 格式字符串
         /// </summary>
-        public PoiList data { get; set; }
+        public string data { get; set; }
+        //public PoiList data { get; set; }
     }
 
-    [Serializable]
-    public class PoiList
-    {
-        public List<PoiInfo> poi_list { get; set; }
-    }
+    //[Serializable]
+    //public class PoiList
+    //{
+    //    public List<PoiInfo> poi_list { get; set; }
+    //}
 
-    /// <summary>
-    /// 地点详情
-    /// </summary>
-    [Serializable]
-    public class PoiInfo
-    {
-        /// <summary>
-        /// 附近地点 ID
-        /// </summary>
-        public string poi_id { get; set; }
+    ///// <summary>
+    ///// 地点详情
+    ///// </summary>
+    //[Serializable]
+    //public class PoiInfo
+    //{
+    //    /// <summary>
+    //    /// 附近地点 ID
+    //    /// </summary>
+    //    public string poi_id { get; set; }
 
-        /// <summary>
-        /// 资质证件地址
-        /// </summary>
-        public string qualification_address { get; set; }
+    //    /// <summary>
+    //    /// 资质证件地址
+    //    /// </summary>
+    //    public string qualification_address { get; set; }
 
-        /// <summary>
-        /// 资质证件证件号
-        /// </summary>
-        public string qualification_num { get; set; }
+    //    /// <summary>
+    //    /// 资质证件证件号
+    //    /// </summary>
+    //    public string qualification_num { get; set; }
 
-        /// <summary>
-        /// 地点审核状态
-        /// 3	审核中
-        /// 4	审核失败
-        /// 5	审核通过
-        /// </summary>
-        public int audit_status { get; set; }
+    //    /// <summary>
+    //    /// 地点审核状态
+    //    /// 3	审核中
+    //    /// 4	审核失败
+    //    /// 5	审核通过
+    //    /// </summary>
+    //    public int audit_status { get; set; }
 
-        /// <summary>
-        /// 地点展示在附近状态
-        /// 0	未展示
-        /// 1	展示中
-        /// </summary>
-        public int display_status { get; set; }
+    //    /// <summary>
+    //    /// 地点展示在附近状态
+    //    /// 0	未展示
+    //    /// 1	展示中
+    //    /// </summary>
+    //    public int display_status { get; set; }
 
-        /// <summary>
-        /// 审核失败原因，audit_status=4 时返回
-        /// </summary>
-        public string refuse_reason { get; set; }
-    }
+    //    /// <summary>
+    //    /// 审核失败原因，audit_status=4 时返回
+    //    /// </summary>
+    //    public string refuse_reason { get; set; }
+    //}
 }

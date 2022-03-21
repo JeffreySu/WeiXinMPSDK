@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：ApiHandlerWapper.cs（从MP移植）
     文件功能描述：使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试
@@ -36,13 +36,18 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190606
     修改描述：TryCommonApiBase<T> 中 T 参数添加 new() 约束
 
+   
+    修改标识：Senparc - 20210116
+    修改描述：v3.10.103 修正 WxOpenApiHandlerWapper 正确引用 AccessTokenContainer https://github.com/JeffreySu/WeiXinMPSDK/issues/2296
+
 ----------------------------------------------------------------*/
 
 using System;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.CommonAPIs.ApiHandlerWapper;
-using Senparc.Weixin.MP.Containers;
+using Senparc.Weixin.WxOpen.Containers;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.WxOpen
 {
@@ -51,6 +56,10 @@ namespace Senparc.Weixin.WxOpen
     /// </summary>
     public static class WxOpenApiHandlerWapper
     {
+
+        internal static IEnumerable<int> InvalidCredentialValues = new[] { (int)ReturnCode.获取access_token时AppSecret错误或者access_token无效 };
+
+
         #region 同步方法
 
         /// <summary>
@@ -74,7 +83,7 @@ namespace Senparc.Weixin.WxOpen
             Func<string, bool, IAccessTokenResult> accessTokenContainer_GetAccessTokenResultFunc =
                 (appId, getNewToken) => AccessTokenContainer.GetAccessTokenResult(appId, getNewToken);
 
-            int invalidCredentialValue = (int)ReturnCode.获取access_token时AppSecret错误或者access_token无效;
+            //int invalidCredentialValue = (int)ReturnCode.获取access_token时AppSecret错误或者access_token无效;
 
             var result = ApiHandlerWapperBase.
                 TryCommonApiBase(
@@ -82,7 +91,7 @@ namespace Senparc.Weixin.WxOpen
                     accessTokenContainer_GetFirstOrDefaultAppIdFunc,
                     accessTokenContainer_CheckRegisteredFunc,
                     accessTokenContainer_GetAccessTokenResultFunc,
-                    invalidCredentialValue,
+                    InvalidCredentialValues,
                     fun, accessTokenOrAppId, retryIfFaild);
             return result;
 
@@ -217,7 +226,7 @@ namespace Senparc.Weixin.WxOpen
             Func<string, bool, Task<IAccessTokenResult>> accessTokenContainer_GetAccessTokenResultAsyncFunc =
                 (appId, getNewToken) => AccessTokenContainer.GetAccessTokenResultAsync(appId, getNewToken);
 
-            int invalidCredentialValue = (int)ReturnCode.获取access_token时AppSecret错误或者access_token无效;
+            //int invalidCredentialValue = (int)ReturnCode.获取access_token时AppSecret错误或者access_token无效;
 
             var result = ApiHandlerWapperBase.
                 TryCommonApiBaseAsync(
@@ -225,7 +234,7 @@ namespace Senparc.Weixin.WxOpen
                     accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
                     accessTokenContainer_CheckRegisteredAsyncFunc,
                     accessTokenContainer_GetAccessTokenResultAsyncFunc,
-                    invalidCredentialValue,
+                    InvalidCredentialValues,
                     fun, accessTokenOrAppId, retryIfFaild);
             return await result.ConfigureAwait(false);
         }

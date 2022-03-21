@@ -1,7 +1,7 @@
 #region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
  
     文件名：ResponseHandler.cs
     文件功能描述：微信支付V3 响应处理
@@ -47,8 +47,12 @@ using System.Xml;
 
 using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.AspNet.HttpUtility;
+using Senparc.CO2NET.Trace;
+using Senparc.CO2NET;
+using System.IO;
 
-#if NET45
+#if NET451
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
@@ -115,7 +119,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="httpContext"></param>
         public ResponseHandler(HttpContext httpContext)
         {
-#if NET45
+#if NET451
             Parameters = new Hashtable();
 
             this.HttpContext = httpContext ?? HttpContext.Current;
@@ -153,10 +157,12 @@ namespace Senparc.Weixin.TenPay.V3
 #else
             Parameters = new Hashtable();
 
-            //#if NETSTANDARD2_0 || NETCOREAPP3_0
+            //#if NETSTANDARD2_0 || NETSTANDARD2_1
             //            HttpContext = httpContext ?? throw new WeixinException(".net standard 2.0 环境必须传入HttpContext的实例");
             //#else
-            HttpContext = httpContext ?? CO2NET.SenparcDI.GetService<IHttpContextAccessor>()?.HttpContext;
+
+            var serviceProvider = SenparcDI.GetServiceProvider();
+            HttpContext = httpContext ?? serviceProvider.GetService<IHttpContextAccessor>()?.HttpContext;
             //#endif
 
             //post data
@@ -177,16 +183,42 @@ namespace Senparc.Weixin.TenPay.V3
                 var xmlDoc = new Senparc.CO2NET.ExtensionEntities.XmlDocument_XxeFixed();
                 xmlDoc.XmlResolver = null;
                 //xmlDoc.Load(HttpContext.Request.Body);
-                using (var reader = new System.IO.StreamReader(HttpContext.Request.Body))
+                try
                 {
-                    xmlDoc.Load(reader);
-                }
-                var root = xmlDoc.SelectSingleNode("xml");
+                    var ms = new MemoryStream();
+                    var requestStream = HttpContext.Request.GetRequestMemoryStream();
+                    requestStream.Seek(0, System.IO.SeekOrigin.Begin);
 
-                foreach (XmlNode xnf in root.ChildNodes)
-                {
-                    SetParameter(xnf.Name, xnf.InnerText);
+                    requestStream.CopyTo(ms);
+                    ms.Position = 0;
+                    ms.Seek(0, System.IO.SeekOrigin.Begin);
+
+                    var sr = new StreamReader(ms);
+                    var streamContent = sr.ReadToEnd();
+                    Senparc.Weixin.WeixinTrace.SendCustomLog("微信支付（旧）V3 ResponseHandler 收到来自微信服务器消息", streamContent);
+
+                    ms.Position = 0;
+                    ms.Seek(0, System.IO.SeekOrigin.Begin);
+                    xmlDoc.Load(ms);
+
+                    //using (var reader = new System.IO.StreamReader(HttpContext.Request.Body))
+                    //{
+                    //    xmlDoc.Load(reader);
+                    //}
+
+                    var root = xmlDoc.SelectSingleNode("xml");
+
+                    foreach (XmlNode xnf in root.ChildNodes)
+                    {
+                        SetParameter(xnf.Name, xnf.InnerText);
+                    }
                 }
+                catch (Exception ex)
+                {
+                    var weixinEx = new WeixinException("微信支付ResponseHandler错误", ex, false);
+                    Senparc.Weixin.WeixinTrace.WeixinExceptionLog(weixinEx);
+                }
+
             }
 #endif
         }
@@ -281,7 +313,7 @@ namespace Senparc.Weixin.TenPay.V3
 
         protected virtual string GetCharset()
         {
-#if NET45
+#if NET451
             return this.HttpContext.Request.ContentEncoding.BodyName;
 #else
             return Encoding.UTF8.WebName;

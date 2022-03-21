@@ -40,17 +40,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson
         /// <summary>
         /// 图片列表
         /// </summary>
-        public IEnumerable<string> pic_urls { get; set; }
+        public List<string> pic_urls { get; set; }
         /// <summary>
         /// 卡券列表
         /// </summary>
-        public IEnumerable<string> card_id_list { get; set; }
+        public List<string> card_id_list { get; set; }
     }
 
 
     public class MapPoiData
     {
-        public IEnumerable<PoiInMap> item { get; set; }
+        public List<PoiInMap> item { get; set; }
     }
 
 

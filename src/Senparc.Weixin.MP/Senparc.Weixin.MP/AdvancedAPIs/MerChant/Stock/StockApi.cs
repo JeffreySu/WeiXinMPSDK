@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：ProductApi.cs
     文件功能描述：微小店商品接口
@@ -46,6 +46,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
     /// <summary>
     /// 微小店库存接口
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
     public static class StockApi
     {
         #region 同步方法
@@ -55,7 +56,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="addStockData">增加库存需要Post的数据</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "StockApi.AddStock", true)]
         public static WxJsonResult AddStock(string accessToken, AddStockData addStockData)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/stock/add?access_token={0}";
@@ -69,7 +69,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="reduceStockData">减少库存需要Post的数据</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "StockApi.ReduceStock", true)]
         public static WxJsonResult ReduceStock(string accessToken, ReduceStockData reduceStockData)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/stock/reduce?access_token={0}";
@@ -85,7 +84,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="addStockData">增加库存需要Post的数据</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "StockApi.AddStockAsync", true)]
         public static async Task<WxJsonResult> AddStockAsync(string accessToken, AddStockData addStockData)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/stock/add?access_token={0}";
@@ -99,7 +97,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="reduceStockData">减少库存需要Post的数据</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "StockApi.ReduceStockAsync", true)]
         public static async Task<WxJsonResult> ReduceStockAsync(string accessToken, ReduceStockData reduceStockData)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/stock/reduce?access_token={0}";

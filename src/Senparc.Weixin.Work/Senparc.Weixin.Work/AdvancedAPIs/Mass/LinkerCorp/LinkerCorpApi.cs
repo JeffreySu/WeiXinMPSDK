@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：LinkerCorpApi.cs
     文件功能描述：互联企业消息推送接口
@@ -27,6 +27,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// <summary>
     /// 发送消息
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
     public static class LinkerCorpApi
     {
         private static string _urlFormat = Config.ApiWorkHost + "/cgi-bin/linkedcorp/message/send?access_token={0}";
@@ -41,7 +42,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendText", true)]
         public static LinkedCorpMassResult SendText(string accessTokenOrAppKey, SendTextData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -61,7 +61,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendImage", true)]
         public static LinkedCorpMassResult SendImage(string accessTokenOrAppKey, SendImageData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -81,7 +80,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendVoice", true)]
         public static LinkedCorpMassResult SendVoice(string accessTokenOrAppKey, SendVoiceData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -101,7 +99,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendVideo", true)]
         public static LinkedCorpMassResult SendVideo(string accessTokenOrAppKey, SendVideoData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -121,7 +118,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendFile", true)]
         public static LinkedCorpMassResult SendFile(string accessTokenOrAppKey, SendFileData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -141,7 +137,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendNews", true)]
         public static LinkedCorpMassResult SendNews(string accessTokenOrAppKey, SendNewsData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -161,7 +156,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendMpNews", true)]
         public static LinkedCorpMassResult SendMpNews(string accessTokenOrAppKey, SendMpNewsData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -181,7 +175,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendTextCard", true)]
         public static LinkedCorpMassResult SendTextCard(string accessTokenOrAppKey, SendTextCardData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -199,7 +192,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendMiniNoticeCard", true)]
         public static LinkedCorpMassResult SendMiniNoticeCard(string accessTokenOrAppKey, SendMiniNoticeData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -222,7 +214,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendTextAsync", true)]
         public static async Task<LinkedCorpMassResult> SendTextAsync(string accessTokenOrAppKey, SendTextData data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -241,7 +232,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendImageAsync", true)]
         public static async Task<LinkedCorpMassResult> SendImageAsync(string accessTokenOrAppKey, SendImageData data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -261,7 +251,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendVoiceAsync", true)]
         public static async Task<LinkedCorpMassResult> SendVoiceAsync(string accessTokenOrAppKey, SendVoiceData data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -281,7 +270,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendVideoAsync", true)]
         public static async Task<LinkedCorpMassResult> SendVideoAsync(string accessTokenOrAppKey, SendVideoData data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -301,7 +289,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendFileAsync", true)]
         public static async Task<LinkedCorpMassResult> SendFileAsync(string accessTokenOrAppKey, SendFileData data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -321,7 +308,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendNewsAsync", true)]
         public static async Task<LinkedCorpMassResult> SendNewsAsync(string accessTokenOrAppKey, SendNewsData data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -341,7 +327,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendMpNewsAsync", true)]
         public static async Task<LinkedCorpMassResult> SendMpNewsAsync(string accessTokenOrAppKey, SendMpNewsData data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -359,7 +344,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendTextCardAsync", true)]
         public static async Task<LinkedCorpMassResult> SendTextCardAsync(string accessTokenOrAppKey, SendTextCardData data,int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -377,7 +361,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendMiniNoticeCardAsync", true)]
         public static async Task<LinkedCorpMassResult> SendMiniNoticeCardAsync(string accessTokenOrAppKey, SendMiniNoticeData data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

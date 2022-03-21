@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <!--<AssemblyName>Senparc.Weixin.MP.Test</AssemblyName>-->
 
     <IsPackable>false</IsPackable>
@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.netcore3.csproj" />
+    <ProjectReference Include="..\..\Senparc.Weixin.MP.Middleware\Senparc.Weixin.MP.Middleware.netcore3.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay.netcore3.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.netcore3.csproj" />
     <ProjectReference Include="..\Senparc.Weixin.MP\Senparc.Weixin.MP.netcore3.csproj" />

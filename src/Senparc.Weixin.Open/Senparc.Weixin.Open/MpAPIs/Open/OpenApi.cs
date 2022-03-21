@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
 
     文件名：OpenApi.cs
     文件功能描述：微信开放平台帐号管理接口
@@ -18,6 +18,7 @@ using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Open.MpAPIs.Open
 {
+    [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
     public static class OpenApi
     {
         #region 同步方法
@@ -29,7 +30,6 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <param name="accessToken"></param>
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "OpenApi.Create", true)]
         public static CreateJsonResult Create(string accessToken, string appId)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/create?access_token={0}";
@@ -44,7 +44,6 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <param name="openAppid">开放平台帐号appid</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "OpenApi.Bind", true)]
         public static WxJsonResult Bind(string accessToken, string appId, string openAppid)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/bind?access_token={0}";
@@ -59,7 +58,6 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <param name="openAppid">开放平台帐号appid</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "OpenApi.Unbind", true)]
         public static WxJsonResult Unbind(string accessToken, string appId, string openAppid)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/unbind?access_token={0}";
@@ -73,7 +71,6 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <param name="accessToken"></param>
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "OpenApi.Get", true)]
         public static GetJsonResult Get(string accessToken, string appId)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/get?access_token={0}";
@@ -93,7 +90,6 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <param name="accessToken"></param>
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "OpenApi.CreateAsync", true)]
         public static async Task<CreateJsonResult> CreateAsync(string accessToken, string appId)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/create?access_token={0}";
@@ -108,7 +104,6 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <param name="openAppid">开放平台帐号appid</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "OpenApi.BindAsync", true)]
         public static async Task<WxJsonResult> BindAsync(string accessToken, string appId, string openAppid)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/bind?access_token={0}";
@@ -123,7 +118,6 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <param name="openAppid">开放平台帐号appid</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "OpenApi.UnbindAsync", true)]
         public static async Task<WxJsonResult> UnbindAsync(string accessToken, string appId, string openAppid)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/unbind?access_token={0}";
@@ -137,7 +131,6 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <param name="accessToken"></param>
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "OpenApi.GetAsync", true)]
         public static async Task<GetJsonResult> GetAsync(string accessToken, string appId)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/get?access_token={0}";

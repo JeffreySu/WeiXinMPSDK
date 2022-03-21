@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -48,7 +48,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Console.WriteLine("1");
 
             RunStep = "OnExecuting";
-            CancelExcute = true;//取消执行
+            CancelExecute = true;//取消执行
             await base.OnExecutingAsync(cancellationToken);
             Console.WriteLine("2");
 
@@ -111,7 +111,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             {
                 //一开始就取消
                 var messageHandler = new CancelMessageHandlers(XDocument.Parse(xmlText.FormatWith(SystemTime.NowTicks,DateTimeHelper.GetUnixDateTime(SystemTime.Now))), postModel);
-                messageHandler.CancelExcute = true;
+                messageHandler.CancelExecute = true;
 
                 //缺少异步方法重写的时候，使用同步方法
                 messageHandler.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;

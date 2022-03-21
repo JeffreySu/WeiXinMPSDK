@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,13 +19,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：DefaultMpMessageContext.cs
     文件功能描述：公众号上下文消息的默认实现
     
     
     创建标识：Senparc - 20190916
+
+    修改标识：Senparc - 20200731
+    修改描述：v16.10.502.2 添加微信电子发票 2.3 接收授权完成事件的处理
+
     
 ----------------------------------------------------------------*/
 
@@ -218,6 +222,12 @@ namespace Senparc.Weixin.MP.MessageContexts
                             break;
                         #endregion
 
+                        #region 微信电子发票
+                        case "USER_AUTHORIZE_INVOICE":
+                            requestMessage = new RequestMessageEvent_User_Authorize_Invoice();
+                            break;
+                        #endregion
+
                         #region 微信认证事件推送
                         case "QUALIFICATION_VERIFY_SUCCESS"://资质认证成功（此时立即获得接口权限）
                             requestMessage = new RequestMessageEvent_QualificationVerifySuccess();
@@ -250,6 +260,18 @@ namespace Senparc.Weixin.MP.MessageContexts
                         //    break;
                         #endregion
 
+                        #region 订阅通知事件
+                        case "SUBSCRIBE_MSG_POPUP_EVENT":
+                            requestMessage = new RequestMessageEvent_Subscribe_Msg_Popup();
+                            break;
+                        case "SUBSCRIBE_MSG_CHANGE_EVENT":
+                            requestMessage = new RequestMessageEvent_Subscribe_Msg_Change();
+                            break;
+                        case "SUBSCRIBE_MSG_SENT_EVENT":
+                            requestMessage = new RequestMessageEvent_Subscribe_Msg_Sent();
+                            break;
+                        #endregion
+                        
                         default://其他意外类型（也可以选择抛出异常）
                             requestMessage = new RequestMessageEventBase();
                             break;

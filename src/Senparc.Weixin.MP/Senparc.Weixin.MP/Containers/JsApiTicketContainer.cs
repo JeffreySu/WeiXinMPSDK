@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
 
     文件名：JsApiTicketContainer.cs
     文件功能描述：通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
@@ -100,43 +100,9 @@ namespace Senparc.Weixin.MP.Containers
     public class JsApiTicketBag : BaseContainerBag, IBaseContainerBag_AppId
     {
         public string AppId { get; set; }
-        //        {
-        //            get { return _appId; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _appId, value, "AppId"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _appId, value); }
-        //#endif
-        //        }
         public string AppSecret { get; set; }
-        //        {
-        //            get { return _appSecret; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _appSecret, value); }
-        //#endif
-        //        }
-
         public JsApiTicketResult JsApiTicketResult { get; set; }
-        //        {
-        //            get { return _jsApiTicketResult; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _jsApiTicketResult, value, "JsApiTicketResult"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _jsApiTicketResult, value); }
-        //#endif
-        //        }
-
         public DateTimeOffset JsApiTicketExpireTime { get; set; }
-        //        {
-        //            get { return _jsApiTicketExpireTime; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _jsApiTicketExpireTime, value, "JsApiTicketExpireTime"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _jsApiTicketExpireTime, value); }
-        //#endif
-        //        }
 
         /// <summary>
         /// 只针对这个AppId的锁

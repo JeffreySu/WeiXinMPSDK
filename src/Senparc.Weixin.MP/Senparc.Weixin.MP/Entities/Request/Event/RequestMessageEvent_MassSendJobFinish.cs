@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：RequestMessageEvent_MassSendJobFinish.cs
     文件功能描述：事件之推送群发结果
@@ -29,9 +29,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：ccccccmd - 20201016
+    修改描述：v16.10.601 MASSSENDJOBFINISH事件增加 ArticleUrlResult 节点,
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;
+
 using System;
 using System.Collections.Generic;
 
@@ -76,6 +81,19 @@ namespace Senparc.Weixin.MP.Entities
     //    </ResultList>
     //    <CheckState>2</CheckState>
     //  </CopyrightCheckResult>
+    //  <ArticleUrlResult>
+    //      <Count>2</Count>
+    //      <ResultList>
+    //        <item>
+    //          <ArticleIdx>1</ArticleIdx>
+    //          <ArticleUrl><![CDATA[Url_1]]></ArticleUrl>
+    //        </item>
+    //        <item>
+    //          <ArticleIdx>2</ArticleIdx>
+    //          <ArticleUrl><![CDATA[Url_2]]></ArticleUrl>
+    //        </item>
+    //      </ResultList>
+    //   </ArticleUrlResult>
     //</xml>
 
     /// <summary>
@@ -118,8 +136,16 @@ namespace Senparc.Weixin.MP.Entities
 
         /// <summary>
         /// 群发的消息ID
+        /// 2022-01-06 YZQ Modify
         /// </summary>
-        public long MsgID { get; set; }
+        public long MsgID
+        {
+            get { return base.MsgId; }
+            set
+            {
+                base.MsgId = value;
+            }
+        }
 
         [Obsolete("请使用MsgID")]
         public new long MsgId { get; set; }
@@ -129,10 +155,18 @@ namespace Senparc.Weixin.MP.Entities
         /// </summary>
         public CopyrightCheckResult CopyrightCheckResult { get; set; }
 
+        /// <summary>
+        /// 群发文章的 URL
+        /// </summary>
+        public ArticleUrlResult ArticleUrlResult { get; set; }
+
         public RequestMessageEvent_MassSendJobFinish()
         {
             CopyrightCheckResult = new CopyrightCheckResult();
+            ArticleUrlResult = new ArticleUrlResult();
         }
+
+
     }
 
     //public class CopyrightCheckResult

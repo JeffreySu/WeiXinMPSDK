@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：OAuth2Api.cs
     文件功能描述：OAuth2接口
@@ -24,7 +24,9 @@
 ----------------------------------------------------------------*/
 
 /*
-    官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=OAuth2%E9%AA%8C%E8%AF%81%E6%8E%A5%E5%8F%A3
+    官方文档：
+    http://qydev.weixin.qq.com/wiki/index.php?title=OAuth2%E9%AA%8C%E8%AF%81%E6%8E%A5%E5%8F%A3
+    2021.12.04 - https://work.weixin.qq.com/api/doc/90000/90135/91023
  */
 
 using System;
@@ -38,6 +40,7 @@ using Senparc.NeuChar;
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {
 
+    [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
     public static class OAuth2Api
     {
         #region 同步方法
@@ -53,11 +56,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="state">重定向后会带上state参数，企业可以填写a-zA-Z0-9的参数值</param>
         /// <param name="agentId">企业应用的id。当scope是snsapi_userinfo或snsapi_privateinfo时，该参数必填。注意redirect_uri的域名必须与该应用的可信域名一致。</param>
         /// <param name="responseType">返回类型，此时固定为：code</param>
-        /// <param name="scope">应用授权作用域，此时固定为：snsapi_base</param>
+        /// <param name="scope">应用授权作用域。企业自建应用固定填写：snsapi_base</param>
         /// #wechat_redirect 微信终端使用此参数判断是否需要带上身份信息
         /// 员工点击后，页面将跳转至 redirect_uri/?code=CODE&state=STATE，企业可根据code参数获得员工的userid。
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "OAuth2Api.GetCode", true)]
         public static string GetCode(string corpId, string redirectUrl, string state, string agentId, string responseType = "code", string scope = "snsapi_base")
         {
             var agendIdValue = agentId.IsNullOrEmpty() ? null : "&agentid={0}".FormatWith(agentId.AsUrlData());
@@ -75,7 +77,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 权限说明：管理员须拥有agent的使用权限；agentid必须和跳转链接时所在的企业应用ID相同。
         /// <returns></returns>
         [Obsolete("请使用新方法GetUserId(string accessToken, string code)")]
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "OAuth2Api.GetUserId", true)]
         public static GetUserInfoResult GetUserId(string accessToken, string code, string agentId)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}&agentid={2}", accessToken.AsUrlData(), code.AsUrlData(), agentId.AsUrlData());
@@ -90,7 +91,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="code">通过员工授权获取到的code，每次员工授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期</param>
         /// 权限说明：管理员须拥有agent的使用权限；agentid必须和跳转链接时所在的企业应用ID相同。
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "OAuth2Api.GetUserId", true)]
         public static GetUserInfoResult GetUserId(string accessToken, string code)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
@@ -105,7 +105,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="userTicket">成员票据</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "OAuth2Api.GetUserDetail", true)]
         public static GetUserDetailResult GetUserDetail(string accessToken, string userTicket)
         {
             var urlFormat = Config.ApiWorkHost + "/cgi-bin/user/getuserdetail?access_token={0}";
@@ -120,7 +119,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
-
         #region 异步方法
         /// <summary>
         ///【异步方法】 获取成员信息
@@ -130,7 +128,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 权限说明：管理员须拥有agent的使用权限；agentid必须和跳转链接时所在的企业应用ID相同。
         /// <returns></returns>
         [Obsolete("请使用新方法GetUserId(string accessToken, string code)")]
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "OAuth2Api.GetUserIdAsync", true)]
         public static async Task<GetUserInfoResult> GetUserIdAsync(string accessToken, string code, string agentId)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}&agentid={2}", accessToken.AsUrlData(), code.AsUrlData(), agentId.AsUrlData());
@@ -145,7 +142,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="code">通过员工授权获取到的code，每次员工授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期</param>
         /// 权限说明：管理员须拥有agent的使用权限；agentid必须和跳转链接时所在的企业应用ID相同。
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "OAuth2Api.GetUserIdAsync", true)]
         public static async Task<GetUserInfoResult> GetUserIdAsync(string accessToken, string code)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
@@ -160,7 +156,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="userTicket">成员票据</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "OAuth2Api.GetUserDetailAsync", true)]
         public static async Task<GetUserDetailResult> GetUserDetailAsync(string accessToken, string userTicket)
         {
             var urlFormat = Config.ApiWorkHost + "/cgi-bin/user/getuserdetail?access_token={0}";

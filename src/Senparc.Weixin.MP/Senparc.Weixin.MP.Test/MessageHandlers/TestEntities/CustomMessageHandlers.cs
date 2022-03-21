@@ -18,20 +18,20 @@ namespace Senparc.Weixin.MP.Test.NetCore3.MessageHandlers.TestEntities
         /// <summary>
         /// 为中间件提供生成当前类的委托
         /// </summary>
-        public static Func<Stream, PostModel, int, CustomMessageHandlers> GenerateMessageHandler = (stream, postModel, maxRecordCount) => new CustomMessageHandlers(stream, postModel, maxRecordCount);
+        public static Func<Stream, PostModel, int, IServiceProvider, CustomMessageHandlers> GenerateMessageHandler = (stream, postModel, maxRecordCount, serviceProvider) => new CustomMessageHandlers(stream, postModel, maxRecordCount, serviceProvider);
 
-        public CustomMessageHandlers(XDocument requestDoc, PostModel postModel = null, int maxRecordCount = 0)
-            : base(requestDoc, postModel, maxRecordCount)
+        public CustomMessageHandlers(XDocument requestDoc, PostModel postModel = null, int maxRecordCount = 0, IServiceProvider serviceProvider = null)
+            : base(requestDoc, postModel, maxRecordCount, serviceProvider: serviceProvider)
         {
         }
 
-        public CustomMessageHandlers(RequestMessageBase requestMessage, PostModel postModel = null, int maxRecordCount = 0)
-            : base(requestMessage, postModel, maxRecordCount)
+        public CustomMessageHandlers(RequestMessageBase requestMessage, PostModel postModel = null, int maxRecordCount = 0, IServiceProvider serviceProvider = null)
+            : base(requestMessage, postModel, maxRecordCount, serviceProvider: serviceProvider)
         {
         }
 
-        public CustomMessageHandlers(Stream stream, PostModel postModel = null, int maxRecordCount = 0)
-         : base(stream, postModel, maxRecordCount)
+        public CustomMessageHandlers(Stream stream, PostModel postModel = null, int maxRecordCount = 0, IServiceProvider serviceProvider = null)
+         : base(stream, postModel, maxRecordCount, serviceProvider: serviceProvider)
         {
         }
 
@@ -231,7 +231,7 @@ namespace Senparc.Weixin.MP.Test.NetCore3.MessageHandlers.TestEntities
             responseMessage.Content = $"小程序被访问：{requestMessage.MenuId} - {requestMessage.EventKey}";
             return responseMessage;
         }
-   
+
     }
 
 }

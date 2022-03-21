@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：TemplateAPI.cs
     文件功能描述：小程序的模板消息接口
@@ -48,6 +48,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     API：https://mp.weixin.qq.com/debug/wxadoc/dev/api/notice.html#接口说明
  */
 
+using System;
 using System.Threading.Tasks;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
@@ -59,6 +60,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
     /// <summary>
     /// 模板消息接口
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
     public static class TemplateApi
     {
         #region 同步方法
@@ -76,14 +78,14 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="formId">表单提交场景下，为 submit 事件带上的 formId；支付场景下，为本次支付的 prepay_id</param>
         /// <param name="page">点击模板查看详情跳转页面，不填则模板无跳转（非必填）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.SendTemplateMessage", true)]
+        [Obsolete("微信已停止此接口使用，请使用订阅消息：MessageApi.SendSubscribe()", true)]
         public static WxJsonResult SendTemplateMessage(string accessTokenOrAppId, string openId, string templateId,
             object data, string formId, string page = null, string emphasisKeyword = null, string color = null, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/wxopen/template/send?access_token={0}";
-                var msgData = new TempleteModel()
+                var msgData = new TemplateModel()
                 {
                     touser = openId,
                     template_id = templateId,
@@ -135,7 +137,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="msgData"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.UniformSend", true)]
         public static WxJsonResult UniformSend(string accessTokenOrAppId, UniformSendData msgData, int timeOut = Config.TIME_OUT)
         {
             //文档：https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/uniform-message/uniformMessage.send.html
@@ -158,7 +159,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="count">offset和count用于分页，表示从offset开始，拉取count条记录，offset从0开始，count最大为20。</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.LibraryList", true)]
         public static LibraryListJsonResult LibraryList(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/list?access_token={0}";
@@ -177,7 +177,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="id">模板标题id，可通过接口获取，也可登录小程序后台查看获取</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.LibraryGet", true)]
         public static LibraryGetJsonResult LibraryGet(string accessToken, string id, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/get?access_token={0}";
@@ -197,7 +196,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="keywordIdList">开发者自行组合好的模板关键词列表，关键词顺序可以自由搭配（例如[3,5,4]或[4,5,3]），最多支持10个关键词组合</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.Add", true)]
         public static AddJsonResult Add(string accessToken, string id, int[] keywordIdList, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/add?access_token={0}";
@@ -222,7 +220,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="count">offset和count用于分页，表示从offset开始，拉取count条记录，offset从0开始，count最大为20。最后一页的list长度可能小于请求的count</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.List", true)]
         public static ListJsonResult List(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/list?access_token={0}";
@@ -241,7 +238,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="templateId">要删除的模板id</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.Del", true)]
         public static WxJsonResult Del(string accessToken, string templateId, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/del?access_token={0}";
@@ -274,13 +270,13 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="formId">表单提交场景下，为 submit 事件带上的 formId；支付场景下，为本次支付的 prepay_id</param>
         /// <param name="page">点击模板查看详情跳转页面，不填则模板无跳转（非必填）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.SendTemplateMessageAsync", true)]
+        [Obsolete("微信已停止此接口使用，请使用订阅消息：MessageApi.SendSubscribeAsync()", true)]
         public static async Task<WxJsonResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, string templateId, object data, string formId, string page = null, string emphasisKeyword = null, string color = null, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/wxopen/template/send?access_token={0}";
-                var msgData = new TempleteModel()
+                var msgData = new TemplateModel()
                 {
                     touser = openId,
                     template_id = templateId,
@@ -303,7 +299,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="msgData"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.UniformSendAsync", true)]
         public static async Task<WxJsonResult> UniformSendAsync(string accessTokenOrAppId, UniformSendData msgData, int timeOut = Config.TIME_OUT)
         {
             //文档：https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/uniform-message/uniformMessage.send.html
@@ -326,7 +321,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="count">offset和count用于分页，表示从offset开始，拉取count条记录，offset从0开始，count最大为20。</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.LibraryListAsync", true)]
         public static async Task<LibraryListJsonResult> LibraryListAsync(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/list?access_token={0}";
@@ -345,7 +339,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="id">模板标题id，可通过接口获取，也可登录小程序后台查看获取</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.LibraryGetAsync", true)]
         public static async Task<LibraryGetJsonResult> LibraryGetAsync(string accessToken, string id, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/get?access_token={0}";
@@ -365,7 +358,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="keywordIdList">开发者自行组合好的模板关键词列表，关键词顺序可以自由搭配（例如[3,5,4]或[4,5,3]），最多支持10个关键词组合</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.AddAsync", true)]
         public static async Task<AddJsonResult> AddAsync(string accessToken, string id, int[] keywordIdList, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/add?access_token={0}";
@@ -390,7 +382,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="count">offset和count用于分页，表示从offset开始，拉取count条记录，offset从0开始，count最大为20。最后一页的list长度可能小于请求的count</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.ListAsync", true)]
         public static async Task<ListJsonResult> ListAsync(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/list?access_token={0}";
@@ -409,7 +400,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="templateId">要删除的模板id</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.DelAsync", true)]
         public static async Task<WxJsonResult> DelAsync(string accessToken, string templateId, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/del?access_token={0}";

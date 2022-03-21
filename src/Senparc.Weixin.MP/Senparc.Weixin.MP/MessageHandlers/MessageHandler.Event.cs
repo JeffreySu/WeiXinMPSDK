@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：MessageHandler.Event.cs
     文件功能描述：微信请求的集中处理方法：Event相关
@@ -33,13 +33,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190515
     修改描述：v16.7.4 添加“微信认证事件推送”功能
 
+    修改标识：lishewen - 20210809
+    修改描述：v16.14.2 添加 OnEvent_Submit_Invoice_Title() 方法
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Helpers;
-using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -178,6 +179,17 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = OnEvent_View_Miniprogram(RequestMessage as RequestMessageEvent_View_Miniprogram);
                     break;
 
+                case Event.subscribe_msg_change_event:
+                    responseMessage = OnEvent_Subscribe_Msg_ChangeRequest(RequestMessage as RequestMessageEvent_Subscribe_Msg_Change);
+                    break;
+                case Event.subscribe_msg_popup_event:
+                    responseMessage = OnEvent_Subscribe_Msg_PopupRequest(RequestMessage as RequestMessageEvent_Subscribe_Msg_Popup);
+                    break;
+                case Event.subscribe_msg_sent_event:
+                    responseMessage = OnEvent_Subscribe_Msg_SentRequest(RequestMessage as RequestMessageEvent_Subscribe_Msg_Sent);
+                    break;
+
+
                 #region 卡券回调
 
                 case Event.giftcard_pay_done:
@@ -225,8 +237,16 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 //    responseMessage = OnEvent_WeAppAuditFailRequest(RequestMessage as RequestMessageEvent_WeAppAuditFail);
                 //    break;
                 #endregion
+                #region 微信电子发票
+                case Event.user_authorize_invoice:
+                    responseMessage = OnEvent_User_Authorize_Invoice(RequestMessage as RequestMessageEvent_User_Authorize_Invoice);
+                    break;
+                case Event.submit_invoice_title:
+                    responseMessage = OnEvent_Submit_Invoice_Title(RequestMessage as RequestMessageEvent_Submit_Invoice_Title);
+                    break;
+                #endregion
                 default:
-                    throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
+                    throw new Exceptions.UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
             return responseMessage;
         }
@@ -700,6 +720,56 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
         #endregion
 
+        #region 微信电子发票
+        /// <summary>
+        /// 微信电子发票 用户授权完成后，执收单位的公众号会收到授权完成的事件，关于事件推送请参考接受callback推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_User_Authorize_Invoice(RequestMessageEvent_User_Authorize_Invoice requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 用户提交抬头后，商户会收到用户提交的事件。
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Submit_Invoice_Title(RequestMessageEvent_Submit_Invoice_Title requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        #endregion
+
+        #region 订阅通知
+        /// <summary>
+        /// 用户管理订阅通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Subscribe_Msg_ChangeRequest(RequestMessageEvent_Subscribe_Msg_Change requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 用户操作订阅通知弹窗
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Subscribe_Msg_PopupRequest(RequestMessageEvent_Subscribe_Msg_Popup requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 发送订阅通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Subscribe_Msg_SentRequest(RequestMessageEvent_Subscribe_Msg_Sent requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        #endregion
         #endregion
     }
 }

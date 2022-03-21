@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -27,51 +27,19 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.NeuChar;
 using Senparc.NeuChar.Context;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Helpers;
 using Senparc.Weixin.Work.MessageHandlers;
+using Senparc.Weixin.Work.Test.net6.MessageHandlers;
 using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.Work.Test.MessageHandlers
 {
     [TestClass]
-    public class WorkMessageHandlersTest:BaseTest
+    public partial class WorkMessageHandlersTest:BaseTest
     {
-        public class CustomMessageHandlers : WorkMessageHandler<MessageContexts.DefaultWorkMessageContext>
-        {
-            public CustomMessageHandlers(XDocument requestDoc, PostModel postModel, int maxRecordCount = 0)
-                : base(requestDoc, postModel, maxRecordCount)
-            {
-            }
-
-            public override IWorkResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
-            {
-                var responseMessage = RequestMessage.CreateResponseMessage<ResponseMessageText>();
-
-                responseMessage.Content = "文字信息";
-                return responseMessage;
-            }
-
-
-            /// <summary>
-            /// 默认消息
-            /// </summary>
-            /// <param name="requestMessage"></param>
-            /// <returns></returns>
-            public override IWorkResponseMessageBase DefaultResponseMessage(IWorkRequestMessageBase requestMessage)
-            {
-                var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
-                responseMessage.Content = "这是一条默认消息。";
-                return responseMessage;
-            }
-
-            public override Task BuildResponseMessageAsync(CancellationToken cancellationToken)
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         private string testXml = @"<xml><ToUserName><![CDATA[wx7618c0a6d9358622]]></ToUserName>
 <Encrypt><![CDATA[h3z+AK9zKP4dYs8j1FmthAILbJghEmdo2Y1U9Pdghzann6H2KJOpepaDT1zcp09/1/e/6ta48aUXebkHlu0rhzk4GW+cvVUHzbEiQVFlIvD+q4T/NLIm8E8BM+gO+DHslM7aXmYjvgMw6AYiBx80D+nZKNyJD3I8lRT3aHCq/hez0c+HTAnZyuCi5TfUAw0c6jWSfAq61VesRw4lhV925vJUOBXT/zOw760CEsYXSr2IAr/n4aPfDgRs2Ww2h/HPiVOQ2Ms1f/BOtFiKVWMqZCxbmJ7cyPHH7+uOSAS6DtXiQAdwpEZwHz+A5QTsmK6V0C6Ifgr7zrStb7ygM7kmcrAJctPhCfG7WlfrWrFNLdtx9Q2F7d6/soinswdoYF8g56s8UWguOVkM7UFGr8H2QqrUJm5S5iFP/XNcBwvPWYA=]]></Encrypt>
 <AgentID><![CDATA[2]]></AgentID>
@@ -85,13 +53,13 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
         {
             var postModel = new PostModel()
             {
-                Msg_Signature = "",
-                Timestamp = "",
-                Nonce = "",
+                Msg_Signature = "Fill Your Setting",
+                Timestamp = "Fill Your Setting",
+                Nonce = "Fill Your Setting",
 
-                Token = "",
-                EncodingAESKey = "",
-                CorpId = ""
+                Token = "Fill Your Setting",
+                EncodingAESKey = "Fill Your Setting",
+                CorpId = "Fill Your Setting"
             };
             var messageHandler = new CustomMessageHandlers(XDocument.Parse(testXml), postModel, 10);
             Assert.IsNotNull(messageHandler.RequestDocument);
@@ -103,7 +71,6 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
 
             Assert.IsNotNull(messageHandler.ResponseDocument);
             Assert.IsNotNull(messageHandler.ResponseMessage);
-
 
             Console.WriteLine(messageHandler.RequestDocument);
         }
@@ -188,5 +155,7 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
             var messageHandler = new CustomMessageHandlers(XDocument.Parse(testFileXml), postModel, 10);
 
         }
+
+
     }
 }

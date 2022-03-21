@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
 
     文件名：MemcachedServiceCollectionExtensions.cs
     文件功能描述：Memcached 依赖注入设置。
@@ -10,7 +10,7 @@
 ----------------------------------------------------------------*/
 
 
-#if NET45 || NET461
+#if NET451 || NET461
 
 #else
 using System;

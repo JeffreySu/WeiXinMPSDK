@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
 
     文件名：ModifyDomainApi.cs
     文件功能描述：成员管理接口
@@ -47,6 +47,7 @@ using Senparc.NeuChar;
 
 namespace Senparc.Weixin.Open.WxaAPIs
 {
+    [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
     public class TesterApi
     {
         #region 同步方法
@@ -59,7 +60,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <returns></returns>
         [Obsolete("此方法已过期，请使用Senparc.Weixin.Open.MpAPIs.Open.Create()方法")]
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TesterApi.CreateTester", true)]
         public static CreateJsonResult CreateTester(string accessToken, string appId)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/create?access_token={0}";
@@ -74,7 +74,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="wechatid">微信号</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TesterApi.BindTester", true)]
         public static TesterResultJson BindTester(string accessToken, string wechatid, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/bind_tester?access_token={0}", accessToken.AsUrlData());
@@ -96,7 +95,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="wechatid">微信号</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TesterApi.UnBindTester", true)]
         public static TesterResultJson UnBindTester(string accessToken, string wechatid, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/unbind_tester?access_token={0}", accessToken.AsUrlData());
@@ -117,7 +115,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">authorizer_access_token</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TesterApi.MemberAuth", true)]
         public static MemberAuthJsonResult MemberAuth(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/memberauth?access_token={0}", accessToken.AsUrlData());
@@ -140,7 +137,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <returns></returns>
         [Obsolete("此方法已过期，请使用Senparc.Weixin.Open.MpAPIs.Open.Get()方法")]
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TesterApi.GetTester", true)]
         public static GetJsonResult GetTester(string accessToken, string appId)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/get?access_token={0}";
@@ -161,7 +157,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <returns></returns>
         [Obsolete("此方法已过期，请使用Senparc.Weixin.Open.MpAPIs.Open.CreateAsync()方法")]
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TesterApi.CreateTesterAsync", true)]
         public static async Task<CreateJsonResult> CreateTesterAsync(string accessToken, string appId)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/create?access_token={0}";
@@ -176,7 +171,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="wechatid">微信号</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TesterApi.BindTesterSync", true)]
         public static async Task<TesterResultJson> BindTesterSync(string accessToken, string wechatid, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/bind_tester?access_token={0}", accessToken.AsUrlData());
@@ -197,7 +191,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="wechatid">微信号</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TesterApi.UnBindTesterSync", true)]
         public static async Task<TesterResultJson> UnBindTesterSync(string accessToken, string wechatid, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/unbind_tester?access_token={0}", accessToken.AsUrlData());
@@ -218,7 +211,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">authorizer_access_token</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TesterApi.MemberAuthAsync", true)]
         public static async Task<MemberAuthJsonResult> MemberAuthAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/memberauth?access_token={0}", accessToken.AsUrlData());
@@ -241,7 +233,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <returns></returns>
         [Obsolete("此方法已过期，请使用Senparc.Weixin.Open.MpAPIs.Open.GetAsync()方法")]
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TesterApi.GetTesterAsync", true)]
         public static async Task<GetJsonResult> GetTesterAsync(string accessToken, string appId)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/get?access_token={0}";

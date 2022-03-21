@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：MobileApi.cs
     文件功能描述：移动端SDK
@@ -24,6 +24,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// <summary>
     /// 移动端SDK
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
     public static class MobileApi
     {
         #region 同步方法
@@ -35,7 +36,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MobileApi.GetTicket", true)]
         public static GetTicketResultJson GetTicket(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -53,7 +53,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MobileApi.GetJsApiTicket", true)]
         public static GetTicketResultJson GetJsApiTicket(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -76,7 +75,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MobileApi.GetTicketAsync", true)]
         public static async Task<GetTicketResultJson> GetTicketAsync(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -94,7 +92,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MobileApi.GetJsApiTicketAsync", true)]
         public static async Task<GetTicketResultJson> GetJsApiTicketAsync(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

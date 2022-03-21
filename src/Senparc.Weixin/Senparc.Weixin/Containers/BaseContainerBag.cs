@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：BaseContainerBag.cs
     文件功能描述：微信容器接口中的封装Value（如Ticket、AccessToken等数据集合）
@@ -98,28 +98,10 @@ namespace Senparc.Weixin.Containers
         /// 用于标记，方便后台管理
         /// </summary>
         public string Name { get; set; }
-//        {
-//            get { return _name; }
-//#if NET35 || NET40
-//            set { this.SetContainerProperty(ref _name, value, "Name"); }
-//#else
-//            set { this.SetContainerProperty(ref _name, value); }
-//#endif
-        //}
-
         /// <summary>
         /// 通常为AppId
         /// </summary>
         public string Key { get; set; }
-//        {
-//            get { return _key; }
-//#if NET35 || NET40
-//            set { this.SetContainerProperty(ref _key, value, "Key"); }
-//#else
-//            set { this.SetContainerProperty(ref _key, value); }
-//#endif
-        //}
-
         /// <summary>
         /// 缓存时间，不使用属性变化监听
         /// </summary>

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：RequestMessageEvent_TemplateSendJobFinish.cs
     文件功能描述：事件之推送群发结果
@@ -54,8 +54,18 @@ namespace Senparc.Weixin.MP.Entities
 
         /// <summary>
         /// 消息id
+        /// 2022-01-06 YZQ Modify
         /// </summary>
-        public long MsgID { get; set; }
+        public long MsgID
+        {
+            get { return this._MsgID; }
+            set
+            {
+                base.MsgId = value;
+                this._MsgID = value;
+            }
+        }
+        private long _MsgID;
 
         [Obsolete("请使用MsgID")]
         public new long MsgId { get; set; }

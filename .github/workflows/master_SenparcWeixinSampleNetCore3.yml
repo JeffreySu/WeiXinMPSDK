@@ -1,0 +1,60 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy ASP app to Azure Web App - senparcweixinsamplenetcore3(senparcweixinsamplenet5)
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: 'windows-latest'
+
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Setup MSBuild path
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.5
+
+    - name: Set up .NET Core 3.1
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.301'
+
+
+    - name: Set up .NET 6.0
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.100'
+        
+        
+    #- name: CMD1
+    #  run: dir 
+      #`n cd ./Samples/net6-mvc/ `n dir `n nuget restore `n msbuild /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\"
+      
+    #- name: CMD2
+    #  run: cd ./Samples/net6-mvc/
+
+    #- name: CMD3
+    #  run: dir
+      
+    - name: Restore NuGet packages
+      run: nuget restore "./Samples/All/net6-mvc/"
+      #-SolutionDirectory ./Samples/All/net6-mvc/
+      
+    - name: Publish to folder
+      run: msbuild "Samples/All/net6-mvc/Senparc.Weixin.Sample.Net6.sln" /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\"
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'senparcweixinsamplenetcore3'
+        slot-name: 'senparcweixinsamplenet5'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_3ee3a42f0a324bf7be968d8c232a8555 }}
+        package: \published\

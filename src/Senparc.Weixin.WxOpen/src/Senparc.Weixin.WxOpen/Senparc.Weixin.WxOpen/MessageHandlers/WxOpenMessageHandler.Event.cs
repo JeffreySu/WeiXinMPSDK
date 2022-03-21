@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：MessageHandler.Event.cs
     文件功能描述：微信请求的集中处理方法：Event相关
@@ -29,6 +29,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
   
     修改标识：Senparc - 20191004
     修改描述：添加异步方法
+
+    修改标识：Senparc - 20200909
+    修改描述：v3.8.511 调整 MessageHandler 异步方法执行代码
+
+    修改标识：mc7246 - 20211209
+    修改描述：v4.13.2 添加 OnEvent_AppealRecordRequest()、OnEvent_IllegalRecordRequest() 方法
 
 ----------------------------------------------------------------*/
 
@@ -56,8 +62,14 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.user_enter_tempsession:
                     responseMessage = OnEvent_UserEnterTempSessionRequest(RequestMessage as RequestMessageEvent_UserEnterTempSession);
                     break;
+                case Event.nearby_category_audit_info:
+                    responseMessage = OnEvent_NearbyCategoryAuditInfoRequest(RequestMessage as RequestMessageEvent_NearbyCategoryAuditInfo);
+                    break;
                 case Event.add_nearby_poi_audit_info:
                     responseMessage = OnEvent_AddNearbyPoiAuditInfoRequest(RequestMessage as RequestMessageEvent_AddNearbyPoiAuditInfo);
+                    break;
+                case Event.create_map_poi_audit_info:
+                    responseMessage = OnEvent_CreateMapPoiAuditInfoRequest(RequestMessage as RequestMessageEvent_CreateMapPoiAuditInfo);
                     break;
                 case Event.weapp_audit_success://
                     responseMessage = OnEvent_WeAppAuditSuccessRequest(RequestMessage as RequestMessageEvent_WeAppAuditSuccess);
@@ -71,6 +83,12 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.wxa_nickname_audit:
                     responseMessage = OnEvent_NicknameAuditRequest(RequestMessage as RequestMessageEvent_NicknameAudit);
                     break;
+                case Event.wxa_illegal_record:
+                    responseMessage = OnEvent_IllegalRecordRequest(RequestMessage as RequestMessageEvent_IllegalRecord);
+                    break;
+                case Event.wxa_appeal_record:
+                    responseMessage = OnEvent_AppealRecordRequest(RequestMessage as RequestMessageEvent_AppealRecord);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -79,6 +97,25 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
         #region Event 下属分类
 
+        /// <summary>
+        /// 在腾讯地图中创建门店的审核结果
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_CreateMapPoiAuditInfoRequest(RequestMessageEvent_CreateMapPoiAuditInfo requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 门店小程序类目审核事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_NearbyCategoryAuditInfoRequest(RequestMessageEvent_NearbyCategoryAuditInfo requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
 
         /// <summary>
         /// 进入客服会话事件
@@ -138,6 +175,26 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
+        /// <summary>
+        /// 违规记录事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_IllegalRecordRequest(RequestMessageEvent_IllegalRecord requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 小程序申诉记录推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_AppealRecordRequest(RequestMessageEvent_AppealRecord requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
 
 
         #endregion
@@ -162,6 +219,12 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.add_nearby_poi_audit_info:
                     responseMessage = await OnEvent_AddNearbyPoiAuditInfoRequestAsync(RequestMessage as RequestMessageEvent_AddNearbyPoiAuditInfo);
                     break;
+                case Event.nearby_category_audit_info:
+                    responseMessage = await OnEvent_NearbyCategoryAuditInfoRequestAsync(RequestMessage as RequestMessageEvent_NearbyCategoryAuditInfo);
+                    break;
+                case Event.create_map_poi_audit_info:
+                    responseMessage = await OnEvent_CreateMapPoiAuditInfoRequestAsync(RequestMessage as RequestMessageEvent_CreateMapPoiAuditInfo);
+                    break;
                 case Event.weapp_audit_success://
                     responseMessage = await OnEvent_WeAppAuditSuccessRequestAsync(RequestMessage as RequestMessageEvent_WeAppAuditSuccess);
                     break;
@@ -174,6 +237,12 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.wxa_nickname_audit://
                     responseMessage = await OnEvent_NicknameAuditRequestAsync(RequestMessage as RequestMessageEvent_NicknameAudit);
                     break;
+                case Event.wxa_illegal_record:
+                    responseMessage = await OnEvent_IllegalRecordRequestAsync(RequestMessage as RequestMessageEvent_IllegalRecord);
+                    break;
+                case Event.wxa_appeal_record:
+                    responseMessage = await OnEvent_AppealRecordRequestAsync(RequestMessage as RequestMessageEvent_AppealRecord);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -182,13 +251,30 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
         #region Event 下属分类
 
+        /// <summary>
+        /// 在腾讯地图中创建门店的审核结果
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_CreateMapPoiAuditInfoRequestAsync(RequestMessageEvent_CreateMapPoiAuditInfo requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_CreateMapPoiAuditInfoRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】门店小程序类目审核事件
+        /// </summary>
+        public virtual async Task<IResponseMessageBase> OnEvent_NearbyCategoryAuditInfoRequestAsync(RequestMessageEvent_NearbyCategoryAuditInfo requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_NearbyCategoryAuditInfoRequest(requestMessage)).ConfigureAwait(false);
+        }
 
         /// <summary>
         /// 【异步方法】进入客服会话事件
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_UserEnterTempSessionRequestAsync(RequestMessageEvent_UserEnterTempSession requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_UserEnterTempSessionRequest(requestMessage)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -198,48 +284,68 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_AddNearbyPoiAuditInfoRequestAsync(RequestMessageEvent_AddNearbyPoiAuditInfo requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_AddNearbyPoiAuditInfoRequest(requestMessage)).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// 小程序审核延后通知
+        /// 【异步方法】小程序审核延后通知
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_WeAppAuditDelayRequestAsync(RequestMessageEvent_WeAppAuditDelay requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_WeAppAuditDelayRequest(requestMessage)).ConfigureAwait(false);
         }
 
 
         /// <summary>
-        /// 小程序审核失败通知
+        /// 【异步方法】小程序审核失败通知
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_WeAppAuditFailRequestAsync(RequestMessageEvent_WeAppAuditFail requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_WeAppAuditFailRequest(requestMessage)).ConfigureAwait(false);
         }
         /// <summary>
-        /// 小程序审核成功通知
+        /// 【异步方法】小程序审核成功通知
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_WeAppAuditSuccessRequestAsync(RequestMessageEvent_WeAppAuditSuccess requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_WeAppAuditSuccessRequest(requestMessage)).ConfigureAwait(false);
         }
 
 
         /// <summary>
-        /// 名称审核结果事件推送
+        /// 【异步方法】名称审核结果事件推送
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_NicknameAuditRequestAsync(RequestMessageEvent_NicknameAudit requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_NicknameAuditRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】违规记录事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_IllegalRecordRequestAsync(RequestMessageEvent_IllegalRecord requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_IllegalRecordRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】小程序申诉记录推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_AppealRecordRequestAsync(RequestMessageEvent_AppealRecord requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_AppealRecordRequest(requestMessage)).ConfigureAwait(false);
         }
 
 

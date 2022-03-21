@@ -26,6 +26,8 @@
 - [ ] Senparc.Weixin.WxOpen 版本：
 - [ ] Senparc.Weixin.Cache.Redis 版本：
 - [ ] Senparc.Weixin.Cache.Memcached 版本：
+- [ ] Senparc.Weixin.Tenpay 版本：
+- [ ] Senparc.WebSocket 版本：
 - [ ] 其他模块：
 
 
@@ -33,17 +35,17 @@
 
 - [ ] .net 3.5
 - [ ] .net 4.0
-- [ ] .net 4.5
-- [ ] .net standard 2.0
+- [ ] .net 4.5+
+- [ ] .net standard 2.0 / 2.1
 - [ ] .net core 1.x
 - [ ] .net core 2.x
-- [x] .net core 3.x
+- [ ] .net core 3.x
+- [x] .net 5.x / 6.x
 
 ##### 开发环境
 
-- [ ] Visual Studio 2015
-- [ ] Visual Studio 2017
-- [x] Visual Studio 2019
+- [ ] Visual Studio 2019
+- [x] Visual Studio 2022
 - [ ] Visual Studio Code
 - [ ] 其他：
 

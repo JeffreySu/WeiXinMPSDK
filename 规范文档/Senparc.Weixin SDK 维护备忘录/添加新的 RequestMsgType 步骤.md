@@ -14,6 +14,8 @@ MP项目为例：
         break;
 ```
 
+> 新版本中，使用了 Senparc.NeuChar，需要结合 NeuChar 修改。
+
 4. MessageHandler.cs 或 MessageHandler.Event.cs 或 MessageHandler.Message.cs 中，添加对应 OnXX()事件，如：
 
 ``` C#

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
   
     文件名：RequestMessageFactory.cs
     文件功能描述：获取XDocument转换后的IRequestMessageBase实例
@@ -19,7 +19,6 @@
     修改标识：gokeiyou - 20201013
     修改描述：v3.7.604 添加外部联系人管理 > 客户管理相关接口
 
-
     修改标识：Senparc - 20210324
     修改描述：v3.8.202 解决且有微信消息时间返回为 null 的问题
 
@@ -35,8 +34,6 @@ using Senparc.Weixin.Work.Entities.Request.Event;
 using Senparc.NeuChar;
 using Senparc.NeuChar.Helpers;
 using Senparc.NeuChar.Context;
-using Senparc.NeuChar.Entities;
-using Senparc.CO2NET;
 
 namespace Senparc.Weixin.Work
 {
@@ -60,10 +57,20 @@ namespace Senparc.Weixin.Work
                 //常规推送信息
                 try
                 {
+                    //获取消息类型
                     msgType = MsgTypeHelper.GetRequestMsgType(doc);
 
+                    //自动获取对应类型的 RequestMessage
                     requestMessage = messageContext.GetRequestEntityMappingResult(msgType, doc) as WorkRequestMessageBase;
 
+                    ////特殊对象处理（不使用底层 EntityHelper）
+                    //if (requestMessage is RequestMessageEvent_SysApprovalChange)
+                    //{
+                    //    var requestXml = doc.Root.ToString();
+                    //    XmlUtility.Deserialize<RequestMessageEvent_SysApprovalChange>(requestXml);
+                    //}
+
+                    //将 XML 内容填充到 requestMessage 中
                     EntityHelper.FillEntityWithXml(requestMessage, doc);
                 }
                 catch (ArgumentException ex)

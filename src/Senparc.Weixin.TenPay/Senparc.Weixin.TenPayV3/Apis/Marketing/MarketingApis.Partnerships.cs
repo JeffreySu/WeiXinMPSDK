@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
   
     文件名：MarketingApis.Partnerships.cs
     文件功能描述：微信支付V3营销工具接口
@@ -67,7 +67,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 throw new TenpayApiRequestException($"当 {nameof(data.partner.type)} 为 {data.partner.type} 时，{nameof(data.partner.merchant_id)} 必填！，且{nameof(data.partner.merchant_id)}为null！");
             }
 
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/marketing/partnerships/build");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/marketing/partnerships/build");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<BuildPartnershipsReturnJson>(url, data, timeOut);
         }
@@ -83,7 +83,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<TerminatePartnershipsReturnJson> TerminatePartnershipsAsync(TerminatePartnershipsRequestData data, int timeOut = Config.TIME_OUT)
         {
 
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/marketing/partnerships/terminate");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/marketing/partnerships/terminate");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<TerminatePartnershipsReturnJson>(url, data, timeOut);
         }
@@ -101,7 +101,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<QueryPartnershipsReturnJson> QueryPartnershipsAsync(QueryPartnershipsRequestData data, ulong limit = 20, ulong offset = 0, int timeOut = Config.TIME_OUT)
         {
             // TODO: 此处序列化Json需测试时候可以换行问题
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/partnerships?authorized_data={data.authorized_data.ToJson()}&partner={data.partner.ToJson()}&offset={offset}&limit={limit}".UrlEncode());
+            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/marketing/partnerships?authorized_data={data.authorized_data.ToJson()}&partner={data.partner.ToJson()}&offset={offset}&limit={limit}".UrlEncode());
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryPartnershipsReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }

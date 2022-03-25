@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/websocket/websocket",
+    "pages/LivePusher/LivePusher",
+    "pages/QrCode/QrCode",
+    "pages/websocket_signalr/websocket_signalr",
+    "pages/Login/Login"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap81.json"
+}

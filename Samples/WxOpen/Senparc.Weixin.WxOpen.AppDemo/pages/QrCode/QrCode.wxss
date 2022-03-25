@@ -1,0 +1,4 @@
+/* pages/QrCode/QrCode.wxss */
+.note{ margin:20x;padding:10px;}
+.sceneCode{color:red;}
+.qrArea{text-align: center;}

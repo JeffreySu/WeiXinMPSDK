@@ -1,26 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.14.2</Version>
+    <Version>3.14.10.1</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
     <Description>
-      微信公众账号 - 微信小程序 模块
+      微信 SDK - 微信小程序 模块
 
       Senparc.Weixin SDK 开源项目：
       https://github.com/JeffreySu/WeiXinMPSDK
     </Description>
-    <Copyright>Senparc Copyright © 2004~2021</Copyright>
+    <Copyright>Senparc Copyright © 2004~2022</Copyright>
     <PackageTags>微信,weixin,小程序,wxopen,MiniProgram,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式</PackageTags>
     <Authors>Jeffrey Su</Authors>
     <Owners>Senparc</Owners>
-    <PackageLicenseUrl>https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</PackageLicenseUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
     <Title>Senparc.Weixin.WxOpen.dll</Title>
     <Summary>微信公众号SDK for C#</Summary>
     <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
-    <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
+    <PackageIcon>icon.jpg</PackageIcon>
     <PackageReleaseNotes>
 		v0.1.0 添加基础解决方案，包括模板消息API
 
@@ -156,7 +156,12 @@
 		v3.11.100 修改完善“附近的小程序”接口
 		v3.13.500-preview4.1 添加“Short Link”接口
 		v3.14 添加 ExpressApi 接口
-</PackageReleaseNotes>
+		v3.14.2 添加“小程序违规和申诉管理”消息事件
+		v3.14.3 添加 UrlLinkApi.Generate() 接口
+		v3.14.4 添加 BusinessApi.GetUserPhoneNumber() 接口
+		v3.14.5 修改“下发小程序和公众号统一的服务消息”接口参数，提升兼容性
+		v3.14.10.1 修复 WxAppApi.GetWxaCodeUnlimitAsync() 接口参数错误
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -180,6 +185,9 @@
     <OutputPath>..\..\..\..\BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.WxOpen.xml</DocumentationFile>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -196,7 +204,7 @@
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="2.0.0" />
+    <PackageReference Include="Senparc.NeuChar" Version="2.0.5.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net6.csproj" />

@@ -104,7 +104,15 @@ namespace Senparc.Weixin.Open
         /// <summary>
         /// 小程序名称设置及改名审核事件推送
         /// </summary>
-        wxa_nickname_audit
+        wxa_nickname_audit,
+        /// <summary>
+        /// 试用小程序快速认证事件推送
+        /// </summary>
+        notify_third_fastverifybetaapp,
+        /// <summary>
+        /// 创建试用小程序成功/失败的事件推送
+        /// </summary>
+        notify_third_fastregisterbetaapp
     }
 
     /// <summary>

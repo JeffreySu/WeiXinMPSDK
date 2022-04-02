@@ -24,7 +24,7 @@
                 </nav>
             </div>
 
-            @(await Html.PartialAsync("_SideNote"))
+            @(await Html.PartialAsync("_SideBottomNote"))
         </div>
 
         <div class="col-sm-10 bd-main" data-bs-spy="scroll" data-bs-target="#navbar_left" data-bs-offset="0" tabindex="0">
@@ -321,7 +321,7 @@
 var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(appId);//获取关注者 OpenId 信息</code></pre>
                             </p>
                             <blockquote class="blockquote">
-                                appId 参数，必须是已经经过注册的，这样即使AccessToken 过期，SDK也会全自动处理。如果是未经过注册的 appId，则需要先获取 AccessToken，然后调用接口。
+                                appId 参数，必须是已经经过注册的，这样即使 AccessToken 过期，SDK也会全自动处理。如果是未经过注册的 appId，则需要先获取 AccessToken，然后调用接口。
                             </blockquote>
 
                             <h5>使用 AccessToken 调用接口（不推荐）</h5>
@@ -424,9 +424,8 @@ var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(accessToken);
                                 </figcaption>
                             </figure>
                             <p>更多设置详情请参考：<a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html" target="_blank">JS-SDK说明文档</a>。</p>
-                            <!-- JSSDK 结束 -->
                         </div>
-
+                        <!-- JSSDK 结束 -->
                         <!-- OAuth 2.0 开始 -->
                         <div class="tab-pane fade" id="nav-oauth" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <p>当你需要在网页上获取用户的 OpenId、头像、昵称等信息的时候，就需要使用 OAuth 2.0 的方式和微信服务器通讯。</p>

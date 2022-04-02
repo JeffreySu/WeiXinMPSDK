@@ -27,6 +27,7 @@ using Senparc.CO2NET.Utilities;
 using System.Threading.Tasks;
 using Senparc.Weixin.MP.MessageContexts;
 using Senparc.CO2NET.AspNet.HttpUtility;
+using Senparc.Weixin.AspNet.MvcExtension;
 
 namespace Senparc.Weixin.Sample.Net6.Controllers
 {

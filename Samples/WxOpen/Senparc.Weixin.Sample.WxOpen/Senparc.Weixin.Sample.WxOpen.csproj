@@ -9,21 +9,6 @@
 		<GenerateEmbeddedFilesManifest Condition=" '$(Configuration)' != 'Release' ">true</GenerateEmbeddedFilesManifest>
 	</PropertyGroup>
 
-	<ItemGroup>
-	  <None Remove="Views\Shared\_Layout.cshtml.css" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Include="Views\Shared\_Layout.cshtml.css" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\..\..\src\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.net6.csproj" />
-		<ProjectReference Include="..\..\..\src\Senparc.Weixin.WxOpen.Middleware\Senparc.Weixin.WxOpen.Middleware.net6.csproj" />
-		<ProjectReference Include="..\..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net6.csproj" />
-	</ItemGroup>
-
-
 	<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
 	<ItemGroup Condition=" '$(Configuration)' != 'Release' ">
 		<PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
@@ -34,13 +19,22 @@
 		</EmbeddedResource>-->
 		<EmbeddedResource Include="wwwroot\**\*" />
 	</ItemGroup>
-	<ItemGroup>
-		<Folder Include="wwwroot\css\" />
-	</ItemGroup>
-	<ItemGroup>
-	  <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.14.10" />
-	</ItemGroup>
+
 	<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
 	<Import Project="..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems" Label="Shared" />
+
+	<!--引用 Nuget 包-->
+	<ItemGroup>
+		<PackageReference Include="Senparc.Weixin.AspNet" Version="0.7.6" />
+		<PackageReference Include="Senparc.Weixin.WxOpen" Version="3.14.10.1" />
+		<PackageReference Include="Senparc.Weixin.WxOpen.Middleware" Version="0.7.6" />
+	</ItemGroup>
+
+	<!--直接引用源码-->
+	<!--<ItemGroup>
+		<ProjectReference Include="..\..\..\src\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.net6.csproj" />
+		<ProjectReference Include="..\..\..\src\Senparc.Weixin.WxOpen.Middleware\Senparc.Weixin.WxOpen.Middleware.net6.csproj" />
+		<ProjectReference Include="..\..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net6.csproj" />
+	</ItemGroup>-->
 
 </Project>

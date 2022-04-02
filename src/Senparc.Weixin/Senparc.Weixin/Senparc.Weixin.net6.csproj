@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>6.14.4</Version>
+    <Version>6.14.5</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
@@ -325,7 +325,8 @@
 		v6.11.1 TryCommonApiBase 提供 invalidCredentialValues，可设置多种重试错误代码
 		v6.12.0 升级至微信支付 V3（真）
 		v6.12.500 提供 UserHelper
-	</PackageReleaseNotes>
+		v6.14.5 添加试用小程序接口及事件
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -365,8 +366,8 @@
     <None Remove="Tencent\Readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="Senparc.CO2NET" Version="2.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Senparc.CO2NET" Version="2.0.5.4" />
     <PackageReference Include="Senparc.NeuChar" Version="2.0.5.1" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
@@ -396,5 +397,8 @@
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
     <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
   </ItemGroup>
 </Project>

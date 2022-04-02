@@ -147,6 +147,18 @@ namespace Senparc.Weixin.Open.MessageHandlers
                             ResponseMessageText = OnNicknameAuditRequest(requestMessage);
                         }
                         break;
+                    case RequestInfoType.notify_third_fastverifybetaapp:
+                        {
+                            var requestMessage = RequestMessage as RequestMessageFastVerifyBetaApp;
+                            ResponseMessageText = OnFastVerifyBetaAppRequest(requestMessage);
+                        }
+                        break;
+                    case RequestInfoType.notify_third_fastregisterbetaapp:
+                        {
+                            var requestMessage = RequestMessage as RequestMessageFastRegisterBetaAppApp;
+                            ResponseMessageText = OnFastRegisterBetaAppRequest(requestMessage);
+                        }
+                        break;
                     default:
                         throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
                 }
@@ -218,6 +230,16 @@ namespace Senparc.Weixin.Open.MessageHandlers
         }
 
         public virtual string OnNicknameAuditRequest(RequestMessageNicknameAudit requestMessage)
+        {
+            return "success";
+        }
+
+        public virtual string OnFastVerifyBetaAppRequest(RequestMessageFastVerifyBetaApp requestMessage)
+        {
+            return "success";
+        }
+
+        public virtual string OnFastRegisterBetaAppRequest(RequestMessageFastRegisterBetaAppApp requestMessage)
         {
             return "success";
         }

@@ -369,7 +369,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public static FastRegisterPersonalWeAppResult FastRegisterPersonalWeApp(string componentAccessToken, string idName = "", string wxUser = "", string taskid = "", string action = "create", string componentPhone = "", int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(
-                Config.ApiMpHost + "/cgi-bin/component/fastregisterpersonalweapp?action={0}&component_access_token={1}",
+                Config.ApiMpHost + "/wxa/component/fastregisterpersonalweapp?action={0}&component_access_token={1}",
                 action.AsUrlData(),
                 componentAccessToken.AsUrlData());
 
@@ -393,6 +393,92 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             }
 
             return CommonJsonSend.Send<FastRegisterPersonalWeAppResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 创建试用小程序
+        /// 文档：https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/beta_Mini_Programs/fastregister.html
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="name">小程序名称，昵称半自动设定，强制后缀“的体验小程序”。且该参数会进行关键字检查，如果命中品牌关键字则会报错。如遇到品牌大客户要用试用小程序，建议用户先换个名字，认证后再修改成品牌名。只支持4-30个字符</param>
+        /// <param name="openid">微信用户的openid（不是微信号），试用小程序创建成功后会默认将该用户设置为小程序管理员。获取openid的方法请查看公众号获取openid</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static FastRegisterBetaWeAppResult FastRegisterBetaWeApp(string componentAccessToken, string name, string openid, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(
+                Config.ApiMpHost + "/wxa/component/fastregisterbetaweapp?access_token={0}",
+                componentAccessToken.AsUrlData());
+
+            //var data;
+            object data = new
+            {
+                name = name,
+                openid = openid
+            };
+
+            return CommonJsonSend.Send<FastRegisterBetaWeAppResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 试用小程序快速认证
+        /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/beta_Mini_Programs/fastverify.html
+        /// </summary>
+        /// <param name="componentAccessToken">第三方平台接口调用令牌authorizer_access_token</param>
+        /// <param name="entName">企业名（需与工商部门登记信息一致)；如果是“无主体名称个体工商户”则填“个体户+法人姓名”，例如“个体户张三”</param>
+        /// <param name="entCode">企业代码</param>
+        /// <param name="legalPersonaWechat">法人微信号</param>
+        /// <param name="legalPersonaName">法人姓名（绑定银行卡）</param>
+        /// <param name="legalPersonaIDCard">法人身份证号</param>
+        /// <param name="codeType">企业代码类型 1：统一社会信用代码（18 位） 2：组织机构代码（9 位 xxxxxxxx-x） 3：营业执照注册号(15 位)</param>
+        /// <param name="componentPhone">第三方联系电话</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult VerifyBetaWeApp(string componentAccessToken, string entName, string entCode, string legalPersonaWechat, string legalPersonaName, string legalPersonaIDCard, CodeType codeType = CodeType.统一社会信用代码, string componentPhone = "", int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(
+                Config.ApiMpHost + "/wxa/verifybetaweapp?access_token={0}",
+                componentAccessToken.AsUrlData());
+
+            //var data;
+            object data = new
+                {
+                    verify_info = new
+                    {
+                        enterprise_name = entName,
+                        code = entCode,
+                        code_type = codeType,
+                        legal_persona_wechat = legalPersonaWechat,
+                        legal_persona_name = legalPersonaName,
+                        legal_persona_idcard = legalPersonaIDCard,
+                        component_phone = componentPhone
+                    }
+                };
+
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 修改试用小程序名称
+        /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/beta_Mini_Programs/fastmodify.html
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="name"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult SetBetaWeAppNickName(string componentAccessToken, string name, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(
+                Config.ApiMpHost + "/wxa/setbetaweappnickname?access_token={0}",
+                componentAccessToken.AsUrlData());
+
+            //var data;
+            object data = new
+            {
+                name = name
+            };
+
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -787,7 +873,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public static async Task<FastRegisterPersonalWeAppResult> FastRegisterPersonalWeAppAsync(string componentAccessToken, string idName = "", string wxUser = "", string taskid = "", string action = "create", string componentPhone = "", int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(
-                Config.ApiMpHost + "/cgi-bin/component/fastregisterpersonalweapp?action={0}&component_access_token={1}",
+                Config.ApiMpHost + "/wxa/component/fastregisterpersonalweapp?action={0}&component_access_token={1}",
                 action.AsUrlData(),
                 componentAccessToken.AsUrlData());
 
@@ -811,6 +897,92 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             }
 
             return await CommonJsonSend.SendAsync<FastRegisterPersonalWeAppResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】创建试用小程序
+        /// 文档：https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/beta_Mini_Programs/fastregister.html
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="name">小程序名称，昵称半自动设定，强制后缀“的体验小程序”。且该参数会进行关键字检查，如果命中品牌关键字则会报错。如遇到品牌大客户要用试用小程序，建议用户先换个名字，认证后再修改成品牌名。只支持4-30个字符</param>
+        /// <param name="openid">微信用户的openid（不是微信号），试用小程序创建成功后会默认将该用户设置为小程序管理员。获取openid的方法请查看公众号获取openid</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<FastRegisterBetaWeAppResult> FastRegisterBetaWeAppAsync(string componentAccessToken, string name, string openid, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(
+                Config.ApiMpHost + "/wxa/component/fastregisterbetaweapp?access_token={0}",
+                componentAccessToken.AsUrlData());
+
+            //var data;
+            object data = new
+            {
+                name = name,
+                openid = openid
+            };
+
+            return await CommonJsonSend.SendAsync<FastRegisterBetaWeAppResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】试用小程序快速认证
+        /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/beta_Mini_Programs/fastverify.html
+        /// </summary>
+        /// <param name="componentAccessToken">第三方平台接口调用令牌authorizer_access_token</param>
+        /// <param name="entName">企业名（需与工商部门登记信息一致)；如果是“无主体名称个体工商户”则填“个体户+法人姓名”，例如“个体户张三”</param>
+        /// <param name="entCode">企业代码</param>
+        /// <param name="legalPersonaWechat">法人微信号</param>
+        /// <param name="legalPersonaName">法人姓名（绑定银行卡）</param>
+        /// <param name="legalPersonaIDCard">法人身份证号</param>
+        /// <param name="codeType">企业代码类型 1：统一社会信用代码（18 位） 2：组织机构代码（9 位 xxxxxxxx-x） 3：营业执照注册号(15 位)</param>
+        /// <param name="componentPhone">第三方联系电话</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> VerifyBetaWeAppAsync(string componentAccessToken, string entName, string entCode, string legalPersonaWechat, string legalPersonaName, string legalPersonaIDCard, CodeType codeType = CodeType.统一社会信用代码, string componentPhone = "", int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(
+                Config.ApiMpHost + "/wxa/verifybetaweapp?access_token={0}",
+                componentAccessToken.AsUrlData());
+
+            //var data;
+            object data = new
+            {
+                verify_info = new
+                {
+                    enterprise_name = entName,
+                    code = entCode,
+                    code_type = codeType,
+                    legal_persona_wechat = legalPersonaWechat,
+                    legal_persona_name = legalPersonaName,
+                    legal_persona_idcard = legalPersonaIDCard,
+                    component_phone = componentPhone
+                }
+            };
+
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】修改试用小程序名称
+        /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/beta_Mini_Programs/fastmodify.html
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="name"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task< WxJsonResult> SetBetaWeAppNickNameAsync(string componentAccessToken, string name, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(
+                Config.ApiMpHost + "/wxa/setbetaweappnickname?access_token={0}",
+                componentAccessToken.AsUrlData());
+
+            //var data;
+            object data = new
+            {
+                name = name
+            };
+
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>

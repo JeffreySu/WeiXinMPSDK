@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net451;net461;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>0.7.4</Version>
+    <Version>0.7.5</Version>
     <AssemblyName>Senparc.Weixin.Cache.CsRedis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.CsRedis</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -77,5 +77,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
   </ItemGroup>
 </Project>

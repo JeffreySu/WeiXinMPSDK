@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "Senparc.Weixin.Sample.MP": {
+    "Senparc.Weixin.Sample.TenPayV2": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

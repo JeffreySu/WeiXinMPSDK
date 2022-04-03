@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>16.17.9</Version>
+    <Version>16.18</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -571,9 +571,9 @@
     <!--<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />-->
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.APM" Version="1.1.1" />
-    <PackageReference Include="Senparc.NeuChar" Version="2.0.5.1" />
-    <PackageReference Include="Senparc.NeuChar.App" Version="1.0.5" />
+    <PackageReference Include="Senparc.CO2NET.APM" Version="1.2.0" />
+    <PackageReference Include="Senparc.NeuChar" Version="2.1.0" />
+    <PackageReference Include="Senparc.NeuChar.App" Version="1.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net451;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>2.12.5</Version>
+    <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Version>2.13</Version>
     <AssemblyName>Senparc.Weixin.Cache.Memcached</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Memcached</RootNamespace>
     <Description>
@@ -95,9 +95,9 @@
     <OutputPath>..\..\BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\BuildOutPut\netstandard1.6\Senparc.Cache.Memcached.xml</DocumentationFile>
   </PropertyGroup>-->
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net451|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net462|AnyCPU'">
     <OutputPath>..\..\BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\BuildOutPut\net451\Senparc.Cache.Memcached.xml</DocumentationFile>
+    <DocumentationFile>..\..\BuildOutPut\net462\Senparc.Cache.Memcached.xml</DocumentationFile>
   </PropertyGroup>
   <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
     <OutputPath>..\..\BuildOutPut\</OutputPath>
@@ -114,7 +114,7 @@
   <ItemGroup>
     <None Include="..\..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -131,14 +131,14 @@
       <Version>1.0.0.1</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' != 'net451' ">
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net462' ">
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="MamcachedCacheLock.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="4.0.1" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="4.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

@@ -80,7 +80,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
                 cookieContainer, stream, useAjax: true);
 
             Assert.IsNotNull(result);
-#if !NET451
+#if !NET462
             var resultString = result.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             Console.WriteLine("resultString:{0}", resultString);
 #endif

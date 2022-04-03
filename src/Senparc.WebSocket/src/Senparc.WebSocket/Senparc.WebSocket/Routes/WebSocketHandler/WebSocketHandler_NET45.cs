@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 //using Microsoft.AspNetCore.Routing;
 //using Microsoft.AspNetCore.WebSockets;
 
-#if NET451
+#if NET462
 using System.Web;
 using System.Web.Routing;
 using System.Web.WebSockets;
@@ -30,7 +30,7 @@ using System.Web.WebSockets;
 
 namespace Senparc.WebSocket
 {
-#if NET451
+#if NET462
     /// <summary>
     /// WebSocket处理程序
     /// </summary>

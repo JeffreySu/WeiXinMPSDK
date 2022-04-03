@@ -39,7 +39,7 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.NeuChar.MessageHandlers;
-#if NET451
+#if NET462
 using System.Web.Mvc;
 using System.Web;
 #else
@@ -102,7 +102,7 @@ namespace Senparc.Weixin.AspNet.MvcExtension
             set { base.Content = value; }
         }
 
-#if NET451
+#if NET462
         public override void ExecuteResult(ControllerContext context)
 #else
         public override void ExecuteResult(ActionContext context)
@@ -122,7 +122,7 @@ namespace Senparc.Weixin.AspNet.MvcExtension
                 }
                 else
                 {
-#if NET451
+#if NET462
                     context.HttpContext.Response.ClearContent();
                     context.HttpContext.Response.ContentType = "text/xml";
                     _messageHandlerDocument.FinalResponseDocument.Save(context.HttpContext.Response.OutputStream);

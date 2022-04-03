@@ -62,7 +62,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
-#if !NET451
+#if !NET462
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 #endif
@@ -187,12 +187,12 @@ namespace Senparc.Weixin
         /// <param name="registerConfigure"></param>
         /// <returns></returns>
         public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, Action<IRegisterService, SenparcWeixinSetting> registerConfigure
-#if !NET451
+#if !NET462
             , IServiceProvider serviceProvider = null
 #endif
             )
         {
-#if !NET451
+#if !NET462
             //默认从 appsettings.json 中取
             if (senparcWeixinSetting == null && serviceProvider != null)
             {

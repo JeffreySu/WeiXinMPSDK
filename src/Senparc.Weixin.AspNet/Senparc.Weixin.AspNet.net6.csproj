@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net451;netstandard2.0;netstandard2.1;netcoreapp3.1;net6.0</TargetFrameworks>
-    <Version>0.7.7</Version>
+    <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net6.0</TargetFrameworks>
+    <Version>0.8</Version>
     <AssemblyName>Senparc.Weixin.AspNet</AssemblyName>
     <RootNamespace>Senparc.Weixin.AspNet</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -42,9 +42,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net451|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net462|AnyCPU'">
     <OutputPath>..\BuildOutPut\</OutputPath>
-    <DocumentationFile>..\BuildOutPut\net451\Senparc.Weixin.AspNet.xml</DocumentationFile>
+    <DocumentationFile>..\BuildOutPut\net462\Senparc.Weixin.AspNet.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
     <OutputPath>..\BuildOutPut\</OutputPath>
@@ -68,14 +68,14 @@
   <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0'">
     <!--<FrameworkReference Include="Microsoft.AspNetCore.App" />-->
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar.AspNet" Version="1.0.5" />
+    <PackageReference Include="Senparc.NeuChar.AspNet" Version="1.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

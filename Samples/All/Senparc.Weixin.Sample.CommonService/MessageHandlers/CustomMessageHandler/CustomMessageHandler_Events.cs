@@ -25,7 +25,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-//#if NET451
+//#if NET462
 //using System.Web;
 //#endif
 
@@ -40,7 +40,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
         private string GetWelcomeInfo()
         {
             //获取Senparc.Weixin.MP.dll版本信息
-#if NET451
+#if NET462
             var filePath = ServerUtility.ContentRootMapPath("~/bin/Senparc.Weixin.MP.dll");//发布路径
 #else
             //var filePath = ServerUtility.ContentRootMapPath("~/bin/Release/netcoreapp2.2/Senparc.Weixin.MP.dll");//本地测试路径
@@ -189,7 +189,7 @@ QQ群：377815480
                     {
                         //上传缩略图
 
-#if NET451
+#if NET462
                         var filePath = "~/Images/Logo.thumb.jpg";
 #else   
                         var filePath = "~/wwwroot/Images/Logo.thumb.jpg";
@@ -212,7 +212,7 @@ QQ群：377815480
                 case "SubClickRoot_Image":
                     {
                         //上传图片
-#if NET451
+#if NET462
                         var filePath = "~/Images/Logo.jpg";
 #else
                         var filePath = "~/wwwroot/Images/Logo.jpg";
@@ -248,7 +248,7 @@ QQ群：377815480
                         //获取返回的XML
                         var dt1 = SystemTime.Now;
                         reponseMessage = MessageAgent.RequestResponseMessage(this,
-#if NET451
+#if NET462
                         null,
 #else
                         Senparc.CO2NET.SenparcDI.GetServiceProvider(), 
@@ -270,7 +270,7 @@ QQ群：377815480
                     {
                         //原始方法为：MessageAgent.RequestXml(this,agentUrl, agentToken, RequestDocument.ToString());//获取返回的XML
                         reponseMessage = this.RequestResponseMessage(
-#if NET451
+#if NET462
                         null,
 #else
                         Senparc.CO2NET.SenparcDI.GetServiceProvider(), 

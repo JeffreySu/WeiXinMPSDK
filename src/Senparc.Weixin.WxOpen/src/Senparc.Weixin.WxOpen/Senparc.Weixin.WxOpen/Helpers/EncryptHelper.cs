@@ -46,7 +46,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.CO2NET.Helpers;
-#if NET451
+#if NET462
 using System.Web.Script.Serialization;
 #endif
 using Senparc.Weixin.Exceptions;
@@ -125,7 +125,7 @@ namespace Senparc.Weixin.WxOpen.Helpers
 
         private static byte[] AES_Decrypt(String Input, byte[] Iv, byte[] Key)
         {
-#if NET451
+#if NET462
             RijndaelManaged aes = new RijndaelManaged();
 #else
             SymmetricAlgorithm aes = Aes.Create();

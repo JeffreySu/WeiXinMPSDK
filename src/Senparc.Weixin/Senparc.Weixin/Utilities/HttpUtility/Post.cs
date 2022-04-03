@@ -69,7 +69,7 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.Helpers;
 
-#if NET451
+#if NET462
 using System.Web.Script.Serialization;
 using Senparc.Weixin.HttpUtility;
 #else

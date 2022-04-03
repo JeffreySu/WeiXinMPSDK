@@ -69,7 +69,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text;
-#if NET451
+#if NET462
 using System.Web.Script.Serialization;
 #endif
 using Senparc.Weixin.Entities;

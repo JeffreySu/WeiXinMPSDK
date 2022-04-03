@@ -279,7 +279,7 @@ namespace Senparc.Weixin.Tencent
             string hash = "";
             try
             {
-#if NET451
+#if NET462
                 sha = new SHA1CryptoServiceProvider();
 #else
                 sha = SHA1.Create();

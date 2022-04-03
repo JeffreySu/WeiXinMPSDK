@@ -97,7 +97,7 @@ namespace Senparc.Weixin.Entities
         }
 
 
-#if NET451
+#if NET462
         /// <summary>
         /// 从 Web.Config 文件自动生成 SenparcWeixinSetting
         /// </summary>

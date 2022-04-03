@@ -230,7 +230,7 @@ namespace Senparc.Weixin.TenPay.V2
         /// <returns></returns>
         public bool Call()
         {
-#if NET451
+#if NET462
                         StreamReader sr = null;
             HttpWebResponse wr = null;
 

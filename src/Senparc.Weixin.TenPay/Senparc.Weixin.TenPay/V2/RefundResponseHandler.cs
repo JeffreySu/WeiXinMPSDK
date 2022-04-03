@@ -42,7 +42,7 @@ using System.Text;
 
 using Senparc.CO2NET.Helpers;
 
-#if NET451
+#if NET462
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
@@ -73,7 +73,7 @@ namespace Senparc.Weixin.TenPay.V2
 
         protected HttpContext HttpContext;
 
-#if NET451
+#if NET462
         /// <summary>
         /// 获取服务器通知数据方式，进行参数获取
         /// </summary>
@@ -173,7 +173,7 @@ namespace Senparc.Weixin.TenPay.V2
             return GetParameter("sign").ToLower().Equals(sign);
         }
 
-#if NET451
+#if NET462
         /// <summary>
         /// 显示处理结果。
         /// @param show_url 显示处</summary>
@@ -209,7 +209,7 @@ namespace Senparc.Weixin.TenPay.V2
 
         protected virtual string getCharset()
         {
-#if NET451
+#if NET462
             return this.HttpContext.Request.ContentEncoding.BodyName;
 #else
             return Encoding.UTF8.WebName;

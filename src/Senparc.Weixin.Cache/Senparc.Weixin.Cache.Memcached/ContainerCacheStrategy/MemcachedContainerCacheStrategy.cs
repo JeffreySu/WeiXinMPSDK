@@ -31,9 +31,7 @@ using System.Threading.Tasks;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Memcached;
 using Senparc.Weixin.Containers;
-#if NET451 || NET461
-
-#else
+#if !NET462
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 #endif

@@ -1,4 +1,4 @@
-﻿#if !NET451
+﻿#if !NET462
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Http.Internal;

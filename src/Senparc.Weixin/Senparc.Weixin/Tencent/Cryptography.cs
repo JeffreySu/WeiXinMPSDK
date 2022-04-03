@@ -130,7 +130,7 @@ namespace Senparc.Weixin.Tencent
 
         private static String AES_encrypt(String Input, byte[] Iv, byte[] Key)
         {
-#if NET451
+#if NET462
             var aes = new RijndaelManaged();
 #else
             var aes = Aes.Create();
@@ -162,7 +162,7 @@ namespace Senparc.Weixin.Tencent
 
         private static String AES_encrypt(byte[] Input, byte[] Iv, byte[] Key)
         {
-#if NET451
+#if NET462
             var aes = new RijndaelManaged();
 #else
             var aes = Aes.Create();
@@ -238,7 +238,7 @@ namespace Senparc.Weixin.Tencent
         }
         private static byte[] AES_decrypt(String Input, byte[] Iv, byte[] Key)
         {
-#if NET451
+#if NET462
             var aes = new RijndaelManaged();
 #else
             var aes = Aes.Create();

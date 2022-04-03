@@ -40,7 +40,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Senparc.CO2NET.Helpers;
 
-#if NET451
+#if NET462
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
@@ -70,7 +70,7 @@ namespace Senparc.Weixin.TenPay.V2
         {
             Parameters = new Hashtable();
 
-#if NET451
+#if NET462
 			this.HttpContext = httpContext ?? HttpContext.Current;
 #else
             this.HttpContext = httpContext ?? new DefaultHttpContext();
@@ -307,7 +307,7 @@ namespace Senparc.Weixin.TenPay.V2
 
         protected virtual string GetCharset()
         {
-#if NET451
+#if NET462
             return this.HttpContext.Request.ContentEncoding.BodyName;
 #else
             return Encoding.UTF8.WebName;

@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net451;netstandard2.0;netstandard2.1;netcoreapp3.1;net6.0</TargetFrameworks>
+    <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net6.0</TargetFrameworks>
     <Version>0.7.7</Version>
     <AssemblyName>Senparc.Weixin.WxOpen.Middleware</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen.Middleware</RootNamespace>
@@ -40,9 +40,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net451|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net462|AnyCPU'">
     <OutputPath>..\BuildOutPut\</OutputPath>
-    <DocumentationFile>..\BuildOutPut\net451\Senparc.Weixin.WxOpen.Middleware.xml</DocumentationFile>
+    <DocumentationFile>..\BuildOutPut\net462\Senparc.Weixin.WxOpen.Middleware.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
     <OutputPath>..\BuildOutPut\</OutputPath>

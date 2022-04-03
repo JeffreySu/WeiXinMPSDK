@@ -31,7 +31,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-#if NET451
+#if NET462
 using System;
 using System.Web;
 #else

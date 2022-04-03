@@ -38,7 +38,7 @@ using System.Xml.Linq;
 using Senparc.CO2NET.Cache;
 using Senparc.Weixin.MP;
 
-#if NET451
+#if NET462
 using System.Web;
 using System.Configuration;
 using System.Web.Configuration;
@@ -211,7 +211,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                     #endregion
 
                     var responseXml = MessageAgent.RequestXml(this,
-#if NET451
+#if NET462
                         null,
 #else
                         Senparc.CO2NET.SenparcDI.GetServiceProvider(),
@@ -266,7 +266,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                 .Keyword("AsyncTest", () =>
                 {
                     //异步并发测试（提供给单元测试使用）
-#if NET451
+#if NET462
                     var begin = SystemTime.Now;
                     int t1, t2, t3;
                     System.Threading.ThreadPool.GetAvailableThreads(out t1, out t3);
@@ -413,7 +413,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                     }
                     else
                     {
-#if !NET451
+#if !NET462
                         var httpContextAccessor = base.ServiceProvider.GetService<IHttpContextAccessor>();
                         defaultResponseMessage.Content = $"ServiceProvider 载入成功，从 IHttpContextAccessor 读取当前服务器协议：{httpContextAccessor.HttpContext.Request.Scheme}";
 #endif

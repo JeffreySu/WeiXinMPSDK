@@ -15,7 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-#if NET451
+#if NET462
 using System.Web.Routing;
 #else
 using Microsoft.AspNetCore.Routing;
@@ -30,7 +30,7 @@ namespace Senparc.WebSocket
     {
         internal static Func<WebSocketMessageHandler> WebSocketMessageHandlerFunc { get; set; }
 
-#if NET451
+#if NET462
         /// <summary>
         /// 注册WebSocket路由规则
         /// </summary>

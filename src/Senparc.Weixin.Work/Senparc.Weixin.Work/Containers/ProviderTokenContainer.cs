@@ -130,6 +130,22 @@ namespace Senparc.Weixin.Work.Containers
     {
         private const string UN_REGISTER_ALERT = "此CorpId尚未注册，ProviderTokenContainer.Register完成注册（全局执行一次即可）！";
 
+        private const string LockResourceName = "Work.ProviderTokenContainer";
+
+        /// <summary>
+        /// 获取SuiteTicket的方法
+        /// </summary>
+        public static Func<string, Task<string>> GetSuiteTicketFunc { get; set; }
+
+        /// <summary>
+        /// 根据企业授权码获取到应用id，场景：企业token失效 需要根据应用token + 授权码获取新token， 此时可能应用token也失效，则需要获取到对应的应用id重新生成应用token
+        /// </summary>
+        public static Func<string, Task<FuncGetIdSecretResult>> GetSuiteByCorpPermanentCodeFunc { get; set; }
+
+        /// <summary>
+        /// 根据应用id获取服务商信息
+        /// </summary>
+        public static Func<string, Task<FuncGetIdSecretResult>> GetProviderCorpBySuiteIdFunc { get; set; }
 
         /// <summary>
         /// 获取全局唯一Key
@@ -151,9 +167,11 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="corpSecret"></param>
         /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别。当 name 不为 null 和 空值时，本次注册内容将会被记录到 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name] 中，方便取用。</param>
         [Obsolete("请使用 RegisterAsync() 方法")]
-        public static void Register(string corpId, string corpSecret, string name = null)
+        public static void Register(string corpId, string corpSecret,
+            Func<string, Task<string>> getSuiteTicketFunc = null,
+            Func<string, Task<FuncGetIdSecretResult>> getPermanentCodeFunc = null, string name = null)
         {
-            var task = RegisterAsync(corpId, corpSecret, name);
+            var task = RegisterAsync(corpId, corpSecret, getSuiteTicketFunc, getPermanentCodeFunc, name);
             Task.WaitAll(new[] { task }, 10000);
             //Task.Factory.StartNew(() =>
             //{
@@ -189,6 +207,7 @@ namespace Senparc.Weixin.Work.Containers
             return GetTokenResult(corpId, corpSecret, getNewToken).provider_access_token;
         }
 
+
         /// <summary>
         /// 获取可用Token
         /// </summary>
@@ -204,7 +223,7 @@ namespace Senparc.Weixin.Work.Containers
             }
 
             var providerTokenBag = TryGetItem(BuildingKey(corpId, corpSecret));
-            lock (providerTokenBag.Lock)
+            using (Cache.BeginCacheLock(LockResourceName, BuildingKey(corpId, corpSecret)))//同步锁
             {
                 if (getNewToken || providerTokenBag.ExpireTime <= SystemTime.Now)
                 {
@@ -236,9 +255,20 @@ namespace Senparc.Weixin.Work.Containers
         /// </summary>
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
+        /// <param name="getSuiteTicketFunc"></param>
+        /// <param name="getPermanentCodeFunc"></param>
         /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别。当 name 不为 null 和 空值时，本次注册内容将会被记录到 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name] 中，方便取用。</param>
-        public static async Task RegisterAsync(string corpId, string corpSecret, string name = null)
+        public static async Task RegisterAsync(string corpId, string corpSecret,
+            Func<string, Task<string>> getSuiteTicketFunc = null,
+            Func<string, Task<FuncGetIdSecretResult>> getSuiteByCorpPermanentCodeFunc = null,
+            string name = null)
         {
+            if (GetSuiteTicketFunc == null)
+            {
+                GetSuiteTicketFunc = getSuiteTicketFunc;
+                GetSuiteByCorpPermanentCodeFunc = getSuiteByCorpPermanentCodeFunc;
+            }
+
             var shortKey = BuildingKey(corpId, corpSecret);
             RegisterFuncCollection[shortKey] = async () =>
             {
@@ -257,7 +287,8 @@ namespace Senparc.Weixin.Work.Containers
                 //}
             };
             await RegisterFuncCollection[shortKey]().ConfigureAwait(false);
-
+            //也注册到AccessTokenContainer 用于AccessTokenContainer判断token类型是否为服务商
+            await AccessTokenContainer.RegisterAsync(corpId, corpSecret, name, WorkTokenType.Provider); 
             if (!name.IsNullOrEmpty())
             {
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinCorpId = corpId;
@@ -309,7 +340,8 @@ namespace Senparc.Weixin.Work.Containers
             }
 
             var providerTokenBag = await TryGetItemAsync(BuildingKey(corpId, corpSecret)).ConfigureAwait(false);
-            //lock (providerTokenBag.Lock)
+
+            using (await Cache.BeginCacheLockAsync(LockResourceName, BuildingKey(corpId, corpSecret)).ConfigureAwait(false))//同步锁
             {
                 if (getNewToken || providerTokenBag.ExpireTime <= DateTimeOffset.Now)
                 {

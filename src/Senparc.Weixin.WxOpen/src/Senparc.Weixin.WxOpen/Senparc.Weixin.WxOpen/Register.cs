@@ -43,6 +43,9 @@ using Senparc.CO2NET.RegisterServices;
 using System;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.WxOpen.Containers;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen
 {
@@ -82,5 +85,105 @@ namespace Senparc.Weixin.WxOpen
             AccessTokenContainer.Register(weixinSettingForWxOpen.WxOpenAppId, weixinSettingForWxOpen.WxOpenAppSecret, name ?? weixinSettingForWxOpen.ItemKey);
             return registerService;
         }
+
+        #region 设置 ApiHandlerWapper 处理方法
+
+        /// <summary>
+        /// 设置所有使用了 ApiHandlerWapper 的接口，可以自动进入重试的 API 错误代码
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="invalidCredentialReturnCodes">可进入重试的 API 错误代码</param>
+        /// <returns></returns>
+        public static IRegisterService SetWxOpen_InvalidCredentialValues(this IRegisterService registerService, IEnumerable<ReturnCode> invalidCredentialReturnCodes)
+        {
+            WxOpenApiHandlerWapper.InvalidCredentialValues = invalidCredentialReturnCodes.Select(z => (int)z);
+            return registerService;
+        }
+
+        #region AccessTokenContainer_GetFirstOrDefaultAppIdFunc
+
+        /// <summary>
+        /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetFirstOrDefaultAppIdFunc 委托，默认为返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId(PlatformType.MP) 方法
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="func">自定义返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId(PlatformType.MP) 方法</param>
+        /// <returns></returns>
+        public static IRegisterService SetWxOpen_AccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<string> func)
+        {
+            WxOpenApiHandlerWapper.AccessTokenContainer_GetFirstOrDefaultAppIdFunc = func;
+            return registerService;
+        }
+
+        /// <summary>
+        /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetFirstOrDefaultAppIdFunc 委托，默认为返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId(PlatformType.WxOpen) 方法
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="func">自定义返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId(PlatformType.MP) 方法</param>
+        /// <returns></returns>
+        public static IRegisterService SetWxOpen_AccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<Task<string>> func)
+        {
+            WxOpenApiHandlerWapper.AccessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc = func;
+            return registerService;
+        }
+
+        #endregion
+
+        #region AccessTokenContainer_GetFirstOrDefaultAppIdFunc
+
+        /// <summary>
+        /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetFirstOrDefaultAppIdFunc 委托，默认为返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId() 方法
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="func">自定义返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId() 方法</param>
+        /// <returns></returns>
+        public static IRegisterService SetWxOpen_AccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<string, bool> func)
+        {
+            WxOpenApiHandlerWapper.AccessTokenContainer_CheckRegisteredFunc = func;
+            return registerService;
+        }
+
+        /// <summary>
+        /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetFirstOrDefaultAppIdFunc 委托，默认为返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId() 方法
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="func">自定义返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId() 方法</param>
+        /// <returns></returns>
+        public static IRegisterService SetWxOpen_AccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<string, Task<bool>> func)
+        {
+            WxOpenApiHandlerWapper.AccessTokenContainer_CheckRegisteredAsyncFunc = func;
+            return registerService;
+        }
+
+        #endregion
+
+        #region AccessTokenContainer_GetAccessTokenResultFunc
+
+        /// <summary>
+        /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetAccessTokenResultFunc 委托，默认为返回 AccessTokenContainer 中的 GetAccessTokenResult() 方法
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="func">自定义返回 AccessTokenContainer 中的 AccessTokenResult GetAccessTokenResult(appId) 方法</param>
+        /// <returns></returns>
+        public static IRegisterService SetAccessTokenContainer_GetAccessTokenResultFunc(this IRegisterService registerService, Func<string, bool, IAccessTokenResult> func)
+        {
+            WxOpenApiHandlerWapper.AccessTokenContainer_GetAccessTokenResultFunc = func;
+            return registerService;
+        }
+
+        /// <summary>
+        /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetAccessTokenResultFunc 委托，默认为返回 AccessTokenContainer 中的 GetAccessTokenResult() 方法
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="func">自定义返回 AccessTokenContainer 中的 AccessTokenResult GetAccessTokenResult(appId) 方法</param>
+        /// <returns></returns>
+        public static IRegisterService SetAccessTokenContainer_GetAccessTokenResultFunc(this IRegisterService registerService, Func<string, bool, Task<IAccessTokenResult>> func)
+        {
+            WxOpenApiHandlerWapper.AccessTokenContainer_GetAccessTokenResultAsyncFunc = func;
+            return registerService;
+        }
+
+        #endregion
+
+        #endregion
     }
 }

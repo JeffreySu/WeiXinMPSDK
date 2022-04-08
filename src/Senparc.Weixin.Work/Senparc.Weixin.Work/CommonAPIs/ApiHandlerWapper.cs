@@ -71,8 +71,7 @@ namespace Senparc.Weixin.Work
     /// </summary>
     public static class ApiHandlerWapper
     {
-        internal static IEnumerable<int> InvalidCredentialValues = new[] { (int)ReturnCode.不合法的access_token };//ReturnCode_Work.获取access_token时Secret错误_或者access_token无效;
-
+        internal static IEnumerable<int> InvalidCredentialValues = new[] { (int)ReturnCode_Work.不合法的access_token, (int)ReturnCode_Work.access_token过期, (int)ReturnCode_Work.不合法的suitetoken };//ReturnCode_Work.获取access_token时Secret错误_或者access_token无效;
         #region 同步方法
 
         internal static Func<string> AccessTokenContainer_GetFirstOrDefaultAppIdFunc =
@@ -138,12 +137,12 @@ namespace Senparc.Weixin.Work
           };
 
         internal static Func<string, bool, Task<IAccessTokenResult>> AccessTokenContainer_GetAccessTokenResultAsyncFunc =
-            (appKey, getNewToken) =>
+            async (appKey, getNewToken) =>
             {
                 /*
                  * 对于企业微信来说，AppId = key = CorpId+'@'+CorpSecret
                  */
-                return AccessTokenContainer.GetTokenResultAsync(appKey, getNewToken);
+                return await AccessTokenContainer.GetTokenResultAsync(appKey, getNewToken).ConfigureAwait(false);
             };
 
         /// <summary>

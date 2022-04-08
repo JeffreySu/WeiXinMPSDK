@@ -56,6 +56,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
 
     public class FollowUser
     {
+        /// <summary>
+        /// 添加了此外部联系人的企业成员userid
+        /// </summary>
+        public string userid { get; set; }
         public string remark { get; set; }
         public string description { get; set; }
         public long createtime { get; set; }

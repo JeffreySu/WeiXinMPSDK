@@ -102,6 +102,7 @@ using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
 using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.Work.AdvancedAPIs;
 
 namespace Senparc.Weixin.Work.Containers
 {
@@ -109,14 +110,18 @@ namespace Senparc.Weixin.Work.Containers
     public class AccessTokenBag : BaseContainerBag
     {
         /// <summary>
-        /// CorpId
+        /// 
+        /// </summary>
+        public WorkTokenType WorkTokenType { get; set; }
+        /// <summary>
+        /// CorpId 
         /// </summary>
         public string CorpId { get; set; }
 
         [Obsolete("请使用 CorpId 属性")]
         public string CoprId { get { return CorpId; } set { CorpId = value; } }
         /// <summary>
-        /// CorpSecret
+        /// CorpSecret 2.可能是授权企业永久授权码 permanent_code 3.也可能是第三方应用secret
         /// </summary>
         public string CorpSecret { get; set; }
         /// <summary>
@@ -145,6 +150,7 @@ namespace Senparc.Weixin.Work.Containers
     {
         private const string UN_REGISTER_ALERT = "此CorpId尚未注册，AccessTokenContainer.Register完成注册（全局执行一次即可）！";
         private const string LockResourceName = "Work.AccessTokenContainer";
+
 
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token。
@@ -206,9 +212,9 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="corpSecret"></param>
         /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别。当 name 不为 null 和 空值时，本次注册内容将会被记录到 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name] 中，方便取用。</param>
         [Obsolete("请使用 RegisterAsync() 方法")]
-        public static void Register(string corpId, string corpSecret, string name = null)
+        public static void Register(string corpId, string corpSecret, string name = null, WorkTokenType workTokenType = WorkTokenType.Internal)
         {
-            var task = RegisterAsync(corpId, corpSecret, name);
+            var task = RegisterAsync(corpId, corpSecret, name,workTokenType);
             Task.WaitAll(new[] { task }, 10000);
             //Task.Factory.StartNew(() =>
             //{
@@ -217,18 +223,38 @@ namespace Senparc.Weixin.Work.Containers
         }
 
 
+        public static string TryGetSuiteTicket(string suiteId)
+        {
+            //if (!CheckRegistered(suiteId))
+            //    throw new WeixinWorkException(UN_REGISTER_ALERT);
+            if(ProviderTokenContainer.GetSuiteTicketFunc == null)
+                throw new WeixinWorkException("GetSuiteTicketFunc必须在注册时提供");
+
+            return ProviderTokenContainer.GetSuiteTicketFunc(suiteId).GetAwaiter().GetResult();
+        }
+        public static FuncGetIdSecretResult TryGetSuiteByCorpPermanentCode(string permanentCode)
+        {
+            //if (!CheckRegistered(permanentCode))
+            //    throw new WeixinWorkException(UN_REGISTER_ALERT);
+            if (ProviderTokenContainer.GetSuiteTicketFunc == null)
+                throw new WeixinWorkException("GetSuiteIdByCorpPermanentCodeFunc必须在注册时提供");
+
+            return ProviderTokenContainer.GetSuiteByCorpPermanentCodeFunc(permanentCode).GetAwaiter().GetResult();
+        }
+
         /// <summary>
         /// 使用完整的应用凭证获取Token，如果不存在将自动注册
         /// </summary>
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
         /// <param name="getNewToken"></param>
+        /// <param name="workTokenType"></param>
         /// <returns></returns>
-        public static string TryGetToken(string corpId, string corpSecret, bool getNewToken = false)
+        public static string TryGetToken(string corpId, string corpSecret, bool getNewToken = false, WorkTokenType workTokenType = WorkTokenType.Internal)
         {
             if (!CheckRegistered(BuildingKey(corpId, corpSecret)) || getNewToken)
             {
-                Register(corpId, corpSecret);
+                Register(corpId, corpSecret,workTokenType:workTokenType);
             }
             return GetToken(corpId, corpSecret, getNewToken);
         }
@@ -251,7 +277,7 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="corpSecret"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
-        public static string GetToken(string corpId, string corpSecret, bool getNewToken = false)
+        public static string GetToken(string corpId, string corpSecret, bool getNewToken = false, WorkTokenType workTokenType = WorkTokenType.Internal)
         {
             var appKey = BuildingKey(corpId, corpSecret);
             return GetTokenResult(appKey, getNewToken).access_token;
@@ -293,10 +319,42 @@ namespace Senparc.Weixin.Work.Containers
             {
                 if (getNewToken || accessTokenBag.ExpireTime <= SystemTime.Now)
                 {
-                    //已过期，重新获取
-                    accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.CorpId, accessTokenBag.CorpSecret);
-                    accessTokenBag.ExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
-                    Update(accessTokenBag, null);//更新到缓存
+                    if(accessTokenBag.WorkTokenType == WorkTokenType.Internal)
+                    {
+                        //已过期，重新获取
+                        accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.CorpId, accessTokenBag.CorpSecret);
+                        accessTokenBag.ExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
+                        Update(accessTokenBag, null);//更新到缓存
+                    }
+                    else if(accessTokenBag.WorkTokenType == WorkTokenType.Provider)
+                    {
+                        //服务商有专门的ProviderTokenContainer; ps服务商暂无涉及功能所以无测试
+                        var tokenResult = ProviderTokenContainer.GetTokenResult(accessTokenBag.CorpId, accessTokenBag.CorpSecret, getNewToken);
+
+                        accessTokenBag.AccessTokenResult = new AccessTokenResult { access_token = tokenResult.provider_access_token, expires_in = tokenResult.expires_in, errcode = tokenResult.errcode, errmsg = tokenResult.errmsg };
+                        accessTokenBag.ExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
+
+                        Update(accessTokenBag, null);//更新到缓存
+                    }
+                    else if (accessTokenBag.WorkTokenType == WorkTokenType.Suite)
+                    {
+                        var ticket = TryGetSuiteTicket(accessTokenBag.CorpId);
+                        var tokenResult = ThirdPartyAuthApi.GetSuiteToken(accessTokenBag.CorpId, accessTokenBag.CorpSecret, ticket);
+                        accessTokenBag.AccessTokenResult = new AccessTokenResult { access_token = tokenResult.suite_access_token, expires_in = tokenResult.expires_in ,errcode = tokenResult.errcode,errmsg = tokenResult.errmsg};
+                        accessTokenBag.ExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
+                        Update(accessTokenBag, null);//更新到缓存
+                    }
+                    else if (accessTokenBag.WorkTokenType == WorkTokenType.AuthCorp)
+                    {
+                        var suite = TryGetSuiteByCorpPermanentCode(accessTokenBag.CorpSecret);
+
+                        var suiteAppKey = BuildingKey(suite.CorpId, suite.Secret);
+                        var tokenResult = ThirdPartyAuthApi.GetCorpToken(suiteAppKey, suite.CorpId, accessTokenBag.CorpId,accessTokenBag.CorpSecret);
+                        accessTokenBag.AccessTokenResult = new AccessTokenResult { access_token = tokenResult.access_token, expires_in = tokenResult.expires_in, errcode = tokenResult.errcode, errmsg = tokenResult.errmsg };
+                        accessTokenBag.ExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
+
+                        Update(accessTokenBag, null);//更新到缓存
+                    }
                 }
             }
             return accessTokenBag.AccessTokenResult;
@@ -325,7 +383,7 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
         /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别。当 name 不为 null 和 空值时，本次注册内容将会被记录到 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name] 中，方便取用。</param>
-        public static async Task RegisterAsync(string corpId, string corpSecret, string name = null)
+        public static async Task RegisterAsync(string corpId, string corpSecret, string name = null, WorkTokenType workTokenType = WorkTokenType.Internal)
         {
             //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
             var shortKey = BuildingKey(corpId, corpSecret);
@@ -335,13 +393,14 @@ namespace Senparc.Weixin.Work.Containers
                  //{
                  var bag = new AccessTokenBag()
                  {
+                     WorkTokenType = workTokenType,
                      Name = name,
                      CorpId = corpId,
                      CorpSecret = corpSecret,
                      ExpireTime = DateTimeOffset.MinValue,
                      AccessTokenResult = new AccessTokenResult()
                  };
-                 await UpdateAsync(BuildingKey(corpId, corpSecret), bag, null).ConfigureAwait(false);
+                 await UpdateAsync(shortKey, bag, null).ConfigureAwait(false);
                  return bag;
                  //}
              };
@@ -356,9 +415,9 @@ namespace Senparc.Weixin.Work.Containers
 
             var registerJsApiTask = JsApiTicketContainer.RegisterAsync(corpId, corpSecret);//连带注册JsApiTicketContainer
 
-            var registerProviderTask = ProviderTokenContainer.RegisterAsync(corpId, corpSecret);//连带注册ProviderTokenContainer
+            //var registerProviderTask = ProviderTokenContainer.RegisterAsync(corpId, corpSecret);//连带注册ProviderTokenContainer
 
-            await Task.WhenAll(new[] { registerTask, registerJsApiTask, registerProviderTask });//等待所有任务完成
+            await Task.WhenAll(new[] { registerTask, registerJsApiTask/*, registerProviderTask */});//等待所有任务完成
         }
 
 
@@ -368,12 +427,13 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
         /// <param name="getNewToken"></param>
+        /// <param name="workTokenType"></param>
         /// <returns></returns>
-        public static async Task<string> TryGetTokenAsync(string corpId, string corpSecret, bool getNewToken = false)
+        public static async Task<string> TryGetTokenAsync(string corpId, string corpSecret, bool getNewToken = false, WorkTokenType workTokenType = WorkTokenType.Internal)
         {
             if (!await CheckRegisteredAsync(BuildingKey(corpId, corpSecret)) || getNewToken)
             {
-                await RegisterAsync(corpId, corpSecret).ConfigureAwait(false);
+                await RegisterAsync(corpId, corpSecret,workTokenType:workTokenType).ConfigureAwait(false);
             }
             return await GetTokenAsync(corpId, corpSecret, getNewToken).ConfigureAwait(false);
         }
@@ -428,13 +488,43 @@ namespace Senparc.Weixin.Work.Containers
             {
                 if (getNewToken || accessTokenBag.ExpireTime <= SystemTime.Now)
                 {
-                    //已过期，重新获取
-                    var accessTokenResult = await CommonApi.GetTokenAsync(accessTokenBag.CorpId, accessTokenBag.CorpSecret).ConfigureAwait(false);
-                    //accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.CorpId,
-                    //    accessTokenBag.CorpSecret);
-                    accessTokenBag.AccessTokenResult = accessTokenResult;
-                    accessTokenBag.ExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
-                    await UpdateAsync(accessTokenBag, null).ConfigureAwait(false);//更新到缓存
+                    if (accessTokenBag.WorkTokenType == WorkTokenType.Internal)
+                    {
+                        //已过期，重新获取
+                        accessTokenBag.AccessTokenResult = await CommonApi.GetTokenAsync(accessTokenBag.CorpId, accessTokenBag.CorpSecret).ConfigureAwait(false);
+                        accessTokenBag.ExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
+                        await UpdateAsync(accessTokenBag, null).ConfigureAwait(false);//更新到缓存
+                    }
+                    else if (accessTokenBag.WorkTokenType == WorkTokenType.Provider)
+                    {
+                        //服务商有专门的ProviderTokenContainer; ps服务商暂无涉及功能所以无测试
+                        var tokenResult = await ProviderTokenContainer.GetTokenResultAsync(accessTokenBag.CorpId, accessTokenBag.CorpSecret, getNewToken).ConfigureAwait(false);
+
+                        accessTokenBag.AccessTokenResult = new AccessTokenResult { access_token = tokenResult.provider_access_token, expires_in = tokenResult.expires_in, errcode = tokenResult.errcode, errmsg = tokenResult.errmsg };
+                        accessTokenBag.ExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
+
+                        await UpdateAsync(accessTokenBag, null).ConfigureAwait(false);//更新到缓存
+                    }
+                    else if (accessTokenBag.WorkTokenType == WorkTokenType.Suite)
+                    {
+                        var ticket = TryGetSuiteTicket(accessTokenBag.CorpId);
+                        var tokenResult = await ThirdPartyAuthApi.GetSuiteTokenAsync(accessTokenBag.CorpId, accessTokenBag.CorpSecret, ticket).ConfigureAwait(false);
+                        accessTokenBag.AccessTokenResult = new AccessTokenResult { access_token = tokenResult.suite_access_token, expires_in = tokenResult.expires_in, errcode = tokenResult.errcode, errmsg = tokenResult.errmsg };
+                        accessTokenBag.ExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
+
+                        await UpdateAsync(accessTokenBag, null).ConfigureAwait(false);//更新到缓存
+                    }
+                    else if (accessTokenBag.WorkTokenType == WorkTokenType.AuthCorp)
+                    {
+                        var suite = TryGetSuiteByCorpPermanentCode(accessTokenBag.CorpSecret);
+
+                        var suiteAppKey = BuildingKey(suite.CorpId, suite.Secret);
+                        var tokenResult = await ThirdPartyAuthApi.GetCorpTokenAsync(suiteAppKey, suite.CorpId, accessTokenBag.CorpId, accessTokenBag.CorpSecret).ConfigureAwait(false);
+                        accessTokenBag.AccessTokenResult = new AccessTokenResult { access_token = tokenResult.access_token, expires_in = tokenResult.expires_in, errcode = tokenResult.errcode, errmsg = tokenResult.errmsg };
+                        accessTokenBag.ExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
+
+                        await UpdateAsync(accessTokenBag, null).ConfigureAwait(false);//更新到缓存
+                    }
                 }
             }
             return accessTokenBag.AccessTokenResult;

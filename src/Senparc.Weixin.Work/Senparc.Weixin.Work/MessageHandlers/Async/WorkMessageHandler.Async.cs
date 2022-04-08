@@ -29,22 +29,29 @@ namespace Senparc.Weixin.Work.MessageHandlers
     {
         public override async Task BuildResponseMessageAsync(CancellationToken cancellationToken)
         {
-          
+            //TODO:改写为调用异步方法
+            //其他服务商模式普通事件已转入企业内部模式事件处理
+            if (RequestMessage is IThirdServiceCorpBase)
+            {
+                var thirdPartyInfo = RequestMessage as IThirdPartyInfoBase;
+                TextResponseMessage = await OnThirdPartyEventAsync(thirdPartyInfo);
+                return;
+            }
             switch (RequestMessage.MsgType)
             {
-                case RequestMsgType.Unknown: //第三方回调
-                {
-                    if (RequestMessage is IThirdPartyInfoBase)
-                    {
-                        var thirdPartyInfo = RequestMessage as IThirdPartyInfoBase;
-                        TextResponseMessage = await OnThirdPartyEventAsync(thirdPartyInfo);
-                    }
-                    else
-                    {
-                        throw new WeixinException("没有找到合适的消息类型。");
-                    }
-                }
-                    break;
+                //case RequestMsgType.Unknown://第三方回调
+                //    {
+                //        if (RequestMessage is IThirdPartyInfoBase)
+                //        {
+                //            var thirdPartyInfo = RequestMessage as IThirdPartyInfoBase;
+                //            TextResponseMessage = OnThirdPartyEvent(thirdPartyInfo);
+                //        }
+                //        else
+                //        {
+                //            throw new WeixinException("没有找到合适的消息类型。");
+                //        }
+                //    }
+                //    break;
                 //以下是普通信息
                 case RequestMsgType.Text:
                 {
@@ -720,48 +727,51 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     return OnThirdPartyEvent_Cancel_AuthAsync((RequestMessageInfo_Cancel_Auth)thirdPartyInfo);
                 case ThirdPartyInfo.CREATE_AUTH:
                     return OnThirdPartyEvent_Create_AuthAsync((RequestMessageInfo_Create_Auth)thirdPartyInfo);
-                case ThirdPartyInfo.CHANGE_CONTACT:
-                    return OnThirdPartyEvent_Change_ContactAsync((RequestMessageInfo_Change_Contact)thirdPartyInfo);
                 case ThirdPartyInfo.REGISTER_CORP:
                     return OnThirdPartyEvent_REGISTER_CORPAsync((RequestMessager_Register_Corp)thirdPartyInfo);
-                case ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT:
-                {
-                    var cecRequestMessage = RequestMessage as IRequestMessageEvent_Change_ExternalContact_Base;
-                    switch (cecRequestMessage.ChangeType)
-                    {
-                        case ExternalContactChangeType.add_external_contact:
-                            return OnThirdPartyEvent_ChangeExternalContactAddRequestAsync(
-                                RequestMessage as RequestMessageEvent_Change_ExternalContact_Add);
-                        case ExternalContactChangeType.edit_external_contact:
-                            return OnThirdPartyEvent_ChangeExternalContactUpdateRequestAsync(
-                                RequestMessage as RequestMessageEvent_Change_ExternalContact_Modified);
-                        case ExternalContactChangeType.add_half_external_contact:
-                            return OnThirdPartyEvent_ChangeExternalContactAddHalfRequestAsync(
-                                RequestMessage as RequestMessageEvent_Change_ExternalContact_Add_Half);
-                        case ExternalContactChangeType.del_external_contact:
-                            return OnThirdPartyEvent_ChangeExternalContactDelRequestAsync(
-                                RequestMessage as RequestMessageEvent_Change_ExternalContact_Del);
-                        case ExternalContactChangeType.del_follow_user:
-                            return OnThirdPartyEvent_ChangeExternalContactDelFollowUserRequestAsync(
-                                RequestMessage as RequestMessageEvent_Change_ExternalContact_Del_FollowUser);
-                        case ExternalContactChangeType.msg_audit_approved:
-                            return OnThirdPartyEvent_ChangeExternalContactMsgAuditAsync(
-                                RequestMessage as RequestMessageEvent_Change_ExternalContact_MsgAudit);
-                        default:
-                            throw new UnknownRequestMsgTypeException("未知的外部联系人事件Event.CHANGE_EXTERNAL_CONTACT下属请求信息",
-                                null);
-                    }
-                }
+                case ThirdPartyInfo.RESET_PERMANENT_CODE://重置永久授权码通知
+                    return OnThirdPartyEvent_Reset_Permanent_CodeAsync((RequestMessageInfo_Reset_Permanent_Code)thirdPartyInfo);
+                // 通用事件已统一流转至内部模式
+                //case ThirdPartyInfo.CHANGE_CONTACT:
+                //    return OnThirdPartyEvent_Change_ContactAsync((RequestMessageInfo_Change_Contact)thirdPartyInfo);
+                //case ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT:
+                //    {
+                //        var cecRequestMessage = RequestMessage as IRequestMessageEvent_Change_ExternalContact_Base;
+                //        switch (cecRequestMessage.ChangeType)
+                //        {
+                //            case ExternalContactChangeType.add_external_contact:
+                //                return OnThirdPartyEvent_ChangeExternalContactAddRequestAsync(
+                //                    RequestMessage as RequestMessageEvent_Change_ExternalContact_Add);
+                //            case ExternalContactChangeType.edit_external_contact:
+                //                return OnThirdPartyEvent_ChangeExternalContactUpdateRequestAsync(
+                //                    RequestMessage as RequestMessageEvent_Change_ExternalContact_Modified);
+                //            case ExternalContactChangeType.add_half_external_contact:
+                //                return OnThirdPartyEvent_ChangeExternalContactAddHalfRequestAsync(
+                //                    RequestMessage as RequestMessageEvent_Change_ExternalContact_Add_Half);
+                //            case ExternalContactChangeType.del_external_contact:
+                //                return OnThirdPartyEvent_ChangeExternalContactDelRequestAsync(
+                //                    RequestMessage as RequestMessageEvent_Change_ExternalContact_Del);
+                //            case ExternalContactChangeType.del_follow_user:
+                //                return OnThirdPartyEvent_ChangeExternalContactDelFollowUserRequestAsync(
+                //                    RequestMessage as RequestMessageEvent_Change_ExternalContact_Del_FollowUser);
+                //            case ExternalContactChangeType.msg_audit_approved:
+                //                return OnThirdPartyEvent_ChangeExternalContactMsgAuditAsync(
+                //                    RequestMessage as RequestMessageEvent_Change_ExternalContact_MsgAudit);
+                //            default:
+                //                throw new UnknownRequestMsgTypeException("未知的外部联系人事件Event.CHANGE_EXTERNAL_CONTACT下属请求信息",
+                //                    null);
+                //        }
+                //    }
                 default:
                     throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
             }
         }
 
-        protected virtual async Task<string> OnThirdPartyEvent_Change_ContactAsync(
-            RequestMessageInfo_Change_Contact thirdPartyInfo)
-        {
-            return await Task.Run(() => OnThirdPartyEvent_Change_Contact(thirdPartyInfo)).ConfigureAwait(false);
-        }
+        //protected virtual async Task<string> OnThirdPartyEvent_Change_ContactAsync(
+        //    RequestMessageInfo_Change_Contact thirdPartyInfo)
+        //{
+        //    return await Task.Run(() => OnThirdPartyEvent_Change_Contact(thirdPartyInfo)).ConfigureAwait(false);
+        //}
 
         protected virtual async Task<string> OnThirdPartyEvent_REGISTER_CORPAsync(
             RequestMessager_Register_Corp thirdPartyInfo)
@@ -778,23 +788,26 @@ namespace Senparc.Weixin.Work.MessageHandlers
         protected virtual async Task<string> OnThirdPartyEvent_Cancel_AuthAsync(
             RequestMessageInfo_Cancel_Auth thirdPartyInfo)
         {
-            return await Task.Run(() => OnThirdPartyEvent_Cancel_AuthAsync(thirdPartyInfo)).ConfigureAwait(false);
+            return await Task.Run(() => OnThirdPartyEvent_Cancel_Auth(thirdPartyInfo)).ConfigureAwait(false);
         }
 
         protected virtual async Task<string> OnThirdPartyEvent_Change_AuthAsync(
             RequestMessageInfo_Change_Auth thirdPartyInfo)
         {
-            return await Task.Run(() => OnThirdPartyEvent_Change_AuthAsync(thirdPartyInfo)).ConfigureAwait(false);
+            return await Task.Run(() => OnThirdPartyEvent_Change_Auth(thirdPartyInfo)).ConfigureAwait(false);
         }
 
         protected virtual async Task<string> OnThirdPartyEvent_Suite_TicketAsync(
             RequestMessageInfo_Suite_Ticket thirdPartyInfo)
         {
-            return await Task.Run(() => OnThirdPartyEvent_Suite_TicketAsync(thirdPartyInfo)).ConfigureAwait(false);
+            return await Task.Run(() => OnThirdPartyEvent_Suite_Ticket(thirdPartyInfo)).ConfigureAwait(false);
         }
-
-        #region 外部联系人
-
+        protected virtual async Task<string> OnThirdPartyEvent_Reset_Permanent_CodeAsync(RequestMessageInfo_Reset_Permanent_Code thirdPartyInfo)
+        {
+            return await Task.Run(() => OnThirdPartyEvent_Reset_Permanent_Code(thirdPartyInfo)).ConfigureAwait(false);
+        }
+        #region 外部联系人 通用事件已统一流转至内部模式
+        /*
         protected virtual async Task<string> OnThirdPartyEvent_ChangeExternalContactAddRequestAsync(
             RequestMessageEvent_Change_ExternalContact_Add requestMessage)
         {
@@ -836,7 +849,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return await Task.Run(() => OnThirdPartyEvent_ChangeExternalContactMsgAudit(requestMessage))
                 .ConfigureAwait(false);
         }
-
+        */
         #endregion
 
         #endregion

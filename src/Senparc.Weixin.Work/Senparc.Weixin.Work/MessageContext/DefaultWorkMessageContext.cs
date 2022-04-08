@@ -53,6 +53,10 @@ namespace Senparc.Weixin.Work.MessageContexts
         /// <returns></returns>
         public override IWorkRequestMessageBase GetRequestEntityMappingResult(RequestMsgType requestMsgType, XDocument doc = null)
         {
+            /*除重业务编码，微信事件
+             因为企业微信事件锁key和事件 缓存key都是直接以sys+企业ID 会导致很多事件都获取同一个锁和缓存，可能导致除重代码执行慢 同时缓存数据量大
+             */
+            string repeatedBusiness = requestMsgType.ToString();
             IWorkRequestMessageBase requestMessage;
             switch (requestMsgType)
             {
@@ -79,7 +83,8 @@ namespace Senparc.Weixin.Work.MessageContexts
                     break;
                 case RequestMsgType.Event:
                     //判断Event类型
-                    switch (doc.Root.Element("Event").Value.ToUpper())
+                    repeatedBusiness = doc.Root.Element("Event").Value.ToUpper();
+                    switch (repeatedBusiness)
                     {
                         case "CLICK"://菜单点击
                             requestMessage = new RequestMessageEvent_Click();
@@ -121,7 +126,8 @@ namespace Senparc.Weixin.Work.MessageContexts
                             requestMessage = new RequestMessageEvent_Batch_Job_Result();
                             break;
                         case "CHANGE_CONTACT"://通讯录更改推送(change_contact)
-                            switch (doc.Root.Element("ChangeType").Value.ToUpper())
+                            repeatedBusiness = doc.Root.Element("ChangeType").Value.ToUpper();
+                            switch (repeatedBusiness)
                             {
                                 case "CREATE_USER":
                                     requestMessage = new RequestMessageEvent_Change_Contact_User_Create();
@@ -150,7 +156,8 @@ namespace Senparc.Weixin.Work.MessageContexts
                             }
                             break;
                         case "CHANGE_EXTERNAL_CONTACT"://客户变更回调
-                            switch (doc.Root.Element("ChangeType").Value.ToUpper())
+                            repeatedBusiness = doc.Root.Element("ChangeType").Value.ToUpper();
+                            switch (repeatedBusiness)
                             {
                                 case "ADD_EXTERNAL_CONTACT":
                                     requestMessage = new RequestMessageEvent_Change_ExternalContact_Add();
@@ -170,13 +177,17 @@ namespace Senparc.Weixin.Work.MessageContexts
                                 case "MSG_AUDIT_APPROVED":
                                     requestMessage = new RequestMessageEvent_Change_ExternalContact_MsgAudit();
                                     break;
+                                case "TRANSFER_FAIL":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_TransferFail();
+                                    break;
                                 default:
                                     requestMessage = new RequestMessageEventBase();
                                     break;
                             }
                             break;
                         case "CHANGE_EXTERNAL_CHAT"://客户群变更事件推送
-                            switch (doc.Root.Element("ChangeType").Value.ToUpper())
+                            repeatedBusiness = doc.Root.Element("ChangeType").Value.ToUpper();
+                            switch (repeatedBusiness)
                             {
                                 case "CREATE":
                                     requestMessage = new RequestMessageEvent_Change_External_Chat_Create();
@@ -205,10 +216,13 @@ namespace Senparc.Weixin.Work.MessageContexts
                             requestMessage = new RequestMessageEventBase();
                             break;
                     }
+                    repeatedBusiness = $"{doc.Root.Element("Event").Value.ToUpper()}-{repeatedBusiness}"; 
                     break;
                 default:
                     throw new UnknownRequestMsgTypeException(string.Format("MsgType：{0} 在RequestMessageFactory中没有对应的处理程序！", requestMsgType), new ArgumentOutOfRangeException());//为了能够对类型变动最大程度容错（如微信目前还可以对公众账号suscribe等未知类型，但API没有开放），建议在使用的时候catch这个异常
             }
+
+            requestMessage.RepeatedBusiness = repeatedBusiness;
             return requestMessage;
         }
 

@@ -443,9 +443,104 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
         #endregion
 
+        #region 分配
+
+        /// <summary>
+        /// 分配在职成员的客户
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static TransferCustomerResult TransferCustomer(string accessTokenOrAppKey, TransferCustomerParam data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/transfer_customer?access_token={0}", accessToken);
+                return CommonJsonSend.Send<TransferCustomerResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+        /// <summary>
+        /// 查询在职成员的客户转接情况。
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static TransferResult TransferResult(string accessTokenOrAppKey, TransferStatusParam data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/transfer_result?access_token={0}", accessToken);
+                return CommonJsonSend.Send<TransferResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 获取待分配的离职成员列表
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static UnassignedResult GetUnassignedList(string accessTokenOrAppKey, UnassignedParam data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/get_unassigned_list?access_token={0}", accessToken);
+                return CommonJsonSend.Send<UnassignedResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 分配离职成员的客户
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static TransferCustomerResult ResignedTransferCustomer(string accessTokenOrAppKey, TransferCustomerParam data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/resigned/transfer_customer?access_token={0}", accessToken);
+                return CommonJsonSend.Send<TransferCustomerResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 离职成员的客户分配情况。
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static TransferResult ResignedTransferResult(string accessTokenOrAppKey, TransferStatusParam data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/resigned/transfer_result?access_token={0}", accessToken);
+                return CommonJsonSend.Send<TransferResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+        /// <summary>
+        /// 分配离职成员的客户群
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static TransferGroupchatResult ResignedTransferGroupchat(string accessTokenOrAppKey, TransferGroupchatParam data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/groupchat/transfer?access_token={0}", accessToken);
+                return CommonJsonSend.Send<TransferGroupchatResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+
         #endregion
-
-
         #region 异步方法
 
         /// <summary>
@@ -570,7 +665,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return await CommonJsonSend.SendAsync<GetExternalContactResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
-
         /// <summary>
         /// 【异步方法】批量获取客户详情
         /// </summary>
@@ -820,6 +914,106 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
+
+        #region 分配
+
+        /// <summary>
+        /// 分配在职成员的客户
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<TransferCustomerResult> TransferCustomerAsync(string accessTokenOrAppKey, TransferCustomerParam data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/transfer_customer?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<TransferCustomerResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 查询在职成员的客户转接情况。
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<TransferResult> TransferResultAsync(string accessTokenOrAppKey, TransferStatusParam data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/transfer_result?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<TransferResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 获取待分配的离职成员列表
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<UnassignedResult> GetUnassignedListAsync(string accessTokenOrAppKey, UnassignedParam data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/get_unassigned_list?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<UnassignedResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 分配离职成员的客户
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<TransferCustomerResult> ResignedTransferCustomerAsync(string accessTokenOrAppKey, TransferCustomerParam data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/resigned/transfer_customer?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<TransferCustomerResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 离职成员的客户分配情况。
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<TransferResult> ResignedTransferResultAsync(string accessTokenOrAppKey, TransferStatusParam data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/resigned/transfer_result?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<TransferResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 分配离职成员的客户群
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<TransferGroupchatResult> ResignedTransferGroupchatAsync(string accessTokenOrAppKey, TransferGroupchatParam data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/groupchat/transfer?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<TransferGroupchatResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #endregion
 
         #endregion
     }

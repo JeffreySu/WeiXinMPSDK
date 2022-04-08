@@ -202,31 +202,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 批量获取客户详情
-        /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
-        /// <param name="userid_list">（必须）企业成员的userid列表，字符串类型，最多支持100个</param>
-        /// <param name="cursor">用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填</param>
-        /// <param name="limit">返回的最大记录数，整型，最大值100，默认值50，超过最大值时取最大值</param>
-        /// <param name="timeOut"></param>
-        public static GetExternalContactInfoBatchResult GetExternalContactInfoBatch(string accessTokenOrAppKey, string[] userid_list, string cursor = null, int limit = 50, int timeOut = Config.TIME_OUT)
-        {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/batch/get_by_user?access_token={accessToken}";
-
-                var data = new
-                {
-                    userid_list,
-                    cursor,
-                    limit
-                };
-
-                return CommonJsonSend.Send<GetExternalContactInfoBatchResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
-        }
-
-        /// <summary>
         /// 修改客户备注信息
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证</param>
@@ -688,30 +663,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/get?access_token={accessToken}&external_userid={externalUserId}";
 
                 return await CommonJsonSend.SendAsync<GetExternalContactResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
-            }, accessTokenOrAppKey).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// 【异步方法】批量获取客户详情
-        /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
-        /// <param name="userid_list">（必须）企业成员的userid列表，字符串类型，最多支持100个</param>
-        /// <param name="cursor">用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填</param>
-        /// <param name="limit">返回的最大记录数，整型，最大值100，默认值50，超过最大值时取最大值</param>
-        /// <param name="timeOut"></param>
-        public static async Task<GetExternalContactInfoBatchResult> GetExternalContactInfoBatchAsync(string accessTokenOrAppKey, string[] userid_list, string cursor = null, int limit = 50, int timeOut = Config.TIME_OUT)
-        {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
-            {
-                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/batch/get_by_user?access_token={accessToken}";
-
-                var data = new
-                {
-                    userid_list,
-                    cursor,
-                    limit
-                };
-
-                return await CommonJsonSend.SendAsync<GetExternalContactInfoBatchResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
         /// <summary>

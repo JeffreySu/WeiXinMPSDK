@@ -175,6 +175,9 @@ namespace Senparc.Weixin.Work.MessageContexts
                                 case "MSG_AUDIT_APPROVED":
                                     requestMessage = new RequestMessageEvent_Change_ExternalContact_MsgAudit();
                                     break;
+                                case "TRANSFER_FAIL":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_TransferFail();
+                                    break;
                                 default:
                                     requestMessage = new RequestMessageEventBase();
                                     break;

@@ -92,9 +92,12 @@ namespace Senparc.Weixin.Work
                             break;
                         case ThirdPartyInfo.CANCEL_AUTH://取消授权的通知
                             requestMessage = new RequestMessageInfo_Cancel_Auth();
-                            break;
+                            break; 
                         case ThirdPartyInfo.CREATE_AUTH://授权成功推送auth_code事件
                             requestMessage = new RequestMessageInfo_Create_Auth();
+                            break;
+                        case ThirdPartyInfo.RESET_PERMANENT_CODE://重置永久授权码通知
+                            requestMessage = new RequestMessageInfo_Reset_Permanent_Code();
                             break;
                         //case ThirdPartyInfo.CHANGE_CONTACT://通讯录变更通知
                         //    requestMessage = new RequestMessageInfo_Change_Contact();

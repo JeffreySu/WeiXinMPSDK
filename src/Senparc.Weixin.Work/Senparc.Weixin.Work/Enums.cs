@@ -193,6 +193,11 @@ namespace Senparc.Weixin.Work
         CREATE_AUTH,
 
         /// <summary>
+        /// 重置永久授权码通知
+        /// </summary>
+        RESET_PERMANENT_CODE,
+
+        /// <summary>
         /// 通讯录变更通知
         /// </summary>
 

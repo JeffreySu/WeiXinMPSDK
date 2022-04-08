@@ -54,14 +54,48 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
     {
         public string userid { get; set; }
     }
-
-    /// <summary>
-    /// 获取注册码返回结果
-    /// </summary>
     public class GetRegisterCodeResult : WorkJsonResult
     {
         public string register_code { get; set; }
         public int expires_in { get; set; }
+    }
+
+    /// <summary>
+    /// 该服务商第三方应用下的企业ID
+    /// </summary>
+    public class GetCorpidToOpencorpidResult : WorkJsonResult
+    {
+        /// <summary>
+        /// 该服务商第三方应用下的企业ID
+        /// </summary>
+        public string open_corpid { get; set; }
+    }
+
+    public class GetOpenUseridResult : WorkJsonResult
+    {
+        /// <summary>
+        /// 该服务商第三方应用下的成员ID
+        /// </summary>
+        public List<OpenUserid> open_userid_list { get; set; }
+        public List<string> invalid_userid_list { get; set; }
+    }
+    public class GetUnionidToExternalUseridResult : WorkJsonResult
+    {
+        /// <summary>
+        /// 该企业的外部联系人ID
+        /// </summary>
+        public string external_userid { get; set; }
+    }
+    public class OpenUserid
+    {
+        /// <summary>
+        /// 转换成功的userid
+        /// </summary>
+        public string open_userid { get; set; }
+        /// <summary>
+        /// 转换成功的userid对应的该服务商应用下的成员ID
+        /// </summary>
+        public string userid { get; set; }
     }
 
     /// <summary>

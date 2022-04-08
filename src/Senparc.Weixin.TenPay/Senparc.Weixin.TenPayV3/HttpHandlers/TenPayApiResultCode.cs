@@ -14,7 +14,7 @@ namespace Senparc.Weixin.TenPayV3
     /// <summary>
     /// 微信支付 API 请求返回 HTTP 状态代码
     /// </summary>
-    public record class TenPayApiResultCode
+    public record TenPayApiResultCode
     {
         /// <summary>
         /// 已知返回代码集合

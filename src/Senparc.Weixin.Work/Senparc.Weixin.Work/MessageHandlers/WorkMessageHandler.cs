@@ -457,6 +457,11 @@ namespace Senparc.Weixin.Work.MessageHandlers
                                 OnEvent_ChangeExternalContactMsgAudit(
                                     RequestMessage as RequestMessageEvent_Change_ExternalContact_MsgAudit);
                             break;
+                        case ExternalContactChangeType.transfer_fail:
+                            responseMessage =
+                                OnEvent_ChangeExternalContactTransferFailRequest(
+                                    RequestMessage as RequestMessageEvent_Change_ExternalContact_TransferFail);
+                            break;
                         default:
                             throw new UnknownRequestMsgTypeException("未知的外部联系人事件Event.CHANGE_EXTERNAL_CONTACT下属请求信息", null);
                     }
@@ -725,6 +730,12 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalContactTransferFailRequest(
+            RequestMessageEvent_Change_ExternalContact_TransferFail requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
         /// <summary>
         /// 用户同意消息存档事件（灰度）
         /// </summary>
@@ -794,6 +805,8 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     return OnThirdPartyEvent_Create_Auth((RequestMessageInfo_Create_Auth)thirdPartyInfo);
                 case ThirdPartyInfo.REGISTER_CORP:
                     return OnThirdPartyEvent_REGISTER_CORP((RequestMessager_Register_Corp)thirdPartyInfo);
+                case ThirdPartyInfo.RESET_PERMANENT_CODE://重置永久授权码通知
+                    return OnThirdPartyEvent_Reset_Permanent_Code((RequestMessageInfo_Reset_Permanent_Code)thirdPartyInfo);
                 // 通用事件已统一流转至内部模式
                 //case ThirdPartyInfo.CHANGE_CONTACT:
                 //    return OnThirdPartyEvent_Change_Contact((RequestMessageInfo_Change_Contact)thirdPartyInfo);
@@ -834,7 +847,11 @@ namespace Senparc.Weixin.Work.MessageHandlers
         {
             return ThirdPartyEventSuccessResult;
         }
-
+        
+        protected virtual string OnThirdPartyEvent_Reset_Permanent_Code(RequestMessageInfo_Reset_Permanent_Code thirdPartyInfo)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
         protected virtual string OnThirdPartyEvent_Create_Auth(RequestMessageInfo_Create_Auth thirdPartyInfo)
         {
             return ThirdPartyEventSuccessResult;

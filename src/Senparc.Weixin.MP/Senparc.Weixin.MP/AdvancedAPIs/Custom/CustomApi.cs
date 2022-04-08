@@ -422,6 +422,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 发送图文消息（点击跳转到图文消息页面）
         /// 图文消息条数限制在8条以内，注意，如果图文数超过8，则将会无响应。
+        /// 草稿接口灰度完成后，将不再支持此前客服接口中带 media_id 的 mpnews 类型的图文消息
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
@@ -453,6 +454,54 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     mpnews = new
                     {
                         media_id = mediaId
+                    },
+                    CustomService = new
+                    {
+                        kf_account = kfAccount
+                    }
+                };
+            }
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+
+                return CommonJsonSend.Send(accessToken, UrlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 发送图文消息（点击跳转到图文消息页面）使用通过 “发布” 系列接口得到的 article_id
+        /// 草稿接口灰度完成后，将不再支持此前客服接口中带 media_id 的 mpnews 类型的图文消息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId"></param>
+        /// <param name="article_id"></param>
+        /// <param name="timeOut"></param>
+        /// <param name="kfAccount"></param>
+        /// <returns></returns>
+        public static WxJsonResult SendMpNewsArticle(string accessTokenOrAppId, string openId, string article_id, int timeOut = Config.TIME_OUT, string kfAccount = "")
+        {
+            object data = null;
+            if (kfAccount.IsNullOrWhiteSpace())
+            {
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "mpnewsarticle",
+                    mpnewsarticle = new
+                    {
+                        article_id = article_id
+                    }
+                };
+            }
+            else
+            {
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "mpnewsarticle",
+                    mpnewsarticle = new
+                    {
+                        article_id = article_id
                     },
                     CustomService = new
                     {
@@ -996,6 +1045,56 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// 发送图文消息（点击跳转到图文消息页面）使用通过 “发布” 系列接口得到的 article_id
+        /// 草稿接口灰度完成后，将不再支持此前客服接口中带 media_id 的 mpnews 类型的图文消息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId"></param>
+        /// <param name="article_id"></param>
+        /// <param name="timeOut"></param>
+        /// <param name="kfAccount"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> SendMpNewsArticleAsync(string accessTokenOrAppId, string openId, string article_id, int timeOut = Config.TIME_OUT, string kfAccount = "")
+        {
+            object data = null;
+            if (kfAccount.IsNullOrWhiteSpace())
+            {
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "mpnewsarticle",
+                    mpnewsarticle = new
+                    {
+                        article_id = article_id
+                    }
+                };
+            }
+            else
+            {
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "mpnewsarticle",
+                    mpnewsarticle = new
+                    {
+                        article_id = article_id
+                    },
+                    CustomService = new
+                    {
+                        kf_account = kfAccount
+                    }
+                };
+            }
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+
+                return await CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
 
         /// <summary>
         /// 【异步方法】发送卡券

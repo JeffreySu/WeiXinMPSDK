@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：MessageHandler.Event.cs
     文件功能描述：微信请求的集中处理方法：Event相关
@@ -32,6 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20200909
     修改描述：v3.8.511 调整 MessageHandler 异步方法执行代码
+
+    修改标识：mc7246 - 20211209
+    修改描述：v4.13.2 添加 OnEvent_AppealRecordRequest()、OnEvent_IllegalRecordRequest() 方法
 
 ----------------------------------------------------------------*/
 
@@ -79,6 +82,12 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     break;
                 case Event.wxa_nickname_audit:
                     responseMessage = OnEvent_NicknameAuditRequest(RequestMessage as RequestMessageEvent_NicknameAudit);
+                    break;
+                case Event.wxa_illegal_record:
+                    responseMessage = OnEvent_IllegalRecordRequest(RequestMessage as RequestMessageEvent_IllegalRecord);
+                    break;
+                case Event.wxa_appeal_record:
+                    responseMessage = OnEvent_AppealRecordRequest(RequestMessage as RequestMessageEvent_AppealRecord);
                     break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -166,6 +175,26 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
+        /// <summary>
+        /// 违规记录事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_IllegalRecordRequest(RequestMessageEvent_IllegalRecord requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 小程序申诉记录推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_AppealRecordRequest(RequestMessageEvent_AppealRecord requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
 
 
         #endregion
@@ -207,6 +236,12 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     break;
                 case Event.wxa_nickname_audit://
                     responseMessage = await OnEvent_NicknameAuditRequestAsync(RequestMessage as RequestMessageEvent_NicknameAudit);
+                    break;
+                case Event.wxa_illegal_record:
+                    responseMessage = await OnEvent_IllegalRecordRequestAsync(RequestMessage as RequestMessageEvent_IllegalRecord);
+                    break;
+                case Event.wxa_appeal_record:
+                    responseMessage = await OnEvent_AppealRecordRequestAsync(RequestMessage as RequestMessageEvent_AppealRecord);
                     break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -253,7 +288,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         }
 
         /// <summary>
-        /// 小程序审核延后通知
+        /// 【异步方法】小程序审核延后通知
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
@@ -264,7 +299,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
 
         /// <summary>
-        /// 小程序审核失败通知
+        /// 【异步方法】小程序审核失败通知
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
@@ -273,7 +308,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_WeAppAuditFailRequest(requestMessage)).ConfigureAwait(false);
         }
         /// <summary>
-        /// 小程序审核成功通知
+        /// 【异步方法】小程序审核成功通知
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
@@ -284,13 +319,33 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
 
         /// <summary>
-        /// 名称审核结果事件推送
+        /// 【异步方法】名称审核结果事件推送
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_NicknameAuditRequestAsync(RequestMessageEvent_NicknameAudit requestMessage)
         {
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_NicknameAuditRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】违规记录事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_IllegalRecordRequestAsync(RequestMessageEvent_IllegalRecord requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_IllegalRecordRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】小程序申诉记录推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_AppealRecordRequestAsync(RequestMessageEvent_AppealRecord requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_AppealRecordRequest(requestMessage)).ConfigureAwait(false);
         }
 
 

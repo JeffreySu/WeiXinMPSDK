@@ -16,7 +16,7 @@ namespace Senparc.Weixin
         {
             get
             {
-#if !NET451
+#if !NET462
                 if (_commonSP == null)
                 {
                     _commonSP = Senparc.CO2NET.SenparcDI.GetServiceProvider();

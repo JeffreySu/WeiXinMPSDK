@@ -1,4 +1,4 @@
-﻿using Senparc.Weixin.MP.Containers;
+﻿using Senparc.Weixin.WxOpen.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 using System;
 using System.Collections.Generic;

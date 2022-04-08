@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
 
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -95,6 +95,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：WangDrama - 20210630
     修改描述：v6.9.600 添加 ReturnCode.SenparcWeixinSDK配置错误 枚举
+
+    修改标识：mc7246 - 20220402
+    修改描述：v6.14.5 添加试用小程序接口及事件
 
 ----------------------------------------------------------------*/
 
@@ -352,6 +355,12 @@ namespace Senparc.Weixin
         公众号_小程序已有_名称A_时_需与该帐号相同主体才可申请_名称A_小程序_公众号已有_名称A_时_需与该帐号相同主体才可申请_名称A = 53017,
         名称命中微信号 = 53018,
         名称在保护期内 = 53019,
+
+        该微信用户创建试用小程序已经5个_达到上限 = 61071,
+        该微信号错误或者为不活跃低信用户_通常为微信小号_请更换为正常的微信号后重试 = 61072,
+        名称命中了关键字_像小程序_微信_腾讯等以及知名品牌关键字_请更换名字后重试 = 86011,
+        openid不合法 = 86012,
+        试用小程序名称长度错误_只支持4_30个字符_不包含的试用小程序这六个汉字的占用 = 86017,
 
         //订阅通知
         模版tid参数错误 = 200014,

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-#if NET451
+#if NET462
 using System.Web;
 #endif
 
@@ -12,7 +12,7 @@ namespace Microsoft.AspNetCore.Http
 
         public static string GetAbsoluteUri(this HttpRequest request)
         {
-#if NET451
+#if NET462
             return request.Url.PathAndQuery;
 #else
                  return new StringBuilder()

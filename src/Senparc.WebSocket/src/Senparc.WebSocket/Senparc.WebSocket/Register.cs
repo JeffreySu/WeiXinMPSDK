@@ -9,7 +9,7 @@
 
 ----------------------------------------------------------------*/
 
-#if !NET451
+#if !NET462
 using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.RegisterServices;
 using System;

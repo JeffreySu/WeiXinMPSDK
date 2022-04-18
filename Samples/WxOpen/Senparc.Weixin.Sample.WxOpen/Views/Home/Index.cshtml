@@ -73,13 +73,11 @@
                     <p>您可以直接引用 Senparc.Weixin 的源码进行开发，也可以引用已经打包完成的 dll（通过 Nuget 包，推荐），以方便随时获取官方的更新。注意：直接引用源码和引用 Nuget 包只能二选一。</p>
 
                     <h5>引用源码</h5>
-                    <p>您可以在当前解决方案中，<strong>Libraries</strong> 目录下，将所需要引用的程序集引用（复制）到您开发环境的解决方案中，请注意需要同时引用被依赖的项目，如 <code>Senparc.Weixin</code> 项目是所有项目都需要依赖的。</p>
+                    <p>您可以打开 <strong>../All/net6-mvc/</strong> 前解决方案（全量进阶示例），在 <strong>Libraries</strong> 目录下，将所需要引用的程序集引用（复制）到您开发环境的解决方案中，请注意需要同时引用被依赖的项目，如 <code>Senparc.Weixin</code> 项目是所有项目都需要依赖的。</p>
                     <p>当前示例项目默认就使用了直接引用源码的方式，可从 .csproj 文件中看到引用方式：</p>
-                    <pre><code>&lt;ItemGroup&gt;
-    &lt;ProjectReference Include=&quot;..\..\..\src\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.net6.csproj&quot; /&gt;
-    &lt;ProjectReference Include=&quot;..\..\..\src\Senparc.Weixin.WxOpen.Middleware\Senparc.Weixin.WxOpen.Middleware.net6.csproj&quot; /&gt;
-    &lt;ProjectReference Include=&quot;..\..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net6.csproj&quot; /&gt;
-&lt;/ItemGroup&gt;</code></pre>
+                    <pre><code>&lt;ProjectReference Include=&quot;..\..\..\src\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.net6.csproj&quot; /&gt;
+		&lt;ProjectReference Include=&quot;..\..\..\src\Senparc.Weixin.WxOpen.Middleware\Senparc.Weixin.WxOpen.Middleware.net6.csproj&quot; /&gt;
+		&lt;ProjectReference Include=&quot;..\..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net6.csproj&quot; /&gt;</code></pre>
 
                     <h5>引用程序集（推荐）</h5>
 
@@ -94,7 +92,7 @@
                     <div class="tab-content" id="nav-tabContent-install">
                         <div class="tab-pane fade show active" id="nav-vs" role="tabpanel" aria-labelledby="nav-home-tab">
                             <p>
-                                在开发项目【解决方案资源管理器】中，对需要添加 Senparc.Weixin.WxOpen 的模块点击右键，点击【管理 Nuget 程序包】，在【浏览】标签中输入 <strong>Senparc.Weixin.WxOpen</strong>，点击右侧【安装】按钮。如下图所示：<br />
+                                在开发项目【解决方案资源管理器】中，对需要添加 Senparc.Weixin.WxOpen 的模块点击右键，点击【管理 Nuget 程序包】，在【浏览】标签中输入 <strong>Senparc.Weixin.TenPay</strong>，点击右侧【安装】按钮。如下图所示：<br />
                             </p>
                             <p>
                                 <figure class="figure">

@@ -96,6 +96,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：WangDrama - 20210630
     修改描述：v6.9.600 添加 ReturnCode.SenparcWeixinSDK配置错误 枚举
 
+    修改标识：mc7246 - 20220402
+    修改描述：v6.14.5 添加试用小程序接口及事件
+
 ----------------------------------------------------------------*/
 
 

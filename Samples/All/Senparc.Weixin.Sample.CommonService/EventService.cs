@@ -24,7 +24,7 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP;
 //DPBMARK_END
-#if NET451
+#if NET462
 using System.Web;
 using System.Configuration;
 using Senparc.Weixin.Sample.CommonService.TemplateMessage;//DPBMARK MP DPBMARK_END
@@ -69,7 +69,7 @@ namespace Senparc.Weixin.Sample.CommonService
                         var strongResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
 
                         //获取Senparc.Weixin.MP.dll版本信息
-#if NET451
+#if NET462
                         var dllPath = HttpContext.Current.Server.MapPath("~/bin/Senparc.Weixin.MP.dll");
 #else
                         //var dllPath = ServerUtility.ContentRootMapPath("~/bin/Release/netcoreapp2.2/Senparc.Weixin.MP.dll");//本地测试路径

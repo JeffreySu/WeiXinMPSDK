@@ -64,7 +64,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.CO2NET.Helpers;
 
-#if NET451
+#if NET462
 using System.Web.Script.Serialization;
 #endif
 
@@ -234,7 +234,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 try
                 {
 
-#if NET451
+#if NET462
                     JavaScriptSerializer js = new JavaScriptSerializer();
                     var jsonResult = js.Deserialize<GetMenuResultFull>(jsonString);
 #else

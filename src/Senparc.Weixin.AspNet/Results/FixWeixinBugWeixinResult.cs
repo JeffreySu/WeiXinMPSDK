@@ -7,7 +7,7 @@ using System.Xml.Linq;
 using Senparc.Weixin.Entities;
 using Senparc.NeuChar.MessageHandlers;
 
-#if NET451
+#if NET462
 using System.Web.Mvc;
 using System.Web;
 #else
@@ -81,7 +81,7 @@ namespace Senparc.Weixin.AspNet.MvcExtension
             set { base.Content = value; }
         }
 
-#if NET451
+#if NET462
         public override void ExecuteResult(ControllerContext context)
         {
             var content = this.Content;

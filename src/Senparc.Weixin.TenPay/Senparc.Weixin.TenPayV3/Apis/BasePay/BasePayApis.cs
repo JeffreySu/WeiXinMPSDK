@@ -44,7 +44,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20211026
     修改描述：v0.3.500.5 修复 RefundQueryAsync() 方法接口参数传递问题
-    
+
+    修改标识：Senparc - 20211026
+    修改描述：v0.6.1 修复 CloseOrderAsync() 参数问题
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Helpers;
@@ -76,7 +79,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public BasePayApis(ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null)
         {
             _tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
-           
+
         }
 
         //private readonly IServiceProvider _serviceProvider;
@@ -411,7 +414,11 @@ namespace Senparc.Weixin.TenPayV3.Apis
             {
                 var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/pay/transactions/out-trade-no/{out_trade_no}/close");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
-                return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, mchid, timeOut);
+                var data = new
+                {
+                    mchid = mchid
+                };
+                return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, data, timeOut);
             }
             catch (Exception ex)
             {

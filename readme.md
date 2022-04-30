@@ -60,10 +60,9 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 本库包含了 .NET4.5/.NET Standard 2.0/.NET Core/.NET 6 多个版本的源代码（核心逻辑完全一致）：
 
-* 使用 Visual Studio 2019 打开 Demo（支持所有版本）：.NET 6.0 - [Senparc.Weixin.Sample.Net6.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net6-mvc)（包含源码引用推荐）
-* 使用 Visual Studio 2019 打开 .NET 3.1 Demo - [Senparc.Weixin.Sample.NetCore3.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.1-mvc) （不包含源码，仅引用类库）
-* 使用 Visual Studio 2019 或其他版本打开 .NET 4.5 Demo：[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net45-mvc)（不包含源码，仅引用类库）
-* 使用 Visual Studio 2017/2019 打开命令行 Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/console)
+* 使用 Visual Studio 2022 打开 Demo（支持所有版本）：.NET 6.0 - [Senparc.Weixin.Sample.Net6.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net6-mvc)（包含源码引用推荐）
+* 使用 Visual Studio 2019 或其他版本打开 .NET 4.5 Demo：[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net45-mvc)（不包含源码，仅引用类库）
+* 使用 Visual Studio 2017/2019 打开命令行 Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/console)
 
 各模块类库
 ----------------

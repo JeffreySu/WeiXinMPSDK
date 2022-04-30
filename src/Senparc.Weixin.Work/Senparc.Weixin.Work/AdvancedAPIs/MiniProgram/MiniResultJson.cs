@@ -7,6 +7,10 @@
     
     创建标识：Senparc - 20181009
 
+    修改标识：Loongle - 20220424
+    修改描述：v3.15.1 修复 LoginCheckResultJson 缺少 open_userid
+
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;

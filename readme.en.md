@@ -63,11 +63,10 @@ Index
 
 The library contains the source code (the Core logic is exactly the same) that includes .Net 3.5/4.0/4.5/.NET Standard 2.0/.NET Core/.NET 6.
 
-* Use Visual Studio 2019 open Demo(support for all .NET Versions)：.NET 6.0 - [Senparc.Weixin.Sample.Net6.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net6-mvc) (referenced source code, recommanded)
-* Use Visual Studio 2019 open .NET 3.1 Demo - [Senparc.Weixin.Sample.NetCore3.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.1-mvc) (NOT referenced source code)
+* Use Visual Studio 2019 open Demo(support for all .NET Versions)：.NET 6.0 - [Senparc.Weixin.Sample.Net6.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net6-mvc) (referenced source code, recommanded)
 * Use other versions of Visual Studio to open the Demo (support .net 4.5 only) :
-[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net45-mvc)
-* Use Visual Studio 2017/2019 to open Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/console)
+[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net45-mvc)
+* Use Visual Studio 2017/2019 to open Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/console)
 
 
 SDK Modules

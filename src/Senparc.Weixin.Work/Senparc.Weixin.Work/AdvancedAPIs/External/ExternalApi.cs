@@ -41,6 +41,7 @@ using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Work.AdvancedAPIs.External;
 using Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
@@ -320,7 +321,51 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #region 管理企业标签
 
+        /// <summary>
+        /// 获取企业标签库
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="tag_id">（可选）要查询的标签id</param>
+        /// <param name="group_id">（可选）要查询的标签组id，返回该标签组以及其下的所有标签信息</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetCorpTagListResult GetCropTagList(string accessTokenOrAppKey, List<string> tag_id = null, List<string> group_id = null, int timeOut = Senparc.Weixin.Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Senparc.Weixin.Config.ApiWorkHost + "/cgi-bin/externalcontact/get_corp_tag_list?access_token={0}", accessToken);
+                var data = new
+                {
+                    tag_id,
+                    group_id
+                };
+                return CommonJsonSend.Send<GetCorpTagListResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
 
+        /// <summary>
+        /// 删除企业标签，企业可通过此接口删除客户标签库中的标签，或删除整个标签组。
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="tag_id">（可选）标签的id列表</param>
+        /// <param name="group_id">（可选）标签组的id列表</param>
+        /// <param name="agentid">（可选）授权方安装的应用agentid。仅旧的第三方多应用套件需要填此参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WorkJsonResult DeleteCropTag(string accessTokenOrAppKey, List<string> tag_id = null, List<string> group_id = null, int? agentid = null, int timeOut = Senparc.Weixin.Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Senparc.Weixin.Config.ApiWorkHost + "/cgi-bin/externalcontact/del_corp_tag?access_token={0}", accessToken);
+                var data = new
+                {
+                    tag_id,
+                    group_id,
+                    agentid
+                };
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
 
         #endregion
 
@@ -686,6 +731,64 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return await CommonJsonSend.SendAsync<GetGroupChatGroupByDayListResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
+
+        #endregion
+
+        #region 客户标签管理
+
+        #region 管理企业标签
+
+        /// <summary>
+        /// 【异步方法】获取企业标签库
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="tag_id">（可选）要查询的标签id</param>
+        /// <param name="group_id">（可选）要查询的标签组id，返回该标签组以及其下的所有标签信息</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetCorpTagListResult> GetCropTagListAsync(string accessTokenOrAppKey, List<string> tag_id = null, List<string> group_id = null, int timeOut = Senparc.Weixin.Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Senparc.Weixin.Config.ApiWorkHost + "/cgi-bin/externalcontact/get_corp_tag_list?access_token={0}", accessToken);
+                var data = new
+                {
+                    tag_id,
+                    group_id
+                };
+                return await CommonJsonSend.SendAsync<GetCorpTagListResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 【异步方法】删除企业标签，企业可通过此接口删除客户标签库中的标签，或删除整个标签组。
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="tag_id">（可选）标签的id列表</param>
+        /// <param name="group_id">（可选）标签组的id列表</param>
+        /// <param name="agentid">（可选）授权方安装的应用agentid。仅旧的第三方多应用套件需要填此参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> DeleteCropTagAsync(string accessTokenOrAppKey, List<string> tag_id = null, List<string> group_id = null, int? agentid = null, int timeOut = Senparc.Weixin.Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Senparc.Weixin.Config.ApiWorkHost + "/cgi-bin/externalcontact/del_corp_tag?access_token={0}", accessToken);
+                var data = new
+                {
+                    tag_id,
+                    group_id,
+                    agentid
+                };
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        #endregion
+
+        #region 编辑客户企业标签
+
+        #endregion
 
         #endregion
 

@@ -28,11 +28,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
         /// <summary>
         /// 标签组创建时间
         /// </summary>
-        public int create_time { get; set; }
+        public long create_time { get; set; }
         /// <summary>
         /// 标签组排序的次序值，order值大的排序靠前。有效的值范围是[0, 2^32)
         /// </summary>
-        public int order { get; set; }
+        public long order { get; set; }
         /// <summary>
         /// 标签组所属的规则组id
         /// </summary>
@@ -56,11 +56,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
         /// <summary>
         /// 标签创建时间
         /// </summary>
-        public int create_time { get; set; }
+        public long create_time { get; set; }
         /// <summary>
         /// 标签排序的次序值，order值大的排序靠前。有效的值范围是[0, 2^32)
         /// </summary>
-        public int order { get; set; }
+        public long order { get; set; }
     }
 
 }

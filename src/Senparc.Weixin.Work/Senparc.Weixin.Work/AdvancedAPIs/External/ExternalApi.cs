@@ -378,7 +378,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentid">授权方安装的应用agentid。仅旧的第三方多应用套件需要填此参数</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WorkJsonResult EditCropTag(string accessTokenOrAppKey, int id, string name = null, int? order = null, int? agentid = null, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult EditCropTag(string accessTokenOrAppKey, string id, string name = null, int? order = null, int? agentid = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -476,7 +476,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="order">（可选）标签/标签组的次序值。order值大的排序靠前。有效的值范围是[0, 2^32)</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WorkJsonResult EditStrategyTag(string accessTokenOrAppKey, int id, string name = null, int? order = null, int timeOut = Senparc.Weixin.Config.TIME_OUT)
+        public static WorkJsonResult EditStrategyTag(string accessTokenOrAppKey, string id, string name = null, int? order = null, int timeOut = Senparc.Weixin.Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -1061,7 +1061,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="order">（可选）标签/标签组的次序值。order值大的排序靠前。有效的值范围是[0, 2^32)</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<WorkJsonResult> EditStrategyTagAsync(string accessTokenOrAppKey, int id, string name = null, int? order = null, int timeOut = Senparc.Weixin.Config.TIME_OUT)
+        public static async Task<WorkJsonResult> EditStrategyTagAsync(string accessTokenOrAppKey, string id, string name = null, int? order = null, int timeOut = Senparc.Weixin.Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {

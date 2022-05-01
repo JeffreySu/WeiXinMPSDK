@@ -8,17 +8,14 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
 {
     /// <summary>
-    /// 添加企业客户标签 返回结果
+    ///获取指定规则组下的企业客户标签 返回结果
     /// </summary>
-    public class AddCorpTagResult : WorkJsonResult
+    public class GetStrategyTagListResult : WorkJsonResult
     {
-        /// <summary>
-        /// 标签组
-        /// </summary>
-        public AddCorpTagResult_Tag_Group tag_group { get; set; }
+        public GetStrategyTagListResult_Tag_Group[] tag_group { get; set; }
     }
 
-    public class AddCorpTagResult_Tag_Group
+    public class GetStrategyTagListResult_Tag_Group
     {
         /// <summary>
         /// 标签组id
@@ -33,23 +30,27 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
         /// </summary>
         public int create_time { get; set; }
         /// <summary>
-        /// 标签组次序值。order值大的排序靠前。有效的值范围是[0, 2^32)
+        /// 标签组排序的次序值，order值大的排序靠前。有效的值范围是[0, 2^32)
         /// </summary>
         public int order { get; set; }
         /// <summary>
+        /// 标签组所属的规则组id
+        /// </summary>
+        public int strategy_id { get; set; }
+        /// <summary>
         /// 标签组内的标签列表
         /// </summary>
-        public AddCorpTagResult_Tag_Group_Tag[] tag { get; set; }
+        public GetStrategyTagListResult_Tag_Group_Tag[] tag { get; set; }
     }
 
-    public class AddCorpTagResult_Tag_Group_Tag
+    public class GetStrategyTagListResult_Tag_Group_Tag
     {
         /// <summary>
-        /// 新建标签id
+        /// 标签id
         /// </summary>
         public string id { get; set; }
         /// <summary>
-        /// 新建标签名称
+        /// 标签名称
         /// </summary>
         public string name { get; set; }
         /// <summary>
@@ -57,7 +58,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
         /// </summary>
         public int create_time { get; set; }
         /// <summary>
-        /// 标签次序值。order值大的排序靠前。有效的值范围是[0, 2^32)
+        /// 标签排序的次序值，order值大的排序靠前。有效的值范围是[0, 2^32)
         /// </summary>
         public int order { get; set; }
     }

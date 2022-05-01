@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
 {
     /// <summary>
-    /// 添加企业客户标签 返回结果
+    /// 为指定规则组创建企业客户标签 返回结果
     /// </summary>
-    public class AddCorpTagResult : WorkJsonResult
+    public class AddStrategyTagResult : WorkJsonResult
     {
         /// <summary>
         /// 标签组
         /// </summary>
-        public AddCorpTagResult_Tag_Group tag_group { get; set; }
+        public AddStrategyTagResult_Tag_Group tag_group { get; set; }
     }
 
-    public class AddCorpTagResult_Tag_Group
+    public class AddStrategyTagResult_Tag_Group
     {
         /// <summary>
         /// 标签组id
@@ -39,10 +39,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
         /// <summary>
         /// 标签组内的标签列表
         /// </summary>
-        public AddCorpTagResult_Tag_Group_Tag[] tag { get; set; }
+        public AddStrategyTagResult_Tag_Group_Tag[] tag { get; set; }
     }
 
-    public class AddCorpTagResult_Tag_Group_Tag
+    public class AddStrategyTagResult_Tag_Group_Tag
     {
         /// <summary>
         /// 新建标签id

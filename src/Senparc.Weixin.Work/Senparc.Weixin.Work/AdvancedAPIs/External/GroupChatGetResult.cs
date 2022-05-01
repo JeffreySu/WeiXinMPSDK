@@ -71,7 +71,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External
         /// <summary>
         ///     群的创建时间
         /// </summary>
-        public int create_time { get; set; }
+        public long create_time { get; set; }
 
         /// <summary>
         ///     群公告

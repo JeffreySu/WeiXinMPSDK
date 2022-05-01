@@ -47,7 +47,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
         /// <summary>
         /// 标签次序值。order值大的排序靠前。有效的值范围是[0, 2^32)
         /// </summary>
-        public int order { get; set; }
+        public long order { get; set; }
     }
 
 }

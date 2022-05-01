@@ -30,6 +30,10 @@
 
     修改标识：IcedMango - 20211122
     修改描述：v3.14.1 “企业微信获取客户群详情”接口，增加群内成员名称返回参数
+
+    修改标识：Senparc - 20220501
+    修改描述：v3.15.2 完善企业标签接口
+
 ----------------------------------------------------------------*/
 
 /*
@@ -323,23 +327,68 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         /// <summary>
         /// 获取企业标签库
+        /// <para><see href="https://developer.work.weixin.qq.com/document/path/94882">官方文档</see></para>
         /// </summary>
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="tag_id">（可选）要查询的标签id</param>
         /// <param name="group_id">（可选）要查询的标签组id，返回该标签组以及其下的所有标签信息</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetCorpTagListResult GetCropTagList(string accessTokenOrAppKey, List<string> tag_id = null, List<string> group_id = null, int timeOut = Senparc.Weixin.Config.TIME_OUT)
+        public static GetCorpTagListResult GetCropTagList(string accessTokenOrAppKey, List<string> tag_id = null, List<string> group_id = null, int timeOut = Config.TIME_OUT)
         {
+            //文档：https://developer.work.weixin.qq.com/document/path/94882
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Senparc.Weixin.Config.ApiWorkHost + "/cgi-bin/externalcontact/get_corp_tag_list?access_token={0}", accessToken);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/get_corp_tag_list?access_token={0}", accessToken);
                 var data = new
                 {
                     tag_id,
                     group_id
                 };
                 return CommonJsonSend.Send<GetCorpTagListResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 为指定规则组创建企业客户标签
+        /// <para><see href="https://developer.work.weixin.qq.com/document/path/94882">官方文档</see></para>
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static AddCorpTagResult AddCropTag(string accessTokenOrAppKey, AddCorpTagRequest data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/add_corp_tag?access_token={0}", accessToken);
+                return CommonJsonSend.Send<AddCorpTagResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 编辑指定规则组下的企业客户标签
+        /// <para>注意:修改后的标签组不能和已有的标签组重名，标签也不能和同一标签组下的其他标签重名。</para>
+        /// <para><see href="https://developer.work.weixin.qq.com/document/path/94882">官方文档</see></para>
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="id">（必须）标签或标签组的id</param>
+        /// <param name="name">（可选）新的标签或标签组名称，最长为30个字符</param>
+        /// <param name="order">（可选）标签/标签组的次序值。order值大的排序靠前。有效的值范围是[0, 2^32)</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WorkJsonResult EditCropTag(string accessTokenOrAppKey, int id, string name = null, int? order = null, int timeOut = Senparc.Weixin.Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/edit_corp_tag?access_token={0}", accessToken);
+                var data = new
+                {
+                    id,
+                    name,
+                    order
+                };
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
 
@@ -352,11 +401,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentid">（可选）授权方安装的应用agentid。仅旧的第三方多应用套件需要填此参数</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WorkJsonResult DeleteCropTag(string accessTokenOrAppKey, List<string> tag_id = null, List<string> group_id = null, int? agentid = null, int timeOut = Senparc.Weixin.Config.TIME_OUT)
+        public static WorkJsonResult DeleteCropTag(string accessTokenOrAppKey, List<string> tag_id = null, List<string> group_id = null, int? agentid = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Senparc.Weixin.Config.ApiWorkHost + "/cgi-bin/externalcontact/del_corp_tag?access_token={0}", accessToken);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/del_corp_tag?access_token={0}", accessToken);
                 var data = new
                 {
                     tag_id,
@@ -757,6 +806,50 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     group_id
                 };
                 return await CommonJsonSend.SendAsync<GetCorpTagListResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+
+        /// <summary>
+        /// 【异步方法】为指定规则组创建企业客户标签
+        /// <para><see href="https://developer.work.weixin.qq.com/document/path/94882">官方文档</see></para>
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<AddCorpTagResult> AddCropTagAsync(string accessTokenOrAppKey, AddCorpTagRequest data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/add_corp_tag?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<AddCorpTagResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 【异步方法】编辑指定规则组下的企业客户标签
+        /// <para>注意:修改后的标签组不能和已有的标签组重名，标签也不能和同一标签组下的其他标签重名。</para>
+        /// <para><see href="https://developer.work.weixin.qq.com/document/path/94882">官方文档</see></para>
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="id">（必须）标签或标签组的id</param>
+        /// <param name="name">（可选）新的标签或标签组名称，最长为30个字符</param>
+        /// <param name="order">（可选）标签/标签组的次序值。order值大的排序靠前。有效的值范围是[0, 2^32)</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> EditCropTagAsync(string accessTokenOrAppKey, int id, string name = null, int? order = null, int timeOut = Senparc.Weixin.Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/edit_corp_tag?access_token={0}", accessToken);
+                var data = new
+                {
+                    id,
+                    name,
+                    order
+                };
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
 

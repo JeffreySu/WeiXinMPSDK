@@ -25,6 +25,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         public string corpid { get; set; }
         public string userid { get; set; }
         public string session_key { get; set; }
-    }
-
+        public string open_userid { get; set; }
+    } 
 }

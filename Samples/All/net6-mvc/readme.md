@@ -6,9 +6,9 @@
 
 当前 Sample 提供了 .NET 6.0 的 Mvc 项目示例，可以直接进行部署测试（高级功能测试需要修改配置文件，如修改 appId 等）。
 
-当前 Sample 也可用于调试 Senparc.Weixin SDK，支持 .NET 4.5、.NET Standard 2.2、.NET Core 3.1、.NET 6.0 的不同版本库编译，并可在 Release 编译条件下生成 nuget 包。
+当前 Sample 也可用于调试 Senparc.Weixin SDK，支持 .NET 4.6.2+、.NET Standard 2.1+、.NET 6.0 的不同版本库编译，并可在 Release 编译条件下生成 nuget 包。
 
-> 提示：由于源码中采用了条件编译，因此默认情况下，需要开发环境同时安装 `.NET Framework 4.5.1`、`.NET Core 3.1`、'.NET 6.0' 才能编译成功！<br>
+> 提示：由于源码中采用了条件编译，因此默认情况下，需要开发环境同时安装 `.NET Framework 4.6.2`、'.NET 6.0' 才能编译成功！<br>
 > 如果您只希望编译 .NET Core 3.1，请将各个 .csproj 文件中的编译版本条件做对应的修改。
 
 ## 使用 .NET Framework 4.5 Demo

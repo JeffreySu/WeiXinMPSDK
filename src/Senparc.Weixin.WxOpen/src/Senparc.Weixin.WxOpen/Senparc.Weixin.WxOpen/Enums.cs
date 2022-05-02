@@ -60,7 +60,8 @@ namespace Senparc.Weixin.WxOpen
         weapp_audit_fail,
         weapp_audit_delay,
         wxa_illegal_record, //小程序违规记录事件
-        wxa_appeal_record //小程序申诉记录推送
+        wxa_appeal_record, //小程序申诉记录推送
+        wxa_privacy_apply //隐私权限审核结果推送
 
     }
 

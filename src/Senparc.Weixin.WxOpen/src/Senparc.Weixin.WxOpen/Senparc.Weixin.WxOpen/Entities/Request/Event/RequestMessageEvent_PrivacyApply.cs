@@ -22,7 +22,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     Copyright (C) 2022 Senparc
     
     文件名：RequestMessageEvent_WeAppAuditSuccess.cs
-    文件功能描述：事件之小程序审核成功
+    文件功能描述：事件之隐私权限审核结果推送
     
     
     创建标识：Senparc - 2010828

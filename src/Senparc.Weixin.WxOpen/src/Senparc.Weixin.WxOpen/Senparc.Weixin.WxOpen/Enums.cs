@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20170106
 
+    修改标识：mc7246 - 20220504
+    修改描述：v3.15.2 添加小程序隐私权限审核结果推送
+
 ----------------------------------------------------------------*/
 
 using System.ComponentModel;
@@ -60,7 +63,8 @@ namespace Senparc.Weixin.WxOpen
         weapp_audit_fail,
         weapp_audit_delay,
         wxa_illegal_record, //小程序违规记录事件
-        wxa_appeal_record //小程序申诉记录推送
+        wxa_appeal_record, //小程序申诉记录推送
+        wxa_privacy_apply //隐私权限审核结果推送
 
     }
 

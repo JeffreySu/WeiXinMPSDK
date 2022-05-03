@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>16.18</Version>
+    <Version>16.18.1</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -515,6 +515,7 @@
 			v16.17.2 优化永久素材上传接口，提供素材类型枚举：UploadForeverMediaType
 			v16.17.3 UserApi.Info() 接口返回值，将 headimgurl、nickname 设为过期
 			v16.17.8 新增草稿箱和发布能力接口
+			v16.18.1 公众号菜单添加 article_id、article_view_limited 类型 
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -572,8 +573,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET.APM" Version="1.2.0" />
-    <PackageReference Include="Senparc.NeuChar" Version="2.1.0" />
-    <PackageReference Include="Senparc.NeuChar.App" Version="1.1.0" />
+    <PackageReference Include="Senparc.NeuChar" Version="2.1.1.1" />
+    <PackageReference Include="Senparc.NeuChar.App" Version="1.1.1.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

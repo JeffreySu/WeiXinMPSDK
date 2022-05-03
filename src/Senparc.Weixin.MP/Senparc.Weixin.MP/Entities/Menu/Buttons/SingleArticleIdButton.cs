@@ -21,34 +21,30 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2022 Senparc
     
-    文件名：SingleMediaIdButton.cs
-    文件功能描述：下发消息（除文本消息）按钮
+    文件名：SingleArticleIdButton.cs
+    文件功能描述：用户点击 article_id 类型按钮后，微信客户端将会以卡片形式，下发开发者在按钮中填写的图文消息
     
     
-    创建标识：Senparc - 20170824
+    创建标识：Senparc - 20220503
 
-    修改标识：Senparc - 20181005
-    修改描述：菜单按钮类型（ButtonType）改为使用 Senparc.NeuChar.MenuButtonType
-    
 ----------------------------------------------------------------*/
 using Senparc.NeuChar;
-using System;
 
 namespace Senparc.Weixin.MP.Entities.Menu
 {
     /// <summary>
-    /// 下发消息（除文本消息）按钮
+    /// article_id 按钮
+    /// <para>用户点击 article_id 类型按钮后，微信客户端将会以卡片形式，下发开发者在按钮中填写的图文消息</para>
     /// </summary>
-    [Obsolete("草稿接口灰度完成后，将不再支持图文信息类型的 media_id 和 view_limited，有需要的，请使用 article_id 和 article_view_limited 代替")]
-    public class SingleMediaIdButton : SingleButton
+    public class SingleArticleIdButton : SingleButton
     {
         /// <summary>
-        /// 下发消息（除文本消息）用户点击media_id类型按钮后，微信服务器会将开发者填写的永久素材id对应的素材下发给用户，永久素材类型可以是图片、音频、视频、图文消息。请注意：永久素材id必须是在“素材管理/新增永久素材”接口上传后获得的合法id。
+        /// 发布后获得的合法 article_id
         /// </summary>
-        public string media_id { get; set; }
+        public string article_id { get; set; }
 
-        public SingleMediaIdButton()
-            : base(MenuButtonType.media_id.ToString())
+        public SingleArticleIdButton()
+            : base(MenuButtonType.article_id.ToString())
         {
         }
     }

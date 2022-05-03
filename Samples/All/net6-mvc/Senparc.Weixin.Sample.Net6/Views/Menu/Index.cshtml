@@ -393,6 +393,7 @@
                                             <input type="hidden" class="control-input" name="@(namePrefix).appid" id="@(idPrefix)_appid" />
                                             <input type="hidden" class="control-input" name="@(namePrefix).pagepath" id="@(idPrefix)_pagepath" />
                                             <input type="hidden" class="control-input" name="@(namePrefix).media_id" id="@(idPrefix)_mediaid" />
+                                            <input type="hidden" class="control-input" name="@(namePrefix).article_id" id="@(idPrefix)_articleid" />
                                             <input type="text" class="control-input txtButton" name="@(namePrefix).name" id="@(idPrefix)_name" data-i="@i" data-j="@j" @Html.Raw(isRootMenu ? string.Format(@"data-root=""{0}""", j) : "") />
                                         </td>
                                     }
@@ -418,6 +419,8 @@
                             <option value="scancode_waitmsg">扫码推事件且弹出“消息接收中”提示框</option>
                             <option value="media_id">下发消息（除文本消息）</option>
                             <option value="view_limited">跳转图文消息URL</option>
+                            <option value="article_id">article_id</option>
+                            <option value="article_view_limited">article_view_limited</option>
                         </select>
                     </p>
                     <p id="buttonDetails_key_area">
@@ -434,6 +437,9 @@
                     </p>
                     <p id="buttonDetails_mediaId_area">
                         MediaId：<input id="buttonDetails_mediaId" class="control-input txtButtonDetails" type="text" />
+                    </p>
+                    <p id="buttonDetails_articleId_area">
+                        ArticleId：<input id="buttonDetails_articleId" class="control-input txtButtonDetails" type="text" />
                     </p>
 
                     <p id="rootButtonNotice">

@@ -34,12 +34,16 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：mc7246 - 20211209
     修改描述：v4.13.2 添加“小程序违规和申诉管理”接口
 
+    修改标识：mc7246 - 20220504
+    修改描述：v4.14.2 添加小程序隐私接口
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.WxaAPIs
@@ -147,6 +151,49 @@ namespace Senparc.Weixin.Open.WxaAPIs
         }
 
         #endregion
+        #region 隐私接口
+        /// <summary>
+        /// 获取隐私接口列表
+        /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/apply_api/get_privacy_interface.html
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public static GetPrivacyInterfaceJsonResult GetPrivacyInterface(string accessToken)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/security/get_privacy_interface?access_token={accessToken.AsUrlData()}";
+
+
+            return CommonJsonSend.Send<GetPrivacyInterfaceJsonResult>(null, url, null, CommonJsonSendType.GET);
+
+        }
+
+        /// <summary>
+        /// 申请隐私接口
+        /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/apply_api/apply_privacy_interface.html
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="api_name">申请的api英文名，例如wx.choosePoi，严格区分大小写</param>
+        /// <param name="content">申请说原因，不超过300个字符；需要以utf-8编码提交，否则会出现审核失败</param>
+        /// <param name="url_list">(辅助网页)例如，上传官网网页链接用于辅助审核</param>
+        /// <param name="pic_list">(辅助图片)填写图片的url ，最多10个</param>
+        /// <param name="video_list">(辅助视频)填写视频的链接 ，最多支持1个；视频格式只支持mp4格式</param>
+        /// <returns></returns>
+        public static ApplyPrivacyInterfaceJsonResult ApplyPrivacyInterface(string accessToken, string api_name, string content, List<string> url_list = null,List<string> pic_list=null,List<string> video_list=null)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/security/apply_privacy_interface?access_token={accessToken.AsUrlData()}";
+
+            var data = new
+            {
+                api_name,
+                content,
+                url_list,
+                pic_list,
+                video_list
+            };
+
+            return CommonJsonSend.Send<ApplyPrivacyInterfaceJsonResult>(null, url, data);
+        }
+        #endregion
         #endregion
 
         #region 异步方法
@@ -245,6 +292,49 @@ namespace Senparc.Weixin.Open.WxaAPIs
             return await CommonJsonSend.SendAsync<GetAppealRecordsJsonResult>(null, url, data).ConfigureAwait(false);
         }
 
+        #endregion
+        #region 隐私接口
+        /// <summary>
+        /// 【异步方法】获取隐私接口列表
+        /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/apply_api/get_privacy_interface.html
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public static async Task<GetPrivacyInterfaceJsonResult> GetPrivacyInterfaceAsync(string accessToken)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/security/get_privacy_interface?access_token={accessToken.AsUrlData()}";
+
+
+            return await CommonJsonSend.SendAsync<GetPrivacyInterfaceJsonResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+
+        }
+
+        /// <summary>
+        /// 【异步方法】申请隐私接口
+        /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/apply_api/apply_privacy_interface.html
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="api_name">申请的api英文名，例如wx.choosePoi，严格区分大小写</param>
+        /// <param name="content">申请说原因，不超过300个字符；需要以utf-8编码提交，否则会出现审核失败</param>
+        /// <param name="url_list">(辅助网页)例如，上传官网网页链接用于辅助审核</param>
+        /// <param name="pic_list">(辅助图片)填写图片的url ，最多10个</param>
+        /// <param name="video_list">(辅助视频)填写视频的链接 ，最多支持1个；视频格式只支持mp4格式</param>
+        /// <returns></returns>
+        public static async Task<ApplyPrivacyInterfaceJsonResult> ApplyPrivacyInterfaceAsync(string accessToken, string api_name, string content, List<string> url_list = null, List<string> pic_list = null, List<string> video_list = null)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/security/apply_privacy_interface?access_token={accessToken.AsUrlData()}";
+
+            var data = new
+            {
+                api_name,
+                content,
+                url_list,
+                pic_list,
+                video_list
+            };
+
+            return await CommonJsonSend.SendAsync<ApplyPrivacyInterfaceJsonResult>(null, url, data).ConfigureAwait(false);
+        }
         #endregion
 
         #endregion

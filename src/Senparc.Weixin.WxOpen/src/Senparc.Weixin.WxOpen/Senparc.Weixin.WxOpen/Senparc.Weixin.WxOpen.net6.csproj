@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.15.1</Version>
+    <Version>3.15.2</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -161,7 +161,8 @@
 		v3.14.4 添加 BusinessApi.GetUserPhoneNumber() 接口
 		v3.14.5 修改“下发小程序和公众号统一的服务消息”接口参数，提升兼容性
 		v3.14.10.1 修复 WxAppApi.GetWxaCodeUnlimitAsync() 接口参数错误
-</PackageReleaseNotes>
+		v3.15.2 添加小程序隐私接口
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

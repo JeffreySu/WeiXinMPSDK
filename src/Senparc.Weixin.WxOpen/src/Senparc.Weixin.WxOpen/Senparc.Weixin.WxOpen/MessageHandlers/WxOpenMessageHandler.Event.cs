@@ -89,6 +89,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.wxa_appeal_record:
                     responseMessage = OnEvent_AppealRecordRequest(RequestMessage as RequestMessageEvent_AppealRecord);
                     break;
+                case Event.wxa_privacy_apply:
+                    responseMessage = OnEvent_PrivacyApplyRequest(RequestMessage as RequestMessageEvent_PrivacyApply);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -96,7 +99,6 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         }
 
         #region Event 下属分类
-
         /// <summary>
         /// 在腾讯地图中创建门店的审核结果
         /// </summary>
@@ -195,6 +197,16 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
+        /// <summary>
+        /// 隐私权限申请结果推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_PrivacyApplyRequest(RequestMessageEvent_PrivacyApply requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
 
 
         #endregion
@@ -242,6 +254,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     break;
                 case Event.wxa_appeal_record:
                     responseMessage = await OnEvent_AppealRecordRequestAsync(RequestMessage as RequestMessageEvent_AppealRecord);
+                    break;
+                case Event.wxa_privacy_apply:
+                    responseMessage = await OnEvent_PrivacyApplyRequestAsync(RequestMessage as RequestMessageEvent_PrivacyApply);
                     break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -346,6 +361,16 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         public virtual async Task<IResponseMessageBase> OnEvent_AppealRecordRequestAsync(RequestMessageEvent_AppealRecord requestMessage)
         {
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_AppealRecordRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】隐私权限申请结果推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_PrivacyApplyRequestAsync(RequestMessageEvent_PrivacyApply requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_PrivacyApplyRequest(requestMessage)).ConfigureAwait(false);
         }
 
 

@@ -47,19 +47,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
-using System;
-using System.IO;
-using System.Threading.Tasks;
-using Senparc.Weixin.CommonAPIs;
-using Senparc.Weixin.Entities;
 using Senparc.CO2NET.Extensions;
-using Senparc.CO2NET.HttpUtility;
-using Senparc.Weixin.MP;
-using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Helpers.Serializers;
-using System.Collections.Generic;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 {

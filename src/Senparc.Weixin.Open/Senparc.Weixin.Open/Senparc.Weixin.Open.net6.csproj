@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>4.14</Version>
+    <Version>4.14.2</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -177,19 +177,20 @@
 			v4.7.502.3 代小程序开发 添加撤回审核接口
 			v4.8.102 添加接口“代小程序实现业务 - 设置业务域名”（SetWebViewDomainApi）
 			v4.8.201 服务号订阅通知相关接口 &amp; 补充小程序[获取小程序账号的类目]接口
-			v4.8.400
-			1、代小程序实现业务-提交审核接口添加UGC参数
-			2、修正截屏附件字段类型
-			v4.10.3 统一使用 Senparc.Weixin.CommonAPIs.CommonJsonSend 方法
-			v4.11.500 用户信息调整：不再返回用户性别及地区信息
-			v4.12 新增快速创建个人小程序接口
-			v4.13 实现“小程序用户隐私指引接口”
-			v4.13.1 配置小程序用户隐私保护指引接口增加privacy_ver参数
-			v4.13.2 添加“小程序违规和申诉管理”接口及消息事件
-			v4.13.3 修复获取小程序违规记录返回信息
-			v4.13.4 完善“公众号权限集”
-			v4.13.9 添加试用小程序接口及事件
-</PackageReleaseNotes>
+		v4.8.400
+		1、代小程序实现业务-提交审核接口添加UGC参数
+		2、修正截屏附件字段类型
+		v4.10.3 统一使用 Senparc.Weixin.CommonAPIs.CommonJsonSend 方法
+		v4.11.500 用户信息调整：不再返回用户性别及地区信息
+		v4.12 新增快速创建个人小程序接口
+		v4.13 实现“小程序用户隐私指引接口”
+		v4.13.1 配置小程序用户隐私保护指引接口增加privacy_ver参数
+		v4.13.2 添加“小程序违规和申诉管理”接口及消息事件
+		v4.13.3 修复获取小程序违规记录返回信息
+		v4.13.4 完善“公众号权限集”
+		v4.13.9 添加试用小程序接口及事件
+		v4.14.2 添加小程序隐私接口
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -237,7 +238,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="2.1.0" />
+    <PackageReference Include="Senparc.NeuChar" Version="2.1.1.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

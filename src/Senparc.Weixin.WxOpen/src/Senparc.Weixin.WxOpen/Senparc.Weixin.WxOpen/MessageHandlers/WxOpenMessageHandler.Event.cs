@@ -36,6 +36,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：mc7246 - 20211209
     修改描述：v4.13.2 添加 OnEvent_AppealRecordRequest()、OnEvent_IllegalRecordRequest() 方法
 
+    修改标识：mc7246 - 20220504
+    修改描述：v3.15.2 添加小程序隐私权限审核结果推送
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;

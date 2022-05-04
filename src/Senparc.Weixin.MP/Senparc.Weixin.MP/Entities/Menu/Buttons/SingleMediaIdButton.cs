@@ -32,12 +32,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 using Senparc.NeuChar;
+using System;
 
 namespace Senparc.Weixin.MP.Entities.Menu
 {
     /// <summary>
     /// 下发消息（除文本消息）按钮
     /// </summary>
+    [Obsolete("草稿接口灰度完成后，将不再支持图文信息类型的 media_id 和 view_limited，有需要的，请使用 article_id 和 article_view_limited 代替")]
     public class SingleMediaIdButton : SingleButton
     {
         /// <summary>

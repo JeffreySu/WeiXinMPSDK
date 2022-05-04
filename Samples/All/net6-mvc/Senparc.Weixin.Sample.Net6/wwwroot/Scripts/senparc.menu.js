@@ -21,7 +21,8 @@ senparc.menu = {
             var nameId = idPrefix + "_name";
             var typeId = idPrefix + "_type";
             var urlId = idPrefix + "_url";
-            var mediaIdId = idPrefix + "_mediaid";
+            var mediaId = idPrefix + "_mediaid";
+            var articleId = idPrefix + "_articleid";
             var appidId = idPrefix + "_appid";
             var pagepathId = idPrefix + "_pagepath";
 
@@ -30,13 +31,15 @@ senparc.menu = {
             var ddlDetailsType = $('#buttonDetails_type');
             var txtDetailsUrl = $('#buttonDetails_url');
             var txtMediaId = $('#buttonDetails_mediaId');
+            var txtArticleId = $('#buttonDetails_articleId');
             var txtDetailsAppid = $('#buttonDetails_miniprogram_appid');
             var txtDetailsPagepath = $('#buttonDetails_miniprogram_pagepath');
 
             var hiddenButtonKey = $('#' + keyId);
             var hiddenButtonType = $('#' + typeId);
             var hiddenButtonUrl = $('#' + urlId);
-            var hiddenButtonMediaId = $('#' + mediaIdId);
+            var hiddenButtonMediaId = $('#' + mediaId);
+            var hiddenButtonArticleId = $('#' + articleId);
             var hiddenButtonAppid = $('#' + appidId);
             var hiddenButtonPagepath = $('#' + pagepathId);
 
@@ -45,6 +48,7 @@ senparc.menu = {
             ddlDetailsType.val(hiddenButtonType.val());
             txtDetailsUrl.val(hiddenButtonUrl.val());
             txtMediaId.val(hiddenButtonMediaId.val());
+            txtArticleId.val(hiddenButtonArticleId.val());
             txtDetailsAppid.val(hiddenButtonAppid.val());
             txtDetailsPagepath.val(hiddenButtonPagepath.val());
 
@@ -61,6 +65,9 @@ senparc.menu = {
             });
             txtMediaId.unbind('blur').blur(function () {
                 hiddenButtonMediaId.val($(this).val());
+            });
+            txtArticleId.unbind('blur').blur(function () {
+                hiddenButtonArticleId.val($(this).val());
             });
             txtDetailsAppid.unbind('blur').blur(function () {
                 hiddenButtonAppid.val($(this).val());
@@ -120,6 +127,7 @@ senparc.menu = {
                         $('#menu_button' + i + '_appid').val(button.appid);
                         $('#menu_button' + i + '_pagepath').val(button.pagepath);
                         $('#menu_button' + i + '_mediaid').val(button.media_id);
+                        $('#menu_button' + i + '_articleid').val(button.article_id);
 
                         if (button.sub_button && button.sub_button.length > 0) {
                             //二级菜单
@@ -133,6 +141,7 @@ senparc.menu = {
                                 $(idPrefix + "_appid").val(subButton.appid);
                                 $(idPrefix + "_pagepath").val(subButton.pagepath);
                                 $(idPrefix + "_mediaid").val(subButton.media_id);
+                                $(idPrefix + "_articleid").val(subButton.article_id);
                             }
                         } else {
                             //底部菜单
@@ -231,6 +240,7 @@ senparc.menu = {
                 $('#buttonDetails_miniprogram_appid_area').slideUp(100);
                 $('#buttonDetails_miniprogram_pagepath_area').slideUp(100);
                 $('#buttonDetails_mediaId_area').slideUp(100);
+                $('#buttonDetails_articleId_area').slideUp(100);
                 break;
             case 'VIEW':
                 $('#buttonDetails_key_area').slideUp(100);
@@ -238,6 +248,7 @@ senparc.menu = {
                 $('#buttonDetails_miniprogram_appid_area').slideUp(100);
                 $('#buttonDetails_miniprogram_pagepath_area').slideUp(100);
                 $('#buttonDetails_mediaId_area').slideUp(100);
+                $('#buttonDetails_articleId_area').slideUp(100);
                 break;
             case 'MINIPROGRAM':
                 $('#buttonDetails_key_area').slideUp(100);
@@ -245,6 +256,7 @@ senparc.menu = {
                 $('#buttonDetails_miniprogram_appid_area').slideDown(100);
                 $('#buttonDetails_miniprogram_pagepath_area').slideDown(100);
                 $('#buttonDetails_mediaId_area').slideUp(100);
+                $('#buttonDetails_articleId_area').slideUp(100);
                 break;
             case 'MEDIA_ID':
             case 'VIEW_LIMITED':
@@ -253,6 +265,16 @@ senparc.menu = {
                 $('#buttonDetails_miniprogram_appid_area').slideUp(100);
                 $('#buttonDetails_miniprogram_pagepath_area').slideUp(100);
                 $('#buttonDetails_mediaId_area').slideDown(100);
+                $('#buttonDetails_articleId_area').slideUp(100);
+                break;
+            case 'ARTICLE_ID':
+            case 'ARTICLE_VIEW_LIMITED':
+                $('#buttonDetails_key_area').slideUp(100);
+                $('#buttonDetails_url_area').slideUp(100);
+                $('#buttonDetails_miniprogram_appid_area').slideUp(100);
+                $('#buttonDetails_miniprogram_pagepath_area').slideUp(100);
+                $('#buttonDetails_mediaId_area').slideUp(100);
+                $('#buttonDetails_articleId_area').slideDown(100);
                 break;
             default:
                 $('#buttonDetails_key_area').slideDown(100);
@@ -260,6 +282,7 @@ senparc.menu = {
                 $('#buttonDetails_miniprogram_appid_area').slideUp(100);
                 $('#buttonDetails_miniprogram_pagepath_area').slideUp(100);
                 $('#buttonDetails_mediaId_area').slideUp(100);
+                $('#buttonDetails_articleId_area').slideUp(100);
                 break;
         }
     },

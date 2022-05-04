@@ -26,7 +26,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 2010828
-    
+
+    修改标识：mc7246 - 20220504
+    修改描述：vv3.15.2 添加小程序隐私接口
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.WxOpen.Entities

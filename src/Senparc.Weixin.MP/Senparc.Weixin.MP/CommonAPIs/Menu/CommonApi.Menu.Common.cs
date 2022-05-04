@@ -51,6 +51,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170419
     修改描述：v14.4.13 修复二级菜单小程序无法设置的问题
 
+    修改标识：Senparc - 20220503
+    修改描述：v16.18.1 添加 article_id 类型按钮
+
 ----------------------------------------------------------------*/
 
 /*
@@ -194,7 +197,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                     }
                     else if (rootButton.type.Equals("MEDIA_ID", StringComparison.OrdinalIgnoreCase))
                     {
-                        //扫码推事件
+                        //下发消息（除文本消息）按钮
                         buttonGroup.button.Add(new SingleMediaIdButton()
                         {
                             name = rootButton.name,
@@ -204,11 +207,31 @@ namespace Senparc.Weixin.MP.CommonAPIs
                     }
                     else if (rootButton.type.Equals("VIEW_LIMITED", StringComparison.OrdinalIgnoreCase))
                     {
-                        //扫码推事件
+                        //永久素材
                         buttonGroup.button.Add(new SingleViewLimitedButton()
                         {
                             name = rootButton.name,
                             media_id = rootButton.media_id,
+                            type = rootButton.type
+                        });
+                    }
+                    else if (rootButton.type.Equals("ARTICLE_ID", StringComparison.OrdinalIgnoreCase))
+                    {
+                        //article_id 按钮
+                        buttonGroup.button.Add(new SingleArticleIdButton()
+                        {
+                            name = rootButton.name,
+                            article_id = rootButton.article_id,
+                            type = rootButton.type
+                        });
+                    }
+                    else if (rootButton.type.Equals("ARTICLE_VIEW_LIMITED", StringComparison.OrdinalIgnoreCase))
+                    {
+                        //article_view_limited 按钮
+                        buttonGroup.button.Add(new SingleArticleViewLimitedButton()
+                        {
+                            name = rootButton.name,
+                            article_id = rootButton.article_id,
                             type = rootButton.type
                         });
                     }
@@ -325,7 +348,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         }
                         else if (subSubButton.type.Equals("MEDIA_ID", StringComparison.OrdinalIgnoreCase))
                         {
-                            //扫码推事件
+                            //下发消息（除文本消息）按钮
                             subButton.sub_button.Add(new SingleMediaIdButton()
                             {
                                 name = subSubButton.name,
@@ -335,7 +358,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         }
                         else if (subSubButton.type.Equals("VIEW_LIMITED", StringComparison.OrdinalIgnoreCase))
                         {
-                            //扫码推事件
+                            //永久素材按钮
                             subButton.sub_button.Add(new SingleViewLimitedButton()
                             {
                                 name = subSubButton.name,
@@ -343,7 +366,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                                 type = subSubButton.type
                             });
                         }
-                        else
+                        if (subSubButton.type.Equals("SCANCODE_WAITMSG", StringComparison.OrdinalIgnoreCase))
                         {
                             //扫码推事件且弹出“消息接收中”提示框
                             subButton.sub_button.Add(new SingleScancodeWaitmsgButton()
@@ -352,6 +375,30 @@ namespace Senparc.Weixin.MP.CommonAPIs
                                 key = subSubButton.key,
                                 type = subSubButton.type
                             });
+                        }
+                        else if (subSubButton.type.Equals("ARTICLE_ID", StringComparison.OrdinalIgnoreCase))
+                        {
+                            //article_id 按钮
+                            subButton.sub_button.Add(new SingleArticleIdButton()
+                            {
+                                name = subSubButton.name,
+                                article_id = subSubButton.article_id,
+                                type = subSubButton.type
+                            });
+                        }
+                        else if (subSubButton.type.Equals("ARTICLE_VIEW_LIMITED", StringComparison.OrdinalIgnoreCase))
+                        {
+                            //article_view_limited 按钮
+                            subButton.sub_button.Add(new SingleArticleViewLimitedButton()
+                            {
+                                name = subSubButton.name,
+                                article_id = subSubButton.article_id,
+                                type = subSubButton.type
+                            });
+                        }
+                        else
+                        {
+                            throw new WeixinMenuException("菜单类型无法处理（二级菜单）：" + subSubButton.type);
                         }
                     }
                 }

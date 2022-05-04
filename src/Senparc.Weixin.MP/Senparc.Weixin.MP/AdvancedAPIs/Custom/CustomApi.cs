@@ -82,7 +82,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 客服接口
     /// </summary>
-    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, true)]
     public static class CustomApi
     {
         /// <summary>
@@ -513,7 +513,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="kfAccount"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult SendMiniProgramPage(string accessTokenOrAppId, string openId, string title, string appid, string pagepath, string thumb_media_id, string kfAccount="", int timeOut = Config.TIME_OUT)
+        public static WxJsonResult SendMiniProgramPage(string accessTokenOrAppId, string openId, string title, string appid, string pagepath, string thumb_media_id, string kfAccount = "", int timeOut = Config.TIME_OUT)
         {
             object data = null;
             if (kfAccount.IsNullOrWhiteSpace())
@@ -525,8 +525,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     miniprogrampage = new
                     {
                         title = title,
-                        appid=appid,
-                        pagepath= pagepath,
+                        appid = appid,
+                        pagepath = pagepath,
                         thumb_media_id = thumb_media_id
                     }
                 };

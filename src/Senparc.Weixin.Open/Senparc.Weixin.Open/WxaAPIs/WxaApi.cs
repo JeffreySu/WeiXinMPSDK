@@ -34,6 +34,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：mc7246 - 20211209
     修改描述：v4.13.2 添加“小程序违规和申诉管理”接口
 
+    修改标识：mc7246 - 20220504
+    修改描述：v4.14.2 添加小程序隐私接口
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;

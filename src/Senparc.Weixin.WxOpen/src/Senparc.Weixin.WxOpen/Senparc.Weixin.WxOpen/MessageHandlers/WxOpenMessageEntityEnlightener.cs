@@ -2,15 +2,10 @@
 using Senparc.NeuChar.Exceptions;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.WxOpen.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers
 {
-   public class WxOpenMessageEntityEnlightener : MessageEntityEnlightener
+    public class WxOpenMessageEntityEnlightener : MessageEntityEnlightener
     {
         public static MessageEntityEnlightener Instance = new WxOpenMessageEntityEnlightener(NeuChar.PlatformType.WeChat_MiniProgram);
 

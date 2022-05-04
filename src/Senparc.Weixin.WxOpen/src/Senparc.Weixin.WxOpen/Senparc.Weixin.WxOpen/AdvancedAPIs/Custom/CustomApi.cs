@@ -35,6 +35,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
    API地址：https://developers.weixin.qq.com/miniprogram/dev/api/custommsg/conversation.html
 */
 
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
@@ -49,10 +51,36 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
     [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
     public class CustomApi
     {
+        /* 商户客户参数文档： https://developers.weixin.qq.com/miniprogram/introduction/custom.html#%E6%8E%A5%E6%94%B6%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81 */
+
         /// <summary>
         /// 客服消息统一请求地址格式
         /// </summary>
-        public static readonly string UrlFormat = Config.ApiMpHost + "/cgi-bin/message/custom/send?access_token={0}";
+        public static readonly string UrlFormat_Send = Config.ApiMpHost + "/cgi-bin/message/custom/send?access_token={0}";
+        public static readonly string UrlFormat_Send_Business = Config.ApiMpHost + "/cgi-bin/message/custom/business/send?access_token={0}";
+        public static readonly string UrlFormat_Typing = Config.ApiMpHost + "/cgi-bin/message/custom/typing?access_token={0}";
+        public static readonly string UrlFormat_Typing_Business = Config.ApiMpHost + "/cgi-bin/message/custom/business/typing?access_token={0}";
+
+
+        /// <summary>
+        /// 根据 BusinessId 获取 Send 接口的 UrlFormat
+        /// </summary>
+        /// <param name="businessId"></param>
+        /// <returns></returns>
+        private static string GetSendUrlFormat(string businessId = null)
+        {
+            return businessId.IsNullOrEmpty() ? UrlFormat_Send : UrlFormat_Send_Business;
+        }
+
+        /// <summary>
+        /// 根据 BusinessId 获取 Typing 接口的 UrlFormat
+        /// </summary>
+        /// <param name="businessId"></param>
+        /// <returns></returns>
+        private static string GetTypingUrlFormat(string businessId = null)
+        {
+            return businessId.IsNullOrEmpty() ? UrlFormat_Typing : UrlFormat_Typing_Business;
+        }
 
         #region 同步方法
 
@@ -63,9 +91,10 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId">普通用户(openid)</param>
         /// <param name="content">文本消息内容</param>
+        /// <param name="businessId">添加 businessId 参数，则发送到子商户</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult SendText(string accessTokenOrAppId, string openId, string content,
+        public static WxJsonResult SendText(string accessTokenOrAppId, string openId, string content, string businessId = null,
             int timeOut = Config.TIME_OUT)
         {
             object data = null;
@@ -76,12 +105,15 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
                 text = new
                 {
                     content = content
-                }
+                },
+                businessid = businessId
             };
 
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                return CommonJsonSend.Send(accessToken, UrlFormat, data, timeOut: timeOut);
+                var urlFormat = GetSendUrlFormat(businessId);
+                var jsonSetting = new JsonSetting() { IgnoreNulls = true };
+                return CommonJsonSend.Send(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
 
             }, accessTokenOrAppId);
         }
@@ -109,7 +141,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
 
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                return CommonJsonSend.Send(accessToken, UrlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send(accessToken, UrlFormat_Send, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -143,7 +175,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
 
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                return CommonJsonSend.Send(accessToken, Senparc.Weixin.MP.AdvancedAPIs.CustomApi.UrlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send(accessToken, UrlFormat_Send, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
 
@@ -177,7 +209,36 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
 
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                return CommonJsonSend.Send(accessToken, Senparc.Weixin.MP.AdvancedAPIs.CustomApi.UrlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send(accessToken, UrlFormat_Send, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 客服输入状态
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="touser">普通用户（openid）</param>
+        /// <param name="typingStatus">"Typing"：对用户下发“正在输入"状态 "CancelTyping"：取消对用户的”正在输入"状态</param>
+        /// <param name="businessId">添加 businessId 参数，则发送到子商户</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult GetTypingStatus(string accessTokenOrAppId, string touser, string typingStatus, string businessId = null, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = GetTypingUrlFormat(businessId);
+
+                var data = new
+                {
+                    touser = touser,
+                    command = typingStatus,
+                    businessid = businessId
+                };
+
+                var jsonSetting = new JsonSetting() { IgnoreNulls = true };
+
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
 
             }, accessTokenOrAppId);
         }
@@ -192,10 +253,10 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId">普通用户(openid)</param>
         /// <param name="content">文本消息内容</param>
+        /// <param name="businessId">添加 businessId 参数，则发送到子商户</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> SendTextAsync(string accessTokenOrAppId, string openId, string content,
-            int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> SendTextAsync(string accessTokenOrAppId, string openId, string content, string businessId = null, int timeOut = Config.TIME_OUT)
         {
             object data = null;
             data = new
@@ -205,12 +266,15 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
                 text = new
                 {
                     content = content
-                }
+                },
+                businessid = businessId
             };
 
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                return await CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+                var urlFormat = GetSendUrlFormat(businessId);
+                var jsonSetting = new JsonSetting() { IgnoreNulls = true };
+                return await CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
 
             }, accessTokenOrAppId);
         }
@@ -239,7 +303,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
 
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                return await CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+                return await CommonJsonSend.SendAsync(accessToken, UrlFormat_Send, data, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId);
         }
@@ -273,7 +337,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
 
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                return await CommonJsonSend.SendAsync(accessToken, Senparc.Weixin.MP.AdvancedAPIs.CustomApi.UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+                return await CommonJsonSend.SendAsync(accessToken, UrlFormat_Send, data, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
 
@@ -307,10 +371,40 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
 
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                return await CommonJsonSend.SendAsync(accessToken, Senparc.Weixin.MP.AdvancedAPIs.CustomApi.UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+                return await CommonJsonSend.SendAsync(accessToken, UrlFormat_Send, data, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// 【异步方法】客服输入状态
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="touser">普通用户（openid）</param>
+        /// <param name="typingStatus">"Typing"：对用户下发“正在输入"状态 "CancelTyping"：取消对用户的”正在输入"状态</param>
+        /// <param name="businessId">添加 businessId 参数，则发送到子商户</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> GetTypingStatusAsync(string accessTokenOrAppId, string touser, string typingStatus, string businessId = null, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = GetTypingUrlFormat(businessId);
+
+                var data = new
+                {
+                    touser = touser,
+                    command = typingStatus,
+                    businessid = businessId
+                };
+
+                var jsonSetting = new JsonSetting() { IgnoreNulls = true };
+
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
+
+            }, accessTokenOrAppId);
+        }
+
         #endregion
     }
 }

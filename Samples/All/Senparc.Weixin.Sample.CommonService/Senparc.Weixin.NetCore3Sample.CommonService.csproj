@@ -14,22 +14,20 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
-		<PackageReference Include="Senparc.NeuChar" Version="1.5.0" />
+		<PackageReference Include="Senparc.NeuChar" Version="2.1.1.1" />
+		<PackageReference Include="Senparc.WebSocket" Version="0.17.1" />
+		<PackageReference Include="Senparc.Weixin.MP" Version="16.18.2" />
+		<PackageReference Include="Senparc.Weixin.Open" Version="4.14.2" />
+		<PackageReference Include="Senparc.Weixin.TenPay" Version="1.12.1" />
+		<PackageReference Include="Senparc.Weixin.Work" Version="3.15.3-beta3" />
+		<PackageReference Include="Senparc.Weixin.WxOpen" Version="3.15.3" />
 		<PackageReference Include="System.Drawing.Common" Version="4.7.0" />
 		<PackageReference Include="System.Diagnostics.FileVersionInfo" Version="4.3.0" />
 		<PackageReference Include="ZXing.Net" Version="0.16.4" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\src\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.netcore3.csproj" />
-		<ProjectReference Include="..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.netcore3.csproj" />
-		<ProjectReference Include="..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.netcore3.csproj" />
-		<ProjectReference Include="..\..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.netcore3.csproj" />
-		<ProjectReference Include="..\..\..\src\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.netcore3.csproj" />
-		<ProjectReference Include="..\..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay.netcore3.csproj" />
-		<ProjectReference Include="..\..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.netcore3.csproj" />
-		<ProjectReference Include="..\..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.netcore3.csproj" />
-		<ProjectReference Include="..\..\..\src\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.netcore3.csproj" />
+
 	</ItemGroup>
 
 	<ItemGroup>

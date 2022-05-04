@@ -18,6 +18,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using Senparc.CO2NET.Utilities;
+using Senparc.Weixin.AspNet.MvcExtension;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.Sample.CommonService.WorkMessageHandlers;
 using Senparc.Weixin.Work.Entities;

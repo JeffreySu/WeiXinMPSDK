@@ -26,6 +26,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20170106
+
+    修改标识：Senparc - 20220504
+    修改描述：v3.15.2 添加小程序隐私权限审核结果推送
+
     
 ----------------------------------------------------------------*/
 
@@ -45,5 +49,10 @@ namespace Senparc.Weixin.WxOpen.Entities
         /// 文本消息内容
         /// </summary>
         public string Content { get; set; }
+
+        /// <summary>
+        /// 代表消息是从子商户的会话中过来的
+        /// </summary>
+        public string BusinessId { get; set; }
     }
 }

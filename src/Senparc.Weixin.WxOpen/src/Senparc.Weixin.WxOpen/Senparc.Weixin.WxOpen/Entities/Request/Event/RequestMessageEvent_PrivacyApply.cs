@@ -48,11 +48,6 @@ namespace Senparc.Weixin.WxOpen.Entities
         }
 
         /// <summary>
-        /// 审核成功时的时间（整型），时间戳
-        /// </summary>
-        public string SuccTime { get; set; }
-
-        /// <summary>
         /// 审核结果
         /// </summary>
         public PrivacyApplyResultInfo result_info { get; set; }
@@ -62,11 +57,11 @@ namespace Senparc.Weixin.WxOpen.Entities
     {
         public string api_name { get; set; }
 
-        public string apply_time { get; set; }
+        public uint apply_time { get; set; }
 
-        public string audit_id { get; set; }
+        public uint audit_id { get; set; }
 
-        public string audit_time { get; set; }
+        public uint audit_time { get; set; }
 
         public string reason { get; set; }
 

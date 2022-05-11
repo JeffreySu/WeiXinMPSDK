@@ -54,6 +54,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20220503
     修改描述：v16.18.1 添加 article_id 类型按钮
 
+    修改标识：Senparc - 20220511
+    修改描述：v16.18.2.1 修复二级菜单按钮判断逻辑
+
 ----------------------------------------------------------------*/
 
 /*
@@ -366,7 +369,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                                 type = subSubButton.type
                             });
                         }
-                        if (subSubButton.type.Equals("SCANCODE_WAITMSG", StringComparison.OrdinalIgnoreCase))
+                        else if (subSubButton.type.Equals("SCANCODE_WAITMSG", StringComparison.OrdinalIgnoreCase))
                         {
                             //扫码推事件且弹出“消息接收中”提示框
                             subButton.sub_button.Add(new SingleScancodeWaitmsgButton()

@@ -26,6 +26,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20210920
+
+    修改标识：Senparc - 20220511
+    修改描述：v0.6.2.1 修复 CreateProfitsharingAsync 接口路径问题
+
     
 ----------------------------------------------------------------*/
 
@@ -95,7 +99,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 }
             }
             // TODO: name 敏感信息加密
-            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/profitsharing/orders");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/profitsharing/orders");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<CreateProfitsharingReturnJson>(url, data, timeOut);
         }
@@ -112,7 +116,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<QueryProfitsharingReturnJson> QueryProfitsharingAsync(string transaction_id, string out_order_no, int timeOut = Config.TIME_OUT)
         {
 
-            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{{0}}v3/profitsharing/orders/{out_order_no}?&transaction_id={transaction_id}");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/profitsharing/orders/{out_order_no}?&transaction_id={transaction_id}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryProfitsharingReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }

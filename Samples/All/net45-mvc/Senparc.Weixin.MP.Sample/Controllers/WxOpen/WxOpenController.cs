@@ -18,6 +18,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.TenPay.V3;
 using Senparc.Weixin.Sample.CommonService;
 using Senparc.CO2NET.Utilities;
+using Senparc.Weixin.AspNet.MvcExtension;
 
 namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 {

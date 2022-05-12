@@ -310,7 +310,30 @@ namespace Senparc.Weixin.Open
     /// </summary>
     public enum PrincipalType
     {
-        企业 = 1
+        个人 = 0,
+        企业 = 1,
+        媒体 = 2,
+        政府 = 3,
+        其他组织 = 4
+    }
+
+    /// <summary>
+    /// 认证类型
+    /// </summary>
+    public enum CustomerType
+    {
+        未认证 = 0,
+        企业 = 1,
+        企业媒体 = 2,
+        政府 = 3,
+        非盈利组织 = 4,
+        民营非企业 = 5,
+        盈利组织 = 6,
+        社会团体 = 8,
+        事业媒体 = 9,
+        事业单位 = 11,
+        个体工商户 = 12,
+        海外企业 = 13
     }
 
     /// <summary>

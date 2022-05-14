@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190214
     修改描述：v4.4.3.2 修改 WxVerifyInfo 返回数据的 int 类型为 bool 类型（实际返回结果和文档不一致）
 
+    修改标识：mc7246 - 20220514
+    修改描述：v4.14.3 补充小程序/公众号获取基本信息字段
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;

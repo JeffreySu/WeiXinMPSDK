@@ -48,6 +48,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：mc7246 - 20220402
     修改描述：v4.13.9 添加试用小程序接口及事件
 
+    修改标识：mc7246 - 20220514
+    修改描述：v4.14.3 补充小程序/公众号获取基本信息字段（PrincipalType、CustomerType）
+
 ----------------------------------------------------------------*/
 
 

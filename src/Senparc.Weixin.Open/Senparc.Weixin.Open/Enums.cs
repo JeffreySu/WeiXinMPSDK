@@ -48,6 +48,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：mc7246 - 20220402
     修改描述：v4.13.9 添加试用小程序接口及事件
 
+    修改标识：mc7246 - 20220514
+    修改描述：v4.14.3 补充小程序/公众号获取基本信息字段（PrincipalType、CustomerType）
+
 ----------------------------------------------------------------*/
 
 
@@ -310,7 +313,30 @@ namespace Senparc.Weixin.Open
     /// </summary>
     public enum PrincipalType
     {
-        企业 = 1
+        个人 = 0,
+        企业 = 1,
+        媒体 = 2,
+        政府 = 3,
+        其他组织 = 4
+    }
+
+    /// <summary>
+    /// 认证类型
+    /// </summary>
+    public enum CustomerType
+    {
+        未认证 = 0,
+        企业 = 1,
+        企业媒体 = 2,
+        政府 = 3,
+        非盈利组织 = 4,
+        民营非企业 = 5,
+        盈利组织 = 6,
+        社会团体 = 8,
+        事业媒体 = 9,
+        事业单位 = 11,
+        个体工商户 = 12,
+        海外企业 = 13
     }
 
     /// <summary>

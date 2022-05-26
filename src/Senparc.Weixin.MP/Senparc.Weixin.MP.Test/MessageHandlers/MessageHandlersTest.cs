@@ -246,6 +246,27 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         }
 
         [TestMethod]
+        public void RegexTest()
+        {
+            string regexXmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+    <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+    <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+    <CreateTime>1357986928</CreateTime>
+    <MsgType><![CDATA[text]]></MsgType>
+    <Content><![CDATA[13987654321]]></Content>
+    <MsgId>5832509444155992351</MsgId>
+</xml>
+";
+            var messageHandler = new CustomMessageHandlers(XDocument.Parse(regexXmlText));
+            messageHandler.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
+            messageHandler.ExecuteAsync(new CancellationToken()).GetAwaiter().GetResult();
+            Assert.IsNotNull(messageHandler.ResponseMessage);
+            Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
+            Console.WriteLine(messageHandler.ResponseMessage.ToJson(true));
+        }
+
+        [TestMethod]
         public void ContextTest()
         {
             //var messageHandlers = new CustomMessageHandlers(XDocument.Parse(xmlText));

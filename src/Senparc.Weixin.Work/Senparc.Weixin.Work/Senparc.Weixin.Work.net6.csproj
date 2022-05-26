@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>3.15.3-beta3</Version>
+    <Version>3.15.4-beta3</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -178,7 +178,8 @@
 		v3.14.11 优化OAuth相关接口
 		v3.15.1 修复 LoginCheckResultJson 缺少 open_userid
 		v3.15.2 添加“用户标签管理”接口
-</PackageReleaseNotes>
+		v3.15.4 添加 MailList.Member 下的 biz_mail 属性
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>
   </PropertyGroup>

@@ -51,5 +51,12 @@ namespace Senparc.Weixin.Entities
         /// 返回消息代码数字（同errcode枚举值）
         /// </summary>
         public override int ErrorCodeValue { get { return (int)errcode; } }
+
+
+        public override string ToString()
+        {
+            return string.Format("WorkJsonResult：{{errcode:'{0}',errcode_name:'{1}',errmsg:'{2}'}}",
+                (int)errcode, errcode.ToString(), errmsg);
+        }
     }
 }

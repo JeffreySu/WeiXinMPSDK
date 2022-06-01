@@ -27,7 +27,7 @@ namespace Senparc.Weixin.Work.Entities
     /// <summary>
     /// 上报通讯录变更事件
     /// </summary>
-    public interface IRequestMessageEvent_Change_Contact_Base : IRequestMessageEventBase
+    public interface IRequestMessageEvent_Change_Contact_Base : IRequestMessageEventBase, IThirdPartyAuthCorpIdInfo
     {
         ContactChangeType ChangeType
         {
@@ -44,6 +44,13 @@ namespace Senparc.Weixin.Work.Entities
         {
             get { return ContactChangeType.create_party; }
         }
+
+        public string AuthCorpId { get; set; }
+
+        public ThirdPartyInfo InfoType { get { return ThirdPartyInfo.CHANGE_CONTACT; } }
+
+        public string SuiteId { get; set; }
+        public string TimeStamp { get; set; }
     }
     public class RequestMessageEvent_Change_Contact_User_Base : RequestMessageEvent_Change_Contact_Base
     {

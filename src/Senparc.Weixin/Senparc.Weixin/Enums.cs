@@ -207,7 +207,7 @@ namespace Senparc.Weixin
 
         不合法的请求格式 = 40038,
         不合法的URL长度 = 40039,
-        不合法的分组id = 40050,
+        chatid不存在 = 40050,
         分组名字不合法 = 40051,
         appsecret不正确 = 40125,//invalid appsecret
         调用接口的IP地址不在白名单中 = 40164,//GitHub#2166 https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html 
@@ -780,7 +780,7 @@ namespace Senparc.Weixin
         客户转接过于频繁90天内只允许转接一次同一个客户最多只能转接两次 = 40128,
         当前客户正在转接中 = 40129,
         原跟进人与接手人一样不可继承 = 40130,
-        andover_userid并不是外部联系人的跟进人 = 40131,
+        handover_userid并不是外部联系人的跟进人 = 40131,
         请勿添加其他公众号的主页链接 = 40155,
         缺少access_token参数 = 41001,
         缺少corpid参数 = 41002,
@@ -963,7 +963,7 @@ namespace Senparc.Weixin
         创建部门失败 = 60126,
         缺少部门id = 60127,
         字段不合法_可能存在主键冲突或者格式错误 = 60128,
-        用户设置了拒绝邀请 = 60129,
+        成员手机和邮箱都为空 = 60129,
         不合法的职位长度 = 60131,
         is_leader_in_dept和department的元素个数不一致 = 60132,
         记录不存在 = 60136,
@@ -1315,7 +1315,7 @@ namespace Senparc.Weixin
         应用id已存在 = 301001,
         accesstoken不允许操作其它应用 = 301002,
         不允许删除超级管理员 = 301004,
-        消息型应用不允许做此操作 = 301005,
+        不允许删除创建者 = 301005,
         不允许禁用超级管理员 = 301006,
         主页型应用不允许做此操作 = 301008,
         应用发送消息没有接收主体 = 301009,

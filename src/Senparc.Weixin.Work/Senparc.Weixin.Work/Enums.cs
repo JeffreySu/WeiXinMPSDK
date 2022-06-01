@@ -39,6 +39,8 @@
     修改描述：v3.14.6 添加：审批申请状态变化回调通知：Event.SYS_APPROVAL_CHANGE
 ----------------------------------------------------------------*/
 
+using System;
+
 namespace Senparc.Weixin.Work
 {
     ///// <summary>
@@ -204,14 +206,29 @@ namespace Senparc.Weixin.Work
         CREATE_AUTH,
 
         /// <summary>
+        /// 重置永久授权码通知
+        /// </summary>
+        RESET_PERMANENT_CODE,
+
+        /// <summary>
         /// 通讯录变更通知
         /// </summary>
+
+        [Obsolete("为了统一服务商事件和内部企业模式事件，减少和规范重复事件，已将能通用的事件转移合并至同一事件")]
         CHANGE_CONTACT,//更新前字符串：CONTACT_SYNC
 
         /// <summary>
         /// 外部联系人变更通知
         /// </summary>
+        [Obsolete("为了统一服务商事件和内部企业模式事件，减少和规范重复事件，已将能通用的事件转移合并至同一事件")]
         CHANGE_EXTERNAL_CONTACT,
+
+
+        /// <summary>
+        /// 客户群变更事件
+        /// </summary>
+        [Obsolete("为了统一服务商事件和内部企业模式事件，减少和规范重复事件，已将能通用的事件转移合并至同一事件")]
+        CHANGE_EXTERNAL_CHAT,
 
         /// <summary>
         /// 推广码注册完成通知
@@ -520,5 +537,27 @@ namespace Senparc.Weixin.Work
         正常,
         折扣,
         被折扣
+    }
+    public enum WorkTokenType
+    {
+        /// <summary>
+        /// 企业内部开发 默认
+        /// </summary>
+        Internal,
+        /// <summary>
+        /// 服务商 token
+        /// </summary>
+        Provider,
+
+        /// <summary>
+        /// 服务商 第三方应用的token
+        /// </summary>
+        Suite,
+        /// <summary>
+        /// /// <summary>
+        /// 服务商 授权企业的token
+        /// </summary>
+        /// </summary>
+        AuthCorp
     }
 }

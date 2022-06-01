@@ -89,6 +89,7 @@ using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 using Senparc.Weixin.MP.AdvancedAPIs.Media;
+using Senparc.Weixin.MP.AdvancedAPIs.Media.MediaJson;
 using Senparc.Weixin.MP.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
@@ -494,6 +495,108 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+        #region 草稿
+        /// <summary>
+        /// 获取草稿图文列表
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="offset">从全部素材的该偏移位置开始返回，0表示从第一个素材 返回</param>
+        /// <param name="count">返回素材的数量，取值在1到20之间</param>
+        /// <param name="no_content">1 表示不返回 content 字段，0 表示正常返回，默认为 0</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static DraftList_NewsResult GetDraftNewsList(string accessTokenOrAppId, int offset, int count,int no_content = 0, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string url = string.Format(Config.ApiMpHost + "/cgi-bin/draft/batchget?access_token={0}", accessToken.AsUrlData());
+
+                var date = new
+                {
+                    offset = offset,
+                    count = count,
+                    no_content = no_content
+                };
+
+                return CommonJsonSend.Send<DraftList_NewsResult>(null, url, date, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+
+        }
+
+        /// <summary>
+        /// 删除草稿图文
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="mediaId">要删除的草稿的media_id</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static WxJsonResult DeleteDraftNews(string accessTokenOrAppId, string mediaId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string url = string.Format(Config.ApiMpHost + "/cgi-bin/draft/delete?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    media_id = mediaId
+                };
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppId);
+        }
+
+
+        #endregion
+
+        #region 发布图文
+        /// <summary>
+        /// 获取发布图文列表
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="offset">从全部素材的该偏移位置开始返回，0表示从第一个素材 返回</param>
+        /// <param name="count">返回素材的数量，取值在1到20之间</param>
+        /// <param name="no_content">1 表示不返回 content 字段，0 表示正常返回，默认为 0</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static PublishList_NewsResult GetPublishNewsList(string accessTokenOrAppId, int offset, int count, int no_content = 0, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string url = string.Format(Config.ApiMpHost + "/cgi-bin/freepublish/batchget?access_token={0}", accessToken.AsUrlData());
+
+                var date = new
+                {
+                    offset = offset,
+                    count = count,
+                    no_content = no_content
+                };
+
+                return CommonJsonSend.Send<PublishList_NewsResult>(null, url, date, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 发布成功之后，随时可以通过该接口删除。此操作不可逆，请谨慎操作。
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="article_id">成功发布时返回的 article_id</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="timeOut">要删除的文章在图文消息中的位置，第一篇编号为1，该字段不填或填0会删除全部文章</param>
+        /// <returns></returns>
+        public static WxJsonResult DeletePublishNews(string accessTokenOrAppId, string article_id, int index = 0, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string url = string.Format(Config.ApiMpHost + "/cgi-bin/freepublish/delete?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    article_id = article_id,
+                    index = index
+                };
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppId);
+        }
+
+        #endregion
 
         #endregion
 
@@ -1046,6 +1149,111 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #endregion
 
+
+
+        #region 草稿
+        /// <summary>
+        /// 获取草稿图文列表
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="offset">从全部素材的该偏移位置开始返回，0表示从第一个素材 返回</param>
+        /// <param name="count">返回素材的数量，取值在1到20之间</param>
+        /// <param name="no_content">1 表示不返回 content 字段，0 表示正常返回，默认为 0</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<DraftList_NewsResult> GetDraftNewsListAsync(string accessTokenOrAppId, int offset, int count, int no_content = 0, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string url = string.Format(Config.ApiMpHost + "/cgi-bin/draft/batchget?access_token={0}", accessToken.AsUrlData());
+
+                var date = new
+                {
+                    offset = offset,
+                    count = count,
+                    no_content = no_content
+                };
+
+                return await CommonJsonSend.SendAsync<DraftList_NewsResult>(null, url, date, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+
+        }
+
+        /// <summary>
+        /// 删除草稿图文
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="mediaId">要删除的草稿的media_id</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> DeleteDraftNewsAsync(string accessTokenOrAppId, string mediaId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string url = string.Format(Config.ApiMpHost + "/cgi-bin/draft/delete?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    media_id = mediaId
+                };
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region 发布图文
+        /// <summary>
+        /// 获取发布图文列表
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="offset">从全部素材的该偏移位置开始返回，0表示从第一个素材 返回</param>
+        /// <param name="count">返回素材的数量，取值在1到20之间</param>
+        /// <param name="no_content">1 表示不返回 content 字段，0 表示正常返回，默认为 0</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<PublishList_NewsResult> GetPublishNewsListAsync(string accessTokenOrAppId, int offset, int count, int no_content = 0, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string url = string.Format(Config.ApiMpHost + "/cgi-bin/freepublish/batchget?access_token={0}", accessToken.AsUrlData());
+
+                var date = new
+                {
+                    offset = offset,
+                    count = count,
+                    no_content = no_content
+                };
+
+                return await CommonJsonSend.SendAsync<PublishList_NewsResult>(null, url, date, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+
+        }
+
+        /// <summary>
+        /// 发布成功之后，随时可以通过该接口删除。此操作不可逆，请谨慎操作。
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="article_id">成功发布时返回的 article_id</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="timeOut">要删除的文章在图文消息中的位置，第一篇编号为1，该字段不填或填0会删除全部文章</param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> DeletePublishNewsAsync(string accessTokenOrAppId, string article_id, int index = 0, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string url = string.Format(Config.ApiMpHost + "/cgi-bin/freepublish/delete?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    article_id = article_id,
+                    index = index
+                };
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        #endregion
         #endregion
     }
 }

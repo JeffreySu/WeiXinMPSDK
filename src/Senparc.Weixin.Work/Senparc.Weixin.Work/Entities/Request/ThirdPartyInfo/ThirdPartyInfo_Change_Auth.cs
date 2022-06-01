@@ -16,7 +16,7 @@ namespace Senparc.Weixin.Work.Entities
     /// <summary>
     /// 变更授权的通知
     /// </summary>
-    public class RequestMessageInfo_Change_Auth : ThirdPartyInfoBase, IThirdPartyInfoBase
+    public class RequestMessageInfo_Change_Auth : ThirdPartyInfoBase, IThirdPartyInfoBase, IThirdServiceCorpBase
     {
         public override ThirdPartyInfo InfoType
         {

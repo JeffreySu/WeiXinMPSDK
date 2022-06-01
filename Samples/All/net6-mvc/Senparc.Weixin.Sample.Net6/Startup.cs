@@ -37,6 +37,7 @@ using Senparc.Weixin.WxOpen.MessageHandlers.Middleware;//DPBMARK MiniProgram DPB
 using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Sample.Net6
 {
@@ -253,6 +254,13 @@ namespace Senparc.Weixin.Sample.Net6
                             .RegisterWorkAccount(senparcWeixinSetting.Value, "【盛派网络】企业微信")
                             .RegisterWorkAccount(senparcWeixinSetting.Value["企业微信审批"], "【盛派网络】企业微信审批")
                             //.RegisterWorkAccount(senparcWeixinSetting.Value["企业微信审批"].WeixinCorpAgentId, senparcWeixinSetting.Value["企业微信审批"].WeixinCorpSecret, "【盛派网络】企业微信审批应用-自建应用")
+                            .RegisterWorkAccount(senparcWeixinSetting.Value, "【盛派网络】企业微信(或服务商)",
+                            getSuiteTicketFunc:suiteId => {
+                                return Task.FromResult("");
+                            },
+                            getSuiteByCorpPermanentCodeFunc: permanentCode => {
+                                return Task.FromResult(new Work.Entities.FuncGetIdSecretResult { CorpId = "", Secret = "" });
+                            })
 
                             //除此以外，仍然可以在程序任意地方注册企业微信：
                             //AccessTokenContainer.Register(corpId, corpSecret, name);//命名空间：Senparc.Weixin.Work.Containers
@@ -353,8 +361,8 @@ namespace Senparc.Weixin.Sample.Net6
 
                     #region 设置自定义 ApiHandlerWapper 参数（可选，一般不需要设置）  --DPBMARK MP
 
-                            .SetMP_InvalidCredentialValues(new[] { ReturnCode.获取access_token时AppSecret错误或者access_token无效 })
-                        //.SetMP_AccessTokenContainer_GetAccessTokenResultFunc((appId, getNewToken)=> { return xxx })
+                            .SetWork_InvalidCredentialValues(new[] { ReturnCode_Work.不合法的access_token, ReturnCode_Work.access_token过期, ReturnCode_Work.不合法的suitetoken })
+                            //.SetMP_AccessTokenContainer_GetAccessTokenResultFunc((appId, getNewToken)=> { return xxx })
 
                     #endregion                                                          // DPBMARK_END
 

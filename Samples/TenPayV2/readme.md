@@ -1,8 +1,8 @@
 # Senparc.Weixin.MP Sample
 
-当前 Sample 用于独立演示公众号的主要功能
+当前 Sample 用于独立演示微信支付（V2）的主要功能
 
-打开 `Senparc.Weixin.Sample.MP.sln` 打开解决方案（使用 Nuget 包引用）。
+打开 `Senparc.Weixin.Sample.TenPayV2.sln` 打开解决方案（使用 Nuget 包引用）。
 
 ## 打开全量 Sample 项目
 

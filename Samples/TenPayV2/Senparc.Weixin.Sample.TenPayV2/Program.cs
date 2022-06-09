@@ -62,7 +62,6 @@ app.UseStaticFiles(new StaticFileOptions
 #endif
 #endregion
 
-
 app.UseRouting();
 
 app.UseAuthorization();

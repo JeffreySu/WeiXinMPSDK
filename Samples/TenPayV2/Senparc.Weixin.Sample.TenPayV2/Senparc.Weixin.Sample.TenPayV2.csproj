@@ -27,6 +27,7 @@
 	  <PackageReference Include="Senparc.Weixin.AspNet" Version="0.7.7" />
 	  <PackageReference Include="Senparc.Weixin.MP" Version="16.17.9" />
 	  <PackageReference Include="Senparc.Weixin.TenPay" Version="1.12.1" />
+	  <PackageReference Include="ZXing.Net" Version="0.16.8" />
 	</ItemGroup>
 
 	<!--直接引用源码-->

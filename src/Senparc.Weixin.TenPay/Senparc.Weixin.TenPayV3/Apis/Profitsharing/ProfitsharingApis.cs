@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,13 +19,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
   
     文件名：ProfitsharingApis.cs
     文件功能描述：微信支付V3分账接口
     
     
     创建标识：Senparc - 20210920
+
+    修改标识：Senparc - 20220511
+    修改描述：v0.6.2.1 修复 CreateProfitsharingAsync 接口路径问题
+
     
 ----------------------------------------------------------------*/
 
@@ -95,7 +99,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 }
             }
             // TODO: name 敏感信息加密
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{{0}}v3/profitsharing/orders");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/profitsharing/orders");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<CreateProfitsharingReturnJson>(url, data, timeOut);
         }
@@ -112,7 +116,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<QueryProfitsharingReturnJson> QueryProfitsharingAsync(string transaction_id, string out_order_no, int timeOut = Config.TIME_OUT)
         {
 
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{{0}}v3/profitsharing/orders/{out_order_no}?&transaction_id={transaction_id}");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/profitsharing/orders/{out_order_no}?&transaction_id={transaction_id}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryProfitsharingReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }
@@ -127,7 +131,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<ReturnProfitsharingReturnJson> ReturnProfitsharingAsync(ReturnProfitsharingRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/profitsharing/return-orders");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/profitsharing/return-orders");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<ReturnProfitsharingReturnJson>(url, data, timeOut);
         }
@@ -144,7 +148,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<QueryReturnProfitsharingReturnJson> QueryReturnProfitsharingAsync(string out_return_no, string out_order_no, int timeOut = Config.TIME_OUT)
         {
 
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/profitsharing/return-orders/{out_return_no}?&out_order_no={out_return_no}");
+            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/profitsharing/return-orders/{out_return_no}?&out_order_no={out_return_no}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryReturnProfitsharingReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }
@@ -159,7 +163,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<UnfreezeProfitsharingReturnJson> UnfreezeProfitsharingAsync(UnfreezeProfitsharingRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/profitsharing/orders/unfreeze");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/profitsharing/orders/unfreeze");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<UnfreezeProfitsharingReturnJson>(url, data, timeOut);
         }
@@ -175,7 +179,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<QueryProfitsharingAmountsReturnJson> QueryProfitsharingAmountsAsync(string transaction_id, int timeOut = Config.TIME_OUT)
         {
 
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/profitsharing/transactions/{transaction_id}/amounts");
+            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/profitsharing/transactions/{transaction_id}/amounts");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryProfitsharingAmountsReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }
@@ -195,7 +199,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             {
                 throw new TenpayApiRequestException($"当 {nameof(data.type)} 为 {data.type} 时，{nameof(data.name)} 必填！");
             }
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/profitsharing/receivers/add");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/profitsharing/receivers/add");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<AddProfitsharingReceiverReturnJson>(url, data, timeOut);
         }
@@ -210,7 +214,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<DeleteProfitsharingReceiverReturnJson> DeleteProfitsharingAsync(DeleteProfitsharingReceiverRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/profitsharing/receivers/delete");
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/profitsharing/receivers/delete");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<DeleteProfitsharingReceiverReturnJson>(url, data, timeOut);
         }

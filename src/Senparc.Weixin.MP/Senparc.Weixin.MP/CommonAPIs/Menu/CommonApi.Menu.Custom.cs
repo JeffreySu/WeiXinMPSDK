@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：CommonApi.Menu.Custom.cs
     文件功能描述：通用自定义菜单接口（自定义接口）
@@ -64,7 +64,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.CO2NET.Helpers;
 
-#if NET451
+#if NET462
 using System.Web.Script.Serialization;
 #endif
 
@@ -234,7 +234,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 try
                 {
 
-#if NET451
+#if NET462
                     JavaScriptSerializer js = new JavaScriptSerializer();
                     var jsonResult = js.Deserialize<GetMenuResultFull>(jsonString);
 #else

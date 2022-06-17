@@ -1,0 +1,77 @@
+/**index.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-motto{
+  margin-bottom: 10px;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 20px;
+}
+
+#clientTime{
+  position:absolute;
+  color:#ff0000;
+  font-weight: bold;
+  text-align: center;
+  bottom:20px;
+}
+
+.btn-contact{
+  margin-top:30px;
+}
+
+.btn-DoRequest{
+  margin-top:8px;
+}
+
+.page-section{
+  margin-bottom: 20rpx;
+}
+
+.flex-wrp {display: flex;}
+.flex-item{margin: 0px 10px;}
+
+.hide {display: none;}
+
+#websocket_buttons{margin: 10px 0 0 0;}
+
+.service-btn{
+  font-size: 15px;
+  line-height: 70rpx;
+  font-family: PingFang SC;
+  width: 240rpx;
+  height: 72rpx;
+  background-color: #ff8f00;
+  box-shadow: 1rpx 1rpx 8rpx 0rpx rgba(22, 22, 22, 0.35);
+  border-radius: 22rpx;
+  color: #fff;
+}
+
+.auth-notice{
+  text-align: center;
+  padding:10px 30px 30px 30px;
+  color: #ff8f00;
+}
+
+#login-nickname{
+  display: inline;
+  color: #ff8f00;
+}
+
+.line{border-bottom: dotted 1px #666666; width: 90%;display: block; margin: 10px auto;}

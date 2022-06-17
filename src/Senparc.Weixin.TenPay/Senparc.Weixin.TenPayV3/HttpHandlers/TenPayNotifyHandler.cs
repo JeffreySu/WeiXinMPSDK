@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
  
     文件名：TenPayNotifyHandler.cs
     文件功能描述：微信支付V3 回调请求handler
@@ -89,7 +89,7 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="nonce">加密的随机串 可空</param>
         /// <param name="associated_data">附加数据包 可空</param>
         /// <returns></returns>
-        // TODO: 本方法待测试
+        // TODO: 本方法持续测试
         public async Task<T> AesGcmDecryptGetObjectAsync<T>(string aes_key = null, string nonce = null, string associated_data = null) where T : ReturnJsonBase, new()
         {
             aes_key ??= _tenpayV3Setting.TenPayV3_APIv3Key;

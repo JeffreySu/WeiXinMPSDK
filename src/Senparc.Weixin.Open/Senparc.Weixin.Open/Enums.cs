@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -38,6 +38,18 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180121
     修改描述：v2.8.6 完善 FuncscopeCategory 枚举
+
+    修改标识：mc7246 - 20211209
+    修改描述：v4.13.2 添加“小程序违规和申诉管理”接口
+
+    修改标识：Senparc - 20220107
+    修改描述：v4.13.4 完善“公众号权限集”
+
+    修改标识：mc7246 - 20220402
+    修改描述：v4.13.9 添加试用小程序接口及事件
+
+    修改标识：mc7246 - 20220514
+    修改描述：v4.14.3 补充小程序/公众号获取基本信息字段（PrincipalType、CustomerType）
 
 ----------------------------------------------------------------*/
 
@@ -98,7 +110,15 @@ namespace Senparc.Weixin.Open
         /// <summary>
         /// 小程序名称设置及改名审核事件推送
         /// </summary>
-        wxa_nickname_audit
+        wxa_nickname_audit,
+        /// <summary>
+        /// 试用小程序快速认证事件推送
+        /// </summary>
+        notify_third_fastverifybetaapp,
+        /// <summary>
+        /// 创建试用小程序成功/失败的事件推送
+        /// </summary>
+        notify_third_fastregisterbetaapp
     }
 
     /// <summary>
@@ -168,22 +188,58 @@ namespace Senparc.Weixin.Open
         素材管理权限 = 11,
         微信摇周边权限 = 12,
         微信门店权限 = 13,
+        /// <summary>
+        /// <see href="https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/product/offical_account_authority.html">文档</see>中已取消
+        /// </summary>
         微信支付权限 = 14,
         自定义菜单权限 = 15,
         获取认证状态及信息 = 16,
         帐号管理权限_小程序 = 17,
-        开发管理权限_小程序 = 18,
+        开发管理与数据分析权限_小程序 = 18,
         客服消息管理权限_小程序 = 19,
         微信登录权限_小程序 = 20,
         数据分析权限_小程序 = 21,
         城市服务接口权限 = 22,
         广告管理权限 = 23,
         开放平台帐号管理权限 = 24,
-        开放平台帐号管理权限_小程序 = 25,
+        微信开放平台帐号管理权限_小程序 = 25,
         微信电子发票权限 = 26,
         快速注册小程序权限 = 27,
+        小程序基本信息设置权限=30,
+        小程序认证名称检测=31,
         小程序管理权限 = 33,
-        微信卡路里权限 = 35
+        微信商品库权限 = 34,
+        微信卡路里权限 = 35,
+        小程序附近地点权限集=37,
+        小程序插件管理权限集=40,
+        好物圈权限 = 44,
+        微信物流服务=45,
+        微信一物一码权限 = 46,
+        微信财政电子票据权限 = 47,
+        云开发管理权限集=49,
+        即时配送权限=51,
+        小程序直播权限集=52,
+        服务号对话权限 = 54,
+        广告管理权限_小程序=65,
+        服务平台管理权限 = 66,
+        服务平台管理权限_小程序=67,
+        商品管理权限=70,
+        订单与物流管理权限=71,
+        标准版交易组件接入权限=73,
+        违规和申诉管理权限=76,
+        快速体验小程序权限=81,
+        优惠券权限集=84,
+        自定义版交易组件=85,
+        小商店装修=86,
+        获取小程序链接=88,
+        订阅通知权限 = 89,
+        小程序联盟权限=93,
+        短信服务=99,
+        云开发微信支付=102,
+        标准版组件资金链路=104,
+        城市服务=105,
+        红包封面管理=112
+
 #pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释
     }
 
@@ -257,7 +313,30 @@ namespace Senparc.Weixin.Open
     /// </summary>
     public enum PrincipalType
     {
-        企业 = 1
+        个人 = 0,
+        企业 = 1,
+        媒体 = 2,
+        政府 = 3,
+        其他组织 = 4
+    }
+
+    /// <summary>
+    /// 认证类型
+    /// </summary>
+    public enum CustomerType
+    {
+        未认证 = 0,
+        企业 = 1,
+        企业媒体 = 2,
+        政府 = 3,
+        非盈利组织 = 4,
+        民营非企业 = 5,
+        盈利组织 = 6,
+        社会团体 = 8,
+        事业媒体 = 9,
+        事业单位 = 11,
+        个体工商户 = 12,
+        海外企业 = 13
     }
 
     /// <summary>

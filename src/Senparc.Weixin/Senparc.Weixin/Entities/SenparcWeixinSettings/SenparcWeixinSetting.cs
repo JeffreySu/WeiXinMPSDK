@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：SenparcWeixinSetting.cs
     文件功能描述：Senparc.Weixin JSON 配置
@@ -97,7 +97,7 @@ namespace Senparc.Weixin.Entities
         }
 
 
-#if NET451
+#if NET462
         /// <summary>
         /// 从 Web.Config 文件自动生成 SenparcWeixinSetting
         /// </summary>

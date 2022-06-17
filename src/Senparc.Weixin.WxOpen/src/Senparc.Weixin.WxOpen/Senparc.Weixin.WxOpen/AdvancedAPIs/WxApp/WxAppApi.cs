@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：WxAppApi.cs
     文件功能描述：小程序WxApp目录下面的接口
@@ -38,21 +38,26 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190615
     修改描述：修复附近的小程序添加地点
+
+    修改标识：Senparc - 20220217
+    修改描述：v3.14.9 增加微信小程序生成无限制二维码的参数
+
+    修改标识：Senparc - 20220313
+    修改描述：v3.14.10.1 修复 WxAppApi.GetWxaCodeUnlimitAsync() 接口参数错误
+
 ----------------------------------------------------------------*/
 
-using System;
-using System.IO;
-using System.Threading.Tasks;
-using Senparc.Weixin.CommonAPIs;
-using Senparc.Weixin.Entities;
 using Senparc.CO2NET.Extensions;
-using Senparc.CO2NET.HttpUtility;
-using Senparc.Weixin.MP;
-using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Helpers.Serializers;
-using System.Collections.Generic;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 {
@@ -143,14 +148,16 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="stream">储存小程序码的流</param>
         /// <param name="scene">最大32个可见字符，只支持数字，大小写英文以及部分特殊字符：!#$&'()*+,/:;=?@-._~，其它字符请自行编码为合法字符（因不支持%，中文无法使用 urlencode 处理，请使用其他编码方式）</param>
         /// <param name="page">必须是已经发布的小程序页面，例如 "pages/index/index" ,根路径前不要填加'/',不能携带参数（参数请放在scene字段里），如果不填写这个字段，默认跳主页面</param>
-        /// <param name="width">小程序码的宽度</param>
-        /// <param name="auto_color">自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调</param>
-        /// <param name="lineColor">auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}</param>
-        /// <param name="isHyaline">是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码，默认为 false</param>
-        /// <param name="timeOut">请求超时时间</param>
+        /// <param name="check_path">[选填]检查page 是否存在，为 true 时 page 必须是已经发布的小程序存在的页面（否则报错）；为 false 时允许小程序未发布或者 page 不存在， 但page 有数量上限（60000个）请勿滥用</param>
+        /// <param name="env_version">[选填]要打开的小程序版本,默认为"release"。正式版为 "release"，体验版为 "trial"，开发版为 "develop"</param>
+        /// <param name="width">[选填]小程序码的宽度</param>
+        /// <param name="auto_color">[选填]自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调</param>
+        /// <param name="lineColor">[选填]auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}</param>
+        /// <param name="isHyaline">[选填]是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码，默认为 false</param>
+        /// <param name="timeOut">[选填]请求超时时间</param>
         /// <returns></returns>
         public static WxJsonResult GetWxaCodeUnlimit(string accessTokenOrAppId, Stream stream, string scene,
-            string page, int width = 430, bool auto_color = false, LineColor lineColor = null, bool isHyaline = false,
+            string page, bool check_path = true, string env_version = "release", int width = 430, bool auto_color = false, LineColor lineColor = null, bool isHyaline = false,
             int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -163,7 +170,16 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                     lineColor = new LineColor();//提供默认值
                 }
 
-                var data = new { scene = scene, page = page, width = width, line_color = lineColor, is_hyaline = isHyaline };
+                var data = new
+                {
+                    scene = scene,
+                    page = page,
+                    check_path = check_path,
+                    env_version = env_version,
+                    width = width,
+                    line_color = lineColor,
+                    is_hyaline = isHyaline
+                };
                 JsonSetting jsonSetting = new JsonSetting(true);
                 Post.Download(CommonDI.CommonSP, url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
 
@@ -181,16 +197,18 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="filePath">储存图片的物理路径</param>
         /// <param name="scene">最大32个可见字符，只支持数字，大小写英文以及部分特殊字符：!#$&'()*+,/:;=?@-._~，其它字符请自行编码为合法字符（因不支持%，中文无法使用 urlencode 处理，请使用其他编码方式）</param>
         /// <param name="page">必须是已经发布的小程序页面，例如 "pages/index/index" ,根路径前不要填加'/',不能携带参数（参数请放在scene字段里），如果不填写这个字段，默认跳主页面</param>
-        /// <param name="width">二维码的宽度</param>
-        /// <param name="auto_color">自动配置线条颜色</param>
-        /// <param name="isHyaline">是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码，默认为 false</param>
-        /// <param name="timeOut">请求超时时间</param>
+        /// <param name="check_path">[选填]检查page 是否存在，为 true 时 page 必须是已经发布的小程序存在的页面（否则报错）；为 false 时允许小程序未发布或者 page 不存在， 但page 有数量上限（60000个）请勿滥用</param>
+        /// <param name="env_version">[选填]要打开的小程序版本,默认为"release"。正式版为 "release"，体验版为 "trial"，开发版为 "develop"</param>
+        /// <param name="width">[选填]二维码的宽度</param>
+        /// <param name="auto_color">[选填]自动配置线条颜色</param>
+        /// <param name="isHyaline">[选填]是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码，默认为 false</param>
+        /// <param name="timeOut">[选填]请求超时时间</param>
         /// <returns></returns>
-        public static WxJsonResult GetWxaCodeUnlimit(string accessTokenOrAppId, string filePath, string scene, string page, int width = 430, bool auto_color = false, LineColor lineColor = null, bool isHyaline = false, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult GetWxaCodeUnlimit(string accessTokenOrAppId, string filePath, string scene, string page, bool check_path = true, string env_version = "release", int width = 430, bool auto_color = false, LineColor lineColor = null, bool isHyaline = false, int timeOut = Config.TIME_OUT)
         {
             using (var ms = new MemoryStream())
             {
-                var result = WxAppApi.GetWxaCodeUnlimit(accessTokenOrAppId, ms, scene, page, width, auto_color, lineColor, isHyaline, timeOut);
+                var result = WxAppApi.GetWxaCodeUnlimit(accessTokenOrAppId, ms, scene, page, check_path, env_version, width, auto_color, lineColor, isHyaline, timeOut);
                 ms.Seek(0, SeekOrigin.Begin);
                 //储存图片
                 File.Delete(filePath);
@@ -828,6 +846,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             }, accessTokenOrAppId);
         }
 
+
         #endregion
 
 
@@ -871,6 +890,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="stream">储存小程序码的流</param>
         /// <param name="scene">最大32个可见字符，只支持数字，大小写英文以及部分特殊字符：!#$&'()*+,/:;=?@-._~，其它字符请自行编码为合法字符（因不支持%，中文无法使用 urlencode 处理，请使用其他编码方式）</param>
         /// <param name="page">必须是已经发布的小程序页面，例如 "pages/index/index" ,根路径前不要填加'/',不能携带参数（参数请放在scene字段里），如果不填写这个字段，默认跳主页面</param>
+        /// <param name="check_path">[选填]检查page 是否存在，为 true 时 page 必须是已经发布的小程序存在的页面（否则报错）；为 false 时允许小程序未发布或者 page 不存在， 但page 有数量上限（60000个）请勿滥用</param>
+        /// <param name="env_version">[选填]要打开的小程序版本,默认为"release"。正式版为 "release"，体验版为 "trial"，开发版为 "develop"</param>
         /// <param name="width">小程序码的宽度</param>
         /// <param name="auto_color">自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调</param>
         /// <param name="lineColor">auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}</param>
@@ -878,7 +899,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         public static async Task<WxJsonResult> GetWxaCodeUnlimitAsync(string accessTokenOrAppId, Stream stream,
-            string scene, string page, int width = 430, bool auto_color = false, LineColor lineColor = null, bool isHyaline = false,
+            string scene, string page, bool check_path = true, string env_version = "release", int width = 430, bool auto_color = false, LineColor lineColor = null, bool isHyaline = false,
             int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -891,7 +912,16 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                     lineColor = new LineColor();//提供默认值
                 }
 
-                var data = new { scene = scene, page = page, width = width, line_color = lineColor, is_hyaline = isHyaline };
+                var data = new
+                {
+                    scene = scene,
+                    page = page,
+                    check_path = check_path,
+                    env_version = env_version,
+                    width = width,
+                    line_color = lineColor,
+                    is_hyaline = isHyaline
+                };
                 JsonSetting jsonSetting = new JsonSetting(true);
                 await Post.DownloadAsync(CommonDI.CommonSP, url, SerializerHelper.GetJsonString(data, jsonSetting), stream).ConfigureAwait(false);
 
@@ -909,19 +939,21 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="filePath">储存图片的物理路径</param>
         /// <param name="scene">最大32个可见字符，只支持数字，大小写英文以及部分特殊字符：!#$&'()*+,/:;=?@-._~，其它字符请自行编码为合法字符（因不支持%，中文无法使用 urlencode 处理，请使用其他编码方式）</param>
         /// <param name="page">必须是已经发布的小程序页面，例如 "pages/index/index" ,根路径前不要填加'/',不能携带参数（参数请放在scene字段里），如果不填写这个字段，默认跳主页面</param>
-        /// <param name="width">二维码的宽度</param>
-        /// <param name="auto_color">自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调</param>
-        /// <param name="lineColor">auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}</param>
-        /// <param name="isHyaline">是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码，默认为 false</param>
-        /// <param name="timeOut">请求超时时间</param>
+        /// <param name="check_path">[选填]检查page 是否存在，为 true 时 page 必须是已经发布的小程序存在的页面（否则报错）；为 false 时允许小程序未发布或者 page 不存在， 但page 有数量上限（60000个）请勿滥用</param>
+        /// <param name="env_version">[选填]要打开的小程序版本,默认为"release"。正式版为 "release"，体验版为 "trial"，开发版为 "develop"</param>
+        /// <param name="width">[选填]二维码的宽度</param>
+        /// <param name="auto_color">[选填]自动配置线条颜色</param>
+        /// <param name="isHyaline">[选填]是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码，默认为 false</param>
+        /// <param name="timeOut">[选填]请求超时时间</param>
+
         /// <returns></returns>
         public static async Task<WxJsonResult> GetWxaCodeUnlimitAsync(string accessTokenOrAppId, string filePath,
-            string scene, string page, int width = 430, bool auto_color = false, LineColor lineColor = null, bool isHyaline = false,
+            string scene, string page, bool check_path = true, string env_version = "release", int width = 430, bool auto_color = false, LineColor lineColor = null, bool isHyaline = false,
             int timeOut = Config.TIME_OUT)
         {
             using (var ms = new MemoryStream())
             {
-                var result = await WxAppApi.GetWxaCodeUnlimitAsync(accessTokenOrAppId, ms, scene, page, width, auto_color, lineColor, isHyaline, timeOut).ConfigureAwait(false);
+                var result = await WxAppApi.GetWxaCodeUnlimitAsync(accessTokenOrAppId, ms, scene, page, check_path, env_version, width, auto_color, lineColor, isHyaline, timeOut).ConfigureAwait(false);
                 ms.Seek(0, SeekOrigin.Begin);
                 //储存图片
                 File.Delete(filePath);

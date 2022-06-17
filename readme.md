@@ -2,7 +2,7 @@
 
 Senparc.Weixin —— 微信 .NET SDK 
 =================
-[![Build status](https://mysenparc.visualstudio.com/Senparc%20SDK/_apis/build/status/Weixin%20SDK/Senparc.Weixin%20master-pipeline-status)](https://mysenparc.visualstudio.com/Senparc%20SDK/_build/latest?definitionId=40)
+[![Build status](https://mysenparc.visualstudio.com/Senparc%20SDK/_apis/build/status/Weixin%20SDK/Senparc.Weixin%20Dev-%E5%86%85%E9%83%A8-%E8%87%AA%E5%8A%A8-.Net6)](https://mysenparc.visualstudio.com/Senparc%20SDK/_build/latest?definitionId=36)
 [![NuGet](https://img.shields.io/nuget/dt/Senparc.Weixin.svg)](https://www.nuget.org/packages/Senparc.Weixin)
 [![GitHub commit activity the past week, 4 weeks, year](https://img.shields.io/github/commit-activity/4w/JeffreySu/WeiXinMPSDK.svg)](https://github.com/JeffreySu/WeiXinMPSDK/commits/master)
 [![license](https://img.shields.io/github/license/JeffreySu/WeiXinMPSDK.svg)](http://www.apache.org/licenses/LICENSE-2.0)
@@ -45,7 +45,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 * [如何使用.net core开发](#如何使用-net-core-开发)
 * [关注测试账号（SenparcRobot）](#关注测试账号senparcrobot)
 * [项目文件夹说明（src文件夹下）](#项目文件夹说明src文件夹下)
-* [Demo 文件夹说明（Samples文件夹下）](#demo-文件夹说明samples文件夹下)
+* [Sample 文件夹说明（Samples文件夹下）](#sample-文件夹说明samples文件夹下)
 * [Senparc.Weixin.MP.Sample中的关键代码说明](#senparcweixinmpsample中的关键代码说明)
     * [/Controllers/WeixinController.cs](#controllersweixincontrollercs)
     * [如何处理微信公众账号请求](#如何处理微信公众账号请求)
@@ -60,10 +60,9 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 本库包含了 .NET4.5/.NET Standard 2.0/.NET Core/.NET 6 多个版本的源代码（核心逻辑完全一致）：
 
-* 使用 Visual Studio 2019 打开 Demo（支持所有版本）：.NET 6.0 - [Senparc.Weixin.Sample.Net6.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net6-mvc)（包含源码引用推荐）
-* 使用 Visual Studio 2019 打开 .NET 3.1 Demo - [Senparc.Weixin.Sample.NetCore3.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.1-mvc) （不包含源码，仅引用类库）
-* 使用 Visual Studio 2019 或其他版本打开 .NET 4.5 Demo：[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net45-mvc)（不包含源码，仅引用类库）
-* 使用 Visual Studio 2017/2019 打开命令行 Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/console)
+* 使用 Visual Studio 2022 打开 Demo（支持所有版本）：.NET 6.0 - [Senparc.Weixin.Sample.Net6.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net6-mvc)（包含源码引用推荐）
+* 使用 Visual Studio 2019 或其他版本打开 .NET 4.5 Demo：[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net45-mvc)（不包含源码，仅引用类库）
+* 使用 Visual Studio 2017/2019 打开命令行 Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/console)
 
 各模块类库
 ----------------
@@ -297,15 +296,20 @@ Senparc 官方视频教程
 |[Senparc.Weixin](src/Senparc.Weixin)										|所有Senparc.Weixin.[x].dll 基础类库源代码|
 
 
-## Demo 文件夹说明（Samples文件夹下）
+## Sample 文件夹说明（Samples文件夹下）
 
 | 文件夹 | 说明 |  SDK 引用方式
 |--------|--------|----|
-|[net45-mvc](Samples/net45-mvc)						|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET MVC）|  Nuget 包
-|[net45-webforms](Samples/net45-webforms)		|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET WebForms）| Nuget 包
-|[netcore3.1-mvc](Samples/netcore3.1-mvc)			|可以直接发布使用的Demo（.NET Core 3.1 + MVC）| 源码
-|[Samples/console](Samples/console)			|命令行 Console Demo（.NET Core）| 源码
-|[net6-mvc](Samples/net6-mvc)			|可以直接发布使用的 Demo（.NET 6.0），兼容 .NET 5.0| 源码
+|[MP](Samples/MP/)          |   公众号 | 源码
+|[TenPayV2](Samples/TenPayV2/)    |   微信支付 V1 和 V2  | 源码
+|[TenPayV3](Samples/TenPayV3/)    |   微信支付 V3（TenPay APIv3） | 源码
+|[Work](Samples/Work/)        |   企业微信 | 源码
+|[WxOpen](Samples/WxOpen/)      |   微信小程序 | 源码
+|[Shared](Samples/Shared)      |   所有 Sample 都需要用到的共享文件
+|[All](Samples/All/)         |   包含微信公众号、小程序、微信支付、企业微信等所有功能的混合场景演示，推荐用于集成多个平台的项目参考<br />（进阶参考） | 
+| ┣ [All/net45-mvc](Samples/All/net45-mvc)						|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET MVC）|  Nuget 包
+| ┣ [All/console](Samples/All/console)			|命令行 Console Demo（.NET Core）| 源码
+| ┗ [All/net6-mvc](Samples/All/net6-mvc)			|可以直接发布使用的 Demo（.NET 6.0），兼容 .NET 5.0 和 .NET Core | 源码
 
 ## Senparc.Weixin.MP.Sample 中的关键代码说明
 

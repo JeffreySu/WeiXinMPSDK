@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -18,7 +18,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：CustomAPI.cs
     文件功能描述：客服接口
@@ -82,7 +82,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 客服接口
     /// </summary>
-    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, true)]
     public static class CustomApi
     {
         /// <summary>
@@ -513,7 +513,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="kfAccount"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult SendMiniProgramPage(string accessTokenOrAppId, string openId, string title, string appid, string pagepath, string thumb_media_id, string kfAccount="", int timeOut = Config.TIME_OUT)
+        public static WxJsonResult SendMiniProgramPage(string accessTokenOrAppId, string openId, string title, string appid, string pagepath, string thumb_media_id, string kfAccount = "", int timeOut = Config.TIME_OUT)
         {
             object data = null;
             if (kfAccount.IsNullOrWhiteSpace())
@@ -525,8 +525,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     miniprogrampage = new
                     {
                         title = title,
-                        appid=appid,
-                        pagepath= pagepath,
+                        appid = appid,
+                        pagepath = pagepath,
                         thumb_media_id = thumb_media_id
                     }
                 };

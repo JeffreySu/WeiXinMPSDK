@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
 
     文件名：MemcachedContainerStrategy.cs
     文件功能描述：Memcached 容器缓存策略。
@@ -31,9 +31,7 @@ using System.Threading.Tasks;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Memcached;
 using Senparc.Weixin.Containers;
-#if NET451 || NET461
-
-#else
+#if !NET462
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 #endif

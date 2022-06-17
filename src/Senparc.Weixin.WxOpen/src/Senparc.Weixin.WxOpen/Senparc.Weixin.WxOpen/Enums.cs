@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,13 +19,16 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
   
     文件名：Enums.cs
     文件功能描述：枚举类型
     
     
     创建标识：Senparc - 20170106
+
+    修改标识：mc7246 - 20220504
+    修改描述：v3.15.2 添加小程序隐私权限审核结果推送
 
 ----------------------------------------------------------------*/
 
@@ -58,7 +61,10 @@ namespace Senparc.Weixin.WxOpen
         wxa_nickname_audit, //名称审核事件
         weapp_audit_success,
         weapp_audit_fail,
-        weapp_audit_delay
+        weapp_audit_delay,
+        wxa_illegal_record, //小程序违规记录事件
+        wxa_appeal_record, //小程序申诉记录推送
+        wxa_privacy_apply //隐私权限审核结果推送
 
     }
 

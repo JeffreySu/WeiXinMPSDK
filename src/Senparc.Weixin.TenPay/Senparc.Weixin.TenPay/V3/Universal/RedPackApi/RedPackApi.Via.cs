@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
   
     文件名：RedPackApi.Via.cs
     文件功能描述：RedPackApi.cs 的部分类，用于存放服务商的接口
@@ -42,7 +42,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
 
-#if !NET451
+#if !NET462
 using System.Net.Http;
 # endif
 
@@ -144,7 +144,7 @@ namespace Senparc.Weixin.TenPay.V3
             string data = packageReqHandler.ParseXML();
 
             //发红包接口地址
-            string url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
+            string url = Senparc.Weixin.Config.TenPayV3Host + "/mmpaymkttransfers/sendredpack";
             //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
             string cert = tenPayCertPath;
             //私钥（在安装证书时设置）
@@ -156,7 +156,7 @@ namespace Senparc.Weixin.TenPay.V3
             XmlDocument doc = new Senparc.CO2NET.ExtensionEntities.XmlDocument_XxeFixed();
             #region 发起post请求，载入到doc中
 
-#if NET451
+#if NET462
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
             //X509Certificate cer = new X509Certificate(cert, password);
             HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);

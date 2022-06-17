@@ -41,7 +41,7 @@ Index
 * [Develop with .net Core](#develop-with-net-core)
 * [Follow Demo Official Account(SenparcRobot)](#follow-demo-official-accountsenparcrobot)
 * [Project folder description (under src folder)](#project-folder-description-under-src-folder)
-* [Demo folder description (under Samples folder)](#demo-folder-description-under-samples-folder)
+* [Sample folder description (under Samples folder)](#sample-folder-description-under-samples-folder)
 * [Senparc.Weixin.MP.Sample Key Code](#senparcweixinmpsample-key-code)
     * [/Controllers/WeixinController.cs](#controllersweixincontrollercs)
     * [How to handle WeChat Official Account request?](#how-to-handle-wechat-official-account)
@@ -63,11 +63,10 @@ Index
 
 The library contains the source code (the Core logic is exactly the same) that includes .Net 3.5/4.0/4.5/.NET Standard 2.0/.NET Core/.NET 6.
 
-* Use Visual Studio 2019 open Demo(support for all .NET Versions)：.NET 6.0 - [Senparc.Weixin.Sample.Net6.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net6-mvc) (referenced source code, recommanded)
-* Use Visual Studio 2019 open .NET 3.1 Demo - [Senparc.Weixin.Sample.NetCore3.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.1-mvc) (NOT referenced source code)
+* Use Visual Studio 2019 open Demo(support for all .NET Versions)：.NET 6.0 - [Senparc.Weixin.Sample.Net6.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net6-mvc) (referenced source code, recommanded)
 * Use other versions of Visual Studio to open the Demo (support .net 4.5 only) :
-[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net45-mvc)
-* Use Visual Studio 2017/2019 to open Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/console)
+[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net45-mvc)
+* Use Visual Studio 2017/2019 to open Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/console)
 
 
 SDK Modules
@@ -298,15 +297,21 @@ Senparc official tutorials
 |[Senparc.Weixin](src/Senparc.Weixin)										|all Senparc.Weixin.[x].dll base library  source code|
 
 
-## Demo folder description (under Samples folder)
+## Sample folder description (under Samples folder)
 
 | Folder | Description | SDK Library Reference
 |--------|--------|-------|
-|[net45-mvc](Samples/net45-mvc)						  |Demo, can be released directly(.NET Framework 4.5 + ASP.NET MVC)| Nuget Packages
-|[net45-webforms](Samples/net45-webforms)		  |Demo, can be released directly(.NET Framework 4.5 + ASP.NET WebForms)| Nuget Packages
-|[netcore3.1-mvc](Samples/netcore3.1-mvc)			  |Demo, can be released directly(.NET Core 3.1 + MVC)| Source Code
-|[Samples/console](Samples/console)			| Console Demo（.NET Core）| Source Code
-|[net6-mvc](Samples/net6-mvc)			|Demo, can be released directly(.NET 6.0), compatible with .NET 5.0 | Source Code
+|[MP](Samples/MP/)          |   Official Account Sample | Source Code
+|[TenPayV2](Samples/TenPayV2/)    |   Tencent Payment V1 & V2 Sample | Source Code
+|[TenPayV3](Samples/TenPayV3/)    |   Tencent Payment V3（TenPay APIv3） Sample | Source Code
+|[Work](Samples/Work/)        |   Enterprice Account Sample | Source Code
+|[WxOpen](Samples/WxOpen/)      |   Mini-Program Sample | Source Code
+|[Shared](Samples/Shared)      |   All Sample's common shared files
+|[All](Samples/All/)         |  Including integration of all subordinate modules: Official Account, Mini-Program, Enterprice Account, Tencent Payment(V2 & V3 & APIv3). Recommended project references for integrating multiple platforms<br /> (advanced references) | 
+| ┣ [All/net45-mvc](Samples/All/net45-mvc)						|Demo, can be released directly(.NET Framework 4.5 + ASP.NET MVC)| Nuget Packages |  Nuget Package
+| ┣ [All/console](Samples/All/console)			| Console Demo（.NET Core）| Source Code
+| ┗ [All/net6-mvc](Samples/All/net6-mvc)			|Demo, can be released directly(.NET 6.0), compatible with .NET 5.0 and .NET Core | Source Code
+
 
 Senparc.Weixin.MP.Sample Key Code
 --------------

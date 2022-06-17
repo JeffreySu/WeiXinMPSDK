@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<!--<TargetFramework>net5.0</TargetFramework>-->
+		<Version>0.1.1</Version>
+		<TargetFrameworks>netcoreapp3.1;net6.0</TargetFrameworks>
+		<Nullable>enable</Nullable>
+		<AssemblyName>Weixin.CLI</AssemblyName>
+		<RootNamespace>Senparc.Weixin</RootNamespace>
+		<PackAsTool>true</PackAsTool>
+		<ToolCommandName>weixin</ToolCommandName>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+		<Description>
+			微信 CLI
+
+			Senparc.Weixin SDK 开源项目：
+			https://github.com/JeffreySu/WeiXinMPSDK
+
+			可使用命令行安装：
+
+			dotnet tool install -g Weixin.CLI
+
+			使用命令行卸载：
+
+			dotnet tool uninstall -g Weixin.CLI
+			
+			教程：https://www.cnblogs.com/szw/p/weixin-cli-v1_0.html
+
+		</Description>
+
+		<Copyright>Senparc Copyright © 2004~2021</Copyright>
+		<PackageTags>微信,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,WebSocket</PackageTags>
+		<Authors>Jeffrey Su</Authors>
+		<Owners>Senparc</Owners>
+		<PackageLicenseUrl>https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</PackageLicenseUrl>
+		<ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
+		<Title>Senparc.WebSocket.dll</Title>
+		<Summary>微信公众号SDK for C#</Summary>
+		<PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
+		<PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
+		<PackageReleaseNotes>
+			v1.0 创世
+			v1.1 支持 .NET Core 3.1 和 .NET 6 SDK
+		</PackageReleaseNotes>
+		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
+		
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<OutputPath>..\BuildOutPut</OutputPath>
+		<DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="4.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+		<PackageReference Include="Senparc.NeuChar" Version="2.0.1" />
+		<PackageReference Include="System.Windows.Extensions" Version="5.0.0" />
+	</ItemGroup>
+</Project>

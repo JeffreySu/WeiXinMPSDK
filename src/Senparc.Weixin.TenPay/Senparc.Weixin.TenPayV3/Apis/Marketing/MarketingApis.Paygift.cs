@@ -1,4 +1,35 @@
-﻿using Senparc.CO2NET.Helpers;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2022 Senparc
+  
+    文件名：MarketingApis.Paygift.cs
+    文件功能描述：微信支付V3营销工具接口
+    
+    
+    创建标识：Senparc - 20210821
+    
+----------------------------------------------------------------*/
+
+using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Trace;
 using Senparc.Weixin.TenPayV3.Apis.Marketing;
 using Senparc.Weixin.TenPayV3.Entities;
@@ -26,7 +57,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<CreateUniqueThresholdActivityReturnJson> CreateUniqueThresholdActivityAsync(CreateUniqueThresholdActivityRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/paygiftactivity/unique-threshold-activity");
+            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/marketing/paygiftactivity/unique-threshold-activity");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<CreateUniqueThresholdActivityReturnJson>(url, data, timeOut);
         }
@@ -42,7 +73,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<QueryPaygiftActivityReturnJson> QueryPaygiftActivityAsync(string activity_id, int timeOut = Config.TIME_OUT)
         {
 
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/paygiftactivity/activities/{activity_id}");
+            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/marketing/paygiftactivity/activities/{activity_id}");
 
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryPaygiftActivityReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
@@ -60,7 +91,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<QueryPaygiftActivityMerchantsReturnJson> QueryPaygiftActivityMerchantsAsync(string activity_id, ulong limit = 10, ulong offset = 0, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/paygiftactivity/activities/{activity_id}/merchants?offset={offset}&limit={limit}");
+            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/marketing/paygiftactivity/activities/{activity_id}/merchants?offset={offset}&limit={limit}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryPaygiftActivityMerchantsReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }
@@ -77,7 +108,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<QueryPaygiftActivityGoodsReturnJson> QueryPaygiftActivityGoodsAsync(string activity_id, ulong limit = 10, ulong offset = 0, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/paygiftactivity/activities/{activity_id}/goods?offset={offset}&limit={limit}");
+            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/marketing/paygiftactivity/activities/{activity_id}/goods?offset={offset}&limit={limit}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryPaygiftActivityGoodsReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }
@@ -92,7 +123,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<TerminatePaygiftActivityReturnJson> TerminatePaygiftActivityAsync(string activity_id, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/paygiftactivity/activities/{activity_id}/terminate");
+            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/marketing/paygiftactivity/activities/{activity_id}/terminate");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             // TODO: 此处应该注意检查post方法body为null时候有问题 文档确实body没有传任何数据
             return await tenPayApiRequest.RequestAsync<TerminatePaygiftActivityReturnJson>(url, null, timeOut);
@@ -108,7 +139,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<AddPaygiftActivityMerchantsReturnJson> AddPaygiftActivityMerchantsAsync(AddPaygiftActivityMerchantsRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/paygiftactivity/activities/{data.activity_id}/merchants/add");
+            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/marketing/paygiftactivity/activities/{data.activity_id}/merchants/add");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<AddPaygiftActivityMerchantsReturnJson>(url, data, timeOut);
         }
@@ -128,7 +159,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<QueryPaygiftActivitiesReturnJson> QueryPaygiftActivitiesAsync(string activity_name, string activity_status, string award_type, int limit = 10, int offset = 0, int timeOut = Config.TIME_OUT)
         {
 
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/paygiftactivity/activities?offset={offset}&limit={limit}");
+            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/marketing/paygiftactivity/activities?offset={offset}&limit={limit}");
 
             url += activity_name is not null ? $"&activity_name={activity_name}" : "";
             url += activity_status is not null ? $"&activity_status={activity_status}" : "";
@@ -148,7 +179,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<DeletePaygiftActivitiyMerchantsReturnJson> DeletePaygiftActivitiyMerchantsAsync(DeletePaygiftActivitiyMerchantsRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/paygiftactivity/activities/{data.activity_id}/merchants/delete");
+            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/marketing/paygiftactivity/activities/{data.activity_id}/merchants/delete");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<DeletePaygiftActivitiyMerchantsReturnJson>(url, data, timeOut);
         }

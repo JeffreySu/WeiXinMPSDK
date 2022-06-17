@@ -42,4 +42,8 @@
     <ProjectReference Include="..\Senparc.Weixin.TenPayV3\Senparc.Weixin.TenPayV3.net6.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,35 @@
-﻿using Senparc.CO2NET.Helpers;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2022 Senparc
+  
+    文件名：MarketingApis.Card.cs
+    文件功能描述：微信支付V3营销工具接口
+    
+    
+    创建标识：Senparc - 20210821
+    
+----------------------------------------------------------------*/
+
+using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Trace;
 using Senparc.Weixin.TenPayV3.Apis.Marketing;
 using Senparc.Weixin.TenPayV3.Entities;
@@ -26,7 +57,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<SendCardReturnJson> SendCardAsync(SendCardRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"https://api.mch.weixin.qq.com/{{0}}v3/marketing/busifavor/coupons/{data.card_id}/send");
+            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/marketing/busifavor/coupons/{data.card_id}/send");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<SendCardReturnJson>(url, data, timeOut);
         }

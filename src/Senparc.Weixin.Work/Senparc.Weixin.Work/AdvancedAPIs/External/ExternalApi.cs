@@ -183,6 +183,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         /// <summary>
         /// 批量获取客户详情
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/92994</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="userid_list">（必须）企业成员的userid列表，字符串类型，最多支持100个</param>
@@ -790,6 +791,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         /// <summary>
         /// 【异步方法】批量获取客户详情
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/92994</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="userid_list">（必须）企业成员的userid列表，字符串类型，最多支持100个</param>

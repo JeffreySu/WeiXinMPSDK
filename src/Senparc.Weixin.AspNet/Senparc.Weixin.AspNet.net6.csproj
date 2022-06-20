@@ -75,7 +75,7 @@
     <!--<FrameworkReference Include="Microsoft.AspNetCore.App" />-->
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar.AspNet" Version="1.1.1.1" />
+    <PackageReference Include="Senparc.NeuChar.AspNet" Version="1.2.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

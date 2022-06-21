@@ -574,8 +574,8 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Senparc.CO2NET.APM" Version="1.2.0" />
-		<PackageReference Include="Senparc.NeuChar" Version="2.2.0.1" />
-		<PackageReference Include="Senparc.NeuChar.App" Version="1.2.0.1" />
+		<PackageReference Include="Senparc.NeuChar" Version="2.1.1.1" />
+		<PackageReference Include="Senparc.NeuChar.App" Version="1.1.1.1" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

@@ -85,7 +85,7 @@ namespace Senparc.Weixin.Open.AccountAPIs.AccountBasicInfoJson
         public AccountType account_type { get; set; }
 
         /// <summary>
-        /// 主体类型（1：企业）
+        /// 主体类型（0-个人,1-企业,2-媒体,3-政府,4-其他组织）
         /// </summary>
         public PrincipalType principal_type { get; set; }
 
@@ -93,6 +93,11 @@ namespace Senparc.Weixin.Open.AccountAPIs.AccountBasicInfoJson
         /// 主体名称
         /// </summary>
         public string principal_name { get; set; }
+
+        /// <summary>
+        /// 主体标识,非个人主体时返回的是企业或者政府或其他组织的代号
+        /// </summary>
+        public string credential { get; set; }
 
         /// <summary>
         /// 实名验证状态
@@ -117,6 +122,21 @@ namespace Senparc.Weixin.Open.AccountAPIs.AccountBasicInfoJson
         /// 头像信息
         /// </summary>
         public HeadImageInfo head_image_info { get; set; }
+
+        /// <summary>
+        /// 名称信息
+        /// </summary>
+        public NicknameInfo nickname_info { get; set; }
+
+        /// <summary>
+        /// 注册国家
+        /// </summary>
+        public int registered_country { get; set; }
+
+        /// <summary>
+        /// 认证类型；如果未完成微信认证则返回0；
+        /// </summary>
+        public CustomerType customer_type { get; set; }
     }
 
     /// <summary>
@@ -186,5 +206,27 @@ namespace Senparc.Weixin.Open.AccountAPIs.AccountBasicInfoJson
         /// 头像修改次数总额度（本月）
         /// </summary>
         public int modify_quota { get; set; }
+    }
+
+    /// <summary>
+    /// 名称信息
+    /// </summary>
+    public class NicknameInfo
+    {
+        /// <summary>
+        /// 小程序名称
+        /// </summary>
+        public string nickname { get; set; }
+
+        /// <summary>
+        /// 小程序名称已使用修改次数（本年）
+        /// </summary>
+        public int modify_used_count { get; set; }
+
+        /// <summary>
+        /// 小程序名称修改次数总额度（本年）
+        /// </summary>
+        public int modify_quota { get; set; } 
+
     }
 }

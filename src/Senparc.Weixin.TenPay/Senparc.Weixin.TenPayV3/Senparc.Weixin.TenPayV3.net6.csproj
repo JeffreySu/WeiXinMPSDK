@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.6.2.3-beta1</Version>
+    <Version>0.6.3-beta1</Version>
     <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
     <LangVersion>10.0</LangVersion>
@@ -32,6 +32,7 @@
 		v0.5.7 升级微信支付请求的方法，支持多种加密方式
 		v0.6.1 修复 CloseOrderAsync() 参数问题
 		v0.6.2.2 修复 TenPayHttpClient 赋值问题
+		v0.6.3 添加“发起商家转账API”
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

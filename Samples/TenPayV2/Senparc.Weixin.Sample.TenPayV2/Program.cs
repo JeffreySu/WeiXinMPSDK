@@ -1,4 +1,3 @@
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,8 +16,6 @@ builder.Services.AddSenparcWeixinServices(builder.Configuration);
 var app = builder.Build();
 
 #region ∆Ù”√Œ¢–≈≈‰÷√
-
-var senparcWeixinSetting = app.Services.GetService<IOptions<SenparcWeixinSetting>>()!.Value;
 
 //∆Ù”√Œ¢–≈≈‰÷√£®±ÿ–Î£©
 var registerService = app.UseSenparcWeixin(app.Environment,
@@ -61,7 +58,6 @@ app.UseStaticFiles(new StaticFileOptions
 });
 #endif
 #endregion
-
 
 app.UseRouting();
 

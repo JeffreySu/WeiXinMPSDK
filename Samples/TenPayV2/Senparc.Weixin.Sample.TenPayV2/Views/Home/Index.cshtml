@@ -33,7 +33,7 @@
                 <h1 id="top-title" class="display-4">Senparc.Weixin.TenPay 微信公众号模块</h1>
 
 
-                <p class="no-text-indent"><a href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">Senparc.Weixin.TenPay</a> 模块用于提供微信支付（V2）的支持能力。</p>
+                <p class="no-text-indent"><a href="https://www.nuget.org/packages/Senparc.Weixin.Tenpay" target="_blank">Senparc.Weixin.TenPay</a> 模块用于提供微信支付（V2）的支持能力。</p>
                 <p>注意： Senparc.Weixin.TenPay 中，命名空间 <code>.V2</code> 或 <code>.V3</code>，只代表对应文档的 V2 或 V3 版本，对应服务器引擎 API 都是 <strong>APIv2</strong>，并非 <strick>APIv3</strick>，如果需要使用 APIv3，请使用 Senparc.Weixin.TenPayV3。</p>
                 @(await Html.PartialAsync("_IconsPartial"))
             </div>
@@ -64,7 +64,7 @@
 
             <div id="main-doc">
                 <div id="source_code" class="target-fix"></div>
-                @(await Html.PartialAsync("_SourceCode",@"Senparc.Weixin.MP 源码位置：<a href=""https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP"" target=""_blank"">/src/Senparc.Weixin.MP/</a>"))
+                @(await Html.PartialAsync("_SourceCode",@"Senparc.Weixin.Tenpay 源码位置：<a href=""https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.Tenpay"" target=""_blank"">/src/Senparc.Weixin.Tenpay/</a>"))
 
                 <div id="title_install" class="target-fix"></div>
 
@@ -72,17 +72,7 @@
                     <h3>如何安装？</h3>
                     <p>您可以直接引用 Senparc.Weixin 的源码进行开发，也可以引用已经打包完成的 dll（通过 Nuget 包，推荐），以方便随时获取官方的更新。注意：直接引用源码和引用 Nuget 包只能二选一。</p>
 
-                    <h5>引用源码</h5>
-                    <p>您可以在当前解决方案中，<strong>Libraries</strong> 目录下，将所需要引用的程序集引用（复制）到您开发环境的解决方案中，请注意需要同时引用被依赖的项目，如 <code>Senparc.Weixin</code> 项目是所有项目都需要依赖的。</p>
-                    <p>当前示例项目默认就使用了直接引用源码的方式，可从 .csproj 文件中看到引用方式：</p>
-                    <pre><code>&lt;ItemGroup&gt;
-    &lt;ProjectReference Include="..\..\..\src\Senparc.Weixin.MP.Middleware\Senparc.Weixin.MP.Middleware.net6.csproj" /&gt;
-    &lt;ProjectReference Include="..\..\..\src\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.net6.csproj" /&gt;
-    &lt;ProjectReference Include="..\..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net6.csproj" /&gt;
-&lt;/ItemGroup&gt;</code></pre>
-
                     <h5>引用程序集（推荐）</h5>
-
                     <p>您可以通过 <code>Visual Studio</code>、<code>Visual Studio Code</code>、<code>dotnet 命令行</code> 等多种方式自动安装 Nuget 包。</p>
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -91,10 +81,11 @@
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-cli" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">dotnet 命令行</button>
                         </div>
                     </nav>
+
                     <div class="tab-content" id="nav-tabContent-install">
                         <div class="tab-pane fade show active" id="nav-vs" role="tabpanel" aria-labelledby="nav-home-tab">
                             <p>
-                                在开发项目【解决方案资源管理器】中，对需要添加 Senparc.Weixin.MP 的模块点击右键，点击【管理 Nuget 程序包】，在【浏览】标签中输入 <strong>Senparc.Weixin.MP</strong>，点击右侧【安装】按钮。如下图所示：<br />
+                                在开发项目【解决方案资源管理器】中，对需要添加 Senparc.Weixin.Tenpay 的模块点击右键，点击【管理 Nuget 程序包】，在【浏览】标签中输入 <strong>Senparc.Weixin.Tenpay</strong>，点击右侧【安装】按钮。如下图所示：<br />
                             </p>
                             <p>
                                 <figure class="figure">
@@ -112,15 +103,15 @@
                                 <figcaption class="figure-caption text-center">打开 VS Code 终端面板</figcaption>
                             </figure>
 
-                            <p>进入需要添加 Senparc.Weixin.MP 的模块的项目的目录，输入：</p>
+                            <p>进入需要添加 Senparc.Weixin.Tenpay 的模块的项目的目录，输入：</p>
                             <blockquote class="blockquote">
-                                <code>dotnet add package Senparc.Weixin.MP</code>
+                                <code>dotnet add package Senparc.Weixin.Tenpay</code>
                             </blockquote>
 
                             <p>
                                 <figure class="figure">
                                     <img src="~/images/home-install-04.png" class="figure-img img-fluid rounded" alt="通过 VS Code 安装" />
-                                    <figcaption class="figure-caption text-center">安装 Senparc.Weixin.MP 模块</figcaption>
+                                    <figcaption class="figure-caption text-center">安装 Senparc.Weixin.Tenpay 模块</figcaption>
                                 </figure>
                             </p>
 
@@ -128,14 +119,14 @@
                                 安装完成后，可查看对应 .csproj 文件，被添加引用，如：
                             </p>
                             <pre><code>&lt;ItemGroup&gt;
-    &lt;PackageReference Include="Senparc.Weixin.MP" Version="16.17.7" /&gt;
+    &lt;PackageReference Include="Senparc.Weixin.Tenpay" Version="16.17.7" /&gt;
 &lt;/ItemGroup&gt;</code></pre>
                         </div>
                         <div class="tab-pane fade" id="nav-cli" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <p>首先，确认已经安装好 dotnet 命令行（安装 <a href="https://dotnet.microsoft.com/en-us/download" target="_blank">.NET SDK</a> 后会自动安装）。</p>
-                            <p>进入需要添加 Senparc.Weixin.MP 的模块的项目的目录，输入：</p>
+                            <p>进入需要添加 Senparc.Weixin.Tenpay 的模块的项目的目录，输入：</p>
                             <blockquote class="blockquote">
-                                <code>dotnet add package Senparc.Weixin.MP</code>
+                                <code>dotnet add package Senparc.Weixin.Tenpay</code>
                             </blockquote>
 
                             <p>
@@ -149,7 +140,7 @@
                                 安装完成后，可查看对应 .csproj 文件，被添加引用，如：
                             </p>
                             <pre><code>&lt;ItemGroup&gt;
-    &lt;PackageReference Include="Senparc.Weixin.MP" Version="16.17.7" /&gt;
+    &lt;PackageReference Include="Senparc.Weixin.TenPay" Version="1.12.1" /&gt;
 &lt;/ItemGroup&gt;</code></pre>
                         </div>
                     </div>
@@ -163,11 +154,10 @@
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
                             <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-home" aria-selected="true">注册</button>
-                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-messagehandler" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">MessageHandler</button>
-                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-advanced-api" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">高级接口</button>
-                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-jssdk" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">JSSDK</button>
-                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-oauth" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">OAuth 2.0</button>
-                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-menu" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">菜单设置</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-jsapi" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">JASPI 支付</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-advanced-api" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Native 支付</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-jssdk" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">支付回调</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-oauth" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">退款</button>
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent-setting">
@@ -204,23 +194,48 @@
                             </figure>
 
                             <h5>公众号注册</h5>
-                            <p>在上述代码中的第 17 行委托方法中插入代码，即可完成默认公众号的注册：</p>
-                            <p><code>register.RegisterMpAccount(weixinSetting, "【盛派网络小助手】公众号");</code></p>
+                            <p>在上述代码中的第 27 行委托方法中插入代码，即可完成默认公众号以及微信支付的注册：</p>
+                            <p>
+                                <pre><code>    //注册公众号信息（可以执行多次，注册多个公众号）
+    register.RegisterMpAccount(weixinSetting, "【盛派网络小助手】公众号");
+    //注册微信支付（可以执行多次，注册多个微信支付）
+    register.RegisterTenpayOld(weixinSetting, "【盛派网络小助手】微信支付（V2）");
+</code></pre>
+                            </p>
                             <p>
                                 <figure class="figure">
                                     <img src="~/images/home-dev-register-02.png" class="figure-img img-fluid rounded" alt="注册微信公众号" />
-                                    <figcaption class="figure-caption text-center">注册微信公众号</figcaption>
+                                    <figcaption class="figure-caption text-center">注册微信公众号和微信新支付</figcaption>
                                 </figure>
                             </p>
+
+                            <p>
+                                <figure class="file">
+                                    <blockquote class="blockquote">
+                                        <p>注意：</p>
+                                        <p>上述代码同时注册了公众号和微信支付（V2），因为微信支付需要提供微信用户的标识（OpenId），OpenId 必须来自微信公众号、小程序等模块。如果需要在小程序内使用微信支付，则需要对应注册小程序。</p>
+                                    </blockquote>
+                                </figure>
+                            </p>
+
                             <p>其中，<code>weixinSetting</code> 的值默认来自于 <code>appsettings.json</code>：</p>
                             <p>
                                 <pre><code>  "SenparcWeixinSetting": {
     "IsDebug": true,
 
+    //公众号
     "Token": "#{Token}#",
     "EncodingAESKey": "#{EncodingAESKey}#",
     "WeixinAppId": "#{WeixinAppId}#",
-    "WeixinAppSecret": "#{WeixinAppSecret}#"
+    "WeixinAppSecret": "#{WeixinAppSecret}#",
+
+    //微信支付
+    //微信支付V2（旧版）
+    "WeixinPay_PartnerId": "#{WeixinPay_PartnerId}#",
+    "WeixinPay_Key": "#{WeixinPay_Key}#",
+    "WeixinPay_AppId": "#{WeixinPay_AppId}#",
+    "WeixinPay_AppKey": "#{WeixinPay_AppKey}#",
+    "WeixinPay_TenpayNotify": "#{WeixinPay_TenpayNotify}#"
   }</code></pre>
                             </p>
                             <p>
@@ -245,65 +260,16 @@
                             </blockquote>
                         </div>
 
-                        <div class="tab-pane fade" id="nav-messagehandler" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            <p><code>MessageHandler</code> 用于处理微信公众号对话窗口的消息。</p>
-                            <p>SDK 已经为开发者准备好了所有需要的基础功能，开发者只需要创建一个自定义的子类，补充需要自定义的业务逻辑。</p>
-                            <h5>自定义 MessageHandler</h5>
-                            <p>当前示例中，我们给自定义的 MessageHandler 取名 <code>CustomMessageHandler</code>。</p>
-                            <figure class="file">
-                                <blockquote class="blockquote">
-                                    <p> CustomMessageHandler.cs 本项目参考文件：</p>
-                                </blockquote>
-                                <figcaption class="blockquote-footer">
-                                    /MessageHandlers/ 目录<br />
-                                    <cite title="Source Title">CustomMessageHandler.cs</cite> MessageHandler 主文件 + 普通消息处理<br />
-                                    <cite title="Source Title">CustomMessageHandler_Events.cs</cite> MessageHandler 事件消息处理<br />
-                                    <cite title="Source Title">CustomMessageContext.cs</cite> 自定义重写 DefaultMpMessageContext 上下文（可选）<br />
-                                </figcaption>
-                            </figure>
-                            <p><code>CustomMessageHandler*.cs</code> 中所有演示的重写（<code>override</code>）方法中，只有 <code>DefaultResponseMessage()</code> 方法是必须重写的，其他所有 <code>OnXxxRequest()</code> 方法都为可选，当用户发送的消息，找不到对应重写方法时，则调用 <code>DefaultResponseMessage()</code> 方法。</p>
-
-                            <p>MessageHandler 有两种承载方式，使其可以被外部（微信服务器）通过 URL 访问到。分别是<strong>中间件方式</strong>（推荐）和<strong> Controller 方式</strong>。两种方式所使用的 <code>CustomMessageHandler</code> 是通用的，因此可以随时切换和共存。</p>
-
-                            <h5>中间件方式承载 MessageHandler</h5>
-
-                            <p>中间件方式是推荐的方式，也是最简化的方式，无需创建任何新文件，只需在 <code>Program.cs</code> 文件所有 Senparc.Weixin 注册代码执行后的下方，引入中间件：</p>
+                        <div class="tab-pane fade" id="nav-jsapi" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <h5>JSAPI 支付</h5>
                             <p>
-                                <pre><code>app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
-{
-    options.AccountSettingFunc = context =>  Senparc.Weixin.Config.SenparcWeixinSetting;
-});
-                </code></pre>
+                                在微信公众号网页中使用微信支付，必须借助 JSAPI，完成支付流程。
                             </p>
-                            <p>完成后，即可通过Url <strong><code>域名/WeixinAsync</code></strong> 访问 MessageHandler，设置为公众号后台的消息 URL。</p>
-                            <p><a href="/WeixinAsync" target="_blank">测试 /WeixinAsync</a></p>
-                            <figure class="file">
-                                <blockquote class="blockquote">
-                                    <p> 本项目参考文件：</p>
-                                </blockquote>
-                                <figcaption class="blockquote-footer">
-                                    /<cite title="Source Title">Program.cs</cite>
-                                </figcaption>
-                            </figure>
-
-                            <p>更多中间件方式请参考：<a href="https://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html" target="_blank">《在 .NET Core 2.0/3.0 中使用 MessageHandler 中间件》</a>（同样适用于 .NET 6.0 及以上）。</p>
-
-                            <h5>Controller 方式承载 MessageHandler</h5>
-
-                            <p>当中间件的方式满足不了需求时，可以使用 Controller 将执行过程“展开”，对每一步执行进行更加精确的控制或干预。</p>
-                            <p>使用 Controller 方式，需要创建 2 个 Action，分别对应微信后台验证（Get 请求），以及真实消息推送（Post 请求）。本项目示例位于 WeixinController.cs 中。</p>
-                            <figure class="file">
-                                <blockquote class="blockquote">
-                                    <p>WeixinController.cs 本项目参考文件：</p>
-                                </blockquote>
-                                <figcaption class="blockquote-footer">
-                                    /Controllers/<cite title="Source Title">WeixinController.cs</cite>
-                                </figcaption>
-                            </figure>
-                            <p>完成后，即可通过Url <strong><code>域名/Weixin</code></strong> 访问 MessageHandler，设置为公众号后台的消息 URL。</p>
-                            <p><a href="/Weixin" target="_blank">测试 /Weixin</a></p>
-
-                            <p>更多 Controller 方式请参考：<a href="https://www.cnblogs.com/szw/p/3414862.html" target="_blank">《了解MessageHandler》</a>（推荐使用全套异步方法）</p>
+                            <p>
+                                首先，需要创建一个商品页面，并在页面上提供一个下订单的入口，例如：一键购买。<br />
+                                （具体实现此处略）
+                            </p>
+                            <p>用户点击下单按钮后，需要在后台生成一个预支付订单并在页面上登记：</p>
                         </div>
 
 
@@ -318,7 +284,7 @@
                             <p>例如，我们可以在任意一个方法中调用一个高级接口：</p>
                             <p>
                                 <pre><code>var appId = Senparc.Weixin.Config.SenparcWeixinSetting.AppId;
-var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(appId);//获取关注者 OpenId 信息</code></pre>
+var result = await Senparc.Weixin.Tenpay.AdvancedAPIs.UserApi.GetAsync(appId);//获取关注者 OpenId 信息</code></pre>
                             </p>
                             <blockquote class="blockquote">
                                 appId 参数，必须是已经经过注册的，这样即使 AccessToken 过期，SDK也会全自动处理。如果是未经过注册的 appId，则需要先获取 AccessToken，然后调用接口。
@@ -327,8 +293,8 @@ var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(appId);//获�
                             <h5>使用 AccessToken 调用接口（不推荐）</h5>
 
                             <p>
-                                <pre><code>var accessToken = Senparc.Weixin.MP.CommonApi.GetTokenAsync(appId, appSecret);//获取 AccessToken
-var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(accessToken);//获取关注者 OpenId 信息</code></pre>
+                                <pre><code>var accessToken = Senparc.Weixin.Tenpay.CommonApi.GetTokenAsync(appId, appSecret);//获取 AccessToken
+var result = await Senparc.Weixin.Tenpay.AdvancedAPIs.UserApi.GetAsync(accessToken);//获取关注者 OpenId 信息</code></pre>
 
                             </p>
 
@@ -413,7 +379,7 @@ var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(accessToken);
 </code></pre>
                             <blockquote class="blockquote">
                                 提示：在 MVC 中传递 ViewModel 需要在 .cshtml 文件顶部定义：
-                                <pre><code>@@model Senparc.Weixin.MP.Helpers.JsSdkUiPackage</code></pre>
+                                <pre><code>@@model Senparc.Weixin.Tenpay.Helpers.JsSdkUiPackage</code></pre>
                             </blockquote>
                             <figure class="file">
                                 <blockquote class="blockquote">

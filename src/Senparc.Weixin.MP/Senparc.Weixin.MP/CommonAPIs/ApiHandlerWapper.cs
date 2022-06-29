@@ -71,7 +71,6 @@ namespace Senparc.Weixin.MP
     {
         internal static IEnumerable<int> InvalidCredentialValues = new[] { (int)ReturnCode.获取access_token时AppSecret错误或者access_token无效 };
 
-
         #region 同步方法
 
         internal static Func<string> AccessTokenContainer_GetFirstOrDefaultAppIdFunc =

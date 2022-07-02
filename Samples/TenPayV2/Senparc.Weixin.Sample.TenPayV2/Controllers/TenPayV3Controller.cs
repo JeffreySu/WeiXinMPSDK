@@ -51,11 +51,11 @@ using Senparc.Weixin.Sample.Net6.Filters;
 //DPBMARK_END
 
 
-namespace Senparc.Weixin.Sample.Net6.Controllers
+namespace Senparc.Weixin.Sample.TenPayV2.Controllers
 {
     /* 
      * 友情提示：微信支付正式上线之前，请进行沙箱测试！ 
-     * 单元测试见：Senparc.Weixin.MP.Test.TenPayV3/TenPayV3Test.cs/GetSignKeyTest()
+     * 单元测试见：Senparc.Weixin.MP.Test/TenPayV3/TenPayV3Test.cs/GetSignKeyTest()
      */
 
 

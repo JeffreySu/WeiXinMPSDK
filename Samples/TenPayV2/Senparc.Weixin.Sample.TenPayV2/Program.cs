@@ -1,33 +1,33 @@
-var builder = WebApplication.CreateBuilder(args);
+ï»¿var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-#region Ìí¼ÓÎ¢ĞÅÅäÖÃ
+#region æ·»åŠ å¾®ä¿¡é…ç½®
 
-//Ê¹ÓÃ±¾µØ»º´æ±ØĞëÌí¼Ó
+//ä½¿ç”¨æœ¬åœ°ç¼“å­˜å¿…é¡»æ·»åŠ 
 builder.Services.AddMemoryCache();
 
-//Senparc.Weixin ×¢²á£¨±ØĞë£©
+//Senparc.Weixin æ³¨å†Œï¼ˆå¿…é¡»ï¼‰
 builder.Services.AddSenparcWeixinServices(builder.Configuration);
 
 #endregion
 
 var app = builder.Build();
 
-#region ÆôÓÃÎ¢ĞÅÅäÖÃ
+#region å¯ç”¨å¾®ä¿¡é…ç½®
 
-//ÆôÓÃÎ¢ĞÅÅäÖÃ£¨±ØĞë£©
+//å¯ç”¨å¾®ä¿¡é…ç½®ï¼ˆå¿…é¡»ï¼‰
 var registerService = app.UseSenparcWeixin(app.Environment,
-    null /* ²»Îª null Ôò¸²¸Ç appsettings  ÖĞµÄ SenpacSetting ÅäÖÃ*/,
-    null /* ²»Îª null Ôò¸²¸Ç appsettings  ÖĞµÄ SenpacWeixinSetting ÅäÖÃ*/,
-    register => { /* CO2NET È«¾ÖÅäÖÃ */ },
+    null /* ä¸ä¸º null åˆ™è¦†ç›– appsettings  ä¸­çš„ SenpacSetting é…ç½®*/,
+    null /* ä¸ä¸º null åˆ™è¦†ç›– appsettings  ä¸­çš„ SenpacWeixinSetting é…ç½®*/,
+    register => { /* CO2NET å…¨å±€é…ç½® */ },
     (register, weixinSetting) =>
 {
-    //×¢²á¹«ÖÚºÅĞÅÏ¢£¨¿ÉÒÔÖ´ĞĞ¶à´Î£¬×¢²á¶à¸ö¹«ÖÚºÅ£©
-    register.RegisterMpAccount(weixinSetting, "¡¾Ê¢ÅÉÍøÂçĞ¡ÖúÊÖ¡¿¹«ÖÚºÅ");
-    //×¢²áÎ¢ĞÅÖ§¸¶£¨¿ÉÒÔÖ´ĞĞ¶à´Î£¬×¢²á¶à¸öÎ¢ĞÅÖ§¸¶£©
-    register.RegisterTenpayOld(weixinSetting, "¡¾Ê¢ÅÉÍøÂçĞ¡ÖúÊÖ¡¿Î¢ĞÅÖ§¸¶£¨V2£©");
+    //æ³¨å†Œå…¬ä¼—å·ä¿¡æ¯ï¼ˆå¯ä»¥æ‰§è¡Œå¤šæ¬¡ï¼Œæ³¨å†Œå¤šä¸ªå…¬ä¼—å·ï¼‰
+    register.RegisterMpAccount(weixinSetting, "ã€ç››æ´¾ç½‘ç»œå°åŠ©æ‰‹ã€‘å…¬ä¼—å·");
+    //æ³¨å†Œå¾®ä¿¡æ”¯ä»˜ï¼ˆå¯ä»¥æ‰§è¡Œå¤šæ¬¡ï¼Œæ³¨å†Œå¤šä¸ªå¾®ä¿¡æ”¯ä»˜ï¼‰
+    register.RegisterTenpayV3(weixinSetting, "ã€ç››æ´¾ç½‘ç»œå°åŠ©æ‰‹ã€‘å¾®ä¿¡æ”¯ä»˜ï¼ˆV2ï¼‰");
 });
 
 #endregion
@@ -43,7 +43,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-#region ´Ë²¿·Ö´úÂëÎª Sample ¹²ÏíÎÄ¼şĞèÒª¶øÌí¼Ó£¬Êµ¼ÊÏîÄ¿ÎŞĞèÌí¼Ó
+#region æ­¤éƒ¨åˆ†ä»£ç ä¸º Sample å…±äº«æ–‡ä»¶éœ€è¦è€Œæ·»åŠ ï¼Œå®é™…é¡¹ç›®æ— éœ€æ·»åŠ 
 #if DEBUG
 //app.UseStaticFiles(new StaticFileOptions
 //{

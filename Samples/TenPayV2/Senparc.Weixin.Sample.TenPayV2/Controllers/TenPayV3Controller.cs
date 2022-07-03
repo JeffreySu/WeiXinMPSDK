@@ -30,7 +30,7 @@ using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Sample.Net6.Models;
+using Senparc.Weixin.Sample.TenPayV2.Models;
 using Senparc.Weixin.TenPay.V3;
 using System;
 using System.IO;
@@ -47,16 +47,16 @@ using TenPayOldV3 = Senparc.Weixin.TenPay.V3.TenPayV3;
 //DPBMARK MP
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.Sample.CommonService.TemplateMessage;
-using Senparc.Weixin.Sample.Net6.Filters;
+using Senparc.Weixin.Sample.TenPayV2.Filters;
+using Senparc.Weixin.Sample.TenPayV2.Models;
 //DPBMARK_END
 
 
-namespace Senparc.Weixin.Sample.Net6.Controllers
+namespace Senparc.Weixin.Sample.TenPayV2.Controllers
 {
     /* 
      * 友情提示：微信支付正式上线之前，请进行沙箱测试！ 
-     * 单元测试见：Senparc.Weixin.MP.Test.TenPayV3/TenPayV3Test.cs/GetSignKeyTest()
+     * 单元测试见：Senparc.Weixin.MP.Test/TenPayV3/TenPayV3Test.cs/GetSignKeyTest()
      */
 
 
@@ -117,11 +117,6 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 throw new Exception("此功能需要使用微信公众号，但未获取到 OAuth URL，如果此项目为自动僧城项目，请确保已经引用“公众号”");
             }
             return Redirect(url);
-        }
-
-        public ActionResult BankCode()
-        {
-            return View();
         }
 
         //DPBMARK MP
@@ -232,6 +227,91 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 return Content(msg);
             }
         }
+
+        #endregion
+
+        /// <summary>
+        /// JS-SDK支付回调地址（在统一下单接口中设置notify_url）
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult PayNotifyUrl()
+        {
+            try
+            {
+                ResponseHandler resHandler = new ResponseHandler(HttpContext);
+
+                string return_code = resHandler.GetParameter("return_code");
+                string return_msg = resHandler.GetParameter("return_msg");
+
+                string res = null;
+
+                resHandler.SetKey(TenPayV3Info.Key);
+                //验证请求是否从微信发过来（安全）
+                if (resHandler.IsTenpaySign() && return_code.ToUpper() == "SUCCESS")
+                {
+                    res = "success";//正确的订单处理
+                    //直到这里，才能认为交易真正成功了，可以进行数据库操作，但是别忘了返回规定格式的消息！
+                }
+                else
+                {
+                    res = "wrong";//错误的订单处理
+                }
+
+                /* 这里可以进行订单处理的逻辑 */
+
+                //发送支付成功的模板消息
+                /*
+                try
+                {
+                    string appId = Config.SenparcWeixinSetting.TenPayV3_AppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
+                    string openId = resHandler.GetParameter("openid");
+                    var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "微信支付 V2 购买商品", "状态：" + return_code);
+
+                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数", appId + " , " + openId);
+
+                    var result = MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(appId, openId, templateData);
+                }
+                catch (Exception ex)
+                {
+                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息", ex.ToString());
+                }
+                */
+                
+                #region 记录日志
+
+                var logDir = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/TenPayNotify/{0}", SystemTime.Now.ToString("yyyyMMdd")));
+                if (!Directory.Exists(logDir))
+                {
+                    Directory.CreateDirectory(logDir);
+                }
+
+                var logPath = Path.Combine(logDir, string.Format("{0}-{1}-{2}.txt", SystemTime.Now.ToString("yyyyMMdd"), SystemTime.Now.ToString("HHmmss"), Guid.NewGuid().ToString("n").Substring(0, 8)));
+
+                using (var fileStream = System.IO.File.OpenWrite(logPath))
+                {
+                    var notifyXml = resHandler.ParseXML();
+                    //fileStream.Write(Encoding.Default.GetBytes(res), 0, Encoding.Default.GetByteCount(res));
+
+                    fileStream.Write(Encoding.Default.GetBytes(notifyXml), 0, Encoding.Default.GetByteCount(notifyXml));
+                    fileStream.Close();
+                }
+
+                #endregion
+
+                string xml = string.Format(@"<xml>
+<return_code><![CDATA[{0}]]></return_code>
+<return_msg><![CDATA[{1}]]></return_msg>
+</xml>", return_code, return_msg);
+                return Content(xml, "text/xml");
+            }
+            catch (Exception ex)
+            {
+                WeixinTrace.WeixinExceptionLog(new WeixinException(ex.Message, ex));
+                throw;
+            }
+        }
+
+        #region 原生支付
 
         /// <summary>
         /// 原生支付 模式一
@@ -439,6 +519,10 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             }
         }
 
+        #endregion
+
+        #region 刷卡支付
+        
         /// <summary>
         /// 刷卡支付
         /// </summary>
@@ -470,87 +554,8 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             return Content(result);
         }
 
-        /// <summary>
-        /// JS-SDK支付回调地址（在统一下单接口中设置notify_url）
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult PayNotifyUrl()
-        {
-            try
-            {
-                ResponseHandler resHandler = new ResponseHandler(HttpContext);
-
-                string return_code = resHandler.GetParameter("return_code");
-                string return_msg = resHandler.GetParameter("return_msg");
-
-                string res = null;
-
-                resHandler.SetKey(TenPayV3Info.Key);
-                //验证请求是否从微信发过来（安全）
-                if (resHandler.IsTenpaySign() && return_code.ToUpper() == "SUCCESS")
-                {
-                    res = "success";//正确的订单处理
-                    //直到这里，才能认为交易真正成功了，可以进行数据库操作，但是别忘了返回规定格式的消息！
-                }
-                else
-                {
-                    res = "wrong";//错误的订单处理
-                }
-
-                /* 这里可以进行订单处理的逻辑 */
-
-                //发送支付成功的模板消息
-                try
-                {
-                    string appId = Config.SenparcWeixinSetting.TenPayV3_AppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
-                    string openId = resHandler.GetParameter("openid");
-                    var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "微信支付 V2 购买商品", "状态：" + return_code);
-
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数", appId + " , " + openId);
-
-                    var result = MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(appId, openId, templateData);
-                }
-                catch (Exception ex)
-                {
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息", ex.ToString());
-                }
-
-                #region 记录日志
-
-                var logDir = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/TenPayNotify/{0}", SystemTime.Now.ToString("yyyyMMdd")));
-                if (!Directory.Exists(logDir))
-                {
-                    Directory.CreateDirectory(logDir);
-                }
-
-                var logPath = Path.Combine(logDir, string.Format("{0}-{1}-{2}.txt", SystemTime.Now.ToString("yyyyMMdd"), SystemTime.Now.ToString("HHmmss"), Guid.NewGuid().ToString("n").Substring(0, 8)));
-
-                using (var fileStream = System.IO.File.OpenWrite(logPath))
-                {
-                    var notifyXml = resHandler.ParseXML();
-                    //fileStream.Write(Encoding.Default.GetBytes(res), 0, Encoding.Default.GetByteCount(res));
-
-                    fileStream.Write(Encoding.Default.GetBytes(notifyXml), 0, Encoding.Default.GetByteCount(notifyXml));
-                    fileStream.Close();
-                }
-
-                #endregion
-
-
-                string xml = string.Format(@"<xml>
-<return_code><![CDATA[{0}]]></return_code>
-<return_msg><![CDATA[{1}]]></return_msg>
-</xml>", return_code, return_msg);
-                return Content(xml, "text/xml");
-            }
-            catch (Exception ex)
-            {
-                WeixinTrace.WeixinExceptionLog(new WeixinException(ex.Message, ex));
-                throw;
-            }
-        }
-
         #endregion
+
         //DPBMARK_END
 
         #region 订单及退款
@@ -1177,11 +1182,5 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
 
         #endregion
         //DPBMARK_END
-
-        #region 付款到银行卡
-
-        //TODO：完善
-
-        #endregion
     }
 }

@@ -1,4 +1,4 @@
-﻿@model Senparc.Weixin.Sample.Net6.Models.ProductModel
+﻿@model Senparc.Weixin.Sample.TenPayV2.Models.ProductModel
 @*DPBMARK_FILE TenPay*@
 @{
     Layout = null;
@@ -21,11 +21,12 @@
     <p>@Html.ActionLink("点击这里使用H5支付", "H5Pay", "TenPayV3", new { productId = Model.Id, hc = Model.GetHashCode() }, null)</p>
     <hr />
 
-    <h2>支付方式二：“扫一扫”支付</h2>
+    <h2>支付方式二：“扫一扫”支付（JsApi）</h2>
     <p>
         使用微信“扫一扫”下方二维码完成支付：<br />
         <img src="@Url.Action("ProductPayCode",new{productId=Model.Id,hc=Model.GetHashCode()})" width="300" />
     </p>
+    <p>提示：如果是在微信内部打开商品页面，则不会进入此页面，直接进入 JsApi 支付。</p>
     <hr />
 
 </body>

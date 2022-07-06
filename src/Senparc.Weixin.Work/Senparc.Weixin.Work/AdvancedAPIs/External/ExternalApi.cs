@@ -34,6 +34,9 @@
     修改标识：Senparc - 20220501
     修改描述：v3.15.2 添加“用户标签管理”接口
 
+    修改标识：Senparc - 20220703
+    修改描述：v3.15.5.1 修复 ExternalApi.GetFollowUserList() 接口请求类型为 GET
+
 ----------------------------------------------------------------*/
 
 /*
@@ -183,6 +186,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         /// <summary>
         /// 批量获取客户详情
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/92994</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="userid_list">（必须）企业成员的userid列表，字符串类型，最多支持100个</param>
@@ -240,7 +244,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/get_follow_user_list?access_token={accessToken}";
 
-                return CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.GET, timeOut);
             }, accessTokenOrAppKey);
         }
 
@@ -790,6 +794,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         /// <summary>
         /// 【异步方法】批量获取客户详情
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/92994</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="userid_list">（必须）企业成员的userid列表，字符串类型，最多支持100个</param>
@@ -847,7 +852,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/get_follow_user_list?access_token={accessToken}";
 
-                return await CommonJsonSend.SendAsync<GetFollowUserListResult>(null, url, null, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+                return await CommonJsonSend.SendAsync<GetFollowUserListResult>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey);
         }
 

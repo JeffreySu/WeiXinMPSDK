@@ -38,6 +38,7 @@ app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageH
 {
     options.AccountSettingFunc = context => Senparc.Weixin.Config.SenparcWeixinSetting;
 });
+
 #endregion
 
 #endregion
@@ -68,7 +69,6 @@ app.UseStaticFiles(new StaticFileOptions
 });
 #endif
 #endregion
-
 
 app.UseRouting();
 

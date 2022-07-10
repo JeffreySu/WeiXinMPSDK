@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-		<Version>3.15.3</Version>
+		<Version>3.15.4</Version>
 		<LangVersion>9.0</LangVersion>
 		<AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
 		<RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
@@ -164,6 +164,7 @@
 			v3.14.10.1 修复 WxAppApi.GetWxaCodeUnlimitAsync() 接口参数错误
 			v3.15.2 添加小程序隐私接口
 			v3.15.3 添加商户客户参数（BusinessId）
+			v3.15.4 添加小程序客服管理接口
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 	</PropertyGroup>

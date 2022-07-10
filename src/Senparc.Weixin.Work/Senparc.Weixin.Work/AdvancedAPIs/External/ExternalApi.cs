@@ -234,6 +234,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <para>企业需要使用“客户联系”secret或配置到“可调用应用”列表中的自建应用secret所获取的accesstoken来调用</para>
         /// <para>第三方应用需具有“企业客户权限->客户基础信息”权限</para>
         /// <para>第三方/自建应用只能获取到可见范围内的配置了客户联系功能的成员。</para>
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/92571</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="timeOut"></param>
@@ -842,6 +843,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <para>企业需要使用“客户联系”secret或配置到“可调用应用”列表中的自建应用secret所获取的accesstoken来调用</para>
         /// <para>第三方应用需具有“企业客户权限->客户基础信息”权限</para>
         /// <para>第三方/自建应用只能获取到可见范围内的配置了客户联系功能的成员。</para>
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/92571</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="timeOut"></param>

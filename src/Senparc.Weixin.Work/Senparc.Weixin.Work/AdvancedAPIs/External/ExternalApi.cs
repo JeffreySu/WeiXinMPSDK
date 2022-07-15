@@ -34,6 +34,9 @@
     修改标识：Senparc - 20220501
     修改描述：v3.15.2 添加“用户标签管理”接口
 
+    修改标识：Senparc - 20220703
+    修改描述：v3.15.5.1 修复 ExternalApi.GetFollowUserList() 接口请求类型为 GET
+
 ----------------------------------------------------------------*/
 
 /*
@@ -183,6 +186,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         /// <summary>
         /// 批量获取客户详情
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/92994</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="userid_list">（必须）企业成员的userid列表，字符串类型，最多支持100个</param>
@@ -230,6 +234,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <para>企业需要使用“客户联系”secret或配置到“可调用应用”列表中的自建应用secret所获取的accesstoken来调用</para>
         /// <para>第三方应用需具有“企业客户权限->客户基础信息”权限</para>
         /// <para>第三方/自建应用只能获取到可见范围内的配置了客户联系功能的成员。</para>
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/92571</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="timeOut"></param>
@@ -240,7 +245,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/get_follow_user_list?access_token={accessToken}";
 
-                return CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.GET, timeOut);
             }, accessTokenOrAppKey);
         }
 
@@ -790,6 +795,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         /// <summary>
         /// 【异步方法】批量获取客户详情
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/92994</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="userid_list">（必须）企业成员的userid列表，字符串类型，最多支持100个</param>
@@ -837,6 +843,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <para>企业需要使用“客户联系”secret或配置到“可调用应用”列表中的自建应用secret所获取的accesstoken来调用</para>
         /// <para>第三方应用需具有“企业客户权限->客户基础信息”权限</para>
         /// <para>第三方/自建应用只能获取到可见范围内的配置了客户联系功能的成员。</para>
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/92571</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="timeOut"></param>
@@ -847,7 +854,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/get_follow_user_list?access_token={accessToken}";
 
-                return await CommonJsonSend.SendAsync<GetFollowUserListResult>(null, url, null, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+                return await CommonJsonSend.SendAsync<GetFollowUserListResult>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey);
         }
 

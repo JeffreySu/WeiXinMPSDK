@@ -18,6 +18,7 @@ bak.zip
 *.DotSettings
 .vs
 .vscode
+.idea/
 applicationhost.config
 packages/
 */**/App_Data/SenparcTraceLog/

@@ -105,6 +105,10 @@ namespace Senparc.Weixin.Work.Entities
             }
         }
 
+        /// <summary>
+        /// 主部门
+        /// </summary>
+        public long MainDepartment { get; set; }
 
         /// <summary>
         /// 职位信息
@@ -161,9 +165,13 @@ namespace Senparc.Weixin.Work.Entities
         /// </summary>
         public string Address { get; set; }
         /// <summary>
-        /// 英文名
+        /// 成员别名。上游共享的应用不返回该字段
         /// </summary>
-        [Obsolete("官方文档中已删除：https://developer.work.weixin.qq.com/document/path/90970")]
+        public string Alias { get; set; }
+        /// <summary>
+        /// 英文名，最新文档中已删除，请使用 Alias
+        /// </summary>
+        [Obsolete("最新文档中已删除，请使用 Alias。文档：https://developer.work.weixin.qq.com/document/path/90970")]
         public string EnglishName { get; set; }
         /// <summary>
         /// 扩展属性，变更时推送;代开发自建应用需要管理员授权才返回。上游共享的应用不返回该字段

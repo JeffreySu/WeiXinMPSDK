@@ -97,11 +97,35 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
 			Assert.AreEqual(1, requestMessage.DepartmentIdList[0]);
 			Assert.AreEqual(2, requestMessage.DepartmentIdList[1]);
 			Assert.AreEqual(3, requestMessage.DepartmentIdList[2]);
-			Assert.AreEqual("张三", requestMessage.IsLeader);
-			Assert.AreEqual("张三", requestMessage.Name);
-			Assert.AreEqual("张三", requestMessage.Name);
 
-		}
+			Assert.AreEqual(1, requestMessage.MainDepartment);
+
+			Assert.AreEqual(3, requestMessage.IsLeaderInDept.Count());
+			Assert.AreEqual(1, requestMessage.IsLeaderInDept[0]);
+			Assert.AreEqual(0, requestMessage.IsLeaderInDept[1]);
+			Assert.AreEqual(0, requestMessage.IsLeaderInDept[2]);
+
+            Assert.AreEqual("lisi,wangwu", requestMessage.DirectLeader);
+            Assert.AreEqual("产品经理", requestMessage.Position);
+            Assert.AreEqual("13800000000", requestMessage.Mobile);
+			Assert.AreEqual(1, requestMessage.Gender);
+			Assert.AreEqual("zhangsan@gzdev.com", requestMessage.Email);
+			Assert.AreEqual("zhangsan@qyycs2.wecom.work", requestMessage.BizMail);
+			Assert.AreEqual(1, requestMessage.Status);
+			Assert.AreEqual("http://wx.qlogo.cn/mmopen/ajNVdqHZLLA3WJ6DSZUfiakYe37PKnQhBIeOQBO4czqrnZDS79FH5Wm5m4X69TBicnHFlhiafvDwklOpZeXYQQ2icg/0", requestMessage.Avatar);
+            Assert.AreEqual("zhangsan", requestMessage.Alias);
+            Assert.AreEqual("020-123456", requestMessage.Telephone);
+            Assert.AreEqual("广州市", requestMessage.Address);
+            Assert.AreEqual(2, requestMessage.ExtAttr.Count());
+            Assert.AreEqual("爱好", requestMessage.ExtAttr[0].Name);
+            Assert.AreEqual(0, requestMessage.ExtAttr[0].Type);
+            Assert.AreEqual("旅游", requestMessage.ExtAttr[0].Text.Value);
+            Assert.AreEqual("卡号", requestMessage.ExtAttr[1].Name);
+            Assert.AreEqual(1, requestMessage.ExtAttr[1].Type);
+            Assert.AreEqual("企业微信", requestMessage.ExtAttr[1].Web.Title);
+            Assert.AreEqual("https://work.weixin.qq.com", requestMessage.ExtAttr[1].Web.Url);
+
+        }
 
     }
 }

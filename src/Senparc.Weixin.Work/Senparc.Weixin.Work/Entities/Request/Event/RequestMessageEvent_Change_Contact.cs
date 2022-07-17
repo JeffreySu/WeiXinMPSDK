@@ -19,6 +19,7 @@
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -114,11 +115,15 @@ namespace Senparc.Weixin.Work.Entities
         /// </summary>
         public string Email { get; set; }
         /// <summary>
+        /// 企业邮箱，代开发自建应用需要管理员授权且成员oauth2授权获取；第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取；上游企业不可获取下游企业成员该字段
+        /// </summary>
+        public string BizMail { get; set; }
+        /// <summary>
         /// 上级字段，标识是否为上级。第三方暂不支持
         /// </summary>
         public int IsLeader { get; set; }
         /// <summary>
-        /// 头像url。注：如果要获取小图将url最后的”/0”改成”/100”即可。
+        /// 头像url。 注：如果要获取小图将url最后的”/0”改成”/100”即可。代开发自建应用需要管理员授权且成员oauth2授权获取；第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取；上游企业不可获取下游企业成员该字段
         /// </summary>
         public string Avatar { get; set; }
         /// <summary>
@@ -130,19 +135,66 @@ namespace Senparc.Weixin.Work.Entities
         /// </summary>
         public string Telephone { get; set; }
         /// <summary>
+        /// 地址。代开发自建应用需要管理员授权且成员oauth2授权获取；第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取；上游企业不可获取下游企业成员该字段
+        /// </summary>
+        public string Address { get; set; }
+        /// <summary>
         /// 英文名
         /// </summary>
+        [Obsolete("官方文档中已删除：https://developer.work.weixin.qq.com/document/path/90970")]
         public string EnglishName { get; set; }
         /// <summary>
-        /// 扩展属性
+        /// 扩展属性，变更时推送;代开发自建应用需要管理员授权才返回。上游共享的应用不返回该字段
         /// </summary>
         public List<Item> ExtAttr { get; set; }
     }
+
+    /// <summary>
+    /// 扩展属性项
+    /// </summary>
     public class Item
     {
+        /// <summary>
+        /// 名称，如“爱好”“卡号”等
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// 扩展属性类型: 0-本文 1-网页
+        /// </summary>
+        public int Type { get; set; }
+
+        public Text Text { get; set; }
+
+        public Web Web { get; set; }
+    }
+
+    /// <summary>
+    /// 文本属性类型，扩展属性类型为0时填写
+    /// </summary>
+    public class Text
+    {
+        /// <summary>
+        /// 文本属性内容
+        /// </summary>
         public string Value { get; set; }
     }
+
+    /// <summary>
+    /// 网页类型属性，扩展属性类型为1时填写
+    /// </summary>
+    public class Web
+    {
+        /// <summary>
+        /// 网页的展示标题
+        /// </summary>
+        public string Title { get; set; }
+        /// <summary>
+        /// 网页的url
+        /// </summary>
+        public string Url { get; set; }
+    }
+
+
     public class RequestMessageEvent_Change_Contact_Party_Base : RequestMessageEvent_Change_Contact_Base
     {
         public override ContactChangeType ChangeType

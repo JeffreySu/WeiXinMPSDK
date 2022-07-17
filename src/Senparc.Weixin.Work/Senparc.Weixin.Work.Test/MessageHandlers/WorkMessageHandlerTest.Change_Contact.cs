@@ -100,12 +100,17 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
 
 			Assert.AreEqual(1, requestMessage.MainDepartment);
 
-			Assert.AreEqual(3, requestMessage.IsLeaderInDept.Count());
-			Assert.AreEqual(1, requestMessage.IsLeaderInDept[0]);
-			Assert.AreEqual(0, requestMessage.IsLeaderInDept[1]);
-			Assert.AreEqual(0, requestMessage.IsLeaderInDept[2]);
+			Assert.AreEqual("1,0,0", requestMessage.IsLeaderInDept);
+			Assert.AreEqual(3, requestMessage.IsLeaderInDeptList.Count());
+			Assert.AreEqual(1, requestMessage.IsLeaderInDeptList[0]);
+			Assert.AreEqual(0, requestMessage.IsLeaderInDeptList[1]);
+			Assert.AreEqual(0, requestMessage.IsLeaderInDeptList[2]);
 
             Assert.AreEqual("lisi,wangwu", requestMessage.DirectLeader);
+			Assert.AreEqual(2, requestMessage.DirectLeaderList.Count());
+            Assert.AreEqual("lisi", requestMessage.DirectLeaderList[0]);
+            Assert.AreEqual("wangwu", requestMessage.DirectLeaderList[1]);
+
             Assert.AreEqual("产品经理", requestMessage.Position);
             Assert.AreEqual("13800000000", requestMessage.Mobile);
 			Assert.AreEqual(1, requestMessage.Gender);

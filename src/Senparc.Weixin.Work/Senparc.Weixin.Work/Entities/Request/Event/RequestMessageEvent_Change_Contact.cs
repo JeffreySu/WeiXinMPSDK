@@ -149,6 +149,26 @@ namespace Senparc.Weixin.Work.Entities
             }
         }
         /// <summary>
+        /// 直属上级UserID，最多5个。代开发的自建应用和上游共享的应用不返回该字段
+        /// <para>如：lisi,wangwu</para>
+        /// </summary>
+        public string DirectLeader { get; set; }
+        /// <summary>
+        /// DirectLeader 解析之后的参数
+        /// </summary>
+        public string[] DirectLeaderList
+        {
+            get
+            {
+                if (DirectLeader.IsNullOrEmpty())
+                {
+                    return new string[0];
+                }
+                return DirectLeader.Split(',');
+            }
+        }
+
+        /// <summary>
         /// 头像url。 注：如果要获取小图将url最后的”/0”改成”/100”即可。代开发自建应用需要管理员授权且成员oauth2授权获取；第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取；上游企业不可获取下游企业成员该字段
         /// </summary>
         public string Avatar { get; set; }

@@ -57,6 +57,10 @@ namespace Senparc.Weixin.Work.Entities
         /// </summary>
         public string UserID { get; set; }
     }
+
+    /// <summary>
+    /// update_user 事件
+    /// </summary>
     public class RequestMessageEvent_Change_Contact_User_Update : RequestMessageEvent_Change_Contact_User_Create
     {
         public override ContactChangeType ChangeType
@@ -68,6 +72,10 @@ namespace Senparc.Weixin.Work.Entities
         /// </summary>
         public string NewUserID { get; set; }
     }
+
+    /// <summary>
+    /// create_user 事件
+    /// </summary>
     public class RequestMessageEvent_Change_Contact_User_Create : RequestMessageEvent_Change_Contact_User_Base
     {
         public override ContactChangeType ChangeType
@@ -119,9 +127,23 @@ namespace Senparc.Weixin.Work.Entities
         /// </summary>
         public string BizMail { get; set; }
         /// <summary>
-        /// 上级字段，标识是否为上级。第三方暂不支持
+        /// 表示所在部门是否为部门负责人，0-否，1-是，顺序与Department字段的部门逐一对应。上游共享的应用不返回该字段。如：1,0,0
         /// </summary>
-        public int IsLeader { get; set; }
+        public string IsLeaderInDept { get; set; }
+        /// <summary>
+        /// IsLeaderInDept 解析之后的参数
+        /// </summary>
+        public int[] IsLeaderInDeptList
+        {
+            get
+            {
+                if (IsLeaderInDept.IsNullOrEmpty())
+                {
+                    return new int[0];
+                }
+                return IsLeaderInDept.Split(',').Select(z => int.Parse(z)).ToArray();
+            }
+        }
         /// <summary>
         /// 头像url。 注：如果要获取小图将url最后的”/0”改成”/100”即可。代开发自建应用需要管理员授权且成员oauth2授权获取；第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取；上游企业不可获取下游企业成员该字段
         /// </summary>

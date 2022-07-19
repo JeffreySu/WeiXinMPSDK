@@ -29,6 +29,7 @@ using Senparc.Weixin.Work.AdvancedAPIs.Media;
 using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Containers;
 using Senparc.Weixin.Work.Test.CommonApis;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.Work.Test.AdvancedAPIs
 {
@@ -107,6 +108,25 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MediaApi.BatchGetMaterial(accessToken, UploadMediaFileType.image, 0, 0, 50);
             Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
+        }
+
+        [TestMethod()]
+        public void UploadTest()
+        {
+            var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
+            var agentId = "1000009";
+            
+            string media = "E:\\Senparc项目\\WeiXinMPSDK\\src\\Senparc.Weixin.Work\\Senparc.Weixin.Work.Test\\AdvancedAPIs\\Media\\中文名.xlsx";
+            var result = MediaApi.Upload(accessToken, UploadMediaFileType.file, media);
+            Console.WriteLine(result.ToJson(true));
+
+            Assert.AreEqual(ReturnCode_Work.请求成功, result.errcode);
+
+            var mediaId = result.media_id;
+
+            var sendResult = Senparc.Weixin.Work.AdvancedAPIs.MassApi.SendFile(accessToken, agentId, mediaId, "001");
+            Console.WriteLine("发送结果：" + sendResult.ToJson(true));
+            Assert.AreEqual(ReturnCode_Work.请求成功, sendResult.errcode);
         }
     }
 }

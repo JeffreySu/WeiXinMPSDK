@@ -120,7 +120,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
 
             //accessToken = "o_wCi3y-H0s74edO2CAjUU-3dmLkPpO4lXkuZ63QE0C2xjS-cwXrNiK_04dtEreGInKSTKsqZ5z1sxK2g2I07EK9sNvMhQN3p54e1IpePBxgPm8RReBQS6OIV4XnThFZd5LimDVNKgvdvVLyx-YjrY-REk7AcaPfxqTZPTtvLAtcZGSE2_2E6IIOD5W3zGJZgs2CmJu1rSLSFRBv6Zq8NA";
 
-            string[] medias = new[] { /*"E:\\Senparc项目\\WeiXinMPSDK\\src\\Senparc.Weixin.Work\\Senparc.Weixin.Work.Test\\AdvancedAPIs\\Media\\EnglishName.xlsx",*/
+            string[] medias = new[] { "E:\\Senparc项目\\WeiXinMPSDK\\src\\Senparc.Weixin.Work\\Senparc.Weixin.Work.Test\\AdvancedAPIs\\Media\\EnglishName.xlsx",
             "E:\\Senparc项目\\WeiXinMPSDK\\src\\Senparc.Weixin.Work\\Senparc.Weixin.Work.Test\\AdvancedAPIs\\Media\\中文名.txt"
             };
 

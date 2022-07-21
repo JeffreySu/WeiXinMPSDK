@@ -113,20 +113,30 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         [TestMethod()]
         public void UploadTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var agentId = "1000009";
-            
-            string media = "E:\\Senparc项目\\WeiXinMPSDK\\src\\Senparc.Weixin.Work\\Senparc.Weixin.Work.Test\\AdvancedAPIs\\Media\\中文名.xlsx";
-            var result = MediaApi.Upload(accessToken, UploadMediaFileType.file, media);
-            Console.WriteLine(result.ToJson(true));
+            var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
+            Console.WriteLine("accesstoken:");
+            Console.WriteLine(accessToken);
 
-            Assert.AreEqual(ReturnCode_Work.请求成功, result.errcode);
+            //accessToken = "o_wCi3y-H0s74edO2CAjUU-3dmLkPpO4lXkuZ63QE0C2xjS-cwXrNiK_04dtEreGInKSTKsqZ5z1sxK2g2I07EK9sNvMhQN3p54e1IpePBxgPm8RReBQS6OIV4XnThFZd5LimDVNKgvdvVLyx-YjrY-REk7AcaPfxqTZPTtvLAtcZGSE2_2E6IIOD5W3zGJZgs2CmJu1rSLSFRBv6Zq8NA";
 
-            var mediaId = result.media_id;
+            string[] medias = new[] { /*"E:\\Senparc项目\\WeiXinMPSDK\\src\\Senparc.Weixin.Work\\Senparc.Weixin.Work.Test\\AdvancedAPIs\\Media\\EnglishName.xlsx",*/
+            "E:\\Senparc项目\\WeiXinMPSDK\\src\\Senparc.Weixin.Work\\Senparc.Weixin.Work.Test\\AdvancedAPIs\\Media\\中文名.txt"
+            };
 
-            var sendResult = Senparc.Weixin.Work.AdvancedAPIs.MassApi.SendFile(accessToken, agentId, mediaId, "001");
-            Console.WriteLine("发送结果：" + sendResult.ToJson(true));
-            Assert.AreEqual(ReturnCode_Work.请求成功, sendResult.errcode);
+            foreach (var media in medias)
+            {
+                var result = MediaApi.Upload(accessToken, UploadMediaFileType.file, media);
+                Console.WriteLine(result.ToJson(true));
+
+                Assert.AreEqual(ReturnCode_Work.请求成功, result.errcode);
+
+                var mediaId = result.media_id;
+
+                var sendResult = Senparc.Weixin.Work.AdvancedAPIs.MassApi.SendFile(accessToken, agentId, mediaId, "001");
+                Console.WriteLine("发送结果：" + sendResult.ToJson(true));
+                Assert.AreEqual(ReturnCode_Work.请求成功, sendResult.errcode);
+            }
         }
     }
 }

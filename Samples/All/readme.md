@@ -26,3 +26,10 @@
 > 其他情况（如没有安装 VS2017，或者只是想调试 .NET Framework 4.6.2+ 项目），那么请打开：net45-mvc/Senparc.Weixin.MP.Sample.sln 解决方案
 
 无论选择哪个解决方案，类库的功能都是一致的。
+
+
+
+## 其他说明
+
+Senparc.Weixin.Sample.CommonService 里面包含了 CustomMessageHandler 等在多个不同框架的 Sample 中可以重用的代码，例如可以在 .NET Framework / .NET 6.0 / WebForms 等不同环境中重用。
+

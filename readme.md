@@ -22,7 +22,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 ## 公告
 > 🔒 [微信支付 V3 模块](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3)已上线！<br>
-> ⚡ Sample 已支持 .NET 6.0，[点击这里查看](Samples/net6-mvc)！<br/>
+> ⚡ Sample 已支持 .NET 6.0，[点击这里查看](Samples/All/net6-mvc)！<br/>
 
 
 <!-- _1. 为了将 Demo 和源代码隔离，并让大家更方便地找到 Demo，现已将 Senparc.Weixin.MP.Sample 等文件夹转移到 [/Samples/](Samples/) 文件夹下。_<br> -->
@@ -34,18 +34,18 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 > 说明：<br>
 > 1. 以下代码以 .NET 6.0 为例，Senparc.Weixin SDK 兼容所有 MVC、Razor、Console（命令行）、桌面应用(.exe)、Blazor、MAUI、后台服务等环境，和外部框架完全解耦。<br>
-> 2. 下述源码位于 [`/Samples/MP/`](/Samples/MP/) 文件夹，以微信公众号为例，其他模块用法一致（小程序、企业微信、微信支付等），学会公众号就可以举一反三使用其他模块。<br>
+> 2. 下述源码位于 [`/Samples/MP/`](/Samples/MP/) 文件夹，以微信公众号为例。学会公众号就可以举一反三使用其他模块，基本用法一致（小程序、企业微信、微信支付等）。<br>
 如需查看其他模块或集成示例，可以查看位于 [`/Samples/`](/Samples/) 文件夹下的其他独立 Sample，或 [`/Samples/All/`](/Samples/All/) 文件夹下的集成 Sample（进阶）。
 
 
-### 启动代码（只需 2 句代码）：Program.cs
-<strong>在 builder.Build() 上方添加配置：</strong>
+### 启动代码（只需 2 句代码）：
+<strong>在 Program.cs 的 builder.Build() 上方添加配置：</strong>
 ``` C#
 builder.Services.AddSenparcWeixinServices(builder.Configuration);
 ```
 > 对应于 Startup.cs 的 ConfigureServices() 方法内。
 
-<strong>在 builder.Build() 下方启用配置：</strong>
+<strong>在 Program.cs 的 builder.Build() 下方启用配置：</strong>
 ``` C#
 var registerService = app.UseSenparcWeixin(app.Environment, null, null,
     register => { },
@@ -62,8 +62,8 @@ var registerService = app.UseSenparcWeixin(app.Environment, null, null,
 ``` C#
 await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync("AppId", "OpenId", "Hello World!");
 ```
-> 注意：<br>
-> 1. Senparc.Weixin SDK 将全自动托管 AccessToken 的生命周期，因此所有开发过程只需提供 AppId，无需操心 AccessToken 过期等问题。<br>
+> 提示：<br>
+> 1. Senparc.Weixin SDK 将全生命周期自动托管 AccessToken，因此开发过程只需提供 AppId，无需操心 AccessToken 过期等问题。<br>
 > 2. AppId 等注册信息可从 `Senparc.Weixin.Config.SenparcWeixinSetting` 中自动获取，相关参数在 `appsettings.json` 中配置。
 > 3. 以上方法也支持同步方法：Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText()
 
@@ -141,13 +141,14 @@ app.UseMessageHandlerForMp("/WeixinAsync",
     });
 ```
 
-此外，您还可以使用 `Controller（或 WebApi）` 方式可以对整个步骤进行更加细致的控制，[点击这里查看](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MessageHandler%E7%AE%80%E5%8C%96%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B)。
+此时，您已经可以使用 https://YourDomain/WeixinAsync 在微信后台【设置与开发】>【基本配置】> 服务器地址(URL) 中进行配置，对应 Token 在 [appsettings.json](/Samples/MP/Senparc.Weixin.Sample.MP/appsettings.json) 中设置。
 
+此外，您还可以使用 `Controller（或 WebApi）` 方式可以对整个消息处理步骤进行更加细致的控制，[点击这里查看](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MessageHandler%E7%AE%80%E5%8C%96%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B)。
 
 
 <img src="https://sdk.weixin.senparc.com/images/SenparcRobotsnapshoot.jpg" width="300" align="right">
 
-下文索引
+更多介绍索引
 ----------------
 
 * [各模块类库](#各模块类库)
@@ -160,23 +161,23 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 * [关注测试账号（SenparcRobot）](#关注测试账号senparcrobot)
 * [项目文件夹说明（src文件夹下）](#项目文件夹说明src文件夹下)
 * [Sample 文件夹说明（Samples文件夹下）](#sample-文件夹说明samples文件夹下)
-* [Senparc.Weixin.MP.Sample中的关键代码说明](#senparcweixinmpsample中的关键代码说明)
+<!-- * [Senparc.Weixin.MP.Sample中的关键代码说明](#senparcweixinmpsample中的关键代码说明)
     * [/Controllers/WeixinController.cs](#controllersweixincontrollercs)
-    * [如何处理微信公众账号请求](#如何处理微信公众账号请求)
+    * [如何处理微信公众账号请求](#如何处理微信公众账号请求) -->
 * [使用Nuget安装到项目中](#使用nuget安装到项目中)
 * [如何开发小程序](#如何开发小程序) <!-- * [已实现功能](#已实现功能) -->
 * [如何部署](#如何部署)
-* [各分支说明](#各分支说明)
+* [各重要分支说明](#各重要分支说明)
 * [感谢贡献者](#感谢贡献者)
 * [捐助](#捐助)
 * [Star 数量统计](#star-数量统计)
 * [License](#license)
 
-本库包含了 .NET4.5/.NET Standard 2.0/.NET Core/.NET 6 多个版本的源代码（核心逻辑完全一致）：
+本库包含了 .NET Framework/.NET Standard 2.0/.NET Core/.NET 6 多个版本的源代码（核心逻辑完全一致）：
 
 * 使用 Visual Studio 2022 打开 Demo（支持所有版本）：.NET 6.0 - [Senparc.Weixin.Sample.Net6.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net6-mvc)（包含源码引用推荐）
-* 使用 Visual Studio 2019 或其他版本打开 .NET 4.5 Demo：[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net45-mvc)（不包含源码，仅引用类库）
-* 使用 Visual Studio 2017/2019 打开命令行 Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/console)
+* 使用 Visual Studio 2019 或更高版本打开 .NET Framework Demo：[Senparc.Weixin.MP.Sample.Net45.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net45-mvc/)（不包含源码，仅引用类库）
+* 使用 Visual Studio 2019 或更高版本打开命令行 Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/console)
 
 各模块类库
 ----------------
@@ -288,19 +289,18 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 > 目前官方的 API 都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的 dll，[Release生成目录](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut)，建议使用 [Nuget](https://www.nuget.org/) 进行更新。
 
 
-
-## 私人定制你的微信项目 Sample
+<!-- ## 私人定制你的微信项目 Sample
 
 Web 版：<a href="https://www.cnblogs.com/szw/p/WeChatSampleBuilder-V2.html#Web-WeChatSampleBuilder" target="_blank">查看教程</a>。
 
-<img src="https://sdk.weixin.senparc.com/images/WeChatSampleBuilder-v0.2.0-web.png?t=1" width="700" alt="WeChatSampleBuilder" />
+<img src="https://sdk.weixin.senparc.com/images/WeChatSampleBuilder-v0.2.0-web.png?t=1" width="700" alt="WeChatSampleBuilder" /> -->
 
 <!-- 
 2. 桌面版：登录 <a href="https://weixin.senparc.com/User" target="_blank">https://weixin.senparc.com/User</a>下载 WeChatSampleBuilder 工具，并查看使用说明。
 
 <img src="https://sdk.weixin.senparc.com/images/WeChatSampleBuilder-v0.2.0.png?t=1" width="700" alt="WeChatSampleBuilder" />
 -->
-> 注意：使用 WeChatSampleBuilder 工具只是方便您简化 Sample 代码进行测试和学习，并不能帮助您生成完整的带有业务逻辑的生产环境项目。如需构建生产环境项目，请参考完整的 Demo 或其他教程，推荐使用已有的系统框架进行项目搭建，如 [NeuCharFramework](https://github.com/NeuCharFramework/NCF)。
+<!-- > 注意：使用 WeChatSampleBuilder 工具只是方便您简化 Sample 代码进行测试和学习，并不能帮助您生成完整的带有业务逻辑的生产环境项目。如需构建生产环境项目，请参考完整的 Demo 或其他教程，推荐使用已有的系统框架进行项目搭建，如 [NeuCharFramework](https://github.com/NeuCharFramework/NCF)。 -->
 
 
 资源
@@ -658,7 +658,7 @@ Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理�
  欢迎开发者对未完成或需要补充的模块进行 Pull Request！
 -->
 
-各分支说明
+各重要分支说明
 --------------
 
 |  分支      |     说明         

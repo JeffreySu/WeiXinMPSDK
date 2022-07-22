@@ -33,9 +33,10 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 ## Hello World：只需 3 句代码开始你的微信开发之旅！
 
 > 说明：<br>
-> 1. 下述源码位于 [`/Samples/MP/`](/Samples/MP/) 文件夹，以微信公众号为例，其他模块用法一致（小程序、企业微信、微信支付等），学会公众号就可以举一反三使用其他模块。<br>
-> 2. 如需查看其他模块或集成示例，可以查看位于 [`/Samples/`](/Samples/) 文件夹下的其他独立 Sample，或 [`/Samples/All/`](/Samples/All/) 文件夹下的集成 Sample（进阶）。
-> 3. 以下代码以 .NET 6.0 为例，Senparc.Weixin SDK 兼容所有 MVC、Razor、Console（命令行）、桌面应用(.exe)、后台服务等环境，和外部框架完全解耦。
+> 1. 以下代码以 .NET 6.0 为例，Senparc.Weixin SDK 兼容所有 MVC、Razor、Console（命令行）、桌面应用(.exe)、Blazor、MAUI、后台服务等环境，和外部框架完全解耦。<br>
+> 2. 下述源码位于 [`/Samples/MP/`](/Samples/MP/) 文件夹，以微信公众号为例，其他模块用法一致（小程序、企业微信、微信支付等），学会公众号就可以举一反三使用其他模块。<br>
+如需查看其他模块或集成示例，可以查看位于 [`/Samples/`](/Samples/) 文件夹下的其他独立 Sample，或 [`/Samples/All/`](/Samples/All/) 文件夹下的集成 Sample（进阶）。
+
 
 ### 启动代码（只需 2 句代码）：Program.cs
 <strong>在 builder.Build() 上方添加配置：</strong>

@@ -67,8 +67,7 @@ await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync("AppId", "OpenId", 
 > 2. AppId 等注册信息可从 `Senparc.Weixin.Config.SenparcWeixinSetting` 中自动获取，相关参数在 `appsettings.json` 中配置。
 > 3. 以上方法也支持同步方法：Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText() 。
 
-
-到此为止，你已经可以举一反三调用所有微信模块的接口啦！更多技能请继续往下看。
+至此，您已经可以举一反三调用所有微信模块的接口啦！更多技能请继续往下看。
 
 ### 如何使用公众号消息对话能力？
 公众号默认提供了对话窗口，可以发送文字、图片、语音等不同类型的信息和程序互动。
@@ -143,7 +142,7 @@ app.UseMessageHandlerForMp("/WeixinAsync",
     });
 ```
 
-此时，您已经可以使用 [https://YourDomain/WeixinAsync](https://sdk.weixin.senparc.com/WeixinAsync) 在微信后台【设置与开发】>【基本配置】> 服务器地址(URL) 中进行配置，对应 Token 在 [appsettings.json](/Samples/MP/Senparc.Weixin.Sample.MP/appsettings.json) 中设置。
+此时，您已经可以使用 [https://YourDomain/WeixinAsync](https://sdk.weixin.senparc.com/WeixinAsync) 在微信公众号后台【设置与开发】>【基本配置】> 服务器地址(URL) 中进行配置，对应 Token 在 [appsettings.json](/Samples/MP/Senparc.Weixin.Sample.MP/appsettings.json) 中设置（同样适用于企业微信和小程序，请参考对应 [Sample](/Samples/)）。
 
 此外，您还可以使用 `Controller（或 WebApi）` 方式可以对整个消息处理步骤进行更加细致的控制，[点击这里查看](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MessageHandler%E7%AE%80%E5%8C%96%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B)。
 
@@ -160,7 +159,7 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 * [:computer: Senparc 官方视频教程](#senparc-官方视频教程)
 * [贡献代码](#贡献代码)
 * [如何使用.net core开发](#如何使用-net-core-开发)
-* [关注测试账号（SenparcRobot）](#关注测试账号senparcrobot)
+* [关注测试账号（SenparcRobot）](#关注测试账号体验功能（SenparcRobot）：)
 * [项目文件夹说明（src文件夹下）](#项目文件夹说明src文件夹下)
 * [Sample 文件夹说明（Samples文件夹下）](#sample-文件夹说明samples文件夹下)
 <!-- * [Senparc.Weixin.MP.Sample中的关键代码说明](#senparcweixinmpsample中的关键代码说明)

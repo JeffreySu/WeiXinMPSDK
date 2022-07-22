@@ -65,7 +65,7 @@ await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync("AppId", "OpenId", 
 > 提示：<br>
 > 1. Senparc.Weixin SDK 将全生命周期自动托管 AccessToken，因此开发过程只需提供 AppId，无需操心 AccessToken 过期等问题。<br>
 > 2. AppId 等注册信息可从 `Senparc.Weixin.Config.SenparcWeixinSetting` 中自动获取，相关参数在 `appsettings.json` 中配置。
-> 3. 以上方法也支持同步方法：Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText()
+> 3. 以上方法也支持同步方法：Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText() 。
 
 
 到此为止，你已经可以举一反三调用所有微信模块的接口啦！更多技能请继续往下看。
@@ -73,7 +73,9 @@ await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync("AppId", "OpenId", 
 ### 如何使用公众号消息对话能力？
 公众号默认提供了对话窗口，可以发送文字、图片、语音等不同类型的信息和程序互动。
 
-1. 创建自定义 MessageHandler 负责控制消息处理逻辑：
+以下示例同样适用于企业微信和小程序客服消息的对话，只需两步！
+
+第一步：创建自定义 MessageHandler 负责控制消息处理逻辑：
 
 <details>
 <summary>CustomMessageHandler.cs</summary>
@@ -127,7 +129,7 @@ namespace Senparc.Weixin.Sample.MP
 </details>
 
 
-2. 使用 CustomMessageHandler，有两种方法：`中间件`（推荐）和 `Controller（或WebApi）`，以中间件为例：
+第二步：使用 CustomMessageHandler，有两种方法：`中间件`（推荐）和 `Controller（或WebApi）`，以中间件为例：
 
 在 Program.cs 中启用配置后添加代码，注册 MessageHandler：
 ``` C#
@@ -141,7 +143,7 @@ app.UseMessageHandlerForMp("/WeixinAsync",
     });
 ```
 
-此时，您已经可以使用 https://YourDomain/WeixinAsync 在微信后台【设置与开发】>【基本配置】> 服务器地址(URL) 中进行配置，对应 Token 在 [appsettings.json](/Samples/MP/Senparc.Weixin.Sample.MP/appsettings.json) 中设置。
+此时，您已经可以使用 [https://YourDomain/WeixinAsync](https://sdk.weixin.senparc.com/WeixinAsync) 在微信后台【设置与开发】>【基本配置】> 服务器地址(URL) 中进行配置，对应 Token 在 [appsettings.json](/Samples/MP/Senparc.Weixin.Sample.MP/appsettings.json) 中设置。
 
 此外，您还可以使用 `Controller（或 WebApi）` 方式可以对整个消息处理步骤进行更加细致的控制，[点击这里查看](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MessageHandler%E7%AE%80%E5%8C%96%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B)。
 

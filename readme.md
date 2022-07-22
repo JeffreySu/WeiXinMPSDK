@@ -30,7 +30,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 
 
-## Hello World：只需 3 句代码开始你的微信开发之旅！
+## Hello World ：用 3 句代码开启你的微信开发之旅！
 
 > 说明：<br>
 > 1. 以下代码以 .NET 6.0 为例，Senparc.Weixin SDK 兼容所有 MVC、Razor、Console（命令行）、桌面应用(.exe)、Blazor、MAUI、后台服务等环境，和外部框架完全解耦。<br>

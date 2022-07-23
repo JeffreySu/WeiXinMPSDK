@@ -161,7 +161,7 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 * [:computer: Senparc 官方视频教程](#senparc-官方视频教程)
 * [贡献代码](#贡献代码)
 * [关注测试账号（SenparcRobot）](#关注测试账号体验功能senparcrobot)
-* [如何使用.net core开发](#如何使用-net-core-开发)
+* [如何使用 .NET Core 开发](#如何使用-net-core-开发)
 * [使用Nuget安装到项目中](#使用nuget安装到项目中)
 * [如何部署](#如何部署)
 * [各重要分支说明](#各重要分支说明)
@@ -314,7 +314,7 @@ Senparc.Weixin SDK 所有的模块的用法都保持了高度的一致，包括�
 |--------|--------|----|
 |[MP](Samples/MP/)          |   公众号 | Nuget 包
 |[TenPayV2](Samples/TenPayV2/)    |   微信支付 V1 和 V2  | Nuget 包
-|[TenPayV3](Samples/TenPayV3/)    |   微信支付 V3（TenPay APIv3） | 源码
+|[TenPayV3](Samples/TenPayV3/)    |   微信支付 V3（TenPay APIv3） | Nuget 包
 |[Work](Samples/Work/)        |   企业微信 | Nuget 包
 |[WxOpen](Samples/WxOpen/)      |   微信小程序 | Nuget 包
 |[Shared](Samples/Shared)      |   所有 Sample 都需要用到的共享文件

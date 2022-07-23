@@ -163,7 +163,6 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 * [关注测试账号（SenparcRobot）](#关注测试账号体验功能senparcrobot)
 * [如何使用.net core开发](#如何使用-net-core-开发)
 * [使用Nuget安装到项目中](#使用nuget安装到项目中)
-* [如何开发小程序](#如何开发小程序)
 * [如何部署](#如何部署)
 * [各重要分支说明](#各重要分支说明)
 * [感谢贡献者](#感谢贡献者)
@@ -181,27 +180,28 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 
 | # | 模块功能                                            | DLL                                             | Nuget                          | 支持 .NET 版本 
 |---|----------------------------------------------------|-------------------------------------------------|---------------------------------------|--------------------------------------
-| 1| 基础库                                               |Senparc.Weixin.dll                               | [![Senparc.Weixin][1.1]][1.2]<br>[![Senparc.Weixin][nuget-img-base]][nuget-url-base]  |         ![.NET 4.5][net45Y]    ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6] 
-| 2| 微信公众号 /<br> JSSDK / 摇周边<br> 等等 |Senparc.Weixin.MP.dll                           | [![MP][2.1]][2.2]<br>[![MP][nuget-img-mp]][nuget-url-mp]  |          ![.NET 4.5][net45Y]    ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
-| 3| [微信小程序<br>（支持小游戏）<br>（独立项目）](https://github.com/JeffreySu/WxOpen)  |Senparc.Weixin.WxOpen.dll  |  [![WxOpen][9.1]][9.2]<br>[![WxOpen][nuget-img-wxopen]][nuget-url-wxopen] |       ![.NET 4.5][net45Y]  ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
-| 4| 微信支付                                             |Senparc.Weixin.TenPay.dll  |  [![TenPay][12.1]][12.2]<br>[![TenPay][nuget-img-tenpay]][nuget-url-tenpay] |       ![.NET 4.5][net45Y]  ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
-| 5| 微信支付 V3                                         |Senparc.Weixin.TenPayV3.dll  |  [![TenPayV3][13.1]][13.2]<br>[![TenPay][nuget-img-tenpayv3]][nuget-url-tenpayv3] |       ![.NET 4.5][net45N]  ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
-| 6| ASP.NET MVC 扩展<br>               |Senparc.Weixin.MP.MVC.dll                 | [![MP.MVC][3.1]][3.2]<br>[![Mvc][nuget-img-mvc]][nuget-url-mvc] |        ![.NET 4.5][net45Y] ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
-| 7| 微信企业号                                           |Senparc.Weixin.QY.dll                            | [![QY][4.1]][4.2]<br>[![QY][nuget-img-qy]][nuget-url-qy]  |      ![.NET 4.5][net45Y] ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
-| 9| 企业微信                                             |Senparc.Weixin.Work.dll                          | [![Work][5.1]][5.2]<br>[![Work][nuget-img-work]][nuget-url-work]  |          ![.NET 4.5][net45Y]    ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
-| 9| 微信开放平台                                         |Senparc.Weixin.Open.dll                          | [![Open][6.1]][6.2]<br>[![Open][nuget-img-open]][nuget-url-open]|         ![.NET 4.5][net45Y]    ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
-| 10| Redis 分布式缓存                                     |Senparc.Weixin.Cache.<br>Redis.dll               | [![Cache.Redis][7.1]][7.2]<br>[![Redis][nuget-img-redis]][nuget-url-redis] |           ![.NET 4.5][net45Y]    ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
-| 11| Memcached <br> 分布式缓存                            |Senparc.Weixin.Cache.<br>Memcached.dll           | [![Cache.Memcached][8.1]][8.2]<br>[![MC][nuget-img-mc]][nuget-url-mc] |         ![.NET 4.5][net45Y]    ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
-| 12| [WebSocket <br>（独立项目）](https://github.com/JeffreySu/Senparc.WebSocket)    |Senparc.WebSocket.dll |  [![Senparc.WebSocket][10.1]][10.2]<br>[![WebSocket][nuget-img-ws]][nuget-url-ws]  |          ![.NET 4.5][net45Y]    ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
+| 1| 基础库                                               |Senparc.Weixin.dll                               | [![Senparc.Weixin][1.1]][1.2]<br>[![Senparc.Weixin][nuget-img-base]][nuget-url-base]  |         ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6] 
+| 2| 微信公众号 /<br> JSSDK / 摇周边<br> 等等 |Senparc.Weixin.MP.dll                           | [![MP][2.1]][2.2]<br>[![MP][nuget-img-mp]][nuget-url-mp]  |          ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
+| 3| [微信小程序<br>（支持小游戏）<br>（独立项目）](https://github.com/JeffreySu/WxOpen)  |Senparc.Weixin.WxOpen.dll  |  [![WxOpen][9.1]][9.2]<br>[![WxOpen][nuget-img-wxopen]][nuget-url-wxopen] |       ![.NET 4.5][net46Y]  ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
+| 4| 微信支付                                             |Senparc.Weixin.TenPay.dll  |  [![TenPay][12.1]][12.2]<br>[![TenPay][nuget-img-tenpay]][nuget-url-tenpay] |       ![.NET 4.5][net46Y]  ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
+| 5| 微信支付 V3                                         |Senparc.Weixin.TenPayV3.dll  |  [![TenPayV3][13.1]][13.2]<br>[![TenPay][nuget-img-tenpayv3]][nuget-url-tenpayv3] |       ![.NET 4.5][net46N]  ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
+| 6| ASP.NET MVC 扩展<br>               |Senparc.Weixin.MP.MVC.dll                 | [![MP.MVC][3.1]][3.2]<br>[![Mvc][nuget-img-mvc]][nuget-url-mvc] |        ![.NET 4.5][net46Y] ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
+| 7| 微信企业号                                           |Senparc.Weixin.QY.dll                            | [![QY][4.1]][4.2]<br>[![QY][nuget-img-qy]][nuget-url-qy]  |      ![.NET 4.5][net46Y] ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
+| 9| 企业微信                                             |Senparc.Weixin.Work.dll                          | [![Work][5.1]][5.2]<br>[![Work][nuget-img-work]][nuget-url-work]  |          ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
+| 9| 微信开放平台                                         |Senparc.Weixin.Open.dll                          | [![Open][6.1]][6.2]<br>[![Open][nuget-img-open]][nuget-url-open]|         ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
+| 10| Redis 分布式缓存                                     |Senparc.Weixin.Cache.<br>Redis.dll               | [![Cache.Redis][7.1]][7.2]<br>[![Redis][nuget-img-redis]][nuget-url-redis] |           ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
+| 11| Memcached <br> 分布式缓存                            |Senparc.Weixin.Cache.<br>Memcached.dll           | [![Cache.Memcached][8.1]][8.2]<br>[![MC][nuget-img-mc]][nuget-url-mc] |         ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
+| 12| [WebSocket <br>（独立项目）](https://github.com/JeffreySu/Senparc.WebSocket)    |Senparc.WebSocket.dll |  [![Senparc.WebSocket][10.1]][10.2]<br>[![WebSocket][nuget-img-ws]][nuget-url-ws]  |          ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]  ![.NET Core][netcore]  ![.NET 5.0 / 6.0][net6]  
 
 
 #### 图例
-|![.NET 3.5][net35Y] | ![.NET 4.0][net40Y] | ![.NET 4.5][net45Y] | ![.NET Standard 2.x][core20Y] |  ![.NET Core][netcore] | ![.NET 5.0 / 6.0][net6]  
+|![.NET 3.5][net35Y] | ![.NET 4.0][net40Y] | ![.NET 4.6][net46Y] | ![.NET Standard 2.x][core20Y] |  ![.NET Core][netcore] | ![.NET 5.0 / 6.0][net6]  
 |--|--|--|--|--|--|
-| .NET Framework 3.5 | .NET Framework 4.0 | .NET Framework 4.5.1            |  .NET Standard 2.0 / 2.1  |   .NET Core 2.x / 3.x  |  .NET 5.0 / .NET 6.0
+| .NET Framework 3.5 | .NET Framework 4.0 | .NET Framework 4.6.2            |  .NET Standard 2.0 / 2.1  |   .NET Core 2.x / 3.x  |  .NET 5.0 / .NET 6.0
 
 > 提示：<br>
-> 1. ![.NET 3.5][net35Y]  ![.NET 4.0][net40Y]  最后一个稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.6.15)，自 2019 年 5 月 1 日起停止更新。<br>
+> 1. 自 2019 年 5 月 1 日起，.NET Framework 3.5 及 4.0 停止更新，最后一个 .NET Framework 3.5 + 4.0 稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.6.15)。<br>
+> 2. 自 2022 年 4 月 3 日起，.NET Framework 4.5 升级为 4.6.2，最后一个 .NET Framework 4.5 的稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.17.9)。
 
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
 [1.2]: https://www.nuget.org/packages/Senparc.Weixin
@@ -230,16 +230,9 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 [13.1]: https://img.shields.io/nuget/v/Senparc.Weixin.TenPayV3.svg?style=flat
 [13.2]: https://www.nuget.org/packages/Senparc.Weixin.TenPayV3
 
-[net35Y]: https://img.shields.io/badge/3.5-Y-yellowgreen.svg
-[net35N]: https://img.shields.io/badge/3.5-N-lightgrey.svg
-[net40Y]: https://img.shields.io/badge/4.0-Y-yellowgreen.svg
-[net40N]: https://img.shields.io/badge/4.0-N-lightgrey.svg
-[net40N-]: https://img.shields.io/badge/4.0----lightgrey.svg
-[net45Y]: https://img.shields.io/badge/4.5-Y-brightgreen.svg
-[net45N]: https://img.shields.io/badge/4.5-N-lightgrey.svg
-[net45N-]: https://img.shields.io/badge/4.5----lightgrey.svg
-[net461Y]: https://img.shields.io/badge/4.6.1-Y-brightgreen.svg
-[net461N]: https://img.shields.io/badge/4.6.1-N-lightgrey.svg
+[net46Y]: https://img.shields.io/badge/4.6-Y-brightgreen.svg
+[net46N]: https://img.shields.io/badge/4.6-N-lightgrey.svg
+[net46N-]: https://img.shields.io/badge/4.6----lightgrey.svg
 [coreY]: https://img.shields.io/badge/standard2.0-Y-brightgreen.svg
 [coreN]: https://img.shields.io/badge/standard2.0-N-lightgrey.svg
 [coreN-]: https://img.shields.io/badge/standard2.0----lightgrey.svg

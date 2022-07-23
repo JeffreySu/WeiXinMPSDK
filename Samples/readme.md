@@ -18,6 +18,6 @@
 |[TenPayV3](/Samples/TenPayV3/)    |   微信支付 V3（TenPay APIv3） （更新中，预计 2022.8.12 完成） | Nuget 包
 |[Work](/Samples/Work/)        |   企业微信 | Nuget 包
 |[WxOpen](/Samples/WxOpen/)      |   微信小程序 | Nuget 包
-|[Shared](/Samples/Shared)      |   所有 Sample 都需要用到的共享文件（实际项目中不需要）
+|[Shared](/Samples/Shared)      |   所有当前 Samples 根目录下的独立模块 Sample 都需要用到的共享文件（实际项目中不需要）
 
 

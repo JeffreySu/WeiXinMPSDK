@@ -155,19 +155,15 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 
 * [各模块类库](#各模块类库)
 * [源码项目文件夹说明（src文件夹下）](#源码项目文件夹说明src文件夹下)
-* [Sample 文件夹说明（Samples文件夹下）](#sample-文件夹说明samples文件夹下)
-<!-- * [私人定制你的微信项目 Sample](#私人定制你的微信项目-sample) -->
+* [Samples 文件夹说明（Samples文件夹下）](#samples-文件夹说明samples文件夹下)
 * [资源](#资源)
 * [:book: Senparc 官方图书教程](#senparc-官方图书教程)
 * [:computer: Senparc 官方视频教程](#senparc-官方视频教程)
 * [贡献代码](#贡献代码)
-* [关注测试账号（SenparcRobot）](#关注测试账号体验功能（SenparcRobot）：)
-<!-- * [Senparc.Weixin.MP.Sample中的关键代码说明](#senparcweixinmpsample中的关键代码说明)
-    * [/Controllers/WeixinController.cs](#controllersweixincontrollercs)
-    * [如何处理微信公众账号请求](#如何处理微信公众账号请求) -->
+* [关注测试账号（SenparcRobot）](#关注测试账号体验功能senparcrobot)
 * [如何使用.net core开发](#如何使用-net-core-开发)
 * [使用Nuget安装到项目中](#使用nuget安装到项目中)
-* [如何开发小程序](#如何开发小程序) <!-- * [已实现功能](#已实现功能) -->
+* [如何开发小程序](#如何开发小程序)
 * [如何部署](#如何部署)
 * [各重要分支说明](#各重要分支说明)
 * [感谢贡献者](#感谢贡献者)
@@ -316,9 +312,11 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 
 [进入文件夹](/src/)
 
-
 ## Samples 文件夹说明（Samples文件夹下）
 
+Senparc.Weixin SDK 所有的模块的用法都保持了高度的一致，包括配置过程、AccessToken 管理、消息处理、服务消息、接口调用，等等。您只需参考任意一个模块的用法（推荐从`公众号`或`小程序`开始），就可以举一反三使用其他模块。
+
+从以下 Sample 中您可以了解到每个独立模块的配置和使用方式，直接打开对应文件夹下的 `.sln` 解决方案即可查看对应源码，运行即可看到说明文档。其中 `All` 文件夹中包含了更多综合和进阶功能的演示。
 
 | 文件夹 | 说明 |  SDK 引用方式
 |--------|--------|----|
@@ -572,12 +570,6 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 ## 使用Nuget安装到项目中
 
 各个模块的 Nuget 安装方式：《[使用 Nuget 将 SDK 安装到项目中](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E4%BD%BF%E7%94%A8-Nuget-%E5%B0%86-SDK-%E5%AE%89%E8%A3%85%E5%88%B0%E9%A1%B9%E7%9B%AE%E4%B8%AD)》
-
-## 如何开发小程序
-
-小程序的后端架构和公众号保持了高度一致，
-只需要使用Nuget安装[Senparc.Weixin.WxOpen](https://www.nuget.org/packages/Senparc.Weixin.WxOpen)库即可开始使用小程序。
-Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理、AccessToken管理、模板消息、二维码生成等全套功能。
 
 ## 如何部署
 

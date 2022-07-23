@@ -130,9 +130,9 @@ namespace Senparc.Weixin.Sample.MP
 </details>
 
 
-#### 第二步：使用 CustomMessageHandler
+#### 第二步：请求 CustomMessageHandler：
 
-使用 CustomMessageHandler 有两种方法：`中间件`方式（推荐）和 `Controller（或WebApi）`方式，以中间件为例：
+有 `中间件`（推荐）和 `Controller（或WebApi）` 两种方式请求 CustomMessageHandler，以 中间件为例：
 
 在 Program.cs 中启用配置后添加代码，注册 MessageHandler：
 ``` C#
@@ -148,7 +148,7 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 
 此时，您已经可以使用 [https://YourDomain/WeixinAsync](https://sdk.weixin.senparc.com/WeixinAsync) 在微信公众号后台【设置与开发】>【基本配置】> 服务器地址(URL) 中进行配置，对应 Token 在 [appsettings.json](/Samples/MP/Senparc.Weixin.Sample.MP/appsettings.json#L36) 中设置（同样适用于企业微信和小程序，请参考对应 [Sample](/Samples/)）。
 
-此外，您还可以使用 `Controller（或 WebApi）` 方式可以对整个消息处理步骤进行更加细致的控制，[点击这里查看](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MessageHandler%E7%AE%80%E5%8C%96%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B)。
+此外，您还可以使用 `Controller（或 WebApi）` 方式可以对整个消息处理步骤进行更加细致的控制（或在 .NET Framework 中使用），[点击这里查看](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MessageHandler%E7%AE%80%E5%8C%96%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B)。
 
 
 <img src="https://sdk.weixin.senparc.com/images/SenparcRobotsnapshoot.jpg" width="300" align="right">

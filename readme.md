@@ -76,7 +76,7 @@ await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync("AppId", "OpenId", 
 
 以下示例同样适用于企业微信和小程序客服消息的对话，只需两步！
 
-第一步：创建自定义 MessageHandler 负责控制消息处理逻辑：
+#### 第一步：创建自定义 MessageHandler 负责控制消息处理逻辑：
 
 <details>
 <summary>CustomMessageHandler.cs</summary>
@@ -130,7 +130,9 @@ namespace Senparc.Weixin.Sample.MP
 </details>
 
 
-第二步：使用 CustomMessageHandler，有两种方法：`中间件`（推荐）和 `Controller（或WebApi）`，以中间件为例：
+#### 第二步：使用 CustomMessageHandler
+
+使用 CustomMessageHandler 有两种方法：`中间件`方式（推荐）和 `Controller（或WebApi）`方式，以中间件为例：
 
 在 Program.cs 中启用配置后添加代码，注册 MessageHandler：
 ``` C#

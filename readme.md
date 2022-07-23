@@ -34,7 +34,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 ## Hello World ：用 3 句代码开启你的微信开发之旅！
 
 > 说明：<br>
-> 1. 以下代码以 .NET 6.0 为例，Senparc.Weixin SDK 兼容所有 MVC、Razor、Console（命令行）、桌面应用(.exe)、Blazor、MAUI、后台服务等环境，和外部框架完全解耦。<br>
+> 1. 以下代码以 .NET 6.0 为例，Senparc.Weixin SDK 兼容所有 MVC、Razor、WebApi、Console（命令行）、桌面应用(.exe)、Blazor、MAUI、后台服务等环境，和外部框架完全解耦。<br>
 > 2. 下述源码位于 [`/Samples/MP/`](/Samples/MP/) 文件夹，以微信公众号为例。学会公众号就可以举一反三使用其他模块，基本用法一致（小程序、企业微信、微信支付等）。<br>
 如需查看其他模块或集成示例，可以查看位于 [`/Samples/`](/Samples/) 文件夹下的其他独立 Sample，或 [`/Samples/All/`](/Samples/All/) 文件夹下的集成 Sample（进阶）。
 
@@ -76,7 +76,7 @@ await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync("AppId", "OpenId", 
 
 以下示例同样适用于企业微信和小程序客服消息的对话，只需两步！
 
-第一步：创建自定义 MessageHandler 负责控制消息处理逻辑：
+#### 第一步：创建自定义 MessageHandler 负责控制消息处理逻辑：
 
 <details>
 <summary>CustomMessageHandler.cs</summary>
@@ -130,9 +130,9 @@ namespace Senparc.Weixin.Sample.MP
 </details>
 
 
-第二步：使用 CustomMessageHandler，有两种方法：`中间件`（推荐）和 `Controller（或WebApi）`，以中间件为例：
+#### 第二步：请求 CustomMessageHandler：
 
-在 Program.cs 中启用配置后添加代码，注册 MessageHandler：
+有 `中间件`（推荐）和 `Controller（或WebApi）` 两种方式请求 CustomMessageHandler。以中间件为例，在 Program.cs 中启用配置后添加代码，注册 MessageHandler：
 ``` C#
 app.UseMessageHandlerForMp("/WeixinAsync",
     (stream, postModel, maxRecordCount, serviceProvider)
@@ -146,7 +146,7 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 
 此时，您已经可以使用 [https://YourDomain/WeixinAsync](https://sdk.weixin.senparc.com/WeixinAsync) 在微信公众号后台【设置与开发】>【基本配置】> 服务器地址(URL) 中进行配置，对应 Token 在 [appsettings.json](/Samples/MP/Senparc.Weixin.Sample.MP/appsettings.json#L36) 中设置（同样适用于企业微信和小程序，请参考对应 [Sample](/Samples/)）。
 
-此外，您还可以使用 `Controller（或 WebApi）` 方式可以对整个消息处理步骤进行更加细致的控制，[点击这里查看](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MessageHandler%E7%AE%80%E5%8C%96%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B)。
+此外，您还可以使用 `Controller（或 WebApi）` 方式可以对整个消息处理步骤进行更加细致的控制（或在 .NET Framework 中使用），[点击这里查看](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MessageHandler%E7%AE%80%E5%8C%96%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B)。
 
 
 <img src="https://sdk.weixin.senparc.com/images/SenparcRobotsnapshoot.jpg" width="300" align="right">
@@ -274,7 +274,7 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 * 已支持微信公众号、小程序、企业号、开放平台、微信支付等各个模块。
 * 已经支持用户会话上下文（解决服务器无法使用 Session 处理用户信息的问题）。
 * 已经全面支持微信公众号、小程序、企业号（企业微信）、微信支付V2/V3、开放平台的最新 API。
-* 已经支持分布式缓存及缓存策略扩展（默认支持：本地缓存、Redis、Memcached，可自由扩展）。
+* 已经支持分布式缓存及缓存策略扩展（默认支持：本地缓存、Redis、Memcached，可自由扩展），开发过程无需关心所使用缓存的类型，可在配置文件或运行过程中自由切换。
 
 > 1.目前官方的 API 都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的 dll，建议使用 [Nuget](https://www.nuget.org/) 进行更新。<br>
 > 2. 您也可以自行修改并编译代码，打开 [Senparc.Weixin.Sample.Net6.sln](/Samples/All/net6-mvc/) 解决方案即可看到所有源码。当编译模式为 `Release` 时，将自动生成本地 Nuget 包（默认生成到 `/src/BuildOutPut/` 文件夹下）。

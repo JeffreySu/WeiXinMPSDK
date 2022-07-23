@@ -195,9 +195,9 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 
 
 #### 图例
-|![.NET 3.5][net35Y] | ![.NET 4.0][net40Y] | ![.NET 4.6][net46Y] | ![.NET Standard 2.x][core20Y] |  ![.NET Core][netcore] | ![.NET 5.0 / 6.0][net6]  
-|--|--|--|--|--|--|
-| .NET Framework 3.5 | .NET Framework 4.0 | .NET Framework 4.6.2            |  .NET Standard 2.0 / 2.1  |   .NET Core 2.x / 3.x  |  .NET 5.0 / .NET 6.0
+| ![.NET 4.6][net46Y] | ![.NET Standard 2.x][core20Y] |  ![.NET Core][netcore] | ![.NET 5.0 / 6.0][net6]  
+|--|--|--|--|
+| .NET Framework 4.6.2            |  .NET Standard 2.0 / 2.1  |   .NET Core 2.x / 3.x  |  .NET 5.0 / .NET 6.0
 
 > 提示：<br>
 > 1. 自 2019 年 5 月 1 日起，.NET Framework 3.5 及 4.0 停止更新，最后一个 .NET Framework 3.5 + 4.0 稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.6.15)。<br>

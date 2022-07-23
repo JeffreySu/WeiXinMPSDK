@@ -318,7 +318,7 @@ Senparc.Weixin SDK 所有的模块的用法都保持了高度的一致，包括�
 |[Work](Samples/Work/)        |   企业微信 | Nuget 包
 |[WxOpen](Samples/WxOpen/)      |   微信小程序 | Nuget 包
 |[Shared](Samples/Shared)      |   所有 Sample 都需要用到的共享文件
-|[All](Samples/All/)         |   包含微信公众号、小程序、微信支付、企业微信等所有功能的混合场景演示，推荐用于集成多个平台的项目参考<br />（进阶参考） | 
+|[All](Samples/All/)         |   包含微信公众号、小程序、微信支付、企业微信等所有功能的混合场景演示，<br>推荐用于集成多个平台的项目，或许要进行深度开发的场景参考（进阶） | 
 | ┣ [All/net45-mvc](Samples/All/net45-mvc)						|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET MVC）|  Nuget 包
 | ┣ [All/console](Samples/All/console)			|命令行 Console Demo（.NET Core）| Nuget 包
 | ┗ [All/net6-mvc](Samples/All/net6-mvc)			|可以直接发布使用的 Demo（.NET 6.0），兼容 .NET 5.0 和 .NET Core | <strong>源码<strong>

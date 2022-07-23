@@ -276,9 +276,8 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 * 已经全面支持微信公众号、小程序、企业号（企业微信）、微信支付V2/V3、开放平台的最新 API。
 * 已经支持分布式缓存及缓存策略扩展（默认支持：本地缓存、Redis、Memcached，可自由扩展）。
 
-> 目前官方的 API 都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的 dll，[Release生成目录](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut)，建议使用 [Nuget](https://www.nuget.org/) 进行更新。
-
-
+> 1.目前官方的 API 都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的 dll，建议使用 [Nuget](https://www.nuget.org/) 进行更新。<br>
+> 2. 您也可以自行修改并编译代码，打开 [Senparc.Weixin.Sample.Net6.sln](/Samples/All/net6-mvc/) 解决方案即可看到所有源码。当编译模式为 `Release` 时，将自动生成本地 Nuget 包（默认生成到 `/src/BuildOutPut/` 文件夹下）。
 
 ## 源码项目文件夹说明（src文件夹下）
 

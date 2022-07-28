@@ -155,8 +155,8 @@
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
                             <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-home" aria-selected="true">注册</button>
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-jsapi" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">JASPI 支付</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-paycallback" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">支付回调</button>
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-native" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Native 支付</button>
-                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-jssdk" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">支付回调</button>
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-oauth" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">退款</button>
                         </div>
                     </nav>
@@ -167,11 +167,11 @@
                         @*JASPI 支付*@
                         <partial name="_Partial_02_JsApi" />
                         
-                        @*Native 支付*@
-                        <partial name="_Partial_03_Native" />
-
                         @*支付回调*@
-                        <partial name="_Partial_04_PayCallback" />
+                        <partial name="_Partial_03_PayCallback" />
+                        
+                        @*Native 支付*@
+                        <partial name="_Partial_04_Native" />
 
                         @*退款*@
                         <partial name="_Partial_05_Refund" />

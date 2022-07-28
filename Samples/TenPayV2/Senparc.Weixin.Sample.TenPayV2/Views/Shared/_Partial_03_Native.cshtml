@@ -69,5 +69,78 @@ public ActionResult Native()
     </figure>
 
     <p>上述过程将自动生成对应于指定商户、指定商品（productId）的付款二维码，前端 HTML 调用方式如下：</p>
-   <pre><code>&lt;img src=&quot;/TenPayV3/Native&quot; alt=&quot;扫码付款&quot; /&gt;</code><pre>
+<pre><code>&lt;img src=&quot;/TenPayV3/Native&quot; alt=&quot;扫码付款&quot; /&gt;</code></pre>
+
+    <p>用户扫码完成支付后，微信服务器会自动请求回调地址，如 /TenPayV3/NativeNotifyUrl，代码如下：</p>
+    <pre><code>public ActionResult NativeNotifyUrl()
+{
+    ResponseHandler resHandler = new ResponseHandler(null);
+
+    //返回给微信的请求
+    RequestHandler res = new RequestHandler(null);
+
+    string openId = resHandler.GetParameter(&quot;openid&quot;);
+    string productId = resHandler.GetParameter(&quot;product_id&quot;);
+
+    if (openId == null || productId == null)
+    {
+        res.SetParameter(&quot;return_code&quot;, &quot;FAIL&quot;);
+        res.SetParameter(&quot;return_msg&quot;, &quot;回调数据异常&quot;);
+    }
+
+    //创建支付应答对象
+    //RequestHandler packageReqHandler = new RequestHandler(null);
+
+    var sp_billno = SystemTime.Now.ToString(&quot;HHmmss&quot;) + TenPayV3Util.BuildRandomStr(26);//最多32位
+    var nonceStr = TenPayV3Util.GetNoncestr();
+
+    var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, &quot;test&quot;, sp_billno, 1, HttpContext.UserHostAddress()?.ToString(), TenPayV3Info.TenPayV3Notify, TenPay.TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
+
+    try
+    {
+        //调用统一订单接口
+        var result = TenPayOldV3.Unifiedorder(xmlDataInfo);
+
+        //创建应答信息返回给微信
+        res.SetParameter(&quot;return_code&quot;, result.return_code);
+        res.SetParameter(&quot;return_msg&quot;, result.return_msg ?? &quot;OK&quot;);
+        res.SetParameter(&quot;appid&quot;, result.appid);
+        res.SetParameter(&quot;mch_id&quot;, result.mch_id);
+        res.SetParameter(&quot;nonce_str&quot;, result.nonce_str);
+        res.SetParameter(&quot;prepay_id&quot;, result.prepay_id);
+        res.SetParameter(&quot;result_code&quot;, result.result_code);
+        res.SetParameter(&quot;err_code_des&quot;, &quot;OK&quot;);
+
+        string nativeReqSign = res.CreateMd5Sign(&quot;key&quot;, TenPayV3Info.Key);
+        res.SetParameter(&quot;sign&quot;, nativeReqSign);
+    }
+    catch (Exception)
+    {
+        res.SetParameter(&quot;return_code&quot;, &quot;FAIL&quot;);
+        res.SetParameter(&quot;return_msg&quot;, &quot;统一下单失败&quot;);
+    }
+
+    return Content(res.ParseXML());
+}</code></pre>
+
+    <figure class="file">
+        <blockquote class="blockquote">
+            <p>本项目参考文件：</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            /<cite title="Source Title">Controllers/TenPayV3Controller.cs</cite>
+        </figcaption>
+    </figure>
+
+    <blockquote class="blockquote">
+        <p>提示：</p>
+        <p>Native 支付的回调地址设置位置位于：微信支付后台 > 产品中心 > 开发配置 > Native支付回调链接。</p>
+        <p>
+            <figure class="figure">
+                <img src="~/images/native-setting-01.png" class="figure-img img-fluid rounded" alt="Native 支付回调链接设置 " />
+                <figcaption class="figure-caption text-center">Native 支付回调链接设置</figcaption>
+            </figure>
+        </p>
+    </blockquote>
+
 </div>

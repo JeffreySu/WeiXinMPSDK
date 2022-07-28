@@ -1,5 +1,73 @@
 ﻿<div class="tab-pane fade" id="nav-native" role="tabpanel" aria-labelledby="nav-profile-tab">
     <h5>Native 支付</h5>
     <p>Native 支付用于线下（或微信环境以外）的支付，通过微信扫描二维码，唤起个人微信支付完成支付过程。</p>
-    <p></p>
+    <p>生成二维码的控件很多，以 <a href="https://www.nuget.org/packages/ZXing.Net" target="_blank">ZXing.Net</a> 为例，在 <code>TenPayV3Controller</code> 中创建方法：</p>
+    <pre><code>/// &lt;summary&gt;
+/// 原生支付 模式一
+/// &lt;/summary&gt;
+/// &lt;returns&gt;&lt;/returns&gt;
+public ActionResult Native()
+{
+    try
+    {
+        RequestHandler nativeHandler = new RequestHandler(null);
+        string timeStamp = TenPayV3Util.GetTimestamp();
+        string nonceStr = TenPayV3Util.GetNoncestr();
+
+        //商品Id，用户自行定义
+        string productId = SystemTime.Now.ToString("yyyyMMddHHmmss");
+
+        nativeHandler.SetParameter("appid", TenPayV3Info.AppId);
+        nativeHandler.SetParameter("mch_id", TenPayV3Info.MchId);
+        nativeHandler.SetParameter("time_stamp", timeStamp);
+        nativeHandler.SetParameter("nonce_str", nonceStr);
+        nativeHandler.SetParameter("product_id", productId);
+        string sign = nativeHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+
+        var url = TenPayOldV3.NativePay(TenPayV3Info.AppId, timeStamp, TenPayV3Info.MchId, nonceStr, productId, sign);
+
+        BitMatrix bitMatrix;
+        bitMatrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, 600, 600);
+        var bw = new ZXing.BarcodeWriterPixelData();
+
+        var pixelData = bw.Write(bitMatrix);
+        var bitmap = new System.Drawing.Bitmap(pixelData.Width, pixelData.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+
+        var fileStream = new MemoryStream();
+
+        var bitmapData = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, pixelData.Width, pixelData.Height), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+        try
+        {
+            // we assume that the row stride of the bitmap is aligned to 4 byte multiplied by the width of the image   
+            System.Runtime.InteropServices.Marshal.Copy(pixelData.Pixels, 0, bitmapData.Scan0, pixelData.Pixels.Length);
+        }
+        finally
+        {
+            bitmap.UnlockBits(bitmapData);
+        }
+        bitmap.Save(_fileStream, System.Drawing.Imaging.ImageFormat.Png);
+        _fileStream.Seek(0, SeekOrigin.Begin);
+
+        return File(_fileStream, "image/png");
+    }
+    catch (Exception ex)
+    {
+        SenparcTrace.SendCustomLog("TenPayV3.Native 执行出错", ex.Message);
+        SenparcTrace.BaseExceptionLog(ex);
+
+        throw;
+    }
+}</code></pre>
+
+    <figure class="file">
+        <blockquote class="blockquote">
+            <p>本项目参考文件：</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            /<cite title="Source Title">Controllers/TenPayV3Controller.cs</cite>
+        </figcaption>
+    </figure>
+
+    <p>上述过程将自动生成对应于指定商户、指定商品（productId）的付款二维码，前端 HTML 调用方式如下：</p>
+   <pre><code>&lt;img src=&quot;/TenPayV3/Native&quot; alt=&quot;扫码付款&quot; /&gt;</code><pre>
 </div>

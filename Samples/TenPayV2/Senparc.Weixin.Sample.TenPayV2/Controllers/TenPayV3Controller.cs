@@ -276,7 +276,7 @@ namespace Senparc.Weixin.Sample.TenPayV2.Controllers
                     Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息", ex.ToString());
                 }
                 */
-                
+
                 #region 记录日志
 
                 var logDir = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/TenPayNotify/{0}", SystemTime.Now.ToString("yyyyMMdd")));
@@ -368,7 +368,6 @@ namespace Senparc.Weixin.Sample.TenPayV2.Controllers
 
                 throw;
             }
-
         }
 
         public ActionResult NativeNotifyUrl()
@@ -522,7 +521,7 @@ namespace Senparc.Weixin.Sample.TenPayV2.Controllers
         #endregion
 
         #region 刷卡支付
-        
+
         /// <summary>
         /// 刷卡支付
         /// </summary>

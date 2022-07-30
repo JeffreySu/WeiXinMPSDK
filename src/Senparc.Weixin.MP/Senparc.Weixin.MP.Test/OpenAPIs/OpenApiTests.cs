@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.OpenAPIs;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 using Senparc.WeixinTests;
@@ -53,10 +54,7 @@ namespace Senparc.Weixin.MP.OpenAPIs.Tests
 
                 Thread.Sleep(1000);//时间太快rid还没有被记录
 
-                var regex = new Regex("rid:(?<rid>[^\"]+)");
-                var ridResult = regex.Match(ex.JsonResult.errmsg);
-                Assert.IsTrue(ridResult.Success);
-                var rid = ridResult.Groups["rid"].Value;
+                var rid = ex.GetRid();
                 Console.WriteLine("rid:" + rid);
 
                 var result = OpenApi.RidGet(appId, "62e56973-0c7be0b1-368b3439");

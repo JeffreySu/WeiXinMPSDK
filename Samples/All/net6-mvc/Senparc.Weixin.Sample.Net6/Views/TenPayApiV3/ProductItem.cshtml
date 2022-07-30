@@ -18,7 +18,7 @@
 
     <h2>支付方式一：H5 支付（本机外部浏览器支付）</h2>
     <p>注意：H5支付用于<strong>已经安装微信的手机客户端</strong>，使用微信外部浏览器网页内的支付。</p>
-    <p>@Html.ActionLink("点击这里使用H5支付", "H5Pay", "TenPayRealV3", new { productId = Model.Id, hc = Model.GetHashCode()}, null)</p>
+    <p>@Html.ActionLink("点击这里使用H5支付", "H5Pay", "TenPayApiV3", new { productId = Model.Id, hc = Model.GetHashCode()}, null)</p>
     <hr />
 
     <h2>支付方式二：“扫一扫”Native 支付（PC 或外部设备扫码支付）</h2>

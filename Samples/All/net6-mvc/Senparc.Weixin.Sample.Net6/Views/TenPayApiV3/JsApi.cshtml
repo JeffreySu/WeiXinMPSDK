@@ -91,7 +91,7 @@
 
                     if (res.err_msg == "get_brand_wcpay_request:ok") {
                         if (confirm('支付成功！点击“确定”进入退款流程测试。')) {
-                            location.href = '@Url.Action("Refund", "TenPayRealV3")';
+                            location.href = '@Url.Action("Refund", "TenPayApiV3")';
                         }
                         //console.log(JSON.stringify(res));
                     }else{

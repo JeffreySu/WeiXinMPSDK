@@ -1,0 +1,80 @@
+﻿<div class="tab-pane fade" id="nav-native" role="tabpanel" aria-labelledby="nav-profile-tab">
+    <h5>Native 支付</h5>
+    <p>Native 支付用于线下（或微信环境以外）的支付，通过微信扫描二维码，唤起个人微信支付完成支付过程。</p>
+    <p>生成二维码的控件很多，以 <a href="https://www.nuget.org/packages/ZXing.Net" target="_blank">ZXing.Net</a> 为例，在 <code>TenPayApiV3Controller</code> 中创建方法：</p>
+    <pre><code>/// &lt;summary&gt;
+/// 使用 Native 支付
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;productId&quot;&gt;&lt;/param&gt;
+/// &lt;param name=&quot;hc&quot;&gt;&lt;/param&gt;
+/// &lt;returns&gt;&lt;/returns&gt;
+public async Task&lt;IActionResult&gt; NativePayCode(int productId, int hc)
+{
+    var products = ProductModel.GetFakeProductList();
+    var product = products.FirstOrDefault(z =&gt; z.Id == productId);
+    if (product == null || product.GetHashCode() != hc)
+    {
+        return Content(&quot;商品信息不存在，或非法进入！2004&quot;);
+    }
+
+    //使用 Native 支付，输出二维码并展示
+    MemoryStream fileStream = null;//输出图片的URL
+    var price = (int)(product.Price * 100);
+    var name = product.Name + &quot; - 微信支付 V3 - Native 支付&quot;;
+    var sp_billno = string.Format(&quot;{0}{1}{2}&quot;, TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString(&quot;yyyyMMddHHmmss&quot;),
+                    TenPayV3Util.BuildRandomStr(6));
+
+    var notifyUrl = TenPayV3Info.TenPayV3Notify.Replace(&quot;/TenpayApiV3/&quot;, &quot;/TenpayApiV3/&quot;);
+
+    TransactionsRequestData requestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name, sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1)), null, notifyUrl, null, new() { currency = &quot;CNY&quot;, total = price }, null, null, null, null);
+
+    BasePayApis basePayApis = new BasePayApis();
+    var result = await basePayApis.NativeAsync(requestData);
+    //进行安全签名验证
+    if (result.VerifySignSuccess == true)
+    {
+        fileStream = QrCodeHelper.GerQrCodeStream(result.code_url);
+    }
+    else
+    {
+        fileStream = QrCodeHelper.GetTextImageStream(&quot;Native Pay 未能通过签名验证，无法显示二维码&quot;);
+    }
+    return File(fileStream, &quot;image/png&quot;);
+}</code></pre>
+
+    <figure class="file">
+        <blockquote class="blockquote">
+            <p>本项目参考文件：</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            /<cite title="Source Title">Controllers/TenPayApiV3Controller.cs</cite>
+        </figcaption>
+    </figure>
+
+    <p>上述过程将自动生成对应于指定商户、指定商品（productId）的付款二维码，前端 HTML 调用方式如下：</p>
+<pre><code>&lt;img src=&quot;/TenpayApiV3/NativePayCode&quot; alt=&quot;扫码付款&quot; /&gt;</code></pre>
+
+    <p>用户扫码完成支付后，微信服务器会自动请求回调地址，如 /TenpayApiV3/NativeNotifyUrl，代码如下：</p>
+    <pre><code>//待补充</code></pre>
+
+    <figure class="file">
+        <blockquote class="blockquote">
+            <p>本项目参考文件：</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            /<cite title="Source Title">Controllers/TenPayApiV3Controller.cs</cite>
+        </figcaption>
+    </figure>
+
+    <blockquote class="blockquote">
+        <p>提示：</p>
+        <p>Native 支付的回调地址设置位置位于：微信支付后台 > 产品中心 > 开发配置 > Native支付回调链接。</p>
+        <p>
+            <figure class="figure">
+                <img src="~/images/native-setting-01.png" class="figure-img img-fluid rounded" alt="Native 支付回调链接设置 " />
+                <figcaption class="figure-caption text-center">Native 支付回调链接设置</figcaption>
+            </figure>
+        </p>
+    </blockquote>
+
+</div>

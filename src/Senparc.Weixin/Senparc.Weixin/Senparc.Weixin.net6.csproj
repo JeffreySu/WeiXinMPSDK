@@ -329,7 +329,11 @@
 		v6.15 最低 .NET Framework 版本升级至 4.6.2
 		v6.15.2 更新 ReturnCode 枚举，添加“半屏小程序管理”代码
 		v6.15.3 使用最新 CO2NET，处理微信服务器无法识别中文文件名的问题。
-</PackageReleaseNotes>
+		v6.15.4
+		1、更新 TryCommonApiBase 异常抛出逻辑
+		2、添加 JsonResultHelper
+		3、更新 ReturnCode 枚举，OpenApi 中的错误代码
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

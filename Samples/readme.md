@@ -15,7 +15,7 @@
 | ┗ [All/Senparc.Weixin.<br>Sample.CommonService](/Samples/All/Senparc.Weixin.Sample.CommonService)			| 所有 `All` 文件夹下的 Sample 公用的类库和逻辑代码 |
 |[MP](/Samples/MP/)          |   公众号 | Nuget 包
 |[TenPayV2](/Samples/TenPayV2/)    |   微信支付 V1 和 V2  | Nuget 包
-|[TenPayV3](/Samples/TenPayV3/)    |   微信支付 V3（TenPay APIv3） （更新中，预计 2022.8.12 完成） | Nuget 包
+|[TenPayV3](/Samples/TenPayV3/)    |   微信支付 V3（TenPay APIv3） | Nuget 包
 |[Work](/Samples/Work/)        |   企业微信 | Nuget 包
 |[WxOpen](/Samples/WxOpen/)      |   微信小程序 | Nuget 包
 |[Shared](/Samples/Shared)      |   所有当前 Samples 根目录下的独立模块 Sample 都需要用到的共享文件（实际项目中不需要）

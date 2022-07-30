@@ -118,5 +118,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Models\ErrorViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SourceCodeViewModel.cs" />
   </ItemGroup>
 </Project>

@@ -44,3 +44,4 @@ packages/
 /tools/Senparc.Weixin.CLI/BuildOutPut/
 /Samples/All/net6-mvc/nuget.exe
 /src/Senparc.Weixin.MP/Senparc.Weixin.MP.Test/Config/test.config
+/Samples/TenPayV3/Senparc.Weixin.Sample.TenPayV3/.config/

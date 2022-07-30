@@ -18,7 +18,7 @@
 ----------------------------------------------------------------*/
 
 /* 注意：TenPayV3Controller 是微信文档 V3 的示例，并非微信之后出来的 API V3，
- * 微信真正微信支付 API V3 的示例请见 TenPayRealV3Controller 
+ * 微信真正微信支付 API V3 的示例请见 TenPayApiV3Controller 
  */
 
 //DPBMARK_FILE TenPay

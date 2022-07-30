@@ -9,8 +9,6 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
 {
     public class WxaMpLinkGetJsonResult : WxJsonResult
     {
-        public int errcode { get; set; }
-        public string errmsg { get; set; }
         public Wxopens wxopens { get; set; }
     }
 

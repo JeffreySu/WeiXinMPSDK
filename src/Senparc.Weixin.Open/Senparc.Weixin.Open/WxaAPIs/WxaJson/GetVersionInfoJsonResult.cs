@@ -9,8 +9,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
 {
     public class GetVersionInfoJsonResult : WxJsonResult
     {
-        public int errcode { get; set; }
-        public string errmsg { get; set; }
         public Exp_Info exp_info { get; set; }
         public Release_Info release_info { get; set; }
     }

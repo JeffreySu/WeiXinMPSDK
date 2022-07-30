@@ -81,7 +81,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
     /// 通用接口
     /// 通用接口用于和微信服务器通讯，一般不涉及自有网站服务器的通讯
     /// </summary>
-    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, true)]
     public partial class CommonApi
     {
         #region 同步方法
@@ -181,13 +181,13 @@ namespace Senparc.Weixin.MP.CommonAPIs
         }
 
         /// <summary>
-        ///公众号调用或第三方平台帮公众号调用对公众号的所有api调用（包括第三方帮其调用）次数进行清零
+        /// 公众号调用或第三方平台帮公众号调用对公众号的所有api调用（包括第三方帮其调用）次数进行清零
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="appId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult Clear_quota(string accessTokenOrAppId, string appId, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult ClearQuota(string accessTokenOrAppId, string appId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -307,7 +307,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> Clear_quotaAsync(string accessTokenOrAppId, string appId, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> ClearQuotaAsync(string accessTokenOrAppId, string appId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {

@@ -709,7 +709,6 @@ namespace Senparc.Weixin.Sample.TenPayV2.Controllers
             //return Content("申请成功：<br>" + HttpUtility.RequestUtility.HtmlEncode(responseContent));
 
             #endregion
-
         }
 
         /// <summary>
@@ -744,10 +743,10 @@ namespace Senparc.Weixin.Sample.TenPayV2.Controllers
                     if (!appId.Equals(Senparc.Weixin.Config.SenparcWeixinSetting.TenPayV3_AppId))
                     {
                         /* 
-                         * 注意：
-                         * 这里添加过滤只是因为盛派Demo经常有其他公众号错误地设置了我们的地址，
-                         * 导致无法正常解密，平常使用不需要过滤！
-                         */
+                            * 注意：
+                            * 这里添加过滤只是因为盛派Demo经常有其他公众号错误地设置了我们的地址，
+                            * 导致无法正常解密，平常使用不需要过滤！
+                            */
                         SenparcTrace.SendCustomLog("RefundNotifyUrl 的 AppId 不正确",
                             $"appId:{appId}\r\nmch_id:{mch_id}\r\nreq_info:{req_info}");
                         return Content("faild");

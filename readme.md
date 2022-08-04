@@ -47,8 +47,7 @@ builder.Services.AddSenparcWeixinServices(builder.Configuration);
 
 <strong>在 Program.cs 的 builder.Build() 下方启用配置：</strong>
 ``` C#
-var registerService = app.UseSenparcWeixin(app.Environment, null, null,
-    register => { },
+var registerService = app.UseSenparcWeixin(app.Environment, null, null, register => { },
     (register, weixinSetting) =>
 {
     //注册公众号信息（可以执行多次，注册多个公众号）

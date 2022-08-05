@@ -64,7 +64,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static WxJsonResult ChangeWxaSearchStatus(string accessToken, int status, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format(Config.ApiMpHost + "/wxa/getwxasearchstatus?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/changewxasearchstatus?access_token={0}", accessToken.AsUrlData());
             object data = new
             {
                 status = status
@@ -94,7 +94,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> ChangeWxaSearchStatusAsync(string accessToken, int status, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format(Config.ApiMpHost + "/wxa/getwxasearchstatus?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/changewxasearchstatus?access_token={0}", accessToken.AsUrlData());
             object data = new
             {
                 status = status

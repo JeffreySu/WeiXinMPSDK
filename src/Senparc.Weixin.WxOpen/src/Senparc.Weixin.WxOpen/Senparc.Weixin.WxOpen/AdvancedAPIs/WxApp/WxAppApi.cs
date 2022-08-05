@@ -45,6 +45,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20220313
     修改描述：v3.14.10.1 修复 WxAppApi.GetWxaCodeUnlimitAsync() 接口参数错误
 
+    修改标识：Senparc - 20220805
+    修改描述：v3.15.6 添加“异步校验图片/音频是否含有违法违规内容”接口
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;
@@ -608,6 +611,41 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             }, accessTokenOrAppId);
         }
 
+        #region 内容安全接口
+
+        /// <summary>
+        /// 异步校验图片/音频是否含有违法违规内容
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/sec-check/security.mediaCheckAsync.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="mediaUrl">要检测的图片或音频的url，支持图片格式包括 jpg , jepg, png, bmp, gif（取首帧），支持的音频格式包括mp3, aac, ac3, wma, flac, vorbis, opus, wav</param>
+        /// <param name="mediaType">1:音频;2:图片</param>
+        /// <param name="version">接口版本号，2.0版本为固定值2</param>
+        /// <param name="openId">用户的openid（用户需在近两小时访问过小程序）</param>
+        /// <param name="scene">场景枚举值（1 资料；2 评论；3 论坛；4 社交日志）</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static MsgSecCheckJsonResult MsgSecCheck(string accessTokenOrAppId, string mediaUrl, string mediaType, int version, string openId, int scene, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/media_check_async?access_token={0}";
+                string url = string.Format(urlFormat, accessToken);
+                var data = new
+                {
+                    media_url = mediaUrl,
+                    media_type = mediaType,
+                    version = version,
+                    openid = openId,
+                    scene = scene
+                };
+
+                return CommonJsonSend.Send<MsgSecCheckJsonResult>(accessToken, url, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+
         /// <summary>
         /// 检查一段文本是否含有违法违规内容
         /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/msgSecCheck.html</para>
@@ -628,6 +666,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
             }, accessTokenOrAppId);
         }
+
+        #endregion
 
         /// <summary>
         /// 校验一张图片是否含有违法违规内容
@@ -1389,6 +1429,41 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
+        #region 内容安全接口
+
+        /// <summary>
+        /// 【异步方法】异步校验图片/音频是否含有违法违规内容
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/sec-check/security.mediaCheckAsync.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="mediaUrl">要检测的图片或音频的url，支持图片格式包括 jpg , jepg, png, bmp, gif（取首帧），支持的音频格式包括mp3, aac, ac3, wma, flac, vorbis, opus, wav</param>
+        /// <param name="mediaType">1:音频;2:图片</param>
+        /// <param name="version">接口版本号，2.0版本为固定值2</param>
+        /// <param name="openId">用户的openid（用户需在近两小时访问过小程序）</param>
+        /// <param name="scene">场景枚举值（1 资料；2 评论；3 论坛；4 社交日志）</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<MsgSecCheckJsonResult> MsgSecCheckAsync(string accessTokenOrAppId, string mediaUrl, string mediaType, int version, string openId, int scene, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/media_check_async?access_token={0}";
+                string url = string.Format(urlFormat, accessToken);
+                var data = new
+                {
+                    media_url = mediaUrl,
+                    media_type = mediaType,
+                    version = version,
+                    openid = openId,
+                    scene = scene
+                };
+
+                return await CommonJsonSend.SendAsync<MsgSecCheckJsonResult>(accessToken, url, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+
         /// <summary>
         /// 检查一段文本是否含有违法违规内容
         /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/msgSecCheck.html</para>
@@ -1409,6 +1484,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
+
+        #endregion
 
         /// <summary>
         /// 【异步方法】校验一张图片是否含有违法违规内容

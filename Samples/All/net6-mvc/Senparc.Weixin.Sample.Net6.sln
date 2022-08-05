@@ -93,14 +93,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.WxOpe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.TenPayV2", "..\..\TenPayV2\Senparc.Weixin.Sample.TenPayV2\Senparc.Weixin.Sample.TenPayV2.csproj", "{94C58964-01E0-4AA0-AF98-5851208D9755}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.TenPayV3", "..\..\TenPayV3\Senparc.Weixin.Sample.TenPayV3\Senparc.Weixin.Sample.TenPayV3.csproj", "{D70B89B9-27BC-45DD-A908-4282F101B409}"
+EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{5cde163e-a083-418f-b70a-63f25a957666}*SharedItemsImports = 5
-		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{81a078a9-97d1-446d-88ed-87f4bb484d91}*SharedItemsImports = 5
-		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{94c58964-01e0-4aa0-af98-5851208d9755}*SharedItemsImports = 5
-		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{9fe36012-8b32-488e-96ad-ba7cedaeeab8}*SharedItemsImports = 13
-		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{defd229c-0482-4924-8746-73d21b9dab02}*SharedItemsImports = 5
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
@@ -637,6 +632,24 @@ Global
 		{94C58964-01E0-4AA0-AF98-5851208D9755}.Test|x64.Build.0 = Debug|Any CPU
 		{94C58964-01E0-4AA0-AF98-5851208D9755}.Test|x86.ActiveCfg = Debug|Any CPU
 		{94C58964-01E0-4AA0-AF98-5851208D9755}.Test|x86.Build.0 = Debug|Any CPU
+		{D70B89B9-27BC-45DD-A908-4282F101B409}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D70B89B9-27BC-45DD-A908-4282F101B409}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D70B89B9-27BC-45DD-A908-4282F101B409}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D70B89B9-27BC-45DD-A908-4282F101B409}.Debug|x64.Build.0 = Debug|Any CPU
+		{D70B89B9-27BC-45DD-A908-4282F101B409}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D70B89B9-27BC-45DD-A908-4282F101B409}.Debug|x86.Build.0 = Debug|Any CPU
+		{D70B89B9-27BC-45DD-A908-4282F101B409}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D70B89B9-27BC-45DD-A908-4282F101B409}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D70B89B9-27BC-45DD-A908-4282F101B409}.Release|x64.ActiveCfg = Release|Any CPU
+		{D70B89B9-27BC-45DD-A908-4282F101B409}.Release|x64.Build.0 = Release|Any CPU
+		{D70B89B9-27BC-45DD-A908-4282F101B409}.Release|x86.ActiveCfg = Release|Any CPU
+		{D70B89B9-27BC-45DD-A908-4282F101B409}.Release|x86.Build.0 = Release|Any CPU
+		{D70B89B9-27BC-45DD-A908-4282F101B409}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{D70B89B9-27BC-45DD-A908-4282F101B409}.Test|Any CPU.Build.0 = Debug|Any CPU
+		{D70B89B9-27BC-45DD-A908-4282F101B409}.Test|x64.ActiveCfg = Debug|Any CPU
+		{D70B89B9-27BC-45DD-A908-4282F101B409}.Test|x64.Build.0 = Debug|Any CPU
+		{D70B89B9-27BC-45DD-A908-4282F101B409}.Test|x86.ActiveCfg = Debug|Any CPU
+		{D70B89B9-27BC-45DD-A908-4282F101B409}.Test|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -679,8 +692,17 @@ Global
 		{DEFD229C-0482-4924-8746-73D21B9DAB02} = {34CFB1D8-6025-4E93-A67F-D94DD3B9198F}
 		{5CDE163E-A083-418F-B70A-63F25A957666} = {34CFB1D8-6025-4E93-A67F-D94DD3B9198F}
 		{94C58964-01E0-4AA0-AF98-5851208D9755} = {34CFB1D8-6025-4E93-A67F-D94DD3B9198F}
+		{D70B89B9-27BC-45DD-A908-4282F101B409} = {34CFB1D8-6025-4E93-A67F-D94DD3B9198F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC7AD3EC-AB37-497E-925B-DCD5129FE6D3}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{5cde163e-a083-418f-b70a-63f25a957666}*SharedItemsImports = 5
+		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{81a078a9-97d1-446d-88ed-87f4bb484d91}*SharedItemsImports = 5
+		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{94c58964-01e0-4aa0-af98-5851208d9755}*SharedItemsImports = 5
+		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{9fe36012-8b32-488e-96ad-ba7cedaeeab8}*SharedItemsImports = 13
+		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{d70b89b9-27bc-45dd-a908-4282f101b409}*SharedItemsImports = 5
+		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{defd229c-0482-4924-8746-73d21b9dab02}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

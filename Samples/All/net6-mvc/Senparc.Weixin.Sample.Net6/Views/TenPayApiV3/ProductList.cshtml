@@ -51,7 +51,7 @@
             {
                 var item = Model[i];
                 <li class="@(i > 0 && i % 4 == 0 ? "br" : null)">
-                    <a href="@Url.Action("ProductItem", "TenPayRealV3", new {productId = item.Id, hc = item.GetHashCode()})">
+                    <a href="@Url.Action("ProductItem", "TenPayApiV3", new {productId = item.Id, hc = item.GetHashCode()})">
                         <h2>@item.Name</h2>
                         <p>@item.Price.ToString("c")</p>
                         <p>点击购买</p>

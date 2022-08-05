@@ -258,11 +258,12 @@ Senparc official tutorials
 
 ## Develop with .Net Core
 
-> Current branch including .NET Framework 4.5 / 4.6.1 及 .NET Core 2.0 + 2.1 / .NET 5.0 + 6.0 full version codes.<br>
-> .NET Framework 4.5 Demo under `/src/Senparc.Weixin.MP.Sample` directory, <br>
-> .NET Core 2.0 Demo under `/src/Senparc.Weixin.MP.Sample.vs2017` directory.<br>
-> .NET 6.0 (compatible with .NET 5.0) Demo under  `/Samples/net6-mvc` directory.<br><br>
-> Attention: the source code of the Senparc.Weixin SDK library referenced by the above Demo is exactly the same, it will automatically select the output version according to the conditions when compiling and running.
+> Current branch including .NET Framework 4.5 / 4.6.1 及 .NET Core 2.0 + 2.1 / .NET 5.0 + 6.0 full version codes. For the assembly which has been stoped update version, please see snapshot [release](https://github.com/JeffreySu/WeiXinMPSDK/releases). <br>
+> .NET Framework 4.5 Demo under `/src/Samples/All/net45-mvc` directory, <br>
+> .NET 6.0 (backward compatibility with.NET 5.0 and.NET Core 3.1 and lower versions) Demo under  `/Samples/All/net6-mvc` directory.<br><br>
+> Attention: in the above Samples, the Sample in 'net6-MVC' directly references the source code of each module, which can be compiled with 'Release' to generate a compatible SDK library for different versions of Senaprc.Weixin SDK.
+
+
 
 > All of the following introduction use the example of the .NET Framework 4.5.
 

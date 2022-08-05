@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>4.14.3</Version>
+    <Version>4.14.7</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -191,7 +191,9 @@
 		v4.13.9 添加试用小程序接口及事件
 		v4.14.2 添加小程序隐私接口
 		v4.14.3 补充小程序/公众号获取基本信息字段
-	</PackageReleaseNotes>
+		v4.14.4 添加半屏小程序管理接口
+		v4.14.6 添加“查询小程序版本信息”接口
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

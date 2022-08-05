@@ -33,11 +33,12 @@ var registerService = app.UseSenparcWeixin(app.Environment,
 #region 使用 MessageHadler 中间件，用于取代创建独立的 Controller
 
 //MessageHandler 中间件介绍：https://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html
-//使用公众号的 MessageHandler 中间件（不再需要创建 Controller）                       --DPBMARK MP
+//使用公众号的 MessageHandler 中间件（不再需要创建 Controller）
 app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
 {
     options.AccountSettingFunc = context => Senparc.Weixin.Config.SenparcWeixinSetting;
 });
+
 #endregion
 
 #endregion
@@ -68,7 +69,6 @@ app.UseStaticFiles(new StaticFileOptions
 });
 #endif
 #endregion
-
 
 app.UseRouting();
 

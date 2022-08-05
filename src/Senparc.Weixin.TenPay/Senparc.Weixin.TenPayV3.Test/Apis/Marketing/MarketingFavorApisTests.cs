@@ -467,7 +467,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             var marketingApis = new MarketingApis();
 
-            var notifyUrl = "https://sdk.weixin.senparc.com/TenPayRealV3/FavorNotifyCallback";
+            var notifyUrl = "https://sdk.weixin.senparc.com/TenPayApiV3/FavorNotifyCallback";
             var requestData = new SetNotifyUrlRequsetData(TenPayV3Info.MchId, notifyUrl, null);
 
             var result = marketingApis.SetNotifyUrlAsync(requestData).GetAwaiter().GetResult();

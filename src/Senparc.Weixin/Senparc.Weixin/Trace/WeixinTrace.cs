@@ -45,16 +45,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20181118
     修改描述：v16.5.0 使用 CO2NET v0.3.0 新的 SenparcTrace 记录方法
 
+    修改标识：Senparc - 20220807
+    修改描述：v6.15.5 添加 WeixinTrace.SendApiLog(string, Stream) 重写方法
 ----------------------------------------------------------------*/
 
-using System;
-using System.Diagnostics;
-using System.IO;
-using Senparc.Weixin.Cache;
-using Senparc.Weixin.Exceptions;
-using System.Threading;
-using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Trace;
+using Senparc.Weixin.Exceptions;
+using System;
+using System.IO;
 
 namespace Senparc.Weixin
 {
@@ -78,6 +77,20 @@ namespace Senparc.Weixin
         public static void Log(string messageFormat, params object[] param)
         {
             SenparcTrace.Log(messageFormat.FormatWith(param));
+        }
+
+        /// <summary>
+        /// API请求日志（接收结果）
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="stream"></param>
+        public static void SendApiLog(string url, Stream stream)
+        {
+            stream.Seek(0, SeekOrigin.Begin);
+            using (var sr = new StreamReader(stream))
+            {
+                SenparcTrace.SendApiLog(url, sr.ReadToEnd());
+            }
         }
 
         #region WeixinException 相关日志

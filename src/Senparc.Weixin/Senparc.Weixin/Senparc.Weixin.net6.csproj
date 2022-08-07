@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>6.15.4</Version>
+    <Version>6.15.5</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
@@ -333,6 +333,7 @@
 		1、更新 TryCommonApiBase 异常抛出逻辑
 		2、添加 JsonResultHelper
 		3、更新 ReturnCode 枚举，OpenApi 中的错误代码
+		v6.15.5 添加 WeixinTrace.SendApiLog(string, Stream) 重写方法
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

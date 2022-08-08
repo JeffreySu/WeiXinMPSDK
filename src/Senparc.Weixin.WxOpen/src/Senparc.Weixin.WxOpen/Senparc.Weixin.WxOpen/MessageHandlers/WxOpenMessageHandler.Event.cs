@@ -39,6 +39,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：mc7246 - 20220504
     修改描述：v3.15.2 添加小程序隐私权限审核结果推送
 
+    修改标识：Senparc - 20220806
+    修改描述：v3.15.7 添加 OnEvent_MediaCheckRequest() 方法 
+               - 内容安全回调：wxa_media_check 推送结果内容安全回调：wxa_media_check 推送结果
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;
@@ -95,6 +99,10 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.wxa_privacy_apply:
                     responseMessage = OnEvent_PrivacyApplyRequest(RequestMessage as RequestMessageEvent_PrivacyApply);
                     break;
+                case Event.wxa_media_check:
+                    responseMessage = OnEvent_MediaCheckRequest(RequestMessage as RequestMessageEvent_MediaCheck);
+                    break;
+
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -210,7 +218,15 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
-
+        /// <summary>
+        /// 内容安全回调：wxa_media_check 推送结果
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_MediaCheckRequest(RequestMessageEvent_MediaCheck requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
 
         #endregion
 
@@ -260,6 +276,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     break;
                 case Event.wxa_privacy_apply:
                     responseMessage = await OnEvent_PrivacyApplyRequestAsync(RequestMessage as RequestMessageEvent_PrivacyApply);
+                    break;
+                case Event.wxa_media_check:
+                    responseMessage = await OnEvent_MediaCheckRequestAsync(RequestMessage as RequestMessageEvent_MediaCheck);
                     break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -377,6 +396,15 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         }
 
 
+        /// <summary>
+        /// 【异步方法】内容安全回调：wxa_media_check 推送结果
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_MediaCheckRequestAsync(RequestMessageEvent_MediaCheck requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_MediaCheckRequest(requestMessage)).ConfigureAwait(false);
+        }
 
         #endregion
 

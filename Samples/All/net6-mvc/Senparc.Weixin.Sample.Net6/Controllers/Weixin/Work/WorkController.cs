@@ -35,6 +35,7 @@ using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Helpers;
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Sample.Net6.Controllers
@@ -77,14 +78,13 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         /// </summary>
         [HttpPost]
         [ActionName("Index")]
-        public ActionResult Post(PostModel postModel)
+        public async Task<ActionResult> Post(PostModel postModel)
         {
             var maxRecordCount = 10;
 
             postModel.Token = Token;
             postModel.EncodingAESKey = EncodingAESKey;
             postModel.CorpId = CorpId;
-
 
             #region 用于生产环境测试原始数据
             //var ms = new MemoryStream();
@@ -99,7 +99,8 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             #endregion
 
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
-            var messageHandler = new WorkCustomMessageHandler(Request.GetRequestMemoryStream(), postModel, maxRecordCount);
+            var requestStream = Request.GetRequestMemoryStream();
+            var messageHandler = new WorkCustomMessageHandler(requestStream, postModel, maxRecordCount);
 
             if (messageHandler.RequestMessage == null)
             {
@@ -108,12 +109,19 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
 
             try
             {
-                Senparc.Weixin.WeixinTrace.SendApiLog("企业微信收到消息", messageHandler.RequestDocument.ToString());
+                if (messageHandler.RequestDocument != null)
+                {
+                    Senparc.Weixin.WeixinTrace.SendApiLog("企业微信收到消息", messageHandler.RequestDocument.ToString());
+                }
+                else
+                {
+                    Senparc.Weixin.WeixinTrace.SendApiLog("企业微信收到消息-XML为空", requestStream);
+                }
 
                 //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
                 messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
-                messageHandler.Execute();//执行微信处理过程（关键）
+                await messageHandler.ExecuteAsync(new CancellationToken());//执行微信处理过程（关键）
 
                 messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
 
@@ -124,16 +132,16 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             {
                 using (TextWriter tw = new StreamWriter(ServerUtility.ContentRootMapPath("~/App_Data/Work_Error_" + SystemTime.Now.Ticks + ".txt")))
                 {
-                    tw.WriteLine("ExecptionMessage:" + ex.Message);
-                    tw.WriteLine(ex.Source);
-                    tw.WriteLine(ex.StackTrace);
+                    await tw.WriteLineAsync("ExecptionMessage:" + ex.Message);
+                    await tw.WriteLineAsync(ex.Source);
+                    await tw.WriteLineAsync(ex.StackTrace);
                     //tw.WriteLine("InnerExecptionMessage:" + ex.InnerException.Message);
 
                     if (messageHandler.FinalResponseDocument != null && messageHandler.FinalResponseDocument.Root != null)
                     {
-                        tw.WriteLine(messageHandler.FinalResponseDocument.ToString());
+                        await tw.WriteLineAsync(messageHandler.FinalResponseDocument.ToString());
                     }
-                    tw.Flush();
+                    await tw.FlushAsync();
                     tw.Close();
                 }
                 return Content("");

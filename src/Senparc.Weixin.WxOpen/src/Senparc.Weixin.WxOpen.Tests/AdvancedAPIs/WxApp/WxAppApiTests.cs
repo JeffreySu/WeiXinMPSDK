@@ -19,18 +19,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.MP.Test.CommonAPIs;
 using Senparc.CO2NET.Extensions;
-using Senparc.Weixin.WxOpen.Tests;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.WxOpen.Tests;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
 {

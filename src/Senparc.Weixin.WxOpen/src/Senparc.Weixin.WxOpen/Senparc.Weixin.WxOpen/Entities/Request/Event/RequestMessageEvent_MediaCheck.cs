@@ -44,21 +44,43 @@ namespace Senparc.Weixin.WxOpen.Entities
             get { return Event.wxa_media_check; }
         }
 
+        /// <summary>
+        /// 小程序的appid
+        /// </summary>
         public string appid { get; set; }
+        /// <summary>
+        /// 任务id
+        /// </summary>
         public string trace_id { get; set; }
+        /// <summary>
+        /// 可用于区分接口版本
+        /// </summary>
         public int version { get; set; }
-        public Detail[] detail { get; set; }
+        /// <summary>
+        /// 详细检测结果
+        /// <para>说明：文档 Json 中显示的此处是一个数组，收到的 XML 中是单个对象</para>
+        /// </summary>
+        public Detail/*[]*/ detail { get; set; }
+        /// <summary>
+        /// 综合结果
+        /// </summary>
         public Result result { get; set; }
     }
 
     public class Result
     {
+        /// <summary>
+        /// 检测结果，可能的取值：pass（正常），其他值可能为异常，推测如：block
+        /// </summary>
         public string suggest { get; set; }
         public int label { get; set; }
     }
 
     public class Detail
     {
+        /// <summary>
+        /// 检测结果，可能的取值：pass（正常），其他值可能为异常，推测如：block
+        /// </summary>
         public string strategy { get; set; }
         public int errcode { get; set; }
         public string suggest { get; set; }

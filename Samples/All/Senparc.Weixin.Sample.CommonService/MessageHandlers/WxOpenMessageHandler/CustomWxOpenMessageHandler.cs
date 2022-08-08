@@ -97,7 +97,7 @@ namespace Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler
             }
             catch (Exception ex)
             {
-                Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog("小程序 OnExecutedAsync 常规跟踪（开发者请忽略）", ex.ToString());
+                Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog("小程序 OnExecutedAsync 常规跟踪（开发者请忽略）", ex.ToString() + "\r\n" + ex.StackTrace?.ToString());
             }
         }
 
@@ -225,8 +225,8 @@ namespace Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler
 
         public override async Task<IResponseMessageBase> OnMiniProgramPageRequestAsync(RequestMessageMiniProgramPage requestMessage)
         {
-            var msg = $"您从某个小程序页面来到客服，并且发送了小程序卡片。\r\nTitle：{requestMessage.Title}\r\nAppId：{requestMessage.AppId.Substring(1,5)}...\r\nPagePath：{requestMessage.PagePath}\r\n附带照片：";
-            await Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, msg); 
+            var msg = $"您从某个小程序页面来到客服，并且发送了小程序卡片。\r\nTitle：{requestMessage.Title}\r\nAppId：{requestMessage.AppId.Substring(1, 5)}...\r\nPagePath：{requestMessage.PagePath}\r\n附带照片：";
+            await Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, msg);
             await Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendImageAsync(appId, OpenId, requestMessage.ThumbMediaId);
             return await DefaultResponseMessageAsync(requestMessage);
         }

@@ -180,7 +180,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
             var url = "https://sdk.weixin.senparc.com/images/v2/logo%20.png";
 
             var openId = "oeaTy0DgoGq-lyqvTauWVjbIVuP0";
-            var reault = WxAppApi.MediaCheckAsync(base._wxOpenAppId, url, "2", 2, openId,1);
+            var result = WxAppApi.MediaCheckAsync(base._wxOpenAppId, url, "2", 2, openId,1);
+
+            Console.WriteLine(result);
         }
     }
 }

@@ -29,6 +29,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
         
 ----------------------------------------------------------------*/
 
+//文档：https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/miniprogram-management/basic-info-management/getSearchStatus.html
+
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;

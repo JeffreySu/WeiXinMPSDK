@@ -26,6 +26,7 @@ using System.Threading.Tasks;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP;
+using Senparc.CO2NET.Trace;
 
 #if NET462
 using System.Web.Configuration;
@@ -231,6 +232,11 @@ namespace Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler
             return await DefaultResponseMessageAsync(requestMessage);
         }
 
+        public override async Task<IResponseMessageBase> OnEvent_MediaCheckRequestAsync(RequestMessageEvent_MediaCheck requestMessage)
+        {
+            SenparcTrace.SendCustomLog("收到 OnEvent_MediaCheckRequestAsync 回调请求", requestMessage.ToJson());
+            return new SuccessResponseMessage();
+        }
 
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {

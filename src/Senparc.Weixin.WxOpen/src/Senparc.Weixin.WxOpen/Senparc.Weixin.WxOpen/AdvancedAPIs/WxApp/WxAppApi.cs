@@ -625,7 +625,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="scene">场景枚举值（1 资料；2 评论；3 论坛；4 社交日志）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static MsgSecCheckJsonResult MsgSecCheck(string accessTokenOrAppId, string mediaUrl, string mediaType, int version, string openId, int scene, int timeOut = Config.TIME_OUT)
+        public static MediaCheckAsyncJsonResult MediaCheckAsync(string accessTokenOrAppId, string mediaUrl, string mediaType, int version, string openId, int scene, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -640,7 +640,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                     scene = scene
                 };
 
-                return CommonJsonSend.Send<MsgSecCheckJsonResult>(accessToken, url, data, timeOut: timeOut);
+                return CommonJsonSend.Send<MediaCheckAsyncJsonResult>(accessToken, url, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -1443,7 +1443,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="scene">场景枚举值（1 资料；2 评论；3 论坛；4 社交日志）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<MsgSecCheckJsonResult> MsgSecCheckAsync(string accessTokenOrAppId, string mediaUrl, string mediaType, int version, string openId, int scene, int timeOut = Config.TIME_OUT)
+        public static async Task<MediaCheckAsyncJsonResult> MediaCheckAsyncAsync(string accessTokenOrAppId, string mediaUrl, string mediaType, int version, string openId, int scene, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -1458,7 +1458,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                     scene = scene
                 };
 
-                return await CommonJsonSend.SendAsync<MsgSecCheckJsonResult>(accessToken, url, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<MediaCheckAsyncJsonResult>(accessToken, url, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

@@ -23,7 +23,7 @@
 	  <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
 	  <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
 	  <PackageReference Include="System.Diagnostics.FileVersionInfo" Version="4.3.0" />
-	  <PackageReference Include="ZXing.Net" Version="0.16.4" />
+	  <PackageReference Include="ZXing.Net" Version="0.16.8" />
   </ItemGroup>
 
   <ItemGroup>

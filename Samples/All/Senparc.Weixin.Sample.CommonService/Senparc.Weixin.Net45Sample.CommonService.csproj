@@ -80,7 +80,8 @@
       <HintPath>..\net45-mvc\packages\Pipelines.Sockets.Unofficial.2.2.2\lib\net461\Pipelines.Sockets.Unofficial.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.CO2NET, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\net45-mvc\packages\Senparc.CO2NET.2.1.0\lib\net462\Senparc.CO2NET.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.CO2NET.2.1.1.1\lib\net462\Senparc.CO2NET.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Senparc.CO2NET.APM, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\net45-mvc\packages\Senparc.CO2NET.APM.1.2.0\lib\net462\Senparc.CO2NET.APM.dll</HintPath>
@@ -110,7 +111,8 @@
       <HintPath>..\net45-mvc\packages\Senparc.WebSocket.0.17.1\lib\net462\Senparc.WebSocket.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin, Version=6.15.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\net45-mvc\packages\Senparc.Weixin.6.15.1\lib\net462\Senparc.Weixin.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.Weixin.6.15.2\lib\net462\Senparc.Weixin.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Senparc.Weixin.AspNet, Version=0.8.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\net45-mvc\packages\Senparc.Weixin.AspNet.0.8.1\lib\net462\Senparc.Weixin.AspNet.dll</HintPath>
@@ -122,22 +124,26 @@
       <HintPath>..\net45-mvc\packages\Senparc.Weixin.Cache.Redis.2.15.1\lib\net462\Senparc.Weixin.Cache.Redis.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin.MP, Version=16.18.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\net45-mvc\packages\Senparc.Weixin.MP.16.18.2\lib\net462\Senparc.Weixin.MP.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.Weixin.MP.16.18.2.1\lib\net462\Senparc.Weixin.MP.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Senparc.Weixin.MP.MvcExtension, Version=7.12.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\net45-mvc\packages\Senparc.Weixin.MP.MVC.7.12.1\lib\net462\Senparc.Weixin.MP.MvcExtension.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin.Open, Version=4.14.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\net45-mvc\packages\Senparc.Weixin.Open.4.14.2\lib\net462\Senparc.Weixin.Open.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.Weixin.Open.4.14.4\lib\net462\Senparc.Weixin.Open.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Senparc.Weixin.TenPay, Version=1.12.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\net45-mvc\packages\Senparc.Weixin.TenPay.1.12.1\lib\net462\Senparc.Weixin.TenPay.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin.Work, Version=3.15.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\net45-mvc\packages\Senparc.Weixin.Work.3.15.3-beta3\lib\net462\Senparc.Weixin.Work.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.Weixin.Work.3.15.5.1-beta3\lib\net462\Senparc.Weixin.Work.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Senparc.Weixin.WxOpen, Version=3.15.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\net45-mvc\packages\Senparc.Weixin.WxOpen.3.15.3\lib\net462\Senparc.Weixin.WxOpen.dll</HintPath>
+      <HintPath>..\net45-mvc\packages\Senparc.Weixin.WxOpen.3.15.4\lib\net462\Senparc.Weixin.WxOpen.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
       <HintPath>..\net45-mvc\packages\StackExchange.Redis.2.5.43\lib\net461\StackExchange.Redis.dll</HintPath>

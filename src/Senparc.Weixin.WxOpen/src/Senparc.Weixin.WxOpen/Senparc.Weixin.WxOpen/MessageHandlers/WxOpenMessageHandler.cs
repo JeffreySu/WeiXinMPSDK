@@ -42,6 +42,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 2020909
     修改描述：v3.8.511 MessageHandler 增加异步方法
 
+    修改标识：Senparc - 20220808
+    修改描述：v3.15.7 修复 RequestMsgType.Event 返回值没有正确赋值的问题
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -247,6 +250,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             throw new MessageHandlerException("请使用异步方法 OnExecutedAsync()");
         }
 
+
         #endregion
 
         #region 异步方法
@@ -322,11 +326,13 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     }
                     break;
                 case RequestMsgType.NeuChar:
-                    ResponseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar).ConfigureAwait(false);
+                    {
+                        ResponseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar).ConfigureAwait(false);
+                    }
                     break;
                 case RequestMsgType.Event:
                     {
-                        await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase).ConfigureAwait(false);
+                        ResponseMessage = await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase).ConfigureAwait(false);
                     }
                     break;
                 default:

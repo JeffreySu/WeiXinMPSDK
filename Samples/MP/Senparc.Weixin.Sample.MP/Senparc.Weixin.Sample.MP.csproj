@@ -22,13 +22,12 @@
 	<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
 	<Import Project="..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems" Label="Shared" />
 
-
 	<!--引用 Nuget 包-->
 	<ItemGroup>
-	  <PackageReference Include="Senparc.Weixin.AspNet" Version="0.8.1" />
-	  <PackageReference Include="Senparc.Weixin.MP" Version="16.18.2.1" />
-	  <PackageReference Include="Senparc.Weixin.MP.Middleware" Version="0.8.1" />
-	  <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.12.1" />
+	  <PackageReference Include="Senparc.Weixin.AspNet" Version="0.8.2" />
+	  <PackageReference Include="Senparc.Weixin.MP" Version="16.18.3" />
+	  <PackageReference Include="Senparc.Weixin.MP.Middleware" Version="0.8.2" />
+	  <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.12.2" />
 	</ItemGroup>
 
 	<!--直接引用源码-->

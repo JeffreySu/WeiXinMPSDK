@@ -24,6 +24,7 @@ using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
+using Senparc.Weixin.MP.MessageContexts;
 using Senparc.Weixin.MP.MessageHandlers;
 
 namespace Senparc.Weixin.Sample.MP
@@ -32,7 +33,7 @@ namespace Senparc.Weixin.Sample.MP
     /// 自定义MessageHandler
     /// 把MessageHandler作为基类，重写对应请求的处理方法
     /// </summary>
-    public partial class CustomMessageHandler : MessageHandler<CustomMessageContext>  /*如果不需要自定义，可以直接使用：MessageHandler<DefaultMpMessageContext> */
+    public partial class CustomMessageHandler : MessageHandler<DefaultMpMessageContext>  /*如果不需要自定义，可以直接使用：MessageHandler<DefaultMpMessageContext> */
     {
         /*
          * 重要提示：v1.5起，MessageHandler提供了一个DefaultResponseMessage的抽象方法，

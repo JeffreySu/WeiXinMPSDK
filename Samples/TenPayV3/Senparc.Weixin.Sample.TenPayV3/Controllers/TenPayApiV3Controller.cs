@@ -1,7 +1,7 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2022 Senparc
     
-    文件名：TenPayRealV3Controller.cs
+    文件名：TenpayApiV3Controller.cs
     文件功能描述：微信支付V3 Controller
     
     
@@ -12,7 +12,7 @@
 
 ----------------------------------------------------------------*/
 
-/* 注意：TenPayRealV3Controller 为真正微信支付 API V3 的示例 */
+/* 注意：TenpayApiV3Controller 为真正微信支付 API V3 的示例 */
 
 //DPBMARK_FILE TenPay
 using Microsoft.AspNetCore.Http;
@@ -22,8 +22,8 @@ using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Sample.Net6.Controllers;
-using Senparc.Weixin.Sample.Net6.Models;
+using Senparc.Weixin.Sample.TenPayV3.Controllers;
+using Senparc.Weixin.Sample.TenPayV3.Models;
 using Senparc.Weixin.TenPayV3;
 using Senparc.Weixin.TenPayV3.Apis;
 using Senparc.Weixin.TenPayV3.Apis.BasePay;
@@ -40,16 +40,15 @@ using System.Threading.Tasks;
 
 //DPBMARK MP
 using Senparc.Weixin.MP;
-using Senparc.Weixin.Sample.Net6.Filters;
+using Senparc.Weixin.Sample.TenPayV3.Filters;
 using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.Sample.CommonService.TemplateMessage;
-using Senparc.Weixin.Sample.CommonService.Utilities;
 using Senparc.CO2NET.HttpUtility;
+using Senparc.Weixin.Sample.TenPayV3.Utilities;
 //DPBMARK_END
 
-namespace Senparc.Weixin.Sample.Net6.Controllers
+namespace Senparc.Weixin.Sample.TenPayV3.Controllers
 {
-    public class TenPayRealV3Controller : BaseController
+    public class TenPayApiV3Controller : BaseController
     {
         private static TenPayV3Info _tenPayV3Info;
 
@@ -83,7 +82,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         public static ConcurrentDictionary<string, string> TradeNumberToTransactionId = new ConcurrentDictionary<string, string>();
 
 
-        public TenPayRealV3Controller(SenparcHttpClient httpClient)
+        public TenPayApiV3Controller(SenparcHttpClient httpClient)
         {
             _tenpayV3Setting = Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
             _basePayApis = new BasePayApis(_tenpayV3Setting);
@@ -101,7 +100,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 return RedirectToAction("ProductList");
             }
 
-            var returnUrl = string.Format("https://sdk.weixin.senparc.com/TenPayRealV3/JsApi");
+            var returnUrl = string.Format("https://sdk.weixin.senparc.com/TenpayApiV3/JsApi");
             var state = string.Format("{0}|{1}", productId, hc);
             string url = null;
 
@@ -174,9 +173,9 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             var price = (int)(product.Price * 100);
             var name = product.Name + " - 微信支付 V3 - Native 支付";
             var sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
-                         TenPayV3Util.BuildRandomStr(6));
+                            TenPayV3Util.BuildRandomStr(6));
 
-            var notifyUrl = TenPayV3Info.TenPayV3Notify.Replace("/TenpayV3/", "/TenpayRealV3/");
+            var notifyUrl = TenPayV3Info.TenPayV3Notify.Replace("/TenpayApiV3/", "/TenpayApiV3/");
 
             TransactionsRequestData requestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name, sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1)), null, notifyUrl, null, new() { currency = "CNY", total = price }, null, null, null, null);
 
@@ -210,7 +209,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             }
 
             //使用 JsApi 方式支付，引导到常规的商品详情页面
-            string url = $"http://sdk.weixin.senparc.com/TenPayRealV3/JsApi?productId={productId}&hc={product.GetHashCode()}&t={SystemTime.Now.Ticks}";
+            string url = $"http://sdk.weixin.senparc.com/TenpayApiV3/JsApi?productId={productId}&hc={product.GetHashCode()}&t={SystemTime.Now.Ticks}";
             var fileStream = QrCodeHelper.GerQrCodeStream(url);
 
             return File(fileStream, "image/png");
@@ -261,7 +260,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         #region JsApi支付
 
         //需要OAuth登录
-        [CustomOAuth(null, "/TenpayRealV3/OAuthCallback")]
+        [CustomOAuth(null, "/TenpayApiV3/OAuthCallback")]
         public async Task<IActionResult> JsApi(int productId, int hc)
         {
             try
@@ -294,13 +293,13 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 //调用下单接口下单
                 var name = product == null ? "test" : product.Name;
                 var price = product == null ? 100 : (int)(product.Price * 100);//单位：分
-                var notifyUrl = TenPayV3Info.TenPayV3Notify.Replace("/TenpayV3/", "/TenpayRealV3/").Replace("http://", "https://");
+                var notifyUrl = TenPayV3Info.TenPayV3Notify;
 
                 //请求信息
                 TransactionsRequestData jsApiRequestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name + " - 微信支付 V3", sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1), false), null, notifyUrl, null, new() { currency = "CNY", total = price }, new(openId), null, null, null);
 
                 //请求接口
-                var basePayApis2 = new TenPayV3.TenPayHttpClient.BasePayApis2(_httpClient, _tenpayV3Setting);
+                var basePayApis2 = new Senparc.Weixin.TenPayV3.TenPayHttpClient.BasePayApis2(_httpClient, _tenpayV3Setting);
                 var result = await basePayApis2.JsApiAsync(jsApiRequestData);
 
                 if (result.VerifySignSuccess != true)
@@ -355,27 +354,10 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 {
                     returnData.code = "SUCCESS";//正确的订单处理
                     /* 提示：
-                     * 1、直到这里，才能认为交易真正成功了，可以进行数据库操作，但是别忘了返回规定格式的消息！
-                     * 2、上述判断已经具有比较高的安全性以外，还可以对访问 IP 进行判断进一步加强安全性。
-                     * 3、下面演示的是发送支付成功的模板消息提示，非必须。
-                     */
-
-                    #region 发送支付成功模板消息提醒
-                    try
-                    {
-                        string appId = Config.SenparcWeixinSetting.TenPayV3_AppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
-                        string openId = orderReturnJson.payer.openid;
-                        var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "微信支付 V3 购买商品", "状态：" + trade_state);
-
-                        Senparc.Weixin.WeixinTrace.SendCustomLog("TenPayV3 支付成功模板消息参数", "AppId:" + appId + " ,openId: " + openId);
-
-                        var result = await MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, templateData);
-                    }
-                    catch (Exception ex)
-                    {
-                        Senparc.Weixin.WeixinTrace.SendCustomLog("TenPayV3 支付成功模板消息", ex.ToString());
-                    }
-                    #endregion
+                        * 1、直到这里，才能认为交易真正成功了，可以进行数据库操作，但是别忘了返回规定格式的消息！
+                        * 2、上述判断已经具有比较高的安全性以外，还可以对访问 IP 进行判断进一步加强安全性。
+                        * 3、下面演示的是发送支付成功的模板消息提示，非必须。
+                        */
                 }
                 else
                 {
@@ -454,7 +436,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 var body = product == null ? "test" : product.Name;
                 var price = product == null ? 100 : (int)(product.Price * 100);
 
-                var notifyUrl = TenPayV3Info.TenPayV3Notify.Replace("/TenpayV3/", "/TenpayRealV3/");
+                var notifyUrl = TenPayV3Info.TenPayV3Notify.Replace("/TenpayApiV3/", "/TenpayApiV3/");
 
                 TransactionsRequestData.Scene_Info sence_info = new(HttpContext.UserHostAddress()?.ToString(), null, null, new("Wap", null, null, null, null));
 
@@ -542,7 +524,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 int totalFee = int.Parse(HttpContext.Session.GetString("BillFee"));
                 int refundFee = totalFee;
                 string opUserId = TenPayV3Info.MchId;
-                var notifyUrl = "https://sdk.weixin.senparc.com/TenPayRealV3/RefundNotifyUrl";
+                var notifyUrl = "https://sdk.weixin.senparc.com/TenpayApiV3/RefundNotifyUrl";
                 //var dataInfo = new TenPayV3RefundRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, TenPayV3Info.Key,
                 //    null, nonceStr, null, outTradeNo, outRefundNo, totalFee, refundFee, opUserId, null, notifyUrl: notifyUrl);
                 //TODO:该接口参数二选一传入

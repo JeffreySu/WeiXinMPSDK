@@ -55,6 +55,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20210630
     修改描述：v6.11.1 TryCommonApiBase 提供 invalidCredentialValues，可设置多种重试错误代码
 
+    修改标识：Senparc - 20220731
+    修改描述：v6.15.4 更新 TryCommonApiBase 异常抛出逻辑
+
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
@@ -232,8 +235,8 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                 {
                     ex.AccessTokenOrAppId = accessTokenOrAppId;
 
-                    //如果要求抛出异常，并且传入的是 AccessToken（AppId 为 null），那么已经没有必要重试，直接抛出异常
-                    if (Config.ThrownWhenJsonResultFaild && appId == null)
+                    //如果要求抛出异常，/*并且传入的是 AccessToken（AppId 为 null），*/那么已经没有必要重试，直接抛出异常
+                    if (Config.ThrownWhenJsonResultFaild/* && appId == null*/)
                     {
                         throw;//抛出异常
                     }

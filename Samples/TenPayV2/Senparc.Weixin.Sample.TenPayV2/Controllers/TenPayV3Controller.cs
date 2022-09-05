@@ -18,7 +18,7 @@
 ----------------------------------------------------------------*/
 
 /* 注意：TenPayV3Controller 是微信文档 V3 的示例，并非微信之后出来的 API V3，
- * 微信真正微信支付 API V3 的示例请见 TenPayRealV3Controller 
+ * 微信真正微信支付 API V3 的示例请见 TenPayApiV3Controller 
  */
 
 //DPBMARK_FILE TenPay
@@ -73,6 +73,7 @@ namespace Senparc.Weixin.Sample.TenPayV2.Controllers
                 return true;
             return false;
         }
+
 
         public static TenPayV3Info TenPayV3Info
         {
@@ -250,7 +251,7 @@ namespace Senparc.Weixin.Sample.TenPayV2.Controllers
                 if (resHandler.IsTenpaySign() && return_code.ToUpper() == "SUCCESS")
                 {
                     res = "success";//正确的订单处理
-                    //直到这里，才能认为交易真正成功了，可以进行数据库操作，但是别忘了返回规定格式的消息！
+                                    //直到这里，才能认为交易真正成功了，可以进行数据库操作，但是别忘了返回规定格式的消息！
                 }
                 else
                 {
@@ -276,7 +277,7 @@ namespace Senparc.Weixin.Sample.TenPayV2.Controllers
                     Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息", ex.ToString());
                 }
                 */
-                
+
                 #region 记录日志
 
                 var logDir = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/TenPayNotify/{0}", SystemTime.Now.ToString("yyyyMMdd")));
@@ -368,7 +369,6 @@ namespace Senparc.Weixin.Sample.TenPayV2.Controllers
 
                 throw;
             }
-
         }
 
         public ActionResult NativeNotifyUrl()
@@ -522,7 +522,7 @@ namespace Senparc.Weixin.Sample.TenPayV2.Controllers
         #endregion
 
         #region 刷卡支付
-        
+
         /// <summary>
         /// 刷卡支付
         /// </summary>
@@ -709,7 +709,6 @@ namespace Senparc.Weixin.Sample.TenPayV2.Controllers
             //return Content("申请成功：<br>" + HttpUtility.RequestUtility.HtmlEncode(responseContent));
 
             #endregion
-
         }
 
         /// <summary>
@@ -744,10 +743,10 @@ namespace Senparc.Weixin.Sample.TenPayV2.Controllers
                     if (!appId.Equals(Senparc.Weixin.Config.SenparcWeixinSetting.TenPayV3_AppId))
                     {
                         /* 
-                         * 注意：
-                         * 这里添加过滤只是因为盛派Demo经常有其他公众号错误地设置了我们的地址，
-                         * 导致无法正常解密，平常使用不需要过滤！
-                         */
+                            * 注意：
+                            * 这里添加过滤只是因为盛派Demo经常有其他公众号错误地设置了我们的地址，
+                            * 导致无法正常解密，平常使用不需要过滤！
+                            */
                         SenparcTrace.SendCustomLog("RefundNotifyUrl 的 AppId 不正确",
                             $"appId:{appId}\r\nmch_id:{mch_id}\r\nreq_info:{req_info}");
                         return Content("faild");

@@ -39,7 +39,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
             {
                 var result = WxAppApi.CreateWxQrCode(base._wxOpenAppId, ms, "pages/websocket", 100);
                 Assert.AreEqual(ReturnCode.请求成功, result.errcode);
-
+                
                 ms.Seek(0, SeekOrigin.Begin);
                 //储存图片
 

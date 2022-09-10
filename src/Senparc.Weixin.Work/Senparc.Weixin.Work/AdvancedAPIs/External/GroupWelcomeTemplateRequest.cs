@@ -74,9 +74,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
         /// </summary>
         public string template_id { get; set; }
     }
-    /// <summary>
-    /// 
-    /// </summary>
+
+
     public class GroupWelcomeTemplateGetResult : WorkJsonResult
     {
 

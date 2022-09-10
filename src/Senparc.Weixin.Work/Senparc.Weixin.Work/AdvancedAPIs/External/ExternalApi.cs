@@ -37,6 +37,9 @@
     修改标识：Senparc - 20220703
     修改描述：v3.15.5.1 修复 ExternalApi.GetFollowUserList() 接口请求类型为 GET
 
+    修改标识：Senparc - 20220910
+    修改描述：v3.15.7 添加“创建企业群发”接口
+
 ----------------------------------------------------------------*/
 
 /*
@@ -663,6 +666,29 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
+
+        #endregion
+
+        #region 消息推送
+
+        /// <summary>
+        /// 创建企业群发
+        /// <para></para>
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="requestData"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static AddMessageTemplateResult AddMsgTemplate(string accessTokenOrAppKey, AddMessageTemplateRequest requestData, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/add_msg_template?access_token={0}", accessToken);
+                return CommonJsonSend.Send<AddMessageTemplateResult>(null, url, requestData, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+
         #endregion
 
         #endregion

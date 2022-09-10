@@ -179,7 +179,11 @@
 			v3.15.2 添加“用户标签管理”接口
 			v3.15.4 添加 MailList.Member 下的 biz_mail 属性
 			v3.15.5 调整批量获取客户详情返回值
-			v3.15.7 添加“创建企业群发”接口
+			v3.15.7
+			1、添加“创建企业群发”接口
+			2、添加“获取企业的全部群发记录”接口
+			3、添加“发送新客户欢迎语”接口
+
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

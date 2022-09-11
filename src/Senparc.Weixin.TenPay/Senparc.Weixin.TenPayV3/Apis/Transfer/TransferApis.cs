@@ -54,17 +54,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.Transfer
 
 
         /// <summary>
-        /// 返回可用的微信支付地址（自动判断是否使用沙箱）
-        /// </summary>
-        /// <param name="urlFormat">如：<code>https://api.mch.weixin.qq.com/{0}pay/unifiedorder</code></param>
-        /// <returns></returns>
-        // TODO: 重复使用
-        private static string ReurnPayApiUrl(string urlFormat)
-        {
-            return string.Format(urlFormat, Senparc.Weixin.Config.UseSandBoxPay ? "sandboxnew/" : "");
-        }
-
-        /// <summary>
         /// 发起商家转账API
         /// <para>https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter4_3_1.shtml</para>
         /// </summary>
@@ -73,7 +62,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Transfer
         /// <returns></returns>
         public async Task<BatchesReturnJson> BatchesAsync(BatchesRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/transfer/batches");
+            var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/transfer/batches");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<BatchesReturnJson>(url, data, timeOut);
         }

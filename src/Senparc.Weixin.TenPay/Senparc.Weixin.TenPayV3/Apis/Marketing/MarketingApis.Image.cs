@@ -59,7 +59,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<UploadImageReturnJson> UploadImage(UploadImageRequestData data, int timeOut = Config.TIME_OUT)
         {
 
-            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/marketing/favor/media/image-upload");
+            var url = BasePayApis.GetPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/marketing/favor/media/image-upload");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<UploadImageReturnJson>(url, data, timeOut);
         }

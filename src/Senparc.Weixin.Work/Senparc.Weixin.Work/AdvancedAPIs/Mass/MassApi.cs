@@ -573,6 +573,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         /// <summary>
         /// 更新任务卡片消息状态
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/90854</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="data"></param>
@@ -586,10 +587,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<UpdateTaskCardResultJson>(accessToken, _taskUrlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
-        }
-
-
-
+       
         #endregion
 
         #region 异步方法
@@ -1053,6 +1051,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         /// <summary>
         /// 【异步方法】发送模板卡片消息
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/90854</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="data"></param>

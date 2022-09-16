@@ -587,7 +587,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<UpdateTaskCardResultJson>(accessToken, _taskUrlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
-       
+        }
+
         #endregion
 
         #region 异步方法

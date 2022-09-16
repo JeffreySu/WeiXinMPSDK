@@ -261,7 +261,7 @@ namespace Senparc.Weixin.MP.Containers
             //为JsApiTicketContainer进行自动注册
             var registerJsApiTask = JsApiTicketContainer.RegisterAsync(appId, appSecret, name);
 
-            await Task.WhenAll(new[] { registerTask, registerJsApiTask });//等待所有任务完成
+            await Task.WhenAll(new[] { registerTask, registerJsApiTask }).ConfigureAwait(false);//等待所有任务完成
         }
 
         #region AccessToken

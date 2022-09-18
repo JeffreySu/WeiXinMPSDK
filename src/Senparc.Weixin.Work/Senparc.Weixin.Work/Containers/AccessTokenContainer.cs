@@ -88,6 +88,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20210719
     修改描述：v3.11.2 AccessTokenContainer 支持分布式同步锁
 
+    修改标识：Senparc - 20220916
+    修改描述：v3.15.8.1 RegisterAsync() 方法添加 ConfigureAwait(false) 标记
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -358,7 +361,7 @@ namespace Senparc.Weixin.Work.Containers
 
             var registerProviderTask = ProviderTokenContainer.RegisterAsync(corpId, corpSecret);//连带注册ProviderTokenContainer
 
-            await Task.WhenAll(new[] { registerTask, registerJsApiTask, registerProviderTask });//等待所有任务完成
+            await Task.WhenAll(new[] { registerTask, registerJsApiTask, registerProviderTask }).ConfigureAwait(false);//等待所有任务完成
         }
 
 

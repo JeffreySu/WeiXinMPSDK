@@ -28,6 +28,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：gokeiyou - 20201230
     修改描述：新建 WxOpen 专属的 AccessTokenContainer
 
+    修改标识：Senparc - 20220916
+    修改描述：v3.15.7.1 RegisterAsync() 方法添加 ConfigureAwait(false) 标记
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;
@@ -178,7 +181,7 @@ namespace Senparc.Weixin.WxOpen.Containers
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WxOpenAppSecret = wxOpenAppSecret;
             }
 
-            await Task.WhenAll(new[] { registerTask });//等待所有任务完成
+            await Task.WhenAll(new[] { registerTask }).ConfigureAwait(false);//等待所有任务完成
         }
 
 

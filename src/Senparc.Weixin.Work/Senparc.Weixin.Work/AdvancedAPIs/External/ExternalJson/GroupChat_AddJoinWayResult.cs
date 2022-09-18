@@ -21,52 +21,27 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2022 Senparc
     
-    文件名：CodeResultJson.cs
-    文件功能描述：代码管理返回结果
+    文件名：GroupChat_AddJoinWayRequest.cs
+    文件功能描述： “配置客户群进群方式”接口 返回结果
     
     
-    创建标识：Senparc - 20170726
+    创建标识：Senparc - 20220918
 
-    修改标识：Senparc - 20220918
-    修改描述：v4.14.10 “小程序版本回退”接口更新返回参数内容
 ----------------------------------------------------------------*/
 
-
 using Senparc.Weixin.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Senparc.Weixin.Open.WxaAPIs
+namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
 {
-    public class CodeResultJson : WxJsonResult
+
+    /// <summary>
+    /// “配置客户群进群方式”接口 返回结果
+    /// </summary>
+    public class GroupChat_AddJoinWayResult : WorkJsonResult
     {
         /// <summary>
-        /// 模板信息列表
+        /// 配置id
         /// </summary>
-        public Version_List[] version_list { get; set; }
+        public string config_id { get; set; }
     }
-
-    public class Version_List
-    {
-        /// <summary>
-        /// 更新时间，时间戳
-        /// </summary>
-        public long commit_time { get; set; }
-        /// <summary>
-        /// 模板版本号，开发者自定义字段
-        /// </summary>
-        public string user_version { get; set; }
-        /// <summary>
-        /// 模板描述，开发者自定义字段
-        /// </summary>
-        public string user_desc { get; set; }
-        /// <summary>
-        /// 小程序版本
-        /// </summary>
-        public int app_version { get; set; }
-    }
-
 }

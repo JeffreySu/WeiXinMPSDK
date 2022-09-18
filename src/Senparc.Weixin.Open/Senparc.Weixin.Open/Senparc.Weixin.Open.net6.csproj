@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-		<Version>4.14.9</Version>
+		<Version>4.14.10</Version>
 		<AssemblyName>Senparc.Weixin.Open</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Open</RootNamespace>
 		<GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -205,6 +205,7 @@
 			设置DNS预解析域名
 			修改：
 			设置其他的两个 API 为 Obsolete
+			v4.14.10 “小程序版本回退”接口更新返回参数内容
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 	</PropertyGroup>

@@ -258,6 +258,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         }
         /// <summary>
         /// 小程序版本回退（仅供第三方代小程序调用）
+        /// <para>文档：https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/code/get_history_version.html</para>
         /// </summary>
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
@@ -601,6 +602,8 @@ namespace Senparc.Weixin.Open.WxaAPIs
         }
         /// <summary>
         /// 小程序版本回退（仅供第三方代小程序调用）
+        /// <para>文档：https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/code/get_history_version.html</para>
+        /// <para>文档：</para>
         /// </summary>
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>

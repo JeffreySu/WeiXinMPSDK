@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-		<Version>16.18.6.1</Version>
+		<Version>16.18.7</Version>
 		<AssemblyName>Senparc.Weixin.MP</AssemblyName>
 		<RootNamespace>Senparc.Weixin.MP</RootNamespace>
 		<GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -520,6 +520,7 @@
 			v16.18.4 完善 GetDraftResultJson 字段
 			v16.18.5 新增 OpenApi 接口，包括：“查询 openAPI 调用quota”“查询 rid 信息”接口
 			v16.18.6 OAuth 的 AccessToken 获取接口添加 is_snapshotuser 返回值
+			v16.18.7 OAuthApi.GetAuthorizeUrl() 方法添加 forcePopup 参数
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 	</PropertyGroup>

@@ -36,7 +36,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
     /// </summary>
     public class Conclusions
     {
-                public Text text { get; set; }
+        public Text text { get; set; }
         public Image image { get; set; }
         public Link link { get; set; }
         public Miniprogram miniprogram { get; set; }

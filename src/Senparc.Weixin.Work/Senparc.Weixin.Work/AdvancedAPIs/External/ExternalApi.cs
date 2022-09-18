@@ -44,7 +44,9 @@
               3、添加“发送新客户欢迎语”接口
 
     修改标识：Senparc - 20220918
-    修改描述：v3.15.9 补充完整“客户联系「联系我」管理”接口
+    修改描述：v3.15.9 
+		      1、补充完整“客户联系「联系我」管理”接口
+              2、添加“客户群「加入群聊」管理”接口
 
 ----------------------------------------------------------------*/
 
@@ -395,7 +397,79 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #region 客户群「加入群聊」管理
 
+        /// <summary>
+        /// 配置客户群进群方式
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="requet">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GroupChat_AddJoinWayResult GroupChat_AddJoinWay(string accessTokenOrAppKey, GroupChat_AddJoinWayRequest requet, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/groupchat/add_join_way?access_token={accessToken}";
 
+                return CommonJsonSend.Send<GroupChat_AddJoinWayResult>(null, url, requet, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+
+        /// <summary>
+        /// 获取客户群进群方式配置
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="configId">联系方式的配置id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GroupChat_GetJoinWayResult GroupChat_GetJoinWay(string accessTokenOrAppKey, string configId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/groupchat/get_join_way?access_token={accessToken}";
+
+                var data = new { config_id = configId };
+
+                return CommonJsonSend.Send<GroupChat_GetJoinWayResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+
+        /// <summary>
+        /// 获取客户群进群方式配置
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="request">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WorkJsonResult GroupChat_UpdateJoinWay(string accessTokenOrAppKey, GroupChat_UpdateJoinWayRequest request, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/groupchat/update_join_way?access_token={accessToken}";
+
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, request, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 获取客户群进群方式配置
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="configId">企业联系方式的配置id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WorkJsonResult GroupChat_DelJoinWay(string accessTokenOrAppKey, string configId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/groupchat/del_join_way?access_token={accessToken}";
+
+                var data = new { config_id = configId };
+
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
 
         #endregion
 
@@ -1552,6 +1626,84 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             }, accessTokenOrAppKey);
         }
 
+
+        #endregion
+
+        #region 客户群「加入群聊」管理
+
+        /// <summary>
+        /// 【异步方法】配置客户群进群方式
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="requet">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GroupChat_AddJoinWayResult> GroupChat_AddJoinWayAsync(string accessTokenOrAppKey, GroupChat_AddJoinWayRequest requet, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/groupchat/add_join_way?access_token={accessToken}";
+
+                return await CommonJsonSend.SendAsync<GroupChat_AddJoinWayResult>(null, url, requet, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+
+        /// <summary>
+        /// 【异步方法】获取客户群进群方式配置
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="configId">联系方式的配置id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GroupChat_GetJoinWayResult> GroupChat_GetJoinWayAsync(string accessTokenOrAppKey, string configId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/groupchat/get_join_way?access_token={accessToken}";
+
+                var data = new { config_id = configId };
+
+                return await CommonJsonSend.SendAsync<GroupChat_GetJoinWayResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+
+        /// <summary>
+        /// 【异步方法】获取客户群进群方式配置
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="request">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> GroupChat_UpdateJoinWayAsync(string accessTokenOrAppKey, GroupChat_UpdateJoinWayRequest request, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/groupchat/update_join_way?access_token={accessToken}";
+
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, request, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 获取客户群进群方式配置
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="configId">企业联系方式的配置id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> GroupChat_DelJoinWayAsync(string accessTokenOrAppKey, string configId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/groupchat/del_join_way?access_token={accessToken}";
+
+                var data = new { config_id = configId };
+
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
 
         #endregion
 

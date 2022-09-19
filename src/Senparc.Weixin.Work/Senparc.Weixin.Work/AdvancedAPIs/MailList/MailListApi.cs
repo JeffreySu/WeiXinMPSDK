@@ -221,6 +221,32 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
+        /// 获取成员ID列表
+        /// 获取企业成员的open_userid与对应的部门ID列表。
+        /// https://developer.work.weixin.qq.com/document/path/96021
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="cursor">用于分页查询的游标，字符串类型，由上一次调用返回，首次调用不填</param>
+        /// <param name="limit">分页，预期请求的数据量，取值范围 1 ~ 10000</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<GetMemberIdListResult> GetMemberIdListAsync(string accessTokenOrAppKey, string cursor = "", int limit = 10000, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/list_id?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    cursor,
+                    limit
+                };
+
+                return CommonJsonSend.SendAsync<GetMemberIdListResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
         /// 获取部门成员【QY移植修改】
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
@@ -767,6 +793,33 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return await CommonJsonSend.SendAsync<GetUseridResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+
+                /// <summary>
+        /// 获取成员ID列表
+        /// 获取企业成员的open_userid与对应的部门ID列表。
+        /// https://developer.work.weixin.qq.com/document/path/96021
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="cursor">用于分页查询的游标，字符串类型，由上一次调用返回，首次调用不填</param>
+        /// <param name="limit">分页，预期请求的数据量，取值范围 1 ~ 10000</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<GetMemberIdListResult> GetMemberIdListAsync(string accessTokenOrAppKey, string cursor = "", int limit = 1000, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/list_id?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    cursor,
+                    limit
+                };
+
+                return CommonJsonSend.SendAsync<GetMemberIdListResult>(null, url, data, CommonJsonSendType.POST,
+                    timeOut);
+            }, accessTokenOrAppKey);
         }
 
         /// <summary>

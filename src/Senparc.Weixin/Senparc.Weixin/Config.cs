@@ -169,6 +169,15 @@ namespace Senparc.Weixin
 
         #endregion
 
+        #region 微信服务商 API 的服务器地址（默认为：https://api.mch.weixin.qq.com）
+
+        /// <summary>
+        /// 微信服务商 API 的服务器地址（默认为：https://api.mch.weixin.qq.com）
+        /// </summary>
+        public static string TenPayV3Host { get; set; } = "https://api.mch.weixin.qq.com";
+
+        #endregion
+
         #endregion
 
         /// <summary>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson
 {
-    public class MsgSecCheckJsonResult : WxJsonResult
+    public class MediaCheckAsyncJsonResult : WxJsonResult
     {
         /// <summary>
         /// 唯一请求标识，标记单次请求，用于匹配异步推送结果

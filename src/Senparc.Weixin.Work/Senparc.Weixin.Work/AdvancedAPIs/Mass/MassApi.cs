@@ -48,6 +48,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20210120
     修改描述：v3.8.102 “发送应用信息”接口添加 enable_duplicate_check、duplicate_check_interval 参数
 
+    修改标识：Senparc - 20210120
+    修改描述：v3.15.8 支持“发送应用消息”的“模板卡片消息”类型（MassApi.SendTemplateCard() 方法）
+
 ----------------------------------------------------------------*/
 
 /*
@@ -64,6 +67,7 @@ using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Work.AdvancedAPIs.Mass;
+using Senparc.Weixin.Work.AdvancedAPIs.Mass.SendTemplateCard;
 using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Entities;
 
@@ -439,9 +443,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static MassResult SendTextCard(string accessTokenOrAppKey, string agentId, string title, string description,            string url, string btntxt = null, string toUser = null, string toParty = null, string toTag = null,
+        public static MassResult SendTextCard(string accessTokenOrAppKey, string agentId, string title, string description, string url, string btntxt = null, string toUser = null, string toParty = null, string toTag = null,
                 int enableDuplicateCheck = 0,
-                int duplicateCheckInterval = 1800, 
+                int duplicateCheckInterval = 1800,
                 int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -485,7 +489,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         public static MassResult SendMarkdown(string accessTokenOrAppKey, string agentId, string content,
                 string toUser = null, string toParty = null, string toTag = null,
                 int enableDuplicateCheck = 0,
-                int duplicateCheckInterval = 1800, 
+                int duplicateCheckInterval = 1800,
                 int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -542,8 +546,34 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
         }
+
+
+        #region 模板卡片消息
+
+        /// <summary>
+        /// 发送模板卡片消息
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static MassResult SendTemplateCard(string accessTokenOrAppKey, SendTemplateCardRequest data, int timeOut = Config.TIME_OUT)
+        {
+            //var ss = new Mass.SendTemplateCard.SendTemplateCardRequest<Template_Card_NewsNotice>(new());
+
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                JsonSetting jsonSetting = new JsonSetting(true);
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppKey);
+        }
+
+        #endregion
+
         /// <summary>
         /// 更新任务卡片消息状态
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/90854</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="data"></param>
@@ -558,6 +588,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<UpdateTaskCardResultJson>(accessToken, _taskUrlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
         }
+
         #endregion
 
         #region 异步方法
@@ -1016,6 +1047,31 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
+
+        #region 模板卡片消息
+
+        /// <summary>
+        /// 【异步方法】发送模板卡片消息
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/90854</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<MassResult> SendTemplateCardAsync(string accessTokenOrAppKey, SendTemplateCardRequest data, int timeOut = Config.TIME_OUT)
+        {
+            //var ss = new Mass.SendTemplateCard.SendTemplateCardRequest<Template_Card_NewsNotice>(new());
+
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                JsonSetting jsonSetting = new JsonSetting(true);
+
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppKey);
+        }
+
+        #endregion
+
 
         /// <summary>
         /// 【异步方法】更新任务卡片消息状态

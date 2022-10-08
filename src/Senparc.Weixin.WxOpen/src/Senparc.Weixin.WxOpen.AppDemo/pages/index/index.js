@@ -226,7 +226,7 @@ Page({
               'timeStamp': json.timeStamp,
               'nonceStr': json.nonceStr,
               'package': json.package,
-              'signType': 'MD5',
+              'signType': json.signType || 'MD5',
               'paySign': json.paySign,
               'success': function (res) {
                 wx.showModal({

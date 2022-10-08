@@ -19,18 +19,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.MP.Test.CommonAPIs;
 using Senparc.CO2NET.Extensions;
-using Senparc.Weixin.WxOpen.Tests;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.WxOpen.Tests;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
 {
@@ -45,7 +39,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
             {
                 var result = WxAppApi.CreateWxQrCode(base._wxOpenAppId, ms, "pages/websocket", 100);
                 Assert.AreEqual(ReturnCode.请求成功, result.errcode);
-
+                
                 ms.Seek(0, SeekOrigin.Begin);
                 //储存图片
 
@@ -172,6 +166,18 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
                     throw;
                 }
             }
+        }
+
+        [TestMethod()]
+        public void MediaCheckAsyncTest()
+        {
+            var url = "https://sdk.weixin.senparc.com/images/v2/logo%20.png";
+
+            var openId = "oeaTy0DgoGq-lyqvTauWVjbIVuP0";
+            var result = WxAppApi.MediaCheckAsync(base._wxOpenAppId, url, "2", 2, openId, 1);
+
+            Console.WriteLine(SystemTime.Now);
+            Console.WriteLine(result);
         }
     }
 }

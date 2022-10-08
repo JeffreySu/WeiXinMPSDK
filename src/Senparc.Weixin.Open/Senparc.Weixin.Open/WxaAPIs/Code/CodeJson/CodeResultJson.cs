@@ -27,7 +27,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20170726
 
-
+    修改标识：Senparc - 20220918
+    修改描述：v4.14.10 “小程序版本回退”接口更新返回参数内容
 ----------------------------------------------------------------*/
 
 
@@ -42,5 +43,30 @@ namespace Senparc.Weixin.Open.WxaAPIs
 {
     public class CodeResultJson : WxJsonResult
     {
+        /// <summary>
+        /// 模板信息列表
+        /// </summary>
+        public Version_List[] version_list { get; set; }
     }
+
+    public class Version_List
+    {
+        /// <summary>
+        /// 更新时间，时间戳
+        /// </summary>
+        public long commit_time { get; set; }
+        /// <summary>
+        /// 模板版本号，开发者自定义字段
+        /// </summary>
+        public string user_version { get; set; }
+        /// <summary>
+        /// 模板描述，开发者自定义字段
+        /// </summary>
+        public string user_desc { get; set; }
+        /// <summary>
+        /// 小程序版本
+        /// </summary>
+        public int app_version { get; set; }
+    }
+
 }

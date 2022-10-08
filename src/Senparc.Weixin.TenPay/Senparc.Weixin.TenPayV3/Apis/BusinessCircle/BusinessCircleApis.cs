@@ -65,17 +65,6 @@ namespace Senparc.Weixin.TenPayV3.Apis
         }
 
         /// <summary>
-        /// 返回可用的微信支付地址（自动判断是否使用沙箱）
-        /// </summary>
-        /// <param name="urlFormat">如：<code>https://api.mch.weixin.qq.com/{0}pay/unifiedorder</code></param>
-        /// <returns></returns>
-        // TODO: 重复使用
-        private static string ReurnPayApiUrl(string urlFormat)
-        {
-            return string.Format(urlFormat, Senparc.Weixin.Config.UseSandBoxPay ? "sandboxnew/" : "");
-        }
-
-        /// <summary>
         /// 商圈积分同步接口
         /// <para>通过此API，商圈商户/服务商可针对微信支付前序推送给商圈系统的顾客商圈内交易通知，告知微信支付系统该笔交易的积分情况。</para>
         /// <para>更多详细请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter8_6_2.shtml </para>
@@ -85,7 +74,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<ReturnJsonBase> NotifyBusinessCirclePointsAsync(NotifyBusinessCirclePointsRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/businesscircle/points/notify");
+            var url = BasePayApis.GetPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/businesscircle/points/notify");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, data, timeOut);
         }
@@ -101,7 +90,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<QueryUserAuthorizationReturnJson> QueryUserAuthorizationAsync(string appid, string openid, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/businesscircle/user-authorizations/{openid}?appid={appid}");
+            var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/businesscircle/user-authorizations/{openid}?appid={appid}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryUserAuthorizationReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }

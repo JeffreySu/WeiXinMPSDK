@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：CommonApi.Menu.cs
     文件功能描述：自定义菜单API
@@ -19,6 +19,8 @@
     修改标识：Senparc - 20190129
     修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口；使用 ApiHandlerWapper.TryCommonApi
 
+    修改标识：Senparc - 20220306
+    修改描述：添加 CreateMenuAsync() 异步方法
 
 ----------------------------------------------------------------*/
 
@@ -41,7 +43,7 @@ using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.CO2NET.Helpers;
 
-#if NET45
+#if NET462
 using System.Web.Script.Serialization;
 #else
 using Newtonsoft.Json;
@@ -62,7 +64,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="buttonData">菜单内容</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WorkJsonResult CreateMenu(string accessTokenOrAppId, int agentId, ButtonGroup buttonData, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult CreateMenu(string accessTokenOrAppKey, int agentId, ButtonGroup buttonData, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -83,7 +85,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
                 var urlFormat = string.Format(Config.ApiWorkHost + "/cgi-bin/menu/create?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
                 return CommonJsonSend.Send<WorkJsonResult>(accessToken, urlFormat, buttonData, CommonJsonSendType.POST, timeOut: timeOut);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
         }
 
         #region GetMenu
@@ -121,7 +123,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
             {
                 //@"{""menu"":{""button"":[{""type"":""click"",""name"":""单击测试"",""key"":""OneClick"",""sub_button"":[]},{""name"":""二级菜单"",""sub_button"":[{""type"":""click"",""name"":""返回文本"",""key"":""SubClickRoot_Text"",""sub_button"":[]},{""type"":""click"",""name"":""返回图文"",""key"":""SubClickRoot_News"",""sub_button"":[]},{""type"":""click"",""name"":""返回音乐"",""key"":""SubClickRoot_Music"",""sub_button"":[]}]}]}}"
                 object jsonResult = null;
-#if NET45
+#if NET462
 
 #else
                 jsonResult = JsonConvert.DeserializeObject<object>(jsonString);
@@ -460,6 +462,25 @@ namespace Senparc.Weixin.Work.CommonAPIs
 
 
         #region 异步方法
+
+        /// <summary>
+        /// 【异步方法】创建菜单
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="agentId"></param>
+        /// <param name="buttonData">菜单内容</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> CreateMenuAsync(string accessTokenOrAppKey, int agentId, ButtonGroup buttonData, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiWorkHost + "/cgi-bin/menu/create?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
+                
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, urlFormat, buttonData, CommonJsonSendType.POST, timeOut: timeOut);
+
+            }, accessTokenOrAppKey);
+        }
 
         /// <summary>
         /// 【异步方法】删除菜单

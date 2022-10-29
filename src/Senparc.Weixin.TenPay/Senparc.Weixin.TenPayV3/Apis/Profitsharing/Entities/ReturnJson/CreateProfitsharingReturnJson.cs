@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
   
     文件名：CreateProfitsharingReturnJson.cs
     文件功能描述：请求分账返回Json类
@@ -52,7 +52,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
         /// <param name="order_id">微信分账单号 <para>微信分账单号，微信系统返回的唯一标识</para><para>示例值：3008450740201411110007820472</para></param>
         /// <param name="state">分账单状态 <para>分账单状态（每个接收方的分账结果请查看receivers中的result字段），枚举值：1、PROCESSING：处理中2、FINISHED：分账完成</para><para>示例值：FINISHED</para></param>
         /// <param name="receivers">分账接收方列表 <para>分账接收方列表</para><para>可为null</para></param>
-        public CreateProfitsharingReturnJson(string transaction_id, string out_order_no, string order_id, string state, Receivers[] receivers)
+        public CreateProfitsharingReturnJson(string transaction_id, string out_order_no, string order_id, string state, Receiver[] receivers)
         {
             this.transaction_id = transaction_id;
             this.out_order_no = out_order_no;
@@ -101,10 +101,10 @@ namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
         /// <para>分账接收方列表</para>
         /// <para>可为null</para>
         /// </summary>
-        public Receivers[] receivers { get; set; }
+        public Receiver[] receivers { get; set; }
 
         #region 子数据类型
-        public class Receivers
+        public class Receiver
         {
 
             /// <summary>
@@ -119,7 +119,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
             /// <param name="create_time">分账创建时间 <para>分账创建时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss.sss+TIMEZONE，YYYY-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日13点29分35秒。</para><para>示例值：2015-05-20T13:29:35.120+08:00</para></param>
             /// <param name="finish_time">分账完成时间 <para>分账完成时间，遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss.sss+TIMEZONE，YYYY-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日13点29分35秒。</para><para>示例值：2015-05-20T13:29:35.120+08:00</para></param>
             /// <param name="detail_id">分账明细单号 <para>微信分账明细单号，每笔分账业务执行的明细单号，可与资金账单对账使用</para><para>示例值：36011111111111111111111</para></param>
-            public Receivers(int amount, string description, string type, string account, string result, string fail_reason, string create_time, string finish_time, string detail_id)
+            public Receiver(int amount, string description, string type, string account, string result, string fail_reason, string create_time, string finish_time, string detail_id)
             {
                 this.amount = amount;
                 this.description = description;
@@ -135,7 +135,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
             /// <summary>
             /// 无参构造函数
             /// </summary>
-            public Receivers()
+            public Receiver()
             {
             }
 

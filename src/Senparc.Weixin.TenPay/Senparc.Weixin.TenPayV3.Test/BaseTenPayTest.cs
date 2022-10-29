@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Senparc.CO2NET;
@@ -41,7 +42,7 @@ namespace Senparc.Weixin.TenPayV3.Test
             //注册 CON2ET 全局
             var senparcSetting = new SenparcSetting() { IsDebug = true };
 
-            var mockEnv = new Mock<IWebHostEnvironment>();
+            var mockEnv = new Mock<IHostEnvironment>();
 
             mockEnv.Setup(z => z.ContentRootPath).Returns(() => UnitTestHelper.RootPath);
             register = Senparc.CO2NET.AspNet.RegisterServices.RegisterService.Start(mockEnv.Object, senparcSetting);
@@ -52,7 +53,7 @@ namespace Senparc.Weixin.TenPayV3.Test
 
             //注册微信
             //var senparcWeixinSetting = new SenparcWeixinSetting(true);
-            register.UseSenparcWeixin(_senparcWeixinSetting, senparcSetting).RegisterTenpayRealV3(_senparcWeixinSetting, "微信 V3");
+            register.UseSenparcWeixin(_senparcWeixinSetting, senparcSetting).RegisterTenpayApiV3(_senparcWeixinSetting, "微信 V3");
             register.ChangeDefaultCacheNamespace("Senparc.Weixin Test Cache");
         }
 

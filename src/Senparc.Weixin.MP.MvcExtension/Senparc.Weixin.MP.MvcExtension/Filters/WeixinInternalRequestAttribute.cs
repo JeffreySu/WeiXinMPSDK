@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
 
     文件名：WeixinInternalRequestAttribute.cs
     文件功能描述：微信内置浏览器状态判断
@@ -17,7 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-#if NET45
+#if NET462
 using System.Web.Mvc;
 using System.Web;
 #else
@@ -56,7 +56,7 @@ namespace Senparc.Weixin.MP.MvcExtension
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-#if NET45
+#if NET462
             if (string.IsNullOrEmpty(_ignoreParameter) || string.IsNullOrEmpty(filterContext.RequestContext.HttpContext.Request.QueryString[_ignoreParameter]))
 #else
             if (string.IsNullOrEmpty(_ignoreParameter) || string.IsNullOrEmpty(filterContext.HttpContext.Request.Query[_ignoreParameter]))

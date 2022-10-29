@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Senparc.WebSocket" Version="0.17.1" />
+    <PackageReference Include="Senparc.Weixin.Cache.CsRedis" Version="0.8.1" />
+    <PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.13.1" />
+    <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.15.1" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="16.18.2" />
+    <PackageReference Include="Senparc.Weixin.Open" Version="4.14.2" />
+    <PackageReference Include="Senparc.Weixin.TenPayV3" Version="0.6.2-beta1" />
+    <PackageReference Include="Senparc.Weixin.Work" Version="3.15.3-beta3" />
+    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.15.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin.Sample.CommonService\Senparc.Weixin.NetCore3Sample.CommonService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

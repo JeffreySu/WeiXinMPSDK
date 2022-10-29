@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
 
     文件名：WebSocketRouteConfig.cs
     文件功能描述：自动配置WebSocket路由
@@ -15,7 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-#if NET45
+#if NET462
 using System.Web.Routing;
 #else
 using Microsoft.AspNetCore.Routing;
@@ -30,7 +30,7 @@ namespace Senparc.WebSocket
     {
         internal static Func<WebSocketMessageHandler> WebSocketMessageHandlerFunc { get; set; }
 
-#if NET45
+#if NET462
         /// <summary>
         /// 注册WebSocket路由规则
         /// </summary>

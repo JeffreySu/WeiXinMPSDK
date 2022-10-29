@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
   
     文件名：QueryPartnershipsRequestData.cs
     文件功能描述：查询合作关系接口请求数据
@@ -53,6 +53,21 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         {
             this.partner = partner;
             this.authorized_data = authorized_data;
+        }
+
+        /// <summary>
+        /// 从BuildPartnerships接口返回Json构建请求类
+        /// </summary>
+        /// <param name="buildPartnershipsReturnJson">建立合作关系返回Json类</param>
+        public QueryPartnershipsRequestData(BuildPartnershipsReturnJson buildPartnershipsReturnJson)
+        {
+            this.partner.type = buildPartnershipsReturnJson.partner.type;
+            this.partner.appid = buildPartnershipsReturnJson.partner.appid;
+            this.partner.merchant_id = buildPartnershipsReturnJson.partner.merchant_id;
+
+
+            this.authorized_data.business_type = buildPartnershipsReturnJson.authorized_data.business_type;
+            this.authorized_data.stock_id = buildPartnershipsReturnJson.authorized_data.stock_id;
         }
 
         /// <summary>

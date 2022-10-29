@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
   
     文件名：CreateProfitsharingRequestData.cs
     文件功能描述：请求分账接口请求数据
@@ -53,7 +53,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
         /// <param name="out_order_no">商户分账单号 <para>body商户系统内部的分账单号，在商户系统内部唯一，同一分账单号多次请求等同一次。只能是数字、大小写字母_-|*@</para><para>示例值：P20150806125346</para></param>
         /// <param name="receivers">分账接收方列表 <para>body分账接收方列表，可以设置出资商户作为分账接受方，最多可有50个分账接收方</para></param>
         /// <param name="unfreeze_unsplit">是否解冻剩余未分资金 <para>body1、如果为true，该笔订单剩余未分账的金额会解冻回分账方商户；2、如果为false，该笔订单剩余未分账的金额不会解冻回分账方商户，可以对该笔订单再次进行分账。</para><para>示例值：true</para></param>
-        public CreateProfitsharingRequestData(string appid, string transaction_id, string out_order_no, Receivers[] receivers, bool unfreeze_unsplit)
+        public CreateProfitsharingRequestData(string appid, string transaction_id, string out_order_no, Receiver[] receivers, bool unfreeze_unsplit)
         {
             this.appid = appid;
             this.transaction_id = transaction_id;
@@ -94,7 +94,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
         /// 分账接收方列表
         /// <para>body分账接收方列表，可以设置出资商户作为分账接受方，最多可有50个分账接收方</para>
         /// </summary>
-        public Receivers[] receivers { get; set; }
+        public Receiver[] receivers { get; set; }
 
         /// <summary>
         /// 是否解冻剩余未分资金
@@ -104,7 +104,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
         public bool unfreeze_unsplit { get; set; }
 
         #region 子数据类型
-        public class Receivers
+        public class Receiver
         {
 
             /// <summary>
@@ -115,7 +115,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
             /// <param name="name">分账个人接收方姓名 <para>可选项，在接收方类型为个人的时可选填，若有值，会检查与name是否实名匹配，不匹配会拒绝分账请求1、分账接收方类型是PERSONAL_OPENID，是个人姓名的密文（选传，传则校验）此字段的加密方法详见：敏感信息加密说明2、使用微信支付平台证书中的公钥3、使用RSAES-OAEP算法进行加密4、将请求中HTTP头部的Wechatpay-Serial设置为证书序列号</para><para>示例值：hu89ohu89ohu89o</para><para>可为null</para></param>
             /// <param name="amount">分账金额 <para>分账金额，单位为分，只能为整数，不能超过原订单支付金额及最大分账比例金额</para><para>示例值：888</para></param>
             /// <param name="description">分账描述 <para>分账的原因描述，分账账单中需要体现</para><para>示例值：分给商户A</para></param>
-            public Receivers(string type, string account, string name, int amount, string description)
+            public Receiver(string type, string account, string name, int amount, string description)
             {
                 this.type = type;
                 this.account = account;
@@ -127,7 +127,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
             /// <summary>
             /// 无参构造函数
             /// </summary>
-            public Receivers()
+            public Receiver()
             {
             }
 

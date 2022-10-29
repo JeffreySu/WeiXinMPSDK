@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -27,6 +27,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20161204
 
+    修改标识：Senparc - 20220912
+    修改描述：v3.15.8 添加“按钮交互型”，“投票选择型”和“多项选择型”的模板卡片消息
+
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
@@ -39,9 +43,31 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Mass
     /// </summary>
     public class MassResult : WorkJsonResult
     {
+        /// <summary>
+        /// 不合法的userid，不区分大小写，统一转为小写
+        /// </summary>
         public string invaliduser { get; set; }
+        /// <summary>
+        /// 不合法的partyid
+        /// </summary>
         public string invalidparty { get; set; }
+        /// <summary>
+        /// 不合法的标签id
+        /// </summary>
         public string invalidtag { get; set; }
+        /// <summary>
+        /// 没有基础接口许可(包含已过期)的userid
+        /// </summary>
+        public string unlicenseduser { get; set; }
+        /// <summary>
+        /// 消息id，用于<see href="https://developer.work.weixin.qq.com/document/path/90236#31947">撤回应用消息</see>
+        /// </summary>
+        public string msgid { get; set; }
+        /// <summary>
+        /// 仅消息类型为“按钮交互型”，“投票选择型”和“多项选择型”的模板卡片消息返回，应用可使用response_code调用<see href="https://developer.work.weixin.qq.com/document/path/90236#32086">更新模版卡片消息</see>接口，24小时内有效，且只能使用一次
+        /// </summary>
+        public string response_code { get; set; }
+
     }
 
 

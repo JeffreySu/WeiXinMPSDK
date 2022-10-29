@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
 
     文件名：Register.cs
     文件功能描述：注册 Senparc.WebSocket 服务
@@ -9,7 +9,7 @@
 
 ----------------------------------------------------------------*/
 
-#if !NET45
+#if !NET462
 using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.RegisterServices;
 using System;

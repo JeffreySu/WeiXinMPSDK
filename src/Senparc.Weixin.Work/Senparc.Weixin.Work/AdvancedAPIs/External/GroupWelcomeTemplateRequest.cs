@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：GroupWelcomeTemplateBaseRequest.cs
     文件功能描述：入群欢迎语 请求参数
@@ -74,9 +74,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
         /// </summary>
         public string template_id { get; set; }
     }
-    /// <summary>
-    /// 
-    /// </summary>
+
+
     public class GroupWelcomeTemplateGetResult : WorkJsonResult
     {
 

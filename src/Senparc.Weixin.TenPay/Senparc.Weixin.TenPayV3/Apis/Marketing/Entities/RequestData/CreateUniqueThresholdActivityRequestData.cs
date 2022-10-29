@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
   
     文件名：CreateUniqueThresholdActivityRequestData.cs
     文件功能描述：创建全场满额送活动接口请求数据
@@ -102,14 +102,14 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
             /// <param name="delivery_purpose">投放目的  <para>枚举值：OFF_LINE_PAY：拉用户回店消费JUMP_MINI_APP：引导用户前往小程序消费</para><para>示例值：OFF_LINE_PAY</para></param>
             /// <param name="mini_programs_appid">商家小程序appid  <para>投放目的为JUMP_MINI_APP时必填。</para><para>示例值：wx23232232323</para><para>可为null</para></param>
             /// <param name="mini_programs_path">商家小程序path  <para>如果传入此参数，则跳转至商家小程序；反之则跳转至券详情页面。</para><para>示例值：/path/index/index</para><para>可为null</para></param>
-            public Activity_Base_Info(string activity_name, string activity_second_title, string merchant_logo_url, string background_color, string begin_time, string end_time, Available_Periods available_periods, string out_request_no, string delivery_purpose, string mini_programs_appid, string mini_programs_path)
+            public Activity_Base_Info(string activity_name, string activity_second_title, string merchant_logo_url, string background_color, TenpayDateTime begin_time, TenpayDateTime end_time, Available_Periods available_periods, string out_request_no, string delivery_purpose, string mini_programs_appid, string mini_programs_path)
             {
                 this.activity_name = activity_name;
                 this.activity_second_title = activity_second_title;
                 this.merchant_logo_url = merchant_logo_url;
                 this.background_color = background_color;
-                this.begin_time = begin_time;
-                this.end_time = end_time;
+                this.begin_time = begin_time.ToString();
+                this.end_time = end_time.ToString();
                 this.available_periods = available_periods;
                 this.out_request_no = out_request_no;
                 this.delivery_purpose = delivery_purpose;

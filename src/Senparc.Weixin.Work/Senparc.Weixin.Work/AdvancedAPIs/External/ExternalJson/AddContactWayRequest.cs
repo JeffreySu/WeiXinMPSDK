@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：AddContactWayRequest.cs
     文件功能描述：配置客户联系「联系我」方式 请求数据
@@ -7,6 +7,9 @@
     
     创建标识：Senparc - 20210316
     
+    修改标识：Senparc - 20220918
+    修改描述：v3.15.9 将 Conclusions 类放到 COMMON_ContactWayResult.cs 中公用
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
@@ -73,37 +76,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
         public Conclusions conclusions { get; set; }
     }
 
-    public class Conclusions
-    {
-        public Text text { get; set; }
-        public Image image { get; set; }
-        public Link link { get; set; }
-        public Miniprogram miniprogram { get; set; }
-    }
-
-    public class Text
-    {
-        public string content { get; set; }
-    }
-
-    public class Image
-    {
-        public string media_id { get; set; }
-    }
-
-    public class Link
-    {
-        public string title { get; set; }
-        public string picurl { get; set; }
-        public string desc { get; set; }
-        public string url { get; set; }
-    }
-
-    public class Miniprogram
-    {
-        public string title { get; set; }
-        public string pic_media_id { get; set; }
-        public string appid { get; set; }
-        public string page { get; set; }
-    }
 }

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
   
     文件名：TenPaySignHelper.cs
     文件功能描述：微信支付V3签名Helper类 可用于创建签名 验证签名
@@ -27,6 +27,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20210819
 
+    修改标识：Senparc - 20211002
+    修改描述：v0.3.500.4-preview4.3 TenPaySignHelper.CreateSign() 支持 Linux 和 Windows 环境
     
 ----------------------------------------------------------------*/
 
@@ -35,6 +37,7 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
@@ -59,12 +62,23 @@ namespace Senparc.Weixin.TenPayV3.Helpers
             // NOTE： 私钥不包括私钥文件起始的-----BEGIN PRIVATE KEY-----
             //        亦不包括结尾的-----END PRIVATE KEY-----
             //string privateKey = "{你的私钥}";
+
             byte[] keyData = Convert.FromBase64String(privateKey);
-            using (CngKey cngKey = CngKey.Import(keyData, CngKeyBlobFormat.Pkcs8PrivateBlob))
-            using (RSACng rsa = new RSACng(cngKey))
+
+            #region 以下方法不兼容 Linux
+            //using (CngKey cngKey = CngKey.Import(keyData, CngKeyBlobFormat.Pkcs8PrivateBlob))
+            //using (RSACng rsa = new RSACng(cngKey))
+            //{
+            //    byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
+            //    return Convert.ToBase64String(rsa.SignData(data, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
+            //}
+            #endregion
+
+            using (var rsa = System.Security.Cryptography.RSA.Create())
             {
+                rsa.ImportPkcs8PrivateKey(keyData, out _);
                 byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
-                return Convert.ToBase64String(rsa.SignData(data, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
+                return Convert.ToBase64String(rsa.SignData(data, 0, data.Length, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
             }
         }
 
@@ -152,11 +166,11 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <returns></returns>
         public static async Task<bool> VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignature, string content, string serialNumber, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
         {
-            string contentForSign = $"{wechatpayTimestamp}\n{wechatpayNonce}\n{content}\n";
+            //string contentForSign = $"{wechatpayTimestamp}\n{wechatpayNonce}\n{content}\n";
 
             var tenpayV3InfoKey = TenPayHelper.GetRegisterKey(senparcWeixinSettingForTenpayV3.TenPayV3_MchId, senparcWeixinSettingForTenpayV3.TenPayV3_SubMchId);
             var pubKey = await TenPayV3InfoCollection.Data[tenpayV3InfoKey].GetPublicKeyAsync(serialNumber, senparcWeixinSettingForTenpayV3);
-            return VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, contentForSign, pubKey);
+            return VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content, pubKey);
         }
 
         /// <summary>

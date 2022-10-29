@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：EntityHelper.cs
     文件功能描述：实体与xml相互转换
@@ -287,11 +287,11 @@ namespace Senparc.Weixin.Work.Helpers
             //不同返回类型需要对应不同特殊格式的排序
             if (entity is ResponseMessageNews)
             {
-                propNameOrder.AddRange(new[] { "ArticleCount", "Articles", "FuncFlag",/*以下是Atricle属性*/ "Title ", "Description ", "PicUrl", "Url" });
+                propNameOrder.AddRange(new[] { "ArticleCount", "Articles", "FuncFlag",/*以下是Article属性*/ "Title ", "Description ", "PicUrl", "Url" });
             }
             else if (entity is ResponseMessageMpNews)
             {
-                propNameOrder.AddRange(new[] { "MpNewsArticleCount", "MpNewsArticles", "FuncFlag",/*以下是MpNewsAtricle属性*/ "Title ", "Description ", "PicUrl", "Url" });
+                propNameOrder.AddRange(new[] { "MpNewsArticleCount", "MpNewsArticles", "FuncFlag",/*以下是MpNewsArticle属性*/ "Title ", "Description ", "PicUrl", "Url" });
             }
             else if (entity is ResponseMessageImage)
             {
@@ -322,26 +322,26 @@ namespace Senparc.Weixin.Work.Helpers
                 if (propName == "Articles")
                 {
                     //文章列表
-                    var atriclesElement = new XElement("Articles");
+                    var articlesElement = new XElement("Articles");
                     var articales = prop.GetValue(entity, null) as List<Article>;
                     foreach (var articale in articales)
                     {
                         var subNodes = ConvertEntityToXml(articale).Root.Elements();
-                        atriclesElement.Add(new XElement("item", subNodes));
+                        articlesElement.Add(new XElement("item", subNodes));
                     }
-                    root.Add(atriclesElement);
+                    root.Add(articlesElement);
                 }
                 else if (propName == "MpNewsArticles")
                 {
-                    var mpNewsAtriclesElement = new XElement("MpNewsArticles");
+                    var mpNewsArticlesElement = new XElement("MpNewsArticles");
                     var mpNewsAtricles = prop.GetValue(entity, null) as List<MpNewsArticle>;
                     foreach (var mpNewsArticale in mpNewsAtricles)
                     {
                         var subNodes = ConvertEntityToXml(mpNewsArticale).Root.Elements();
-                        mpNewsAtriclesElement.Add(subNodes);
+                        mpNewsArticlesElement.Add(subNodes);
                     }
 
-                    root.Add(mpNewsAtriclesElement);
+                    root.Add(mpNewsArticlesElement);
                 }
                 else if (propName == "Image" || propName == "Video" || propName == "Voice")
                 {

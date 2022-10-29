@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
   
     文件名：TenPayApiRequest.cs
     文件功能描述：微信支付V3接口请求
@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20210822
     修改描述：重构使用ISenparcWeixinSettingForTenpayV3初始化实例
+
+    修改标识：Senparc - 20211225
+    修改描述：v0.5.2 发布版本删除调试代码
     
 ----------------------------------------------------------------*/
 
@@ -106,7 +109,7 @@ namespace Senparc.Weixin.TenPayV3
                 TenPayHttpHandler httpHandler = new(_tenpayV3Setting);
 
                 //创建 HttpClient
-                HttpClient client = new HttpClient(httpHandler);
+                HttpClient client = new HttpClient(httpHandler);//TODO: 有资源消耗和效率问题
                 //设置超时时间
                 client.Timeout = TimeSpan.FromMilliseconds(timeOut);
 
@@ -119,6 +122,11 @@ namespace Senparc.Weixin.TenPayV3
                     case ApiRequestMethod.GET:
                         responseMessage = await client.GetAsync(url);
                         WeixinTrace.Log(url); //记录Get的Json数据
+                        break;
+                    //TODO: 此处新增DELETE方法 待测试是否有问题
+                    case ApiRequestMethod.DELETE:
+                        responseMessage = await client.DeleteAsync(url);
+                        WeixinTrace.Log(url); //记录Delete的Json数据
                         break;
                     case ApiRequestMethod.POST:
                     case ApiRequestMethod.PUT:
@@ -177,6 +185,10 @@ namespace Senparc.Weixin.TenPayV3
 
                 //获取响应结果
                 string content = await responseMessage.Content.ReadAsStringAsync();//TODO:如果不正确也要返回详情
+
+#if DEBUG
+                Console.WriteLine("Content:" + content + ",,Headers:" + responseMessage.Headers.ToString());
+#endif
 
                 //检查响应代码
                 TenPayApiResultCode resutlCode = TenPayApiResultCode.TryGetCode(responseMessage.StatusCode, content);

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：OAuthAccessTokenResult.cs
     文件功能描述：获取OAuth AccessToken的结果
@@ -38,6 +38,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20160810
     修改说明：添加序列化标签
+
+    修改标识：Senparc - 20220910
+    修改说明：v16.18.6 OAuth 的 AccessToken 获取接口添加 is_snapshotuser 返回值
 ----------------------------------------------------------------*/
 
 using System;
@@ -76,5 +79,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
         /// 只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。详见：获取用户个人信息（UnionID机制）
         /// </summary>
         public string unionid { get; set; }
+
+        /// <summary>
+        /// 是否为快照页模式虚拟账号，只有当用户是快照页模式虚拟账号是返回，值为1
+        /// </summary>
+        public int? is_snapshotuser { get; set; }
     }
 }

@@ -58,6 +58,18 @@ namespace Senparc.Weixin.WxOpen.MessageContexts
                         case "WXA_NICKNAME_AUDIT": //名称审核结果
                             requestMessage = new RequestMessageEvent_NicknameAudit();
                             break;
+                        case "WXA_ILLEGAL_RECORD": //小程序违规记录事件
+                            requestMessage = new RequestMessageEvent_IllegalRecord();
+                            break;
+                        case "WXA_APPEAL_RECORD": //小程序申诉记录推送
+                            requestMessage = new RequestMessageEvent_AppealRecord();
+                            break;
+                        case "WXA_PRIVACY_APPLY": //隐私权限审核结果推送
+                            requestMessage = new RequestMessageEvent_PrivacyApply();
+                            break;
+                        case "WXA_MEDIA_CHECK"://内容安全回调：wxa_media_check 推送结果
+                            requestMessage = new RequestMessageEvent_MediaCheck();
+                            break;
                         default://其他意外类型（也可以选择抛出异常）
                             requestMessage = new RequestMessageEventBase();
                             break;
@@ -82,7 +94,6 @@ namespace Senparc.Weixin.WxOpen.MessageContexts
                 case ResponseMsgType.Transfer_Customer_Service:
                     responseMessage = new ResponseMessageTransfer_Customer_Service();
                     break;
-
                 case ResponseMsgType.NoResponse:
                     responseMessage = new ResponseMessageNoResponse();
                     break;

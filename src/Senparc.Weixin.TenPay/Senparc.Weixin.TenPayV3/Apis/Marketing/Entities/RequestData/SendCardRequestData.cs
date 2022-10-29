@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
   
     文件名：SendCardRequestData.cs
     文件功能描述：建发放消费卡接口请求数据
@@ -54,13 +54,13 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <param name="openid">用户openid  <para>body待发卡用户的openid，需为消费卡归属appid生成的openid。</para><para>示例值：obLatjhnqgy2syxrXVM3MJirbkdI</para></param>
         /// <param name="out_request_no">商户单据号  <para>body商户此次发放凭据号。推荐使用大小写字母和数字，不同添加请求发放凭据号不同，商户侧需保证同一发券请求的out_request_no和send_time的唯一性。</para><para>示例值：oTYhjfdsahnssddj_0136</para></param>
         /// <param name="send_time">请求发卡时间  <para>body单次请求发卡时间，消费卡在商户系统的实际发放时间，为东八区标准时间（UTC+8）。商户需保证同一次请求的out_request_no和send_time唯一。由于系统限制，暂不支持传入早于当前时间24小时以上的时间进行发券请求。</para><para>示例值：2019-12-31T13:29:35.120+08:00</para></param>
-        public SendCardRequestData(string card_id, string appid, string openid, string out_request_no, string send_time)
+        public SendCardRequestData(string card_id, string appid, string openid, string out_request_no, TenpayDateTime send_time)
         {
             this.card_id = card_id;
             this.appid = appid;
             this.openid = openid;
             this.out_request_no = out_request_no;
-            this.send_time = send_time;
+            this.send_time = send_time.ToString();
         }
 
         /// <summary>

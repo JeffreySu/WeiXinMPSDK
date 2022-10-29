@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：WxOpenMessageHandler.cs
     文件功能描述：小程序MessageHandler
@@ -41,6 +41,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
       
     修改标识：Senparc - 2020909
     修改描述：v3.8.511 MessageHandler 增加异步方法
+
+    修改标识：Senparc - 20220808
+    修改描述：v3.15.7 修复 RequestMsgType.Event 返回值没有正确赋值的问题
 
 ----------------------------------------------------------------*/
 
@@ -247,6 +250,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             throw new MessageHandlerException("请使用异步方法 OnExecutedAsync()");
         }
 
+
         #endregion
 
         #region 异步方法
@@ -322,11 +326,13 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     }
                     break;
                 case RequestMsgType.NeuChar:
-                    ResponseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar).ConfigureAwait(false);
+                    {
+                        ResponseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar).ConfigureAwait(false);
+                    }
                     break;
                 case RequestMsgType.Event:
                     {
-                        await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase).ConfigureAwait(false);
+                        ResponseMessage = await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase).ConfigureAwait(false);
                     }
                     break;
                 default:

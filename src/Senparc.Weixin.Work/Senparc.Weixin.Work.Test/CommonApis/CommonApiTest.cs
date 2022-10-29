@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -48,7 +48,7 @@ namespace Senparc.Weixin.Work.Test.CommonApis
     /// CommonApiTest 的摘要说明
     /// </summary>
     [TestClass]
-    public partial class CommonApiTest: BaseTest
+    public partial class CommonApiTest : BaseTest
     {
         private dynamic _appConfig;
         protected dynamic AppConfig
@@ -117,8 +117,9 @@ namespace Senparc.Weixin.Work.Test.CommonApis
             }
 
 
+
             //全局只需注册一次
-            AccessTokenContainer.Register(_corpId, _corpSecret);
+            AccessTokenContainer.RegisterAsync(_corpId, _corpSecret, "单元测试").GetAwaiter().GetResult();
         }
 
 

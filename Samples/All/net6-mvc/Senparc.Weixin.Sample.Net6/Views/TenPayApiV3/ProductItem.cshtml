@@ -1,0 +1,37 @@
+﻿@model Senparc.Weixin.Sample.Net6.Models.ProductModel
+@*DPBMARK_FILE TenPay*@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>商品详情</title>
+</head>
+<body>
+    <div>
+        <h1>商品名称：@Model.Name</h1>
+        <p>单价：@Model.Price.ToString("c")</p>
+    </div>
+    <hr />
+
+    <h2>支付方式一：H5 支付（本机外部浏览器支付）</h2>
+    <p>注意：H5支付用于<strong>已经安装微信的手机客户端</strong>，使用微信外部浏览器网页内的支付。</p>
+    <p>@Html.ActionLink("点击这里使用H5支付", "H5Pay", "TenPayApiV3", new { productId = Model.Id, hc = Model.GetHashCode()}, null)</p>
+    <hr />
+
+    <h2>支付方式二：“扫一扫”Native 支付（PC 或外部设备扫码支付）</h2>
+    <p>注意：此方法适用于 PC 或外部设备显示二维码，使用微信扫码支付。</p>
+    <img src="@Url.Action("NativePayCode",new{productId=Model.Id,hc=Model.GetHashCode()})" />
+    </p>
+    <hr />
+
+    <h2>支付方式三：“扫一扫”进入详情支付</h2>
+    <p>
+        使用微信“扫一扫”下方二维码，引导进入订单详情页，完成支付：<br />
+        <img src="@Url.Action("ProductPayCode",new{productId=Model.Id,hc=Model.GetHashCode()})" />
+    </p>
+    <hr />
+</body>
+</html>

@@ -231,7 +231,7 @@ namespace Senparc.Weixin.Sample.WxOpen.Controllers
                     $@"sessionId: {sessionId}
 encryptedData: {encryptedData}
 iv: {iv}
-sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
+sessionKey: {(await SessionContainer.CheckRegisteredAsync(sessionId)
                 ? (await SessionContainer.GetSessionAsync(sessionId)).SessionKey
                 : "未保存sessionId")}
 
@@ -558,12 +558,12 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
                 var basePayApis = new Senparc.Weixin.TenPayV3.Apis.BasePayApis(Config.SenparcWeixinSetting);
 
                 var requestData = new TenPayV3.Apis.BasePay.TransactionsRequestData(WxOpenAppId, Config.SenparcWeixinSetting.TenPayV3_MchId, body, sp_billno, new TenPayV3.Entities.TenpayDateTime(SystemTime.Now.AddMinutes(120).DateTime, false), HttpContext.UserHostAddress().ToString(), notifyUrl, null, new() { currency = "CNY", total = price }, new(openId), null, null, null);
-                var result =await basePayApis.JsApiAsync(requestData);
+                var result = await basePayApis.JsApiAsync(requestData);
 
                 var packageStr = "prepay_id=" + result.prepay_id;
 
                 var jsApiUiPackage = TenPaySignHelper.GetJsApiUiPackage(WxOpenAppId, result.prepay_id);
-                
+
                 return Json(new
                 {
                     success = true,

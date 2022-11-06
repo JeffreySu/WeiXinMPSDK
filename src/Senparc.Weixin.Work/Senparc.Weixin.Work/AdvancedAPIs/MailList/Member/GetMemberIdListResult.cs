@@ -1,3 +1,18 @@
+/*----------------------------------------------------------------
+    Copyright (C) 2022 Senparc
+    
+    文件名：GetMemberIdListResult.cs
+    文件功能描述：通讯录同步接口
+    
+    
+    创建标识：IcedMango - 20220919
+     
+    修改标识：IcedMango - 20221106
+    修改描述：v3.15.10 增加企业微信获取成员ID列表的接口
+
+----------------------------------------------------------------*/
+
+
 
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;

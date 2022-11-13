@@ -23,7 +23,8 @@
 		<PackageIcon>icon.jpg</PackageIcon>
 		<PackageReleaseNotes>
 			v0.1.0 创世
-			v0.7.4 1、优化 UseSenparcWeixin()
+			v0.7.4
+			1、优化 UseSenparcWeixin()
 			2、添加 WeixinResult、FixWeixinBugWeixinResult
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>

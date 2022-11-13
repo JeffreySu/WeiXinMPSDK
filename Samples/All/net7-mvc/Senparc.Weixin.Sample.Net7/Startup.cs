@@ -37,6 +37,8 @@ using Senparc.Weixin.WxOpen.MessageHandlers.Middleware;//DPBMARK MiniProgram DPB
 using System;
 using System.IO;
 using System.Text;
+using Senparc.CO2NET.Helpers;
+using NuGet.Protocol;
 
 namespace Senparc.Weixin.Sample.Net6
 {
@@ -312,17 +314,15 @@ namespace Senparc.Weixin.Sample.Net6
                                         Directory.CreateDirectory(dir);
                                     }
 
-                                    var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
+                                    var file = Path.Combine(dir, string.Format("{0}.json", auhtorizerId));
                                     if (!File.Exists(file))
                                     {
                                         return null;
                                     }
 
-                                    using (Stream fs = new FileStream(file, FileMode.Open))
+                                    using (StreamReader sr = new StreamReader(file, Encoding.UTF8))
                                     {
-                                        var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                                        var result = (RefreshAuthorizerTokenResult)binFormat.Deserialize(fs);
-                                        fs.Close();
+                                        var result = sr.ReadToEnd().GetObject<RefreshAuthorizerTokenResult>();
                                         return result.authorizer_refresh_token;
                                     }
                                 },
@@ -336,14 +336,12 @@ namespace Senparc.Weixin.Sample.Net6
                                         Directory.CreateDirectory(dir);
                                     }
 
-                                    var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
-                                    using (Stream fs = new FileStream(file, FileMode.Create))
+                                    var file = Path.Combine(dir, string.Format("{0}.json", auhtorizerId));
+                                    using (StreamWriter sw = new StreamWriter(file, true))
                                     {
                                         //这里存了整个对象，实际上只存RefreshToken也可以，有了RefreshToken就能刷新到最新的AccessToken
-                                        var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                                        binFormat.Serialize(fs, refreshResult);
-                                        fs.Flush();
-                                        fs.Close();
+                                        sw.Write(refreshResult.ToJson());
+                                        sw.Flush();
                                     }
                                 }, "【盛派网络】开放平台")
 

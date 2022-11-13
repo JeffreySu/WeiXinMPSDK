@@ -9,179 +9,187 @@
     <Import_RootNamespace>Senparc.Weixin.Sample.MP</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\css\site.css">
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\css\site.css">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
     <Content Include="$(MSBuildThisFileDirectory)wwwroot\images\banner\01.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\js\site.js">
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\js\site.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.css">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.css.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.css.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.min.css">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.js">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.js.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.js.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.min.js">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\LICENSE">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\LICENSE">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation\dist\additional-methods.js">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation\dist\additional-methods.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation\dist\additional-methods.min.js">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation\dist\additional-methods.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation\dist\jquery.validate.js">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation\dist\jquery.validate.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation\dist\jquery.validate.min.js">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation\dist\jquery.validate.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation\LICENSE.md">
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation\LICENSE.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery\dist\jquery.js" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery\dist\jquery.min.js" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery\dist\jquery.min.map" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery\LICENSE.txt" />
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery\dist\jquery.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery\dist\jquery.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery\dist\jquery.min.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery\LICENSE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

@@ -39,6 +39,7 @@ using System.IO;
 using System.Text;
 using Senparc.CO2NET.Helpers;
 using NuGet.Protocol;
+using Microsoft.Extensions.FileProviders;
 
 namespace Senparc.Weixin.Sample.Net6
 {
@@ -113,6 +114,13 @@ namespace Senparc.Weixin.Sample.Net6
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            #region 此部分代码为 Sample 共享文件需要而添加，实际项目无需添加
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"..", "..", "Senparc.Weixin.Sample.Shared", "wwwroot")),
+                RequestPath = new PathString("")
+            });
+            #endregion
             app.UseRouting();
 
 

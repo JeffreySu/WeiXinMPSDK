@@ -1,0 +1,118 @@
+﻿@*DPBMARK_FILE Work*@
+@{
+    Layout = null;
+    var jsApiUiPackage = ViewData["jsApiUiPackage"] as Senparc.Weixin.Work.JsApiUiPackage;
+    var agentJsApiUiPackage = ViewData["agentJsApiUiPackage"] as Senparc.Weixin.Work.JsApiUiPackage;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>企业微信自定义审批流程</title>
+    <style>
+        .green {
+            color: green;
+        }
+    </style>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="//open.work.weixin.qq.com/wwopen/js/jwxwork-1.0.0.js"></script>
+
+    <script>
+        //ViewData["jsApiTicket"] : @ViewData["jsApiTicket"]
+        //ViewData["agentConfigJsApiTicket"]  : @ViewData["agentConfigJsApiTicket"]
+        $(function(){
+            wx.config({
+                    beta: true,// 必须这么写，否则wx.invoke调用形式的jsapi会有问题
+                    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                    appId: '@jsApiUiPackage.AppId', // 必填，企业微信的corpID
+                    timestamp: @jsApiUiPackage.Timestamp, // 必填，生成签名的时间戳
+                    nonceStr: '@jsApiUiPackage.NonceStr', // 必填，生成签名的随机串
+                    signature: '@jsApiUiPackage.Signature',// 必填，签名，见 附录-JS-SDK使用权限签名算法
+                    jsApiList: ['thirdPartyOpenPage'] // 必填，需要使用的JS接口列表，凡是要调用的接口都需要传进来
+                });
+
+                wx.checkJsApi({
+                    jsApiList: ['thirdPartyOpenPage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                    success: function(res) {
+                        // 以键值对的形式返回，可用的api值true，不可用为false
+                        // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+                        alert("wx.config success:"+JSON.stringify(res));
+                    }
+                });
+        });
+
+        wx.ready(function(){
+            // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+            alert("wx.ready:");
+        });
+
+        wx.error(function(res){
+            // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+            console.log(res);
+            alert(res);
+        });
+
+        function invoke(){
+            alert('run invoke');
+            wx.agentConfig({
+                corpid: '@ViewData["corpId"]', // 必填，企业微信的corpid，必须与当前登录的企业一致
+                agentid: '@ViewData["agentId"]', // 必填，企业微信的应用id （e.g. 1000247）
+                timestamp: @agentJsApiUiPackage.Timestamp, // 必填，生成签名的时间戳
+                nonceStr: '@agentJsApiUiPackage.NonceStr', // 必填，生成签名的随机串
+                signature: '@agentJsApiUiPackage.Signature',// 必填，签名，见附录-JS-SDK使用权限签名算法
+                jsApiList: ['thirdPartyOpenPage'], //必填，传入需要使用的接口名称
+                success: function(res) {
+                    alert("wx.agentConfig success:"+JSON.stringify(res));
+
+                    // 回调
+                    wx.invoke('thirdPartyOpenPage', {
+                        "oaType": "10001",// String
+                        //"templateId": "C4NxepvGj51gbkeGXHQgYRArW96WrxRinNfyCxo7N",//SYS
+                        "templateId":"247bcb886d0374a0a1f749c52794ba1a_622421053",// Open
+                        "thirdNo": "@ViewData["thirdNo"]",// String
+                        "extData": {
+                            'fieldList': [{
+                                'title': '审批类型',
+                                'type': 'text',
+                                'value': '文章审批',
+                            },
+                            {
+                                'title': '预览',
+                                'type': 'link',
+                                'value': 'https://weixin.senparc.com',
+                            }],
+                        }
+                    },
+                    function(res) {
+                        // 输出接口的回调信息
+                        console.log(res);
+                        alert('wx.invoke result:'+JSON.stringify(res));
+                    });
+                },
+                fail: function(res) {
+                    if(res.errMsg.indexOf('function not exist') > -1){
+                        alert('版本过低请升级')
+                    }
+                    else{
+                        alert('wx.invoke fail:'+JSON.stringify(res));
+                    }
+                }
+            });
+
+        }
+    </script>
+</head>
+<body>
+
+    <h2>说明</h2>
+    <p>自定义审批流程可以在 HTML5 页面中发起审批流程</p>
+    <p>
+        <a href="javascript:void(0)" onclick="invoke()">点击唤起审批流程</a>
+    </p>
+</body>
+</html>

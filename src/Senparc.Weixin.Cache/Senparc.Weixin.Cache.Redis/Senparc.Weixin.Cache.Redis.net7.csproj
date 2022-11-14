@@ -129,7 +129,7 @@
     <Compile Remove="RedisCacheLock.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BinaryFormatter" Version="2.1.4" />
+    <!--<PackageReference Include="BinaryFormatter" Version="2.1.4" />-->
     <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="4.1.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">

@@ -11,6 +11,11 @@
 > 提示：由于源码中采用了条件编译，因此默认情况下，需要开发环境同时安装 `.NET Framework 4.6.2`、'.NET 6.0' 才能编译成功！<br>
 > 如果您只希望编译 .NET Core 3.1，请将各个 .csproj 文件中的编译版本条件做对应的修改。
 
+
+## 使用 .NET 7.0 Demo
+
+返回上一级后见：[net7-mvc/Senparc.Weixin.Sample.Net7](../net7-mvc)。
+
 ## 使用 .NET Framework 4.5 Demo
 
 返回上一级后见：[net45-mvc/Senparc.Weixin.MP.Sample](../net45-mvc)。

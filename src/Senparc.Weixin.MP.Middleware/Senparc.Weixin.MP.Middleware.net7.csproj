@@ -71,7 +71,7 @@
 		<Compile Remove="Properties\AssemblyInfo.cs" />
 	</ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
-		<PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
+		<PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Senparc.NeuChar.AspNet" Version="1.1.1.1" />

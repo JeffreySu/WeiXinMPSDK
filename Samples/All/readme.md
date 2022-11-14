@@ -22,7 +22,7 @@
 
 ## 帮你选择
 
-> 如果你希望学习并使用最新的 .NET 6.0 框架，并且已经安装了 VS2022（v16.9 以上），并且希望调试 .NET 6.0 及以上版本，那么请打开：net6-mvc/Senparc.Weixin.Sample.Net6.sln 解决方案
+> 如果你希望学习并使用最新的 .NET 6.0（或7.0） 框架，并且已经安装了 VS2022（v16.9 以上），并且希望调试 .NET 6.0 及以上版本，那么请打开：net6-mvc/Senparc.Weixin.Sample.Net6.sln （或 net7-mvc/Senparc.Weixin.Sample.Net7.sln）解决方案
 
 > 如果你希望将 Senparc.Weixin SDK 用于命令行或桌面应用，那么请打开：console/Senparc.Weixin.MP.Sample.Consoles.vs2019.sln 解决方案
 

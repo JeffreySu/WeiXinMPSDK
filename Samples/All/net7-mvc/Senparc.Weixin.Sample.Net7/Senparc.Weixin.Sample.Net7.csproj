@@ -12,7 +12,7 @@
 		<PackageReference Include="Senparc.NeuChar.App" Version="1.1.1.1" />
 		<PackageReference Include="Senparc.NeuChar.AspNet" Version="1.1.1.1" />
 
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0" />
 		<PackageReference Include="System.Drawing.Common" Version="6.0.0" />
 		<PackageReference Include="System.IO.Compression.ZipFile" Version="4.3.0" />

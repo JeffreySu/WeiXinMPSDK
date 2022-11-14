@@ -48,7 +48,7 @@ namespace Senparc.WeixinTests.Cache
             Console.WriteLine(jsonString);
         }
 
-#if !NETCOREAPP2_1 || NETCOREAPP2_2
+#if !NETCOREAPP2_1
         /// <summary>
         /// 对比序列化到JSON以及二进制序列化的效率
         /// </summary>
@@ -82,13 +82,13 @@ namespace Senparc.WeixinTests.Cache
                 var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(sessionBag);
                 var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<SessionBag>(jsonString);
 
-                if (i==0)
+                if (i == 0)
                 {
                     Console.WriteLine("Newtonsoft.JSON:");
                     Console.WriteLine(jsonString);//输出字符串
                     Console.WriteLine(obj.CacheTime);//输出反序列化后的参数
                     Console.WriteLine("==============");
-                    dt1=SystemTime.Now;//过滤启动时间，Newtonsoft启动时间需要200多ms
+                    dt1 = SystemTime.Now;//过滤启动时间，Newtonsoft启动时间需要200多ms
                 }
             }
             var dt2 = SystemTime.Now;
@@ -109,22 +109,25 @@ namespace Senparc.WeixinTests.Cache
                     Console.WriteLine(jsonString);//输出字符串
                     Console.WriteLine(obj.CacheTime);//输出反序列化后的参数
                     Console.WriteLine("==============");
-                    dt3=SystemTime.Now;//过滤启动时间
+                    dt3 = SystemTime.Now;//过滤启动时间
                 }
             }
             var dt4 = SystemTime.Now;
 
             var dt5 = SystemTime.Now;
+
+            Console.WriteLine("============== 使用 .NET 内置 JSON 序列化 ");
+
             //使用 .NET 内置 JSON 序列化
             for (int i = 0; i < testCycle; i++)
             {
                 //获取一个 SessionBag 对象
                 var sessionBag = getNewEntity();
-                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                var binaryConverter = new BinaryFormatter.BinaryConverter();
                 MemoryStream memoryStream = new MemoryStream();
                 {
                     //序列化
-                    binaryFormatter.Serialize(memoryStream, sessionBag);
+                    binaryConverter.Serialize(sessionBag, memoryStream);
                     byte[] objectDataAsStream = memoryStream.ToArray();
 
                     //反序列化
@@ -135,8 +138,8 @@ namespace Senparc.WeixinTests.Cache
                         Console.WriteLine(".NET Serializer:");
                         Console.WriteLine(Encoding.UTF8.GetString(objectDataAsStream));//输出字符串
                         Console.WriteLine(obj.CacheTime);//输出反序列化后的参数
-                    Console.WriteLine("==============");
-                    dt5=SystemTime.Now;//过滤启动时间
+                        Console.WriteLine("==============");
+                        dt5 = SystemTime.Now;//过滤启动时间
                     }
                 }
             }

@@ -37,7 +37,7 @@ using Senparc.CO2NET;
 using Senparc.Weixin.Entities;
 using Senparc.WeixinTests;
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
+#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
 using Microsoft.AspNetCore.Hosting;
 #endif
 
@@ -57,14 +57,14 @@ namespace Senparc.Weixin.Work.Test.CommonApis
             {
                 if (_appConfig == null)
                 {
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
+#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
                     var filePath = "../../../Config/test.config";
 #else
                     var filePath = "../../Config/test.config";
 #endif
                     if (File.Exists(filePath))
                     {
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
+#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
                         var stream = new FileStream(filePath, FileMode.Open);
                         var doc = XDocument.Load(stream);
                         stream.Dispose();

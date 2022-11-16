@@ -104,7 +104,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
         public void CreateWxaQrCodeAsyncTest2()
         {
             var dt1 = SystemTime.Now;
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
+#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
             var filePath = "../../../Config/qr-async2.jpg";
 #else
             var filePath = "../../Config/qr-async2.jpg";
@@ -130,7 +130,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
         public void GetWxaCodeUnlimitTest()
         {
             Console.WriteLine("GetWxaCodeUnlimitTest开始");
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
+#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
             var filePath = "../../../qr-wxopen.jpg";
 #else
             var filePath = "../../qr-wxopen.jpg";

@@ -65,7 +65,7 @@
                         </ol>
                     </td>
                     <td>
-                        @using (Html.BeginForm("TemplateMessageTest", "AsyncMethods", FormMethod.Post, new Dictionary<string, string>() { { "id", "form1" } }))
+                        @using (Html.BeginForm("TemplateMessageTest", "AsyncMethods", FormMethod.Post, new { target=  "_blank"  }))
                         {
                             <p>
                                 验证码：<input type="text" id="tm_checkcode" name="checkcode" />

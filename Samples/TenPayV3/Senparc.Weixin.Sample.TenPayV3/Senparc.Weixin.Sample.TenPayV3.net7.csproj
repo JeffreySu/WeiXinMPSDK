@@ -25,9 +25,9 @@
 
 	<!--引用 Nuget 包-->
 	<ItemGroup>
-		<PackageReference Include="Senparc.Weixin.AspNet" Version="0.8.2" />
-		<PackageReference Include="Senparc.Weixin.MP" Version="16.18.7" />
-		<PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.12.2" />
+		<PackageReference Include="Senparc.Weixin.AspNet" Version="0.8.3" />
+		<PackageReference Include="Senparc.Weixin.MP" Version="16.18.8" />
+		<PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.12.3" />
 		<PackageReference Include="Senparc.Weixin.TenpayV3" Version="0.6.4-beta1" />
 		<PackageReference Include="System.Drawing.Common" Version="6.0.0" />
 		<PackageReference Include="ZXing.Net" Version="0.16.8" />

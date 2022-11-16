@@ -69,7 +69,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 Title = "Senparc.Weixin SDK 的 ASP.NET 运行时基础库",
                 Description = "这些库基于 ASP.NET 运行时，依赖 ASP.NET 一些特性完成一系列基于 ASP.NET 及 ASP.NET Core 的操作。<br />" +
                 "分离出这些库的另外一个原因，是为了使 Senparc.Weixin SDK 核心库可以不依赖于 ASP.NET 运行时，<br />" +
-                "以便部署在轻量级的容器等环境中。"
+                "以便部署在轻量级的容器（如 Docker）、命令行（Console）、桌面（Desktop / WinForm / WPF / Blazor / MAUI / UWP），甚至手机应用（App）等特殊环境中。"
             };
             var aspnetList = new List<Home_IndexVD_AssemblyModel>();
             aspnetList.Add(new Home_IndexVD_AssemblyModel("ASP.NET<br />运行时基础库", "Senparc.Weixin.AspNet", typeof(Senparc.Weixin.AspNet.WeixinRegister), gitHubUrl: sdkGitHubUrl));//AspNet 运行时基础库
@@ -83,7 +83,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 Title = "Senparc.Weixin SDK 扩展组件",
                 Description = "Senparc.Weixin SDK 扩展组件用于提供缓存、WebSocket 等一系列扩展模块，<br />" +
                 "这些模块是盛派官方的一个实现，几乎所有的扩展模块都是严格面向接口开发的，<br />" +
-                "因此，您也可以自行扩展，并对接到微信 SDK 或其他系统中，<br />"
+                "因此，您也可以自行扩展，并对接到微信 SDK 或其他系统中。<br />"
             };
             var cacheAndExtensionList = new List<Home_IndexVD_AssemblyModel>();
             cacheAndExtensionList.Add(new Home_IndexVD_AssemblyModel("Redis 缓存<br />（StackExchange.Redis）", "Senparc.Weixin.Cache.Redis", typeof(Senparc.Weixin.Cache.Redis.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK Redis DPBMARK_END
@@ -113,7 +113,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 Title = "底层公共基础库：Senparc.CO2NET",
                 Description = "Senparc.CO2NET 是一个支持 .NET Framework 和 .NET Core 的公共基础扩展库，包含常规开发所需要的基础帮助类。<br />" +
                 "开发者可以直接使用 CO2NET 为项目提供公共基础方法，免去重复准备和维护公共代码的痛苦。<br />" +
-                "您可以在几乎任何项目中使用 CO2NET。"
+                "您可以在几乎任何项目中使用 CO2NET。<a href=\"https://github.com/Senparc/Senparc.CO2NET\" target=\"_blank\">查看源码</a>"
             };
             var co2netList = new List<Home_IndexVD_AssemblyModel>();
             co2netList.Add(new Home_IndexVD_AssemblyModel("CO2NET 基础库", "Senparc.CO2NET", typeof(CO2NET.Config), gitHubUrl: co2netGitHubUrl));//CO2NET 基础库版本信息

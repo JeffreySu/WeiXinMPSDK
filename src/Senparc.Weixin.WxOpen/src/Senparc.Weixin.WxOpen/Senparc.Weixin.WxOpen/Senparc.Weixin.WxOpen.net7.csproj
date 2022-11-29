@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.15.9</Version>
+    <Version>3.15.10-beta1</Version>
     <LangVersion>9.0</LangVersion>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
@@ -151,25 +151,26 @@
 			v3.8.512 添加解密到实例信息方法
 			v3.10.101 新增 WxOpen 专属 AccessTokenContainer，解决没有提供 name 参数的情况下，Register 过程和公众号注册信息发生冲突的问题
 			v3.10.102 修正 UniformSendData.Mp_Template_Msg.Miniprogram  参数 pagepath -&gt; page
-			v3.10.103 修正 WxOpenApiHandlerWapper 正确引用 AccessTokenContainer
-			v3.10.104 添加 WxAppApi.GenerateScheme() 接口
-			v3.10.401 升级 MessageApi.SendSubscribe() 方法参数
-			v3.11.100 修改完善“附近的小程序”接口
-			v3.13.500-preview4.1 添加“Short Link”接口
-			v3.14 添加 ExpressApi 接口
-			v3.14.2 添加“小程序违规和申诉管理”消息事件
-			v3.14.3 添加 UrlLinkApi.Generate() 接口
-			v3.14.4 添加 BusinessApi.GetUserPhoneNumber() 接口
-			v3.14.5 修改“下发小程序和公众号统一的服务消息”接口参数，提升兼容性
-			v3.14.10.1 修复 WxAppApi.GetWxaCodeUnlimitAsync() 接口参数错误
-			v3.15.2 添加小程序隐私接口
-			v3.15.3 添加商户客户参数（BusinessId）
-			v3.15.4 添加小程序客服管理接口
-			v3.15.6 添加“异步校验图片/音频是否含有违法违规内容”接口
-			v3.15.7
-			1、添加 OnEvent_MediaCheckRequest() 方法：内容安全回调 - wxa_media_check 推送结果
-			2、修复 RequestMsgType.Event 返回值没有正确赋值的问题
-</PackageReleaseNotes>
+		v3.10.103 修正 WxOpenApiHandlerWapper 正确引用 AccessTokenContainer
+		v3.10.104 添加 WxAppApi.GenerateScheme() 接口
+		v3.10.401 升级 MessageApi.SendSubscribe() 方法参数
+		v3.11.100 修改完善“附近的小程序”接口
+		v3.13.500-preview4.1 添加“Short Link”接口
+		v3.14 添加 ExpressApi 接口
+		v3.14.2 添加“小程序违规和申诉管理”消息事件
+		v3.14.3 添加 UrlLinkApi.Generate() 接口
+		v3.14.4 添加 BusinessApi.GetUserPhoneNumber() 接口
+		v3.14.5 修改“下发小程序和公众号统一的服务消息”接口参数，提升兼容性
+		v3.14.10.1 修复 WxAppApi.GetWxaCodeUnlimitAsync() 接口参数错误
+		v3.15.2 添加小程序隐私接口
+		v3.15.3 添加商户客户参数（BusinessId）
+		v3.15.4 添加小程序客服管理接口
+		v3.15.6 添加“异步校验图片/音频是否含有违法违规内容”接口
+		v3.15.7
+		1、添加 OnEvent_MediaCheckRequest() 方法：内容安全回调 - wxa_media_check 推送结果
+		2、修复 RequestMsgType.Event 返回值没有正确赋值的问题
+		v3.15.10 EncryptHelper.DecodeEncryptedData() 方法添加 keySize 参数
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

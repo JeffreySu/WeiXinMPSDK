@@ -36,6 +36,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：likui0623 - 20201013
     修改描述：添加解密到实例信息方法
 
+    修改标识：Senparc - 20221129
+    修改描述：v3.15.10 EncryptHelper.DecodeEncryptedData() 方法添加 keySize 参数
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -123,14 +126,14 @@ namespace Senparc.Weixin.WxOpen.Helpers
 
         #region 私有方法
 
-        private static byte[] AES_Decrypt(String Input, byte[] Iv, byte[] Key)
+        private static byte[] AES_Decrypt(String Input, byte[] Iv, byte[] Key, int keySize = 128)
         {
 #if NET462
             RijndaelManaged aes = new RijndaelManaged();
 #else
             SymmetricAlgorithm aes = Aes.Create();
 #endif
-            aes.KeySize = 128;//原始：256
+            aes.KeySize = keySize;//原始：256
             aes.BlockSize = 128;
             aes.Mode = CipherMode.CBC;
             aes.Padding = PaddingMode.PKCS7;
@@ -219,14 +222,15 @@ namespace Senparc.Weixin.WxOpen.Helpers
         /// <param name="sessionKey">储存在 SessionBag 中的当前用户 会话 SessionKey</param>
         /// <param name="encryptedData">接口返回数据中的 encryptedData 参数</param>
         /// <param name="iv">接口返回数据中的 iv 参数，对称解密算法初始向量</param>
+        /// <param name="keySize">默认 128，</param>
         /// <returns></returns>
-        public static string DecodeEncryptedData(string sessionKey, string encryptedData, string iv)
+        public static string DecodeEncryptedData(string sessionKey, string encryptedData, string iv, int keySize = 128)
         {
             //var aesCipher = Convert.FromBase64String(encryptedData);
             var aesKey = Convert.FromBase64String(sessionKey);
             var aesIV = Convert.FromBase64String(iv);
 
-            var result = AES_Decrypt(encryptedData, aesIV, aesKey);
+            var result = AES_Decrypt(encryptedData, aesIV, aesKey, keySize);
             var resultStr = Encoding.UTF8.GetString(result);
             return resultStr;
         }

@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "微信分布式缓存策略测试";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+//DPBMARK_FILE Redis
+//DPBMARK_FILE Memcached
+}
+@section HeaderContent
+{
+    <style>
+        .wrapper h2 {
+            text-align: center;
+            font-size: 30px;
+            padding: 30px;
+        }
+
+        .result {
+            padding: 0px 0px 0px 30px;
+            font-size: 110%;
+            float: right;
+            width: 55%;
+        }
+
+            .result h1 {
+                margin: 30px;
+                font-weight: bold;
+                font-size: 120%;
+            }
+
+        #resultText {
+            border: 1px solid #66cdaa;
+            padding: 10px;
+        }
+
+        .description {
+            float: left;
+            width: 45%;
+            padding: 40px 0;
+        }
+
+            .description h1 {
+                font-weight: bold;
+                font-size: 120%;
+                padding-bottom: 30px;
+            }
+
+            .description ol, .description li {
+                list-style: decimal;
+            }
+
+            .description ol {
+                padding-left: 25px;
+            }
+
+            .description li {
+                line-height: 200%;
+                font-size: 120%;
+            }
+
+        #cacheNote a {
+            color: darkcyan;
+            text-decoration-line: underline;
+        }
+
+        p#testCacheType{padding:8px; text-align:center;}
+        p#testCacheType a{text-decoration:underline;}
+
+        .currentTestCache{font-weight:bold;}
+    </style>
+    <script>
+        $(function() {
+            runTest(@ViewData["id"]);
+        });
+
+        function runTest(id) {
+            id = id || 0;
+            $('#cacheTest_' + id).addClass('currentTestCache').siblings().removeClass('currentTestCache');
+            $('#resultText').html('缓存测试运行中……');
+            $.post('@Url.Action("RunTest")', {id:id}, function(html) {
+                $('#resultText').html(html);
+            });
+        }
+    </script>
+}
+<div class="wrapper">
+    <h2>缓存测试</h2>
+    <div class="description" id="cacheNote">
+        <h1>CO2NET.Cache 及 Weixin.Cache 缓存测试过程</h1>
+        <p>
+            <ol>
+                <li>使用分布式缓存及本地缓存进行多重全面测试；</li>
+                <li>交换使用缓存策略及 ContainerCache（<a href="https://v.qq.com/x/page/a0917lmkono.html" target="_blank">领域缓存</a>）进行测试，以全面测试 CO2NET.Cache 和 Weixin.Cache 的可用性以及性能；</li>
+                <li>进行写入测试，不设置缓存过期时间，并检测结果；</li>
+                <li>使用 ContainerCache（<a href="https://v.qq.com/x/page/a0917lmkono.html" target="_blank">领域缓存</a>）进行写入测试，并设置缓存过期时间，通过底层缓存策略及 ContainerCache（<a href="https://v.qq.com/x/page/a0917lmkono.html" target="_blank">领域缓存</a>）分别获取同一个缓存对象，检测其一致性；</li>
+                <li>进行自动等待后，检查过期缓存数据是否已被自动清除；</li>
+                <li>进行删除测试，对新写入的数据进行删除，并检查结果。</li>
+            </ol>
+        </p>
+    </div>
+    <div class="result">
+        <h1>测试结果：</h1>
+        <p id="testCacheType">
+            <a href="javascript:void(0)" onclick="runTest('')" id="cacheTest_0">本地缓存</a> |
+            @*//DPBMARK Redis*@
+            <a href="javascript:void(0)" onclick="runTest('1')" id="cacheTest_1">StackExchange.Redis</a> [<a href="http://nuget.org/packages/Senparc.Weixin.Cache.Redis" target="_blank">nuget</a>] |
+            @*//DPBMARK_END*@
+            @*//DPBMARK Redis*@
+            <a href="javascript:void(0)" onclick="runTest('2')" id="cacheTest_2">CsRedis</a> [<a href="http://nuget.org/packages/Senparc.Weixin.Cache.CsRedis" target="_blank">nuget</a>] |
+            @*//DPBMARK_END*@
+            <a href="javascript:void(0)" onclick="runTest('-1')" id="cacheTest_-1">当前系统</a>
+        </p>
+        <p id="resultText"></p>
+    </div>
+</div>
+<div class="clear"></div>

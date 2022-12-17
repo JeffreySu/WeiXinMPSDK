@@ -16,6 +16,9 @@
     修改标识：77Harbor - 20211107
     修改描述：v3.13 企业微信获取访问用户身份返回实体增加 open_userid 
 
+    修改标识：ShyUncle - 20221217
+    修改描述：v3.15.13 ThirdParty_AuthCorpInfo 增加 3 个属性：corp_scale、corp_industry、corp_sub_industry
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;

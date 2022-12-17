@@ -258,6 +258,18 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         /// 授权方企业微信二维码
         /// </summary>
         public string corp_wxqrcode { get; set; }
+        /// <summary>
+        /// 企业规模。当企业未设置该属性时，值为空
+        /// </summary>
+        public string corp_scale { get; set; }
+        /// <summary>
+        /// 企业所属行业。当企业未设置该属性时，值为空
+        /// </summary>
+        public string corp_industry { get; set; }
+        /// <summary>
+        /// 企业所属子行业。当企业未设置该属性时，值为空
+        /// </summary>
+        public string corp_sub_industry { get; set; }
     }
 
     public class ThirdParty_AuthInfo

@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>3.15.12</Version>
+    <Version>3.15.13</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -187,6 +187,7 @@
 			v3.15.9
 			1、补充完整“客户联系「联系我」管理”接口
 			2、添加“客户群「加入群聊」管理”接口
+			v3.15.13 ThirdParty_AuthCorpInfo 增加 3 个属性：corp_scale、corp_industry、corp_sub_industry
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>

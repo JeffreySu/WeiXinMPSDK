@@ -100,7 +100,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        public ActionResult Download(string guid)
+        public async Task<IActionResult> Download(string guid)
         {
             var success = CheckCanDownload(guid);
             if (!success)
@@ -138,7 +138,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 //使用流的方式来发送
                 var fs = new FileStream(filePath, FileMode.Open);
                 var ms = new MemoryStream();
-                fs.CopyTo(ms);
+                await fs.CopyToAsync(ms);
                 ms.Seek(0, SeekOrigin.Begin);
 
                 var file = File(ms, "application/octet-stream");

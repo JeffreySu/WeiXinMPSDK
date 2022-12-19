@@ -41,10 +41,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Entities
@@ -52,8 +55,8 @@ namespace Senparc.Weixin.Entities
     /// <summary>
     /// Senparc.Weixin SDK 中单个公众号配置信息
     /// </summary>
-    public record class SenparcWeixinSettingItem : ISenparcWeixinSettingForMP, ISenparcWeixinSettingForWxOpen, ISenparcWeixinSettingForWork, 
-                                                   ISenparcWeixinSettingForOldTenpay, ISenparcWeixinSettingForTenpayV3, 
+    public record class SenparcWeixinSettingItem : ISenparcWeixinSettingForMP, ISenparcWeixinSettingForWxOpen, ISenparcWeixinSettingForWork,
+                                                   ISenparcWeixinSettingForOldTenpay, ISenparcWeixinSettingForTenpayV3,
                                                    ISenparcWeixinSettingForOpen, ISenparcWeixinSettingForExtension
     {
         /// <summary>
@@ -292,11 +295,37 @@ namespace Senparc.Weixin.Entities
         public virtual string TenPayV3_TenpayNotify { get; set; }
 
         #region 新版微信支付 V3 新增
+        private string _tenPayV3_PrivateKey;
         /// <summary>
         /// 微信支付（V3）证书私钥
         /// <para>获取途径：apiclient_key.pem</para>
         /// </summary>
-        public virtual string TenPayV3_PrivateKey { get; set; }
+        public virtual string TenPayV3_PrivateKey
+        {
+            get
+            {
+                return _tenPayV3_PrivateKey;
+            }
+            set
+            {
+                if (value != null && value.Length < 100 && value.StartsWith("~/"))
+                {
+                    //虚拟路径
+                    //尝试读取文件
+                    var filePath = CO2NET.Utilities.ServerUtility.ContentRootMapPath(value);
+                    if (!File.Exists(filePath))
+                    {
+                        Senparc.Weixin.WeixinTrace.BaseExceptionLog(new WeixinException("TenPayV3_PrivateKey 证书文件不存在！"));
+                    }
+
+                    var fileContent = File.ReadAllText(filePath);
+                    Regex regex = new Regex(@"(--([^\r\n])+--[\r\n]{0,1})|[\r\n]");
+                    var privateKey = regex.Replace(fileContent, "");
+                    value = privateKey;
+                }
+                _tenPayV3_PrivateKey = value;
+            }
+        }
         /// <summary>
         /// 微信支付（V3）证书序列号
         /// <para>查看地址：https://pay.weixin.qq.com/index.php/core/cert/api_cert#/api-cert-manage</para>

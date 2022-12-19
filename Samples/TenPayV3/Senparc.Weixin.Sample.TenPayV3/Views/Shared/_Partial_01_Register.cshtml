@@ -90,7 +90,7 @@
         </figure>
     </p>
     <p>其中，<code>Token</code>、<code>EncodingAESKey</code>、<code>WeixinAppId</code> 和 <code>WeixinAppSecret</code> 对应了微信公众号后台的配置参数。</p>
-    <p>特别说明： <code>TenPayV3_PrivateKey</code> 可使用已经处理好的私钥，也可以直接提供从微信支付官网下载的私钥文件（下载的压缩包中解压文件 apiclient_key.pem，并复制到安全的路径，推荐 <code>App_Data</code> 目录下），SDK 将全自动处理。</p>
+    <p>特别说明： <code>TenPayV3_PrivateKey</code> 可使用已经处理好的私钥，也可以直接提供从微信支付官网下载的私钥文件（下载的压缩包中解压文件 apiclient_key.pem，并复制到安全的路径，推荐 <code>App_Data</code> 目录下），虚拟路径从网站根目录开始，必须以 <code>~/</code> 开头，如 <code>~/App_Data/cert/apiclient_key.pem</code>，SDK 将全自动处理。</p>
     <figure class="file">
         <blockquote class="blockquote">
             <p>本项目参考文件：</p>

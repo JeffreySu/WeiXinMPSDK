@@ -12,10 +12,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="apiclient_key.pem" />
     <None Remove="appsettings.Test.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="apiclient_key.pem">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="appsettings.Test.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>

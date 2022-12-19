@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.15.10-beta1</Version>
+    <Version>3.15.11</Version>
     <LangVersion>9.0</LangVersion>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
@@ -170,7 +170,7 @@
 		1、添加 OnEvent_MediaCheckRequest() 方法：内容安全回调 - wxa_media_check 推送结果
 		2、修复 RequestMsgType.Event 返回值没有正确赋值的问题
 		v3.15.10 EncryptHelper.DecodeEncryptedData() 方法添加 keySize 参数
-	</PackageReleaseNotes>
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

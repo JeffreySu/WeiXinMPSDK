@@ -4,29 +4,32 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using NuGet.Protocol;
 using Senparc.CO2NET;
 using Senparc.CO2NET.AspNet;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
+using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Utilities;
 using Senparc.CO2NET.WebApi.WebApiEngines;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.WebSocket;//DPBMARK WebSocket DPBMARK_END
+using Senparc.Weixin.AspNet.RegisterServices;
 using Senparc.Weixin.Cache.CsRedis;//DPBMARK Redis DPBMARK_END
 using Senparc.Weixin.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
-using Senparc.Weixin.Cache.Redis;//DPBMARK Redis DPBMARK_END
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP;//DPBMARK MP DPBMARK_END
 using Senparc.Weixin.MP.MessageHandlers.Middleware;//DPBMARK MP DPBMARK_END
+using Senparc.Weixin.Open;//DPBMARK Open DPBMARK_END
+using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK Open DPBMARK_END
+using Senparc.Weixin.RegisterServices;
 using Senparc.Weixin.Sample.CommonService.CustomMessageHandler;//DPBMARK MP DPBMARK_END
 using Senparc.Weixin.Sample.CommonService.MessageHandlers.WebSocket;//DPBMARK WebSocket DPBMARK_END
 using Senparc.Weixin.Sample.CommonService.WorkMessageHandlers;//DPBMARK Work DPBMARK_END
 using Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler;//DPBMARK MiniProgram DPBMARK_END
-using Senparc.Weixin.Open;//DPBMARK Open DPBMARK_END
-using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK Open DPBMARK_END
-using Senparc.Weixin.RegisterServices;
 using Senparc.Weixin.Sample.Net6.WebSocket.Hubs;//DPBMARK WebSocket DPBMARK_END
 using Senparc.Weixin.TenPay;//DPBMARK TenPay DPBMARK_END
 using Senparc.Weixin.TenPayV3;//DPBMARK TenPay DPBMARK_END
@@ -37,30 +40,29 @@ using Senparc.Weixin.WxOpen.MessageHandlers.Middleware;//DPBMARK MiniProgram DPB
 using System;
 using System.IO;
 using System.Text;
-using Senparc.CO2NET.Helpers;
-using NuGet.Protocol;
-using Microsoft.Extensions.FileProviders;
 
 namespace Senparc.Weixin.Sample.Net6
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Env = env;
         }
 
+        public IWebHostEnvironment Env { get; }
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services )
         {
             services.AddSession();//使用Session（实践证明需要在配置 Mvc 之前）
 
             var builder = services.AddControllersWithViews()
                                   .AddNewtonsoftJson();// 支持 NewtonsoftJson
-                                                       //.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
-                                                       // Add CookieTempDataProvider after AddMvc and include ViewFeatures.
+                            //.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+                            // Add CookieTempDataProvider after AddMvc and include ViewFeatures.
 
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
 
@@ -80,7 +82,7 @@ namespace Senparc.Weixin.Sample.Net6
              * https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs
              */
 
-            services.AddSenparcWeixinServices(Configuration)//Senparc.Weixin 注册（必须）
+            services.AddSenparcWeixinServices(Configuration, Env)//Senparc.Weixin 注册（必须）
                     .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>() //Senparc.WebSocket 注册（按需）  -- DPBMARK WebSocket DPBMARK_END
                     ;
 
@@ -132,7 +134,7 @@ namespace Senparc.Weixin.Sample.Net6
 
 
             // 启动 CO2NET 全局注册，必须！
-            // 关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore3/Startup.cs
+            // 关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.net7/Startup.cs
             var registerService = app.UseSenparcGlobal(env, senparcSetting.Value, globalRegister =>
                 {
                     #region CO2NET 全局配置
@@ -249,7 +251,7 @@ namespace Senparc.Weixin.Sample.Net6
                     #region 注册公众号或小程序（按需）
 
                     weixinRegister
-                            //注册公众号（可注册多个）                                                    -- DPBMARK MP
+                            注册公众号（可注册多个）                                                    -- DPBMARK MP
 
                             .RegisterMpAccount(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")     // DPBMARK_END
 

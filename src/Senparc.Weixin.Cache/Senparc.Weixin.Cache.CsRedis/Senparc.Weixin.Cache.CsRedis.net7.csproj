@@ -57,15 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="ContainerCacheStrategy\RedisContainerCacheStrategy.RedisUtils.cs" />
-    <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <!--<PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.1.0" />-->
     <!--<PackageReference Include="BinaryFormatter" Version="2.1.4" />-->
-    <PackageReference Include="Senparc.CO2NET.Cache.CsRedis" Version="1.1.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
+    <PackageReference Include="Senparc.CO2NET.Cache.CsRedis" Version="1.1.2.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net7.csproj" />

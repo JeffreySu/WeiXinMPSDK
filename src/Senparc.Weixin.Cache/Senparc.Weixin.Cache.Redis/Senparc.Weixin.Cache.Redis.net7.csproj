@@ -118,10 +118,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="packages\**" />
+    <Compile Remove="Properties\**" />
     <Compile Remove="ServiceStack.Redis\**" />
     <EmbeddedResource Remove="packages\**" />
+    <EmbeddedResource Remove="Properties\**" />
     <EmbeddedResource Remove="ServiceStack.Redis\**" />
     <None Remove="packages\**" />
+    <None Remove="Properties\**" />
     <None Remove="ServiceStack.Redis\**" />
   </ItemGroup>
   <ItemGroup>
@@ -130,7 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <!--<PackageReference Include="BinaryFormatter" Version="2.1.4" />-->
-    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="4.1.0" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="4.1.1.1" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
     <!--<PackageReference Include="StackExchange.Redis" Version="1.2.6" />-->
@@ -140,9 +143,6 @@
   </ItemGroup>-->
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net7.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />

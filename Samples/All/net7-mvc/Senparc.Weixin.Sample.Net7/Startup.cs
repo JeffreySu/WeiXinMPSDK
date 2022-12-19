@@ -251,7 +251,7 @@ namespace Senparc.Weixin.Sample.Net6
                     #region 注册公众号或小程序（按需）
 
                     weixinRegister
-                            注册公众号（可注册多个）                                                    -- DPBMARK MP
+                            //注册公众号（可注册多个）                                                    -- DPBMARK MP
 
                             .RegisterMpAccount(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")     // DPBMARK_END
 

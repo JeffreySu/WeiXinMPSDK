@@ -304,25 +304,26 @@ namespace Senparc.Weixin.Entities
         {
             get
             {
-                return _tenPayV3_PrivateKey;
-            }
-            set
-            {
-                if (value != null && value.Length < 100 && value.StartsWith("~/"))
+                if (_tenPayV3_PrivateKey != null && _tenPayV3_PrivateKey.Length < 100 && _tenPayV3_PrivateKey.StartsWith("~/"))
                 {
                     //虚拟路径
                     //尝试读取文件
-                    var filePath = CO2NET.Utilities.ServerUtility.ContentRootMapPath(value);
+                    var filePath = CO2NET.Utilities.ServerUtility.ContentRootMapPath(_tenPayV3_PrivateKey);
                     if (!File.Exists(filePath))
                     {
-                        Senparc.Weixin.WeixinTrace.BaseExceptionLog(new WeixinException("TenPayV3_PrivateKey 证书文件不存在！"));
+                        Senparc.Weixin.WeixinTrace.BaseExceptionLog(new WeixinException("TenPayV3_PrivateKey 证书文件不存在！" + filePath));
                     }
 
                     var fileContent = File.ReadAllText(filePath);
                     Regex regex = new Regex(@"(--([^\r\n])+--[\r\n]{0,1})|[\r\n]");
                     var privateKey = regex.Replace(fileContent, "");
-                    value = privateKey;
+                    _tenPayV3_PrivateKey = privateKey;
                 }
+                return _tenPayV3_PrivateKey;
+            }
+            set
+            {
+               
                 _tenPayV3_PrivateKey = value;
             }
         }

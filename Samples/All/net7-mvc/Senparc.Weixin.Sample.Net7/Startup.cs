@@ -55,7 +55,7 @@ namespace Senparc.Weixin.Sample.Net6
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services )
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddSession();//使用Session（实践证明需要在配置 Mvc 之前）
 
@@ -131,8 +131,7 @@ namespace Senparc.Weixin.Sample.Net6
             #endregion
             
             app.UseRouting();
-
-
+            
             // 启动 CO2NET 全局注册，必须！
             // 关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.net7/Startup.cs
             var registerService = app.UseSenparcGlobal(env, senparcSetting.Value, globalRegister =>

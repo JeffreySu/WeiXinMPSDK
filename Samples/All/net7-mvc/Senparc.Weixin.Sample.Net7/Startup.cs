@@ -55,7 +55,7 @@ namespace Senparc.Weixin.Sample.Net6
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services )
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddSession();//使用Session（实践证明需要在配置 Mvc 之前）
 
@@ -260,7 +260,7 @@ namespace Senparc.Weixin.Sample.Net6
                             .RegisterWxOpenAccount(senparcWeixinSetting.Value, "【盛派网络小助手】小程序")// DPBMARK_END
 
                             //使用 appsettings.json 中的多重配置，再注册一个小程序（其他公众号、企业号类同）                             -- DPBMARK MiniProgram
-                            .RegisterWxOpenAccount(senparcWeixinSetting.Value.Items["第二个小程序"], "第二个【盛派网络小助手】小程序")   // DPBMARK_END
+                            //.RegisterWxOpenAccount(senparcWeixinSetting.Value.Items["第二个小程序"], "第二个【盛派网络小助手】小程序")   // DPBMARK_END
 
                             //除此以外，仍然可以在程序任意地方注册公众号或小程序：
                             //AccessTokenContainer.Register(appId, appSecret, name);//命名空间：Senparc.Weixin.MP.Containers

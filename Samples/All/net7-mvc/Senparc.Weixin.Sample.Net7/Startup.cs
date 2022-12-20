@@ -131,8 +131,7 @@ namespace Senparc.Weixin.Sample.Net6
             #endregion
             
             app.UseRouting();
-
-
+            
             // 启动 CO2NET 全局注册，必须！
             // 关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.net7/Startup.cs
             var registerService = app.UseSenparcGlobal(env, senparcSetting.Value, globalRegister =>
@@ -260,7 +259,7 @@ namespace Senparc.Weixin.Sample.Net6
                             .RegisterWxOpenAccount(senparcWeixinSetting.Value, "【盛派网络小助手】小程序")// DPBMARK_END
 
                             //使用 appsettings.json 中的多重配置，再注册一个小程序（其他公众号、企业号类同）                             -- DPBMARK MiniProgram
-                            //.RegisterWxOpenAccount(senparcWeixinSetting.Value.Items["第二个小程序"], "第二个【盛派网络小助手】小程序")   // DPBMARK_END
+                            .RegisterWxOpenAccount(senparcWeixinSetting.Value.Items["第二个小程序"], "第二个【盛派网络小助手】小程序")   // DPBMARK_END
 
                             //除此以外，仍然可以在程序任意地方注册公众号或小程序：
                             //AccessTokenContainer.Register(appId, appSecret, name);//命名空间：Senparc.Weixin.MP.Containers

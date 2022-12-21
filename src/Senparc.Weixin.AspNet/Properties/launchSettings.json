@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Senparc.Weixin.AspNet.net7": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:51399"
+    }
+  }
+}

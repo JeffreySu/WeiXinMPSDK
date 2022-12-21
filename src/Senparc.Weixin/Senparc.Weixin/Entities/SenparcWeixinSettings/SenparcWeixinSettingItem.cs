@@ -41,10 +41,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Helpers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Entities
@@ -52,9 +56,10 @@ namespace Senparc.Weixin.Entities
     /// <summary>
     /// Senparc.Weixin SDK 中单个公众号配置信息
     /// </summary>
-    public record class SenparcWeixinSettingItem : ISenparcWeixinSettingForMP, ISenparcWeixinSettingForWxOpen, ISenparcWeixinSettingForWork, 
-                                                   ISenparcWeixinSettingForOldTenpay, ISenparcWeixinSettingForTenpayV3, 
-                                                   ISenparcWeixinSettingForOpen, ISenparcWeixinSettingForExtension
+    public record class SenparcWeixinSettingItem : ISenparcWeixinSettingForMP,
+        ISenparcWeixinSettingForWxOpen, ISenparcWeixinSettingForWork,
+        ISenparcWeixinSettingForOldTenpay, ISenparcWeixinSettingForTenpayV3,
+        ISenparcWeixinSettingForOpen, ISenparcWeixinSettingForExtension
     {
         /// <summary>
         /// 唯一标识
@@ -148,8 +153,6 @@ namespace Senparc.Weixin.Entities
             SenparcWechatAgentKey = setting.SenparcWechatAgentKey;
         }
         #endregion
-
-
 
         #region 公众号
 
@@ -292,11 +295,24 @@ namespace Senparc.Weixin.Entities
         public virtual string TenPayV3_TenpayNotify { get; set; }
 
         #region 新版微信支付 V3 新增
+        private string _tenPayV3_PrivateKey;
         /// <summary>
         /// 微信支付（V3）证书私钥
         /// <para>获取途径：apiclient_key.pem</para>
         /// </summary>
-        public virtual string TenPayV3_PrivateKey { get; set; }
+        public virtual string TenPayV3_PrivateKey
+        {
+            get
+            {
+                return TenPayHelper.TryGetPrivateKeyFromFile(ref _tenPayV3_PrivateKey);
+            }
+            set
+            {
+
+                _tenPayV3_PrivateKey = value;
+            }
+        }
+
         /// <summary>
         /// 微信支付（V3）证书序列号
         /// <para>查看地址：https://pay.weixin.qq.com/index.php/core/cert/api_cert#/api-cert-manage</para>

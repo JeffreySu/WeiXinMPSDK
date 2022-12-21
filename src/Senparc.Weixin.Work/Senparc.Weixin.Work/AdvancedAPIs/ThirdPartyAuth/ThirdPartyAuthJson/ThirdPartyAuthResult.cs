@@ -16,6 +16,9 @@
     修改标识：77Harbor - 20211107
     修改描述：v3.13 企业微信获取访问用户身份返回实体增加 open_userid 
 
+    修改标识：ShyUncle - 20221217
+    修改描述：v3.15.13 ThirdParty_AuthCorpInfo 增加 3 个属性：corp_scale、corp_industry、corp_sub_industry
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -258,6 +261,18 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         /// 授权方企业微信二维码
         /// </summary>
         public string corp_wxqrcode { get; set; }
+        /// <summary>
+        /// 企业规模。当企业未设置该属性时，值为空
+        /// </summary>
+        public string corp_scale { get; set; }
+        /// <summary>
+        /// 企业所属行业。当企业未设置该属性时，值为空
+        /// </summary>
+        public string corp_industry { get; set; }
+        /// <summary>
+        /// 企业所属子行业。当企业未设置该属性时，值为空
+        /// </summary>
+        public string corp_sub_industry { get; set; }
     }
 
     public class ThirdParty_AuthInfo

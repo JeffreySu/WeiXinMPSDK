@@ -156,12 +156,14 @@ namespace Senparc.Weixin.AspNet.RegisterServices
             //处理相对路径
             if (certPath.StartsWith("~/"))
             {
-#if NET6_0_OR_GREATER
-                if (env is Microsoft.AspNetCore.Hosting.IWebHostEnvironment webHostEnv)
-                {
-                    Config.RootDirectoryPath = webHostEnv.ContentRootPath;
-                }
-#endif
+//#if NET6_0_OR_GREATER
+//                if (env is Microsoft.AspNetCore.Hosting.IWebHostEnvironment webHostEnv)
+//                {
+//                    Config.RootDirectoryPath = webHostEnv.ContentRootPath;
+//                }
+//#endif
+                Config.RootDirectoryPath = env.ContentRootPath;
+                
                 certPath = Senparc.CO2NET.Utilities.ServerUtility.ContentRootMapPath(certPath);
             }
 

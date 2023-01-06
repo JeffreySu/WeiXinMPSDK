@@ -153,6 +153,11 @@ namespace Senparc.Weixin.AspNet.RegisterServices
         /// <returns></returns>
         public static IServiceCollection AddCertHttpClient(this IServiceCollection services, string certName, string certPassword, string certPath, IHostEnvironment env)
         {
+            if (certPath.IsNullOrEmpty())
+            {
+                return services;
+            }
+
             //处理相对路径
             if (certPath.StartsWith("~/"))
             {

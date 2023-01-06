@@ -84,6 +84,5 @@ namespace Senparc.Weixin.Helpers
             }
             return tenPayV3_PrivateKey;
         }
-
     }
 }

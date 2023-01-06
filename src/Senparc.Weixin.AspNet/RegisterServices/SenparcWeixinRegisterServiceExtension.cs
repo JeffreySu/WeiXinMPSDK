@@ -153,15 +153,22 @@ namespace Senparc.Weixin.AspNet.RegisterServices
         /// <returns></returns>
         public static IServiceCollection AddCertHttpClient(this IServiceCollection services, string certName, string certPassword, string certPath, IHostEnvironment env)
         {
+            if (certPath.IsNullOrEmpty())
+            {
+                return services;
+            }
+
             //处理相对路径
             if (certPath.StartsWith("~/"))
             {
-#if NET6_0_OR_GREATER
-                if (env is Microsoft.AspNetCore.Hosting.IWebHostEnvironment webHostEnv)
-                {
-                    Config.RootDirectoryPath = webHostEnv.ContentRootPath;
-                }
-#endif
+//#if NET6_0_OR_GREATER
+//                if (env is Microsoft.AspNetCore.Hosting.IWebHostEnvironment webHostEnv)
+//                {
+//                    Config.RootDirectoryPath = webHostEnv.ContentRootPath;
+//                }
+//#endif
+                Config.RootDirectoryPath = env.ContentRootPath;
+                
                 certPath = Senparc.CO2NET.Utilities.ServerUtility.ContentRootMapPath(certPath);
             }
 

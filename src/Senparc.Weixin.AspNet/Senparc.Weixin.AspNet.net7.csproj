@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net462;netstandard2.0;netstandard2.1;net6.0;net7.0</TargetFrameworks>
-    <Version>0.8.5.1</Version>
+    <TargetFrameworks>net462;netstandard2.0;netstandard2.1<!--;net6.0;net7.0--></TargetFrameworks>
+    <Version>0.8.5.2</Version>
     <AssemblyName>Senparc.Weixin.AspNet</AssemblyName>
     <RootNamespace>Senparc.Weixin.AspNet</RootNamespace>
-    <OutputType>Library</OutputType>
+    <!--<OutputType>Library</OutputType>-->
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
     <Description>
 			微信 SDK - Senparc.Weixin.AspNet 模块
@@ -23,11 +23,12 @@
     <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
     <PackageIcon>icon.jpg</PackageIcon>
     <PackageReleaseNotes>
-			v0.1.0 创世
-			v0.7.4
-			1、优化 UseSenparcWeixin()
-			2、添加 WeixinResult、FixWeixinBugWeixinResult
-</PackageReleaseNotes>
+		v0.1.0 创世
+		v0.7.4
+		1、优化 UseSenparcWeixin()
+		2、添加 WeixinResult、FixWeixinBugWeixinResult
+		v0.8.5.2 修复证书传入参数可能为 null 的问题
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <PackageId>Senparc.Weixin.AspNet</PackageId>
   </PropertyGroup>

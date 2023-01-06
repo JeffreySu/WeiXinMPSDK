@@ -243,13 +243,14 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <para>商户可以通过该接口修改商家券基本信息</para>
         /// <para>更多详细请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_12.shtml </para>
         /// </summary>
+        /// <param name="stock_id">批次号 <para>path批次号</para><para>示例值：101156451224</para></param>
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<ReturnJsonBase> ModifyBusifavorStockInformationAsync(ModifyBusifavorStockInformationRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<ReturnJsonBase> ModifyBusifavorStockInformationAsync(string stock_id, ModifyBusifavorStockInformationRequestData data, int timeOut = Config.TIME_OUT)
         {
 
-            var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/marketing/busifavor/stocks/{data.stock_id}");
+            var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/marketing/busifavor/stocks/{stock_id}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, data, timeOut, ApiRequestMethod.PATCH);
         }

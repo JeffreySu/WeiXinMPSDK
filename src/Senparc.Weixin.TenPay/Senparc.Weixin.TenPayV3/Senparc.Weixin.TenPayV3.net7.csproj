@@ -34,7 +34,8 @@
 		v0.6.2.2 修复 TenPayHttpClient 赋值问题
 		v0.6.3 添加“发起商家转账API”
 		v0.6.5 重构 BasePayApis.GetPayApiUrl() 方法
-</PackageReleaseNotes>
+		v0.6.8.2 
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

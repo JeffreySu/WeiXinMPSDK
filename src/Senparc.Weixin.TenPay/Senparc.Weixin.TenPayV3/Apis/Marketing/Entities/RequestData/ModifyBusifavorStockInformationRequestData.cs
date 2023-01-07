@@ -29,6 +29,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20230106
     修改描述：v0.6.8.2 更新 ModifyBusifavorStockInformationRequestData 参数，删除 stock_id
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.TenPayV3.Entities;

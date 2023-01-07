@@ -30,6 +30,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：iwenli210 - 20211130
     修改描述：修复PayV3营销工具商户券API
 
+    修改标识：Senparc - 20220106
+    修改描述：v0.6.8.2 MarketingApis.ModifyBusifavorStockInformationAsync 方法单独提取参数 stock_id
+
+    修改标识：Senparc - 20220107
+    修改描述：v0.6.8.3 MarketingApis.ModifyBusifavorStockBudgetAsync 方法单独提取参数 stock_id
+
 ----------------------------------------------------------------*/
 
 
@@ -226,13 +232,14 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <para>商户可以通过该接口修改批次单天发放上限数量或者批次最大发放数量</para>
         /// <para>更多详细请参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_2_11.shtml </para>
         /// </summary>
+        /// <param name="stock_id">批次号 <para>path批次号</para><para>示例值：98065001</para></param>
         /// <param name="data">微信支付需要POST的Data数据</param>
         /// <param name="timeOut">超时时间，单位为ms </param>
         /// <returns></returns>
-        public async Task<ModifyBusifavorStockBudgetReturnJson> ModifyBusifavorStockBudgetAsync(ModifyBusifavorStockBudgetRequestData data, int timeOut = Config.TIME_OUT)
+        public async Task<ModifyBusifavorStockBudgetReturnJson> ModifyBusifavorStockBudgetAsync(string stock_id, ModifyBusifavorStockBudgetRequestData data, int timeOut = Config.TIME_OUT)
         {
 
-            var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/marketing/busifavor/stocks/{data.stock_id}/budget");
+            var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/marketing/busifavor/stocks/{stock_id}/budget");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<ModifyBusifavorStockBudgetReturnJson>(url, data, timeOut, ApiRequestMethod.PATCH);
         }

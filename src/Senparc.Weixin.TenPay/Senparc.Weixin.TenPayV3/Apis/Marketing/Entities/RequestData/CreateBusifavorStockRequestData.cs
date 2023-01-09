@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20210907
     
+    修改标识：Senparc - 20230109
+    修改描述：v0.6.8.4 修改 week_day 类型为 int[]
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.TenPayV3.Entities;
@@ -342,7 +345,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
                     /// </summary>
                     /// <param name="week_day">可用星期数  <para>0代表周日，1代表周一，以此类推当填写available_day_time时，week_day必填</para><para>示例值：1,2</para></param>
                     /// <param name="available_day_time">当天可用时间段 <para>可以填写多个时间段，最多不超过2个。</para><para>可为null</para></param>
-                    public Available_Week(string[] week_day, Available_Day_Time[] available_day_time)
+                    public Available_Week(int[] week_day, Available_Day_Time[] available_day_time)
                     {
                         this.week_day = week_day;
                         this.available_day_time = available_day_time;
@@ -360,7 +363,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
                     /// <para>0代表周日，1代表周一，以此类推 当填写available_day_time时，week_day必填</para>
                     /// <para>示例值：1, 2 </para>
                     /// </summary>
-                    public string[] week_day { get; set; }
+                    public int[] week_day { get; set; }
 
                     /// <summary>
                     /// 当天可用时间段

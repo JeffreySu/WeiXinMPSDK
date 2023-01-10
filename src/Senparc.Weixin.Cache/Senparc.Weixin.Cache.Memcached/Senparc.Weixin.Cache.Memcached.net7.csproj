@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>2.13.5.2</Version>
+    <Version>2.13.5.3</Version>
     <AssemblyName>Senparc.Weixin.Cache.Memcached</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Memcached</RootNamespace>
     <Description>
@@ -144,7 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="4.1.2.3" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="4.1.2.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net7.csproj" />

@@ -8,8 +8,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Senparc.CO2NET.WebApi" Version="1.3.2.3" />
-		<PackageReference Include="Senparc.NeuChar.App" Version="1.1.4.2" />
+		<PackageReference Include="Senparc.CO2NET.WebApi" Version="1.3.3.4" />
+		<PackageReference Include="Senparc.NeuChar.App" Version="1.1.4.3" />
 		<PackageReference Include="Senparc.NeuChar.AspNet" Version="1.1.3.4" />
 
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.0" />

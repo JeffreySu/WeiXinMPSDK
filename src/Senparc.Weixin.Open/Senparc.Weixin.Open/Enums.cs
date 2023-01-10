@@ -389,4 +389,27 @@ namespace Senparc.Weixin.Open
         组织机构代码=2,
         营业执照注册号=3
     }
+
+    /// <summary>
+    /// “设置第三方平台服务器域名”接口，action 参数枚举
+    /// </summary>
+    public enum ModifyWxaServerDomain_Action
+    {
+        /// <summary>
+        /// 	添加
+        /// </summary>
+        add,
+        /// <summary>
+        /// 删除。说明，删除不存在的域名会视为成功，返回 errcode 为0
+        /// </summary>
+        delete,
+        /// <summary>
+        /// 覆盖
+        /// </summary>
+        set,
+        /// <summary>
+        /// 获取 ，action=get时，会同时返回测试版和全网发布版的“小程序服务器域名”值。
+        /// </summary>
+        get
+    }
 }

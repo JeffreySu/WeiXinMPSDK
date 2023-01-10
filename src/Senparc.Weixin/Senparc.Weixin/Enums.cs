@@ -105,6 +105,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20220731
     修改描述：v6.15.4 更新 ReturnCode 枚举，OpenApi 中的错误代码
 
+    修改标识：Senparc - 20220731
+    修改描述：v6.15.8.2 更新 ReturnCode 枚举，添加 ModifyWxaServerDomain  中的错误代码
+
 ----------------------------------------------------------------*/
 
 
@@ -1474,6 +1477,26 @@ namespace Senparc.Weixin
         空间设置了关闭成员邀请链接 = 640028,
         只支持下载普通文件不支持下载文件夹等其他非文件实体类型 = 640029,
         非法的output_file_format = 844001,
+
+        #region Open - modifyThirdpartyServerDomain（ModifyWxaServerDomain）
+        /// <summary>
+        /// 第三方平台未发布
+        /// </summary>
+        第三方平台未发布 = 61028,
+        /// <summary>
+        /// 该公众号的菜单设置了过多的域名外跳（最多跳转到 3 个域名的链接）
+        /// </summary>
+        domain_count_reach_limit = 65316,
+        /// <summary>
+        /// 每个月只可以修改50次，超次数了
+        /// </summary>
+        reach_max_domain_quota_limit = 45104,
+        /// <summary>
+        /// 
+        /// </summary>
+        invalid_action_name = 40052
+
+        #endregion
 
 #pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释
     }

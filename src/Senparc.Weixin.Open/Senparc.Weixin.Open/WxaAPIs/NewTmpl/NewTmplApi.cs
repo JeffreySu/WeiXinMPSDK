@@ -31,11 +31,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Open.WxaAPIs.NewTmpl.NewTmplJson;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
@@ -45,7 +49,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
     /// <summary>
     /// 小程序订阅消息模板的管理
     /// </summary>
-    [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
+    [NcApiBind(NeuChar.PlatformType.WeChat_Open, true)]
     public static class NewTmplApi
     {
         #region 同步方法
@@ -99,18 +103,27 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         public static AddTemplateJsonResult AddTemplate(string accessToken, string tid, int[] kidList,
             string sceneDesc = "", int timeOut = Config.TIME_OUT)
         {
-            string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/addtemplate?access_token={0}";
-            var data = new Dictionary<string, string>()
+            var url = $"{Config.ApiMpHost}/wxaapi/newtmpl/addtemplate?access_token={accessToken.AsUrlData()}";
+            var data = new
             {
-                {"tid", tid},
-                {"sceneDesc", sceneDesc},
+                tid = tid,
+                kidList = kidList.ToList(),
+                sceneDesc = sceneDesc,
             };
-            for (int i = 0; i < kidList.Length; i++)
-            {
-                data.Add($"kidList[{i}]", $"{kidList[i]}");
-            }
+            return  PostJson<AddTemplateJsonResult>(url, data);
 
-            return CommonJsonSend.Send<AddTemplateJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+            //var urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/addtemplate?access_token={0}";
+            //var data = new Dictionary<string, string>()
+            //{
+            //    {"tid", tid},
+            //    {"sceneDesc", sceneDesc},
+            //};
+            //for (int i = 0; i < kidList.Length; i++)
+            //{
+            //    data.Add($"kidList[{i}]", $"{kidList[i]}");
+            //}
+
+            //return CommonJsonSend.Send<AddTemplateJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
         #endregion
 
@@ -218,19 +231,14 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         public static async Task<AddTemplateJsonResult> AddTemplateAsync(string accessToken, string tid, int[] kidList,
             string sceneDesc = "", int timeOut = Config.TIME_OUT)
         {
-            string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/addtemplate?access_token={0}";
-            var data = new Dictionary<string, string>()
+            var url = $"{Config.ApiMpHost}/wxaapi/newtmpl/addtemplate?access_token={accessToken.AsUrlData()}";
+            var data = new
             {
-                {"tid", tid},
-                {"sceneDesc", sceneDesc},
+                tid = tid,
+                kidList = kidList.ToList(),
+                sceneDesc = sceneDesc,
             };
-            for (int i = 0; i < kidList.Length; i++)
-            {
-                data.Add($"kidList[{i}]", $"{kidList[i]}");
-            }
-
-            return await CommonJsonSend.SendAsync<AddTemplateJsonResult>(accessToken, urlFormat, data,
-                timeOut: timeOut);
+            return await PostJsonAsync<AddTemplateJsonResult>(url, data);
         }
         #endregion
 
@@ -287,6 +295,58 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
             return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
         #endregion
+        #endregion
+
+        #region Private Method
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private static async Task<T> PostJsonAsync<T>(string url, object data) where T : new()
+        {
+            try
+            {
+                var httpClientFactory = (IHttpClientFactory)CommonDI.CommonSP.GetService(typeof(IHttpClientFactory));
+                var httpClient = httpClientFactory.CreateClient();
+                var stringContent = new StringContent(data.ToJson());
+                stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                var httpResponse = await httpClient.PostAsync(url, stringContent);
+                var content = await httpResponse.Content.ReadAsStringAsync();
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(content);
+            }
+            catch (System.Exception ex)
+            {
+                return default;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private static T PostJson<T>(string url, object data) where T : new()
+        {
+            try
+            {
+                var httpClientFactory = (IHttpClientFactory)CommonDI.CommonSP.GetService(typeof(IHttpClientFactory));
+                var httpClient = httpClientFactory.CreateClient();
+                var stringContent = new StringContent(data.ToJson());
+                stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                var httpResponse = httpClient.PostAsync(url, stringContent).GetAwaiter().GetResult();
+                var content = httpResponse.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(content);
+            }
+            catch (System.Exception ex)
+            {
+                return default;
+            }
+        }
         #endregion
     }
 }

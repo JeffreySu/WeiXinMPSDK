@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.6.8.6</Version>
+    <Version>0.6.8.7</Version>
     <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
     <LangVersion>10.0</LangVersion>
@@ -37,6 +37,7 @@
 			v0.6.8.2 MarketingApis.ModifyBusifavorStockInformationAsync 方法单独提取参数 stock_id
 			v0.6.8.3 MarketingApis.ModifyBusifavorStockBudgetAsync 方法单独提取参数 stock_id
 			v0.6.8.4 修改 week_day 类型为 int[]
+			v0.6.8.7 优化 TenPayApiResultCode 获取逻辑，修复 TryGetCode() 方法中当匹配不到预设错误信息时，返回 null 的问题
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

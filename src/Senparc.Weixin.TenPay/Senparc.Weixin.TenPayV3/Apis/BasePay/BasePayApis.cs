@@ -48,6 +48,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20211026
     修改描述：v0.6.1 修复 CloseOrderAsync() 参数问题
 
+    修改标识：Senparc - 20230112
+    修改描述：v0.6.8.8 修复 RefundQueryAsync() URL 问题
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Helpers;
@@ -486,7 +489,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-                var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/refund/domestic/refunds{out_refund_no}");
+                var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/refund/domestic/refunds/{out_refund_no}");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<RefundReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
             }

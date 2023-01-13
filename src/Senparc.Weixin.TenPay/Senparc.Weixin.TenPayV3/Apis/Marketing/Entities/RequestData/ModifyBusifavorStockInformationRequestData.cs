@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
   
     文件名：PatchBusifavorStockInformationRequestData.cs
     文件功能描述：修改商家券基本信息接口请求数据
@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20210914
     
+    修改标识：Senparc - 20230106
+    修改描述：v0.6.8.2 更新 ModifyBusifavorStockInformationRequestData 参数，删除 stock_id
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.TenPayV3.Entities;
@@ -47,7 +50,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <summary>
         /// 含参构造函数
         /// </summary>
-        /// <param name="stock_id">批次号 <para>path批次号</para><para>示例值：101156451224</para></param>
         /// <param name="custom_entrance">自定义入口 <para>body卡详情页面，可选择多种入口引导用户</para><para>可为null</para></param>
         /// <param name="stock_name">商家券批次名称 <para>body批次名称，字数上限为21个，一个中文汉字/英文字母/数字均占用一个字数。</para><para>示例值：8月1日活动券</para><para>可为null</para></param>
         /// <param name="comment">批次备注 <para>body仅配置商户可见，用于自定义信息。字数上限为20个，一个中文汉字/英文字母/数字均占用一个字数。</para><para>示例值：活动使用</para><para>可为null</para></param>
@@ -57,9 +59,8 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <param name="coupon_use_rule">核销规则 <para>body券核销相关规则</para><para>可为null</para></param>
         /// <param name="stock_send_rule">发放规则 <para>body券发放相关规则</para><para>可为null</para></param>
         /// <param name="notify_config">事件通知配置 <para>body事件回调通知商户的配置</para><para>可为null</para></param>
-        public ModifyBusifavorStockInformationRequestData(string stock_id, Custom_Entrance custom_entrance, string stock_name, string comment, string goods_name, string out_request_no, Display_Pattern_Info display_pattern_info, Coupon_Use_Rule coupon_use_rule, Stock_Send_Rule stock_send_rule, Notify_Config notify_config)
+        public ModifyBusifavorStockInformationRequestData(Custom_Entrance custom_entrance, string stock_name, string comment, string goods_name, string out_request_no, Display_Pattern_Info display_pattern_info, Coupon_Use_Rule coupon_use_rule, Stock_Send_Rule stock_send_rule, Notify_Config notify_config)
         {
-            this.stock_id = stock_id;
             this.custom_entrance = custom_entrance;
             this.stock_name = stock_name;
             this.comment = comment;
@@ -78,12 +79,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         {
         }
 
-        /// <summary>
-        /// 批次号
-        /// <para>path批次号 </para>
-        /// <para>示例值：101156451224</para>
-        /// </summary>
-        public string stock_id { get; set; }
 
         /// <summary>
         /// 自定义入口

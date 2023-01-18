@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -78,7 +78,7 @@ namespace Senparc.Weixin.TenPayV3.TenPayHttpClient
         /// </summary>
         /// <param name="urlFormat">如：<code>https://api.mch.weixin.qq.com/{0}pay/unifiedorder</code></param>
         /// <returns></returns>
-        private static string ReurnPayApiUrl(string urlFormat)
+        private static string ReturnPayApiUrl(string urlFormat)
         {
             //注意：目前微信支付 V3 还没有支持沙箱，此处只是预留
             return string.Format(urlFormat, Senparc.Weixin.Config.UseSandBoxPay ? "sandboxnew/" : "");
@@ -93,7 +93,7 @@ namespace Senparc.Weixin.TenPayV3.TenPayHttpClient
         /// <returns></returns>
         public async Task<JsApiReturnJson> JsApiAsync(TransactionsRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/pay/transactions/jsapi");
+            var url = ReturnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/pay/transactions/jsapi");
 
             HttpClient hc = null;//注入
             TenPayHttpClient tenPayApiRequest = new(_httpClient, _tenpayV3Setting);

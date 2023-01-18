@@ -45,3 +45,5 @@ packages/
 /Samples/All/net6-mvc/nuget.exe
 /src/Senparc.Weixin.MP/Senparc.Weixin.MP.Test/Config/test.config
 /Samples/TenPayV3/Senparc.Weixin.Sample.TenPayV3/.config/
+/Samples/All/net7-mvc/Senparc.Weixin.Sample.Net7/Properties/PublishProfiles
+/Samples/All/net7-mvc/Senparc.Weixin.Sample.Net7/App_Data/cert

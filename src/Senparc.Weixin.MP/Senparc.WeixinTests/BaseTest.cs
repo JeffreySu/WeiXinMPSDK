@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
+﻿#if NETCOREAPP2_0_OR_GREATER || NET6_0_OR_GREATER
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,7 +40,7 @@ namespace Senparc.WeixinTests
         /// </summary>
         protected void RegisterStart()
         {
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
+#if NETCOREAPP2_0_OR_GREATER || NET6_0_OR_GREATER
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//支持 GB2312
 #endif
 
@@ -50,8 +50,8 @@ namespace Senparc.WeixinTests
             //注册 CON2ET 全局
             var senparcSetting = new SenparcSetting() { IsDebug = true };
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
-#if NETCOREAPP3_1 || NET6_0
+#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
+#if NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
             var mockEnv = new Mock<IHostEnvironment>();
 #else
             var mockEnv = new Mock<IHostingEnvironment>();
@@ -81,7 +81,7 @@ namespace Senparc.WeixinTests
             register.ChangeDefaultCacheNamespace("Senparc.Weixin Test Cache");
         }
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
+#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
         /// <summary>
         /// 注册 IServiceCollection 和 MemoryCache
         /// </summary>
@@ -132,7 +132,7 @@ namespace Senparc.WeixinTests
         /// <returns></returns>
         protected string GetParentRootRelativePath()
         {
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
+#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
             return @"..\..\..\";
 #else
             return @"..\..\";

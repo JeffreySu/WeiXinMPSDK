@@ -4,11 +4,6 @@ using Senparc.Weixin.Helpers;
 using Senparc.Weixin.TenPayV3.Apis.Marketing;
 using Senparc.Weixin.TenPayV3.Entities;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis.Tests
 {
@@ -313,10 +308,10 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             // TODO:流水号?这样是否有效?
             var modify_budget_request_no = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"), TenPayV3Util.BuildRandomStr(6));
-            var requestData = new ModifyBusifavorStockBudgetRequestData(createBusifavorStockResult.stock_id, 20, null, null, null, modify_budget_request_no);
+            var requestData = new ModifyBusifavorStockBudgetRequestData(20, null, null, null, modify_budget_request_no);
 
             var marketingApis = new MarketingApis();
-            var result = marketingApis.ModifyBusifavorStockBudgetAsync(requestData).GetAwaiter().GetResult();
+            var result = marketingApis.ModifyBusifavorStockBudgetAsync(createBusifavorStockResult.stock_id, requestData).GetAwaiter().GetResult();
 
             Console.WriteLine("微信支付 V3 修改批次预算接口：" + result.ToJson(true));
 
@@ -342,10 +337,10 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 
             // TODO:流水号?这样是否有效?
             var out_request_no = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"), TenPayV3Util.BuildRandomStr(6));
-            var requestData = new ModifyBusifavorStockInformationRequestData(createBusifavorStockResult.stock_id, null, "Senparc微信支付V3商家券测试-修改", null, null, out_request_no, null, null, null, null);
+            var requestData = new ModifyBusifavorStockInformationRequestData(null, "Senparc微信支付V3商家券测试-修改", null, null, out_request_no, null, null, null, null);
 
             var marketingApis = new MarketingApis();
-            var result = marketingApis.ModifyBusifavorStockInformationAsync(requestData).GetAwaiter().GetResult();
+            var result = marketingApis.ModifyBusifavorStockInformationAsync(createBusifavorStockResult.stock_id, requestData).GetAwaiter().GetResult();
 
             Console.WriteLine("微信支付 V3 修改商家券基本信息接口：" + result.ToJson(true));
 

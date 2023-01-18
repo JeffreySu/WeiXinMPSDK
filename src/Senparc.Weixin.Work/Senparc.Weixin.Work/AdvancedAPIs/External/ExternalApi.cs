@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright(C) 2022 Senparc
     
     文件名：ExternalApi.cs
     文件功能描述：外部联系人接口
@@ -37,12 +37,24 @@
     修改标识：Senparc - 20220703
     修改描述：v3.15.5.1 修复 ExternalApi.GetFollowUserList() 接口请求类型为 GET
 
+    修改标识：Senparc - 20220910
+    修改描述：v3.15.7
+              1、添加“创建企业群发”接口
+              2、添加“获取企业的全部群发记录”接口
+              3、添加“发送新客户欢迎语”接口
+
+    修改标识：Senparc - 20220918
+    修改描述：v3.15.9 
+		      1、补充完整“客户联系「联系我」管理”接口
+              2、添加“客户群「加入群聊」管理”接口
+
 ----------------------------------------------------------------*/
 
 /*
     官方文档：https://work.weixin.qq.com/api/doc#13473
  */
 
+using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
@@ -249,7 +261,13 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             }, accessTokenOrAppKey);
         }
 
-        #region 「联系我」
+        #endregion
+
+        #region 联系我与客户入群方式
+
+        #region 客户联系「联系我」管理
+
+        //文档：https://developer.work.weixin.qq.com/document/path/92228
 
         /// <summary>
         /// 配置客户联系「联系我」方式
@@ -268,8 +286,192 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             }, accessTokenOrAppKey);
         }
 
+        /// <summary>
+        /// 获取企业已配置的「联系我」方式
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="configId">联系方式的配置id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetContactWayResult AddContactWay(string accessTokenOrAppKey, string configId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/get_contact_way?access_token={accessToken}";
+
+                var data = new { config_id = configId };
+
+                return CommonJsonSend.Send<GetContactWayResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 获取企业已配置的「联系我」列表
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="startTime">「联系我」创建起始时间戳, 默认为90天前</param>
+        /// <param name="endTime">「联系我」创建结束时间戳, 默认为当前时间</param>
+        /// <param name="cursor">分页查询使用的游标，为上次请求返回的 next_cursor</param>
+        /// <param name="limit">每次查询的分页大小，默认为100条，最多支持1000条</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static ListContactWayResult ListContactWay(string accessTokenOrAppKey, int? startTime = null, int? endTime = null, string? cursor = null, int? limit = null, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/list_contact_way?access_token={accessToken}";
+
+                var data = new
+                {
+                    start_time = startTime,
+                    end_time = endTime,
+                    cursor,
+                    limit
+                };
+
+                return CommonJsonSend.Send<ListContactWayResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+
+        /// <summary>
+        /// 更新企业已配置的「联系我」方式
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="configId">联系方式的配置id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WorkJsonResult UpdateContactWay(string accessTokenOrAppKey, UpdateContactWayRequest request, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/update_contact_way?access_token={accessToken}";
+
+
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, request, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+
+        /// <summary>
+        /// 删除企业已配置的「联系我」方式
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="configId">	企业联系方式的配置id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WorkJsonResult DeleteContactWay(string accessTokenOrAppKey, string configId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/del_contact_way?access_token={accessToken}";
+
+                var data = new { config_id = configId };
+
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+
+        /// <summary>
+        /// 结束临时会话
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="userid">企业成员的userid</param>
+        /// <param name="externalUserid">客户的外部联系人userid</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WorkJsonResult CloseTempChat(string accessTokenOrAppKey, string userid, string externalUserid, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/close_temp_chat?access_token={accessToken}";
+
+                var data = new { userid = userid, external_userid = externalUserid };
+
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
         #endregion
 
+        #region 客户群「加入群聊」管理
+
+        /// <summary>
+        /// 配置客户群进群方式
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="requet">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GroupChat_AddJoinWayResult GroupChat_AddJoinWay(string accessTokenOrAppKey, GroupChat_AddJoinWayRequest requet, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/groupchat/add_join_way?access_token={accessToken}";
+
+                return CommonJsonSend.Send<GroupChat_AddJoinWayResult>(null, url, requet, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+
+        /// <summary>
+        /// 获取客户群进群方式配置
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="configId">联系方式的配置id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GroupChat_GetJoinWayResult GroupChat_GetJoinWay(string accessTokenOrAppKey, string configId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/groupchat/get_join_way?access_token={accessToken}";
+
+                var data = new { config_id = configId };
+
+                return CommonJsonSend.Send<GroupChat_GetJoinWayResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+
+        /// <summary>
+        /// 获取客户群进群方式配置
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="request">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WorkJsonResult GroupChat_UpdateJoinWay(string accessTokenOrAppKey, GroupChat_UpdateJoinWayRequest request, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/groupchat/update_join_way?access_token={accessToken}";
+
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, request, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 获取客户群进群方式配置
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="configId">企业联系方式的配置id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WorkJsonResult GroupChat_DelJoinWay(string accessTokenOrAppKey, string configId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/groupchat/del_join_way?access_token={accessToken}";
+
+                var data = new { config_id = configId };
+
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        #endregion
 
         #endregion
 
@@ -572,6 +774,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return CommonJsonSend.Send<GetMomentListResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
+
         /// <summary>
         /// 获取企业发表的朋友圈成员执行情况
         /// </summary>
@@ -590,7 +793,117 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
-        #region 入群欢迎语
+        #region 消息推送
+
+        /// <summary>
+        /// 创建企业群发
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/92135</para>
+        /// <para></para>
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="requestData"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static AddMessageTemplateResult AddMsgTemplate(string accessTokenOrAppKey, AddMessageTemplateRequest requestData, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/add_msg_template?access_token={0}", accessToken);
+                return CommonJsonSend.Send<AddMessageTemplateResult>(null, url, requestData, CommonJsonSendType.POST, timeOut, jsonSetting: new JsonSetting(true));
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 获取群发记录列表
+        /// <para>https://developer.work.weixin.qq.com/document/path/93338</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="requestData"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetGroupMsgListV2Result GetGroupMsgListV2(string accessTokenOrAppKey, GetGroupMsgListV2Request requestData, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/get_groupmsg_list_v2?access_token={0}", accessToken);
+                return CommonJsonSend.Send<GetGroupMsgListV2Result>(null, url, requestData, CommonJsonSendType.POST, timeOut, jsonSetting: new JsonSetting(true));
+            }, accessTokenOrAppKey);
+        }
+
+#nullable enable
+
+        /// <summary>
+        /// 获取群发记录列表
+        /// <para>https://developer.work.weixin.qq.com/document/path/93338</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="msgid">群发消息的id，通过<see href="https://developer.work.weixin.qq.com/document/path/93338#%E8%8E%B7%E5%8F%96%E7%BE%A4%E5%8F%91%E8%AE%B0%E5%BD%95%E5%88%97%E8%A1%A8">获取群发记录列表</see>接口返回</param>
+        /// <param name="limit">返回的最大记录数，整型，最大值1000，默认值500，超过最大值时取默认值</param>
+        /// <param name="cursor">用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetGroupMsgTaskResult GetGroupMsgTask(string accessTokenOrAppKey, string msgid, int? limit = null, string? cursor = null, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/get_groupmsg_task?access_token={0}", accessToken);
+                var data = new
+                {
+                    msgid,
+                    limit,
+                    cursor
+                };
+                return CommonJsonSend.Send<GetGroupMsgTaskResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: new JsonSetting(true));
+            }, accessTokenOrAppKey);
+        }
+
+#nullable disable
+
+
+        /// <summary>
+        /// 获取企业群发成员执行结果
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="msgid">群发消息的id，通过<see href="https://developer.work.weixin.qq.com/document/path/93338#%E8%8E%B7%E5%8F%96%E7%BE%A4%E5%8F%91%E8%AE%B0%E5%BD%95%E5%88%97%E8%A1%A8">获取群发记录列表</see>接口返回</param>
+        /// <param name="userid">发送成员userid，通过<see href="https://developer.work.weixin.qq.com/document/path/93338#%E8%8E%B7%E5%8F%96%E7%BE%A4%E5%8F%91%E6%88%90%E5%91%98%E5%8F%91%E9%80%81%E4%BB%BB%E5%8A%A1%E5%88%97%E8%A1%A8">获取群发成员发送任务列表</see>接口返回</param>
+        /// <param name="limit">返回的最大记录数，整型，最大值1000，默认值500，超过最大值时取默认值</param>
+        /// <param name="cursor">用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetGroupMsgSendResultResult GetGroupMsgSendResult(string accessTokenOrAppKey, string msgid, string userid, int? limit = null, string? cursor = null, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/get_groupmsg_send_result?access_token={0}", accessToken);
+                var data = new
+                {
+                    msgid,
+                    userid,
+                    limit,
+                    cursor
+                };
+                return CommonJsonSend.Send<GetGroupMsgSendResultResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: new JsonSetting(true));
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 发送新客户欢迎语
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="requestData"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WorkJsonResult SendWelcomeMsg(string accessTokenOrAppKey, SendWelcomeMsgRequest requestData, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/send_welcome_msg?access_token={0}", accessToken);
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, requestData, CommonJsonSendType.POST, timeOut, jsonSetting: new JsonSetting(true));
+            }, accessTokenOrAppKey);
+        }
+
+        #region 入群欢迎语素材管理
+
         /// <summary>
         /// 添加入群欢迎语素材
         /// </summary>
@@ -606,6 +919,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return CommonJsonSend.Send<GroupWelcomeTemplateAddResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
+
         /// <summary>
         /// 编辑入群欢迎语素材
         /// </summary>
@@ -663,6 +977,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
+
+
+        #endregion
+
         #endregion
 
         #endregion
@@ -1177,7 +1495,330 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
-        #region 入群欢迎语
+        #region 联系我与客户入群方式
+
+
+        #region 客户联系「联系我」管理
+
+        //文档：https://developer.work.weixin.qq.com/document/path/92228
+
+        /// <summary>
+        /// 配置客户联系「联系我」方式
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="rquest">请求报文</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<AddContactWayResult> AddContactWayAsync(string accessTokenOrAppKey, AddContactWayRequest rquest, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/add_contact_way?access_token={accessToken}";
+
+                return await CommonJsonSend.SendAsync<AddContactWayResult>(null, url, rquest, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取企业已配置的「联系我」方式
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="configId">联系方式的配置id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public async static Task<GetContactWayResult> AddContactWayAsync(string accessTokenOrAppKey, string configId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/get_contact_way?access_token={accessToken}";
+
+                var data = new { config_id = configId };
+
+                return await CommonJsonSend.SendAsync<GetContactWayResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取企业已配置的「联系我」列表
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="startTime">「联系我」创建起始时间戳, 默认为90天前</param>
+        /// <param name="endTime">「联系我」创建结束时间戳, 默认为当前时间</param>
+        /// <param name="cursor">分页查询使用的游标，为上次请求返回的 next_cursor</param>
+        /// <param name="limit">每次查询的分页大小，默认为100条，最多支持1000条</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public async static Task<ListContactWayResult> ListContactWayAsync(string accessTokenOrAppKey, int? startTime = null, int? endTime = null, string? cursor = null, int? limit = null, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/list_contact_way?access_token={accessToken}";
+
+                var data = new
+                {
+                    start_time = startTime,
+                    end_time = endTime,
+                    cursor,
+                    limit
+                };
+
+                return await CommonJsonSend.SendAsync<ListContactWayResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+
+        /// <summary>
+        /// 【异步方法】更新企业已配置的「联系我」方式
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="configId">联系方式的配置id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public async static Task<WorkJsonResult> UpdateContactWayAsync(string accessTokenOrAppKey, UpdateContactWayRequest request, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/update_contact_way?access_token={accessToken}";
+
+
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, request, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+
+        /// <summary>
+        /// 【异步方法】删除企业已配置的「联系我」方式
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="configId">	企业联系方式的配置id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public async static Task<WorkJsonResult> DeleteContactWayAsync(string accessTokenOrAppKey, string configId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/del_contact_way?access_token={accessToken}";
+
+                var data = new { config_id = configId };
+
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+
+        /// <summary>
+        /// 【异步方法】结束临时会话
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="userid">企业成员的userid</param>
+        /// <param name="externalUserid">客户的外部联系人userid</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public async static Task<WorkJsonResult> CloseTempChatAsync(string accessTokenOrAppKey, string userid, string externalUserid, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/close_temp_chat?access_token={accessToken}";
+
+                var data = new { userid = userid, external_userid = externalUserid };
+
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+
+        #endregion
+
+        #region 客户群「加入群聊」管理
+
+        /// <summary>
+        /// 【异步方法】配置客户群进群方式
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="requet">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GroupChat_AddJoinWayResult> GroupChat_AddJoinWayAsync(string accessTokenOrAppKey, GroupChat_AddJoinWayRequest requet, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/groupchat/add_join_way?access_token={accessToken}";
+
+                return await CommonJsonSend.SendAsync<GroupChat_AddJoinWayResult>(null, url, requet, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+
+        /// <summary>
+        /// 【异步方法】获取客户群进群方式配置
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="configId">联系方式的配置id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GroupChat_GetJoinWayResult> GroupChat_GetJoinWayAsync(string accessTokenOrAppKey, string configId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/groupchat/get_join_way?access_token={accessToken}";
+
+                var data = new { config_id = configId };
+
+                return await CommonJsonSend.SendAsync<GroupChat_GetJoinWayResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+
+        /// <summary>
+        /// 【异步方法】获取客户群进群方式配置
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="request">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> GroupChat_UpdateJoinWayAsync(string accessTokenOrAppKey, GroupChat_UpdateJoinWayRequest request, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/groupchat/update_join_way?access_token={accessToken}";
+
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, request, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 获取客户群进群方式配置
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="configId">企业联系方式的配置id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> GroupChat_DelJoinWayAsync(string accessTokenOrAppKey, string configId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/groupchat/del_join_way?access_token={accessToken}";
+
+                var data = new { config_id = configId };
+
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        #endregion
+
+        #endregion
+
+        #region 消息推送
+
+        /// <summary>
+        /// 创建企业群发
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/92135</para>
+        /// <para></para>
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="requestData"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<AddMessageTemplateResult> AddMsgTemplateAsync(string accessTokenOrAppKey, AddMessageTemplateRequest requestData, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/add_msg_template?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<AddMessageTemplateResult>(null, url, requestData, CommonJsonSendType.POST, timeOut, jsonSetting: new JsonSetting(true));
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 获取群发记录列表
+        /// <para>https://developer.work.weixin.qq.com/document/path/93338</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="requestData"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetGroupMsgListV2Result> GetGroupMsgListV2Async(string accessTokenOrAppKey, GetGroupMsgListV2Request requestData, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/get_groupmsg_list_v2?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<GetGroupMsgListV2Result>(null, url, requestData, CommonJsonSendType.POST, timeOut, jsonSetting: new JsonSetting(true));
+            }, accessTokenOrAppKey);
+        }
+
+#nullable enable
+
+        /// <summary>
+        /// 获取群发记录列表
+        /// <para>https://developer.work.weixin.qq.com/document/path/93338</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="msgid">群发消息的id，通过<see href="https://developer.work.weixin.qq.com/document/path/93338#%E8%8E%B7%E5%8F%96%E7%BE%A4%E5%8F%91%E8%AE%B0%E5%BD%95%E5%88%97%E8%A1%A8">获取群发记录列表</see>接口返回</param>
+        /// <param name="limit">返回的最大记录数，整型，最大值1000，默认值500，超过最大值时取默认值</param>
+        /// <param name="cursor">用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetGroupMsgTaskResult> GetGroupMsgTaskAsync(string accessTokenOrAppKey, string msgid, int? limit = null, string? cursor = null, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/get_groupmsg_task?access_token={0}", accessToken);
+                var data = new
+                {
+                    msgid,
+                    limit,
+                    cursor
+                };
+                return await CommonJsonSend.SendAsync<GetGroupMsgTaskResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: new JsonSetting(true));
+            }, accessTokenOrAppKey);
+        }
+
+#nullable disable
+
+
+        /// <summary>
+        /// 获取企业群发成员执行结果
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="msgid">群发消息的id，通过<see href="https://developer.work.weixin.qq.com/document/path/93338#%E8%8E%B7%E5%8F%96%E7%BE%A4%E5%8F%91%E8%AE%B0%E5%BD%95%E5%88%97%E8%A1%A8">获取群发记录列表</see>接口返回</param>
+        /// <param name="userid">发送成员userid，通过<see href="https://developer.work.weixin.qq.com/document/path/93338#%E8%8E%B7%E5%8F%96%E7%BE%A4%E5%8F%91%E6%88%90%E5%91%98%E5%8F%91%E9%80%81%E4%BB%BB%E5%8A%A1%E5%88%97%E8%A1%A8">获取群发成员发送任务列表</see>接口返回</param>
+        /// <param name="limit">返回的最大记录数，整型，最大值1000，默认值500，超过最大值时取默认值</param>
+        /// <param name="cursor">用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetGroupMsgSendResultResult> GetGroupMsgSendResultAsync(string accessTokenOrAppKey, string msgid, string userid, int? limit = null, string? cursor = null, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/get_groupmsg_send_result?access_token={0}", accessToken);
+                var data = new
+                {
+                    msgid,
+                    userid,
+                    limit,
+                    cursor
+                };
+                return await CommonJsonSend.SendAsync<GetGroupMsgSendResultResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: new JsonSetting(true));
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 发送新客户欢迎语
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="requestData"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> SendWelcomeMsgAsync(string accessTokenOrAppKey, SendWelcomeMsgRequest requestData, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/send_welcome_msg?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, requestData, CommonJsonSendType.POST, timeOut, jsonSetting: new JsonSetting(true));
+            }, accessTokenOrAppKey);
+        }
+
+        #region 入群欢迎语素材管理
         /// <summary>
         /// 添加入群欢迎语素材
         /// </summary>
@@ -1193,6 +1834,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return await CommonJsonSend.SendAsync<GroupWelcomeTemplateAddResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
+
         /// <summary>
         /// 编辑入群欢迎语素材
         /// </summary>
@@ -1250,29 +1892,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
-        #endregion
-
-        #region 「联系我」
-
-        /// <summary>
-        /// 配置客户联系「联系我」方式
-        /// </summary>
-        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
-        /// <param name="rquest">请求报文</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static async Task<AddContactWayResult> AddContactWayAsync(string accessTokenOrAppKey, AddContactWayRequest rquest, int timeOut = Config.TIME_OUT)
-        {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
-            {
-                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/add_contact_way?access_token={accessToken}";
-
-                return await CommonJsonSend.SendAsync<AddContactWayResult>(null, url, rquest, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
-            }, accessTokenOrAppKey);
-        }
 
         #endregion
 
+        #endregion
 
         #endregion
     }

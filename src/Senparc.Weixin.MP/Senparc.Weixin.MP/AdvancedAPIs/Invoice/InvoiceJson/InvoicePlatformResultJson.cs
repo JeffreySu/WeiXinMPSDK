@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：InvoicePlatformResultJson.cs
     文件功能描述：开票平台返回结果

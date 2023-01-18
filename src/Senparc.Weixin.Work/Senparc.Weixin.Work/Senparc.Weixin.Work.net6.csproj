@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>3.15.6-beta1</Version>
+    <Version>3.15.12</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -31,7 +31,7 @@
 			v0.3.0 AccessTokenResult 加入 IAccessTokenResult 接口
 			v0.3.1 修复OaDataOpenApi接口AccessToken传递问题
 			v0.3.2 修复Senparc.Weixin.QY.AdvancedAPIs.MassApi中，因为accessToken为null而导致消息发送失败的问题
-			v0.3.3 为Tencent命名空间添加Senparc.Weixin.Work前缀  
+			v0.3.3 为Tencent命名空间添加Senparc.Weixin.Work前缀
 
 			v0.4.0 支持 .NET Core 2.0
 			v0.4.1 更新MailListApi.GetDepartmentMemberInfo()参数
@@ -179,6 +179,14 @@
 			v3.15.2 添加“用户标签管理”接口
 			v3.15.4 添加 MailList.Member 下的 biz_mail 属性
 			v3.15.5 调整批量获取客户详情返回值
+			v3.15.7
+			1、添加“创建企业群发”接口
+			2、添加“获取企业的全部群发记录”接口
+			3、添加“发送新客户欢迎语”接口
+			v3.15.8 支持“发送应用消息”的“模板卡片消息”类型（MassApi.SendTemplateCard() 方法）
+			v3.15.9
+			1、补充完整“客户联系「联系我」管理”接口
+			2、添加“客户群「加入群聊」管理”接口
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>
@@ -227,7 +235,7 @@
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="2.1.1.1" />
+    <PackageReference Include="Senparc.NeuChar" Version="2.1.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

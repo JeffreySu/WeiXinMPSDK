@@ -69,6 +69,10 @@ namespace Senparc.Weixin.WxOpen
         /// mediaCheckAsync 异步检测结果
         /// </summary>
         wxa_media_check,
+        /// <summary>
+        /// 类目审核结果事件推送
+        /// </summary>
+        wxa_category_audit
     }
 
     ///// <summary>

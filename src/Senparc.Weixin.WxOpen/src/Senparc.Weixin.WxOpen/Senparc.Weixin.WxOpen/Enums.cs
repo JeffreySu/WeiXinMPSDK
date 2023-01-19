@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：mc7246 - 20220504
     修改描述：v3.15.2 添加小程序隐私权限审核结果推送
 
+    修改标识：mc7246 - 20230119
+    修改描述：v3.15.12 添加小程序类目审核结果事件推送，增加 Event.wxa_category_audit 枚举值
+
 ----------------------------------------------------------------*/
 
 using System.ComponentModel;

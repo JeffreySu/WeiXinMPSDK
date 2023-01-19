@@ -40,7 +40,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v6.8.400 修复 CommonJsonSend.PostFailAction 公共请求失败处理抛错问题
 
     修改标识：Senparc - 20230110
-    修改描述：v6.15.9 CommonJsonSend.Send() 方法提供 contentType 参数
+    修改描述：v6.15.8 CommonJsonSend.Send() 方法提供 contentType 参数
 
 ----------------------------------------------------------------*/
 

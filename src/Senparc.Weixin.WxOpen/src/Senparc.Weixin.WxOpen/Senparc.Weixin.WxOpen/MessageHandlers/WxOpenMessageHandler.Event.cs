@@ -102,7 +102,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.wxa_media_check:
                     responseMessage = OnEvent_MediaCheckRequest(RequestMessage as RequestMessageEvent_MediaCheck);
                     break;
-
+                case Event.wxa_category_audit:
+                    responseMessage = OnEvent_WxaCategoryAuditRequest(RequestMessage as RequestMessageEvent_WxaCategoryAudit);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -110,6 +112,15 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         }
 
         #region Event 下属分类
+        /// <summary>
+        /// 小程序类目审核结果事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_WxaCategoryAuditRequest(RequestMessageEvent_WxaCategoryAudit requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
         /// <summary>
         /// 在腾讯地图中创建门店的审核结果
         /// </summary>
@@ -288,6 +299,15 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
         #region Event 下属分类
 
+        /// <summary>
+        /// 【异步方法】小程序类目审核结果事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_WxaCategoryAuditRequestAsync(RequestMessageEvent_WxaCategoryAudit requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_WxaCategoryAuditRequest(requestMessage)).ConfigureAwait(false);
+        }
         /// <summary>
         /// 在腾讯地图中创建门店的审核结果
         /// </summary>

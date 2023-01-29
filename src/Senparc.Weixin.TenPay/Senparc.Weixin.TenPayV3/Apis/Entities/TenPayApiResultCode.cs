@@ -123,7 +123,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Entities
         /// <returns></returns>
         public static TenPayApiResultCode TryGetCode(HttpStatusCode httpStatusCode, string responseContent)
         {
-            responseContent ??= "{}";
+            //responseContent ??= "{}";
                 
             TenPayApiResultCode resultCode = null;
 
@@ -187,7 +187,13 @@ namespace Senparc.Weixin.TenPayV3.Apis.Entities
             return resultCode;
         }
 
+        /// <summary>
+        /// 是否为成功消息
+        /// </summary>
         public bool Success { get; protected set; } = false;
+        /// <summary>
+        /// HttpStatusCode
+        /// </summary>
         public string StateCode { get; protected set; }
         public string ErrorCode { get; protected set; }
         public string ErrorMessage { get; internal set; }

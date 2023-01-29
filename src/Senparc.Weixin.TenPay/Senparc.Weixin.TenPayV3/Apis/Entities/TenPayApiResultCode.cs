@@ -119,9 +119,12 @@ namespace Senparc.Weixin.TenPayV3.Apis.Entities
         /// 尝试获取 HTTP 返回代码，并附带备注信息
         /// </summary>
         /// <param name="httpStatusCode"></param>
+        /// <param name="responseContent"></param>
         /// <returns></returns>
         public static TenPayApiResultCode TryGetCode(HttpStatusCode httpStatusCode, string responseContent)
         {
+            responseContent ??= "{}";
+                
             TenPayApiResultCode resultCode = null;
 
             if (CodesCollection.TryGetValue(((int)httpStatusCode).ToString(), out var result))

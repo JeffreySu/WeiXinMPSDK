@@ -173,6 +173,10 @@ namespace Senparc.Weixin.TenPayV3
         /// <typeparam name="T"></typeparam>
         /// <param name="url"></param>
         /// <param name="data">如果为 GET 请求，此参数可为 null</param>
+        /// <param name="timeOut"></param>
+        /// <param name="requestMethod"></param>
+        /// <param name="checkSign"></param>
+        /// <param name="createDefaultInstance"></param>
         /// <returns></returns>
         public async Task<T> RequestAsync<T>(string url, object data, int timeOut = Config.TIME_OUT, ApiRequestMethod requestMethod = ApiRequestMethod.POST, bool checkSign = true, Func<T> createDefaultInstance = null)
             where T : ReturnJsonBase/*, new()*/

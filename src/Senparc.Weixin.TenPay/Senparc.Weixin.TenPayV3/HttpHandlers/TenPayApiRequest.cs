@@ -180,7 +180,7 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="createDefaultInstance"></param>
         /// <returns></returns>
         public async Task<T> RequestAsync<T>(string url, object data, int timeOut = Config.TIME_OUT, ApiRequestMethod requestMethod = ApiRequestMethod.POST, bool checkSign = true, Func<T> createDefaultInstance = null)
-            where T : ReturnJsonBase/*, new()*/
+            where T : ReturnJsonBase, new()
         {
             T result = null;
 
@@ -202,6 +202,7 @@ namespace Senparc.Weixin.TenPayV3
                 {
                     if (resultCode.StateCode == ((int)HttpStatusCode.NoContent).ToString())
                     {
+                        result = new T();
                         result.VerifySignSuccess = true;
                     }
                     else

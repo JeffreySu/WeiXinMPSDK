@@ -40,6 +40,7 @@
 		v0.6.8.7 优化 TenPayApiResultCode 获取逻辑，修复 TryGetCode() 方法中当匹配不到预设错误信息时，返回 null 的问题
 		v0.6.8.8 修复 RefundQueryAsync() URL 问题
 		v0.6.8.13 修复验签时 204（NoContent）情况下的异常
+		v0.6.8.14 修复 PayScoreApis.QueryServiceOrderAsync() 重复代码
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

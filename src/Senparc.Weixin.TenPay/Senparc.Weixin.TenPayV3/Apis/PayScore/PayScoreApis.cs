@@ -215,8 +215,10 @@ namespace Senparc.Weixin.TenPayV3.Apis
             }
 
             var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/payscore/serviceorder?service_id={service_id}&appid={appid}");
+            
+            
+            url += out_order_no is not null ? $"&out_order_no={out_order_no}" : "";
             url += query_id is not null ? $"&query_id={query_id}" : "";
-            //url += query_id is not null ? $"&query_id={query_id}" : "";
 
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryServiceOrderReturnJson>(url, null, timeOut, ApiRequestMethod.GET);

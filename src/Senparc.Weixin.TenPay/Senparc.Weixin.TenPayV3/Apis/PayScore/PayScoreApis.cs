@@ -29,6 +29,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20220202
     修改描述：v0.6.8.14 修复 PayScoreApis.QueryServiceOrderAsync() 重复代码
+
+    修改标识：Senparc - 20220202
+    修改描述：v0.6.8.15 修复 PayScoreApis.QueryServiceOrderAsync() 参数判断逻辑
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;

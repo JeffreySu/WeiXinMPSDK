@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
   
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：mc7246 - 20220504
     修改描述：v3.15.2 添加小程序隐私权限审核结果推送
+
+    修改标识：mc7246 - 20230119
+    修改描述：v3.15.12 添加小程序类目审核结果事件推送，增加 Event.wxa_category_audit 枚举值
 
 ----------------------------------------------------------------*/
 
@@ -69,6 +72,10 @@ namespace Senparc.Weixin.WxOpen
         /// mediaCheckAsync 异步检测结果
         /// </summary>
         wxa_media_check,
+        /// <summary>
+        /// 类目审核结果事件推送
+        /// </summary>
+        wxa_category_audit
     }
 
     ///// <summary>

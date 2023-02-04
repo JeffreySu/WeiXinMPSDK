@@ -30,9 +30,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20191007
     修改描述：AddSenparcWeixinServices() 方法自动包含 AddSenparcGlobalServices() 注册过程
 
+    修改标识：Senparc - 20230119
+    修改描述：v6.15.8.6 AddCertHttpClient.AddCertHttpClient() 方法添加对 certPath 为 null 的判断
+
 ----------------------------------------------------------------*/
 
-#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_1 || NET6_0
+#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -41,6 +44,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
 using System;
 using System.IO;
@@ -63,7 +67,7 @@ namespace Senparc.Weixin.RegisterServices
         /// <param name="serviceCollection">IServiceCollection</param>
         /// <param name="configuration">IConfiguration</param>
         /// <returns></returns>
-        public static IServiceCollection AddSenparcWeixinServices(this IServiceCollection serviceCollection, IConfiguration configuration)
+        public static IServiceCollection AddSenparcWeixinServices(this IServiceCollection serviceCollection, IConfiguration configuration, Action addCertHttpClient = null)
         {
             serviceCollection.Configure<SenparcWeixinSetting>(configuration.GetSection("SenparcWeixinSetting"));
 
@@ -83,7 +87,11 @@ namespace Senparc.Weixin.RegisterServices
 
                 var key = TenPayHelper.GetRegisterKey(tenPayV3Setting);
 
-                services.AddCertHttpClient(key, tenPayV3Setting.TenPayV3_CertSecret, tenPayV3Setting.TenPayV3_CertPath);
+                //执行 Http 证书添加，如果为空则执行默认操作
+                (addCertHttpClient ?? (() =>
+                {
+                    services.AddCertHttpClient(key, tenPayV3Setting.TenPayV3_CertSecret, tenPayV3Setting.TenPayV3_CertPath);
+                }))();
             }
 
             return services;
@@ -139,13 +147,31 @@ namespace Senparc.Weixin.RegisterServices
 
 
         /// <summary>
-        /// 注册 HttpClient 请求证书
+        /// 注册 HttpClient 请求证书（V3 API 可不使用）
         /// </summary>
+        /// <param name="services"></param>
+        /// <param name="certName">证书名称</param>
+        /// <param name="certPassword">证书密码</param>
+        /// <param name="certPath">证书路径。
+        /// <para>物理路径，如：D:\\cert\\apiclient_cert.p12</para>
+        /// <para>相对路径，如：~/App_Data/cert/apiclient_cert.p12，注意：必须放在 App_Data 等受保护的目录下，避免泄露</para></param>
+        /// <param name="contentRootPath">当 certPath 为相对路径时需要提供，用于替代 ~/，拼接绝对路径</param>
         /// <returns></returns>
-        public static IServiceCollection AddCertHttpClient(this IServiceCollection services, string certName,string certPassword,string certPath)
+        public static IServiceCollection AddCertHttpClient(this IServiceCollection services, string certName, string certPassword, string certPath)
         {
             try
             {
+                if (certPath.IsNullOrEmpty())
+                {
+                    return services;
+                }
+
+                //处理相对路径
+                if (certPath.StartsWith("~/"))
+                {
+                    certPath = certPath.Replace("~/", Senparc.CO2NET.Config.RootDirectoryPath);
+                }
+
                 #region 添加证书
 
                 //添加注册

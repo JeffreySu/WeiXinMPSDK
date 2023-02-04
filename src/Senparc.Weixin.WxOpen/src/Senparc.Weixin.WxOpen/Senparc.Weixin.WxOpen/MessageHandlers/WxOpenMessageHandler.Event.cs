@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：MessageHandler.Event.cs
     文件功能描述：微信请求的集中处理方法：Event相关
@@ -42,6 +42,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20220806
     修改描述：v3.15.7 添加 OnEvent_MediaCheckRequest() 方法 
                - 内容安全回调：wxa_media_check 推送结果内容安全回调：wxa_media_check 推送结果
+
+    修改标识：mc7246 - 20230119
+    修改描述：v3.15.12 添加小程序类目审核结果事件推送，增加 OnEvent_WxaCategoryAuditRequestAsync() 方法
 
 ----------------------------------------------------------------*/
 
@@ -102,7 +105,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.wxa_media_check:
                     responseMessage = OnEvent_MediaCheckRequest(RequestMessage as RequestMessageEvent_MediaCheck);
                     break;
-
+                case Event.wxa_category_audit:
+                    responseMessage = OnEvent_WxaCategoryAuditRequest(RequestMessage as RequestMessageEvent_WxaCategoryAudit);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -110,6 +115,15 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         }
 
         #region Event 下属分类
+        /// <summary>
+        /// 小程序类目审核结果事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_WxaCategoryAuditRequest(RequestMessageEvent_WxaCategoryAudit requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
         /// <summary>
         /// 在腾讯地图中创建门店的审核结果
         /// </summary>
@@ -288,6 +302,15 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
         #region Event 下属分类
 
+        /// <summary>
+        /// 【异步方法】小程序类目审核结果事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_WxaCategoryAuditRequestAsync(RequestMessageEvent_WxaCategoryAudit requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_WxaCategoryAuditRequest(requestMessage)).ConfigureAwait(false);
+        }
         /// <summary>
         /// 在腾讯地图中创建门店的审核结果
         /// </summary>

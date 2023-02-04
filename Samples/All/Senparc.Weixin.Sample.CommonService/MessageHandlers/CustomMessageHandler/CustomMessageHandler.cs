@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
 
     文件名：CustomMessageHandler.cs
     文件功能描述：微信公众号自定义MessageHandler
@@ -62,7 +62,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
          */
 
 
-#if !DEBUG || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
+#if !DEBUG ||  NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
         string agentUrl = "http://localhost:12222/App/Weixin/4";
         string agentToken = "27C455F496044A87";
         string wiweihiKey = "CNadjJuWzyX5bz5Gn+/XoyqiqMa5DjXQ";

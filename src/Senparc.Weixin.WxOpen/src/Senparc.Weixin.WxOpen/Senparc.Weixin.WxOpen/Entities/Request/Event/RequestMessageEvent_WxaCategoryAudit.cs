@@ -19,39 +19,50 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2023 Senparc
-  
-    文件名：ReturnJsonBase.cs
-    文件功能描述：ReturnJson 的基类
+    Copyright (C) 2022 Senparc
+    
+    文件名：RequestMessageEvent_WxaCategoryAudit.cs
+    文件功能描述：事件之小程序审核成功
     
     
-    创建标识：Senparc - 20210804
+    创建标识：Senparc - 20230119
     
 ----------------------------------------------------------------*/
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
-namespace Senparc.Weixin.TenPayV3.Apis.Entities
+namespace Senparc.Weixin.WxOpen.Entities
 {
     /// <summary>
-    /// ReturnJson 的基类（预留）
+    /// 事件之小程序审核成功
     /// </summary>
-    public class ReturnJsonBase
+    public class RequestMessageEvent_WxaCategoryAudit : RequestMessageEventBase, IRequestMessageEventBase
     {
         /// <summary>
-        /// 回复状态码
+        /// 事件类型
         /// </summary>
-        public TenPayApiResultCode ResultCode { get; set; } = new TenPayApiResultCode();
+        public override Event Event
+        {
+            get { return Event.wxa_category_audit; }
+        }
 
         /// <summary>
-        /// 回复签名是否正确 在有错误的情况下，或不要求验证签名时 为null
-        /// <para>通常情况下，必须为 true 才表明签名通过</para>
-        /// <para>注意：在 204（NoContent） 的 <see cref="System.Net.HttpStatusCode"/> 下，此属性始终为 true</para>
+        /// 一级类目id
         /// </summary>
-        public bool? VerifySignSuccess { get; set; } = null; 
+        public string first { get; set; }
+
+        /// <summary>
+        /// 二级类目id
+        /// </summary>
+        public string second { get; set; }
+
+        /// <summary>
+        /// 审核结果 2.驳回，3通过
+        /// </summary>
+        public int ret { get; set; }
+
+        /// <summary>
+        /// 审核失败的驳回原因
+        /// </summary>
+        public string reason { get; set; }
+
     }
 }

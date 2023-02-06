@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20191007
     修改描述：AddSenparcWeixinServices() 方法自动包含 AddSenparcGlobalServices() 注册过程
 
+    修改标识：Senparc - 20230119
+    修改描述：v6.15.8.6 AddCertHttpClient.AddCertHttpClient() 方法添加对 certPath 为 null 的判断
+
 ----------------------------------------------------------------*/
 
 #if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
@@ -158,6 +161,11 @@ namespace Senparc.Weixin.RegisterServices
         {
             try
             {
+                if (certPath.IsNullOrEmpty())
+                {
+                    return services;
+                }
+
                 //处理相对路径
                 if (certPath.StartsWith("~/"))
                 {

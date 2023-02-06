@@ -44,6 +44,7 @@ using Senparc.Weixin.TenPayV3.Apis.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
 using System;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
@@ -173,9 +174,13 @@ namespace Senparc.Weixin.TenPayV3
         /// <typeparam name="T"></typeparam>
         /// <param name="url"></param>
         /// <param name="data">如果为 GET 请求，此参数可为 null</param>
+        /// <param name="timeOut"></param>
+        /// <param name="requestMethod"></param>
+        /// <param name="checkSign"></param>
+        /// <param name="createDefaultInstance"></param>
         /// <returns></returns>
         public async Task<T> RequestAsync<T>(string url, object data, int timeOut = Config.TIME_OUT, ApiRequestMethod requestMethod = ApiRequestMethod.POST, bool checkSign = true, Func<T> createDefaultInstance = null)
-            where T : ReturnJsonBase/*, new()*/
+            where T : ReturnJsonBase, new()
         {
             T result = null;
 
@@ -191,40 +196,48 @@ namespace Senparc.Weixin.TenPayV3
 #endif
 
                 //检查响应代码
-                TenPayApiResultCode resutlCode = TenPayApiResultCode.TryGetCode(responseMessage.StatusCode, content);
+                TenPayApiResultCode resultCode = TenPayApiResultCode.TryGetCode(responseMessage.StatusCode, content);
 
-                if (resutlCode.Success)
+                if (resultCode.Success)
                 {
-                    //TODO:待测试
-                    //验证微信签名
-                    //result.Signed = VerifyTenpaySign(responseMessage.Headers, content);
-                    var wechatpayTimestamp = responseMessage.Headers.GetValues("Wechatpay-Timestamp").First();
-                    var wechatpayNonce = responseMessage.Headers.GetValues("Wechatpay-Nonce").First();
-                    var wechatpaySignatureBase64 = responseMessage.Headers.GetValues("Wechatpay-Signature").First();//后续需要base64解码
-                    var wechatpaySerial = responseMessage.Headers.GetValues("Wechatpay-Serial").First();
-
-                    result = content.GetObject<T>();
-
-                    if (checkSign)
+                    if (resultCode.StateCode == ((int)HttpStatusCode.NoContent).ToString())
                     {
-                        try
+                        result = new T();
+                        result.VerifySignSuccess = true;
+                    }
+                    else
+                    {
+                        //TODO:待测试
+                        //验证微信签名
+                        //result.Signed = VerifyTenpaySign(responseMessage.Headers, content);
+                        var wechatpayTimestamp = responseMessage.Headers.GetValues("Wechatpay-Timestamp").First();
+                        var wechatpayNonce = responseMessage.Headers.GetValues("Wechatpay-Nonce").First();
+                        var wechatpaySignatureBase64 = responseMessage.Headers.GetValues("Wechatpay-Signature").First();//后续需要base64解码
+                        var wechatpaySerial = responseMessage.Headers.GetValues("Wechatpay-Serial").First();
+
+                        result = content.GetObject<T>();
+
+                        if (checkSign)
                         {
-                            var pubKey = await TenPayV3InfoCollection.GetAPIv3PublicKeyAsync(this._tenpayV3Setting, wechatpaySerial);
-                            result.VerifySignSuccess = TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignatureBase64, content, pubKey);
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new TenpayApiRequestException("RequestAsync 签名验证失败：" + ex.Message, ex);
+                            try
+                            {
+                                var pubKey = await TenPayV3InfoCollection.GetAPIv3PublicKeyAsync(this._tenpayV3Setting, wechatpaySerial);
+                                result.VerifySignSuccess = TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignatureBase64, content, pubKey);
+                            }
+                            catch (Exception ex)
+                            {
+                                throw new TenpayApiRequestException("RequestAsync 签名验证失败：" + ex.Message, ex);
+                            }
                         }
                     }
                 }
                 else
                 {
                     result = createDefaultInstance?.Invoke() ?? GetInstance<T>(true);
-                    resutlCode.Additional = content;
+                    resultCode.Additional = content;
                 }
-                //T result = resutlCode.Success ? (await responseMessage.Content.ReadAsStringAsync()).GetObject<T>() : new T();
-                result.ResultCode = resutlCode;
+                //T result = resultCode.Success ? (await responseMessage.Content.ReadAsStringAsync()).GetObject<T>() : new T();
+                result.ResultCode = resultCode;
 
                 return result;
             }

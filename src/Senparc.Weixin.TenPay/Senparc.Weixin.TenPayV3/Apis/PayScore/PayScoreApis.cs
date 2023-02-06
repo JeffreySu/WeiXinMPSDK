@@ -27,6 +27,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20210926
     
+    修改标识：Senparc - 20220202
+    修改描述：v0.6.8.14 修复 PayScoreApis.QueryServiceOrderAsync() 重复代码
+
+    修改标识：Senparc - 20220202
+    修改描述：v0.6.8.15 修复 PayScoreApis.QueryServiceOrderAsync() 参数判断逻辑
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;
@@ -213,7 +219,9 @@ namespace Senparc.Weixin.TenPayV3.Apis
             }
 
             var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/payscore/serviceorder?service_id={service_id}&appid={appid}");
-            url += query_id is not null ? $"&query_id={query_id}" : "";
+            
+            
+            url += out_order_no is not null ? $"&out_order_no={out_order_no}" : "";
             url += query_id is not null ? $"&query_id={query_id}" : "";
 
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);

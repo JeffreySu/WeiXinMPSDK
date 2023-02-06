@@ -15,7 +15,7 @@ builder.Services.AddSenparcWeixinServices(builder.Configuration);
 
 var app = builder.Build();
 
-#region 启用微信配置（一行代码）
+#region 启用微信配置（一句代码）
 
 //手动获取配置信息可使用以下方法
 //var senparcWeixinSetting = app.Services.GetService<IOptions<SenparcWeixinSetting>>()!.Value;

@@ -613,11 +613,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <returns></returns>
         public static ModifyWxaServerDomainResult ModifyWxaServerDomain(string componentAccessToken, ModifyWxaServerDomain_Action action, string wxa_server_domain = null, bool? is_modify_published_together = null, int timeOut = Config.TIME_OUT)
         {
-            var url =
-                string.Format(
-                    Config.ApiMpHost + "/cgi-bin/component/modify_wxa_server_domain?access_token={0}",
-                    componentAccessToken.AsUrlData());
-
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/modify_wxa_jump_domain?access_token={0}";
             var data = new
             {
                 action = action.ToString(),
@@ -625,7 +621,52 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 is_modify_published_together
             };
 
-            return CommonJsonSend.Send<ModifyWxaServerDomainResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting(true));
+            return CommonJsonSend.Send<ModifyWxaServerDomainResult>(componentAccessToken, urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting(true));
+        }
+
+        /// <summary>
+        /// 获取第三方平台业务域名校验文件
+        /// <para>本接口用于获取第三方平台小程序业务域名的校验文件。</para>
+        /// <para>使用过程中如遇到问题，可在开放平台服务商专区发帖交流。</para>
+        /// <para>文档：https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/thirdparty-management/domain-mgnt/getThirdpartyJumpDomainConfirmFile.html </para>
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="action">操作类型。</param>
+        /// <param name="wxa_jump_h5_domain">最多可以添加200个小程序业务域名，以;隔开。注意：域名不需带有http:// 等协议内容，也不能在域名末尾附加详细的 URI 地址，严格按照类似 www.qq.com 的写法。</param>
+        /// <param name="is_modify_published_together">是否同时修改“全网发布版本的值”。（false：只改“测试版”；true：同时改“测试版”和“全网发布版”）省略时，默认为false。</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetDomainConfirmFileResult GetDomainConfirmFile(string componentAccessToken, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/get_domain_confirmfile?access_token={0}";
+            return CommonJsonSend.Send<GetDomainConfirmFileResult>(componentAccessToken, urlFormat, null, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 设置第三方平台业务域名
+        /// <para>本接口用于配置第三方平台小程序业务域名。</para>
+        /// <para>配置业务域名时，需要将校验文件放置在域名根目录下，例如wx.qq.com，并确保可以访问该文件。可以通过获取第三方小程序业务域名的校验文件接口获取检验文件。</para>
+        /// <para>授权给第三方代开发的小程序，其业务域名只可以为在第三方平台账号中配置的小程序业务域名。即调用接口设置小程序业务域名之前可以调本接口先进行第三方平台小程序业务域名配置。</para>
+        /// <para>使用过程中如遇到问题，可在开放平台服务商专区发帖交流。</para>
+        /// <para>文档：https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/thirdparty-management/domain-mgnt/modifyThirdpartyJumpDomain.html</para>
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="action">操作类型。</param>
+        /// <param name="wxa_jump_h5_domain">最多可以添加200个小程序业务域名，以;隔开。注意：域名不需带有http:// 等协议内容，也不能在域名末尾附加详细的 URI 地址，严格按照类似 www.qq.com 的写法。</param>
+        /// <param name="is_modify_published_together">是否同时修改“全网发布版本的值”。（false：只改“测试版”；true：同时改“测试版”和“全网发布版”）省略时，默认为false。</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static ModifyWxaJumpDomainResult ModifyWxaJumpDomain(string componentAccessToken, ModifyWxaJumpDomain_Action action, string wxa_jump_h5_domain = null, bool? is_modify_published_together = null, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/modify_wxa_jump_domain?access_token={0}";
+            var data = new
+            {
+                action = action.ToString(),
+                wxa_jump_h5_domain,
+                is_modify_published_together
+            };
+
+            return CommonJsonSend.Send<ModifyWxaJumpDomainResult>(componentAccessToken, urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting(true));
         }
 
         #endregion
@@ -1155,11 +1196,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <returns></returns>
         public static async Task<ModifyWxaServerDomainResult> ModifyWxaServerDomainAsync(string componentAccessToken, ModifyWxaServerDomain_Action action, string wxa_server_domain = null, bool? is_modify_published_together = null, int timeOut = Config.TIME_OUT)
         {
-            var url =
-                string.Format(
-                    Config.ApiMpHost + "/cgi-bin/component/modify_wxa_server_domain?access_token={0}",
-                    componentAccessToken.AsUrlData());
-
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/modify_wxa_jump_domain?access_token={0}";
             var data = new
             {
                 action = action.ToString(),
@@ -1167,7 +1204,52 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 is_modify_published_together
             };
 
-            return await CommonJsonSend.SendAsync<ModifyWxaServerDomainResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting(true));
+            return await CommonJsonSend.SendAsync<ModifyWxaServerDomainResult>(componentAccessToken, urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting(true));
+        }
+
+        /// <summary>
+        /// 获取第三方平台业务域名校验文件
+        /// <para>本接口用于获取第三方平台小程序业务域名的校验文件。</para>
+        /// <para>使用过程中如遇到问题，可在开放平台服务商专区发帖交流。</para>
+        /// <para>文档：https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/thirdparty-management/domain-mgnt/getThirdpartyJumpDomainConfirmFile.html </para>
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="action">操作类型。</param>
+        /// <param name="wxa_jump_h5_domain">最多可以添加200个小程序业务域名，以;隔开。注意：域名不需带有http:// 等协议内容，也不能在域名末尾附加详细的 URI 地址，严格按照类似 www.qq.com 的写法。</param>
+        /// <param name="is_modify_published_together">是否同时修改“全网发布版本的值”。（false：只改“测试版”；true：同时改“测试版”和“全网发布版”）省略时，默认为false。</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetDomainConfirmFileResult> GetDomainConfirmFileAsync(string componentAccessToken, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/get_domain_confirmfile?access_token={0}";
+            return await CommonJsonSend.SendAsync<GetDomainConfirmFileResult>(componentAccessToken, urlFormat, null, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 设置第三方平台业务域名
+        /// <para>本接口用于配置第三方平台小程序业务域名。</para>
+        /// <para>配置业务域名时，需要将校验文件放置在域名根目录下，例如wx.qq.com，并确保可以访问该文件。可以通过获取第三方小程序业务域名的校验文件接口获取检验文件。</para>
+        /// <para>授权给第三方代开发的小程序，其业务域名只可以为在第三方平台账号中配置的小程序业务域名。即调用接口设置小程序业务域名之前可以调本接口先进行第三方平台小程序业务域名配置。</para>
+        /// <para>使用过程中如遇到问题，可在开放平台服务商专区发帖交流。</para>
+        /// <para>文档：https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/thirdparty-management/domain-mgnt/modifyThirdpartyJumpDomain.html</para>
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="action">操作类型。</param>
+        /// <param name="wxa_jump_h5_domain">最多可以添加200个小程序业务域名，以;隔开。注意：域名不需带有http:// 等协议内容，也不能在域名末尾附加详细的 URI 地址，严格按照类似 www.qq.com 的写法。</param>
+        /// <param name="is_modify_published_together">是否同时修改“全网发布版本的值”。（false：只改“测试版”；true：同时改“测试版”和“全网发布版”）省略时，默认为false。</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<ModifyWxaJumpDomainResult> ModifyWxaJumpDomainAsync(string componentAccessToken, ModifyWxaJumpDomain_Action action, string wxa_jump_h5_domain = null, bool? is_modify_published_together = null, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/modify_wxa_jump_domain?access_token={0}";
+            var data = new
+            {
+                action = action.ToString(),
+                wxa_jump_h5_domain,
+                is_modify_published_together
+            };
+
+            return await CommonJsonSend.SendAsync<ModifyWxaJumpDomainResult>(componentAccessToken, urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting(true));
         }
 
         #endregion

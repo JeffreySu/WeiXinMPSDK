@@ -412,4 +412,27 @@ namespace Senparc.Weixin.Open
         /// </summary>
         get
     }
+
+    /// <summary>
+    /// “设置第三方平台业务域名”接口，action 参数枚举
+    /// </summary>
+    public enum ModifyWxaJumpDomain_Action
+    {
+        /// <summary>
+        /// 	添加
+        /// </summary>
+        add,
+        /// <summary>
+        /// 删除。说明，删除不存在的域名会视为成功，返回 errcode 为0
+        /// </summary>
+        delete,
+        /// <summary>
+        /// 覆盖
+        /// </summary>
+        set,
+        /// <summary>
+        /// 获取 ，action=get时，会同时返回测试版和全网发布版的“小程序服务器域名”值。
+        /// </summary>
+        get
+    }
 }

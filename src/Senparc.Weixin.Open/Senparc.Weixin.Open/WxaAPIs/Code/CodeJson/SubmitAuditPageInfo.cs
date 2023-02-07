@@ -26,7 +26,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20170726
-    
+   
+    修改标识：Senparc - 20230207
+    修改描述：v4.14.15 完善“第三方平台业务域名” #2767 #2789
 
 ----------------------------------------------------------------*/
 

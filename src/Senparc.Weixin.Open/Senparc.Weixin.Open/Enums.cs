@@ -51,6 +51,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：mc7246 - 20220514
     修改描述：v4.14.3 补充小程序/公众号获取基本信息字段（PrincipalType、CustomerType）
 
+    修改标识：Senparc - 20230207
+    修改描述：v4.14.15 完善“第三方平台业务域名”，添加枚举：ModifyWxaJumpDomain_Action #2767 #2789
+
 ----------------------------------------------------------------*/
 
 

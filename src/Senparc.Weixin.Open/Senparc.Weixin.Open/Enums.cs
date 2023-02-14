@@ -51,6 +51,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：mc7246 - 20220514
     修改描述：v4.14.3 补充小程序/公众号获取基本信息字段（PrincipalType、CustomerType）
 
+    修改标识：Senparc - 20230207
+    修改描述：v4.14.15 完善“第三方平台业务域名”，添加枚举：ModifyWxaJumpDomain_Action #2767 #2789
+
 ----------------------------------------------------------------*/
 
 
@@ -394,6 +397,29 @@ namespace Senparc.Weixin.Open
     /// “设置第三方平台服务器域名”接口，action 参数枚举
     /// </summary>
     public enum ModifyWxaServerDomain_Action
+    {
+        /// <summary>
+        /// 	添加
+        /// </summary>
+        add,
+        /// <summary>
+        /// 删除。说明，删除不存在的域名会视为成功，返回 errcode 为0
+        /// </summary>
+        delete,
+        /// <summary>
+        /// 覆盖
+        /// </summary>
+        set,
+        /// <summary>
+        /// 获取 ，action=get时，会同时返回测试版和全网发布版的“小程序服务器域名”值。
+        /// </summary>
+        get
+    }
+
+    /// <summary>
+    /// “设置第三方平台业务域名”接口，action 参数枚举
+    /// </summary>
+    public enum ModifyWxaJumpDomain_Action
     {
         /// <summary>
         /// 	添加

@@ -185,7 +185,7 @@ public Settle_Info settle_info { get; set; }
 /// 示例值：wxd678efh567hg6999
 /// 可为空: True
 /// </summary>
-public  string[1,32]  sub_appid { get; set; }
+public string  sub_appid { get; set; }
 
 
  #region 子数据类型

@@ -171,7 +171,7 @@ public string sub_mchid { get; set; }
 /// 示例值：wxd678efh567hg6999
 /// 可为空: True
 /// </summary>
-public  string[1,32]  sub_appid { get; set; }
+public string  sub_appid { get; set; }
 
 /// <summary>
 ///  用户子标识 
@@ -179,7 +179,7 @@ public  string[1,32]  sub_appid { get; set; }
 /// 示例值：oUpF8uMuAJO_M2pxb1Q9zNjWeS6o
 /// 可为空: True
 /// </summary>
-public  string[1, 128]  sub_openid { get; set; }
+public  string sub_openid { get; set; }
 
 /// <summary>
 /// 订单金额

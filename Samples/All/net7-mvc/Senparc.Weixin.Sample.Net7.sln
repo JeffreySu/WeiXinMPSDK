@@ -97,6 +97,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.TenPa
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Senparc.Weixin.Sample.Shared", "..\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.shproj", "{81A03BCD-B887-4A40-8867-FF6B8D61CFC3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.ServiceProviderTenPayV3", "..\..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.ServiceProviderTenPayV3\Senparc.Weixin.ServiceProviderTenPayV3.csproj", "{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -647,6 +649,24 @@ Global
 		{D70B89B9-27BC-45DD-A908-4282F101B409}.Test|x64.Build.0 = Debug|Any CPU
 		{D70B89B9-27BC-45DD-A908-4282F101B409}.Test|x86.ActiveCfg = Debug|Any CPU
 		{D70B89B9-27BC-45DD-A908-4282F101B409}.Test|x86.Build.0 = Debug|Any CPU
+		{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138}.Debug|x64.Build.0 = Debug|Any CPU
+		{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138}.Debug|x86.Build.0 = Debug|Any CPU
+		{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138}.Release|x64.ActiveCfg = Release|Any CPU
+		{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138}.Release|x64.Build.0 = Release|Any CPU
+		{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138}.Release|x86.ActiveCfg = Release|Any CPU
+		{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138}.Release|x86.Build.0 = Release|Any CPU
+		{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138}.Test|Any CPU.Build.0 = Debug|Any CPU
+		{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138}.Test|x64.ActiveCfg = Debug|Any CPU
+		{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138}.Test|x64.Build.0 = Debug|Any CPU
+		{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138}.Test|x86.ActiveCfg = Debug|Any CPU
+		{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138}.Test|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -691,6 +711,7 @@ Global
 		{94C58964-01E0-4AA0-AF98-5851208D9755} = {34CFB1D8-6025-4E93-A67F-D94DD3B9198F}
 		{D70B89B9-27BC-45DD-A908-4282F101B409} = {34CFB1D8-6025-4E93-A67F-D94DD3B9198F}
 		{81A03BCD-B887-4A40-8867-FF6B8D61CFC3} = {1B168C93-E3E3-4939-8EDC-19CE4E041874}
+		{ACC60E6A-FE86-4ACF-BFD4-05D3BCEAB138} = {334B3098-A802-4698-A145-BC6B902F31DE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC7AD3EC-AB37-497E-925B-DCD5129FE6D3}

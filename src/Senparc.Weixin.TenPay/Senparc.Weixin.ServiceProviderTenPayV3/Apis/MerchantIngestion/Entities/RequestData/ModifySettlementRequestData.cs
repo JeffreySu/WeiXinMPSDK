@@ -44,7 +44,7 @@ public string account_type { get; set; }
 /// 
 /// 可为空: True
 /// </summary>
-public  string[1,1024]  account_name { get; set; }
+public string  account_name { get; set; }
 
 /// <summary>
 /// 开户银行 

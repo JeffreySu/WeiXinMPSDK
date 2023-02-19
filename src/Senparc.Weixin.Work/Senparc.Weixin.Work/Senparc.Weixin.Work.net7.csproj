@@ -188,7 +188,9 @@
 			1、补充完整“客户联系「联系我」管理”接口
 			2、添加“客户群「加入群聊」管理”接口
 			v3.15.13 ThirdParty_AuthCorpInfo 增加 3 个属性：corp_scale、corp_industry、corp_sub_industry
-			v3.15.15 添加：重置永久授权码通知枚举：ThirdpartyInfo.RESET_PERMANENT_CODE
+			v3.15.15
+			1、添加：重置永久授权码通知枚举：ThirdpartyInfo.RESET_PERMANENT_CODE
+			2、丰富 Webhook 接口：SendTemplateCard， SendFile
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

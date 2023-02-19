@@ -62,7 +62,7 @@
   <ItemGroup>
     <!--<PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.1.0" />-->
     <PackageReference Include="BinaryFormatter" Version="2.1.4" />
-    <PackageReference Include="Senparc.CO2NET.Cache.CsRedis" Version="1.1.1" />
+    <PackageReference Include="Senparc.CO2NET.Cache.CsRedis" Version="1.1.3.6" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

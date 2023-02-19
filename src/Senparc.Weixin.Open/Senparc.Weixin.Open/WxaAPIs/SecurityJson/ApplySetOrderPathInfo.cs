@@ -19,73 +19,58 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
-    文件名：SubmitAuditPageInfo.cs
-    文件功能描述：小程序页面返回结果
+    文件名：ApplySetOrderPathInfo.cs
+    文件功能描述：申请设置订单页 path 信息
     
     
-    创建标识：Senparc - 20170726
-   
-    修改标识：Senparc - 20230207
-    修改描述：v4.14.15 完善“第三方平台业务域名” #2767 #2789
+    创建标识：mojinxun - 20230207
 
 ----------------------------------------------------------------*/
 
-
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.WxaAPIs
 {
-    public class SubmitAuditPageInfo
+    /// <summary>
+    /// 申请设置订单页 path 信息
+    /// </summary>
+    public class ApplySetOrderPathInfo
     {
         /// <summary>
-        /// 小程序的页面
+        /// 订单页path
         /// </summary>
-        public string address { get; set; }
+        public string path { get; set; }
 
         /// <summary>
-        /// 小程序的标签，多个标签用空格分隔，标签不能多于10个，标签长度不超过20
+        /// 申请提交的图片url，审核版会显示
         /// </summary>
-        public string tag { get; set; }
+        public List<string> img_list { get; set; }
 
         /// <summary>
-        /// 一级类目
+        /// 申请提交的视频url，审核版会显示
         /// </summary>
-        public string first_class { get; set; }
+        public string video { get; set; }
 
         /// <summary>
-        /// 二级类目
+        /// 申请提交的测试账号，审核版会显示
         /// </summary>
-        public string second_class { get; set; }
+        public string test_account { get; set; }
 
         /// <summary>
-        /// 三级类目
+        /// 申请提交的测试密码，审核版会显示
         /// </summary>
-        public string third_class { get; set; }
+        public string test_pwd { get; set; }
 
         /// <summary>
-        /// 小程序页面的标题,标题长度不超过32
+        /// 申请提交的测试备注，审核版会显示
         /// </summary>
-        public string title { get; set; }
+        public string test_remark { get; set; }
 
         /// <summary>
-        /// 一级类目的ID
+        /// 申请提交的批量的appid
         /// </summary>
-        public int first_id { get; set; }
-
-        /// <summary>
-        /// 二级类目的ID
-        /// </summary>
-        public int second_id { get; set; }
-
-        /// <summary>
-        /// 三级类目的ID
-        /// </summary>
-        public int third_id { get; set; }
+        public List<string> appid_list { get; set; }
     }
 }

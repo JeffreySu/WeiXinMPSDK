@@ -200,6 +200,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         }
         #endregion
 
+        #region 查询小程序版本信息
         /// <summary>
         /// 查询小程序版本信息
         /// <para>调用本接口可以查询小程序的体验版和线上版本信息。</para>
@@ -218,6 +219,47 @@ namespace Senparc.Weixin.Open.WxaAPIs
             };
             return CommonJsonSend.Send<GetVersionInfoJsonResult>(null, url, data, CommonJsonSendType.POST);
         }
+        #endregion
+
+        #region 订单页path信息
+        /// <summary>
+        /// 获取订单页 path 信息
+        /// <para>该接口用于获取订单页 path 信息。</para>
+        /// https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/miniprogram-management/basic-info-management/getOrderPathInfo.html
+        /// </summary>
+        /// <param name="accessToken">第三方平台接口调用凭证authorizer_access_token，该参数为 URL 参数，非 Body 参数。</param>
+        /// <param name="info_type">0:线上版，1:审核版</param>
+        /// <returns></returns>
+        public static GetOrderPathInfoJsonResult GetOrderPathInfo(string accessToken, int info_type)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/security/getorderpathinfo?access_token={accessToken.AsUrlData()}";
+
+            var data = new
+            {
+                info_type
+            };
+            return CommonJsonSend.Send<GetOrderPathInfoJsonResult>(null, url, data, CommonJsonSendType.POST);
+        }
+
+        /// <summary>
+        /// 申请设置订单页 path 信息
+        /// <para>该接口用于申请设置订单页 path 信息</para>
+        /// https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/miniprogram-management/basic-info-management/applySetOrderPathInfo.html
+        /// </summary>
+        /// <param name="accessToken">第三方平台接口调用凭证authorizer_access_token，该参数为 URL 参数，非 Body 参数。</param>
+        /// <param name="info_type">0:线上版，1:审核版</param>
+        /// <returns></returns>
+        public static ApplySetOrderPathInfoJsonResult ApplySetOrderPathInfo(string accessToken, ApplySetOrderPathInfo batch_req)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/security/applysetorderpathinfo?access_token={accessToken.AsUrlData()}";
+
+            var data = new
+            {
+                batch_req
+            };
+            return CommonJsonSend.Send<ApplySetOrderPathInfoJsonResult>(null, url, data, CommonJsonSendType.POST);
+        }
+        #endregion
 
         #endregion
 
@@ -366,6 +408,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         }
         #endregion
 
+        #region 小程序版本信息
         /// <summary>
         /// 【异步方法】查询小程序版本信息
         /// <para>调用本接口可以查询小程序的体验版和线上版本信息。</para>
@@ -384,6 +427,49 @@ namespace Senparc.Weixin.Open.WxaAPIs
             };
             return await CommonJsonSend.SendAsync<GetVersionInfoJsonResult>(null, url, data, CommonJsonSendType.POST);
         }
+        #endregion
+
+        #region 订单页path信息
+        /// <summary>
+        /// 获取订单页 path 信息
+        /// <para>该接口用于获取订单页 path 信息。</para>
+        /// https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/miniprogram-management/basic-info-management/getOrderPathInfo.html
+        /// </summary>
+        /// <param name="accessToken">第三方平台接口调用凭证authorizer_access_token，该参数为 URL 参数，非 Body 参数。</param>
+        /// <param name="info_type">0:线上版，1:审核版</param>
+        /// <returns></returns>
+        public static async Task<GetOrderPathInfoJsonResult> GetOrderPathInfoAsync(string accessToken, int info_type)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/security/getorderpathinfo?access_token={accessToken.AsUrlData()}";
+
+            var data = new
+            {
+                info_type
+            };
+            return await CommonJsonSend.SendAsync<GetOrderPathInfoJsonResult>(null, url, data, CommonJsonSendType.POST);
+        }
+
+        /// <summary>
+        /// 申请设置订单页 path 信息
+        /// <para>该接口用于申请设置订单页 path 信息</para>
+        /// https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/miniprogram-management/basic-info-management/applySetOrderPathInfo.html
+        /// </summary>
+        /// <param name="accessToken">第三方平台接口调用凭证authorizer_access_token，该参数为 URL 参数，非 Body 参数。</param>
+        /// <param name="info_type">0:线上版，1:审核版</param>
+        /// <returns></returns>
+        public static async Task<ApplySetOrderPathInfoJsonResult> ApplySetOrderPathInfoAsync(string accessToken, ApplySetOrderPathInfo batch_req)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/security/applysetorderpathinfo?access_token={accessToken.AsUrlData()}";
+
+            var data = new
+            {
+                batch_req
+            };
+            return await CommonJsonSend.SendAsync<ApplySetOrderPathInfoJsonResult>(null, url, data, CommonJsonSendType.POST);
+        }
+        #endregion
+
+
 
         #endregion
 

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：GroupWelcomeTemplateBaseRequest.cs
     文件功能描述：入群欢迎语 请求参数

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
   
     文件名：BasePayApis.cs
     文件功能描述：新微信支付V3基础接口
@@ -47,6 +47,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20211026
     修改描述：v0.6.1 修复 CloseOrderAsync() 参数问题
+
+    修改标识：Senparc - 20230112
+    修改描述：v0.6.8.8 修复 RefundQueryAsync() URL 问题
 
 ----------------------------------------------------------------*/
 
@@ -486,7 +489,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             try
             {
-                var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/refund/domestic/refunds{out_refund_no}");
+                var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/refund/domestic/refunds/{out_refund_no}");
                 TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
                 return await tenPayApiRequest.RequestAsync<RefundReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
             }

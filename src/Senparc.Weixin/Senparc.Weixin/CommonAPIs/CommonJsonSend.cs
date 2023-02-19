@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
 
     文件名：CommonJsonSend.cs
     文件功能描述：通过CommonJsonSend中的方法调用接口
@@ -39,6 +39,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20210413
     修改描述：v6.8.400 修复 CommonJsonSend.PostFailAction 公共请求失败处理抛错问题
 
+    修改标识：Senparc - 20230110
+    修改描述：v6.15.8 CommonJsonSend.Send() 方法提供 contentType 参数
 
 ----------------------------------------------------------------*/
 
@@ -95,26 +97,26 @@ namespace Senparc.Weixin.CommonAPIs
         /// </summary>
         static Action<string, string> postFailAction = (apiUrl, returnText) =>
         {
-             if (returnText.Contains("errcode"))
-             {
-                 //可能发生错误
-                 WxJsonResult errorResult = SerializerHelper.GetObject<WxJsonResult>(returnText);
-                 ErrorJsonResultException ex = null;
-                 if (errorResult.errcode != ReturnCode.请求成功)
-                 {
+            if (returnText.Contains("errcode"))
+            {
+                //可能发生错误
+                WxJsonResult errorResult = SerializerHelper.GetObject<WxJsonResult>(returnText);
+                ErrorJsonResultException ex = null;
+                if (errorResult.errcode != ReturnCode.请求成功)
+                {
                     //发生错误，记录异常
                     ex = new ErrorJsonResultException(
                           string.Format("微信 POST 请求发生错误！错误代码：{0}，说明：{1}",
                                         (int)errorResult.errcode,
                                         errorResult.errmsg),
                           null, errorResult, apiUrl);
-                 }
+                }
 
-                 if (Config.ThrownWhenJsonResultFaild && ex != null)
-                 {
-                     throw ex;//抛出异常
-                 }
-             }
+                if (Config.ThrownWhenJsonResultFaild && ex != null)
+                {
+                    throw ex;//抛出异常
+                }
+            }
         };
 
         #endregion
@@ -131,10 +133,11 @@ namespace Senparc.Weixin.CommonAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="checkValidationResult"></param>
         /// <param name="jsonSetting"></param>
+        /// <param name="contentType">请求 Header 中的 Content-Type，输入 null 则自动设置</param>
         /// <returns></returns>
-        public static WxJsonResult Send(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = CO2NET.Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null)
+        public static WxJsonResult Send(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = CO2NET.Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null, string contentType = null)
         {
-            return Send<WxJsonResult>(accessToken, urlFormat, data, sendType, timeOut, checkValidationResult, jsonSetting);
+            return Send<WxJsonResult>(accessToken, urlFormat, data, sendType, timeOut, checkValidationResult, jsonSetting, contentType);
         }
 
         /// <summary>
@@ -147,9 +150,10 @@ namespace Senparc.Weixin.CommonAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <param name="jsonSetting"></param>
+        /// <param name="contentType">请求 Header 中的 Content-Type，输入 null 则自动设置</param>
         /// <returns></returns>
         public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST,
-            int timeOut = CO2NET.Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null)
+            int timeOut = CO2NET.Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null, string contentType = null)
         {
             //TODO:此方法可以设定一个日志记录开关
 
@@ -173,6 +177,7 @@ namespace Senparc.Weixin.CommonAPIs
                             //PostGetJson方法中将使用WeixinTrace记录结果
                             return Post.PostGetJson<T>(CommonDI.CommonSP, url, null, ms,
                                 timeOut: timeOut,
+                                contentType: contentType,
                                 afterReturnText: postFailAction,
                                 checkValidationResult: checkValidationResult);
                         }
@@ -204,10 +209,11 @@ namespace Senparc.Weixin.CommonAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <param name="jsonSetting"></param>
+        /// <param name="contentType">请求 Header 中的 Content-Type，输入 null 则自动设置</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> SendAsync(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = CO2NET.Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null)
+        public static async Task<WxJsonResult> SendAsync(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = CO2NET.Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null, string contentType = null)
         {
-            return await SendAsync<WxJsonResult>(accessToken, urlFormat, data, sendType, timeOut, checkValidationResult, jsonSetting).ConfigureAwait(false);
+            return await SendAsync<WxJsonResult>(accessToken, urlFormat, data, sendType, timeOut, checkValidationResult, jsonSetting, contentType).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -220,10 +226,11 @@ namespace Senparc.Weixin.CommonAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <param name="jsonSetting">JSON字符串生成设置</param>
+        /// <param name="contentType">请求 Header 中的 Content-Type，输入 null 则自动设置</param>
         /// <returns></returns>
         public static async Task<T> SendAsync<T>(string accessToken, string urlFormat, object data,
             CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = CO2NET.Config.TIME_OUT,
-            bool checkValidationResult = false, JsonSetting jsonSetting = null)
+            bool checkValidationResult = false, JsonSetting jsonSetting = null, string contentType = null)
         {
             try
             {
@@ -246,6 +253,7 @@ namespace Senparc.Weixin.CommonAPIs
                             //PostGetJson方法中将使用WeixinTrace记录结果
                             return await Post.PostGetJsonAsync<T>(CommonDI.CommonSP, url, null, ms,
                                 timeOut: timeOut,
+                                contentType: contentType,
                                 afterReturnText: postFailAction,
                                 checkValidationResult: checkValidationResult).ConfigureAwait(false);
                         }

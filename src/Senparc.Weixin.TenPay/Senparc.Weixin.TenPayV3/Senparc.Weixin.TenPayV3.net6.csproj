@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.6.5-beta1</Version>
+    <Version>0.6.7-beta1</Version>
     <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
     <LangVersion>10.0</LangVersion>
@@ -34,7 +34,7 @@
 		v0.6.2.2 修复 TenPayHttpClient 赋值问题
 		v0.6.3 添加“发起商家转账API”
 		v0.6.5 重构 BasePayApis.GetPayApiUrl() 方法
-	</PackageReleaseNotes>
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -66,7 +66,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.AspNet" Version="1.1.1" />
+    <PackageReference Include="Senparc.CO2NET.AspNet" Version="1.1.4.8" />
     <PackageReference Include="System.Security.Cryptography.Cng" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>

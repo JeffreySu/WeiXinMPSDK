@@ -75,7 +75,9 @@ Copyrignt 2018 Senparc
                     continue;
                 }
 
-                if (Path.GetFileName(dir).ToUpper() == "BIN")
+                var path = Path.GetFileName(dir).ToUpper();
+
+                if (path == "BIN" || path == "OBJ")
                 {
                     try
                     {

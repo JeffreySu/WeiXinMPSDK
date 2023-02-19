@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：MailListApi.cs
     文件功能描述：通讯录同步接口
@@ -233,9 +233,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="limit">分页，预期请求的数据量，取值范围 1 ~ 10000</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<GetMemberIdListResult> GetMemberIdListAsync(string accessTokenOrAppKey, string cursor = "", int limit = 10000, int timeOut = Config.TIME_OUT)
+        public static GetMemberIdListResult GetMemberIdList(string accessTokenOrAppKey, string cursor = "", int limit = 10000, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/list_id?access_token={0}", accessToken.AsUrlData());
 
@@ -245,7 +245,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     limit
                 };
 
-                return CommonJsonSend.SendAsync<GetMemberIdListResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<GetMemberIdListResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
 
@@ -798,8 +798,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 
-                /// <summary>
-        /// 获取成员ID列表
+        /// <summary>
+        /// 【异步方法】获取成员ID列表
         /// 获取企业成员的open_userid与对应的部门ID列表。
         /// https://developer.work.weixin.qq.com/document/path/96021
         /// </summary>
@@ -810,7 +810,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetMemberIdListResult> GetMemberIdListAsync(string accessTokenOrAppKey, string cursor = "", int limit = 1000, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/list_id?access_token={0}", accessToken.AsUrlData());
 
@@ -820,7 +820,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     limit
                 };
 
-                return CommonJsonSend.SendAsync<GetMemberIdListResult>(null, url, data, CommonJsonSendType.POST,
+                return await CommonJsonSend.SendAsync<GetMemberIdListResult>(null, url, data, CommonJsonSendType.POST,
                     timeOut);
             }, accessTokenOrAppKey);
         }

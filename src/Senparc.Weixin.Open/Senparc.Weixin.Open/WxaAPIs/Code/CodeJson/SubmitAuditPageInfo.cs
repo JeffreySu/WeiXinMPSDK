@@ -26,7 +26,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20170726
-    
+   
+    修改标识：Senparc - 20230207
+    修改描述：v4.14.15 完善“第三方平台业务域名” #2767 #2789
 
 ----------------------------------------------------------------*/
 
@@ -67,6 +69,11 @@ namespace Senparc.Weixin.Open.WxaAPIs
         public string third_class { get; set; }
 
         /// <summary>
+        /// 小程序页面的标题,标题长度不超过32
+        /// </summary>
+        public string title { get; set; }
+
+        /// <summary>
         /// 一级类目的ID
         /// </summary>
         public int first_id { get; set; }
@@ -80,10 +87,5 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// 三级类目的ID
         /// </summary>
         public int third_id { get; set; }
-
-        /// <summary>
-        /// 小程序页面的标题,标题长度不超过32
-        /// </summary>
-        public string title { get; set; }
     }
 }

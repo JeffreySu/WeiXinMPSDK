@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：MpMessageHandlerMiddleware.cs
     文件功能描述：公众号 MessageHandler 中间件
@@ -29,7 +29,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
-#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_1 || NET6_0
+#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP3_1_OR_GREATER || NET6_0_OR_GREATER
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Senparc.CO2NET.Extensions;
@@ -170,7 +170,7 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         }
     }
 
-    #region 证明泛型可以用在中间件中
+#region 证明泛型可以用在中间件中
     //public class TestWM<T>
     //    where T : class
     //{
@@ -201,7 +201,7 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
     //        return builder.UseMiddleware<TestWM<T>>(t);
     //    }
     //}
-    #endregion
+#endregion
 }
 #endif
 

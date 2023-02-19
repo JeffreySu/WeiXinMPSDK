@@ -75,20 +75,27 @@
     "TenPayV3_MchId": "#{TenPayV3_MchId}#",
     "TenPayV3_SubMchId": "#{TenPayV3_SubMchId}#", //子商户，没有可留空
     "TenPayV3_Key": "#{TenPayV3_Key}#",
-    "TenPayV3_CertPath": "#{TenPayV3_CertPath}#", //（V3 API 可不使用）支付证书物理路径，如：D:\\cert\\apiclient_cert.p12
+    /* 证书路径（APIv3 可不使用）
+     * 1、物理路径如：D:\\cert\\apiclient_cert.p12
+     * 2、相对路径，如：~/App_Data/cert/apiclient_cert.p12，注意：必须放在 App_Data 等受保护的目录下，避免泄露
+     * 备注：证书下载地址：https://pay.weixin.qq.com/index.php/account/api_cert
+     */
+    "TenPayV3_CertPath": "#{TenPayV3_CertPath}#", //（V3 API 可不使用）证书路径
     "TenPayV3_CertSecret": "#{TenPayV3_CertSecret}#", //（V3 API 可不使用）支付证书密码（原始密码和 MchId 相同）
     "TenPayV3_TenpayNotify": "#{TenPayV3_TenpayNotify}#", //http://YourDomainName/TenpayV3/PayNotifyUrl
     //如果不设置TenPayV3_WxOpenTenpayNotify，默认在 TenPayV3_TenpayNotify 的值最后加上 "WxOpen"
     "TenPayV3_WxOpenTenpayNotify": "#{TenPayV3_WxOpenTenpayNotify}#" //http://YourDomainName/TenpayV3/PayNotifyUrlWxOpen
   }</code></pre>
     </p>
+    
+    <p>其中，<code>Token</code>、<code>EncodingAESKey</code>、<code>WeixinAppId</code> 和 <code>WeixinAppSecret</code> 对应了微信公众号后台的配置参数。</p>
+    <p>特别说明：<code>TenPayV3_CertPath</code> 参数同时支持完整的物理路径或相对路径（相对于程序根目录以 <code>~/</code> 开头）。证书文件必须放在 App_Data 等受保护的目录下，避免泄露。</p>
     <p>
         <figure class="figure">
             <img src="~/images/home-dev-register-03.png" class="figure-img img-fluid rounded" alt="配置参数" />
             <figcaption class="figure-caption text-center">配置参数</figcaption>
         </figure>
     </p>
-    <p>其中，<code>Token</code>、<code>EncodingAESKey</code>、<code>WeixinAppId</code> 和 <code>WeixinAppSecret</code> 对应了微信公众号后台的配置参数。</p>
     <figure class="file">
         <blockquote class="blockquote">
             <p>本项目参考文件：</p>

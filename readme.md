@@ -22,8 +22,8 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 ## 公告
 
+> ⚡ Sample 已支持 .NET 7.0（向下兼容），[点击这里查看](/Samples/All/net7-mvc)！<br/>
 > 🔒 [微信支付 V3 模块](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3)已上线！<br>
-> ⚡ Sample 已支持 .NET 6.0，[点击这里查看](/Samples/All/net6-mvc)！<br/>
 
 
 <!-- _1. 为了将 Demo 和源代码隔离，并让大家更方便地找到 Demo，现已将 Senparc.Weixin.MP.Sample 等文件夹转移到 [/Samples/](/Samples/) 文件夹下。_<br> -->
@@ -195,7 +195,7 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 #### 图例
 | ![.NET 4.6][net46Y] | ![.NET Standard 2.x][core20Y] |  ![.NET Core][netcore] | ![.NET 5.0 / 6.0][net6]  
 |--|--|--|--|
-| .NET Framework 4.6.2            |  .NET Standard 2.0 / 2.1  |   .NET Core 2.x / 3.x  |  .NET 5.0 / .NET 6.0
+| .NET Framework 4.6.2            |  .NET Standard 2.0 / 2.1  |   .NET Core 2.x / 3.x  |  .NET 5.0 / .NET 6.0 / .NET 7.0
 
 > 提示：<br>
 > 1. 自 2019 年 5 月 1 日起，.NET Framework 3.5 及 4.0 停止更新，最后一个 .NET Framework 3.5 + 4.0 稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.6.15)。<br>
@@ -275,7 +275,7 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 * 已经支持分布式缓存及缓存策略扩展（默认支持：本地缓存、Redis、Memcached，可自由扩展），开发过程无需关心所使用缓存的类型，可在配置文件或运行过程中自由切换。
 
 > 1.目前官方的 API 都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的 dll，建议使用 [Nuget](https://www.nuget.org/) 进行更新。<br>
-> 2. 您也可以自行修改并编译代码，打开 [Senparc.Weixin.Sample.Net6.sln](/Samples/All/net6-mvc/) 解决方案即可看到所有源码。当编译模式为 `Release` 时，将自动生成本地 Nuget 包（默认生成到 `/src/BuildOutPut/` 文件夹下）。
+> 2. 您也可以自行修改并编译代码，打开 [Senparc.Weixin.Sample.Net6.sln](/Samples/All/net6-mvc/) 或 [Senparc.Weixin.Sample.Net7.sln](/Samples/All/net7-mvc/) 解决方案即可看到所有源码。当编译模式为 `Release` 时，将自动生成本地 Nuget 包（默认生成到 `/src/BuildOutPut/` 文件夹下）。
 
 ## 源码项目文件夹说明（src文件夹下）
 
@@ -319,9 +319,10 @@ Senparc.Weixin SDK 所有的模块的用法都保持了高度的一致，包括�
 |[All](/Samples/All/)         |   包含微信公众号、小程序、微信支付、企业微信等所有功能的混合场景演示，<br>推荐用于集成多个平台的项目，或许要进行深度开发的场景参考（进阶） | 
 | ┣ [All/console](/Samples/All/console)			|命令行 Console Demo（.NET Core）| Nuget 包
 | ┣ [All/net45-mvc](/Samples/All/net45-mvc)						|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET MVC）|  Nuget 包
-| ┗ [All/net6-mvc](/Samples/All/net6-mvc)			|可以直接发布使用的 Demo（.NET 6.0），兼容 .NET 5.0 和 .NET Core | <strong>源码<strong>
+| ┣ [All/net6-mvc](/Samples/All/net6-mvc)			|可以直接发布使用的 Demo（.NET 6.0），兼容 .NET 5.0 和 .NET Core | <strong>源码<strong>
+| ┗ [All/net7-mvc](/Samples/All/net7-mvc)			|可以直接发布使用的 Demo（.NET 7.0），兼容 .NET 5.0、6.0 和 .NET Core | <strong>源码<strong>
 
-[进入文件夹](/Samples/)
+[进入 Samples 文件夹](/Samples/)
 
 
 <!-- ## 私人定制你的微信项目 Sample
@@ -341,7 +342,7 @@ Web 版：<a href="https://www.cnblogs.com/szw/p/WeChatSampleBuilder-V2.html#Web
 ## 资源
 
 1. 官网地址：https://weixin.senparc.com/
-2. 在线 Demo 地址：https://sdk.weixin.senparc.com/
+2. 在线 Demo 地址（.NET 7.0，向下兼容 .NET 6.0 和 .NET Core）：https://sdk.weixin.senparc.com/
 3. 微信开发系列教程：https://www.cnblogs.com/szw/p/weixin-course-index.html
 4. 微信技术交流社区：https://weixin.senparc.com/QA
 5. 自定义菜单在线编辑工具：https://sdk.weixin.senparc.com/Menu
@@ -554,8 +555,10 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 
 > 当前分支包含了 .NET Framework 3.5 / 4.0 / 4.5 / 4.6.2 及 .NET Core 2.0 + 2.1 / .NET 5.0 + 6.0 的全版本代码（已经不更新的版本请查看 [release](https://github.com/JeffreySu/WeiXinMPSDK/releases) 快照）。<br>
 > 其中 .NET Framework 的 Demo 位于 `/src/Samples/All/net45-mvc` 目录下，<br>
-> 【推荐】.NET 6.0（向下兼容 .NET 5.0 及 .NET Core 3.1 等更低版本） 的 Demo 位于 `/Samples/All/net6-mvc` 目录下。<br><br>
-> 注意：以上 Sample 中，`net6-mvc` 中的 Sample 直接引用了每个模块的源码，使用 `Release` 编译后可生成兼容不同版本的 Senaprc.Weixin SDK 库。
+> 【推荐】.NET 7.0（向下兼容 .NET 5.0、6.0 及 .NET Core 3.1 等更低版本） 的 Demo 位于 `/Samples/All/net7-mvc` 目录下。<br><br>
+> 注意：<br>
+> 1. 以上 Sample 中，`net7-mvc` 中的 Sample 直接引用了每个模块的源码，使用 `Release` 编译后可生成兼容不同版本的 Senaprc.Weixin SDK 库。<br>
+> 2. 您也可以使用 .NET 6.0（向下兼容 .NET 5.0 及 .NET Core 3.1 等更低版本） 的 Demo 位于 `/Samples/All/net6-mvc` 目录下。
 
 ## 使用Nuget安装到项目中
 
@@ -569,7 +572,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 
 ### 2) 部署到任意服务器的 FTP
 
-在 Web 服务器上安装 FTP 服务（推荐 [FileZilla Server](https://filezilla-project.org/download.php?type=server)），直接使用 FTP 直接上传本地已经编译好的代码（本项项目 [Samples](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Samples) 中对应的是 [Senparc.Weixin.Sample.Net6](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net6-mvc) 或 [Senparc.Weixin.Sample.NetCore3](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.1-mvc)，编译后即可直接使用，无需修改代码）。如果使用 Azure App Service 或其他云服务，通常 FTP 也都是开通的。
+在 Web 服务器上安装 FTP 服务（推荐 [FileZilla Server](https://filezilla-project.org/download.php?type=server)），直接使用 FTP 直接上传本地已经编译好的代码（本项项目 [Samples](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Samples) 中对应的是 [Senparc.Weixin.Sample.Net7](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net7-mvc)、[Senparc.Weixin.Sample.Net6](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net6-mvc) 或 [Senparc.Weixin.Sample.NetCore3](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.1-mvc)，编译后即可直接使用，无需修改代码）。如果使用 Azure App Service 或其他云服务，通常 FTP 也都是开通的。
 
 
 <!--

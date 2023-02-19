@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -238,6 +238,12 @@ namespace Senparc.Weixin.TenPayV3.TenPayHttpClient
 
         protected async Task<bool> VerifyResponseMessage(HttpResponseMessage responseMessage, string content)
         {
+            // 注意：在 StatusCode 为 204（NoContent）时，验证签名直接成功。
+            if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent)
+            {
+                return true;
+            }
+            
             var wechatpayTimestamp = responseMessage.Headers.GetValues("Wechatpay-Timestamp").First();
             var wechatpayNonce = responseMessage.Headers.GetValues("Wechatpay-Nonce").First();
             var wechatpaySignatureBase64 = responseMessage.Headers.GetValues("Wechatpay-Signature").First();//后续需要base64解码

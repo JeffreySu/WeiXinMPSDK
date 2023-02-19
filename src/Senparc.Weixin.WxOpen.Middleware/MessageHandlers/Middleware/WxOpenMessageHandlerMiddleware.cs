@@ -29,7 +29,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
-#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_1 || NET6_0
+#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Senparc.CO2NET.Extensions;

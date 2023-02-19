@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>6.15.5</Version>
+    <Version>6.15.7</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
@@ -334,7 +334,7 @@
 		2、添加 JsonResultHelper
 		3、更新 ReturnCode 枚举，OpenApi 中的错误代码
 		v6.15.5 添加 WeixinTrace.SendApiLog(string, Stream) 重写方法
-	</PackageReleaseNotes>
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -375,8 +375,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Senparc.CO2NET" Version="2.1.2" />
-    <PackageReference Include="Senparc.NeuChar" Version="2.1.1.1" />
+    <PackageReference Include="Senparc.CO2NET" Version="2.1.7.3" />
+    <PackageReference Include="Senparc.NeuChar" Version="2.1.3.5" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
     <Reference Include="System.Core" />

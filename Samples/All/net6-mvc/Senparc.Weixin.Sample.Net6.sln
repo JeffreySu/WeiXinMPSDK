@@ -95,6 +95,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.TenPa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.TenPayV3", "..\..\TenPayV3\Senparc.Weixin.Sample.TenPayV3\Senparc.Weixin.Sample.TenPayV3.csproj", "{D70B89B9-27BC-45DD-A908-4282F101B409}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Senparc.Weixin.Sample.Shared", "..\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.shproj", "{81A03BCD-B887-4A40-8867-FF6B8D61CFC3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -693,16 +695,19 @@ Global
 		{5CDE163E-A083-418F-B70A-63F25A957666} = {34CFB1D8-6025-4E93-A67F-D94DD3B9198F}
 		{94C58964-01E0-4AA0-AF98-5851208D9755} = {34CFB1D8-6025-4E93-A67F-D94DD3B9198F}
 		{D70B89B9-27BC-45DD-A908-4282F101B409} = {34CFB1D8-6025-4E93-A67F-D94DD3B9198F}
+		{81A03BCD-B887-4A40-8867-FF6B8D61CFC3} = {1B168C93-E3E3-4939-8EDC-19CE4E041874}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC7AD3EC-AB37-497E-925B-DCD5129FE6D3}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{5cde163e-a083-418f-b70a-63f25a957666}*SharedItemsImports = 5
+		..\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{81a03bcd-b887-4a40-8867-ff6b8d61cfc3}*SharedItemsImports = 13
 		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{81a078a9-97d1-446d-88ed-87f4bb484d91}*SharedItemsImports = 5
 		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{94c58964-01e0-4aa0-af98-5851208d9755}*SharedItemsImports = 5
 		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{9fe36012-8b32-488e-96ad-ba7cedaeeab8}*SharedItemsImports = 13
 		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{d70b89b9-27bc-45dd-a908-4282f101b409}*SharedItemsImports = 5
 		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{defd229c-0482-4924-8746-73d21b9dab02}*SharedItemsImports = 5
+		..\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{eb4fcb9f-9670-4b03-9e9e-724aff737fd4}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

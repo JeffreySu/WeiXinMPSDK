@@ -37,7 +37,13 @@
 
     修改标识：Senparc - 20210324
     修改描述：v3.14.6 添加：审批申请状态变化回调通知：Event.SYS_APPROVAL_CHANGE
+
+    修改标识：Senparc - 20210324
+    修改描述：v3.15.15 添加：重置永久授权码通知枚举：ThirdpartyInfo.RESET_PERMANENT_CODE
+
 ----------------------------------------------------------------*/
+
+using static System.Net.WebRequestMethods;
 
 namespace Senparc.Weixin.Work
 {
@@ -171,6 +177,7 @@ namespace Senparc.Weixin.Work
         SYS_APPROVAL_CHANGE,
         /// <summary>
         /// 自建应用审批状态变化通知回调
+        /// <para><see href="https://developer.work.weixin.qq.com/document/path/97175"/></para>
         /// </summary>
         OPEN_APPROVAL_CHANGE
         #endregion
@@ -216,7 +223,11 @@ namespace Senparc.Weixin.Work
         /// <summary>
         /// 推广码注册完成通知
         /// </summary>
-        REGISTER_CORP
+        REGISTER_CORP,
+        /// <summary>
+        /// 重置永久授权码通知
+        /// </summary>
+        RESET_PERMANENT_CODE
     }
 
 

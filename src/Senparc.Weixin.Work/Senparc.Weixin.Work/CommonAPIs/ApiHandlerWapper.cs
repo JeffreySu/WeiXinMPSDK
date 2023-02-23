@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：ApiHandlerWapper.cs（v12之前原AccessTokenHandlerWapper.cs）
     文件功能描述：使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试
@@ -62,6 +62,7 @@ using Senparc.Weixin.Work.Containers;
 using Senparc.Weixin.Utilities.WeixinUtility;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.CommonAPIs.ApiHandlerWapper;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.Work
 {
@@ -70,7 +71,31 @@ namespace Senparc.Weixin.Work
     /// </summary>
     public static class ApiHandlerWapper
     {
+        internal static IEnumerable<int> InvalidCredentialValues = new[] { (int)ReturnCode.不合法的access_token };//ReturnCode_Work.获取access_token时Secret错误_或者access_token无效;
+
         #region 同步方法
+
+        internal static Func<string> AccessTokenContainer_GetFirstOrDefaultAppIdFunc =
+                     () => AccessTokenContainer.GetFirstOrDefaultAppId(PlatformType.Work);
+
+        internal static Func<string, bool> AccessTokenContainer_CheckRegisteredFunc =
+            appKey =>
+            {
+                /*
+                 * 对于企业微信来说，AppId = key = CorpId+'@'+CorpSecret
+                 */
+                return AccessTokenContainer.CheckRegistered(appKey);
+            };
+
+        internal static Func<string, bool, IAccessTokenResult> AccessTokenContainer_GetAccessTokenResultFunc =
+            (appKey, getNewToken) =>
+            {
+                /*
+                 * 对于企业微信来说，AppId = key = CorpId+'@'+CorpSecret
+                 */
+                return AccessTokenContainer.GetTokenResult(appKey, getNewToken);
+            };
+
 
         /// <summary>
         /// 使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试。
@@ -83,36 +108,13 @@ namespace Senparc.Weixin.Work
         /// <returns></returns>
         public static T TryCommonApi<T>(Func<string, T> fun, string accessTokenOrAppKey, bool retryIfFaild = true) where T : WorkJsonResult, new()
         {
-            Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc =
-                () => AccessTokenContainer.GetFirstOrDefaultAppId(PlatformType.Work);
-
-            Func<string, bool> accessTokenContainer_CheckRegisteredFunc =
-                appKey =>
-                {
-                    /*
-                     * 对于企业微信来说，AppId = key = CorpId+'@'+CorpSecret
-                     */
-                    return AccessTokenContainer.CheckRegistered(appKey);
-                };
-
-            Func<string, bool, IAccessTokenResult> accessTokenContainer_GetAccessTokenResultFunc =
-                (appKey, getNewToken) =>
-                {
-                    /*
-                     * 对于企业微信来说，AppId = key = CorpId+'@'+CorpSecret
-                     */
-                    return AccessTokenContainer.GetTokenResult(appKey, getNewToken);
-                };
-
-            int invalidCredentialValue = (int)ReturnCode.不合法的access_token;//ReturnCode_Work.获取access_token时Secret错误_或者access_token无效;
-
             var result = ApiHandlerWapperBase.
                 TryCommonApiBase(
                     PlatformType.Work,
-                    accessTokenContainer_GetFirstOrDefaultAppIdFunc,
-                    accessTokenContainer_CheckRegisteredFunc,
-                    accessTokenContainer_GetAccessTokenResultFunc,
-                    invalidCredentialValue,
+                    AccessTokenContainer_GetFirstOrDefaultAppIdFunc,
+                    AccessTokenContainer_CheckRegisteredFunc,
+                    AccessTokenContainer_GetAccessTokenResultFunc,
+                    InvalidCredentialValues,
                     fun, accessTokenOrAppKey, retryIfFaild);
             return result;
         }
@@ -122,6 +124,28 @@ namespace Senparc.Weixin.Work
 
 
         #region 异步方法
+
+        internal static Func<Task<string>> AccessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc =
+              async () => await AccessTokenContainer.GetFirstOrDefaultAppIdAsync(PlatformType.Work).ConfigureAwait(false);
+
+        internal static Func<string, Task<bool>> AccessTokenContainer_CheckRegisteredAsyncFunc =
+          async appKey =>
+          {
+              /*
+               * 对于企业微信来说，AppId = key = CorpId+'@'+CorpSecret
+               */
+              return await AccessTokenContainer.CheckRegisteredAsync(appKey).ConfigureAwait(false);
+          };
+
+        internal static Func<string, bool, Task<IAccessTokenResult>> AccessTokenContainer_GetAccessTokenResultAsyncFunc =
+            (appKey, getNewToken) =>
+            {
+                /*
+                 * 对于企业微信来说，AppId = key = CorpId+'@'+CorpSecret
+                 */
+                return AccessTokenContainer.GetTokenResultAsync(appKey, getNewToken);
+            };
+
         /// <summary>
         /// 【异步方法】使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试。
         /// 使用此方法之前必须使用AccessTokenContainer.Register(_appId, _appSecret);或JsApiTicketContainer.Register(_appId, _appSecret);方法对账号信息进行过注册，否则会出错。
@@ -133,36 +157,13 @@ namespace Senparc.Weixin.Work
         /// <returns></returns>
         public static async Task<T> TryCommonApiAsync<T>(Func<string, Task<T>> fun, string accessTokenOrAppKey, bool retryIfFaild = true) where T : WorkJsonResult, new()
         {
-            Func<Task<string>> accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc =
-              async () => await AccessTokenContainer.GetFirstOrDefaultAppIdAsync(PlatformType.Work).ConfigureAwait(false);
-
-            Func<string, Task<bool>> accessTokenContainer_CheckRegisteredAsyncFunc =
-              async appKey =>
-                {
-                    /*
-                     * 对于企业微信来说，AppId = key = CorpId+'@'+CorpSecret
-                     */
-                    return await AccessTokenContainer.CheckRegisteredAsync(appKey).ConfigureAwait(false);
-                };
-
-            Func<string, bool, Task<IAccessTokenResult>> accessTokenContainer_GetAccessTokenResultAsyncFunc =
-                (appKey, getNewToken) =>
-                {
-                    /*
-                     * 对于企业微信来说，AppId = key = CorpId+'@'+CorpSecret
-                     */
-                    return AccessTokenContainer.GetTokenResultAsync(appKey, getNewToken);
-                };
-
-            int invalidCredentialValue = (int)ReturnCode.不合法的access_token;//ReturnCode_Work.获取access_token时Secret错误_或者access_token无效;
-
             var result = ApiHandlerWapperBase.
                 TryCommonApiBaseAsync(
                     PlatformType.Work,
-                    accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
-                    accessTokenContainer_CheckRegisteredAsyncFunc,
-                    accessTokenContainer_GetAccessTokenResultAsyncFunc,
-                    invalidCredentialValue,
+                    AccessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
+                    AccessTokenContainer_CheckRegisteredAsyncFunc,
+                    AccessTokenContainer_GetAccessTokenResultAsyncFunc,
+                    InvalidCredentialValues,
                     fun, accessTokenOrAppKey, retryIfFaild);
             return await result.ConfigureAwait(false);
         }

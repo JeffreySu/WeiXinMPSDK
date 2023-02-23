@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：OAuth2Result.cs
     文件功能描述：获取成员信息返回结果
@@ -88,6 +88,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OAuth2
         /// </summary>
         public int expires_in { get; set; }
 
+        /// <summary>
+        /// 外部联系人id，当且仅当用户是企业的客户，且跟进人在应用的可见范围内时返回。如果是第三方应用调用，针对同一个客户，同一个服务商不同应用获取到的id相同
+        /// <para>https://work.weixin.qq.com/api/doc/90000/90135/91023</para>
+        /// </summary>
+        public string external_userid { get; set; }
     }
 
 

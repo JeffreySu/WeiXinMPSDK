@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
  
     文件名：TenPayV3.cs
     文件功能描述：微信支付V3接口
@@ -123,7 +123,7 @@ namespace Senparc.Weixin.TenPay.V3
     {
         #region 私有方法
 
-#if NET45
+#if NET462
         /// <summary>
         /// 带证书提交
         /// </summary>
@@ -143,7 +143,7 @@ namespace Senparc.Weixin.TenPay.V3
                 X509Certificate2 cer = new X509Certificate2(cert, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
 
                 string responseContent = RequestUtility.HttpPost(
-                    CommonDI.CommonSP, 
+                    CommonDI.CommonSP,
                     url,
                     postStream: ms,
                     cer: cer,
@@ -258,7 +258,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static TenpayV3GetSignKeyResult GetSignKey(TenPayV3GetSignKeyRequestData dataInfo, int timeOut = Config.TIME_OUT)
         {
-            var url = "https://api.mch.weixin.qq.com/sandboxnew/pay/getsignkey";
+            var url = Senparc.Weixin.Config.TenPayV3Host + "/sandboxnew/pay/getsignkey";
 
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
             //throw new Exception(data.HtmlEncode());
@@ -281,7 +281,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用 Unifiedorder(TenPayV3XmlDataInfo dataInfo, int timeOut = Config.TIME_OUT)")]
         public static string Unifiedorder(string data, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/unifiedorder");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/unifiedorder");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -299,7 +299,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static UnifiedorderResult Unifiedorder(TenPayV3UnifiedorderRequestData dataInfo, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/unifiedorder");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/unifiedorder");
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
             //throw new Exception(data.HtmlEncode());
             MemoryStream ms = new MemoryStream();
@@ -321,7 +321,7 @@ namespace Senparc.Weixin.TenPay.V3
         {
             dataInfo.TradeType = TenPayV3Type.MWEB;
             return Unifiedorder(dataInfo, timeOut);
-            /*var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/unifiedorder");
+            /*var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/unifiedorder");
             dataInfo.TradeType = TenPayV3Type.MWEB;
 
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
@@ -383,7 +383,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用 OrderQuery(TenPayV3OrderQueryData dataInfo)")]
         public static string OrderQuery(string data)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/orderquery");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/orderquery");
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
@@ -399,7 +399,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static OrderQueryResult OrderQuery(TenPayV3OrderQueryRequestData dataInfo)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/orderquery");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/orderquery");
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -409,6 +409,7 @@ namespace Senparc.Weixin.TenPay.V3
             return new OrderQueryResult(resultXml);
         }
 
+
         /// <summary>
         /// 关闭订单接口
         /// </summary>
@@ -417,7 +418,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用 CloseOrder(TenPayV3CloseOrderData dataInfo)")]
         public static string CloseOrder(string data)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/closeorder");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/closeorder");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -433,7 +434,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static CloseOrderResult CloseOrder(TenPayV3CloseOrderRequestData dataInfo)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/closeorder");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/closeorder");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
@@ -456,19 +457,19 @@ namespace Senparc.Weixin.TenPay.V3
         public static ProfitSharingResult ProfitSharing
             (
             IServiceProvider serviceProvider, TenpayV3ProtfitSharingRequestData dataInfo,
-#if NET45
+#if NET462
            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT
             )
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/secapi/{0}pay/profitsharing");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/secapi/{0}pay/profitsharing");
             var data = dataInfo.PackageRequestHandler.ParseXML();
             //var dataBytes = Encoding.UTF8.GetBytes(data);
             //using (MemoryStream ms = new MemoryStream(dataBytes))
             //{
             //调用证书
-#if NET45
+#if NET462
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
             string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
@@ -488,19 +489,19 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static ProfitSharingResult MultiProfitSharing(
             IServiceProvider serviceProvider, TenpayV3ProtfitSharingRequestData dataInfo,
-#if NET45
+#if NET462
             string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT
         )
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/secapi/{0}pay/multiprofitsharing");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/secapi/{0}pay/multiprofitsharing");
             var data = dataInfo.PackageRequestHandler.ParseXML();
             //var dataBytes = Encoding.UTF8.GetBytes(data);
             //using (MemoryStream ms = new MemoryStream(dataBytes))
             //{
             //调用证书
-#if NET45
+#if NET462
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
             string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
@@ -519,18 +520,18 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static ProfitSharingResult ProfitSharingFinish(
             IServiceProvider serviceProvider, TenpayV3ProtfitSharingFinishRequestData dataInfo,
-#if NET45
+#if NET462
             string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/secapi/{0}pay/profitsharingfinish");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/secapi/{0}pay/profitsharingfinish");
             var data = dataInfo.PackageRequestHandler.ParseXML();
             //var dataBytes = Encoding.UTF8.GetBytes(data);
             //using (MemoryStream ms = new MemoryStream(dataBytes))
             //{
             //调用证书
-#if NET45
+#if NET462
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
             string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
@@ -548,7 +549,7 @@ namespace Senparc.Weixin.TenPay.V3
         public static ProfitSharingAddReceiverResult ProfitSharingAddReceiver(TenpayV3ProfitShareingAddReceiverRequestData dataInfo,
             int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/profitsharingaddreceiver");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/profitsharingaddreceiver");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();
             MemoryStream ms = new MemoryStream();
@@ -556,7 +557,7 @@ namespace Senparc.Weixin.TenPay.V3
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut);
-           // var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            // var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
             return new ProfitSharingAddReceiverResult(resultXml);
         }
 
@@ -572,7 +573,7 @@ namespace Senparc.Weixin.TenPay.V3
         public static ProfitSharingRemoveReceiverResult ProfitSharingRemoveReceiver(TenpayV3ProfitShareingRemoveReceiverRequestData dataInfo,
             int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/profitsharingremovereceiver");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/profitsharingremovereceiver");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();
             MemoryStream ms = new MemoryStream();
@@ -597,7 +598,7 @@ namespace Senparc.Weixin.TenPay.V3
         public static ProfitSharingQueryResult ProfitSharingQuery(TenpayV3ProtfitSharingQueryRequestData dataInfo,
             int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/profitsharingquery");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/profitsharingquery");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();
             MemoryStream ms = new MemoryStream();
@@ -617,7 +618,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用 Reverse(TenPayV3ReverseRequestData dataInfo)")]
         public static string Reverse(string data)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}secapi/pay/reverse");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}secapi/pay/reverse");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -635,7 +636,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期 建议使用Reverse(TenPayV3ReverseRequestData dataInfo, string cert, string certPassword)")]
         public static ReverseResult Reverse(TenPayV3ReverseRequestData dataInfo)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}secapi/pay/reverse");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}secapi/pay/reverse");
             var data = dataInfo.PackageRequestHandler.ParseXML();
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -656,18 +657,18 @@ namespace Senparc.Weixin.TenPay.V3
         public static ReverseResult Reverse(
             IServiceProvider serviceProvider,
             TenPayV3ReverseRequestData dataInfo,
-#if NET45
-            string cert, string certPassword, 
+#if NET462
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}secapi/pay/reverse");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}secapi/pay/reverse");
             var data = dataInfo.PackageRequestHandler.ParseXML();
             //var dataBytes = Encoding.UTF8.GetBytes(data);
             //using (MemoryStream ms = new MemoryStream(dataBytes))
             //{
             //调用证书
-#if NET45
+#if NET462
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
             string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
@@ -695,15 +696,15 @@ namespace Senparc.Weixin.TenPay.V3
         public static RefundResult Refund(
             IServiceProvider serviceProvider,
             TenPayV3RefundRequestData dataInfo,
-#if NET45
-            string cert, string certPassword, 
+#if NET462
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
             //退款结果通知：https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_16&index=11
 
             //退款接口地址
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}secapi/pay/refund");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}secapi/pay/refund");
 
             //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
             //string cert = cert;// @"F:\apiclient_cert.p12";
@@ -714,7 +715,7 @@ namespace Senparc.Weixin.TenPay.V3
             using (MemoryStream ms = new MemoryStream(dataBytes))
             {
                 //调用证书
-#if NET45
+#if NET462
                 string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
                 string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
@@ -731,7 +732,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用 RefundQuery(TenPayV3RefundQueryRequestData dataInfo)")]
         public static string RefundQuery(string data)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/refundquery");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/refundquery");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -747,7 +748,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static RefundQueryResult RefundQuery(TenPayV3RefundQueryRequestData dataInfo)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/refundquery");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/refundquery");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
@@ -767,7 +768,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用 DownloadBill(TenPayV3DownloadBillRequestData dataInfo)")]
         public static string DownloadBill(string data)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/downloadbill");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/downloadbill");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -784,7 +785,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static string DownloadBill(TenPayV3DownloadBillRequestData dataInfo)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/downloadbill");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/downloadbill");
             var data = dataInfo.PackageRequestHandler.ParseXML();
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -806,7 +807,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用 ShortUrl(TenPayV3ShortUrlRequestData dataInfo)")]
         public static string ShortUrl(string data)
         {
-            var urlFormat = "https://api.mch.weixin.qq.com/tools/shorturl";
+            var urlFormat = Senparc.Weixin.Config.TenPayV3Host + "/tools/shorturl";
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -822,7 +823,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static ShortUrlResult ShortUrl(TenPayV3ShortUrlRequestData dataInfo)
         {
-            var urlFormat = "https://api.mch.weixin.qq.com/tools/shorturl";
+            var urlFormat = Senparc.Weixin.Config.TenPayV3Host + "/tools/shorturl";
             var data = dataInfo.PackageRequestHandler.ParseXML();
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -841,7 +842,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用 MicroPay(TenPayV3MicroPayRequestData dataInfo)")]
         public static string MicroPay(string data)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/micropay");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/micropay");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -860,7 +861,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用 Transfers(TenPayV3TransfersRequestData dataInfo, int timeOut = Config.TIME_OUT)")]
         public static string Transfers(string data, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaymkttransfers/promotion/transfers");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}mmpaymkttransfers/promotion/transfers");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -880,14 +881,14 @@ namespace Senparc.Weixin.TenPay.V3
         public static TransfersResult Transfers(
             IServiceProvider serviceProvider,
             TenPayV3TransfersRequestData dataInfo,
-#if NET45
-            string cert, string certPassword, 
+#if NET462
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaymkttransfers/promotion/transfers");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}mmpaymkttransfers/promotion/transfers");
             var data = dataInfo.PackageRequestHandler.ParseXML();
-#if NET45
+#if NET462
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
             string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
@@ -906,14 +907,14 @@ namespace Senparc.Weixin.TenPay.V3
         public static TransfersResult PayToWorker(
             IServiceProvider serviceProvider,
             TenPayV3PayToWorkerRequestData dataInfo,
-#if NET45
-            string cert, string certPassword, 
+#if NET462
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/paywwsptrans2pocket");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/mmpaymkttransfers/promotion/paywwsptrans2pocket");
             var data = dataInfo.PackageRequestHandler.ParseXML();
-#if NET45
+#if NET462
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
             string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
@@ -931,7 +932,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用 GetTransferInfo(TenPayV3GetTransferInfoRequestData dataInfo, int timeOut = Config.TIME_OUT)")]
         public static string GetTransferInfo(string data, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaymkttransfers/gettransferinfo");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}mmpaymkttransfers/gettransferinfo");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -950,16 +951,16 @@ namespace Senparc.Weixin.TenPay.V3
         public static GetTransferInfoResult GetTransferInfo(
             IServiceProvider serviceProvider,
             TenPayV3GetTransferInfoRequestData dataInfo,
-#if NET45
-            string cert, string certPassword, 
+#if NET462
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
             //文档：https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=14_3
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaymkttransfers/gettransferinfo");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}mmpaymkttransfers/gettransferinfo");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();
-#if NET45
+#if NET462
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
             string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
@@ -978,15 +979,15 @@ namespace Senparc.Weixin.TenPay.V3
         public static GetTransferInfoResult QueryPayLog(
             IServiceProvider serviceProvider,
             TenPayV3GetTransferInfoRequestData dataInfo,
-#if NET45
-            string cert, string certPassword, 
+#if NET462
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/querywwsptrans2pocket");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/mmpaymkttransfers/promotion/querywwsptrans2pocket");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();
-#if NET45
+#if NET462
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
             string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
@@ -1003,7 +1004,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static MicropayResult MicroPay(TenPayV3MicroPayRequestData dataInfo)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/micropay");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/micropay");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
@@ -1021,13 +1022,12 @@ namespace Senparc.Weixin.TenPay.V3
         /// <summary>
         /// 获取验签秘钥API
         /// </summary>
-        /// <param name="mchId">商户号</param>
-        /// <param name="nonceStr">随机字符串</param>
-        /// <param name="sign">签名</param>
+        /// <param name="dataInfo"></param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
         public static async Task<TenpayV3GetSignKeyResult> GetSignKeyAsync(TenPayV3GetSignKeyRequestData dataInfo, int timeOut = Config.TIME_OUT)
         {
-            var url = "https://api.mch.weixin.qq.com/sandboxnew/pay/getsignkey";
+            var url = Senparc.Weixin.Config.TenPayV3Host + "/sandboxnew/pay/getsignkey";
 
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
             //throw new Exception(data.HtmlEncode());
@@ -1050,7 +1050,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用 Unifiedorder(TenPayV3XmlDataInfo dataInfo, int timeOut = Config.TIME_OUT)")]
         public static async Task<string> UnifiedorderAsync(string data, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/unifiedorder");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/unifiedorder");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -1069,7 +1069,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static async Task<UnifiedorderResult> UnifiedorderAsync(TenPayV3UnifiedorderRequestData dataInfo, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/unifiedorder");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/unifiedorder");
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -1089,7 +1089,7 @@ namespace Senparc.Weixin.TenPay.V3
         {
             dataInfo.TradeType = TenPayV3Type.MWEB;
             return await UnifiedorderAsync(dataInfo, timeOut).ConfigureAwait(false);
-            /*var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/unifiedorder");
+            /*var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/unifiedorder");
             dataInfo.TradeType = TenPayV3Type.MWEB;
 
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
@@ -1115,21 +1115,21 @@ namespace Senparc.Weixin.TenPay.V3
         public static async Task<RefundResult> RefundAsync(
             IServiceProvider serviceProvider,
             TenPayV3RefundRequestData dataInfo,
-#if NET45
-            string cert, string certPassword, 
+#if NET462
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
             var data = dataInfo.PackageRequestHandler.ParseXML();
 
-            //var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+            //var urlFormat = Senparc.Weixin.Config.TenPayV3Host + "/secapi/pay/refund";
 
             //退款接口地址
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}secapi/pay/refund");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}secapi/pay/refund");
             //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
             //string cert = cert;// @"F:\apiclient_cert.p12";
             //私钥（在安装证书时设置）
-#if NET45
+#if NET462
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
             string responseContent = await CertPost_NetCoreAsync(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
@@ -1145,7 +1145,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用 OrderQueryAsync(TenPayV3OrderQueryData dataInfo)")]
         public static async Task<string> OrderQueryAsync(string data)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/orderquery");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/orderquery");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -1163,7 +1163,7 @@ namespace Senparc.Weixin.TenPay.V3
 
         public static async Task<OrderQueryResult> OrderQueryAsync(TenPayV3OrderQueryRequestData dataInfo)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/orderquery");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/orderquery");
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -1181,7 +1181,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用 CloseOrderAsync(TenPayV3CloseOrderData dataInfo)")]
         public static async Task<string> CloseOrderAsync(string data)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/closeorder");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/closeorder");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -1199,7 +1199,7 @@ namespace Senparc.Weixin.TenPay.V3
 
         public static async Task<CloseOrderResult> CloseOrderAsync(TenPayV3CloseOrderRequestData dataInfo)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/closeorder");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/closeorder");
             var data = dataInfo.PackageRequestHandler.ParseXML();
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -1218,7 +1218,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用  ReverseAsync(TenPayV3ReverseRequestData dataInfo)")]
         public static async Task<string> ReverseAsync(string data)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}secapi/pay/reverse");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}secapi/pay/reverse");
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
@@ -1235,7 +1235,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期 建议使用 ReverseAsync(TenPayV3ReverseRequestData dataInfo, string cert, string certPassword)")]
         public static async Task<ReverseResult> ReverseAsync(TenPayV3ReverseRequestData dataInfo)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}secapi/pay/reverse");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}secapi/pay/reverse");
             var data = dataInfo.PackageRequestHandler.ParseXML();
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -1256,18 +1256,18 @@ namespace Senparc.Weixin.TenPay.V3
         public static async Task<ReverseResult> ReverseAsync(
             IServiceProvider serviceProvider,
             TenPayV3ReverseRequestData dataInfo,
-#if NET45
-            string cert, string certPassword, 
+#if NET462
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}secapi/pay/reverse");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}secapi/pay/reverse");
             var data = dataInfo.PackageRequestHandler.ParseXML();
             //var dataBytes = Encoding.UTF8.GetBytes(data);
             //using (MemoryStream ms = new MemoryStream(dataBytes))
             //{
             //调用证书
-#if NET45
+#if NET462
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
             string responseContent = await CertPost_NetCoreAsync(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
@@ -1284,7 +1284,7 @@ namespace Senparc.Weixin.TenPay.V3
         ///// <returns></returns>
         //public static string Refund(string data)
         //{
-        //    var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+        //    var urlFormat = Senparc.Weixin.Config.TenPayV3Host + "/secapi/pay/refund";
 
         //    var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
         //    MemoryStream ms = new MemoryStream();
@@ -1301,7 +1301,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用  RefundQueryAsync(TenPayV3RefundQueryRequestData dataInfo)")]
         public static async Task<string> RefundQueryAsync(string data)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/refundquery");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/refundquery");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -1317,7 +1317,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static async Task<RefundQueryResult> RefundQueryAsync(TenPayV3RefundQueryRequestData dataInfo)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/refundquery");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/refundquery");
             var data = dataInfo.PackageRequestHandler.ParseXML();
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -1335,7 +1335,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用 DownloadBillAsync(TenPayV3DownloadBillRequestData dataInfo)")]
         public static async Task<string> DownloadBillAsync(string data)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/downloadbill");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/downloadbill");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -1351,7 +1351,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static async Task<string> DownloadBillAsync(TenPayV3DownloadBillRequestData dataInfo)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/downloadbill");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/downloadbill");
             var data = dataInfo.PackageRequestHandler.ParseXML();
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -1368,7 +1368,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用  ShortUrlAsync(TenPayV3ShortUrlRequestData dataInfo)")]
         public static async Task<string> ShortUrlAsync(string data)
         {
-            var urlFormat = "https://api.mch.weixin.qq.com/tools/shorturl";
+            var urlFormat = Senparc.Weixin.Config.TenPayV3Host + "/tools/shorturl";
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -1384,7 +1384,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static async Task<ShortUrlResult> ShortUrlAsync(TenPayV3ShortUrlRequestData dataInfo)
         {
-            var urlFormat = "https://api.mch.weixin.qq.com/tools/shorturl";
+            var urlFormat = Senparc.Weixin.Config.TenPayV3Host + "/tools/shorturl";
             var data = dataInfo.PackageRequestHandler.ParseXML();
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -1403,7 +1403,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用  MicroPayAsync(TenPayV3MicroPayRequestData dataInfo)")]
         public static async Task<string> MicroPayAsync(string data)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/micropay");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/micropay");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -1422,7 +1422,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用  TransfersAsync(TenPayV3TransfersRequestData dataInfo, int timeOut = Config.TIME_OUT)")]
         public static async Task<string> TransfersAsync(string data, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaymkttransfers/promotion/transfers");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}mmpaymkttransfers/promotion/transfers");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -1441,14 +1441,14 @@ namespace Senparc.Weixin.TenPay.V3
         public static async Task<TransfersResult> TransfersAsync(
             IServiceProvider serviceProvider,
             TenPayV3TransfersRequestData dataInfo,
-#if NET45
-            string cert, string certPassword, 
+#if NET462
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaymkttransfers/promotion/transfers");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}mmpaymkttransfers/promotion/transfers");
             var data = dataInfo.PackageRequestHandler.ParseXML();
-#if NET45
+#if NET462
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
             string responseContent = await CertPost_NetCoreAsync(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
@@ -1465,7 +1465,7 @@ namespace Senparc.Weixin.TenPay.V3
         [Obsolete("此方法已过期，建议使用GetTransferInfoAsync(TenPayV3GetTransferInfoRequestData dataInfo, int timeOut = Config.TIME_OUT)")]
         public static async Task<string> GetTransferInfoAsync(string data, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaymkttransfers/gettransferinfo");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}mmpaymkttransfers/gettransferinfo");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
@@ -1483,14 +1483,14 @@ namespace Senparc.Weixin.TenPay.V3
         public static async Task<GetTransferInfoResult> GetTransferInfoAsync(
             IServiceProvider serviceProvider,
             TenPayV3GetTransferInfoRequestData dataInfo,
-#if NET45
-            string cert, string certPassword, 
+#if NET462
+            string cert, string certPassword,
 #endif
             int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaymkttransfers/gettransferinfo");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}mmpaymkttransfers/gettransferinfo");
             var data = dataInfo.PackageRequestHandler.ParseXML();
-#if NET45
+#if NET462
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
             string responseContent = await CertPost_NetCoreAsync(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
@@ -1507,7 +1507,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static async Task<MicropayResult> MicroPayAsync(TenPayV3MicroPayRequestData dataInfo)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/micropay");
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}pay/micropay");
             var data = dataInfo.PackageRequestHandler.ParseXML();
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,18 +19,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.MP.Test.CommonAPIs;
 using Senparc.CO2NET.Extensions;
-using Senparc.Weixin.WxOpen.Tests;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.WxOpen.Tests;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
 {
@@ -45,7 +39,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
             {
                 var result = WxAppApi.CreateWxQrCode(base._wxOpenAppId, ms, "pages/websocket", 100);
                 Assert.AreEqual(ReturnCode.请求成功, result.errcode);
-
+                
                 ms.Seek(0, SeekOrigin.Begin);
                 //储存图片
 
@@ -110,7 +104,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
         public void CreateWxaQrCodeAsyncTest2()
         {
             var dt1 = SystemTime.Now;
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
+#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
             var filePath = "../../../Config/qr-async2.jpg";
 #else
             var filePath = "../../Config/qr-async2.jpg";
@@ -136,13 +130,13 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
         public void GetWxaCodeUnlimitTest()
         {
             Console.WriteLine("GetWxaCodeUnlimitTest开始");
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
+#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
             var filePath = "../../../qr-wxopen.jpg";
 #else
             var filePath = "../../qr-wxopen.jpg";
 # endif
             string scene = "notnull";
-            var result = WxAppApi.GetWxaCodeUnlimit(base._wxOpenAppId, filePath, scene, "pages/websocket/websocket", 640, false, new LineColor(100, 20, 30));
+            var result = WxAppApi.GetWxaCodeUnlimit(base._wxOpenAppId, filePath, scene, "pages/websocket/websocket", true, "release", 640, false, new LineColor(100, 20, 30));
             Assert.IsNotNull(result);
             Console.WriteLine("GetWxaCodeUnlimitTest 返回结果");
             Console.WriteLine(result.ToJson());
@@ -172,6 +166,18 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
                     throw;
                 }
             }
+        }
+
+        [TestMethod()]
+        public void MediaCheckAsyncTest()
+        {
+            var url = "https://sdk.weixin.senparc.com/images/v2/logo%20.png";
+
+            var openId = "oeaTy0DgoGq-lyqvTauWVjbIVuP0";
+            var result = WxAppApi.MediaCheckAsync(base._wxOpenAppId, url, "2", 2, openId, 1);
+
+            Console.WriteLine(SystemTime.Now);
+            Console.WriteLine(result);
         }
     }
 }

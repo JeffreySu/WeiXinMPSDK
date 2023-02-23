@@ -1,23 +1,23 @@
 ﻿#region Apache License Version 2.0
-    /*----------------------------------------------------------------
+/*----------------------------------------------------------------
 
-    Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
-    except in compliance with the License. You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
-    Unless required by applicable law or agreed to in writing, software distributed under the
-    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
-    either express or implied. See the License for the specific language governing permissions
-    and limitations under the License.
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
 
-    Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
-    ----------------------------------------------------------------*/
+----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
-    
+
 /*----------------------------------------------------------------
     Copyright(C) 2017 Senparc
 
@@ -32,10 +32,14 @@
  
     修改标识：Senparc - 20160719
     修改描述：增加其接口的异步方法
+ 
+    修改标识：Senparc - 20220918
+    修改描述：v16.18.7 OAuthApi.GetAuthorizeUrl() 方法添加 forcePopup 参数
+
 ----------------------------------------------------------------*/
 
 /*
-    官方文档：http://mp.weixin.qq.com/wiki/index.php?title=%E7%BD%91%E9%A1%B5%E6%8E%88%E6%9D%83%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF#.E7.AC.AC.E4.B8.80.E6.AD.A5.EF.BC.9A.E7.94.A8.E6.88.B7.E5.90.8C.E6.84.8F.E6.8E.88.E6.9D.83.EF.BC.8C.E8.8E.B7.E5.8F.96code
+    官方文档：https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html
  */
 
 using System.Threading.Tasks;
@@ -49,7 +53,7 @@ using Senparc.Weixin.MP.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
-    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, true)]
     public static class OAuthApi
     {
         #region 同步方法
@@ -63,13 +67,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="scope">应用授权作用域，snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid），snsapi_userinfo （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息）</param>
         /// <param name="responseType">返回类型，请填写code（或保留默认）</param>
         /// <param name="addConnectRedirect">加上后可以解决40029-invalid code的问题（测试中）</param>
+        /// <param name="forcePopup">强制此次授权需要用户弹窗确认；默认为false；需要注意的是，若用户命中了特殊场景下的静默授权逻辑，则此参数不生效</param>
         /// <returns></returns>
-        public static string GetAuthorizeUrl(string appId, string redirectUrl, string state, OAuthScope scope, string responseType = "code", bool addConnectRedirect = true)
+        public static string GetAuthorizeUrl(string appId, string redirectUrl, string state, OAuthScope scope, string responseType = "code", bool addConnectRedirect = true, bool? forcePopup = null)
         {
-            var url =
-                string.Format("https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type={2}&scope={3}&state={4}{5}#wechat_redirect",
-                                appId.AsUrlData(), redirectUrl.AsUrlData(), responseType.AsUrlData(), scope.ToString("g").AsUrlData(), state.AsUrlData(),
-                                addConnectRedirect ? "&connect_redirect=1" : "");
+            var forcePopupParam = forcePopup.HasValue 
+                                    ? $"&forcePopup={(forcePopup == true ? "true" : "false")}" 
+                                    : "";
+            var connectRedirectParam = addConnectRedirect ? "&connect_redirect=1" : "";
+
+            var url = $"https://open.weixin.qq.com/connect/oauth2/authorize?appid={appId.AsUrlData()}&redirect_uri={redirectUrl.AsUrlData()}&response_type={responseType.AsUrlData()}&scope={scope.ToString("g").AsUrlData()}&state={state.AsUrlData()}{forcePopupParam}{connectRedirectParam}#wechat_redirect";
 
             /* 这一步发送之后，客户会得到授权页面，无论同意或拒绝，都会返回redirectUrl页面。
              * 如果用户同意授权，页面将跳转至 redirect_uri/?code=CODE&state=STATE。这里的code用于换取access_token（和通用接口的access_token不通用）

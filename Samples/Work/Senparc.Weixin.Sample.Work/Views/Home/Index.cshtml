@@ -1,0 +1,791 @@
+﻿@using Senparc.Weixin.Sample
+@{
+    ViewData["Title"] = "Senparc.Weixin.Work 企业微信模块";
+}
+<div class="sdk-doc">
+    <div class="row" style="position:relative;">
+        <div class="col-sm-2" id="leftMenu">
+            <div class="row">
+                @(await Html.PartialAsync("_SideTopNote"))
+
+                <nav id="navbar_left" class="navbar navbar-light bg-light flex-column align-items-stretch p-3">
+                    <a class="navbar-brand" href="#">索引</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link" href="#source_code">源码</a>
+                        <a class="nav-link" href="#title_install">如何安装？</a>
+                        <a class="nav-link" href="#title_setting">如何使用？</a>
+                        <a class="nav-link" href="#title_advance">进阶</a>
+                        <a class="nav-link" href="#title_about">关于</a>
+                        <nav class="nav nav-pills flex-column">
+                            <a class="nav-link ms-3 my-1" href="#title_about_team">团队</a>
+                            <a class="nav-link ms-3 my-1" href="#title_about_support">支持</a>
+                            <a class="nav-link ms-3 my-1" href="#title_about_license">开源协议</a>
+                        </nav>
+                    </nav>
+                </nav>
+            </div>
+
+            @(await Html.PartialAsync("_SideBottomNote"))
+        </div>
+
+        <div class="col-sm-10 bd-main" data-bs-spy="scroll" data-bs-target="#navbar_left" data-bs-offset="0" tabindex="0">
+
+            <div class="text-center">
+                <h1 id="top-title" class="display-4">Senparc.Weixin.Work 企业微信模块</h1>
+
+
+                <p class="no-text-indent"><a href="https://www.nuget.org/packages/Senparc.Weixin.Work" target="_blank">Senparc.Weixin.Work</a> 模块用于提供企业微信的支持能力。</p>
+                @(await Html.PartialAsync("_IconsPartial"))
+
+            </div>
+
+            <!-- Carousel -->
+            <div id="banner-top" class="carousel slide" data-bs-ride="carousel">
+
+                <!-- Indicators/dots -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#banner-top" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#banner-top" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#banner-top" data-bs-slide-to="2"></button>
+                </div>
+
+                <!-- The slideshow/carousel -->
+                <div class="carousel-inner">
+                    @(await Html.PartialAsync("_CarouselPartial"))
+                </div>
+
+                <!-- Left and right controls/icons -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#banner-top" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#banner-top" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+
+            <div id="main-doc">
+                <div id="source_code" class="target-fix"></div>
+                
+                <partial name="_SourceCode" model='new SourceCodeViewModel("Senparc.Weixin.Work","/src/Senparc.Weixin.Work")' />
+
+                <div id="title_install" class="target-fix"></div>
+
+                <div>
+                    <h3>如何安装？</h3>
+                    <p>您可以直接引用 Senparc.Weixin 的源码进行开发，也可以引用已经打包完成的 dll（通过 Nuget 包，推荐），以方便随时获取官方的更新。注意：直接引用源码和引用 Nuget 包只能二选一。</p>
+
+                    <h5>引用源码</h5>
+                    <p>您可以在当前解决方案中，<strong>Libraries</strong> 目录下，将所需要引用的程序集引用（复制）到您开发环境的解决方案中，请注意需要同时引用被依赖的项目，如 <code>Senparc.Weixin</code> 项目是所有项目都需要依赖的。</p>
+                    <p>当前示例项目默认就使用了直接引用源码的方式，可从 .csproj 文件中看到引用方式：</p>
+                    <pre><code>&lt;ItemGroup&gt;
+    &lt;ProjectReference Include="..\..\..\src\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.net6.csproj" /&gt;
+    &lt;ProjectReference Include="..\..\..\src\Senparc.Weixin.Work.Middleware\Senparc.Weixin.Work.Middleware.net6.csproj" /&gt;
+    &lt;ProjectReference Include="..\..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.net6.csproj" /&gt;
+&lt;/ItemGroup&gt;</code></pre>
+
+                    <h5>引用程序集（推荐）</h5>
+
+                    <p>您可以通过 <code>Visual Studio</code>、<code>Visual Studio Code</code>、<code>dotnet 命令行</code> 等多种方式自动安装 Nuget 包。</p>
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-vs" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Visual Studio</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-vscode" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Visual Studio Code</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-cli" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">dotnet 命令行</button>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent-install">
+                        <div class="tab-pane fade show active" id="nav-vs" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <p>
+                                在开发项目【解决方案资源管理器】中，对需要添加 Senparc.Weixin.Work 的模块点击右键，点击【管理 Nuget 程序包】，在【浏览】标签中输入 <strong>Senparc.Weixin.Work</strong>，点击右侧【安装】按钮。如下图所示：<br />
+                            </p>
+                            <p>
+                                <figure class="figure">
+                                    <img src="~/images/home-install-01.png" class="figure-img img-fluid rounded" alt="通过 Visual Studio 安装" />
+                                    <figcaption class="figure-caption text-center">通过 Visual Studio 安装</figcaption>
+                                </figure>
+                            </p>
+
+                        </div>
+                        <div class="tab-pane fade" id="nav-vscode" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p>首先，确认已经安装好 <a href="https://code.visualstudio.com/">VS Code</a> 以及 dotnet 命令行（安装 <a href="https://dotnet.microsoft.com/en-us/download" target="_blank">.NET SDK</a> 后会自动安装）。</p>
+                            <p>
+                                然后，打开解决方案或项目所在目录，按 <kbd>Ctrl</kbd>+<kbd>~</kbd>，打开终端面板，进入需要添加 Senparc.Weixin.Work 的模块的项目的目录，输入：</>
+                                <blockquote class="blockquote">
+                                    <code>dotnet add package Senparc.Weixin.Work</code>
+                                </blockquote>
+
+                            <p>
+                                <figure class="figure">
+                                    <img src="~/images/home-install-03.png" class="figure-img img-fluid rounded" alt="通过 VS Code 安装" />
+                                    <figcaption class="figure-caption text-center">安装 Senparc.Weixin.Work 模块</figcaption>
+                                </figure>
+                            </p>
+
+                            <p>
+                                安装完成后，可查看对应 .csproj 文件，被添加引用，如：
+                            </p>
+                            <pre><code>&lt;ItemGroup&gt;
+    &lt;PackageReference Include="Senparc.Weixin.Work" Version="3.14.10" /&gt;
+&lt;/ItemGroup&gt;</code></pre>
+                        </div>
+                        <div class="tab-pane fade" id="nav-cli" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p>首先，确认已经安装好 dotnet 命令行（安装 <a href="https://dotnet.microsoft.com/en-us/download" target="_blank">.NET SDK</a> 后会自动安装）。</p>
+                            <p>进入需要添加 Senparc.Weixin.Work 的模块的项目的目录，输入：</p>
+                            <blockquote class="blockquote">
+                                <code>dotnet add package Senparc.Weixin.Work</code>
+                            </blockquote>
+
+                            <p>
+                                <figure class="figure">
+                                    <img src="~/images/home-install-02.png" class="figure-img img-fluid rounded" alt="通过 dotnet CLI 安装" />
+                                    <figcaption class="figure-caption text-center">通过 dotnet CLI 安装</figcaption>
+                                </figure>
+                            </p>
+
+                            <p>
+                                安装完成后，可查看对应 .csproj 文件，被添加引用，如：
+                            </p>
+                            <pre><code>&lt;ItemGroup&gt;
+    &lt;PackageReference Include="Senparc.Weixin.Work" Version="3.14.10" /&gt;
+&lt;/ItemGroup&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="title_setting" class="target-fix"></div>
+                <div @*class="mt-5 pt-5"*@>
+
+                    <h3>如何使用？</h3>
+
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-home" aria-selected="true">注册</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-messagehandler" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">MessageHandler</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-advanced-api" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">高级接口</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-jssdk" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">JSSDK（常规）</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-jssdk-agentconfig" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">JSSDK（agentConfig）</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-oauth" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">OAuth 2.0</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-menu" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">菜单设置</button>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent-setting">
+                        <div class="tab-pane fade show active" id="nav-register" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <h5>全局注册</h5>
+                            <p>所有的 Senparc.Weixin SDK 注册过程都是类似的。</p>
+                            <p>
+                                首先，完成所有 Senparc.Weixin SDK 的整体注册代码。在 Program.cs 中加入以下代码：
+                            </p>
+                            <p>
+                                <figure class="figure">
+                                    <img src="~/images/home-dev-register-01.png" class="figure-img img-fluid rounded" alt="注册 Senparc.Weixin" />
+                                    <figcaption class="figure-caption text-center">注册 Senparc.Weixin</figcaption>
+                                </figure>
+                            </p>
+                            <p>
+                                说明：
+                                <ol>
+                                    <li><code>builder.Services.AddMemoryCache()</code> Senparc.Weixin 支持本机缓存、Redis、Memcached 等多种缓存策略，默认使用本机缓存，此时需要激活本地缓存。</li>
+                                    <li><code>builder.Services.AddSenparcWeixinServices(builder.Configuration)</code> 用于完成 Senparc.Weixin 的注册。</li>
+                                    <li><code>app.UseSenparcWeixin()</code> 方法用于配置和启用 Senparc.Weixin。</li>
+                                </ol>
+                            </p>
+                            <p>
+                                以上代码对于所有的 Senparc.Weixin 下级模块都是相同的，只需要 3 句代码。
+                            </p>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /<cite title="Source Title">Program.cs</cite>
+                                </figcaption>
+                            </figure>
+
+                            <h5>企业微信</h5>
+                            <p>在上述代码中的第 17 行委托方法中插入代码，即可完成默认公众号的注册：</p>
+                            <p><code>register.RegisterWorkAccount(weixinSetting, "【盛派网络】企业微信");</code></p>
+                            <p>
+                                <figure class="figure">
+                                    <img src="~/images/home-dev-register-02.png" class="figure-img img-fluid rounded" alt="注册微信公众号" />
+                                    <figcaption class="figure-caption text-center">注册微信公众号</figcaption>
+                                </figure>
+                            </p>
+                            <p>其中，<code>weixinSetting</code> 的值默认来自于 <code>appsettings.json</code>：</p>
+                            <p>
+                                <pre><code>"SenparcWeixinSetting": {
+  //以下为 Senparc.Weixin 的 SenparcWeixinSetting 微信配置
+  //注意：所有的字符串值都可能被用于字典索引，因此请勿留空字符串（但可以根据需要，删除对应的整条设置）！
+
+  //微信全局
+  "IsDebug": true,
+
+  //以下不使用的参数可以删除，key 修改后将会失效
+
+  //企业微信
+  "WeixinCorpId": "#{WeixinCorpId}#",
+  "WeixinCorpAgentId": "#{WeixinCorpAgentId}#",
+  "WeixinCorpSecret": "#{WeixinCorpSecret}#",
+  "WeixinCorpToken": "#{WeixinCorpToken}#",
+  "WeixinCorpEncodingAESKey": "#{WeixinCorpEncodingAESKey}#"
+
+  //可以追加更多其他平台的配置信息
+}</code></pre>
+                            </p>
+
+                            <p>其中，<code>WeixinCorpId</code> 是每个企业微信账号独有的 <strong>corpId</strong>，<code>WeixinCorpAgentId</code> 和 <code>WeixinCorpSecret</code> 对应每个不同应用的 <strong>agentId</strong> 和 <strong>secret</strong>， <code>WeixinCorpToken</code> 和 <code>WeixinCorpEncodingAESKey</code> 对应了当前应用消息接口的后台的配置参数。</p>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /<cite title="Source Title">appsettings.json</cite>
+                                </figcaption>
+                            </figure>
+
+                            <p>配置完成。</p>
+                            <blockquote class="blockquote">
+                                提示：自动注册的信息可通过 <code>Senparc.Weixin.Config.SenparcWeixinSetting</code> 获取。
+                            </blockquote>
+                        </div>
+
+                        <div class="tab-pane fade" id="nav-messagehandler" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p><code>MessageHandler</code> 用于处理企业微信对话窗口的消息。</p>
+                            <p>SDK 已经为开发者准备好了所有需要的基础功能，开发者只需要创建一个自定义的子类，补充需要自定义的业务逻辑。</p>
+                            <h5>自定义 MessageHandler</h5>
+                            <p>当前示例中，我们给自定义的 MessageHandler 取名 <code>WorkCustomMessageHandler</code>。</p>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p> WorkCustomMessageHandler.cs 本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /MessageHandlers/ 目录<br />
+                                    <cite title="Source Title">WorkCustomMessageHandler.cs</cite> MessageHandler 主文件，负责普通消息处理<br />
+                                    <cite title="Source Title">WorkCustomMessageContext.cs</cite> 自定义重写 DefaultMpMessageContext 上下文（可选）<br />
+                                </figcaption>
+                            </figure>
+                            <p><code>WorkCustomMessageHandler.cs</code> 中所有演示的重写（<code>override</code>）方法中，只有 <code>DefaultResponseMessage()</code> 方法是必须重写的，其他所有 <code>OnXxxRequest()</code> 方法都为可选，当用户发送的消息，找不到对应重写方法时，则调用 <code>DefaultResponseMessage()</code> 方法。</p>
+
+                            <p>MessageHandler 有两种承载方式，使其可以被外部（微信服务器）通过 URL 访问到。分别是<strong>中间件方式</strong>（推荐）和<strong> Controller 方式</strong>。两种方式所使用的 <code>WorkCustomMessageHandler</code> 是通用的，因此可以随时切换和共存。</p>
+
+                            <h5>中间件方式承载 MessageHandler</h5>
+
+                            <p>中间件方式是推荐的方式，也是最简化的方式，无需创建任何新文件，只需在 <code>Program.cs</code> 文件所有 Senparc.Weixin 注册代码执行后的下方，引入中间件：</p>
+                            <p>
+                                <pre><code>app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMessageHandler, options =>
+{
+    options.AccountSettingFunc = context =>  Senparc.Weixin.Config.SenparcWeixinSetting;
+});</code></pre>
+                            </p>
+                            <p>完成后，即可通过Url <strong><code>域名/WorkAsync</code></strong> 访问 MessageHandler，设置为公众号后台的消息 URL。</p>
+                            <p><a href="/WorkAsync" target="_blank">测试 /WorkAsync</a></p>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p> 本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /<cite title="Source Title">Program.cs</cite>
+                                </figcaption>
+                            </figure>
+                            <p><a href="/Work" target="_blank">测试 /Work</a></p>
+
+                            <p>更多中间件方式请参考（和公众号使用方法相同）：<a href="https://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html" target="_blank">《在 .NET Core 2.0/3.0 中使用 MessageHandler 中间件》</a>（同样适用于 .NET 6.0 及以上）。</p>
+
+                            <h5>Controller 方式承载 MessageHandler</h5>
+
+                            <p>当中间件的方式满足不了需求时，可以使用 Controller 将执行过程“展开”，对每一步执行进行更加精确的控制或干预。</p>
+                            <p>使用 Controller 方式，需要创建 2 个 Action，分别对应微信后台验证（Get 请求），以及真实消息推送（Post 请求）。本项目示例位于 WorkController.cs 中。</p>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>WorkController.cs 本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">WorkController.cs</cite>
+                                </figcaption>
+                            </figure>
+                            <p>完成后，即可通过Url <strong><code>域名/Work</code></strong> 访问 MessageHandler，设置为公众号后台的消息 URL。</p>
+                            <p><a href="/Work" target="_blank">测试 /Work</a></p>
+
+                            <p>更多 Controller 方式请参考（和公众号使用方法相同）：<a href="https://www.cnblogs.com/szw/p/3414862.html" target="_blank">《了解MessageHandler》</a>（推荐使用全套异步方法）</p>
+                        </div>
+
+                        <div class="tab-pane fade" id="nav-advanced-api" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p>完成 <code>Program.cs</code> 文件中的常规注册后，即可在程序的任意地方使用高级接口。</p>
+                            <blockquote class="blockquote">
+                                注意：<br />
+                                1、高级接口的配置和 <code>MessageHandler</code> 没有关联，两者可以独立或配合使用。<br />
+                                2、由于企业微信使用 CorpId + Secret 来定位（区别）每个应用的授权信息，因此，SDK 中将两者合并成一个唯一参数，命名为 <strong>AppKey</strong>，可通过 <code>AccessTokenContainer.BuildingKey(string corpId, string corpSecret)</code> 方法获取合成后的 <strong>AppKey</strong>。<br />
+                                3、企业微信 SDK 内几乎所有高级接口的第一个参数同时支持传入 AppKey 或 AccessToken，通常名称为 <code>accessTokenOrAppKey</code>，SDK 会根据参数特征自动识别输入的是 AppKey 还是 AccessToken，并做区分处理。
+                            </blockquote>
+                            <h5>使用 AppKey 调用接口（推荐）</h5>
+                            <p>例如，我们可以在任意一个方法中调用一个高级接口：</p>
+                            <p>
+                                <pre><code>public async Task&lt;IActionResult&gt; TryApiTryApiByAppKey()
+{
+    // 获取注册信息
+    var workWeixinSetting = Config.SenparcWeixinSetting.WorkSetting;
+    // 获取 AppKey
+    var appKey = AccessTokenContainer.BuildingKey(workWeixinSetting);
+    //发送请求
+    try
+    {
+        //发送文字提醒
+        var result = await Senparc.Weixin.Work.AdvancedAPIs.MassApi.SendTextAsync(appKey, &quot;001&quot;, &quot;这是一条来企业微信的消息&quot;);
+        return Content(&quot;OK&quot;);
+    }
+    catch (ErrorJsonResultException ex)
+    {
+        return Content($&quot;出错啦：{ex.Message}&quot;);
+    }
+}</code></pre>
+                            </p>
+                            <blockquote class="blockquote">
+                                <code>workWeixinSetting</code> 参数，必须是已经经过注册的企业微信信息（内部包括 CorpId 和 Secret），这样即使AccessToken 过期，SDK也会全自动处理。如果是未经过注册的 CorpId 和 Secret，则需要先获取 AccessToken，然后调用接口。
+                            </blockquote>
+
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">AdvancedApiController.cs</cite>
+                                </figcaption>
+                            </figure>
+
+                            <h5>使用 AccessToken 调用接口（不推荐）</h5>
+
+                            <p>
+                                <pre><code>public async Task&lt;IActionResult&gt; TryApiByAccessToken()
+{
+    // 获取注册信息
+    var workWeixinSetting = Config.SenparcWeixinSetting.WorkSetting;
+    // 获取 AccessToken
+    var accessToken = await AccessTokenContainer.GetTokenAsync(workWeixinSetting.WeixinCorpId, workWeixinSetting.WeixinCorpSecret);
+    //发送请求
+    try
+    {
+        //发送文字提醒
+        var result = await Senparc.Weixin.Work.AdvancedAPIs.MassApi.SendTextAsync(accessToken, &quot;001&quot;, &quot;这是一条来企业微信的消息&quot;);
+        return Content(&quot;OK&quot;);
+    }
+    catch (ErrorJsonResultException ex)
+    {
+        return Content($&quot;出错啦：{ex.Message}&quot;);
+    }
+}</code></pre>
+
+                            </p>
+
+                            <blockquote class="blockquote">
+                                注意：使用 AccessToken 方式调用接口，无法保证当前 AccessToken 的有效性，因此建议使用前进行有效性校验，并使用 <code>try-catch</code> 方式捕获 AccessToken 不可用的异常，然后进行重试。因此直接使用 AccessToken 调用接口的方式并不推荐在常规情况下使用。
+                            </blockquote>
+
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">AdvancedApiController.cs</cite>
+                                </figcaption>
+                            </figure>
+
+                        </div>
+
+
+
+                        <!-- JSSDK（常规） 开始 -->
+                        <div class="tab-pane fade" id="nav-jssdk" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p>JSSDK 用于提供微信内置浏览器接口的能力，例如转发控制、调用摄像头权限（拍照、视频）、文件上传、关闭窗口、唤起扫码窗口，等等。</p>
+                            <p>要在内置浏览器中只用 JSSDK，分为“服务端获取签名信息”和“网页端配置 JSSDK”两步。</p>
+                            <p>企业微信的网页端 JSSDK 配置，和公众号类似，不过多了一个名为 <code>wx.agentConfig()</code> 的配置方法。这里介绍常规的方法，<code>wx.agentConfig()</code> 配套方法请见【JSSDK（agentConfig】标签。</p>
+
+                            <h5>服务端获取签名信息</h5>
+                            <p>后端通过 <code>JSSDKHelper.GetJsSdkUiPackageAsync()</code> 方法即可自动获取前端所需的所有 JSSDK 运行所需参数：</p>
+                            <pre><code>public async Task&lt;ActionResult&gt; Index()
+{
+    // 当前 URL
+    var url = &quot;https://sdk.work.weixin.senparc.com/JSSDK/&quot;;
+    // 获取企业微信配置
+    var workSetting = Senparc.Weixin.Config.SenparcWeixinSetting.WorkSetting;
+    // 获取 JsApiTicket（保密信息，不可外传）
+    var jsApiTicket = await JsApiTicketContainer.GetTicketAsync(workSetting.WeixinCorpId, workSetting.WeixinCorpSecret, false);
+    // 获取 UI 打包信息
+    var jsApiUiPackage = await JSSDKHelper.GetJsApiUiPackageAsync(workSetting.WeixinCorpId, workSetting.WeixinCorpSecret, url, jsApiTicket, false);
+
+    ViewData[&quot;jsApiUiPackage&quot;] = jsApiUiPackage;
+    return View();
+}</code></pre>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">JSSDKnController.cs</cite>  - Index() 方法
+                                </figcaption>
+                            </figure>
+
+                            <h5>网页端配置 JSSDK</h5>
+                            <p>后端配置完成的参数，直接在前端 JS 中使用 <code>wx.config</code> 进行设置，例如以下代码将完成从企业微信内转发网页到<strong>个人微信</strong>：</p>
+                            <pre><code>$(function(){
+    wx.config({
+            beta: true,// 必须这么写，否则wx.invoke调用形式的jsapi会有问题
+            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '@@jsApiUiPackage.AppId', // 必填，企业微信的corpID
+            timestamp: @@jsApiUiPackage.Timestamp, // 必填，生成签名的时间戳
+            nonceStr: '@@jsApiUiPackage.NonceStr', // 必填，生成签名的随机串
+            signature: '@@jsApiUiPackage.Signature',// 必填，签名，见 附录-JS-SDK使用权限签名算法
+            jsApiList: ['shareWechatMessage'] // 必填，需要使用的JS接口列表，凡是要调用的接口都需要传进来
+        });
+
+        wx.checkJsApi({
+            jsApiList: ['shareWechatMessage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+            success: function(res) {
+                // 以键值对的形式返回，可用的api值true，不可用为false
+                // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+                //alert("wx.config success:"+JSON.stringify(res));
+            }
+        });
+});
+
+wx.ready(function(){
+    // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+});
+
+wx.error(function(res){
+    // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+    console.log(res);
+    alert(res);
+}
+
+function invoke(){
+    wx.invoke(
+    "shareWechatMessage", {
+            title: '企业微信JSSDK 演示-转发', // 分享标题
+            desc: '来自 Senparc.Weixin.Work', // 分享描述
+            link: 'https://sdk.work.weixin.senparc.com/JSSDK', // 分享链接
+            imgUrl: '' // 分享封面
+    }, function(res) {
+    if (res.err_msg == "shareWechatMessage:ok") {
+        }
+        }
+    );
+}</code></pre>
+                            <p>HTML 页面进行触发：<code>&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;invoke()&quot;&gt;转发到微信&lt;/a&gt;</code></p>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Views/JSSDK/<cite title="Source Title">Index.cshtml</cite>
+                                </figcaption>
+                            </figure>
+
+
+                            <p>更多设置详情请参考：<a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html" target="_blank">JS-SDK说明文档</a>。</p>
+                        </div>
+                        <!-- JSSDK（常规） 结束 -->
+                        <!-- JSSDK（agentConfig） 开始 -->
+                        <div class="tab-pane fade" id="nav-jssdk-agentconfig" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p><code>wx.agentConfig()</code> 用于某些特定的接口（如审批流接口、剪切板接口等），但一般前提都需要先使用到常规的 JSSDK（参考【JSSDK（常规）】标签），因此这是一个增加项。</p>
+                            <p><code>wx.agentConfig()</code> 同样分为服务器端和客户端两部分。</p>
+                            <h5>服务端获取签名信息</h5>
+                            <p>后端除了后端通过 <code>JSSDKHelper.GetJsSdkUiPackageAsync()</code> 方法获取常规 JSSDK 运行所需参数以外，还需要使用同一个方法，传入不同参数来获取 <code>agetntConfig</code> 的对应参数：</p>
+                            <pre><code>public async Task&lt;ActionResult&gt; AgentConfig()
+{
+    //此处演示同时支持多个应用的注册，请参考 appsettings.json 文件
+    var workSetting = Senparc.Weixin.Config.SenparcWeixinSetting[&quot;企业微信审批&quot;] as ISenparcWeixinSettingForWork;
+    var url = &quot;https://sdk.weixin.senparc.com/Work/Approval&quot;;
+
+    //获取 UI 信息包
+
+    /* 注意：
+    * 所有应用中，jsApiUiPackage 是必备的
+    */
+    var jsApiTicket = await JsApiTicketContainer.GetTicketAsync(workSetting.WeixinCorpId, workSetting.WeixinCorpSecret, false);
+    var jsApiUiPackage = await JSSDKHelper.GetJsApiUiPackageAsync(workSetting.WeixinCorpId, workSetting.WeixinCorpSecret, url, jsApiTicket, false);
+    ViewData[&quot;jsApiUiPackage&quot;] = jsApiUiPackage;
+
+    /* 注意：
+    * 1、这里需要使用 WeixinCorpAgentId，而不是 WeixinCorpId
+    * 2、agentJsApiUiPackage 是否需要提供，请参考官方文档，此处演示了最复杂的情况
+    */
+    ViewData[&quot;thirdNo&quot;] = DateTime.Now.Ticks + Guid.NewGuid().ToString(&quot;n&quot;);
+    ViewData[&quot;corpId&quot;] = workSetting.WeixinCorpId;
+    ViewData[&quot;agentId&quot;] = workSetting.WeixinCorpAgentId;
+    var agentConfigJsApiTicket = await JsApiTicketContainer.GetTicketAsync(workSetting.WeixinCorpId, workSetting.WeixinCorpSecret, true);
+    var agentJsApiUiPackage = await JSSDKHelper.GetJsApiUiPackageAsync(workSetting.WeixinCorpId, workSetting.WeixinCorpSecret, url, agentConfigJsApiTicket, true);
+    ViewData[&quot;agentJsApiUiPackage&quot;] = agentJsApiUiPackage;
+
+    return View();
+}</code></pre>
+<blockquote class="blockquote">
+    注意：上述方法中，使用了 <code>Senparc.Weixin.Config.SenparcWeixinSetting["企业微信审批"]</code> 来获取与之前不同的微信配置，请参考本项目中 <code>appsetting.json</code> 文件中的设置方法：
+    <pre><code>"Items": {
+  //添加多个企业微信应用
+  "企业微信审批": {
+    "WeixinCorpId": "#{WeixinCorpId2}#",
+    "WeixinCorpAgentId": "#{WeixinCorpAgentId2}#",
+    "WeixinCorpSecret": "#{WeixinCorpSecret2}#",
+    "WeixinCorpToken": "#{WeixinCorpToken2}#",
+    "WeixinCorpEncodingAESKey": "#{WeixinCorpEncodingAESKey2}#"
+  }</code></pre>
+  此方法对所有其他模块也通用（如公众号、小程序、微信支付等）。
+</blockquote>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">JSSDKnController.cs</cite>  - AgentConfig() 方法
+                                </figcaption>
+                                <figcaption class="blockquote-footer">
+                                    /<cite title="Source Title">appsettings.json</cite>
+                                </figcaption>
+                            </figure>
+
+                            <h5>网页端配置 JSSDK</h5>
+                            <p>网页端除了进行常规的 JSSDK 配置以外，还需要在执行特定的 JsApi 方法之前，添加 <code>wx.agentConfig()</code> 的配置：</p>
+                            <pre><code>function invoke(){
+    wx.agentConfig({
+        corpid: '@@ViewData["corpId"]', // 必填，企业微信的corpid，必须与当前登录的企业一致
+        agentid: '@@ViewData["agentId"]', // 必填，企业微信的应用id （e.g. 1000247）
+        timestamp: @@agentJsApiUiPackage.Timestamp, // 必填，生成签名的时间戳
+        nonceStr: '@@agentJsApiUiPackage.NonceStr', // 必填，生成签名的随机串
+        signature: '@@agentJsApiUiPackage.Signature',// 必填，签名，见附录-JS-SDK使用权限签名算法
+        jsApiList: ['thirdPartyOpenPage'], //必填，传入需要使用的接口名称
+        success: function(res) {
+
+            // 回调
+            wx.invoke('thirdPartyOpenPage', {
+                "oaType": "10001",// String
+                //"templateId": "C4NxepvGj51gbkeGXHQgYRArW96WrxRinNfyCxo7N",//SYS
+                "templateId":"247bcb886d0374a0a1f749c52794ba1a_622421053",// Open
+                "thirdNo": "@ViewData["thirdNo"]",// String
+                "extData": {
+                    'fieldList': [{
+                        'title': '审批类型',
+                        'type': 'text',
+                        'value': '文章审批',
+                    },
+                    {
+                        'title': '预览',
+                        'type': 'link',
+                        'value': 'https://weixin.senparc.com',
+                    }],
+                }
+            },
+            function(res) {
+                // 输出接口的回调信息
+                console.log(res);
+                alert('wx.invoke result:'+JSON.stringify(res));
+            });
+        },
+        fail: function(res) {
+            if(res.errMsg.indexOf('function not exist') > -1){
+                alert('版本过低请升级')
+            }
+            else{
+                alert('wx.invoke fail:'+JSON.stringify(res));
+            }
+        }
+    });
+}</code></pre>
+
+                            <p>HTML 页面进行触发：<code>&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;invoke()&quot;&gt;点击唤起审批流程&lt;/a&gt;</code></p>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Views/JSSDK/<cite title="Source Title">Index.cshtml</cite>
+                                </figcaption>
+                            </figure>
+
+
+                        </div>
+                        <!-- JSSDK（agentConfig） 结束 -->
+                        <!-- OAuth 2.0 开始 -->
+                        <div class="tab-pane fade" id="nav-oauth" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p>当你需要在网页上获取用户的 UserId、头像、称呼等信息的时候，就需要使用 OAuth 2.0 的方式和微信服务器通讯。</p>
+                            <p>更多信息请参考官方文档：<a href="https://developer.work.weixin.qq.com/document/path/91335" target="_blank">网页授权登录</a>。</p>
+                            <p>SDK 已经封装了所有相关的过程，您只需要参考示例进行简单的 3 步配置即可。</p>
+                            <h5>第一步：设置登录页面</h5>
+                            <p>登录页面中需要设置官方 OAuth 2.0 的请求 URL（称为 <strong>AuthorizeUrl</strong>），并带上登录成功后的 returnUrl。</p>
+                            <p>由于微信授权具有两种方式：<strong>snsapi_userinfo</strong> 和 <strong>snsapi_base</strong>，企业自建应用使用 <strong>snsapi_base</strong>，因此本示例中使用此方式进行介绍 <strong>snsapi_base</strong>（默认）的 <strong>AuthorizeUrl</strong> 获取的方式（此方式也是所有场景下兼容的方式）：</p>
+                            <pre><code>public IActionResult Index(string returnUrl)
+{
+    // 设置自己的 URL
+    var url = "https://4424-222-93-135-159.ngrok.io";
+
+    //此页面引导用户点击授权
+    var oauthUrl =
+        OAuth2Api.GetCode(_corpId, $"{url}/OAuth2/BaseCallback?returnUrl={returnUrl.UrlEncode()}",
+            null, null);//snsapi_base方式回调地址
+
+    ViewData["UrlBase"] = oauthUrl;
+    ViewData["returnUrl"] = returnUrl;
+
+    return View();
+}</code></pre>
+                            <p>上述 <code>returnUrl</code> 参数一般为跳转到登陆页面之前的 URL，也可以是希望用户完成授权之后跳转到的 URL。</p>
+                            <blockquote class="blockquote">
+                                注意：上述的网址和路径需要在公众号后台匹配成你自己服务器的地址（参考文档：<a href="https://developer.work.weixin.qq.com/document/path/91335" target="_blank">网页授权登录</a>）。
+                            </blockquote>
+
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">OAuth2Controller.cs</cite>
+                                </figcaption>
+                            </figure>
+
+                            <h5>第二步：前端登录页面设置</h5>
+                            <p>登录页面最终的功能是引导用户打开  <strong>AuthorizeUrl</strong>，可以直接使用连接的方式：</p>
+                            <pre><code>&lt;a href=&quot;@@ViewData[&quot;UrlBase&quot;]&quot;&gt;点击这里测试snsapi_base&lt;/a&gt;</code></pre>
+
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Views/OAuth2/<cite title="Source Title">Index.cshtml</cite>
+                                </figcaption>
+                            </figure>
+
+                            <h5>第三步：配置登陆后回调页面</h5>
+                            <p>授权成功后，网页将自动跳转到第一步中设置的回调 URL（<code>$"{url}/OAuth2/BaseCallback?returnUrl={returnUrl.UrlEncode()}"</code>）：</p>
+                            <pre><code>public async Task<ActionResult> BaseCallback(string code, string returnUrl)
+{
+    if (string.IsNullOrEmpty(code))
+    {
+        return Content("您拒绝了授权！");
+    }
+
+    try
+    {
+        var appKey = AccessTokenContainer.BuildingKey(_workWeixinSetting);
+        var accessToken = await AccessTokenContainer.GetTokenAsync(_corpId, _corpSecret);
+        //获取用户信息 测试链接：https://open.work.weixin.qq.com/wwopen/devtool/interface?doc_id=10019
+        var oauthResult = await OAuth2Api.GetUserIdAsync(accessToken, code);
+        var userId = oauthResult.UserId;
+        GetMemberResult result = await MailListApi.GetMemberAsync(appKey, userId);
+
+        if (result.errcode != ReturnCode_Work.请求成功)
+        {
+            return Content("错误：" + result.errmsg);
+        }
+
+        ViewData["returnUrl"] = returnUrl;
+
+        /* 注意：
+        * 实际适用场景，此处应该跳转到 returnUrl，不要停留在 Callback页面上。
+        * 因为当用户刷新此页面 URL 时，实际 code 等参数已失效，用户会受到错误信息。
+        */
+        return View(result);
+    }
+    catch (Exception ex)
+    {
+        return Content("错误：" + ex.Message);
+    }
+}</code></pre>
+                            <p>上述代码中，传入的 <code>returnUrl</code> 即第一步 <code>Index()</code> 方法中传入到 <strong>AuthorizeUrl</strong> 中的 <code>returnUrl</code>，当所有用户信息获取、保存等操作完成后，借助 <code>returnUrl</code> 跳转到登陆之前的页面，完成整个闭环的登录操作。</p>
+
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">OAuth2Controller.cs</cite>
+                                </figcaption>
+                            </figure>
+
+                        </div>
+                        <!-- OAuth 2.0 结束 -->
+                        <!-- 菜单 开始 -->
+                        <div class="tab-pane fade" id="nav-menu" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p>自定义菜单是企业微信应用界面的重要元素，菜单的使用分为 <strong>设置</strong> 和 <strong>使用</strong> 两个环节。</p>
+                            <h5>设置</h5>
+                            <p>方法一：在企业微信后台【应用管理】中，某个应用设置界面中，【功能】区域【自定义菜单】中设置（不使用开发模式），此处略。</p>
+                            <p>方法二：使用代码进行设置（只需要执行一次，建议放在管理员后台，手动运行），如：</p>
+                            <pre><code>public async Task CreateMenuTest()
+{
+    ButtonGroup bg = new ButtonGroup();
+
+    //单击
+    bg.button.Add(new SingleClickButton()
+    {
+        name = "单击测试",
+        key = "OneClick",
+        type = MenuButtonType.click.ToString(),//默认已经设为此类型，这里只作为演示
+    });
+
+    //二级菜单
+    var subButton = new SubButton()
+    {
+        name = "二级菜单"
+    };
+    subButton.sub_button.Add(new SingleClickButton()
+    {
+        key = "SubClickRoot_Text",
+        name = "返回文本"
+    });
+    subButton.sub_button.Add(new SingleViewButton()
+    {
+        url = "https://weixin.senparc.com",
+        name = "Url跳转"
+    });
+    bg.button.Add(subButton);
+
+    var workWeixinSetting = Config.SenparcWeixinSetting.WorkSetting;
+    var appKey = AccessTokenContainer.BuildingKey(workWeixinSetting);
+    int agentId;
+    if (!int.TryParse(workWeixinSetting.WeixinCorpAgentId, out agentId))
+    {
+        throw new WeixinException("WeixinCorpAgentId 必须为整数！");
+    }
+    var result = await CommonApi.CreateMenuAsync(appKey, agentId, bg);
+
+    Assert.IsNotNull(result);
+    Assert.AreEqual("ok", result.errmsg);
+}</code></pre>
+
+                            <h5>使用</h5>
+                            <p>设置完菜单后，当客户端点击菜单时，微信服务器会自动推送响应的回调信息到消息 URL（即已经设置好的 MessageHandler 内），只需在 WorkCustomMessageHandler 中重写（<code>override</code>）对应的方法即可。如针对上述 <strong>方法二</strong> 已经设定生效的菜单，当用户点击【单击测试】按钮时，我们可以在 WorkCustomMessageHandler 中进行接收和处理：</p>
+                            <pre><code>public override IWorkResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
+{
+    var reponseMessage = CreateResponseMessage<ResponseMessageText>();
+
+    if (requestMessage.EventKey == "SubClickRoot_Text")
+    {
+        reponseMessage.Content = "您点击了【返回文本】按钮";
+    }
+    else
+    {
+        reponseMessage.Content = "您点击了其他事件按钮";
+    }
+
+    return reponseMessage;
+}</code></pre>
+
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /MessageHandlers/<cite title="Source Title">WorkCustomMessageHandler.cs</cite>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <!-- 菜单 结束 -->
+                    </div>
+
+
+                    @(await Html.PartialAsync("_AdvancedPartial"))
+
+                    @(await Html.PartialAsync("_AboutPartial"))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

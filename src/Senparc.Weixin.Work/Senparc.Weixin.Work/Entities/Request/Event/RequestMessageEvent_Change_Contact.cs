@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：RequestMessageEvent_Change_Contact.cs
     文件功能描述：事件之上报通讯录变更事件
@@ -19,6 +19,7 @@
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -56,6 +57,10 @@ namespace Senparc.Weixin.Work.Entities
         /// </summary>
         public string UserID { get; set; }
     }
+
+    /// <summary>
+    /// update_user 事件
+    /// </summary>
     public class RequestMessageEvent_Change_Contact_User_Update : RequestMessageEvent_Change_Contact_User_Create
     {
         public override ContactChangeType ChangeType
@@ -67,6 +72,10 @@ namespace Senparc.Weixin.Work.Entities
         /// </summary>
         public string NewUserID { get; set; }
     }
+
+    /// <summary>
+    /// create_user 事件
+    /// </summary>
     public class RequestMessageEvent_Change_Contact_User_Create : RequestMessageEvent_Change_Contact_User_Base
     {
         public override ContactChangeType ChangeType
@@ -96,6 +105,10 @@ namespace Senparc.Weixin.Work.Entities
             }
         }
 
+        /// <summary>
+        /// 主部门
+        /// </summary>
+        public long MainDepartment { get; set; }
 
         /// <summary>
         /// 职位信息
@@ -114,11 +127,49 @@ namespace Senparc.Weixin.Work.Entities
         /// </summary>
         public string Email { get; set; }
         /// <summary>
-        /// 上级字段，标识是否为上级。第三方暂不支持
+        /// 企业邮箱，代开发自建应用需要管理员授权且成员oauth2授权获取；第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取；上游企业不可获取下游企业成员该字段
         /// </summary>
-        public int IsLeader { get; set; }
+        public string BizMail { get; set; }
         /// <summary>
-        /// 头像url。注：如果要获取小图将url最后的”/0”改成”/100”即可。
+        /// 表示所在部门是否为部门负责人，0-否，1-是，顺序与Department字段的部门逐一对应。上游共享的应用不返回该字段。如：1,0,0
+        /// </summary>
+        public string IsLeaderInDept { get; set; }
+        /// <summary>
+        /// IsLeaderInDept 解析之后的参数
+        /// </summary>
+        public int[] IsLeaderInDeptList
+        {
+            get
+            {
+                if (IsLeaderInDept.IsNullOrEmpty())
+                {
+                    return new int[0];
+                }
+                return IsLeaderInDept.Split(',').Select(z => int.Parse(z)).ToArray();
+            }
+        }
+        /// <summary>
+        /// 直属上级UserID，最多5个。代开发的自建应用和上游共享的应用不返回该字段
+        /// <para>如：lisi,wangwu</para>
+        /// </summary>
+        public string DirectLeader { get; set; }
+        /// <summary>
+        /// DirectLeader 解析之后的参数
+        /// </summary>
+        public string[] DirectLeaderList
+        {
+            get
+            {
+                if (DirectLeader.IsNullOrEmpty())
+                {
+                    return new string[0];
+                }
+                return DirectLeader.Split(',');
+            }
+        }
+
+        /// <summary>
+        /// 头像url。 注：如果要获取小图将url最后的”/0”改成”/100”即可。代开发自建应用需要管理员授权且成员oauth2授权获取；第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取；上游企业不可获取下游企业成员该字段
         /// </summary>
         public string Avatar { get; set; }
         /// <summary>
@@ -130,19 +181,70 @@ namespace Senparc.Weixin.Work.Entities
         /// </summary>
         public string Telephone { get; set; }
         /// <summary>
-        /// 英文名
+        /// 地址。代开发自建应用需要管理员授权且成员oauth2授权获取；第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取；上游企业不可获取下游企业成员该字段
         /// </summary>
+        public string Address { get; set; }
+        /// <summary>
+        /// 成员别名。上游共享的应用不返回该字段
+        /// </summary>
+        public string Alias { get; set; }
+        /// <summary>
+        /// 英文名，最新文档中已删除，请使用 Alias
+        /// </summary>
+        [Obsolete("最新文档中已删除，请使用 Alias。文档：https://developer.work.weixin.qq.com/document/path/90970")]
         public string EnglishName { get; set; }
         /// <summary>
-        /// 扩展属性
+        /// 扩展属性，变更时推送;代开发自建应用需要管理员授权才返回。上游共享的应用不返回该字段
         /// </summary>
         public List<Item> ExtAttr { get; set; }
     }
+
+    /// <summary>
+    /// 扩展属性项
+    /// </summary>
     public class Item
     {
+        /// <summary>
+        /// 名称，如“爱好”“卡号”等
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// 扩展属性类型: 0-本文 1-网页
+        /// </summary>
+        public int Type { get; set; }
+
+        public Text Text { get; set; }
+
+        public Web Web { get; set; }
+    }
+
+    /// <summary>
+    /// 文本属性类型，扩展属性类型为0时填写
+    /// </summary>
+    public class Text
+    {
+        /// <summary>
+        /// 文本属性内容
+        /// </summary>
         public string Value { get; set; }
     }
+
+    /// <summary>
+    /// 网页类型属性，扩展属性类型为1时填写
+    /// </summary>
+    public class Web
+    {
+        /// <summary>
+        /// 网页的展示标题
+        /// </summary>
+        public string Title { get; set; }
+        /// <summary>
+        /// 网页的url
+        /// </summary>
+        public string Url { get; set; }
+    }
+
+
     public class RequestMessageEvent_Change_Contact_Party_Base : RequestMessageEvent_Change_Contact_Base
     {
         public override ContactChangeType ChangeType

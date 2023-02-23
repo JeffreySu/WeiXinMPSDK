@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：MemberBase.cs
     文件功能描述：成员信息基础类
@@ -9,6 +9,9 @@
 
     修改标识：WangDrama - 20200922
     修改描述：v3.7.603 企业微信通讯录模块， 更新（成员）实体新增别名，删除isleader ，新增is_leader_in_dept
+   
+    修改标识：Senparc - 20220526
+    修改描述：v3.15.4 添加 MailList.Member 下的 biz_mail 属性
 
 ----------------------------------------------------------------*/
 
@@ -59,6 +62,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList.Member
         /// 邮箱。长度不超过64个字节，且为有效的email格式。企业内必须唯一，mobile/email二者不能同时为空
         /// </summary>
         public string email { get; set; }
+        /// <summary>
+        /// 企业邮箱。仅对开通企业邮箱的企业有效。长度6~64个字节，且为有效的企业邮箱格式。企业内必须唯一。未填写则系统会为用户生成默认企业邮箱（可修改一次，2022年4月25日之后创建的成员需通过企业管理后台-协作-邮件-邮箱管理-成员邮箱修改）
+        /// </summary>
+        public string biz_mail { get; set; }
         ///// <summary>
         ///// 上级字段，标识是否为上级。在审批等应用里可以用来标识上级审批人
         ///// </summary>

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,14 +19,16 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2022 Senparc
     
     文件名：SubmitAuditPageInfo.cs
     文件功能描述：小程序页面返回结果
     
     
     创建标识：Senparc - 20170726
-    
+   
+    修改标识：Senparc - 20230207
+    修改描述：v4.14.15 完善“第三方平台业务域名” #2767 #2789
 
 ----------------------------------------------------------------*/
 
@@ -67,6 +69,11 @@ namespace Senparc.Weixin.Open.WxaAPIs
         public string third_class { get; set; }
 
         /// <summary>
+        /// 小程序页面的标题,标题长度不超过32
+        /// </summary>
+        public string title { get; set; }
+
+        /// <summary>
         /// 一级类目的ID
         /// </summary>
         public int first_id { get; set; }
@@ -80,10 +87,5 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// 三级类目的ID
         /// </summary>
         public int third_id { get; set; }
-
-        /// <summary>
-        /// 小程序页面的标题,标题长度不超过32
-        /// </summary>
-        public string title { get; set; }
     }
 }

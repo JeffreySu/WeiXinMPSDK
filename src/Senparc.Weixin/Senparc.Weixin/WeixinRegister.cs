@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2023 Senparc
 
     文件名：WeixinRegister.cs
     文件功能描述：Senparc.Weixin 快捷注册流程（包括Thread、TraceLog等）
@@ -57,9 +57,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20200228
     修改描述：v6.7.300 添加 CsRedis 的注册
 
+    修改标识：Senparc - 20220224
+    修改描述：完善 UseSenparcWeixin() 方法，为 null 值的 senparcWeixinSetting 自动获取值
+
 ----------------------------------------------------------------*/
 
-#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_1 || NET6_0
+#if !NET462
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 #endif
 using Senparc.CO2NET;
@@ -182,14 +186,26 @@ namespace Senparc.Weixin
         /// <param name="senparcWeixinSetting"></param>
         /// <param name="registerConfigure"></param>
         /// <returns></returns>
-        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, Action<IRegisterService> registerConfigure)
+        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, Action<IRegisterService, SenparcWeixinSetting> registerConfigure
+#if !NET462
+            , IServiceProvider serviceProvider = null
+#endif
+            )
         {
+#if !NET462
+            //默认从 appsettings.json 中取
+            if (senparcWeixinSetting == null && serviceProvider != null)
+            {
+                senparcWeixinSetting = serviceProvider.GetService<IOptions<SenparcWeixinSetting>>()!.Value;
+            }
+#endif
+
             var register = registerService.UseSenparcWeixin(senparcWeixinSetting, senparcSetting: null);
 
             //由于 registerConfigure 内可能包含了 app.UseSenparcWeixinCacheRedis() 等注册代码，需要在在 registerService.UseSenparcWeixin() 自动加载 Redis 后进行
             //因此必须在 registerService.UseSenparcWeixin() 之后执行。
 
-            registerConfigure?.Invoke(registerService);
+            registerConfigure?.Invoke(registerService, senparcWeixinSetting);
             return register;
         }
 

@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>9fe36012-8b32-488e-96ad-ba7cedaeeab8</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Senparc.Weixin.Sample.MP</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Views\Shared\Error.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Views\Shared\_SideTopNote.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Views\Shared\_SourceCode.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Views\Shared\_SideBottomNote.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Views\Shared\_CarouselPartial.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Views\Shared\_FooterPartial.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Views\Shared\_IconsPartial.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Views\Shared\_AdvancedPartial.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Views\Shared\_AboutPartial.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Views\Shared\_ValidationScriptsPartial.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\css\site.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)wwwroot\images\banner\01.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\js\site.js" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\bootstrap\LICENSE" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery-validation\LICENSE.md" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery\dist\jquery.js" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery\dist\jquery.min.js" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery\dist\jquery.min.map" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)wwwroot\lib\jquery\LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ErrorViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SourceCodeViewModel.cs" />
+  </ItemGroup>
+</Project>

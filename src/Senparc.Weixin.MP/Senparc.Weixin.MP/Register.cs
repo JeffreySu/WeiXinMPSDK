@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2023 Senparc
 
     文件名：Register.cs
     文件功能描述：Senparc.Weixin.MP 快捷注册流程
@@ -13,15 +13,17 @@
     修改标识：Senparc - 20191003
     修改描述：注册过程自动添加更多 SenparcSettingItem 信息
 
+    修改标识：Senparc - 20210809
+    修改描述：v16.14.2 Register 提供对 ApiHandlerWapper 委托的设置方法
+
 ----------------------------------------------------------------*/
-using Senparc.Weixin.MP.Containers;
 using Senparc.CO2NET.RegisterServices;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP.Containers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP
 {
@@ -74,6 +76,106 @@ namespace Senparc.Weixin.MP
             JsApiTicketContainer.Register(appId, appSecret, name);
             return registerService;
         }
+
+        #region 设置 ApiHandlerWapper 处理方法
+
+        /// <summary>
+        /// 设置所有使用了 ApiHandlerWapper 的接口，可以自动进入重试的 API 错误代码
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="invalidCredentialReturnCodes">可进入重试的 API 错误代码</param>
+        /// <returns></returns>
+        public static IRegisterService SetMP_InvalidCredentialValues(this IRegisterService registerService, IEnumerable<ReturnCode> invalidCredentialReturnCodes)
+        {
+            ApiHandlerWapper.InvalidCredentialValues = invalidCredentialReturnCodes.Select(z => (int)z);
+            return registerService;
+        }
+
+        #region AccessTokenContainer_GetFirstOrDefaultAppIdFunc
+
+        /// <summary>
+        /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetFirstOrDefaultAppIdFunc 委托，默认为返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId(PlatformType.MP) 方法
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="func">自定义返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId(PlatformType.MP) 方法</param>
+        /// <returns></returns>
+        public static IRegisterService SetMP_AccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<string> func)
+        {
+            ApiHandlerWapper.AccessTokenContainer_GetFirstOrDefaultAppIdFunc = func;
+            return registerService;
+        }
+
+        /// <summary>
+        /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetFirstOrDefaultAppIdFunc 委托，默认为返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId(PlatformType.MP) 方法
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="func">自定义返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId(PlatformType.MP) 方法</param>
+        /// <returns></returns>
+        public static IRegisterService SetMP_AccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<Task<string>> func)
+        {
+            ApiHandlerWapper.AccessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc = func;
+            return registerService;
+        }
+
+        #endregion
+
+        #region AccessTokenContainer_GetFirstOrDefaultAppIdFunc
+
+        /// <summary>
+        /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetFirstOrDefaultAppIdFunc 委托，默认为返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId() 方法
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="func">自定义返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId() 方法</param>
+        /// <returns></returns>
+        public static IRegisterService SetMP_AccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<string, bool> func)
+        {
+            ApiHandlerWapper.AccessTokenContainer_CheckRegisteredFunc = func;
+            return registerService;
+        }
+
+        /// <summary>
+        /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetFirstOrDefaultAppIdFunc 委托，默认为返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId() 方法
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="func">自定义返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId() 方法</param>
+        /// <returns></returns>
+        public static IRegisterService SetMP_AccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<string, Task<bool>> func)
+        {
+            ApiHandlerWapper.AccessTokenContainer_CheckRegisteredAsyncFunc = func;
+            return registerService;
+        }
+
+        #endregion
+
+        #region AccessTokenContainer_GetAccessTokenResultFunc
+
+        /// <summary>
+        /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetAccessTokenResultFunc 委托，默认为返回 AccessTokenContainer 中的 GetAccessTokenResult() 方法
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="func">自定义返回 AccessTokenContainer 中的 AccessTokenResult GetAccessTokenResult(appId) 方法</param>
+        /// <returns></returns>
+        public static IRegisterService SetMP_AccessTokenContainer_GetAccessTokenResultFunc(this IRegisterService registerService, Func<string, bool, IAccessTokenResult> func)
+        {
+            ApiHandlerWapper.AccessTokenContainer_GetAccessTokenResultFunc = func;
+            return registerService;
+        }
+
+        /// <summary>
+        /// 设置为 ApiHandlerWapper 服务的 AccessTokenContainer_GetAccessTokenResultFunc 委托，默认为返回 AccessTokenContainer 中的 GetAccessTokenResult() 方法
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="func">自定义返回 AccessTokenContainer 中的 AccessTokenResult GetAccessTokenResult(appId) 方法</param>
+        /// <returns></returns>
+        public static IRegisterService SetMP_AccessTokenContainer_GetAccessTokenResultFunc(this IRegisterService registerService, Func<string, bool, Task<IAccessTokenResult>> func)
+        {
+            ApiHandlerWapper.AccessTokenContainer_GetAccessTokenResultAsyncFunc = func;
+            return registerService;
+        }
+
+        #endregion
+
+        #endregion
 
         #region 过期方法
         /*

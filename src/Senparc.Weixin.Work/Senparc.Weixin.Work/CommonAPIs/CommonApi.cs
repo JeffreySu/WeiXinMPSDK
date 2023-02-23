@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：CommonApi.cs
     文件功能描述：通用基础API
@@ -120,13 +120,16 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// </summary>
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
+        /// <param name="isAgentConfig">是否为“应用jsapi_ticket”，如果是某个特定应用，则输入 true（用于计算 agentConfig 的签名），否则为 false。参考：<see href="https://developer.work.weixin.qq.com/document/path/90506#14924"/></param>
         /// <returns></returns>
-        public static JsApiTicketResult GetTicket(string corpId, string corpSecret)
+        public static JsApiTicketResult GetTicket(string corpId, string corpSecret, bool isAgentConfig)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/get_jsapi_ticket?access_token={0}",
-                                       accessToken.AsUrlData());
+                //https://developer.work.weixin.qq.com/document/10029#%E8%8E%B7%E5%8F%96%E5%BA%94%E7%94%A8%E7%9A%84jsapi_ticket
+                var url = isAgentConfig
+                            ? $"{Config.ApiWorkHost}/cgi-bin/ticket/get?access_token={accessToken.AsUrlData()}&type=agent_config"
+                            : $"{Config.ApiWorkHost}/cgi-bin/get_jsapi_ticket?access_token={accessToken.AsUrlData()}";
 
                 JsApiTicketResult result = CommonJsonSend.Send<JsApiTicketResult>(null, url, null, CommonJsonSendType.GET);
                 return result;
@@ -239,14 +242,16 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// </summary>
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
+        /// <param name="isAgentConfig">是否为“应用jsapi_ticket”，如果是某个特定应用，则输入 true（用于计算 agentConfig 的签名），否则为 false。参考：<see href="https://developer.work.weixin.qq.com/document/path/90506#14924"/></param>
         /// <returns></returns>
-        public static async Task<JsApiTicketResult> GetTicketAsync(string corpId, string corpSecret)
+        public static async Task<JsApiTicketResult> GetTicketAsync(string corpId, string corpSecret, bool isAgentConfig)
         {
-
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/get_jsapi_ticket?access_token={0}",
-                                    accessToken.AsUrlData());
+                //https://developer.work.weixin.qq.com/document/10029#%E8%8E%B7%E5%8F%96%E5%BA%94%E7%94%A8%E7%9A%84jsapi_ticket
+                var url = isAgentConfig
+                            ? $"{Config.ApiWorkHost}/cgi-bin/ticket/get?access_token={accessToken.AsUrlData()}&type=agent_config"
+                            : $"{Config.ApiWorkHost}/cgi-bin/get_jsapi_ticket?access_token={accessToken.AsUrlData()}";
 
                 return await CommonJsonSend.SendAsync<JsApiTicketResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
             }, AccessTokenContainer.BuildingKey(corpId, corpSecret)).ConfigureAwait(false);

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2023 Senparc
   
     文件名：AccessTokenContainer.cs
     文件功能描述：小程序的通用接口 AccessToken 容器，用于自动管理 AccessToken，如果过期会重新获取
@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：gokeiyou - 20201230
     修改描述：新建 WxOpen 专属的 AccessTokenContainer
+
+    修改标识：Senparc - 20220916
+    修改描述：v3.15.7.1 RegisterAsync() 方法添加 ConfigureAwait(false) 标记
 
 ----------------------------------------------------------------*/
 
@@ -178,7 +181,7 @@ namespace Senparc.Weixin.WxOpen.Containers
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WxOpenAppSecret = wxOpenAppSecret;
             }
 
-            await Task.WhenAll(new[] { registerTask });//等待所有任务完成
+            await Task.WhenAll(new[] { registerTask }).ConfigureAwait(false);//等待所有任务完成
         }
 
 

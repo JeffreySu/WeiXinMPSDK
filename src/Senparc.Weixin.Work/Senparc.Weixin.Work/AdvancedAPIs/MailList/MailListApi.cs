@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：MailListApi.cs
     文件功能描述：通讯录同步接口
@@ -44,6 +44,9 @@
 
     修改标识：Senparc - 20190826
     修改描述：v3.5.12 MailListApi.InviteMember() 已被官方弃用，标记为过期
+
+    修改标识：IcedMango - 20221106
+    修改描述：v3.15.10 增加企业微信获取成员ID列表的接口
 
 ----------------------------------------------------------------*/
 
@@ -221,6 +224,32 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
+        /// 获取成员ID列表
+        /// 获取企业成员的open_userid与对应的部门ID列表。
+        /// https://developer.work.weixin.qq.com/document/path/96021
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="cursor">用于分页查询的游标，字符串类型，由上一次调用返回，首次调用不填</param>
+        /// <param name="limit">分页，预期请求的数据量，取值范围 1 ~ 10000</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static GetMemberIdListResult GetMemberIdList(string accessTokenOrAppKey, string cursor = "", int limit = 10000, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/list_id?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    cursor,
+                    limit
+                };
+
+                return CommonJsonSend.Send<GetMemberIdListResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
         /// 获取部门成员【QY移植修改】
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
@@ -287,7 +316,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="id">部门ID。用指定部门ID新建部门，不指定此参数时，则自动生成</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static CreateDepartmentResult CreateDepartment(string accessTokenOrAppKey, string name, long parentId, int order = 1, long? id = null, int timeOut = Config.TIME_OUT)
+        public static CreateDepartmentResult CreateDepartment(string accessTokenOrAppKey, string name, long parentId, long order = 1, long? id = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -319,7 +348,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="order">在父部门中的次序。从1开始，数字越大排序越靠后</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WorkJsonResult UpdateDepartment(string accessTokenOrAppKey, long id, string name, long? parentId = null, int order = 1, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult UpdateDepartment(string accessTokenOrAppKey, long id, string name, long? parentId = null, long order = 1, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -770,6 +799,33 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
+        /// 【异步方法】获取成员ID列表
+        /// 获取企业成员的open_userid与对应的部门ID列表。
+        /// https://developer.work.weixin.qq.com/document/path/96021
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="cursor">用于分页查询的游标，字符串类型，由上一次调用返回，首次调用不填</param>
+        /// <param name="limit">分页，预期请求的数据量，取值范围 1 ~ 10000</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<GetMemberIdListResult> GetMemberIdListAsync(string accessTokenOrAppKey, string cursor = "", int limit = 1000, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/list_id?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    cursor,
+                    limit
+                };
+
+                return await CommonJsonSend.SendAsync<GetMemberIdListResult>(null, url, data, CommonJsonSendType.POST,
+                    timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
         /// 【异步方法】获取部门成员【QY移植修改】
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
@@ -837,7 +893,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="id">部门ID。用指定部门ID新建部门，不指定此参数时，则自动生成</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<CreateDepartmentResult> CreateDepartmentAsync(string accessTokenOrAppKey, string name, long parentId, int order = 1, long? id = null, int timeOut = Config.TIME_OUT)
+        public static async Task<CreateDepartmentResult> CreateDepartmentAsync(string accessTokenOrAppKey, string name, long parentId, long order = 1, long? id = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -869,7 +925,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="order">在父部门中的次序。从1开始，数字越大排序越靠后</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<WorkJsonResult> UpdateDepartmentAsync(string accessTokenOrAppKey, long id, string name, long? parentId = null, int order = 1, int timeOut = Config.TIME_OUT)
+        public static async Task<WorkJsonResult> UpdateDepartmentAsync(string accessTokenOrAppKey, long id, string name, long? parentId = null, long order = 1, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {

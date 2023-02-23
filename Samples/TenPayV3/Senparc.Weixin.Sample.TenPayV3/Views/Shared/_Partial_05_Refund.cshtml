@@ -1,0 +1,117 @@
+﻿<div class="tab-pane fade" id="nav-refund" role="tabpanel" aria-labelledby="nav-profile-tab">
+    <h5>退款</h5>
+    <p>退款方法核心代码如下：</p>
+
+    <pre><code>/// &lt;summary&gt;
+/// 退款申请接口
+/// &lt;/summary&gt;
+/// &lt;returns&gt;&lt;/returns&gt;
+public async Task&lt;IActionResult&gt; Refund()
+{
+    try
+    {
+        string nonceStr = TenPayV3Util.GetNoncestr();
+
+        string outTradeNo = HttpContext.Session.GetString(&quot;BillNo&quot;);
+        if (!TradeNumberToTransactionId.TryGetValue(outTradeNo, out string transactionId))
+        {
+            return Content(&quot;transactionId 不正确，可能是服务器还没有收到微信回调确认通知，退款失败。请稍后刷新再试。&quot;);
+        }
+
+        string outRefundNo = &quot;OutRefunNo-&quot; + SystemTime.Now.Ticks;
+        int totalFee = int.Parse(HttpContext.Session.GetString(&quot;BillFee&quot;));
+        int refundFee = totalFee;
+        string opUserId = TenPayV3Info.MchId;
+        var notifyUrl = &quot;https://sdk.weixin.senparc.com/TenpayApiV3/RefundNotifyUrl&quot;;
+     
+        var dataInfo = new RefundRequsetData(transactionId, null, outRefundNo, &quot;Senparc TenPayV3 demo退款测试&quot;, notifyUrl, null, new RefundRequsetData.Amount(refundFee, null, refundFee, &quot;CNY&quot;), null);
+
+        var result = await _basePayApis.RefundAsync(dataInfo);
+
+        return View();
+    }
+    catch (Exception ex)
+    {
+        WeixinTrace.WeixinExceptionLog(new WeixinException(ex.Message, ex));
+        throw;
+    }
+}</code></pre>
+
+    <figure class="file">
+        <blockquote class="blockquote">
+            <p>本项目参考文件：</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            /<cite title="Source Title">Controllers/TenPayApiV3Controller.cs</cite>
+        </figcaption>
+    </figure>
+
+    <blockquote class="blockquote">
+        <p>说明：上述代码为了方便演示，并限定在没有登录功能的情况下只能退款本人自己支付过的订单，因此将 BillNo（订单号）存在 Session 中，实际开发过程中可放入 URL 或 Post 参数中进行请求，并注意做好权限验证！</p>
+    </blockquote>
+
+    <h5>退款回调</h5>
+    <p>在退款接口调用过程中，有一个 <code>notifyUrl</code> 的参数，此地址用于接收微信服务器发送的退款信息回调信息。代码如下：</p>
+    
+    <pre><code>/// &lt;summary&gt;
+/// 退款通知地址
+/// &lt;/summary&gt;
+/// &lt;returns&gt;&lt;/returns&gt;
+public async Task&lt;IActionResult&gt; RefundNotifyUrl()
+{
+    WeixinTrace.SendCustomLog(&quot;RefundNotifyUrl被访问&quot;, &quot;IP&quot; + HttpContext.UserHostAddress()?.ToString());
+
+    NotifyReturnData returnData = new();
+    try
+    {
+        var resHandler = new TenPayNotifyHandler(HttpContext);
+        var refundNotifyJson = await resHandler.AesGcmDecryptGetObjectAsync&lt;RefundNotifyJson&gt;();
+
+        WeixinTrace.SendCustomLog(&quot;跟踪RefundNotifyUrl信息&quot;, refundNotifyJson.ToJson());
+
+        string refund_status = refundNotifyJson.refund_status;
+        if (/*refundNotifyJson.VerifySignSuccess == true &amp;*/ refund_status == &quot;SUCCESS&quot;)
+        {
+            returnData.code = &quot;SUCCESS&quot;;
+            returnData.message = &quot;OK&quot;;
+
+            //获取接口中需要用到的信息 例
+            string transaction_id = refundNotifyJson.transaction_id;
+            string out_trade_no = refundNotifyJson.out_trade_no;
+            string refund_id = refundNotifyJson.refund_id;
+            string out_refund_no = refundNotifyJson.out_refund_no;
+            int total_fee = refundNotifyJson.amount.payer_total;
+            int refund_fee = refundNotifyJson.amount.refund;
+
+            //填写逻辑
+            WeixinTrace.SendCustomLog(&quot;RefundNotifyUrl被访问&quot;, &quot;验证通过&quot;);
+        }
+        else
+        {
+            returnData.code = &quot;FAILD&quot;;
+            returnData.message = &quot;验证失败&quot;;
+            WeixinTrace.SendCustomLog(&quot;RefundNotifyUrl被访问&quot;, &quot;验证失败&quot;);
+
+        }
+
+        //进行后续业务处理
+    }
+    catch (Exception ex)
+    {
+        returnData.code = &quot;FAILD&quot;;
+        returnData.message = ex.Message;
+        WeixinTrace.WeixinExceptionLog(new WeixinException(ex.Message, ex));
+    }
+
+    //https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/wechatpay3_3.shtml
+    return Json(returnData);
+}</code></pre>
+        <figure class="file">
+        <blockquote class="blockquote">
+            <p>本项目参考文件：</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            /<cite title="Source Title">Controllers/TenPayApiV3Controller.cs</cite>
+        </figcaption>
+    </figure>
+</div>

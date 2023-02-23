@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2023 Senparc
 
     文件名：WebSocketRoute.cs
     文件功能描述：WebSocket的Route类（主要为了重写GetVirtualPath，
@@ -16,13 +16,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-#if NET45
+#if NET462
 using System.Web.Routing;
 #endif
 
 namespace Senparc.WebSocket
 {
-#if NET45
+#if NET462
     /// <summary>
     /// WebSocketRoute
     /// </summary>

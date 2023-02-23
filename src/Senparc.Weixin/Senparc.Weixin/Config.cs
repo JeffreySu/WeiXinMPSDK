@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：Config.cs
     文件功能描述：全局设置
@@ -105,10 +105,20 @@ namespace Senparc.Weixin
         /// <summary>
         /// 网站根目录绝对路径
         /// </summary>
+        [Obsolete("请使用 RootDirectoryPath", true)]
         public static string RootDictionaryPath
         {
-            get => CO2NET.Config.RootDictionaryPath;
-            set => CO2NET.Config.RootDictionaryPath = value;
+            get => CO2NET.Config.RootDirectoryPath;
+            set => CO2NET.Config.RootDirectoryPath = value;
+        }
+
+        /// <summary>
+        /// 网站根目录绝对路径
+        /// </summary>
+        public static string RootDirectoryPath
+        {
+            get => CO2NET.Config.RootDirectoryPath;
+            set => CO2NET.Config.RootDirectoryPath = value;
         }
 
         /// <summary>
@@ -137,24 +147,25 @@ namespace Senparc.Weixin
         /// 公众号（小程序）、开放平台【文件下载】 API 的服务器地址（默认为：https://api.weixin.qq.com）
         /// <para>2020年9月15日停止使用http://file.api.weixin.qq.com域名：https://developers.weixin.qq.com/community/develop/doc/0002245dcdc8c06f36fa6a47d56400</para>
         /// </summary>
-        private static string _apiMpFileHost = "https://api.weixin.qq.com";
-        /// <summary>
-        /// 公众号（小程序）、开放平台【文件下载】 API 的服务器地址（默认为：https://api.weixin.qq.com）
-        /// <para>2020年9月15日停止使用http://file.api.weixin.qq.com域名：https://developers.weixin.qq.com/community/develop/doc/0002245dcdc8c06f36fa6a47d56400</para>
-        /// </summary>
-        public static string ApiMpFileHost
-        {
-            get { return _apiMpFileHost; }
-            set { _apiMpFileHost = value; }
-        }
+        public static string ApiMpFileHost { get; set; } = "https://api.weixin.qq.com";
+
         #endregion
 
-        #region 企业微信API的服务器地址（默认为：https://qyapi.weixin.qq.com）
+        #region 企业微信 API 的服务器地址（默认为：https://qyapi.weixin.qq.com）
 
         /// <summary>
-        /// 企业微信API的服务器地址（默认为：https://qyapi.weixin.qq.com）
+        /// 企业微信 API 的服务器地址（默认为：https://qyapi.weixin.qq.com）
         /// </summary>
         public static string ApiWorkHost { get; set; } = "https://qyapi.weixin.qq.com";
+
+        #endregion
+
+        #region 微信支付 API 的服务器地址（默认为：https://api.mch.weixin.qq.com）
+
+        /// <summary>
+        /// 微信支付 API 的服务器地址（默认为：https://api.mch.weixin.qq.com）
+        /// </summary>
+        public static string TenPayV3Host { get; set; } = "https://api.mch.weixin.qq.com";
 
         #endregion
 

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2021 Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：SenparcWeixinSettingItem.cs
     文件功能描述：Senparc.Weixin SDK 中单个公众号配置信息
@@ -41,10 +41,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Helpers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Entities
@@ -52,8 +56,10 @@ namespace Senparc.Weixin.Entities
     /// <summary>
     /// Senparc.Weixin SDK 中单个公众号配置信息
     /// </summary>
-    public class SenparcWeixinSettingItem : ISenparcWeixinSettingForMP, ISenparcWeixinSettingForWxOpen, ISenparcWeixinSettingForWork, ISenparcWeixinSettingForOldTenpay,
-                                            ISenparcWeixinSettingForTenpayV3, ISenparcWeixinSettingForOpen, ISenparcWeixinSettingForExtension
+    public record class SenparcWeixinSettingItem : ISenparcWeixinSettingForMP,
+        ISenparcWeixinSettingForWxOpen, ISenparcWeixinSettingForWork,
+        ISenparcWeixinSettingForOldTenpay, ISenparcWeixinSettingForTenpayV3,
+        ISenparcWeixinSettingForOpen, ISenparcWeixinSettingForExtension
     {
         /// <summary>
         /// 唯一标识
@@ -122,6 +128,9 @@ namespace Senparc.Weixin.Entities
             TenPayV3_SubAppSecret = setting.TenPayV3_SubAppSecret;
             TenPayV3_SubMchId = setting.TenPayV3_SubMchId;
             TenPayV3_TenpayNotify = setting.TenPayV3_TenpayNotify;
+            TenPayV3_APIv3Key = setting.TenPayV3_APIv3Key;
+            TenPayV3_PrivateKey = setting.TenPayV3_PrivateKey;
+            TenPayV3_SerialNumber = setting.TenPayV3_SerialNumber;
             TenPayV3_WxOpenTenpayNotify = setting.TenPayV3_WxOpenTenpayNotify;
         }
 
@@ -144,8 +153,6 @@ namespace Senparc.Weixin.Entities
             SenparcWechatAgentKey = setting.SenparcWechatAgentKey;
         }
         #endregion
-
-
 
         #region 公众号
 
@@ -286,11 +293,41 @@ namespace Senparc.Weixin.Entities
         /// 微信支付TenpayNotify
         /// </summary>
         public virtual string TenPayV3_TenpayNotify { get; set; }
+
+        #region 新版微信支付 V3 新增
+        private string _tenPayV3_PrivateKey;
+        /// <summary>
+        /// 微信支付（V3）证书私钥
+        /// <para>获取途径：apiclient_key.pem</para>
+        /// </summary>
+        public virtual string TenPayV3_PrivateKey
+        {
+            get
+            {
+                return TenPayHelper.TryGetPrivateKeyFromFile(ref _tenPayV3_PrivateKey);
+            }
+            set
+            {
+
+                _tenPayV3_PrivateKey = value;
+            }
+        }
+
+        /// <summary>
+        /// 微信支付（V3）证书序列号
+        /// <para>查看地址：https://pay.weixin.qq.com/index.php/core/cert/api_cert#/api-cert-manage</para>
+        /// </summary>
+        public virtual string TenPayV3_SerialNumber { get; set; }
+        /// <summary>
+        /// APIv3 密钥。在微信支付后台设置：https://pay.weixin.qq.com/index.php/core/cert/api_cert#/
+        /// </summary>
+        public string TenPayV3_APIv3Key { get; set; }
+        #endregion
+
         /// <summary>
         /// 小程序微信支付WxOpenTenpayNotify
         /// </summary>
         public virtual string TenPayV3_WxOpenTenpayNotify { get; set; }
-
 
 
         #endregion

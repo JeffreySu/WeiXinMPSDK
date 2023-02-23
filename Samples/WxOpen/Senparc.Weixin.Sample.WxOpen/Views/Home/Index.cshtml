@@ -1,0 +1,960 @@
+﻿@using Senparc.Weixin.Sample
+@{
+    ViewData["Title"] = "Senparc.Weixin.WxOpen 微信小程序模块";
+}
+<div class="sdk-doc">
+    <div class="row" style="position:relative;">
+        <div class="col-sm-2" id="leftMenu">
+            <div class="row">
+                @(await Html.PartialAsync("_SideTopNote"))
+
+                <nav id="navbar_left" class="navbar navbar-light bg-light flex-column align-items-stretch p-3">
+                    <a class="navbar-brand" href="#">索引</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link" href="#source_code">源码</a>
+                        <a class="nav-link" href="#title_install">如何安装？</a>
+                        <a class="nav-link" href="#title_setting">如何使用？</a>
+                        <a class="nav-link" href="#title_advance">进阶</a>
+                        <a class="nav-link" href="#title_about">关于</a>
+                        <nav class="nav nav-pills flex-column">
+                            <a class="nav-link ms-3 my-1" href="#title_about_team">团队</a>
+                            <a class="nav-link ms-3 my-1" href="#title_about_support">支持</a>
+                            <a class="nav-link ms-3 my-1" href="#title_about_license">开源协议</a>
+                        </nav>
+                    </nav>
+                </nav>
+            </div>
+
+            @(await Html.PartialAsync("_SideBottomNote"))
+        </div>
+
+        <div class="col-sm-10 bd-main" data-bs-spy="scroll" data-bs-target="#navbar_left" data-bs-offset="0" tabindex="0">
+
+            <div class="text-center">
+                <h1 id="top-title" class="display-4">Senparc.Weixin.WxOpen 微信小程序模块</h1>
+
+
+                <p class="no-text-indent"><a href="https://www.nuget.org/packages/Senparc.Weixin.WxOpen" target="_blank">Senparc.Weixin.WxOpen</a> 模块用于提供微信小程序的支持能力。</p>
+                @(await Html.PartialAsync("_IconsPartial"))
+
+            </div>
+
+            <!-- Carousel -->
+            <div id="banner-top" class="carousel slide" data-bs-ride="carousel">
+
+                <!-- Indicators/dots -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#banner-top" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#banner-top" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#banner-top" data-bs-slide-to="2"></button>
+                </div>
+
+                <!-- The slideshow/carousel -->
+                <div class="carousel-inner">
+                    @(await Html.PartialAsync("_CarouselPartial"))
+                </div>
+
+                <!-- Left and right controls/icons -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#banner-top" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#banner-top" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+
+            <div id="main-doc">
+                <div id="source_code" class="target-fix"></div>
+               
+                <partial name="_SourceCode" model='new SourceCodeViewModel("Senparc.Weixin.WxOpen","/src/Senparc.Weixin.WxOpen")' />
+                
+
+                <div id="title_install" class="target-fix"></div>
+
+                <div>
+                    <h3>如何安装？</h3>
+                    <p>您可以直接引用 Senparc.Weixin 的源码进行开发，也可以引用已经打包完成的 dll（通过 Nuget 包，推荐），以方便随时获取官方的更新。注意：直接引用源码和引用 Nuget 包只能二选一。</p>
+
+                    <h5>引用源码</h5>
+                    <p>您可以打开 <strong>../All/net6-mvc/</strong> 前解决方案（全量进阶示例），在 <strong>Libraries</strong> 目录下，将所需要引用的程序集引用（复制）到您开发环境的解决方案中，请注意需要同时引用被依赖的项目，如 <code>Senparc.Weixin</code> 项目是所有项目都需要依赖的。</p>
+                    <p>当前示例项目默认就使用了直接引用源码的方式，可从 .csproj 文件中看到引用方式：</p>
+                    <pre><code>&lt;ProjectReference Include=&quot;..\..\..\src\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.net6.csproj&quot; /&gt;
+		&lt;ProjectReference Include=&quot;..\..\..\src\Senparc.Weixin.WxOpen.Middleware\Senparc.Weixin.WxOpen.Middleware.net6.csproj&quot; /&gt;
+		&lt;ProjectReference Include=&quot;..\..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net6.csproj&quot; /&gt;</code></pre>
+
+                    <h5>引用程序集（推荐）</h5>
+
+                    <p>您可以通过 <code>Visual Studio</code>、<code>Visual Studio Code</code>、<code>dotnet 命令行</code> 等多种方式自动安装 Nuget 包。</p>
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-vs" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Visual Studio</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-vscode" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Visual Studio Code</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-cli" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">dotnet 命令行</button>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent-install">
+                        <div class="tab-pane fade show active" id="nav-vs" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <p>
+                                在开发项目【解决方案资源管理器】中，对需要添加 Senparc.Weixin.WxOpen 的模块点击右键，点击【管理 Nuget 程序包】，在【浏览】标签中输入 <strong>Senparc.Weixin.TenPay</strong>，点击右侧【安装】按钮。如下图所示：<br />
+                            </p>
+                            <p>
+                                <figure class="figure">
+                                    <img src="~/images/home-install-01.png" class="figure-img img-fluid rounded" alt="通过 Visual Studio 安装" />
+                                    <figcaption class="figure-caption text-center">通过 Visual Studio 安装</figcaption>
+                                </figure>
+                            </p>
+
+                        </div>
+                        <div class="tab-pane fade" id="nav-vscode" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p>首先，确认已经安装好 <a href="https://code.visualstudio.com/">VS Code</a> 以及 dotnet 命令行（安装 <a href="https://dotnet.microsoft.com/en-us/download" target="_blank">.NET SDK</a> 后会自动安装）。</p>
+                            <p>然后，打开解决方案或项目所在目录，按 <kbd>Ctrl</kbd>+<kbd>~</kbd>，打开终端面板：</p>
+                            <figure class="figure">
+                                <img src="~/images/home-install-03.png" class="figure-img img-fluid rounded" alt="通过 VS Code 安装" />
+                                <figcaption class="figure-caption text-center">打开 VS Code 终端面板</figcaption>
+                            </figure>
+
+                            <p>进入需要添加 Senparc.Weixin.WxOpen 的模块的项目的目录，输入：</p>
+                            <blockquote class="blockquote">
+                                <code>dotnet add package Senparc.Weixin.WxOpen</code>
+                            </blockquote>
+
+                            <p>
+                                <figure class="figure">
+                                    <img src="~/images/home-install-04.png" class="figure-img img-fluid rounded" alt="通过 VS Code 安装" />
+                                    <figcaption class="figure-caption text-center">安装 Senparc.Weixin.WxOpen 模块</figcaption>
+                                </figure>
+                            </p>
+
+                            <p>
+                                安装完成后，可查看对应 .csproj 文件，被添加引用，如：
+                            </p>
+                            <pre><code>&lt;ItemGroup&gt;
+    &lt;PackageReference Include="Senparc.Weixin.WxOpen" Version="3.14.10.1" /&gt;
+&lt;/ItemGroup&gt;</code></pre>
+                        </div>
+                        <div class="tab-pane fade" id="nav-cli" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p>首先，确认已经安装好 dotnet 命令行（安装 <a href="https://dotnet.microsoft.com/en-us/download" target="_blank">.NET SDK</a> 后会自动安装）。</p>
+                            <p>进入需要添加 Senparc.Weixin.WxOpen 的模块的项目的目录，输入：</p>
+                            <blockquote class="blockquote">
+                                <code>dotnet add package Senparc.Weixin.WxOpen</code>
+                            </blockquote>
+
+                            <p>
+                                <figure class="figure">
+                                    <img src="~/images/home-install-02.png" class="figure-img img-fluid rounded" alt="通过 dotnet CLI 安装" />
+                                    <figcaption class="figure-caption text-center">通过 dotnet CLI 安装</figcaption>
+                                </figure>
+                            </p>
+
+                            <p>
+                                安装完成后，可查看对应 .csproj 文件，被添加引用，如：
+                            </p>
+                            <pre><code>&lt;ItemGroup&gt;
+    &lt;PackageReference Include="Senparc.Weixin.WxOpen" Version="3.14.10.1" /&gt;
+&lt;/ItemGroup&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="title_setting" class="target-fix"></div>
+                <div @*class="mt-5 pt-5"*@>
+
+                    <h3>如何使用？</h3>
+
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-home" aria-selected="true">注册</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-messagehandler" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">MessageHandler</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-advanced-api" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">高级接口</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-client" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">客户端开发</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-request" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">小程序请求服务器</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-login" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">登录</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-phone-number" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">获取手机号</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-others" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">其他</button>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent-setting">
+                        <div class="tab-pane fade show active" id="nav-register" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <h5>全局注册</h5>
+                            <p>所有的 Senparc.Weixin SDK 注册过程都是类似的。</p>
+                            <p>
+                                首先，完成所有 Senparc.Weixin SDK 的整体注册代码。在 Program.cs 中加入以下代码：
+                            </p>
+                            <p>
+                                <figure class="figure">
+                                    <img src="~/images/home-dev-register-01.png" class="figure-img img-fluid rounded" alt="注册 Senparc.Weixin" />
+                                    <figcaption class="figure-caption text-center">注册 Senparc.Weixin</figcaption>
+                                </figure>
+                            </p>
+                            <p>
+                                说明：
+                                <ol>
+                                    <li><code>builder.Services.AddMemoryCache()</code> Senparc.Weixin 支持本机缓存、Redis、Memcached 等多种缓存策略，默认使用本机缓存，此时需要激活本地缓存。</li>
+                                    <li><code>builder.Services.AddSenparcWeixinServices(builder.Configuration)</code> 用于完成 Senparc.Weixin 的注册。</li>
+                                    <li><code>app.UseSenparcWeixin()</code> 方法用于配置和启用 Senparc.Weixin。</li>
+                                </ol>
+                            </p>
+                            <p>
+                                以上代码对于所有的 Senparc.Weixin 下级模块都是相同的，只需要 3 句代码。
+                            </p>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /<cite title="Source Title">Program.cs</cite>
+                                </figcaption>
+                            </figure>
+
+                            <h5>公众号注册</h5>
+                            <p>在上述代码中的第 17 行委托方法中插入代码，即可完成默认公众号的注册：</p>
+                            <p><code>register.RegisterWxOpenAccount(weixinSetting, "【盛派网络小助手】小程序");</code></p>
+                            <p>
+                                <figure class="figure">
+                                    <img src="~/images/home-dev-register-02.png" class="figure-img img-fluid rounded" alt="注册微信公众号" />
+                                    <figcaption class="figure-caption text-center">注册微信公众号</figcaption>
+                                </figure>
+                            </p>
+                            <p>其中，<code>weixinSetting</code> 的值默认来自于 <code>appsettings.json</code>：</p>
+                            <p>
+                                <pre><code>  "SenparcWeixinSetting": {
+    "IsDebug": true,
+
+    //小程序
+    "WxOpenAppId": "#{WxOpenAppId}#",
+    "WxOpenAppSecret": "#{WxOpenAppSecret}#",
+    "WxOpenToken": "#{WxOpenToken}#",
+    "WxOpenEncodingAESKey": "#{WxOpenEncodingAESKey}#"
+  }</code></pre>
+                            </p>
+                            <p>
+                                <figure class="figure">
+                                    <img src="~/images/home-dev-register-03.png" class="figure-img img-fluid rounded" alt="配置参数" />
+                                    <figcaption class="figure-caption text-center">配置参数</figcaption>
+                                </figure>
+                            </p>
+                            <p>其中，<code>WxOpenToken</code>、<code>WxOpenEncodingAESKey</code>、<code>WxOpenAppId</code> 和 <code>WxOpenAppSecret</code> 对应了微信公众号后台的配置参数。</p>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /<cite title="Source Title">appsettings.json</cite>
+                                </figcaption>
+                            </figure>
+
+                            <p>配置完成。</p>
+                            <blockquote class="blockquote">
+                                提示：自动注册的信息可通过 <code>Senparc.Weixin.Config.SenparcWeixinSetting</code> 获取。
+                            </blockquote>
+                        </div>
+
+                        <div class="tab-pane fade" id="nav-messagehandler" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p><code>MessageHandler</code> 用于处理小程序客服对话窗口的消息以及其他微信服务器的推送信息。</p>
+                            <p>SDK 已经为开发者准备好了所有需要的基础功能，开发者只需要创建一个自定义的子类，补充需要自定义的业务逻辑。</p>
+                            <h5>自定义 MessageHandler</h5>
+                            <p>当前示例中，我们给自定义的 MessageHandler 取名 <code>CustomWxOpenMessageHandler</code>。</p>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p> CustomWxOpenMessageHandler.cs 本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /MessageHandlers/ 目录<br />
+                                    <cite title="Source Title">CustomWxOpenMessageHandler.cs</cite> MessageHandler 消息处理<br />
+                                    <cite title="Source Title">CustomWxOpenMessageContext.cs</cite> 自定义重写 DefaultMpMessageContext 上下文（可选）<br />
+                                </figcaption>
+                            </figure>
+                            <p><code>CustomWxOpenMessageHandler.cs</code> 中所有演示的重写（<code>override</code>）方法中，只有 <code>DefaultResponseMessageAsync()</code> 方法是必须重写的，其他所有 <code>OnXxxRequestAsync()</code> 方法都为可选，当用户发送的消息，找不到对应重写方法时，则调用 <code>DefaultResponseMessageAsync()</code> 方法。</p>
+
+                            <p>MessageHandler 有两种承载方式，使其可以被外部（微信服务器）通过 URL 访问到。分别是<strong>中间件方式</strong>（推荐）和<strong> Controller 方式</strong>。两种方式所使用的 <code>CustomWxOpenMessageHandler</code> 是通用的，因此可以随时切换和共存。</p>
+
+                            <h5>中间件方式承载 MessageHandler</h5>
+
+                            <p>中间件方式是推荐的方式，也是最简化的方式，无需创建任何新文件，只需在 <code>Program.cs</code> 文件所有 Senparc.Weixin 注册代码执行后的下方，引入中间件：</p>
+                            <p>
+                                <pre><code>app.UseMessageHandlerForWxOpen("/WxOpenAsync", CustomWxOpenMessageHandler.GenerateMessageHandler, options =>
+{
+    options.AccountSettingFunc = context =>  Senparc.Weixin.Config.SenparcWeixinSetting;
+});
+                </code></pre>
+                            </p>
+                            <p>完成后，即可通过Url <strong><code>域名/WxOpenAsync</code></strong> 访问 MessageHandler，设置为公众号后台的消息 URL。</p>
+                            <p><a href="/WxOpenAsync" target="_blank">测试 /WxOpenAsync</a></p>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p> 本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /<cite title="Source Title">Program.cs</cite>
+                                </figcaption>
+                            </figure>
+
+                            <p>更多中间件方式请参考：<a href="https://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html" target="_blank">《在 .NET Core 2.0/3.0 中使用 MessageHandler 中间件》</a>（同样适用于 .NET 6.0 及以上，用法和公众号相同）。</p>
+
+                            <h5>Controller 方式承载 MessageHandler</h5>
+
+                            <p>当中间件的方式满足不了需求时，可以使用 Controller 将执行过程“展开”，对每一步执行进行更加精确的控制或干预。</p>
+                            <p>使用 Controller 方式，需要创建 2 个 Action（ActionName 都为 <code>Index</code>），分别对应微信后台验证（Get 请求），以及真实消息推送（Post 请求）。本项目示例位于 WxOpenController.cs 中。</p>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>WxOpenController.cs 本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">WxOpenController.cs</cite>
+                                </figcaption>
+                            </figure>
+                            <p>完成后，即可通过Url <strong><code>域名/WxOpen</code></strong> 访问 MessageHandler，设置为公众号后台的消息 URL。</p>
+                            <p><a href="/WxOpen" target="_blank">测试 /WxOpen</a></p>
+
+                            <p>更多 Controller 方式请参考：<a href="https://www.cnblogs.com/szw/p/3414862.html" target="_blank">《了解MessageHandler》</a>（推荐使用全套异步方法，基本用法和公众号相同）</p>
+                        </div>
+
+                        <div class="tab-pane fade" id="nav-advanced-api" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p>完成 <code>Program.cs</code> 文件中的常规注册后，即可在程序的任意地方使用高级接口。</p>
+                            <blockquote class="blockquote">
+                                注意：<br />
+                                1、高级接口的配置和 <code>MessageHandler</code> 没有关联，两者可以独立或配合使用。<br />
+                                2、SDK 内几乎所有高级接口的第一个参数同时支持传入 AppId 或 AccessToken，通常名称为 <code>appIdOrAccessToken</code>，SDK 会根据参数特征自动识别输入的是 AppId 还是 AccessToken，并做区分处理。
+                            </blockquote>
+                            <h5>使用 AppId 调用接口（推荐）</h5>
+                            <p>例如，我们可以在任意一个方法中调用一个高级接口：</p>
+                            <p>
+                                <pre><code>using Senparc.Weixin.WxOpen.AdvancedAPIs;
+
+var appId = Senparc.Weixin.Config.SenparcWeixinSetting.WxOpenAppId;
+var openId = "xxx";
+var content = "这是一条客服消息";
+var result = await CustomApi.SendTextAsync(appId, openId, content);//发送客服消息</code></pre>
+                            </p>
+                            <blockquote class="blockquote">
+                                appId 参数，必须是已经经过注册的，这样即使 AccessToken 过期，SDK也会全自动处理。如果是未经过注册的 appId，则需要先获取 AccessToken，然后调用接口。
+                            </blockquote>
+
+                            <h5>使用 AccessToken 调用接口（不推荐）</h5>
+
+                            <p>
+                                <pre><code>var accessToken = Senparc.Weixin.MP.CommonApi.GetTokenAsync(appId, appSecret);//获取 AccessToken
+var openId = "xxx";
+var content = "这是一条客服消息";
+var result = await CustomApi.SendTextAsync(accessToken, openId, content);//发送客服消息</code></pre>
+
+                            </p>
+
+                            <blockquote class="blockquote">
+                                注意：<br />
+                                1、使用 AccessToken 方式调用接口，无法保证当前 AccessToken 的有效性，因此建议使用前进行有效性校验，并使用 <code>try-catch</code> 方式捕获 AccessToken 不可用的异常，然后进行重试。因此直接使用 AccessToken 调用接口的方式并不推荐在常规情况下使用。<br />
+                                2、小程序和公众号使用相同的 AccessToken 获取接口，因此，此处调用了 <code>Senparc.Weixin.MP</code> 类库中公众号的相同方法。因为 <code>Senparc.Weixin.WxOpen</code> 模块默认已经依赖了 <code>Senparc.Weixin.MP</code>，所以不必再手动安装 MP 模块。
+                            </blockquote>
+                        </div>
+
+                        <!-- 客户端开发 开始 -->
+                        <div class="tab-pane fade" id="nav-client" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <h5>准备开发</h5>
+                            <p>开发小程序客户端（手机微信内展示的小程序界面），需要使用 <a href="https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html" target="_blank">微信开发者工具</a>。</p>
+
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>微信小程序示例项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin SDK 源文件根目录/<cite title="Source Title">Samples/WxOpen/Senparc.Weixin.WxOpen.AppDemo/</cite>
+                                </figcaption>
+                            </figure>
+
+                            <p>上述示例项目打开后如下图所示：</p>
+                            <figure class="figure">
+                                <img src="~/images/use-client-01.png" class="figure-img img-fluid rounded" alt="小程序客户端" />
+                                <figcaption class="figure-caption text-center">小程序客户端</figcaption>
+                            </figure>
+
+                        </div>
+                        <!-- 客户端开发 结束 -->
+                        <!-- 小程序请求服务器 开始 -->
+                        <div class="tab-pane fade" id="nav-request" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p>小程序客户端可以使用类似 Ajax 的功能对服务器端发送请求，并且获取响应信息（一般为 JSON）。</p>
+                            <h5>放置触发请求的按钮</h5>
+                            <p>在完成【客户端开发】的基本准备工作后，在页面上（如 <strong>/pages/index/index.wxml</strong>），创建一个按钮，用于触发请求：</p>
+                            <pre><code>&lt;button type=&quot;primary&quot; bindtap=&quot;doRequest&quot; 
+hover-class=&quot;other-button-hover&quot; class=&quot;btn-DoRequest&quot;&gt;
+获取数据
+&lt;/button&gt;</code></pre>
+                            <p>上述代码中，<code>type</code>、<code>class</code>、<code>hover-class</code> 分别设置了按钮的类型、常规样式、点击样式，<code>bindtap="doRequest"</code> 指定了点击之后，由 <code>doRequest()</code> 方法（function）进行处理。</p>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/index/index.wxml</cite>
+                                </figcaption>
+                            </figure>
+
+                            <h5>请求服务器方法</h5>
+                            <p><code>doRequest() </code> 方法写在 <strong>index.js</strong> 文件中：</p>
+
+<pre><code>//处理wx.request请求
+doRequest:function(){
+  var that = this;
+  wx.request({
+    url: wx.getStorageSync('domainName') + '/WxOpen/RequestData',
+    data: { nickName : that.data.userInfo.nickName},
+    method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+    header: { 'content-type':'application/x-www-form-urlencoded'}, 
+    success: function(res){
+      // success
+      var json = res.data;
+      //模组对话框
+      wx.showModal({
+        title: '收到消息',
+        content: json.msg,
+        showCancel:false,
+        success: function(res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          }
+        }
+      });
+    },
+    fail: function() {
+      // fail
+    },
+    complete: function() {
+      // complete
+    }
+  })
+},</code></pre>
+                            <p>
+                                上述代码中：<br />
+                                <ol>
+                                    <li><code>wx.request(...)</code> 方法用于向服务器端发起请求，类似其他 JS 框架中的 <strong>axios.get() / .post()</strong> 或 <strong>$.ajax()</strong> 等。</li>
+                                    <li>
+                                        <code>url</code> 用于指定需要发送到的 API 地址。其中，<code>wx.getStorageSync('domainName')</code> 用于灵活指定开发环境或生产环境的域名（见本目录 <strong>app.js</strong> 文件。
+                                    </li>
+                                    <li>
+                                        <code>data</code> 用于存放需要提交的数据，此处我们从本地数据中心取 <code>userInfo.nickName</code>，当用户登陆后，即可取到<strong>微信昵称</strong>，否则为 <strong>undefined</strong>。
+                                    </li>
+                                    <li><code>method</code> 为请求的方法名称，当前使用 POST 方式提交。</li>
+                                    <li><code>header</code> 用于指定当前请求 Header 中的参数，通常也可以在 JWT 模式中提供用于用户身份验证的 Token。</li>
+                                    <li><code>success</code> 为当前请求成功响应（200）后的回调，示例中的代码展示了当收到成功信息后，弹出一个模组对话框，显示返回的内容，并在点击【确定】按钮后，在控制台输出相关日志。</li>
+                                    <li><code>fail</code> 和 <code>complete</code> 方法分别用于处理失败的请求，以及整个请求完成后的统一操作。</li>
+                                </ol>
+                                <figure class="file">
+                                    <blockquote class="blockquote">
+                                        <p>本项目参考文件：</p>
+                                    </blockquote>
+                                    <figcaption class="blockquote-footer">
+                                        Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/index/index.js</cite>
+                                    </figcaption>
+                                </figure>
+                            </p>
+                            <h5>服务器端接口</h5>
+                            <p>服务器端可以使用各类能够接受请求的方式，如页面、MVC 中的 Action、Web Api、中间件（Middleware），甚至 aspx、ashx 等。</p>
+                            <p>上述请求地址在本地环境下为：<strong>https://localhost:44367/WxOpen/RequestData</strong>，我们在 WxOpenController 下面创建一个 RequestData 的 Action 用于接收请求：</p>
+                            <pre><code>[HttpPost]
+public ActionResult RequestData(string nickName)
+{
+    var data = new
+    {
+        msg = string.Format("服务器时间：{0}，昵称：{1}", SystemTime.Now.LocalDateTime, nickName)
+    };
+    return Json(data);
+}</code></pre>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">WxOpenController.cs</cite>
+                                </figcaption>
+                            </figure>
+                            <h5>测试</h5>
+                            <p>点击【获取数据】按钮：</p>
+                            <figure class="figure">
+                                <img src="~/images/use-request-01.png" class="figure-img img-fluid rounded" alt="发送请求" />
+                                <figcaption class="figure-caption text-center">发送请求</figcaption>
+                            </figure>
+                            <p>由于当前没有登录，所以昵称无法获取到，登陆后即可显示昵称。</p>
+                            <blockquote class="blockquote">
+                                提示：登录操作请见【登录】标签。
+                            </blockquote>
+                            <p>点击【确定】按钮：</p>
+                            <figure class="figure">
+                                <img src="~/images/use-request-02.png" class="figure-img img-fluid rounded" alt="点击确定按钮" />
+                                <figcaption class="figure-caption text-center">点击确定按钮</figcaption>
+                            </figure>
+                        </div>
+                        <!-- 小程序请求服务器 结束 -->
+                        <!-- 登录 开始 -->
+                        <div class="tab-pane fade" id="nav-login" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <h5>简介</h5>
+                            <p>大部分的小程序都需要识别用的身份信息（OpenId）以及获取用户的头像、昵称等信息为用户提供身份识别、个性化信息展示的服务。此时就需要使用到小程序登录接口。</p>
+                            <h5>客户端 - 进入登录页</h5>
+                            <p>用户的登录是在小程序端发起的，一般而言可以做一个独立的页面用于放置说明及登录按钮。首先，在入口网页放置一个入口按钮：</p>
+                            <pre><code>&lt;button bindtap=&quot;getUserInfo&quot;&gt; 获取头像昵称 &lt;/button&gt;</code></pre>
+                            <p>点击按钮后，触发 .js 文件中的 <code>getUserInfo()</code> 方法：</p>
+                            <pre><code>  getUserInfo: function(){
+    wx.navigateTo({
+      url: '../Login/Login',
+    })
+  }</code></pre>
+                            <p>此按钮将引导页面跳转到独立的 Login 页面。</p>
+                            <figure class="figure">
+                                <img src="~/images/use-login-01.png" class="figure-img img-fluid rounded" alt="跳转到登录页" />
+                                <figcaption class="figure-caption text-center">跳转到登录页</figcaption>
+                            </figure>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/index/index.wxml</cite>
+                                </figcaption>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/index/index.js</cite>
+                                </figcaption>
+                            </figure>
+                            <h5>客户端 - 登录页</h5>
+                            <p>登录页包含系统登录展示、隐私协议等内容，并包含一个触发最终小程序客户端登录事件的按钮：</p>
+                            <pre><code>&lt;!--pages/Login/Login.wxml--&gt;
+&lt;view class=&quot;auth-notice&quot;&gt;
+      &lt;text class=&quot;auth-notice&quot;&gt;您好，&lt;/text&gt;&lt;open-data type=&quot;userNickName&quot; id=&quot;login-nickname&quot;&gt;&lt;/open-data&gt;，
+      &lt;text class=&quot;auth-notice&quot;&gt;当前小程序为 Senparc.Weixin SDK 的功能体验小程序，包括了订阅消息、获取用户授权信息、手机号、WebSocket、客服消息等演示内容，大部分内容需要授权后进行，点击【获取头像昵称】按钮进行授权，才能进入测试页面。&lt;/text&gt;
+      &lt;text class=&quot;auth-notice&quot;&gt;如果您不希望授权，请直接关闭此页面。&lt;/text&gt;
+      &lt;button class=&quot;auth-btn&quot; bindtap=&quot;getUserInfo&quot;&gt; 获取头像昵称 &lt;/button&gt;
+&lt;/view&gt;</code></pre>
+
+                            <figure class="figure">
+                                <img src="~/images/use-login-02.png" class="figure-img img-fluid rounded" alt="登录页面" />
+                                <figcaption class="figure-caption text-center">登录页面</figcaption>
+                            </figure>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/Login/Login.wxml</cite>
+                                </figcaption>
+                            </figure>
+                            <p>【获取头像昵称】按钮绑定了方法 <code>getUserInfo()</code>，在 <strong>Login.js</strong> 中添加：</p>
+                            <pre><code>var app = getApp()
+getUserInfo: function (e) {
+    var that = this;
+    app.getUserInfo(e, function(userInfo){
+      app.globalData.userInfo = userInfo
+      that.setData({
+        userInfo: userInfo,
+        hasUserInfo: true
+      });
+      wx.navigateTo({
+        url: '../index/index',
+      })
+    });
+  }</code></pre>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/Login/Login.js</cite>
+                                </figcaption>
+                            </figure>
+                            <p>上述代码中，使用 <code>var app = getApp()</code> 引入了全局方法（代码在根目录 <strong>app.js</strong>中），其中，<code>app.getUserInfo()</code> 方法代码如下（为了更加贴近实际使用场景，我们将 <strong>登录</strong> + <strong>获取用户信息</strong> 放在连贯的代码中展示）：</p>
+                            <pre><code>getUserInfo:function(cb,callback){
+    var that = this
+    if(this.globalData.userInfo){
+      typeof cb == "function" && cb(this.globalData.userInfo)
+    }else{
+    //获取userInfo并校验
+    console.log('准备调用 wx.getUserProfile');
+    wx.getUserProfile({
+      desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+      success: function (userInfoRes) {
+        console.log('get getUserProfile', userInfoRes);
+        that.globalData.userInfo = userInfoRes.userInfo
+        typeof cb == "function" && cb(that.globalData.userInfo)
+        typeof callback == "function" && callback(userInfoRes.userInfo)
+
+        //调用登录接口
+        wx.login({
+            success: function (res) {
+              //换取openid & session_key
+              wx.request({
+                url: wx.getStorageSync('domainName') + '/WxOpen/OnLogin',
+                method: 'POST',
+                header: { 'content-type': 'application/x-www-form-urlencoded' },
+                data: {
+                  code: res.code
+                },
+                success:function(json){
+                  console.log('wx.login - request-/WxOpen/OnLogin Result:', json);
+                  var result = json.data;
+                  if(result.success)
+                  {
+                    wx.setStorageSync('sessionId', result.sessionId);
+                    //校验
+                    wx.request({
+                      url: wx.getStorageSync('domainName') + '/WxOpen/CheckWxOpenSignature',
+                      method: 'POST',
+                      header: { 'content-type': 'application/x-www-form-urlencoded' },
+                      data: {
+                        sessionId: result.sessionId,//wx.getStorageSync('sessionId'),
+                        rawData:userInfoRes.rawData,
+                        signature:userInfoRes.signature
+                      },
+                      success:function(json){
+                        console.log(json.data);
+                        if(!json.data.success){
+                          alert(json.data.msg);
+                        }
+                      }
+                    });
+
+                    //解密数据（建议放到校验success回调函数中，此处仅为演示）
+                    wx.request({
+                      url: wx.getStorageSync('domainName') + '/WxOpen/DecodeEncryptedData',
+                      method: 'POST',
+                      header: { 'content-type': 'application/x-www-form-urlencoded' },
+                      data: {
+                        'type':"userInfo",
+                        sessionId: result.sessionId,//wx.getStorageSync('sessionId'),
+                        encryptedData: userInfoRes.encryptedData,
+                        iv: userInfoRes.iv
+                      },
+                      success:function(json){
+                        console.log('数据解密：', json.data);
+                      }
+                    });
+                  }else{
+                    console.log('储存session失败！',json);
+                  }
+                }
+              })
+            }
+          })
+        }
+      });
+    }
+  }</code></pre>
+                            <blockquote class="blockquote">
+                                上述代码是整个微信登录客户端的核心代码。
+                            </blockquote>
+                            <p>其中：</p>
+                            <ol>
+                                <li>
+                                    <code>wx.getUserProfile</code> 用于调起获取用户信息的接口，此接口本身和登录行为本身无直接联系，但是为了保证用户信息的正确性，后续需要在登录成功后的回调中使用到其中的加密信息来获取真实的用户信息，因此需要首先触发。
+                                </li>
+                                <li>
+                                    <code>wx.login</code> 是小程序客户端的登录接口，其中 <code>success</code> 为登录自后的回调函数。在回调函数中，我们使用 <code>wx.request</code> 向服务器端 <strong>/WxOpen/OnLogin</strong> 地址发送一条请求，带上 <code>success</code> 回调的参数 <code>res.code</code>，其中将使用 <code>code</code> 利用服务器端的 API 换取 <code>session_key</code>，并储存在服务器端，同时生成临时的用户身份标记 <code>SessionId</code> 并返回给客户端。<br />  成功回调后，再使用 <code>wx.setStorageSync('sessionId', result.sessionId);</code> 将收到的 <code>SessionId</code> 储存在本地缓存中。<br />
+                                </li>
+                                <li>
+                                    虽然 <code>userInfoRes.rawData</code> 已经提供了明文的用户信息，但并不能确保其是安全（未经篡改或完整）的，因此需要向服务器发送请求，验证其真实性。<br />
+                                    继续使用 <code>wx.request</code> 方法请求 <strong>/WxOpen/CheckWxOpenSignature</strong> 地址，发送 <code>sessionId</code>以及第 1 步中获取到的 <code>userInfoRes.rawData</code> 以及 <code>userInfoRes.signature</code>，校验信息的真实性。验证通过后，可以在客户端直接使用 <code>rawData</code>。
+                                    <blockquote class="blockquote">
+                                        注意：有的开发者会把经过验证后的 <code>rawData</code> 发送给服务器保存，认为此信息是有效的，<strong>这是具有风险的做法，应当抛弃</strong>，正确的做法是使用上述代码中后续的方式（<strong>/WxOpen/DecodeEncryptedData</strong>）发送 <code>userInfoRes.encryptedData</code> 给服务器解密。因为：第一，<code>rawData</code> 从被验证成功到明文发送给服务器的过程中无法确保是否被篡改；第二，明文传输用户的敏感信息容易被监听和窃取，这种做法本身不应该出现在整个项目的任何地方。
+                                    </blockquote>
+                                </li>
+                                <li>
+                                    真实性（签名）验证通过后，继续使用 <code>wx.request</code> 请求服务器 <strong>/WxOpen/DecodeEncryptedData</strong> 地址，发送 <code>sessionId</code>以及第 1 步中获取到的 <code>userInfoRes.encryptedData</code> 以及 <code>userInfoRes.iv</code>，服务器端将解密 <code>encryptedData</code> 获得用户信息，并储存。
+                                </li>
+                            </ol>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">app.js</cite>
+                                </figcaption>
+                            </figure>
+                            <h5>服务器端 - OnLogin</h5>
+                            <p>
+                                服务器端 <strong>/WxOpen/OnLogin</strong> 代码如下：
+                            </p>
+                            <pre><code>[HttpPost]
+public ActionResult OnLogin(string code)
+{
+    try
+    {
+        var jsonResult = SnsApi.JsCode2Json(WxOpenAppId, WxOpenAppSecret, code);
+        if (jsonResult.errcode == ReturnCode.请求成功)
+        {
+            //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
+            //使用SessionContainer管理登录信息（推荐）
+            var unionId = "";
+            var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key, unionId);
+
+            //注意：生产环境下SessionKey属于敏感信息，不能进行传输！
+            return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key, sessionKey = sessionBag.SessionKey/* 此参数千万不能暴露给客户端！处仅作演示！ */ });
+        }
+        else
+        {
+            return Json(new { success = false, msg = jsonResult.errmsg });
+        }
+    }
+    catch (Exception ex)
+    {
+        return Json(new { success = false, msg = ex.Message });
+    }
+}</code></pre>
+                            <blockquote class="blockquote">
+                                特别注意：<code>SessionKey</code> 是非常敏感的信息，上述代码只是做演示，向客户端证明已经生成，实际开发过程中不可传递到客户端！
+                            </blockquote>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">WxOpenController.cs</cite>
+                                </figcaption>
+                            </figure>
+                            <h5>服务器端 - CheckWxOpenSignature</h5>
+                            <p>
+                                服务器端 <strong>/WxOpen/CheckWxOpenSignature</strong> 代码如下：
+                            </p>
+                            <pre><code>[HttpPost]
+public ActionResult CheckWxOpenSignature(string sessionId, string rawData, string signature)
+{
+    try
+    {
+        var checkSuccess = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.CheckSignature(sessionId, rawData, signature);
+        return Json(new { success = checkSuccess, msg = checkSuccess ? "签名校验成功" : "签名校验失败" });
+    }
+    catch (Exception ex)
+    {
+        return Json(new { success = false, msg = ex.Message });
+    }
+}</code></pre>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">WxOpenController.cs</cite>
+                                </figcaption>
+                            </figure>
+                            <h5>服务器端 - DecodeEncryptedData</h5>
+                            <p>
+                                服务器端 <strong>/WxOpen/DecodeEncryptedData</strong> 代码如下：
+                            </p>
+                            <pre><code>public async Task&lt;IActionResult&gt; DecodeEncryptedData(string type, string sessionId, string encryptedData, string iv)
+{
+    DecodeEntityBase decodedEntity = null;
+
+    try
+    {
+        switch (type.ToUpper())
+        {
+            case "USERINFO"://wx.getUserInfo()
+                decodedEntity = EncryptHelper.DecodeUserInfoBySessionId(
+                    sessionId,
+                    encryptedData, iv);
+                break;
+            default:
+                break;
+        }
+    }
+    catch (Exception ex)
+    {
+        WeixinTrace.SendCustomLog("EncryptHelper.DecodeUserInfoBySessionId 方法出错",
+            $@@"sessionId: {sessionId}
+encryptedData: {encryptedData}
+iv: {iv}
+sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
+        ? (await SessionContainer.GetSessionAsync(sessionId)).SessionKey
+        : "未保存sessionId")}
+
+异常信息：
+{ex.ToString()}
+");
+    }
+
+    //检验水印
+    var checkWatermark = false;
+    if (decodedEntity != null)
+    {
+        checkWatermark = decodedEntity.CheckWatermark(WxOpenAppId);
+
+        //保存用户信息（可选）
+        if (checkWatermark && decodedEntity is DecodedUserInfo decodedUserInfo)
+        {
+            var sessionBag = await SessionContainer.GetSessionAsync(sessionId);
+            if (sessionBag != null)
+            {
+                await SessionContainer.AddDecodedUserInfoAsync(sessionBag, decodedUserInfo);
+            }
+        }
+    }
+
+    //注意：此处仅为演示，敏感信息请勿传递到客户端！
+    return Json(new
+    {
+        success = checkWatermark,
+        //decodedEntity = decodedEntity,
+        msg = $"水印验证：{(checkWatermark ? "通过" : "不通过")}"
+    });
+}</code></pre>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">WxOpenController.cs</cite>
+                                </figcaption>
+                            </figure>
+                            <h5>完成</h5>
+                            <p>完成代码后，运行服务器端程序和小程序客户端，在客户端中点击【获取头像昵称】按钮，进入登录页面，点击【获取头像昵称】按钮，即可看到弹出系统确认授权对话窗口：</p>
+                            <figure class="figure">
+                                <img src="~/images/use-login-03.png" class="figure-img img-fluid rounded" alt="授权界面" />
+                                <figcaption class="figure-caption text-center">授权界面</figcaption>
+                            </figure>
+                            <p>点击【允许】按钮，即可自动完成整个自动登录、用户信息抓取过程：</p>
+                            <figure class="figure">
+                                <img src="~/images/use-login-04.png" class="figure-img img-fluid rounded" alt="完成登录和用户信息获取" />
+                                <figcaption class="figure-caption text-center">完成登录和用户信息获取</figcaption>
+                            </figure>
+                            <p>此时，再点击【获取数据】按钮，即可看到已经获取到的用户信息：</p>
+                            <figure class="figure">
+                                <img src="~/images/use-login-05.png" class="figure-img img-fluid rounded" alt="用户信息" />
+                                <figcaption class="figure-caption text-center">用户信息</figcaption>
+                            </figure>
+                        </div>
+                        <!-- 登录 结束 -->
+                        <!-- 获取手机号 开始 -->
+                        <div class="tab-pane fade" id="nav-phone-number" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <blockquote class="blockquote">
+                                <p>注意：小程序获取手机号的接口，进行过一次升级，先前在客户端直接获取手机号的方式已经被淘汰（示例中左侧【获取手机号】按钮），目前最新的接口是使用 code 到服务器端后台获取手机号（示例中右侧【获取手机号（Code）】按钮。</p>
+                                <figure class="figure">
+                                    <img src="~/images/use-phone-01.png" class="figure-img img-fluid rounded" alt="入口页面" />
+                                    <figcaption class="figure-caption text-center">入口页面</figcaption>
+                                </figure>
+                                <p>当用户点击后，系统进行授权提示：</p>
+                                <figure class="figure">
+                                    <img src="~/images/use-phone-02.png" class="figure-img img-fluid rounded" alt="授权手机号" />
+                                    <figcaption class="figure-caption text-center">授权手机号</figcaption>
+                                </figure>
+                                <p>
+                                    点击【允许】按钮，通过访问后端接口，获取到手机号：
+                                </p>
+                                <figure class="figure">
+                                    <img src="~/images/use-phone-03.png" class="figure-img img-fluid rounded" alt="授权手机号" />
+                                    <figcaption class="figure-caption text-center">授权手机号</figcaption>
+                                </figure>
+                            </blockquote>
+                            <h5>客户端</h5>
+                            <p>在 Index.wxml 文件中放置按钮：</p>
+                            <pre><code>&lt;button open-type=&quot;getPhoneNumber&quot; bindgetphonenumber=&quot;getUserPhoneNumber&quot; type=&quot;primary&quot;
+        class=&quot;btn-DoRequest&quot; hover-class=&quot;other-button-hover&quot; &gt;获取手机号（code）&lt;/button&gt;</code></pre>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">/pages/index/index.wxml</cite>
+                                </figcaption>
+                            </figure>
+                            <p>上述代码中，<code>open-type="getPhoneNumber"</code> 指定了当前按钮获取手机号的用途，<code>bindgetphonenumber="getUserPhoneNumber"</code> 指定了处理方法为 <code>getUserPhoneNumber</code>（对应于 .js 文件中）：</p>
+                            <pre><code>getUserPhoneNumber:function(e){
+    wx.request({
+      url: wx.getStorageSync('domainName') + '/WxOpen/GetUserPhoneNumber?code=' + e.detail.code,
+      success: function (res) {
+        // success
+        var json = res.data;
+
+        if(!json.success){
+          wx.showModal({
+            title: '解密过程发生异常',
+            content: json.msg,
+            showCancel: false
+          });          
+          return;
+        }
+
+        //模组对话框
+        var phoneNumberData = json.phoneInfo;
+        var msg = '手机号：' + phoneNumberData.phoneNumber+
+          '\r\n手机号（不带区号）：' + phoneNumberData.purePhoneNumber+
+          '\r\n区号（国别号）' + phoneNumberData.countryCode+
+          '\r\n水印信息：' + JSON.stringify(phoneNumberData.watermark);
+
+        wx.showModal({
+          title: '收到服务器端通过 code 获取的手机号信息',
+          content: msg,
+          showCancel: false
+        });
+      }
+    })
+  }</code></pre>
+                            <p>当用户点击按钮，并授权手机号后，就会触发上述方法，通过 <code>e</code> 参数提供的 <code>e.code</code>，将其提交给服务器后台 <strong>/WxOpen/GetUserPhoneNumber</strong> 地址，后台将使用 <code>code</code> 换取用户的手机号，然后进行储存或返回给前端。上述代码的模组对话框只是演示作用，实际项目中一般不需要再次弹出信息。</p>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">/pages/index/index.js</cite>
+                                </figcaption>
+                            </figure>
+                            <h5>后端代码 - GetUserPhoneNumber</h5>
+                            <pre><code>public async Task<ActionResult> GetUserPhoneNumber(string code)
+{
+    try
+    {
+        var result = await BusinessApi.GetUserPhoneNumberAsync(WxOpenAppId, code);
+        return Json(new { success = true, phoneInfo = result.phone_info });
+    }
+    catch (Exception ex)
+    {
+        return Json(new { success = false, msg = ex.Message });
+    }
+}</code></pre>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">WxOpenController.cs</cite>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <!-- 获取手机号 结束 -->
+                        <!-- 其他 开始 -->
+                        <div class="tab-pane fade" id="nav-others" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p>更多接口用法，可参考【获取手机号】中的方法，参考客户端（.wxml、.js）以及后端（WxController.cs）文件，用法几乎都是一致的。</p>
+                            <figure class="file">
+                                <blockquote class="blockquote">
+                                    <p>后端本项目参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    /Controllers/<cite title="Source Title">WxOpenController.cs</cite>
+                                </figcaption>
+
+                                 <blockquote class="blockquote">
+                                    <p>客户端参考文件：</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">app.js</cite> - 全局方法
+                                </figcaption>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/index</cite> - 首页文件
+                                </figcaption>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/Login</cite> - 登录页文件
+                                </figcaption>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/QrCode</cite> - 获取二维码文件
+                                </figcaption>
+                                <figcaption class="blockquote-footer">
+                                    Senparc.Weixin.WxOpen.AppDemo/<cite title="Source Title">pages/websocket_signalr</cite> - WebSocket 文件（进阶）
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <!-- 其他 结束 -->
+
+                    </div>
+
+
+                    @(await Html.PartialAsync("_AdvancedPartial"))
+
+                    @(await Html.PartialAsync("_AboutPartial"))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

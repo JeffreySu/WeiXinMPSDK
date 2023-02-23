@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -47,7 +47,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             var type = UploadMediaFileType.image;
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
+#if NETCOREAPP2_0_OR_GREATER || NET6_0_OR_GREATER
             var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\qr.jpg");
 #else
             var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\qr.jpg");
@@ -112,7 +112,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
                 //保存到文件
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
+#if NETCOREAPP2_0_OR_GREATER || NET6_0_OR_GREATER
                 var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\testpic_{0}.core20.jpg".FormatWith(SystemTime.Now.ToString("yyyyMMddHHmmss")));
 #else
                 var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\testpic_{0}.net45.jpg".FormatWith(SystemTime.Now.ToString("yyyyMMddHHmmss")));
@@ -144,7 +144,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             UploadTemporaryMediaTest();//上传
 
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
+#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
             var dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\");
 #else
             var dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\");
@@ -211,9 +211,9 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             var file = GetParentRootRelativePath() + @"AdvancedAPIs\Media\test.jpg";
 
-            var result = MediaApi.UploadForeverMedia(accessToken, file);
-
+            var result = MediaApi.UploadForeverMediaAsync(accessToken, file, UploadForeverMediaType.image).GetAwaiter().GetResult();
             Assert.IsNotNull(result.media_id);
+            Console.WriteLine("上传永久素材成功，mediaId：" + result.media_id);
             mediaId = result.media_id;
             return mediaId;
         }
@@ -224,7 +224,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var file = @"E:\Test.mp4";
-            var result = MediaApi.UploadForeverVideo(accessToken, file, "测试", "测试", "video");
+            var result = MediaApi.UploadForeverVideo(accessToken, file, "测试", "测试", UploadForeverMediaType.video);
 
             Assert.IsNotNull(result.media_id);
             mediaId = result.media_id;
@@ -233,19 +233,21 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         //[TestMethod]
         private string UploadAndUpdateNewsTest(string accessToken)
         {
-            var file = @"E:\1.jpg";
-            var result = MediaApi.UploadForeverMedia(accessToken, file);
+            //var file = @"E:\1.jpg";
+            //var result = MediaApi.UploadForeverMedia(accessToken, file, UploadForeverMediaType.image);
+            //Assert.IsNotNull(result.media_id);
 
-            Assert.IsNotNull(result.media_id);
+            var mediaId = UploadForeverMediaTest();
+
 
             var new1 = new NewsModel()
             {
                 author = "test",
                 content = "test",
-                content_source_url = "http://qy.weiweihi.com/Content/Images/app/qyhelper.png",
+                content_source_url = "https://weixin.senparc.com/Content/Images/2019/logo-community-two-lines.png",
                 digest = "test",
                 show_cover_pic = "1",
-                thumb_media_id = result.media_id,
+                thumb_media_id = mediaId,
                 title = "test"
             };
 
@@ -253,22 +255,22 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             {
                 author = "test",
                 content = "test111",
-                content_source_url = "http://qy.weiweihi.com/Content/Images/app/qyhelper.png",
+                content_source_url = "https://weixin.senparc.com/Content/Images/2019/logo-community-two-lines.png",
                 digest = "test",
                 show_cover_pic = "1",
-                thumb_media_id = result.media_id,
+                thumb_media_id = mediaId,
                 title = "test"
             };
 
-            var result1 = MediaApi.UploadNews(accessToken, 10000, new1, new2);
+            var result = MediaApi.UploadNewsAsync(accessToken, 10000, new1, new2).GetAwaiter().GetResult();
 
-            Assert.IsNotNull(result1.media_id);
-
+            Assert.IsNotNull(result.media_id);
+            Console.WriteLine("上传图文素材成功，mediaId：" + result.media_id);
             //var result2 = MediaApi.UpdateForeverNews(accessToken, result1.media_id, 0, 10000, new2);
 
             //Assert.AreEqual(result2.errcode, ReturnCode.请求成功);
 
-            return result1.media_id;
+            return result.media_id;
         }
 
         [TestMethod]
@@ -298,6 +300,10 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             Assert.IsTrue(result.news_item.Count > 0);
             Assert.AreEqual(result.news_item[0].content, "test");
+
+            Console.WriteLine($"获取图文素材成功，文章数量：{result.news_item.Count}");
+            Console.WriteLine("图文信息：");
+            Console.WriteLine(result.news_item.ToJson(true));
         }
 
         //[TestMethod]
@@ -306,6 +312,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var result = MediaApi.DeleteForeverMedia(accessToken, mediaId);
 
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
+            Console.WriteLine("图文素材已删除");
         }
 
         [TestMethod]
@@ -357,7 +364,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             var file = @"..\..\AdvancedAPIs\Media\test.jpg";
 
-            var result = MediaApi.UploadForeverMedia(accessToken, file);
+            var result = MediaApi.UploadForeverMedia(accessToken, file, UploadForeverMediaType.image);
 
             Assert.IsNotNull(result.media_id);
 
@@ -372,7 +379,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var file = @"E:\1.jpg";
-            var result = MediaApi.UploadForeverMedia(accessToken, file);
+            var result = MediaApi.UploadForeverMedia(accessToken, file, UploadForeverMediaType.image);
 
             Assert.IsNotNull(result.media_id);
 
@@ -416,7 +423,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var file = @"E:\Test.mp4";
-            var result = MediaApi.UploadForeverVideo(accessToken, file, "测试", "测试", "video", 100000);
+            var result = MediaApi.UploadForeverVideo(accessToken, file, "测试", "测试", UploadForeverMediaType.video, 100000);
 
             Assert.IsNotNull(result.media_id);
 

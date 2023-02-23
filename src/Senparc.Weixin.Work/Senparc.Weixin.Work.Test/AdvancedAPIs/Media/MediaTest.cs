@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -29,6 +29,7 @@ using Senparc.Weixin.Work.AdvancedAPIs.Media;
 using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Containers;
 using Senparc.Weixin.Work.Test.CommonApis;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.Work.Test.AdvancedAPIs
 {
@@ -107,6 +108,35 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MediaApi.BatchGetMaterial(accessToken, UploadMediaFileType.image, 0, 0, 50);
             Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
+        }
+
+        [TestMethod()]
+        public void UploadTest()
+        {
+            var agentId = "1000009";
+            var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
+            Console.WriteLine("accesstoken:");
+            Console.WriteLine(accessToken);
+
+            //accessToken = "o_wCi3y-H0s74edO2CAjUU-3dmLkPpO4lXkuZ63QE0C2xjS-cwXrNiK_04dtEreGInKSTKsqZ5z1sxK2g2I07EK9sNvMhQN3p54e1IpePBxgPm8RReBQS6OIV4XnThFZd5LimDVNKgvdvVLyx-YjrY-REk7AcaPfxqTZPTtvLAtcZGSE2_2E6IIOD5W3zGJZgs2CmJu1rSLSFRBv6Zq8NA";
+
+            string[] medias = new[] { "E:\\Senparc项目\\WeiXinMPSDK\\src\\Senparc.Weixin.Work\\Senparc.Weixin.Work.Test\\AdvancedAPIs\\Media\\EnglishName.xlsx",
+            "E:\\Senparc项目\\WeiXinMPSDK\\src\\Senparc.Weixin.Work\\Senparc.Weixin.Work.Test\\AdvancedAPIs\\Media\\中文名.xlsx"
+            };
+
+            foreach (var media in medias)
+            {
+                var result = MediaApi.UploadAsync(accessToken, UploadMediaFileType.file, media).GetAwaiter().GetResult();
+                Console.WriteLine(result.ToJson(true));
+
+                Assert.AreEqual(ReturnCode_Work.请求成功, result.errcode);
+
+                var mediaId = result.media_id;
+
+                var sendResult = Senparc.Weixin.Work.AdvancedAPIs.MassApi.SendFileAsync(accessToken, agentId, mediaId, "001").GetAwaiter().GetResult();
+                Console.WriteLine("发送结果：" + sendResult.ToJson(true));
+                Assert.AreEqual(ReturnCode_Work.请求成功, sendResult.errcode);
+            }
         }
     }
 }

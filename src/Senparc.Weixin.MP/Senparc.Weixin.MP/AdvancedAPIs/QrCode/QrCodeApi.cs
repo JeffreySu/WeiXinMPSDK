@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：QrCodeAPI.cs
     文件功能描述：二维码接口
@@ -206,6 +206,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="ticket"></param>
         /// <param name="stream"></param>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "QrCodeApi.ShowQrCode", false, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static void ShowQrCode(string ticket, Stream stream)
         {
             var url = GetShowQrCodeUrl(ticket);
@@ -332,6 +333,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="ticket"></param>
         /// <param name="stream"></param>
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "QrCodeApi.ShowQrCodeAsync", false, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static async Task ShowQrCodeAsync(string ticket, Stream stream)
         {
             var url = GetShowQrCodeUrl(ticket);

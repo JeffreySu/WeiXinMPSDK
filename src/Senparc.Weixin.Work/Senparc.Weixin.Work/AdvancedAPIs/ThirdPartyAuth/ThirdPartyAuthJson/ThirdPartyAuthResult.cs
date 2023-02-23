@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：ThirdPartyAuthResult.cs
     文件功能描述：第三方应用授权返回结果
@@ -12,6 +12,12 @@
     
     修改标识：Senparc - 2019620
     修改描述：v3.5.6 添加 GetPermanentCodeResult.auth_user_info 属性
+
+    修改标识：77Harbor - 20211107
+    修改描述：v3.13 企业微信获取访问用户身份返回实体增加 open_userid 
+
+    修改标识：ShyUncle - 20221217
+    修改描述：v3.15.13 ThirdParty_AuthCorpInfo 增加 3 个属性：corp_scale、corp_industry、corp_sub_industry
 
 ----------------------------------------------------------------*/
 
@@ -88,6 +94,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         public string DeviceId { get; set; }
         public string user_ticket { get; set; }
         public int expires_in { get; set; }
+        /// <summary>
+        /// 全局唯一。对于同一个服务商，不同应用获取到企业内同一个成员的open_userid是相同的，最多64个字节。仅第三方应用可获取
+        /// </summary>
+        public string open_userid { get; set; }
     }
 
 
@@ -251,6 +261,18 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         /// 授权方企业微信二维码
         /// </summary>
         public string corp_wxqrcode { get; set; }
+        /// <summary>
+        /// 企业规模。当企业未设置该属性时，值为空
+        /// </summary>
+        public string corp_scale { get; set; }
+        /// <summary>
+        /// 企业所属行业。当企业未设置该属性时，值为空
+        /// </summary>
+        public string corp_industry { get; set; }
+        /// <summary>
+        /// 企业所属子行业。当企业未设置该属性时，值为空
+        /// </summary>
+        public string corp_sub_industry { get; set; }
     }
 
     public class ThirdParty_AuthInfo
@@ -297,6 +319,16 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         /// 服务商套件中的对应应用id
         /// </summary>
         public string appid { get; set; }
+
+        /// <summary>
+        /// 授权模式，0为管理员授权；1为成员授权
+        /// </summary>
+        public int auth_mode { get; set; }
+
+        /// <summary>
+        /// 是否为代开发自建应用
+        /// </summary>
+        public bool? is_customized_app { get; set; }
 
         ///// <summary>
         ///// 授权方应用敏感权限组，目前仅有get_location，表示是否有权限设置应用获取地理位置的开关

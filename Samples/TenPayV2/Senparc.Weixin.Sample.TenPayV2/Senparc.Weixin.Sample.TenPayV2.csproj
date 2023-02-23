@@ -1,0 +1,79 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
+		<GenerateEmbeddedFilesManifest Condition=" '$(Configuration)' != 'Release' ">true</GenerateEmbeddedFilesManifest>
+	</PropertyGroup>
+	
+		<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
+	<ItemGroup Condition=" '$(Configuration)' != 'Release' ">
+		<PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="6.0.0" />
+		<!--<EmbeddedResource Include="..\..\Shared\Senparc.Weixin.Sample.Shared\wwwroot\**\*">
+			<Link>wwwroot\%(RecursiveDir)/%(FileName)%(Extension)</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</EmbeddedResource>-->
+		<EmbeddedResource Include="wwwroot\**\*" />
+	</ItemGroup>
+	<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
+	<Import Project="..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems" Label="Shared" />
+
+	<!--引用 Nuget 包-->
+	<ItemGroup>
+	  <PackageReference Include="Senparc.Weixin.AspNet" Version="0.8.5.8" />
+	  <PackageReference Include="Senparc.Weixin.MP" Version="16.18.10.6" />
+	  <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.12.5.7" />
+	  <PackageReference Include="Senparc.Weixin.TenPay" Version="1.12.5.7" />
+	  <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+	  <PackageReference Include="ZXing.Net" Version="0.16.8" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Update="Views\TenPayV3\H5Pay.cshtml">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Update="Views\TenPayV3\H5PaySuccess.cshtml">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Update="Views\TenPayV3\Index.cshtml">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Update="Views\TenPayV3\JsApi.cshtml">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Update="Views\TenPayV3\PayNotifyUrl.cshtml">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Update="Views\TenPayV3\ProductItem.cshtml">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Update="Views\TenPayV3\ProductList.cshtml">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Update="Views\TenPayV3\Refund.cshtml">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Update="Views\TenPayV3\View.cshtml">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<!--直接引用源码-->
+	<!--<ItemGroup>
+	  <ProjectReference Include="..\..\..\src\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.net6.csproj" />
+	  <ProjectReference Include="..\..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net6.csproj" />
+	  <ProjectReference Include="..\..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay.net6.csproj" />
+	</ItemGroup>-->
+</Project>

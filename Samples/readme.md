@@ -1,31 +1,23 @@
-# Senparc.Weixin SDK Demo
+# Senparc.Weixin SDK Sample
 
-## 项目文件夹说明
+本文件夹内项目，用于演示各模块的使用。
 
-| 文件夹 | 说明 |
-|--------|--------|
-|   net6-mvc      |   【推荐】ASP.NET 6.0 示例，可用于直接部署
-|   netcore3.0-mvc      |   【即将停止更新】ASP.NET Core 3.1 示例，可用于直接部署
-|   netcore2.2-mvc      |   【停止更新】ASP.NET Core 2.2 示例，可用于直接部署
-|   console             |   命令行注册过程演示 Demo（接口调可参考 Web 项目）
-|   net45-mvc           |   【停止更新】ASP.NET 4.5 MVC 示例，可用于直接部署，此项目中包含了 CommonServices 项目，供其他各 Sample 公用
-|   net45-webforms      |   【停止更新】ASP.NET 4.5 Web Forms 示例，主要演示和 MVC 项目有差异的部分，详细演示请见 MVC 项目
+> 注意：每个模块中会包含多项功能，请根据实际需要选用。
+
+## Sample 文件夹说明
+
+| 文件夹 | 说明 |  SDK 引用方式
+|--------|--------|----|
+|[All](/Samples/All/)         |   包含微信公众号、小程序、微信支付、企业微信等所有功能的混合场景演示，<br>推荐用于集成多个平台的项目，或许要进行深度开发的场景参考（进阶） | 
+| ┣ [All/console](/Samples/All/console)			|命令行 Console Demo（.NET Core）| Nuget 包
+| ┣ [All/net45-mvc](/Samples/All/net45-mvc)						|可以直接发布使用的 Demo（.NET Framework 4.5 + ASP.NET MVC）|  Nuget 包
+| ┣ [All/net6-mvc](/Samples/All/net6-mvc)			|可以直接发布使用的 Demo（.NET 6.0），兼容 .NET 5.0 和 .NET Core | <strong>源码<strong>
+| ┗ [All/Senparc.Weixin.<br>Sample.CommonService](/Samples/All/Senparc.Weixin.Sample.CommonService)			| 所有 `All` 文件夹下的 Sample 公用的类库和逻辑代码 |
+|[MP](/Samples/MP/)          |   公众号 | Nuget 包
+|[TenPayV2](/Samples/TenPayV2/)    |   微信支付 V1 和 V2  | Nuget 包
+|[TenPayV3](/Samples/TenPayV3/)    |   微信支付 V3（TenPay APIv3） | Nuget 包
+|[Work](/Samples/Work/)        |   企业微信 | Nuget 包
+|[WxOpen](/Samples/WxOpen/)      |   微信小程序 | Nuget 包
+|[Shared](/Samples/Shared)      |   所有当前 Samples 根目录下的独立模块 Sample 都需要用到的共享文件（实际项目中不需要）
 
 
-## 解决方案文件（sln）说明
-
-> 解决方案文件（.sln）如有写明 Visual Studio 版本，如：`Senparc.Weixin.MP.Sample.vs2017.sln`，则表明此项目需要使用 Visual Studio 2017 或以上打开。
-
-## 帮你选择
-
-> 如果你希望学习并使用最新的 .NET 6（preview）框架，并且已经安装了 VS2019（v16.9 以上），并且希望调试 .NET 6.0 及以上版本，那么请打开：net6-mvc/Senparc.Weixin.Sample.Net6.sln 解决方案
-
-> 如果你已经安装了 VS2019（v16.3以上），并且希望调试 .NET Core 3.0 及以上版本，那么请打开：netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln 解决方案
-
-> 如果你已经安装了 VS2017，并且希望调试 .NET Core 2.0 及以上版本，那么请打开：netcore2.2-mvc/Senparc.Weixin.MP.Sample.vs2017.sln 解决方案
-
-> 如果你希望将 Senparc.Weixin SDK 用于命令行或桌面应用，那么请打开：console/Senparc.Weixin.MP.Sample.Consoles.vs2019.sln 解决方案
-
-> 其他情况（如没有安装 VS2017，或者只是想调试 .NET Framework 4.5 项目），那么请打开：net45-mvc/Senparc.Weixin.MP.Sample.sln 解决方案
-
-无论选择哪个解决方案，类库的功能都是一致的。

@@ -44,11 +44,11 @@ namespace Senparc.Weixin.MP.Test.NetCore3.MessageHandlers.TestEntities
 
 
             var requestHandler = requestMessage.StartHandler();
-            requestHandler.Keyword("代理", () =>
-            {
-                responseMessage.Content = "收到关键字：代理";
-                return responseMessage;
-            })
+                requestHandler.Keyword("代理", () =>
+                {
+                    responseMessage.Content = "收到关键字：代理";
+                    return responseMessage;
+                })
                 .SelectMenuKeyword("101", () =>
                 {
                     responseMessage.Content = $"选择菜单：{requestMessage.bizmsgmenuid}，文字：{requestMessage.Content}";
@@ -57,6 +57,11 @@ namespace Senparc.Weixin.MP.Test.NetCore3.MessageHandlers.TestEntities
                 .SelectMenuKeyword("102", () =>
                 {
                     responseMessage.Content = $"选择菜单：{requestMessage.bizmsgmenuid}，文字：{requestMessage.Content}";
+                    return responseMessage;
+                })
+                .Regex("^[1][3-9]{1}[0-9]{9}$", () =>
+                {
+                    responseMessage.Content = $"正则：{requestMessage.Content}";
                     return responseMessage;
                 })
                 .Default(() =>

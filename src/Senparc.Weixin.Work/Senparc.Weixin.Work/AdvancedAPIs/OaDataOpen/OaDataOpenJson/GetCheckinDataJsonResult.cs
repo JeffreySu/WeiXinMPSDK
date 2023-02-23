@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：GetCheckinDataJsonResult.cs
     文件功能描述：获取打卡数据返回结果
@@ -10,6 +10,9 @@
 
     修改标识：Senparc - 20191119
     修改描述：v3.7.103.1 新增“获取打卡数据”接口返回值新增经纬度信息
+
+    修改标识：Senparc - 20210903
+    修改描述：v3.12.501 更新 GetCheckinDataJsonResult.cs，添加标准打卡时间
 
 ----------------------------------------------------------------*/
 
@@ -48,6 +51,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// 异常类型，如果有多个异常，以分号间隔
         /// </summary>
         public string exception_type { get; set; }
+        /// <summary>
+        /// 标准打卡时间。UTC时间戳
+        /// </summary>
+        public long sch_checkin_time { get; set; }
         /// <summary>
         /// 打卡时间。UTC时间戳
         /// </summary>

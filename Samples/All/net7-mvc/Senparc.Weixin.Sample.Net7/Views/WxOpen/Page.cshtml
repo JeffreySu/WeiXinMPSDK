@@ -1,0 +1,76 @@
+﻿@model System.String
+@*DPBMARK_FILE WxOpen*@
+@{
+    ViewBag.Title = "Senparc.Weixin SDK 小程序";
+    bool inWeChatBrowser = (ViewData["inWeChatBrowser"] is bool isIn) && isIn;
+    Layout = inWeChatBrowser ? null : "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style>
+        h2 {
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-size: 200%;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        h3 {
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-weight: 400;
+            font-size: 200%;
+            text-decoration: underline;
+        }
+
+        h4 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: 500;
+            font-size: 180%;
+        }
+
+        .wxopen p {
+            line-height: 150%
+        }
+
+        .wxopen .center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper wxopen center">
+
+        <h2>@ViewBag.Title</h2>
+        <p>说明：Senparc.Weixin SDK 已支持大部分微信公众号、小程序、小程序的常用接口，欢迎和我们一起建设 SDK 或贡献代码！</p>
+        @if (inWeChatBrowser)
+        {
+            <p><a href="/">返回首页</a></p>
+        }
+
+        <h3>外部浏览器直接打开微信</h3>
+        <p>&nbsp;</p>
+        <h4>体验方法：</h4>
+        <p>1、在微信外部浏览器打开此网页。</p>
+        <p>2、在外部浏览器【<a href="weixin://dl/business/?t=@Model">点击这里</a>】，可以直接打开小程序。</p>
+        <p>&nbsp;</p>
+        <h4>如果您是开发者，可以这样轻松获得此功能：</h4>
+        <p>1、下载当前 <a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Samples/All/net7-mvc" target="_blank">Sample</a>。</p>
+        <p>2、在 appsettings.json 中配置小程序 AppId 等信息，然后部署或本地运行。</p>
+        <p>
+            3、在运行电脑（或服务器）本地打开<a href="/WxOpen/GetUrlScheme">/WxOpen/GetUrlScheme</a>页面（不允许远程打开），<br />
+            即可看到可直接使用的 HTML 代码，将其插入到您自己的网页中即可。
+        </p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <h3>测试更多小程序功能</h3>
+        <p><img src="~/images/SenparcRobot_MiniProgram.jpg" width="300" /></p>
+        <p>扫描或微信内长按上方小程序二维码体验</p>
+    </div>
+</body>
+</html>

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2023 Senparc
   
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -98,6 +98,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20201211
     修改描述：v1.6.101.1 修改 TenPayV3Type 过期提示
+
+    修改标识：lishewen - 20210809
+    修改描述：v16.14.2 添加 Event.submit_invoice_title
 
 ----------------------------------------------------------------*/
 
@@ -332,6 +335,7 @@ namespace Senparc.Weixin.MP
         /// 点击菜单跳转小程序的事件推送
         /// </summary>
         view_miniprogram,
+        
         #region 微信认证事件推送
         /// <summary>
         /// 资质认证成功（此时立即获得接口权限）
@@ -398,7 +402,13 @@ namespace Senparc.Weixin.MP
         /// 2.3 接收授权完成事件 用户授权完成后，执收单位的公众号会收到授权完成的事件，关于事件推送请参考接受callback推送
         /// </summary>
         user_authorize_invoice,
+        /// <summary>
+        /// 用户提交抬头后，商户会收到用户提交的事件。
+        /// https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/Quick_issuing/Interface_Instructions.html
+        /// </summary>
+        submit_invoice_title,
         #endregion
+        
         #region 订阅通知
         /// <summary>
         /// 用户操作订阅通知弹窗 场景：用户在图文等场景内订阅通知的操作
@@ -414,7 +424,7 @@ namespace Senparc.Weixin.MP
         /// 发送订阅通知  场景：调用 bizsend 接口发送通知
         /// </summary>
         subscribe_msg_sent_event
-         #endregion
+        #endregion
     }
 
 
@@ -479,6 +489,29 @@ namespace Senparc.Weixin.MP
         /// 图文消息
         /// </summary>
         news
+    }
+
+    public enum UploadForeverMediaType
+    {
+        /// <summary>
+        /// 图片，支持JPG格式
+        /// </summary>
+        image,
+
+        /// <summary>
+        /// 语音
+        /// </summary>
+        voice,
+
+        /// <summary>
+        /// 视频
+        /// </summary>
+        video,
+
+        /// <summary>
+        /// thumb
+        /// </summary>
+        thumb
     }
 
 

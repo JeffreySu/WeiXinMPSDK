@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2021 Senparc
+    Copyright (C) 2023 Senparc
   
     文件名：ThirdPartyMessageHandler.cs
     文件功能描述：开放平台消息处理器
@@ -12,6 +12,9 @@
 
     修改标识：Senparc - 20181030
     修改描述：v4.1.15 优化 MessageHandler 构造函数，提供 PostModel 默认值
+
+    修改标识：mc7246 - 20220402
+    修改描述：v4.13.9 添加试用小程序接口及事件
 
 ----------------------------------------------------------------*/
 
@@ -147,6 +150,18 @@ namespace Senparc.Weixin.Open.MessageHandlers
                             ResponseMessageText = OnNicknameAuditRequest(requestMessage);
                         }
                         break;
+                    case RequestInfoType.notify_third_fastverifybetaapp:
+                        {
+                            var requestMessage = RequestMessage as RequestMessageFastVerifyBetaApp;
+                            ResponseMessageText = OnFastVerifyBetaAppRequest(requestMessage);
+                        }
+                        break;
+                    case RequestInfoType.notify_third_fastregisterbetaapp:
+                        {
+                            var requestMessage = RequestMessage as RequestMessageFastRegisterBetaAppApp;
+                            ResponseMessageText = OnFastRegisterBetaAppRequest(requestMessage);
+                        }
+                        break;
                     default:
                         throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
                 }
@@ -218,6 +233,16 @@ namespace Senparc.Weixin.Open.MessageHandlers
         }
 
         public virtual string OnNicknameAuditRequest(RequestMessageNicknameAudit requestMessage)
+        {
+            return "success";
+        }
+
+        public virtual string OnFastVerifyBetaAppRequest(RequestMessageFastVerifyBetaApp requestMessage)
+        {
+            return "success";
+        }
+
+        public virtual string OnFastRegisterBetaAppRequest(RequestMessageFastRegisterBetaAppApp requestMessage)
         {
             return "success";
         }

@@ -35,18 +35,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
-using Senparc.CO2NET.Extensions;
-using Senparc.CO2NET.Helpers;
-using Senparc.CO2NET.Trace;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.TenPayV3.Apis.Entities;
 using Senparc.Weixin.TenPayV3.Apis.PayScore;
-using Senparc.Weixin.TenPayV3.Entities;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis
@@ -219,8 +210,8 @@ namespace Senparc.Weixin.TenPayV3.Apis
             }
 
             var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/payscore/serviceorder?service_id={service_id}&appid={appid}");
-            
-            
+
+
             url += out_order_no is not null ? $"&out_order_no={out_order_no}" : "";
             url += query_id is not null ? $"&query_id={query_id}" : "";
 

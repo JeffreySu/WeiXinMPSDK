@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.15.12.2</Version>
+    <Version>3.15.13</Version>
     <LangVersion>9.0</LangVersion>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
@@ -171,7 +171,8 @@
 		2、修复 RequestMsgType.Event 返回值没有正确赋值的问题
 		v3.15.10 EncryptHelper.DecodeEncryptedData() 方法添加 keySize 参数
 		v3.15.12 添加小程序类目审核结果事件推送
-</PackageReleaseNotes>
+		v3.15.13 添加“文本内容安全识别”接口 PR #2786
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

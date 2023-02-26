@@ -7,6 +7,9 @@
     
     创建标识：lishewen - 20191226
     
+    修改标识：Senparc - 20230226
+    修改描述：v3.15.16 Add 方法修改 ScheduleAdd 参数类型
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;
@@ -34,7 +37,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule
         /// <param name="schedule">日程信息</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static AddScheduleJsonResult Add(string accessTokenOrAppKey, ScheduleJson.ScheduleAdd data, int timeOut = Config.TIME_OUT)
+        public static AddScheduleJsonResult Add(string accessTokenOrAppKey, ScheduleAdd data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -116,7 +119,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule
         /// <param name="schedule">日程信息</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<AddScheduleJsonResult> AddAsync(string accessTokenOrAppKey, ScheduleJson.ScheduleAdd data, int timeOut = Config.TIME_OUT)
+        public static async Task<AddScheduleJsonResult> AddAsync(string accessTokenOrAppKey, ScheduleAdd data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {

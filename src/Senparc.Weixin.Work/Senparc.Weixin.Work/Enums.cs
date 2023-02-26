@@ -40,6 +40,11 @@
 
     修改标识：Senparc - 20210324
     修改描述：v3.15.15 添加：重置永久授权码通知枚举：ThirdpartyInfo.RESET_PERMANENT_CODE
+    
+    修改标识：Senparc - 20230226
+    修改描述：v3.15.16 新增“任务卡片事件推送”事件 Event 枚举值，添加 TencentGender、
+                       ExternalAttributeType、GroupChatJoinScene、
+                       GroupTaskSentStatus 枚举
 
 ----------------------------------------------------------------*/
 

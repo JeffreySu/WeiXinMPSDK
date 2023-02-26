@@ -1,4 +1,35 @@
-﻿using System.Threading.Tasks;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2023 Senparc
+    
+    文件名：CustomerTagApi.cs
+    文件功能描述：客户标签管理Api
+    
+    创建标识：gokeiyou - 20230226
+
+----------------------------------------------------------------*/
+
+using System.Threading.Tasks;
+using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.Weixin.Entities;
@@ -19,7 +50,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerTag
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.GetCustomerTagList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.GetCustomerTagList", true)]
         public static GetCorpTagListResult GetCustomerTagList(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -36,7 +67,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerTag
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.AddCorpCustomerTag", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.AddCorpCustomerTag", true)]
         public static AddCorpCustomerTagResult AddCorpCustomerTag(string accessTokenOrAppKey, CorpTagGroup data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -54,7 +85,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerTag
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.EditCorpCustomerTag", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.EditCorpCustomerTag", true)]
         public static WorkJsonResult EditCorpCustomerTag(string accessTokenOrAppKey, EditCorpCustomerTagRequest data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -72,7 +103,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerTag
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.DeleteCorpCustomerTag", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.DeleteCorpCustomerTag", true)]
         public static WorkJsonResult DeleteCorpCustomerTag(string accessTokenOrAppKey, DeleteCorpCustomerTagRequest data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -90,7 +121,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerTag
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.ExternalContactMarkTag", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.ExternalContactMarkTag", true)]
         public static WorkJsonResult ExternalContactMarkTag(string accessTokenOrAppKey, ExternalContactMarkTagRequest data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -111,7 +142,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerTag
         /// <param name="accessTokenOrAppkey"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.GetCustomerTagListAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.GetCustomerTagListAsync", true)]
         public static async Task<GetCorpTagListResult> GetCustomerTagListAsync(string accessTokenOrAppkey, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -128,7 +159,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerTag
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.AddCorpCustomerTagAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.AddCorpCustomerTagAsync", true)]
         public static async Task<AddCorpCustomerTagResult> AddCorpCustomerTagAsync(string accessTokenOrAppKey, CorpTagGroup data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -146,7 +177,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerTag
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.EditCorpCustomerTagAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.EditCorpCustomerTagAsync", true)]
         public static async Task<WorkJsonResult> EditCorpCustomerTagAsync(string accessTokenOrAppKey, EditCorpCustomerTagRequest data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -164,7 +195,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerTag
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.DeleteCorpCustomerTagAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.DeleteCorpCustomerTagAsync", true)]
         public static async Task<WorkJsonResult> DeleteCorpCustomerTagAsync(string accessTokenOrAppKey, DeleteCorpCustomerTagRequest data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -182,7 +213,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerTag
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.ExternalContactMarkTagAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerTagApi.ExternalContactMarkTagAsync", true)]
         public static async Task<WorkJsonResult> ExternalContactMarkTagAsync(string accessTokenOrAppKey, ExternalContactMarkTagRequest data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

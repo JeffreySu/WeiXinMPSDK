@@ -194,7 +194,7 @@
 			v3.15.16
 			1、添加应用“消息撤回”（PR #2793）
 			2、添加“上下游及互联企业”相关接口、“获取下级/下游企业小程序session”接口（PR #2794）
-			
+			3、添加“审批”接口			
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

@@ -191,7 +191,10 @@
 			v3.15.15
 			1、添加：重置永久授权码通知枚举：ThirdpartyInfo.RESET_PERMANENT_CODE
 			2、丰富 Webhook 接口：SendTemplateCard， SendFile
-			v3.15.16 添加企业微信应用“消息撤回” PR#2793
+			v3.15.16
+			1、添加应用“消息撤回”（PR #2793）
+			2、添加“上下游及互联企业”相关接口、“获取下级/下游企业小程序session”接口（PR #2794）
+			
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

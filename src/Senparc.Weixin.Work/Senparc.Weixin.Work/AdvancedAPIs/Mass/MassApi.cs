@@ -65,6 +65,7 @@ using System.Threading.Tasks;
 using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Work.AdvancedAPIs.Mass;
 using Senparc.Weixin.Work.AdvancedAPIs.Mass.SendTemplateCard;
@@ -81,6 +82,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     {
         private static string _urlFormat = Config.ApiWorkHost + "/cgi-bin/message/send?access_token={0}";
         private static string _taskUrlFormat = Config.ApiWorkHost + "/cgi-bin/message/update_taskcard?access_token={0}";
+        private static string _recallUrlFormat = Config.ApiWorkHost + "/cgi-bin/message/recall?access_token={0}";
 
         #region 同步方法
 
@@ -473,6 +475,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
         }
+
         /// <summary>
         /// 发送textcard消息
         /// </summary>
@@ -586,6 +589,28 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 JsonSetting jsonSetting = new JsonSetting(true);
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<UpdateTaskCardResultJson>(accessToken, _taskUrlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 撤回应用消息
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/94867</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WorkJsonResult Recall(string accessTokenOrAppKey, string msgId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var jsonSetting = new JsonSetting(true);
+                var data = new
+                {
+                    msgid = msgId
+                };
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(accessToken, _recallUrlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
         }
 
@@ -868,8 +893,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     duplicate_check_interval = duplicateCheckInterval
                 };
 
-                JsonSetting jsonSetting = new JsonSetting(true);
-
+                var jsonSetting = new JsonSetting(true);
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
 
@@ -969,7 +993,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     duplicate_check_interval = duplicateCheckInterval
                 };
 
-                JsonSetting jsonSetting = new JsonSetting(true);
+                var jsonSetting = new JsonSetting(true);
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
@@ -1009,7 +1033,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     duplicate_check_interval = duplicateCheckInterval
                 };
 
-                JsonSetting jsonSetting = new JsonSetting(true);
+                var jsonSetting = new JsonSetting(true);
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
@@ -1025,8 +1049,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                JsonSetting jsonSetting = new JsonSetting(true);
-
+                var jsonSetting = new JsonSetting(true);
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
@@ -1042,8 +1065,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                JsonSetting jsonSetting = new JsonSetting(true);
-
+                var jsonSetting = new JsonSetting(true);
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
@@ -1085,10 +1107,31 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             //https://work.weixin.qq.com/api/doc/90000/90135/91579
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                JsonSetting jsonSetting = new JsonSetting(true);
-
+                var jsonSetting = new JsonSetting(true);
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UpdateTaskCardResultJson>(accessToken, _taskUrlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 撤回应用消息
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/94867</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> RecallAsync(string accessTokenOrAppKey, string msgId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var jsonSetting = new JsonSetting(true);
+                var data = new
+                {
+                    msgid = msgId
+                };
+
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _recallUrlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppKey);
         }
         #endregion
     }

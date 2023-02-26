@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
 		<FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-		<Version>3.15.15</Version>
+		<Version>3.15.16</Version>
 		<LangVersion>10.0</LangVersion>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -191,6 +191,7 @@
 			v3.15.15
 			1、添加：重置永久授权码通知枚举：ThirdpartyInfo.RESET_PERMANENT_CODE
 			2、丰富 Webhook 接口：SendTemplateCard， SendFile
+			v3.15.16 添加企业微信应用“消息撤回” PR#2793
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

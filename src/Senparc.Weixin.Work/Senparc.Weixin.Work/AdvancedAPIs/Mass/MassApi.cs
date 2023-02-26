@@ -51,6 +51,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20210120
     修改描述：v3.15.8 支持“发送应用消息”的“模板卡片消息”类型（MassApi.SendTemplateCard() 方法）
 
+    修改标识：Senparc - 20230226
+    修改描述：v3.15.16 添加企业微信应用“消息撤回”（PR #2793）
+
 ----------------------------------------------------------------*/
 
 /*

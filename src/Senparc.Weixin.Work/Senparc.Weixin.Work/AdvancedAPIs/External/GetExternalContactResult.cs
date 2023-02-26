@@ -15,6 +15,7 @@
 
 ----------------------------------------------------------------*/
 
+using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.External
@@ -181,6 +182,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External
         public string[] remark_mobiles { get; set; }
 
         public Follow_User_Tags[] tags { get; set; }
+    }
+    
+    public class Follow_User_Tag
+    {
+        public string group_name { get; set; }
+        public string tag_name { get; set; }
+        public string tag_id { get; set; }
+        public int type { get; set; }
     }
 
     public class Follow_User_Tags

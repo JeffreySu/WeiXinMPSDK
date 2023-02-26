@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：RequestMessageFastRegisterBetaAppApp.cs
     文件功能描述：创建试用小程序事件推送

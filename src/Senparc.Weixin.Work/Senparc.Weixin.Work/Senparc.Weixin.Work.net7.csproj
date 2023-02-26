@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
 		<FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-		<Version>3.15.15</Version>
+		<Version>3.15.16</Version>
 		<LangVersion>10.0</LangVersion>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -191,6 +191,11 @@
 			v3.15.15
 			1、添加：重置永久授权码通知枚举：ThirdpartyInfo.RESET_PERMANENT_CODE
 			2、丰富 Webhook 接口：SendTemplateCard， SendFile
+			v3.16.16
+			1、添加应用“消息撤回”（PR #2793）
+			2、添加“上下游及互联企业”相关接口、“获取下级/下游企业小程序session”接口（PR #2794）
+			3、添加“审批”接口
+			4、新增“任务卡片事件推送”事件（PR #2414） - 待升级
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

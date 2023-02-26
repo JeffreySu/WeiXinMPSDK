@@ -40,6 +40,11 @@
 
     修改标识：Senparc - 20210324
     修改描述：v3.15.15 添加：重置永久授权码通知枚举：ThirdpartyInfo.RESET_PERMANENT_CODE
+    
+    修改标识：Senparc - 20230226
+    修改描述：v3.15.16 新增“任务卡片事件推送”事件 Event 枚举值，添加 TencentGender、
+                       ExternalAttributeType、GroupChatJoinScene、
+                       GroupTaskSentStatus 枚举
 
 ----------------------------------------------------------------*/
 
@@ -93,7 +98,10 @@ namespace Senparc.Weixin.Work
         /// 自定义菜单点击事件
         /// </summary>
         CLICK,
-
+        /// <summary>
+        /// 任务卡片事件推送
+        /// </summary>
+        TASKCARD_CLICK,
         /// <summary>
         /// 二维码扫描
         /// </summary>
@@ -182,6 +190,22 @@ namespace Senparc.Weixin.Work
         OPEN_APPROVAL_CHANGE
         #endregion
     }
+    
+    public enum TencentGender
+    {
+        /// <summary>
+        /// 未知
+        /// </summary>
+        Unknown = 0,
+        /// <summary>
+        /// 男
+        /// </summary>
+        Male = 1,
+        /// <summary>
+        /// 女
+        /// </summary>
+        Female = 2
+    }
 
     public enum ThirdPartyInfo
     {
@@ -228,6 +252,40 @@ namespace Senparc.Weixin.Work
         /// 重置永久授权码通知
         /// </summary>
         RESET_PERMANENT_CODE
+    }
+    
+    public enum ExternalAttributeType
+    {
+        Text,
+        Web,
+        Miniprogram
+    }
+    
+    public enum GroupChatJoinScene
+    {
+        /// <summary>
+        /// 由成员邀请入群（直接邀请入群）
+        /// </summary>
+        INVITE_BY_DIRECT = 1,
+        /// <summary>
+        /// 由成员邀请入群（通过邀请链接入群）
+        /// </summary>
+        INVITE_BY_LINK = 2,
+        /// <summary>
+        /// 通过扫描群二维码入群
+        /// </summary>
+        QR_CODE = 3
+    }
+
+    /// <summary>
+    /// 群发任务发送状态
+    /// </summary>
+    public enum GroupTaskSentStatus
+    {
+        未发送,
+        已发送,
+        因客户不是好友导致发送失败,
+        因客户已经收到其他群发消息导致发送失败,
     }
 
 

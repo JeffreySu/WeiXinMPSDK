@@ -59,6 +59,7 @@
     获取部门成员：http://work.weixin.qq.com/api/doc#10061
     获取部门成员详情：http://work.weixin.qq.com/api/doc#10063
     手机号获取userid：https://work.weixin.qq.com/api/doc#90001/90143/91693
+    邮箱获取userid：https://work.weixin.qq.com/api/doc#90001/90143/95892
  */
 
 using System;

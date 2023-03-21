@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
 		<FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-		<Version>3.15.16</Version>
+		<Version>3.15.17</Version>
 		<LangVersion>10.0</LangVersion>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -196,6 +196,7 @@
 			2、添加“上下游及互联企业”相关接口、“获取下级/下游企业小程序session”接口（PR #2794）
 			3、添加“审批”接口
 			4、添加“客户标签管理Api”接口，添加“任务卡片事件推送”事件（待完善）（PR #2414）
+			v3.15.17 添加“邮箱获取 userid”接口
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

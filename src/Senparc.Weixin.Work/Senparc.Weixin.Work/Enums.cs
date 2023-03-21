@@ -46,6 +46,10 @@
                        ExternalAttributeType、GroupChatJoinScene、
                        GroupTaskSentStatus 枚举
 
+    修改标识：Senparc - 20230321
+    修改描述：v3.15.17 添加“邮箱获取 userid”接口，增加 Email_Type 枚举
+    
+
 ----------------------------------------------------------------*/
 
 using static System.Net.WebRequestMethods;
@@ -589,5 +593,14 @@ namespace Senparc.Weixin.Work
         正常,
         折扣,
         被折扣
+    }
+
+    /// <summary>
+    /// 邮箱类型
+    /// </summary>
+    public enum Email_Type
+    {
+        企业邮箱 = 1,
+        个人邮箱 = 2
     }
 }

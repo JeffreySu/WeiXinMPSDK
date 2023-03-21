@@ -590,4 +590,13 @@ namespace Senparc.Weixin.Work
         折扣,
         被折扣
     }
+
+    /// <summary>
+    /// 邮箱类型
+    /// </summary>
+    public enum Email_Type
+    {
+        企业邮箱 = 1,
+        个人邮箱 = 2
+    }
 }

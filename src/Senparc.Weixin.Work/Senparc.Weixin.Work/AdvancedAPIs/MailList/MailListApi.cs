@@ -48,6 +48,9 @@
     修改标识：IcedMango - 20221106
     修改描述：v3.15.10 增加企业微信获取成员ID列表的接口
 
+    修改标识：IcedMango - 20221106
+    修改描述：v3.15.17 添加“邮箱获取 userid”接口
+
 ----------------------------------------------------------------*/
 
 /*
@@ -225,7 +228,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 邮箱获取userid
+        /// 邮箱获取 userid
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="email">邮箱</param>
@@ -824,7 +827,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 【异步方法】邮箱获取userid
+        /// 【异步方法】邮箱获取 userid
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="email">邮箱</param>

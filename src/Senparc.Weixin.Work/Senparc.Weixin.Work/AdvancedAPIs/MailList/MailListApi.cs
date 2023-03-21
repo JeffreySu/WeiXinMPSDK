@@ -235,7 +235,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="emailType">邮箱类型：1-企业邮箱（默认）；2-个人邮箱</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static GetUseridResult GetUseridByEmail(string accessTokenOrAppKey, string email, Email_Type emailType = (int)Email_Type.企业邮箱, int timeOut = Config.TIME_OUT)
+        public static GetUseridResult GetUseridByEmail(string accessTokenOrAppKey, string email, Email_Type emailType = Email_Type.企业邮箱, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -244,7 +244,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var data = new
                 {
                     email = email,
-                    email_type = emailType
+                    email_type = (int)emailType
                 };
 
                 return CommonJsonSend.Send<GetUseridResult>(null, url, data, CommonJsonSendType.POST, timeOut);
@@ -834,7 +834,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="emailType">邮箱类型：1-企业邮箱（默认）；2-个人邮箱</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<GetUseridResult> GetUseridByEmailAsync(string accessTokenOrAppKey, string email, Email_Type emailType = (int)Email_Type.企业邮箱, int timeOut = Config.TIME_OUT)
+        public static async Task<GetUseridResult> GetUseridByEmailAsync(string accessTokenOrAppKey, string email, Email_Type emailType = Email_Type.企业邮箱, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -843,7 +843,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var data = new
                 {
                     email = email,
-                    email_type = emailType
+                    email_type = (int)emailType
                 };
 
                 return await CommonJsonSend.SendAsync<GetUseridResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);

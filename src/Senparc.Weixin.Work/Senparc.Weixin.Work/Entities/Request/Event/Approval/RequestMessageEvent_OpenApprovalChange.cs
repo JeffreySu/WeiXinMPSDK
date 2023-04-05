@@ -7,7 +7,10 @@
     
     
     创建标识：Senparc - 20220211
-    
+
+    修改标识：Senparc - 20230405
+    修改描述：v3.15.17.1 修改 RequestMessageEvent_OpenApprovalChange 中 OpenTemplateId 参数类型为 string
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work.Entities

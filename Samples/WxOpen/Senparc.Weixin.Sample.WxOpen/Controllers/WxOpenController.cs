@@ -569,8 +569,8 @@ sessionKey: {(await SessionContainer.CheckRegisteredAsync(sessionId)
                     success = true,
                     prepay_id = result.prepay_id,
                     appId = Config.SenparcWeixinSetting.WxOpenAppId,
-                    timeStamp,
-                    nonceStr,
+                    timeStamp = jsApiUiPackage.Timestamp,
+                    nonceStr = jsApiUiPackage.NonceStr,
                     package = packageStr,
                     signType = "RSA",
                     paySign = jsApiUiPackage.Signature

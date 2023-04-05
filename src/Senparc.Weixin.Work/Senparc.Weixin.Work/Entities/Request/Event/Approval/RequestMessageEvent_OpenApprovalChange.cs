@@ -7,7 +7,10 @@
     
     
     创建标识：Senparc - 20220211
-    
+
+    修改标识：Senparc - 20230405
+    修改描述：v3.15.17.1 修改 RequestMessageEvent_OpenApprovalChange 中 OpenTemplateId 参数类型为 string
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work.Entities
@@ -46,8 +49,10 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         ///	审批模板id
         /// </summary>
-        public uint OpenTemplateId { get; set; }
-
+       // public uint OpenTemplateId { get; set; }
+        //企业微信自建应用审批模板id应用使用string类型，否则报错
+        public string OpenTemplateId { get; set; }
+        
         /// <summary>
         /// 申请单当前审批状态：1-审批中；2-已通过；3-已驳回；4-已撤销
         /// </summary>

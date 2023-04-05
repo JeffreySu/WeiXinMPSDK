@@ -549,9 +549,6 @@ sessionKey: {(await SessionContainer.CheckRegisteredAsync(sessionId)
                 var sp_billno = string.Format("{0}{1}{2}", Config.SenparcWeixinSetting.TenPayV3_MchId /*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
                         TenPayV3Util.BuildRandomStr(6));
 
-                var timeStamp = TenPayV3Util.GetTimestamp();
-                var nonceStr = TenPayV3Util.GetNoncestr();
-
                 var body = "小程序微信支付Demo";
                 var price = 1;//单位：分
                 var notifyUrl = Config.SenparcWeixinSetting.TenPayV3_WxOpenTenpayNotify;
@@ -569,8 +566,8 @@ sessionKey: {(await SessionContainer.CheckRegisteredAsync(sessionId)
                     success = true,
                     prepay_id = result.prepay_id,
                     appId = Config.SenparcWeixinSetting.WxOpenAppId,
-                    timeStamp,
-                    nonceStr,
+                    timeStamp = jsApiUiPackage.Timestamp,
+                    nonceStr = jsApiUiPackage.NonceStr,
                     package = packageStr,
                     signType = "RSA",
                     paySign = jsApiUiPackage.Signature

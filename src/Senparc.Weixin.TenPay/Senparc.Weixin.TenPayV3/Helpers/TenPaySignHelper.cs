@@ -85,30 +85,31 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <summary>
         /// 获取调起支付所需的签名
         /// </summary>
+        /// <param name="appId">传入的appId</param>
         /// <param name="timeStamp">时间戳</param>
         /// <param name="nonceStr">随机串</param>
         /// <param name="package">格式：prepay_id={0}</param>
         /// <param name="senparcWeixinSettingForTenpayV3">可为空 为空将从Senparc.Weixin.Config获取</param>
         /// <returns></returns>
-        public static string CreatePaySign(string timeStamp, string nonceStr, string package, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null)
+        public static string CreatePaySign(string appId, string timeStamp, string nonceStr, string package, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null)
         {
             senparcWeixinSettingForTenpayV3 ??= Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
 
-            var appId = senparcWeixinSettingForTenpayV3.TenPayV3_AppId;
             var privateKey = senparcWeixinSettingForTenpayV3.TenPayV3_PrivateKey;
 
-            return CreatePaySign(timeStamp, nonceStr, package, appId, privateKey);
+            return CreatePaySign(appId, timeStamp, nonceStr, package, privateKey);
         }
 
         /// <summary>
         /// 获取调起支付所需的签名
         /// </summary>
+        /// <param name="appId">传入的appId</param>
         /// <param name="timeStamp">时间戳</param>
         /// <param name="nonceStr">随机串</param>
         /// <param name="package">格式：prepay_id={0}</param>
         /// <param name="privateKey">商户证书私钥</param>
         /// <returns></returns>
-        public static string CreatePaySign(string timeStamp, string nonceStr, string package, string appId, string privateKey)
+        public static string CreatePaySign(string appId, string timeStamp, string nonceStr, string package, string privateKey)
         {
             string contentForSign = $"{appId}\n{timeStamp}\n{nonceStr}\n{package}\n";
             return CreateSign(contentForSign, privateKey);
@@ -184,7 +185,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers
             var timeStamp = TenPayV3Util.GetTimestamp();
             var nonceStr = TenPayV3Util.GetNoncestr();
             var prepayIdPackage = prepayId.Contains("prepay_id=") ? prepayId : string.Format("prepay_id={0}", prepayId);
-            var sign = TenPaySignHelper.CreatePaySign(timeStamp, nonceStr, prepayIdPackage);
+            var sign = TenPaySignHelper.CreatePaySign(appId, timeStamp, nonceStr, prepayIdPackage);
 
             JsApiUiPackage jsApiUiPackage = new(appId, timeStamp, nonceStr, prepayIdPackage, sign);
             return jsApiUiPackage;

@@ -28,7 +28,7 @@ namespace Senparc.Weixin.TenPayV3.Test.Helpers.Tests
                                             TenPayV3_PrivateKey = privateKey
                                         };
 
-            var result = TenPaySignHelper.CreatePaySign(timestamp, nonceStr, package, separcWeixinSetting);
+            var result = TenPaySignHelper.CreatePaySign(appId, timestamp, nonceStr, package, separcWeixinSetting);
             Assert.IsNotNull(result);
 
             var exceptedResult = "POmTZCzk7fj+FeSwbU4rNghygFOzwpoaQt9SBW8blDAPZCVJ7wVnDVisx6t1ryyBpB3NmOwiNaT+hHi7YthYZzr0kvL5kWKSnpssyWBofnjqbFWBSV8JaFx7Ia2qnsgdVYALisYjLBr+bj69YXuyWiBxYFx+JylH6wW4w55Rziatoa4rwrdlrpgE2yRTxDu9wSZ4VCdUYSMj2ctyAy2fOiCcP00VGjihJWGCXXjeVm2YQyFZXB7KqGPhncdHaFmJzIvL8SbWKSc36cUKSuHhZ5n+oZVU8Vf+lb/eJibzTWxBIAJbtQplKojG48ukd7QFtRUd3b2EkOjzmeJ26zMlfA==";
@@ -44,7 +44,7 @@ namespace Senparc.Weixin.TenPayV3.Test.Helpers.Tests
             var timestamp = "1414561699";
             var nonceStr = "5K8264ILTKCH16CQ2502SI8ZNMTM67VS";
 
-            var result = TenPaySignHelper.CreatePaySign(timestamp, nonceStr, package, appId, privateKey);
+            var result = TenPaySignHelper.CreatePaySign(appId, timestamp, nonceStr, package, appId, privateKey);
             Assert.IsNotNull(result);
             Console.WriteLine(result);
 

@@ -426,7 +426,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 //重新整理按钮信息
                 ButtonGroupBase buttonGroup = buttonGroupBase; // ?? new ButtonGroup();
-                var rootButtonList = resultFull.menu.button;
+                var rootButtonList = resultFull.menu.list.subbutton;
 
                 GetButtonGroup(rootButtonList, buttonGroup);//设置默认菜单
                 result = new GetMenuResult(buttonGroupBase)
@@ -448,7 +448,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         conditionalButtonGroup.menuid = conditionalMenu.menuid;
                         //fix bug 16030701 end
 
-                        GetButtonGroup(conditionalMenu.button, conditionalButtonGroup);//设置默认菜单
+                        GetButtonGroup(conditionalMenu.list.subbutton, conditionalButtonGroup);//设置默认菜单
                         conditionalMenuList.Add(conditionalButtonGroup);
                     }
                     result.conditionalmenu = conditionalMenuList;

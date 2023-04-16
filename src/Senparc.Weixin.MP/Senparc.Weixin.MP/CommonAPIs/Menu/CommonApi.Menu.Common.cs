@@ -56,6 +56,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20220511
     修改描述：v16.18.2.1 修复二级菜单按钮判断逻辑
+    
+    修改标识：JaneConan - 20230417
+    修改描述：v16.18.10.7 修复自定义菜单实体问题
 
 ----------------------------------------------------------------*/
 

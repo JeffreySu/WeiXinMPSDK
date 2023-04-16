@@ -55,7 +55,13 @@ namespace Senparc.Weixin.MP
 
     public class MenuFull_ButtonGroup
     {
-        public List<MenuFull_RootButton> button { get; set; }
+        public MenuFull_ButtonList list { get; set; }
+    }
+
+    public class MenuFull_ButtonList
+    {
+        public List<MenuFull_RootButton> subbutton { get; set; }
+
     }
 
     public class MenuFull_RootButton

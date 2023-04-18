@@ -33,6 +33,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System;
 using System.Xml.Linq;
+using Senparc.Weixin.Work.Entities.Request.Event;
 
 namespace Senparc.Weixin.Work.Helpers
 {
@@ -56,6 +57,27 @@ namespace Senparc.Weixin.Work.Helpers
         public static ThirdPartyInfo GetThirdPartyInfo(string str)
         {
             return (ThirdPartyInfo)Enum.Parse(typeof(ThirdPartyInfo), str, true);
+        }
+
+        #endregion
+        
+        #region ExternalContactChangeType
+
+        /// <summary>
+        /// 根据xml信息，返回ExternalContactChangeType
+        /// </summary>
+        /// <returns></returns>
+        public static ExternalContactChangeType GetExternalContactChangeType(XDocument doc)
+        {
+            return GetExternalContactChangeType(doc.Root.Element("ChangeType").Value);
+        }
+        /// <summary>
+        /// 根据xml信息，返回ExternalContactChangeType
+        /// </summary>
+        /// <returns></returns>
+        public static ExternalContactChangeType GetExternalContactChangeType(string str)
+        {
+            return (ExternalContactChangeType)Enum.Parse(typeof(ExternalContactChangeType), str, true);
         }
 
         #endregion

@@ -14,6 +14,9 @@ bak.zip
 *.pdb
 *.tmp
 
+# JetBrains Rider
+.idea/
+
 #/Tools/*
 *.DotSettings
 .vs
@@ -47,3 +50,4 @@ packages/
 /Samples/TenPayV3/Senparc.Weixin.Sample.TenPayV3/.config/
 /Samples/All/net7-mvc/Senparc.Weixin.Sample.Net7/Properties/PublishProfiles
 /Samples/All/net7-mvc/Senparc.Weixin.Sample.Net7/App_Data/cert
+*.DS_Store

@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：RequestMessageEvent_User_Authorize_Invoice.cs
     文件功能描述：事件之接收授权完成事件：用户授权完成后，执收单位的公众号会收到授权完成的事件，关于事件推送请参考接受callback推送

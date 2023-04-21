@@ -44,6 +44,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
     public class CloseCombineOrderRequestData
     {
         /// <summary>
+        /// 无参构造函数
+        /// </summary>
+        public CloseCombineOrderRequestData() { }
+
+        /// <summary>
         /// 含参构造函数
         /// </summary>
         /// <param name="combine_appid">合单发起方的appid</param>

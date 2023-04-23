@@ -53,7 +53,6 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
-using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Trace;
 using Senparc.Weixin.Entities;
@@ -64,11 +63,7 @@ using Senparc.Weixin.TenPayV3.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Pipes;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis
@@ -343,6 +338,55 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <summary>
         /// 微信支付订单号查询
         /// </summary>
+        /// <param name="transaction_id"> 微信支付系统生成的订单号 示例值：1217752501201407033233368018</param>
+        /// <param name="mchid">直连商户的商户号，由微信支付生成并下发。 示例值：1230000109</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        [Obsolete("请使用新方法 OrderQueryByTransactionIdAsync(QueryRequestData data, int timeOut = Config.TIME_OUT)")]
+        public async Task<OrderReturnJson> OrderQueryByTransactionIdAsync(string transaction_id, string mchid, int timeOut = Config.TIME_OUT)
+        {
+            try
+            {
+                var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/pay/transactions/id/{transaction_id}?mchid={mchid}");
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+                return await tenPayApiRequest.RequestAsync<OrderReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.BaseExceptionLog(ex);
+                return new OrderReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
+            }
+        }
+
+        // TODO: 待测试
+        /// <summary>
+        /// 商户订单号查询
+        /// <para>https://pay.weixin.qq.com/wiki/doc/apiv3_partner/apis/chapter4_1_2.shtml</para>
+        /// </summary>
+        /// <param name="out_trade_no"> 微信支付系统生成的订单号 示例值：1217752501201407033233368018</param>
+        /// <param name="mchid">直连商户的商户号，由微信支付生成并下发。 示例值：1230000109</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        [Obsolete("请使用新方法 OrderQueryByOutTradeNoAsync(QueryRequestData data, int timeOut = Config.TIME_OUT)")]
+        public async Task<OrderReturnJson> OrderQueryByOutTradeNoAsync(string out_trade_no, string mchid, int timeOut = Config.TIME_OUT)
+        {
+            try
+            {
+                var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/pay/transactions/out-trade-no/{out_trade_no}?mchid={mchid}");
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+                return await tenPayApiRequest.RequestAsync<OrderReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.BaseExceptionLog(ex);
+                return new OrderReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
+            }
+        }
+
+        // TODO: 待测试
+        /// <summary>
+        /// 微信支付订单号查询
+        /// </summary>
         /// <param name="data">查询请求参数</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
@@ -410,6 +454,34 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <summary>
         /// 关闭订单接口
         /// </summary>
+        /// <param name="out_trade_no">商户系统内部订单号，只能是数字、大小写字母_-*且在同一个商户号下唯一 示例值：1217752501201407033233368018</param>
+        /// <param name="mchid">直连商户的商户号，由微信支付生成并下发。 示例值：1230000109</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        [Obsolete("请使用新方法 CloseOrderAsync(CloseRequestData data, int timeOut = Config.TIME_OUT)")]
+        public async Task<ReturnJsonBase> CloseOrderAsync(string out_trade_no, string mchid, int timeOut = Config.TIME_OUT)
+        {
+            try
+            {
+                var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/pay/transactions/out-trade-no/{out_trade_no}/close");
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+                var data = new
+                {
+                    mchid = mchid
+                };
+                return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, data, timeOut);
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.BaseExceptionLog(ex);
+                return new ReturnJsonBase() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
+            }
+        }
+
+        // TODO: 待测试
+        /// <summary>
+        /// 关闭订单接口
+        /// </summary>
         /// <param name="data">关闭订单请求参数</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
@@ -461,6 +533,52 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="data">请求数据</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
+        [Obsolete("请使用新方法 RefundAsync(RefundRequestData data, int timeOut = Config.TIME_OUT)")]
+        public async Task<RefundReturnJson> RefundAsync(RefundRequsetData data, int timeOut = Config.TIME_OUT)
+        {
+            try
+            {
+                var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/refund/domestic/refunds");
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+                return await tenPayApiRequest.RequestAsync<RefundReturnJson>(url, data, timeOut);
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.BaseExceptionLog(ex);
+                return new RefundReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
+            }
+        }
+
+        // TODO: 待测试
+        /// <summary>
+        /// 查询单笔退款接口
+        /// </summary>
+        /// <param name="out_refund_no">商户系统内部的退款单号，商户系统内部唯一，只能是数字、大小写字母_-|*@ ，同一退款单号多次请求只退一笔。示例值：1217752501201407033233368018</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        [Obsolete("请使用新方法 RefundQueryAsync(RefundQueryRequestData data, int timeOut = Config.TIME_OUT)")]
+        public async Task<RefundReturnJson> RefundQueryAsync(string out_refund_no, int timeOut = Config.TIME_OUT)
+        {
+            try
+            {
+                var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/refund/domestic/refunds/{out_refund_no}");
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+                return await tenPayApiRequest.RequestAsync<RefundReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.BaseExceptionLog(ex);
+                return new RefundReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
+            }
+        }
+
+        // TODO: 待测试
+        /// <summary>
+        /// 申请退款接口
+        /// </summary>
+        /// <param name="data">请求数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
         public async Task<RefundReturnJson> RefundAsync(RefundRequestData data, int timeOut = Config.TIME_OUT)
         {
             try
@@ -500,6 +618,105 @@ namespace Senparc.Weixin.TenPayV3.Apis
         #endregion
 
         #region 交易账单接口
+        /// <summary>
+        /// 申请交易账单接口
+        /// 获得微信支付按天提供的交易账单文件
+        /// <para>https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_1_6.shtml</para>
+        /// </summary>
+        /// <param name="bill_date">账单日期 格式YYYY-MM-DD 仅支持三个月内的账单下载申请</param>
+        /// <param name="bill_type">填则默认是ALL 枚举值：ALL：返回当日所有订单信息（不含充值退款订单）SUCCESS：返回当日成功支付的订单（不含充值退款订单）REFUND：返回当日退款订单（不含充值退款订单</param>
+        /// <param name="tar_type">不填则默认是数据流 枚举值：GZIP：返回格式为.gzip的压缩包账单</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        [Obsolete("请使用新方法 TradeBillQueryAsync(TradeBillQueryRequestData data, Stream fileStream, int timeOut = Config.TIME_OUT)")]
+        public async Task<BillReturnJson> TradeBillQueryAsync(string bill_date, Stream fileStream, string bill_type = "ALL", string tar_type = null, int timeOut = Config.TIME_OUT)
+        {
+            try
+            {
+                var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/bill/tradebill?bill_date={bill_date}&bill_type={bill_type}");
+                if (tar_type != null)
+                {
+                    url += $"&tar_type={tar_type}";
+                }
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+                var result = await tenPayApiRequest.RequestAsync<BillReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+
+                //下载交易账单
+                if (result.VerifySignSuccess == true)
+                {
+                    var responseMessage = await tenPayApiRequest.GetHttpResponseMessageAsync(result.download_url, null, requestMethod: ApiRequestMethod.GET);
+                    fileStream.Seek(0, SeekOrigin.Begin);
+                    await responseMessage.Content.CopyToAsync(fileStream);
+                    fileStream.Seek(0, SeekOrigin.Begin);
+
+                    //校验文件Hash
+                    var fileHash = FileHelper.GetFileHash(fileStream, result.hash_type, false);
+                    Console.WriteLine("fileHash: " + fileHash);
+                    var fileVerify = fileHash.Equals(result.hash_value, StringComparison.OrdinalIgnoreCase);
+                    if (!fileVerify)
+                    {
+                        result.VerifySignSuccess = false;
+                        result.ResultCode.Additional += "请求成功，但文件校验错误。请查看日志！";
+                        SenparcTrace.BaseExceptionLog(new TenpayApiRequestException($"TradeBillQueryAsync 下载文件成功，但校验失败，正确值：{result.hash_value}，实际值：{fileHash}（忽略大小写）"));
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.BaseExceptionLog(ex);
+                return new BillReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
+            }
+        }
+
+        /// <summary>
+        /// 申请资金账单接口
+        /// 获得微信支付按天提供的微信支付账户资金流水账单文件
+        /// </summary>
+        /// <param name="bill_date">账单日期 格式YYYY-MM-DD 仅支持三个月内的账单下载申请</param>
+        /// <param name="account_type">不填则默认是BASIC 枚举值：BASIC：基本账户 OPERATION：运营账户 FEES：手续费账户</param>
+        /// <param name="tar_type"> 不填则默认是数据流 枚举值：GZIP：返回格式为.gzip的压缩包账单</param>
+        /// <returns></returns>
+        [Obsolete("请使用新方法 FundflowBillQueryAsync(FundflowBillQueryRequestData data, Stream fileStream, int timeOut = Config.TIME_OUT)")]
+        public async Task<BillReturnJson> FundflowBillQueryAsync(string bill_date, Stream fileStream, string account_type = "BASIC", string tar_type = null, int timeOut = Config.TIME_OUT)
+        {
+            try
+            {
+                var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/bill/fundflowbill?bill_date={bill_date}&account_type={account_type}");
+                if (tar_type != null)
+                {
+                    url += $"&tar_type={tar_type}";
+                }
+                TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+                var result = await tenPayApiRequest.RequestAsync<BillReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+
+                //下载资金账单
+                if (result.VerifySignSuccess == true)
+                {
+                    var responseMessage = await tenPayApiRequest.GetHttpResponseMessageAsync(result.download_url, null, requestMethod: ApiRequestMethod.GET);
+                    fileStream.Seek(0, SeekOrigin.Begin);
+                    await responseMessage.Content.CopyToAsync(fileStream);
+                    fileStream.Seek(0, SeekOrigin.Begin);
+
+                    //校验文件Hash
+                    var fileHash = FileHelper.GetFileHash(fileStream, result.hash_type);
+                    var fileVerify = fileHash.Equals(result.hash_value, StringComparison.OrdinalIgnoreCase);
+                    if (!fileVerify)
+                    {
+                        result.VerifySignSuccess = false;
+                        result.ResultCode.Additional += "请求成功，但文件校验错误。请查看日志！";
+                        SenparcTrace.BaseExceptionLog(new TenpayApiRequestException($"TradeBillQueryAsync 下载文件成功，但校验失败，正确值：{result.hash_value}，实际值：{fileHash}（忽略大小写）"));
+                    }
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.BaseExceptionLog(ex);
+                return new BillReturnJson() { ResultCode = new TenPayApiResultCode() { ErrorMessage = ex.Message } };
+            }
+        }
 
         /// <summary>
         /// 申请交易账单接口

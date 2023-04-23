@@ -68,7 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Apis\Marketing\Entities\MarketingApis.Busifavor.cs" />
-    <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />

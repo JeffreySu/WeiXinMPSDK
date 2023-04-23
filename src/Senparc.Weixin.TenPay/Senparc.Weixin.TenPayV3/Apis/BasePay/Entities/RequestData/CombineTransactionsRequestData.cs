@@ -41,6 +41,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
     public class CombineTransactionsRequestData
     {
         /// <summary>
+        /// 无参构造函数
+        /// </summary>
+        public CombineTransactionsRequestData() { }
+
+        /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="combine_appid">合单商户appid</param>
@@ -74,7 +79,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
 
         /// <summary>
         /// 合单商户号
-        /// 合单发起方商户号。
+        /// 合单发起方商户号，服务商和电商模式下，传服务商商户号。
         /// 示例值：1900000109
         /// </summary>
         public string combine_mchid { get; set; }
@@ -269,7 +274,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
 
             /// <summary>
             /// 子单商户号
-            /// 子单发起方商户号即合单参与方商户号，必须与发起方appid有绑定关系。
+            /// 子单发起方商户号即合单参与方商户号，必须与发起方appid有绑定关系。服务商和电商模式下，传服务商商户号。
             /// 示例值：1900000109
             /// </summary>
             public string mchid { get; set; }

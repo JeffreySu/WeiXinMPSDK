@@ -44,6 +44,7 @@ using Senparc.Weixin.Sample.TenPayV3.Filters;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.Sample.TenPayV3.Utilities;
+using ZXing;
 //DPBMARK_END
 
 namespace Senparc.Weixin.Sample.TenPayV3.Controllers
@@ -528,12 +529,14 @@ namespace Senparc.Weixin.Sample.TenPayV3.Controllers
                 //var dataInfo = new TenPayV3RefundRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, TenPayV3Info.Key,
                 //    null, nonceStr, null, outTradeNo, outRefundNo, totalFee, refundFee, opUserId, null, notifyUrl: notifyUrl);
                 //TODO:该接口参数二选一传入
-                var dataInfo = new RefundRequsetData(transactionId, null, outRefundNo, "Senparc TenPayV3 demo退款测试", notifyUrl, null, new RefundRequsetData.Amount(refundFee, null, refundFee, "CNY"), null);
-
+                //var dataInfo = new RefundRequsetData(transactionId, null, outRefundNo, "Senparc TenPayV3 demo退款测试", notifyUrl, null, new RefundRequsetData.Amount(refundFee, null, refundFee, "CNY"), null);
+                var dataInfo = new RefundRequestData(transactionId, null, outRefundNo, "Senparc TenPayV3 demo退款测试", notifyUrl, null, new RefundRequestData.Amount(refundFee, null, refundFee, "CNY"), null);
 
                 //#region 新方法（Senparc.Weixin v6.4.4+）
                 //var result = TenPayOldV3.Refund(_serviceProvider, dataInfo);//证书地址、密码，在配置文件中设置，并在注册微信支付信息时自动记录
                 //#endregion
+                //var result = await _basePayApis.RefundAsync(dataInfo);
+
                 var result = await _basePayApis.RefundAsync(dataInfo);
 
                 WeixinTrace.SendCustomLog("进入退款流程", "3 Result：" + result.ToJson());
@@ -620,11 +623,17 @@ namespace Senparc.Weixin.Sample.TenPayV3.Controllers
             //选择方式查询订单
             if (out_trade_no is not null)
             {
-                result = await _basePayApis.OrderQueryByOutTradeNoAsync(out_trade_no, TenPayV3Info.MchId);
+                //result = await _basePayApis.OrderQueryByOutTradeNoAsync(out_trade_no, TenPayV3Info.MchId);
+
+                var dataInfo = new QueryRequestData(TenPayV3Info.MchId, out_trade_no);
+                result = await _basePayApis.OrderQueryByOutTradeNoAsync(dataInfo);
             }
             if (transaction_id is not null)
             {
-                result = await _basePayApis.OrderQueryByTransactionIdAsync(transaction_id, TenPayV3Info.MchId);
+                //result = await _basePayApis.OrderQueryByTransactionIdAsync(transaction_id, TenPayV3Info.MchId);
+
+                var dataInfo = new QueryRequestData(TenPayV3Info.MchId, transaction_id);
+                result = await _basePayApis.OrderQueryByTransactionIdAsync(dataInfo);
             }
 
             return Json(result);
@@ -644,7 +653,10 @@ namespace Senparc.Weixin.Sample.TenPayV3.Controllers
             }
 
             ReturnJsonBase result = null;
-            result = await _basePayApis.CloseOrderAsync(out_trade_no, TenPayV3Info.MchId);
+            //result = await _basePayApis.CloseOrderAsync(out_trade_no, TenPayV3Info.MchId);
+
+            var dataInfo = new CloseRequestData(TenPayV3Info.MchId, out_trade_no);
+            result = await _basePayApis.CloseOrderAsync(dataInfo);
 
             return Json(result);
         }
@@ -671,7 +683,10 @@ namespace Senparc.Weixin.Sample.TenPayV3.Controllers
             {
                 BasePayApis basePayApis = new BasePayApis();
 
-                var result = basePayApis.TradeBillQueryAsync(date, fileStream: fs).GetAwaiter().GetResult();
+                //var result = basePayApis.TradeBillQueryAsync(date, fileStream: fs).GetAwaiter().GetResult();
+
+                var dataInfo = new TradeBillQueryRequestData(date);
+                var result = await _basePayApis.TradeBillQueryAsync(dataInfo, fs);
 
                 fs.Flush();
 
@@ -697,7 +712,10 @@ namespace Senparc.Weixin.Sample.TenPayV3.Controllers
             {
                 BasePayApis basePayApis = new BasePayApis();
 
-                var result = await _basePayApis.FundflowBillQueryAsync(date, fs);
+                //var result = await _basePayApis.FundflowBillQueryAsync(date, fs);
+
+                var dataInfo = new FundflowBillQueryRequestData(date);
+                var result = await _basePayApis.FundflowBillQueryAsync(dataInfo, fs);
 
                 fs.Flush();
             }

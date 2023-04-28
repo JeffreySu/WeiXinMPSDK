@@ -41,7 +41,7 @@ using System.Xml.Schema;
 
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay
 {
-    [Obsolete("请使用 RefundRequestData")]
+    [Obsolete("请使用 RefundRequestData", true)]
     public class RefundRequsetData
     {
         /// <summary>

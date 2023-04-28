@@ -1,29 +1,30 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Text;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.TenPayV3.Helpers
 {
     internal class UrlQueryHelper
     {
         /// <summary>
-        /// 
+        /// 对象转换为 url 参数 忽略空数据以及嵌套对象
+        /// object => key1=value1&key2=value2...
         /// </summary>
         /// <param name="this"></param>
         /// <param name="prefix"></param>
         /// <returns></returns>
         public static string ToParams(object @this, string prefix = "?")
         {
-            var param = new StringBuilder();
             if (@this == null)
-                return param.ToString();
+                return string.Empty;
 
-            var serializeSetting = new JsonSerializerSettings()
+            var jsonObject = (JObject)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(@this, new JsonSerializerSettings()
             {
                 NullValueHandling = NullValueHandling.Ignore
-            };
-            var jObj = (JObject)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(@this, serializeSetting));
-            foreach (var item in jObj)
+            }));
+
+            var kvs = new List<string>();
+            foreach (var item in jsonObject)
             {
                 if (item.Value == null)
                     continue;
@@ -31,9 +32,12 @@ namespace Senparc.Weixin.TenPayV3.Helpers
                 if (item.Value.Type == JTokenType.Object || item.Value.Type == JTokenType.Array)
                     continue;
 
-                param.Append($"{item.Key}={item.Value}&");
+                kvs.Add($"{item.Key}={item.Value}");
             }
-            return $"{prefix}{param.ToString().Trim(new char[] { '&' })}";
+            if (kvs.Count <= 0)
+                return string.Empty;
+
+            return $"{prefix}{string.Join("&", kvs)}";
         }
     }
 }

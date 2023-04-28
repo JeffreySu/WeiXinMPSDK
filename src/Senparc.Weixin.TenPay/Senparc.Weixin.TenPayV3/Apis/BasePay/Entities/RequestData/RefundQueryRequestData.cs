@@ -44,8 +44,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <summary>
         /// 含参构造函数(商家模式)
         /// </summary>
-        /// <param name="mchid">直连商户的商户号，由微信支付生成并下发。 示例值：1230000109</param>
-        /// <param name="order_no">微信支付订单号 / 商户系统内部订单号</param>
+        /// <param name="out_refund_no">商户系统内部的退款单号，商户系统内部唯一，只能是数字、大小写字母_-|*@ ，同一退款单号多次请求只退一笔。</param>
         public RefundQueryRequestData(string out_refund_no)
         {
             this.out_refund_no = out_refund_no;
@@ -56,7 +55,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// 含参构造函数(服务商模式)
         /// </summary>
         /// <param name="sub_mchid">子商户的商户号，由微信支付生成并下发。</param>
-        /// <param name="order_no">微信支付订单号 / 商户系统内部订单号</param>
+        /// <param name="out_refund_no">商户系统内部的退款单号，商户系统内部唯一，只能是数字、大小写字母_-|*@ ，同一退款单号多次请求只退一笔。</param>
         public RefundQueryRequestData(string sub_mchid, string out_refund_no)
         {
             this.sub_mchid = sub_mchid;

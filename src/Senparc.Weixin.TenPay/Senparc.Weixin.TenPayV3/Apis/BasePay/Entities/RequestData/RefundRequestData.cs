@@ -31,23 +31,51 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：完善注释; 增加构造函数
     
 ----------------------------------------------------------------*/
+#region Apache License Version 2.0
+/*----------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Schema;
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2023 Senparc
+  
+    文件名：RefundRequestData.cs
+    文件功能描述：微信支付申请退款请求数据
+    
+    
+    创建标识：Senparc - 20210814
+
+    修改标识：Senparc - 20210819
+    修改描述：完善注释; 增加构造函数
+
+    修改标识：Senparc - 20220423
+    修改描述：修改类名 RefundRequsetData 为 RefundRequestData
+    
+----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay
 {
-    [Obsolete("请使用 RefundRequestData", true)]
-    public class RefundRequsetData
+    public class RefundRequestData
     {
         /// <summary>
         /// 无参构造函数
         /// </summary>
-        public RefundRequsetData() { }
+        public RefundRequestData() { }
 
         /// <summary>
         /// 含参构造函数
@@ -60,7 +88,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <param name="funds_account">退款资金来源 若传递此参数则使用对应的资金账户退款，否则默认使用未结算资金退款（仅对老资金流商户适用），可为null</param>
         /// <param name="amount">订单金额信息</param>
         /// <param name="goods_detail">退款商品，可为null</param>
-        public RefundRequsetData(string transaction_id, string out_trade_no, string out_refund_no, string reason, string notify_url, string funds_account, Amount amount, Goods_Detail[] goods_detail)
+        public RefundRequestData(string transaction_id, string out_trade_no, string out_refund_no, string reason, string notify_url, string funds_account, Amount amount, Goods_Detail[] goods_detail)
         {
             this.transaction_id = transaction_id;
             this.out_trade_no = out_trade_no;
@@ -71,6 +99,39 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             this.amount = amount;
             this.goods_detail = goods_detail;
         }
+
+        /// <summary>
+        /// 含参构造函数(服务商模式)
+        /// </summary>
+        /// <param name="sub_mchid">子商户的商户号，由微信支付生成并下发。</param>
+        /// <param name="transaction_id">原支付交易对应的微信订单号,transaction_id与out_trade_no二选一传入</param>
+        /// <param name="out_trade_no">微信支付订单号,transaction_id与out_trade_no二选一传入</param>
+        /// <param name="out_refund_no">商户系统内部的退款单号，商户系统内部唯一</param>
+        /// <param name="reason">若商户传入，会在下发给用户的退款消息中体现退款原因，可为null</param>
+        /// <param name="notify_url">异步接收微信支付退款结果通知的回调地址，通知url必须为外网可访问的url，不能携带参数。 如果参数中传了notify_url，则商户平台上配置的回调地址将不会生效，优先回调当前传的这个地址，可为null</param>
+        /// <param name="funds_account">退款资金来源 若传递此参数则使用对应的资金账户退款，否则默认使用未结算资金退款（仅对老资金流商户适用），可为null</param>
+        /// <param name="amount">订单金额信息</param>
+        /// <param name="goods_detail">退款商品，可为null</param>
+        public RefundRequestData(string sub_mchid, string transaction_id, string out_trade_no, string out_refund_no, string reason, string notify_url, string funds_account, Amount amount, Goods_Detail[] goods_detail)
+        {
+            this.sub_mchid = sub_mchid;
+            this.transaction_id = transaction_id;
+            this.out_trade_no = out_trade_no;
+            this.out_refund_no = out_refund_no;
+            this.reason = reason;
+            this.notify_url = notify_url;
+            this.funds_account = funds_account;
+            this.amount = amount;
+            this.goods_detail = goods_detail;
+        }
+
+        #region 服务商
+        /// <summary>
+        /// 子商户号 
+        /// 服务商模式需要
+        /// </summary>
+        public string sub_mchid { get; set; }
+        #endregion
 
         /// <summary>
         /// 微信支付订单号

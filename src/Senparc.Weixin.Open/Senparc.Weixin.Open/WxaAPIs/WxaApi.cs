@@ -46,7 +46,9 @@ using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP.AdvancedAPIs.Media;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.WxaAPIs
@@ -261,6 +263,25 @@ namespace Senparc.Weixin.Open.WxaAPIs
         }
         #endregion
 
+        #region 上传提审素材
+        /// <summary>
+        /// 上传提审素材
+        /// <para>调用本接口可将小程序页面截图和操作录屏上传，提审时带上相关参数，可以帮助审核人员判断</para>
+        /// https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/miniprogram-management/code-management/uploadMediaToCodeAudit.html
+        /// </summary>
+        /// <param name="accessToken">第三方平台接口调用凭证authorizer_access_token，该参数为 URL 参数，非 Body 参数。</param>
+        /// <param name="file">上传文件的绝对路径</param>
+        /// <returns></returns>
+        public static UploadMediaResultJson UploadMedia(string accessToken, string file, int timeOut = 40000)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/uploadmedia?access_token={accessToken.AsUrlData()}";
+            var fileDictionary = new Dictionary<string, string>();
+            fileDictionary["media"] = file;
+            return CO2NET.HttpUtility.Post.PostFileGetJson<UploadMediaResultJson>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
+        }
+        #endregion
+
+
         #endregion
 
         #region 异步方法
@@ -469,7 +490,23 @@ namespace Senparc.Weixin.Open.WxaAPIs
         }
         #endregion
 
-
+        #region 上传提审素材
+        /// <summary>
+        /// 上传提审素材
+        /// <para>调用本接口可将小程序页面截图和操作录屏上传，提审时带上相关参数，可以帮助审核人员判断</para>
+        /// https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/miniprogram-management/code-management/uploadMediaToCodeAudit.html
+        /// </summary>
+        /// <param name="accessToken">第三方平台接口调用凭证authorizer_access_token，该参数为 URL 参数，非 Body 参数。</param>
+        /// <param name="file">上传文件的绝对路径</param>
+        /// <returns></returns>
+        public static async Task<UploadMediaResultJson> UploadMediaAsync(string accessToken, string file, int timeOut = 40000)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/uploadmedia?access_token={accessToken.AsUrlData()}";
+            var fileDictionary = new Dictionary<string, string>();
+            fileDictionary["media"] = file;
+            return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<UploadMediaResultJson>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
+        }
+        #endregion
 
         #endregion
 

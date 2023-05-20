@@ -45,7 +45,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <param name="bill_date">账单日期 格式yyyy-MM-DD 仅支持三个月内的账单下载申请。</param>
         /// <param name="bill_type">账单类型 不填则默认是ALL</param>
         /// <param name="tar_type">压缩类型  不填则默认是数据流</param>
-        public TradeBillQueryRequestData(string bill_date, string bill_type = "ALL", string tar_type = "")
+        public TradeBillQueryRequestData(string bill_date, string bill_type = "ALL", string tar_type = null)
         {
             this.bill_date = bill_date;
             this.bill_type = bill_type;

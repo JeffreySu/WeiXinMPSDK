@@ -57,6 +57,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：wtujvk - 20200416
     修改描述：v16.10.500 提供详细 CommonApi.GetToken() 报错信息（包括白名单异常）
 
+    修改标识：dupeng0811 - 20230520
+    修改描述：v16.18.11 新增“获取稳定版接口调用凭据”接口
 
 ----------------------------------------------------------------*/
 
@@ -93,7 +95,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appid">第三方用户唯一凭证</param>
         /// <param name="secret">第三方用户唯一凭证密钥，既appsecret</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetToken", false, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static AccessTokenResult GetToken(string appid, string secret, string grant_type = "client_credential")
         {
             //注意：此方法不能再使用ApiHandlerWapper.TryCommonApi()，否则会循环
@@ -122,7 +123,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// 1. force_refresh = false 时为普通调用模式，access_token 有效期内重复调用该接口不会更新 access_token；
         /// 2. 当force_refresh = true 时为强制刷新模式，会导致上次获取的 access_token 失效，并返回新的 access_token</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetStableAccessToken", false, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Post)]
         public static AccessTokenResult GetStableAccessToken(string appid, string secret, string grant_type = "client_credential",bool force_refresh=false)
         {
             var url = Config.ApiMpHost + "/cgi-bin/stable_token";
@@ -245,7 +245,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appid">第三方用户唯一凭证</param>
         /// <param name="secret">第三方用户唯一凭证密钥，既appsecret</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetTokenAsync", false, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static async Task<AccessTokenResult> GetTokenAsync(string appid, string secret, string grant_type = "client_credential")
         {
             //注意：此方法不能再使用ApiHandlerWapper.TryCommonApi()，否则会循环
@@ -274,7 +273,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// 1. force_refresh = false 时为普通调用模式，access_token 有效期内重复调用该接口不会更新 access_token；
         /// 2. 当force_refresh = true 时为强制刷新模式，会导致上次获取的 access_token 失效，并返回新的 access_token</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetStableAccessTokenAsync", false, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Post)]
         public static async Task<AccessTokenResult> GetStableAccessTokenAsync(string appid, string secret, string grant_type = "client_credential",bool force_refresh=false)
         {
             var url = Config.ApiMpHost + "/cgi-bin/stable_token";

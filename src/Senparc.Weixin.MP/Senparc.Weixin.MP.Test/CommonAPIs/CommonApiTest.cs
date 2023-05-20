@@ -45,6 +45,7 @@ using Microsoft.AspNetCore.Hosting;
 #endif
 using Moq;
 using Senparc.WeixinTests;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.MP.Test.CommonAPIs
 {
@@ -283,6 +284,17 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             Assert.IsNotNull(tokenResult);
             Assert.IsTrue(tokenResult.ticket.Length > 0);
             Assert.IsTrue(tokenResult.expires_in > 0);
+        }
+
+
+        [TestMethod()]
+        public void GetStableAccessTokenTest()
+        {
+            var tokenResult = CommonApi.GetStableAccessToken(_appId, _appSecret);
+            Assert.IsNotNull(tokenResult);
+            Assert.IsTrue(tokenResult.access_token.Length > 0);
+            Assert.IsTrue(tokenResult.expires_in > 0);
+            Console.WriteLine(tokenResult.ToJson(true));
         }
     }
 }

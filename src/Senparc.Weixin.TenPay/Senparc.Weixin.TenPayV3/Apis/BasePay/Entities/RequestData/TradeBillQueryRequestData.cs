@@ -27,7 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20230421
 
-    
+    修改标识：Senparc - 20230520
+    修改描述：v0.7.1 修复 TradeBillQueryRequestData 默认参数问题
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay

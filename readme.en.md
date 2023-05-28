@@ -96,7 +96,8 @@ SDK Modules
 
 > Tip:<br>
 > 1. ![.NET 3.5][net35Y]  ![.NET 4.0][net40Y] last stable release [click here](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.6.15) (minimum .NET 4.5.1 support from November 7, 2021), since May 1, 2019 to stop updating.
-> 2. The .NET Framework 4.5 update is scheduled to end on December 31, 2024. It's strongly advice you to use .NET 3.1 or .NET 6.0+ for new projects.
+> 2. The .NET Framework 4.5 update is scheduled to end on December 31, 2024. It's strongly advice you to use .NET 3.1 or .NET 6.0+ for new projects.<br>
+> If you are still using.NET Framework, it is recommended that upgrade .NET Framework applications to .NET Framework 4.8+ before January 12, 2027, when .NET Framework 4.6.2 will be officially stopped Support ([see more] (https://learn.microsoft.com/en-us/lifecycle/products/microsoft-net-framework))
 
 
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat

@@ -8,7 +8,7 @@
     创建标识：WangDrama - 20210714
 
     修改标识：Senparc - 20230528
-    修改描述：v3.15.18.1 GetMomentListLocation.latitude / longitude 设置为 long 类型
+    修改描述：v3.15.18.1 GetMomentListLocation.latitude / longitude 设置为 long 类型 （Issue #2823）
 
 ----------------------------------------------------------------*/
 

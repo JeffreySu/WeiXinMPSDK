@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
 		<FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-		<Version>3.15.18</Version>
+		<Version>3.15.18.1</Version>
 		<LangVersion>10.0</LangVersion>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -198,6 +198,7 @@
 			4、添加“客户标签管理Api”接口，添加“任务卡片事件推送”事件（待完善）（PR #2414）
 			v3.15.17 添加“邮箱获取 userid”接口
 			v3.15.17.1 修改 RequestMessageEvent_OpenApprovalChange 中 OpenTemplateId 参数类型为 string
+			v3.15.18.1 GetMomentListLocation.latitude / longitude 设置为 long 类型 （Issue #2823）
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

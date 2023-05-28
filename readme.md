@@ -199,8 +199,10 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 
 > 提示：<br>
 > 1. 自 2019 年 5 月 1 日起，.NET Framework 3.5 及 4.0 停止更新，最后一个 .NET Framework 3.5 + 4.0 稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.6.15)。<br>
-> 2. 自 2022 年 4 月 3 日起，.NET Framework 4.5 升级为 4.6.2，最后一个 .NET Framework 4.5 的稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.17.9)。
-
+> 2. 自 2022 年 4 月 3 日起，.NET Framework 4.5 升级为 4.6.2，最后一个 .NET Framework 4.5 的稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.17.9)。<br>
+> 3. 如果您还在使用 .NET Framework，建议您在 2027 年 1 月 12 日之间，将 .NET Framework 应用升级至 .NET Framework 4.8+，彼时官方将停止对 .NET Framework 4.6.2 的支持（[查看](https://learn.microsoft.com/en-us/lifecycle/products/microsoft-net-framework)）。
+	
+	
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
 [1.2]: https://www.nuget.org/packages/Senparc.Weixin
 [2.1]: https://img.shields.io/nuget/v/Senparc.Weixin.MP.svg?style=flat

@@ -152,7 +152,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Delivery.DeliveryJson
         /// <summary>
         /// 商品详情列表
         /// </summary>
-        public DetailListModel detail_list { get; set; }
+        public List<DetailListModel> detail_list { get; set; }
     }
     /// <summary>
     /// 商品信息，会展示到物流服务通知和电子面单中
@@ -174,11 +174,11 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Delivery.DeliveryJson
         /// <summary>
         /// 商品数量；shop.detail_list为空则必传。shop.detail_list非空可不传，默认取shop.detail_list的size
         /// </summary>
-        public string goods_count { get; set; }
+        public int goods_count { get; set; }
         /// <summary>
         /// 商品详情列表，适配多商品场景，用以消息落地页展示。（新规范，新接入商家建议用此字段）
         /// </summary>
-        public DetailListModel detail_list { get; set; }
+        ///public List<DetailListModel> detail_list { get; set; }
     }
     /// <summary>
     /// 保价信息

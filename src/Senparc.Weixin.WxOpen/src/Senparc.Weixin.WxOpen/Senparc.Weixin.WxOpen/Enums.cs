@@ -75,7 +75,11 @@ namespace Senparc.Weixin.WxOpen
         /// <summary>
         /// 类目审核结果事件推送
         /// </summary>
-        wxa_category_audit
+        wxa_category_audit,
+        /// <summary>
+        /// 运单轨迹更新事件
+        /// </summary>
+        add_express_path
     }
 
     ///// <summary>

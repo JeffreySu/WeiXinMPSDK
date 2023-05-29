@@ -228,7 +228,13 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Delivery
                 return CommonJsonSend.Send<GetPathJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
-
+        /// <summary>
+        /// 模拟快递公司更新订单状态, 该接口只能用户测试
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
         public static TestUpdateOrderJsonResult TestUpdateOrder(string accessTokenOrAppId,TestUpdateOrderModel data,int timeOut=Config.TIME_OUT)
         {
             ///官方文档地址：https://developers.weixin.qq.com/miniprogram/dev/OpenApiDoc/express/express-by-business/testUpdateOrder.html

@@ -244,6 +244,17 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Delivery
                 return CommonJsonSend.Send<TestUpdateOrderJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
+        /// <summary>
+        /// 获取订单Id
+        /// </summary>
+        /// <returns></returns>
+        public static string GetOrderNO()
+        {
+            Random rd = new Random();
+            string DateStr = DateTime.Now.Year.ToString().Substring(2, 2) + DateTime.Now.Month.ToString().PadLeft(2, '0') + DateTime.Now.Day.ToString().PadLeft(2, '0') + DateTime.Now.Hour.ToString().PadLeft(2, '0') + DateTime.Now.Minute.ToString().PadLeft(2, '0') + DateTime.Now.Second.ToString().PadLeft(2, '0') + DateTime.Now.ToString("fff");
+            string str = DateStr + rd.Next(10000).ToString().PadLeft(4, '0');
+            return str;
+        }
         #endregion
         #region 异步方法
         /// <summary>

@@ -46,6 +46,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：mc7246 - 20230119
     修改描述：v3.15.12 添加小程序类目审核结果事件推送，增加 OnEvent_WxaCategoryAuditRequestAsync() 方法
 
+    修改标识：chinanhb - 20230529
+    修改描述：添加运单轨迹更新推送 添加OnEvent_AddExpressPath()方法
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;
@@ -108,6 +111,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.wxa_category_audit:
                     responseMessage = OnEvent_WxaCategoryAuditRequest(RequestMessage as RequestMessageEvent_WxaCategoryAudit);
                     break;
+                case Event.add_express_path:
+                    responseMessage=OnEvent_AddExpressPath(RequestMessage as RequestMessageEvent_AddExpressPath); 
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -115,6 +121,15 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         }
 
         #region Event 下属分类
+        /// <summary>
+        /// 运单轨迹更新推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_AddExpressPath(RequestMessageEvent_AddExpressPath requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
         /// <summary>
         /// 小程序类目审核结果事件推送
         /// </summary>
@@ -294,6 +309,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.wxa_media_check:
                     responseMessage = await OnEvent_MediaCheckRequestAsync(RequestMessage as RequestMessageEvent_MediaCheck);
                     break;
+                case Event.add_express_path:
+                    responseMessage =await OnEvent_AddExpressPathAsync(requestMessage as RequestMessageEvent_AddExpressPath);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -301,7 +319,15 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         }
 
         #region Event 下属分类
-
+        /// <summary>
+        /// 【异步方法】运单轨迹更新推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_AddExpressPathAsync(RequestMessageEvent_AddExpressPath requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, ()=>OnEvent_AddExpressPath(requestMessage)).ConfigureAwait(false);
+        }
         /// <summary>
         /// 【异步方法】小程序类目审核结果事件推送
         /// </summary>

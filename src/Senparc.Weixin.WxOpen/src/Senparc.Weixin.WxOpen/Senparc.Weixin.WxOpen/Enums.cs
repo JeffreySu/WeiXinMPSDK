@@ -32,6 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：mc7246 - 20230119
     修改描述：v3.15.12 添加小程序类目审核结果事件推送，增加 Event.wxa_category_audit 枚举值
+    
+    修改标识：chinanhb - 20230529
+    修改描述：运单轨迹更新事件推送，增加 Event.add_express_path 枚举值
 
 ----------------------------------------------------------------*/
 
@@ -75,7 +78,11 @@ namespace Senparc.Weixin.WxOpen
         /// <summary>
         /// 类目审核结果事件推送
         /// </summary>
-        wxa_category_audit
+        wxa_category_audit,
+        /// <summary>
+        /// 运单轨迹更新事件
+        /// </summary>
+        add_express_path
     }
 
     ///// <summary>

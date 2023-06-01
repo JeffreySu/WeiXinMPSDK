@@ -453,7 +453,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
             var total = basePayApis.OrderQueryByOutTradeNoAsync(out_refund_no, TenPayV3Info.MchId).GetAwaiter().GetResult().amount.total;
 
             //请求退款
-            RefundRequsetData requestData = new(transaction_id, null, out_refund_no, "退款单元测试", null, null, new(total, null, total, "CNY"), null);
+            RefundRequestData requestData = new(transaction_id, null, out_refund_no, "退款单元测试", null, null, new(total, null, total, "CNY"), null);
             var result = basePayApis.RefundAsync(requestData).GetAwaiter().GetResult();
 
             Console.WriteLine("微信支付 V3 退款结果：" + result.ToJson(true));

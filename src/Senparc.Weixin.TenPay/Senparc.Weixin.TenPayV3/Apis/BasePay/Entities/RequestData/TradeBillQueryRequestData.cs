@@ -27,7 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20230421
 
-    
+    修改标识：Senparc - 20230520
+    修改描述：v0.7.1 修复 TradeBillQueryRequestData 默认参数问题
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay
@@ -45,7 +47,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <param name="bill_date">账单日期 格式yyyy-MM-DD 仅支持三个月内的账单下载申请。</param>
         /// <param name="bill_type">账单类型 不填则默认是ALL</param>
         /// <param name="tar_type">压缩类型  不填则默认是数据流</param>
-        public TradeBillQueryRequestData(string bill_date, string bill_type = "ALL", string tar_type = "")
+        public TradeBillQueryRequestData(string bill_date, string bill_type = "ALL", string tar_type = null)
         {
             this.bill_date = bill_date;
             this.bill_type = bill_type;

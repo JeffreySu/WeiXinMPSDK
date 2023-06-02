@@ -17,7 +17,7 @@ Now, Senparc.Weixin has been supported almost all of the API for Wechat's all mo
 
 Senparc.Weixin SDK is the most widly used .NET Wechat SDK. Also it is one of the most popular .NET open source project in China.
 
-For more than 8 years, we have been keeping the project constantly updated, share the complete source code and design ideas without reservation. Hopefully more people will benefit from it, understand and disseminate the spirit of open source. Grateful to the friends who helped us along the way!
+For more than 10 years, we have been keeping the project constantly updated, share the complete source code and design ideas without reservation. Hopefully more people will benefit from it, understand and disseminate the spirit of open source. Grateful to the friends who helped us along the way!
 
 If you like and hope us to continue to optimize this project, please give us a Star:)
 
@@ -29,6 +29,17 @@ If you like and hope us to continue to optimize this project, please give us a S
 
 <img src="https://sdk.weixin.senparc.com/images/SenparcRobotsnapshoot.jpg" width="350" align="right">
 
+## Start：Separate document by module
+
+Module | URL
+----|----
+Official Accounty (MP) | https://sdk.weixin.senparc.com/Docs/MP/
+Mini Program (WxOpen) | https://sdk.weixin.senparc.com/Docs/WxOpen/
+Entripise Account (Work) | https://sdk.weixin.senparc.com/Docs/Work/
+TenPay V3 (Recommended) | https://sdk.weixin.senparc.com/Docs/TenPayV3/
+微信支付 V2 (Not Recommended) | https://sdk.weixin.senparc.com/Docs/TenPayV2/
+
+> 说明：所有模块的配置、注册、接口调用方法均一致，只要学会其中一个模块开发，就可以举一反三，以下以公众号为例。
 
 Index
 ----------------
@@ -96,7 +107,8 @@ SDK Modules
 
 > Tip:<br>
 > 1. ![.NET 3.5][net35Y]  ![.NET 4.0][net40Y] last stable release [click here](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.6.15) (minimum .NET 4.5.1 support from November 7, 2021), since May 1, 2019 to stop updating.
-> 2. The .NET Framework 4.5 update is scheduled to end on December 31, 2024. It's strongly advice you to use .NET 3.1 or .NET 6.0+ for new projects.
+> 2. The .NET Framework 4.5 update is scheduled to end on December 31, 2024. It's strongly advice you to use .NET 3.1 or .NET 6.0+ for new projects.<br>
+> If you are still using .NET Framework, it is recommended that upgrade .NET Framework applications to .NET Framework 4.8+ before January 12, 2027, when .NET Framework 4.6.2 will be officially stopped Support ([see more] (https://learn.microsoft.com/en-us/lifecycle/products/microsoft-net-framework))
 
 
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
@@ -674,7 +686,7 @@ License
 Apache License Version 2.0
 
 ```
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file 
 except in compliance with the License. You may obtain a copy of the License at

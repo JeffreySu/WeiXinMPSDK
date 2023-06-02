@@ -51,3 +51,4 @@ packages/
 /Samples/All/net7-mvc/Senparc.Weixin.Sample.Net7/Properties/PublishProfiles
 /Samples/All/net7-mvc/Senparc.Weixin.Sample.Net7/App_Data/cert
 *.DS_Store
+/Samples/WxOpen/Senparc.Weixin.Sample.WxOpen/Properties/PublishProfiles/FolderProfile1.pubxml

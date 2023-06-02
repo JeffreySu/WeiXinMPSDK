@@ -16,7 +16,7 @@ Senparc.Weixin —— 微信 .NET SDK
 
 Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最受欢迎的 .NET 开源项目之一。
 
-自 2013 年起立项 9 年多来，我们一直保持着项目的持续更新，并将完整的源代码以及设计思想毫无保留地分享给大家，希望有更多的人可以从中受益，理解并传播开源的精神，一同助力中国开源事业！感恩一路上给我们提供帮助的朋友们！
+自 2013 年起立项 10 年多来，我们一直保持着项目的持续更新，并将完整的源代码以及设计思想毫无保留地分享给大家，希望有更多的人可以从中受益，理解并传播开源的精神，一同助力中国开源事业！感恩一路上给我们提供帮助的朋友们！
 
 如果你喜欢并希望我们继续优化这个项目，请给我们一个 ★Star ：)
 
@@ -29,7 +29,17 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 <!-- _1. 为了将 Demo 和源代码隔离，并让大家更方便地找到 Demo，现已将 Senparc.Weixin.MP.Sample 等文件夹转移到 [/Samples/](/Samples/) 文件夹下。_<br> -->
 <!-- _2. `Senparc.Weixin.Plugins`计划已经启动，详情 [点击这里](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Plugins)。_ -->
 
+## Start：分模块独立文档
 
+模块 | 地址
+----|----
+公众号 | https://sdk.weixin.senparc.com/Docs/MP/
+小程序 | https://sdk.weixin.senparc.com/Docs/WxOpen/
+企业微信 | https://sdk.weixin.senparc.com/Docs/Work/
+微信支付 V3（推荐） | https://sdk.weixin.senparc.com/Docs/TenPayV3/
+微信支付 V2（不推荐） | https://sdk.weixin.senparc.com/Docs/TenPayV2/
+
+> 说明：所有模块的配置、注册、接口调用方法均一致，只要学会其中一个模块开发，就可以举一反三，以下以公众号为例。
 
 ## Hello World ：用 3 句代码开启你的微信开发之旅！
 
@@ -199,8 +209,10 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 
 > 提示：<br>
 > 1. 自 2019 年 5 月 1 日起，.NET Framework 3.5 及 4.0 停止更新，最后一个 .NET Framework 3.5 + 4.0 稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.6.15)。<br>
-> 2. 自 2022 年 4 月 3 日起，.NET Framework 4.5 升级为 4.6.2，最后一个 .NET Framework 4.5 的稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.17.9)。
-
+> 2. 自 2022 年 4 月 3 日起，.NET Framework 4.5 升级为 4.6.2，最后一个 .NET Framework 4.5 的稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.17.9)。<br>
+> 3. 如果您还在使用 .NET Framework，建议您在 2027 年 1 月 12 日之间，将 .NET Framework 应用升级至 .NET Framework 4.8+，彼时官方将停止对 .NET Framework 4.6.2 的支持（[查看](https://learn.microsoft.com/en-us/lifecycle/products/microsoft-net-framework)）。
+	
+	
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
 [1.2]: https://www.nuget.org/packages/Senparc.Weixin
 [2.1]: https://img.shields.io/nuget/v/Senparc.Weixin.MP.svg?style=flat
@@ -687,7 +699,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 Apache License Version 2.0
 
 ```
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file 
 except in compliance with the License. You may obtain a copy of the License at

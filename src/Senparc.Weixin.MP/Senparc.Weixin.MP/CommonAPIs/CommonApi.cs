@@ -57,6 +57,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：wtujvk - 20200416
     修改描述：v16.10.500 提供详细 CommonApi.GetToken() 报错信息（包括白名单异常）
 
+    修改标识：dupeng0811 - 20230520
+    修改描述：v16.18.11 新增“获取稳定版接口调用凭据”接口
 
 ----------------------------------------------------------------*/
 
@@ -93,7 +95,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appid">第三方用户唯一凭证</param>
         /// <param name="secret">第三方用户唯一凭证密钥，既appsecret</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetToken", false, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static AccessTokenResult GetToken(string appid, string secret, string grant_type = "client_credential")
         {
             //注意：此方法不能再使用ApiHandlerWapper.TryCommonApi()，否则会循环
@@ -106,6 +107,37 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 throw new ErrorJsonResultException(
                     string.Format("微信请求发生错误（CommonApi.GetToken）！错误代码：{0}，说明：{1}",
+                        (int)result.errcode, result.errmsg), null, result);
+            }
+
+            return result;
+        }   
+        
+        /// <summary>
+        /// 获取稳定版接口调用凭据
+        /// </summary>
+        /// <param name="grant_type">获取access_token填写client_credential</param>
+        /// <param name="appid">账号唯一凭证，即 AppID，可在「微信公众平台 - 设置 - 开发设置」页中获得。（需要已经成为开发者，且帐号没有异常状态）</param>
+        /// <param name="secret">帐号唯一凭证密钥，即 AppSecret，获取方式同 appid</param>
+        /// <param name="force_refresh">默认使用 false。
+        /// 1. force_refresh = false 时为普通调用模式，access_token 有效期内重复调用该接口不会更新 access_token；
+        /// 2. 当force_refresh = true 时为强制刷新模式，会导致上次获取的 access_token 失效，并返回新的 access_token</param>
+        /// <returns></returns>
+        public static AccessTokenResult GetStableAccessToken(string appid, string secret, string grant_type = "client_credential",bool force_refresh=false)
+        {
+            var url = Config.ApiMpHost + "/cgi-bin/stable_token";
+            var data = new
+            {
+                grant_type= "client_credential",
+                appid= appid,
+                secret= secret,
+                force_refresh= false
+            };
+            AccessTokenResult result = CommonJsonSend.Send<AccessTokenResult>(null, url, data, CommonJsonSendType.POST);
+            if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode.请求成功)
+            {
+                throw new ErrorJsonResultException(
+                    string.Format("微信请求发生错误（CommonApi.GetStableAccessToken）！错误代码：{0}，说明：{1}",
                         (int)result.errcode, result.errmsg), null, result);
             }
 
@@ -213,7 +245,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appid">第三方用户唯一凭证</param>
         /// <param name="secret">第三方用户唯一凭证密钥，既appsecret</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetTokenAsync", false, ApiRequestMethod = CO2NET.WebApi.ApiRequestMethod.Get)]
         public static async Task<AccessTokenResult> GetTokenAsync(string appid, string secret, string grant_type = "client_credential")
         {
             //注意：此方法不能再使用ApiHandlerWapper.TryCommonApi()，否则会循环
@@ -226,6 +257,37 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 throw new ErrorJsonResultException(
                     string.Format("微信请求发生错误（CommonApi.GetToken）！错误代码：{0}，说明：{1}",
+                        (int)result.errcode, result.errmsg), null, result);
+            }
+
+            return result;
+        }
+        
+        /// <summary>
+        /// 【异步方法】获取稳定版接口调用凭据
+        /// </summary>
+        /// <param name="grant_type">获取access_token填写client_credential</param>
+        /// <param name="appid">账号唯一凭证，即 AppID，可在「微信公众平台 - 设置 - 开发设置」页中获得。（需要已经成为开发者，且帐号没有异常状态）</param>
+        /// <param name="secret">帐号唯一凭证密钥，即 AppSecret，获取方式同 appid</param>
+        /// <param name="force_refresh">默认使用 false。
+        /// 1. force_refresh = false 时为普通调用模式，access_token 有效期内重复调用该接口不会更新 access_token；
+        /// 2. 当force_refresh = true 时为强制刷新模式，会导致上次获取的 access_token 失效，并返回新的 access_token</param>
+        /// <returns></returns>
+        public static async Task<AccessTokenResult> GetStableAccessTokenAsync(string appid, string secret, string grant_type = "client_credential",bool force_refresh=false)
+        {
+            var url = Config.ApiMpHost + "/cgi-bin/stable_token";
+            var data = new
+            {
+                grant_type= "client_credential",
+                appid= appid,
+                secret= secret,
+                force_refresh= false
+            };
+
+            AccessTokenResult result = await CommonJsonSend.SendAsync<AccessTokenResult>(null, url, data, CommonJsonSendType.POST);
+            if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode.请求成功)
+            {
+                throw new ErrorJsonResultException(string.Format("微信请求发生错误（CommonApi.GetStableAccessTokenAsync）！错误代码：{0}，说明：{1}",
                         (int)result.errcode, result.errmsg), null, result);
             }
 

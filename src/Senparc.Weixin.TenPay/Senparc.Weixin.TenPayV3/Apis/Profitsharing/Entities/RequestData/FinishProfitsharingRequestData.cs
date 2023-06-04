@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
   
-    文件名：UnfreezeProfitsharingRequestData.cs
-    文件功能描述：解冻分账剩余资金请求参数
+    文件名：FinishProfitsharingRequestData.cs
+    文件功能描述：连锁品牌分账 - 完结分账请求参数
     
     
     创建标识：Senparc - 20210915
@@ -38,30 +38,17 @@ using Senparc.Weixin.TenPayV3.Apis.Entities;
 namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing.Entities.RequestData
 {
     /// <summary>
-    /// 解冻分账剩余资金请求参数
-    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter8_1_5.shtml </para>
+    /// 连锁品牌分账 - 完结分账请求参数
+    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3_partner/apis/chapter8_7_5.shtml </para>
     /// </summary>
-    public class UnfreezeProfitsharingRequestData
+    public class FinishProfitsharingRequestData
     {
 
         /// <summary>
         /// 无参构造函数
         /// </summary>
-        public UnfreezeProfitsharingRequestData()
+        public FinishProfitsharingRequestData()
         {
-        }
-
-        /// <summary>
-        /// 含参构造函数
-        /// </summary>
-        /// <param name="transaction_id">微信订单号 <para>body微信支付订单号</para><para>示例值：4208450740201411110007820472</para></param>
-        /// <param name="out_order_no">商户分账单号 <para>body商户系统内部的分账单号，在商户系统内部唯一，同一分账单号多次请求等同一次。只能是数字、大小写字母_-|*@</para><para>示例值：P20150806125346</para></param>
-        /// <param name="description">分账描述 <para>body分账的原因描述，分账账单中需要体现</para><para>示例值：解冻全部剩余资金</para></param>
-        public UnfreezeProfitsharingRequestData(string transaction_id, string out_order_no, string description)
-        {
-            this.transaction_id = transaction_id;
-            this.out_order_no = out_order_no;
-            this.description = description;
         }
 
         /// <summary>
@@ -71,7 +58,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing.Entities.RequestData
         /// <param name="transaction_id">微信订单号 <para>body微信支付订单号</para><para>示例值：4208450740201411110007820472</para></param>
         /// <param name="out_order_no">商户分账单号 <para>body商户系统内部的分账单号，在商户系统内部唯一，同一分账单号多次请求等同一次。只能是数字、大小写字母_-|*@</para><para>示例值：P20150806125346</para></param>
         /// <param name="description">分账描述 <para>body分账的原因描述，分账账单中需要体现</para><para>示例值：解冻全部剩余资金</para></param>
-        public UnfreezeProfitsharingRequestData(string sub_mchid, string transaction_id, string out_order_no, string description)
+        public FinishProfitsharingRequestData(string sub_mchid, string transaction_id, string out_order_no, string description)
         {
             this.sub_mchid = sub_mchid;
             this.transaction_id = transaction_id;

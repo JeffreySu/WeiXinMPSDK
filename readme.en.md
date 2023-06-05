@@ -27,7 +27,6 @@ If you like and hope us to continue to optimize this project, please give us a S
 > ⚡ Sample has already supported for .NET 6.0, [Click Here](Samples/net6-mvc) !<br/>
 > 🍦 [file.api.weixin.qq.com Domain name officially disabled(2020.9.15)](https://developers.weixin.qq.com/community/develop/doc/0002245dcdc8c06f36fa6a47d56400), please update to the latest version! <br />
 
-<img src="https://sdk.weixin.senparc.com/images/SenparcRobotsnapshoot.jpg" width="350" align="right">
 
 ## Start：Separate document by module
 
@@ -39,7 +38,8 @@ Entripise Account (Work) | https://sdk.weixin.senparc.com/Docs/Work/
 TenPay V3 (Recommended) | https://sdk.weixin.senparc.com/Docs/TenPayV3/
 微信支付 V2 (Not Recommended) | https://sdk.weixin.senparc.com/Docs/TenPayV2/
 
-> 说明：所有模块的配置、注册、接口调用方法均一致，只要学会其中一个模块开发，就可以举一反三，以下以公众号为例。
+<img src="https://sdk.weixin.senparc.com/images/SenparcRobotsnapshoot.jpg" width="350" align="right">
+
 
 Index
 ----------------

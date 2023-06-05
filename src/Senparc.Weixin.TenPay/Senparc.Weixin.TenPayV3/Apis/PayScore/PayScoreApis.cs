@@ -38,6 +38,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.TenPayV3.Apis.Entities;
 using Senparc.Weixin.TenPayV3.Apis.PayScore;
+using Senparc.Weixin.TenPayV3.Helpers;
+using System;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis
@@ -355,6 +357,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <param name="offset">商家自定义字段，该次请求资源的起始位置，默认值为0</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
+        [Obsolete("请使用 QueryGuideAsync 接口")]
         public async Task<QueryGuideReturnJson> QueryServiceOrderAsync(string store_id, string userid, string service_id, string mobile, string work_id, int limit = 0, int offset = 0, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/smartguide/guides?store_id={store_id}");
@@ -362,6 +365,21 @@ namespace Senparc.Weixin.TenPayV3.Apis
             url += mobile is not null ? $"&mobile={mobile}" : "";//TODO: 敏感信息加密处理
             url += work_id is not null ? $"&work_id={work_id}" : "";
 
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<QueryGuideReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+        }
+
+        /// <summary>
+        /// 服务人员查询接口
+        /// <para>用于商户开发者查询已注册的服务人员ID等信息。</para>
+        /// <para><see href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter8_4_3.shtml">更多详细请参考微信支付官方文档</see></para>
+        /// </summary>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<QueryGuideReturnJson> QueryGuideAsync(QueryGuideRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/smartguide/guides?store_id={UrlQueryHelper.ToParams(data)}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<QueryGuideReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
         }
@@ -383,6 +401,79 @@ namespace Senparc.Weixin.TenPayV3.Apis
         }
 
 
+        #endregion
+
+        #region 点金计划
+        /// <summary>
+        /// 点金计划管理API
+        /// <para>服务商为特约商户开通或关闭点金计划。</para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<GoldplanChangeGoldplanStatusReturnJson> GoldplanChangeGoldplanStatusAsync(GoldplanChangeGoldplanStatusRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/goldplan/merchants/changegoldplanstatus");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<GoldplanChangeGoldplanStatusReturnJson>(url, data, timeOut);
+        }
+
+        /// <summary>
+        /// 商家小票管理API
+        /// <para>服务商使用此接口为特约商户开通或关闭商家小票功能。</para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<GoldplanChangeCustomPageStatusReturnJson> GoldplanChangeCustomPageStatusAsync(GoldplanChangeCustomPageStatusRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/goldplan/merchants/changecustompagestatus");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<GoldplanChangeCustomPageStatusReturnJson>(url, data, timeOut);
+        }
+
+        /// <summary>
+        /// 同业过滤标签管理API
+        /// <para>服务商使用此接口为特约商户配置同业过滤标签，防止特约商户支付后出现同行业的广告内容。</para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<GoldplanSetAdvertisingIndustryFilterReturnJson> GoldplanSetAdvertisingIndustryFilterAsync(GoldplanSetAdvertisingIndustryFilterRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/goldplan/merchants/set-advertising-industry-filter");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<GoldplanSetAdvertisingIndustryFilterReturnJson>(url, data, timeOut);
+        }
+
+        /// <summary>
+        /// 开通广告展示API
+        /// <para>此接口为特约商户的点金计划页面开通广告展示功能，可同时配置同业过滤标签，防止特约商户支付后出现同行业的广告内容。</para>
+        /// <para>最多可传入3个同业过滤标签值</para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<GoldplanOpenAdvertisingShowReturnJson> GoldplanOpenAdvertisingShowAsync(GoldplanOpenAdvertisingShowRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/goldplan/merchants/open-advertising-show");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<GoldplanOpenAdvertisingShowReturnJson>(url, data, timeOut);
+        }
+
+        /// <summary>
+        /// 关闭广告展示API
+        /// <para>使用此接口为特约商户的点金计划页面关闭广告展示功能</para>
+        /// </summary>
+        /// <param name="data">微信支付需要POST的Data数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<GoldplanCloseAdvertisingShowReturnJson> GoldplanCloseAdvertisingShowAsync(GoldplanCloseAdvertisingShowRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/goldplan/merchants/close-advertising-show");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<GoldplanCloseAdvertisingShowReturnJson>(url, data, timeOut);
+        }
         #endregion
     }
 }

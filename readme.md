@@ -165,8 +165,8 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 * [💾 源码项目文件夹说明（src文件夹下）](#-源码项目文件夹说明src文件夹下)
 * [🖥️ Samples 文件夹说明（Samples文件夹下）](#%EF%B8%8F-samples-文件夹说明samples文件夹下)
 * [🎨 资源](#-资源)
-* [:book: Senparc 官方图书教程](#-senparc-官方图书教程)
-* [:computer: Senparc 官方视频教程](#-senparc-官方视频教程)
+* [📖 Senparc 官方图书教程](#-senparc-官方图书教程)
+* [🖥️ Senparc 官方视频教程](#-senparc-官方视频教程)
 * [🧪 关注测试账号（SenparcRobot）](#-关注测试账号体验功能senparcrobot)
 * [✋ 贡献代码](#-贡献代码)
 * [👩‍🏫 如何使用 .NET Core 开发](#-如何使用-net-core-开发)
@@ -390,7 +390,7 @@ Web 版：<a href="https://www.cnblogs.com/szw/p/WeChatSampleBuilder-V2.html#Web
 资金捐助：[进入](http://sdk.weixin.senparc.com#donate)
 
 
-## 👨‍🎓 Senparc 官方图书教程
+## 📖 Senparc 官方图书教程
 
 <img src="https://sdk.weixin.senparc.com/images/book-cover-front-small-3d.png" width="400" align="right">
 
@@ -399,7 +399,7 @@ Web 版：<a href="https://www.cnblogs.com/szw/p/WeChatSampleBuilder-V2.html#Web
 > 图书出版时的代码版本快照见分支 [BookVersion1](https://github.com/JeffreySu/WeiXinMPSDK/tree/BookVersion1)。
 
 
-## 👩‍🎓 Senparc 官方视频教程
+## 💻 Senparc 官方视频教程
 
 > 为了帮助大家更直观地了解微信开发细节，同时结合《微信开发深度解析》图书进行学习，我们成立“盛派课堂”小组，开设了微信开发视频课程，帮助大家从多个维度学习微信开发以及 .NET 开发过程中的诸多技巧。<br>
 > 视频包含两大部分：<br>

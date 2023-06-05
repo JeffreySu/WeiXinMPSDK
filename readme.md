@@ -161,22 +161,22 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 
 ## 📇 更多介绍索引
 
-* [各模块类库](#-各模块类库)
-* [源码项目文件夹说明（src文件夹下）](#-源码项目文件夹说明src文件夹下)
-* [Samples 文件夹说明（Samples文件夹下）](#%EF%B8%8F-samples-文件夹说明samples文件夹下)
-* [资源](#-资源)
+* [🏹 各模块类库](#-各模块类库)
+* [💾 源码项目文件夹说明（src文件夹下）](#-源码项目文件夹说明src文件夹下)
+* [🖥️ Samples 文件夹说明（Samples文件夹下）](#%EF%B8%8F-samples-文件夹说明samples文件夹下)
+* [🎨 资源](#-资源)
 * [:book: Senparc 官方图书教程](#-senparc-官方图书教程)
 * [:computer: Senparc 官方视频教程](#-senparc-官方视频教程)
-* [贡献代码](#-贡献代码)
-* [关注测试账号（SenparcRobot）](#-关注测试账号体验功能senparcrobot)
-* [如何使用 .NET Core 开发](#-如何使用-net-core-开发)
-* [使用Nuget安装到项目中](#%EF%B8%8F-使用nuget安装到项目中)
-* [如何部署](#-如何部署)
-* [各重要分支说明](#-各重要分支说明)
-* [感谢贡献者](#-感谢贡献者)
-* [捐助](#-捐助)
-* [Star 数量统计](#-star-数量统计)
-* [License](#-license)
+* [🧪 关注测试账号（SenparcRobot）](#-关注测试账号体验功能senparcrobot)
+* [✋ 贡献代码](#-贡献代码)
+* [👩‍🏫 如何使用 .NET Core 开发](#-如何使用-net-core-开发)
+* [↕️ 使用 Nuget 安装到项目中](#%EF%B8%8F-使用-nuget安装到项目中)
+* [🏬 如何部署](#-如何部署)
+* [🍴 各重要分支说明](#-各重要分支说明)
+* [🍟 感谢贡献者](#-感谢贡献者)
+* [💰 捐助](#-捐助)
+* [⭐ Star 数量统计](#-star-数量统计)
+* [📎 License](#-license)
 
 本库包含了 .NET Framework/.NET Standard 2.0/.NET Core/.NET 6 多个版本的源代码（核心逻辑完全一致）：
 

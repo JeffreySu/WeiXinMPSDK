@@ -798,7 +798,15 @@ namespace Senparc.Weixin.Work.MessageHandlers
         {
             return DefaultResponseMessage(requestMessage);
         }
-
+        /// <summary>
+        /// 修改设置工作台自定义开关事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_SwitchWorkBenchMode(RequestMessageEvent_Switch_WorkBench_Mode requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
         #region 审批事件
         /// <summary>
         /// 系统审批申请状态变化回调通知

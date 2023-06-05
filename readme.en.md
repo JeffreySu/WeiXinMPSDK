@@ -36,7 +36,7 @@ Official Accounty (MP) | https://sdk.weixin.senparc.com/Docs/MP/
 Mini Program (WxOpen) | https://sdk.weixin.senparc.com/Docs/WxOpen/
 Entripise Account (Work) | https://sdk.weixin.senparc.com/Docs/Work/
 TenPay V3 (Recommended) | https://sdk.weixin.senparc.com/Docs/TenPayV3/
-微信支付 V2 (Not Recommended) | https://sdk.weixin.senparc.com/Docs/TenPayV2/
+TenPay V2 (Not Recommended) | https://sdk.weixin.senparc.com/Docs/TenPayV2/
 
 <img src="https://sdk.weixin.senparc.com/images/SenparcRobotsnapshoot.jpg" width="350" align="right">
 

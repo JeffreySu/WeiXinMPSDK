@@ -181,6 +181,10 @@ namespace Senparc.Weixin.Work
         /// 直播回调事件
         /// </summary>
         LIVING_STATUS_CHANGE,
+        /// <summary>
+        /// 切换工作台自定义模式推送
+        /// </summary>
+        switch_workbench_mode,
 
         #region 审批事件
         /// <summary>

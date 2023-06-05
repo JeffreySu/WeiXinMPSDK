@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
   
-    文件名：QueryProfitsharingAmountsRequestData.cs
-    文件功能描述：查询分账剩余待分金额接口请求数据
+    文件名：QueryProfitsharingConfigsRequestData.cs
+    文件功能描述：查询最大分账比例请求数据
     
     
     创建标识：Senparc - 20210915
@@ -40,55 +40,50 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
 {
     /// <summary>
-    /// 查询分账剩余待分金额接口请求数据
-    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter8_1_6.shtml </para>
+    /// 查询最大分账比例请求数据
+    /// <para>服务商连锁品牌 详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter8_7_10.shtml </para>
+    /// <para>服务商普通商户 详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter8_1_7.shtml </para>
     /// </summary>
-    public class QueryProfitsharingAmountsRequestData
+    public class QueryProfitsharingConfigsRequestData
     {
 
         /// <summary>
         /// 无参构造函数
         /// </summary>
-        public QueryProfitsharingAmountsRequestData()
+        public QueryProfitsharingConfigsRequestData()
         {
-        }
-
-        /// <summary>
-        /// 含参构造函数
-        /// </summary>
-        /// <param name="transaction_id">微信订单号 <para>path微信支付订单号</para><para>示例值：4208450740201411110007820472</para></param>
-        public QueryProfitsharingAmountsRequestData(string transaction_id)
-        {
-            this.transaction_id = transaction_id;
         }
 
         /// <summary>
         /// 含参构造函数(服务商模式-品牌连锁)
         /// </summary>
-        /// <param name="brand_mchid">品牌主商户号 <para>品牌主商户号，填写微信支付分配的商户号。</para></param>
-        /// <param name="transaction_id">微信订单号 <para>path微信支付订单号</para><para>示例值：4208450740201411110007820472</para></param>
-        public QueryProfitsharingAmountsRequestData(string brand_mchid, string transaction_id)
+        /// <param name="brand_mchid">品牌主商户号 二选一 <para>品牌主商户号，填写微信支付分配的商户号。</para></param>
+        /// <param name="sub_mchid">子商户号 二选一 <para>参考请求参数</para><para>示例值：1900000109</para></param>
+        public QueryProfitsharingConfigsRequestData(string brand_mchid = "", string sub_mchid = "")
         {
             this.brand_mchid = brand_mchid;
-            this.transaction_id = transaction_id;
+            this.sub_mchid = sub_mchid;
         }
 
         #region 品牌连锁
         /// <summary>
-        /// 品牌主商户号 
-        /// 连锁平台需要 仅用于标志是否是连锁品牌分账，实际参数中不需要
+        /// 品牌主商户号 二选一
+        /// 连锁平台需要
         /// <para>品牌主商户号，填写微信支付分配的商户号。</para>
         /// </summary>
         [JsonIgnore]
         public string brand_mchid { get; set; }
         #endregion
 
+        #region 服务商
         /// <summary>
-        /// 微信订单号
-        /// <para>path微信支付订单号</para>
-        /// <para>示例值：4208450740201411110007820472</para>
+        /// 子商户号 二选一
+        /// <para>参考请求参数</para>
+        /// <para>示例值：1900000109</para>
         /// </summary>
-        public string transaction_id { get; set; }
+        [JsonIgnore]
+        public string sub_mchid { get; set; }
+        #endregion
 
     }
 

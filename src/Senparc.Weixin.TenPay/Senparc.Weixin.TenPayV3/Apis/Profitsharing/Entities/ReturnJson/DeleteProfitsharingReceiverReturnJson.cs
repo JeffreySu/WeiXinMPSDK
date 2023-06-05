@@ -45,6 +45,13 @@ namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
     {
 
         /// <summary>
+        /// 无参构造函数
+        /// </summary>
+        public DeleteProfitsharingReceiverReturnJson()
+        {
+        }
+
+        /// <summary>
         /// 含参构造函数
         /// </summary>
         /// <param name="type">分账接收方类型 <para>枚举值：MERCHANT_ID：商户号PERSONAL_OPENID：个人openid（由父商户APPID转换得到）</para><para>示例值：MERCHANT_ID</para></param>
@@ -56,11 +63,48 @@ namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
         }
 
         /// <summary>
-        /// 无参构造函数
+        /// 含参构造函数（服务商模式）
         /// </summary>
-        public DeleteProfitsharingReceiverReturnJson()
+        /// <param name="sub_mchid">子商户号 <para>微信支付分配的子商户号，即分账的出资商户号。</para><para>示例值：1900000109</para></param>
+        /// <param name="type">分账接收方类型 <para>枚举值：MERCHANT_ID：商户号PERSONAL_OPENID：个人openid（由父商户APPID转换得到）</para><para>示例值：MERCHANT_ID</para></param>
+        /// <param name="account">分账接收方账号 <para>类型是MERCHANT_ID时，是商户号类型是PERSONAL_OPENID时，是个人openid</para><para>示例值：1900000109</para></param>
+        public DeleteProfitsharingReceiverReturnJson(string sub_mchid, string type, string account)
         {
+            this.sub_mchid = sub_mchid;
+            this.type = type;
+            this.account = account;
         }
+
+        /// <summary>
+        /// 含参构造函数（服务商模式-连锁品牌）
+        /// </summary>
+        /// <param name="brand_mchid">品牌主商户号 <para>品牌主商户号，填写微信支付分配的商户号。</para></param>
+        /// <param name="type">分账接收方类型 <para>枚举值：MERCHANT_ID：商户号PERSONAL_OPENID：个人openid（由父商户APPID转换得到）</para><para>示例值：MERCHANT_ID</para></param>
+        /// <param name="account">分账接收方账号 <para>类型是MERCHANT_ID时，是商户号类型是PERSONAL_OPENID时，是个人openid</para><para>示例值：1900000109</para></param>
+        /// <param name="sub_mchid">子商户号 不需要</param>
+        public DeleteProfitsharingReceiverReturnJson(string brand_mchid, string type, string account,string sub_mchid = null)
+        {
+            this.brand_mchid = brand_mchid;
+            this.type = type;
+            this.account = account;
+        }
+
+        #region 服务商
+        /// <summary>
+        /// 子商户号 
+        /// 服务商模式返回
+        /// </summary>
+        public string sub_mchid { get; set; }
+        #endregion
+
+        #region 品牌连锁
+        /// <summary>
+        /// 品牌主商户号 
+        /// 连锁平台需要
+        /// <para>品牌主商户号，填写微信支付分配的商户号。</para>
+        /// </summary>
+        public string brand_mchid { get; set; }
+        #endregion
 
         /// <summary>
         /// 分账接收方类型

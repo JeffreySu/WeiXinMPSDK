@@ -45,6 +45,13 @@ namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
     {
 
         /// <summary>
+        /// 无参构造函数
+        /// </summary>
+        public CreateProfitsharingReturnJson()
+        {
+        }
+
+        /// <summary>
         /// 含参构造函数
         /// </summary>
         /// <param name="transaction_id">微信订单号 <para>微信支付订单号</para><para>示例值：4208450740201411110007820472</para></param>
@@ -62,11 +69,61 @@ namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
         }
 
         /// <summary>
-        /// 无参构造函数
+        /// 含参构造函数（服务商模式）
         /// </summary>
-        public CreateProfitsharingReturnJson()
+        /// <param name="sub_mchid">子商户号 <para>微信支付分配的子商户号，即分账的出资商户号。</para><para>示例值：1900000109</para></param>
+        /// <param name="transaction_id">微信订单号 <para>微信支付订单号</para><para>示例值：4208450740201411110007820472</para></param>
+        /// <param name="out_order_no">商户分账单号 <para>商户系统内部的分账单号，在商户系统内部唯一，同一分账单号多次请求等同一次。只能是数字、大小写字母_-|*@</para><para>示例值：P20150806125346</para></param>
+        /// <param name="order_id">微信分账单号 <para>微信分账单号，微信系统返回的唯一标识</para><para>示例值：3008450740201411110007820472</para></param>
+        /// <param name="state">分账单状态 <para>分账单状态（每个接收方的分账结果请查看receivers中的result字段），枚举值：1、PROCESSING：处理中2、FINISHED：分账完成</para><para>示例值：FINISHED</para></param>
+        /// <param name="receivers">分账接收方列表 <para>分账接收方列表</para><para>可为null</para></param>
+        public CreateProfitsharingReturnJson(string sub_mchid, string transaction_id, string out_order_no, string order_id, string state, Receiver[] receivers)
         {
+            this.sub_mchid = sub_mchid;
+            this.transaction_id = transaction_id;
+            this.out_order_no = out_order_no;
+            this.order_id = order_id;
+            this.state = state;
+            this.receivers = receivers;
         }
+
+        /// <summary>
+        /// 含参构造函数（服务商模式-连锁品牌）
+        /// </summary>
+        /// <param name="brand_mchid">品牌主商户号 <para>品牌主商户号，填写微信支付分配的商户号。</para></param>
+        /// <param name="sub_mchid">子商户号 <para>微信支付分配的子商户号，即分账的出资商户号。</para><para>示例值：1900000109</para></param>
+        /// <param name="transaction_id">微信订单号 <para>微信支付订单号</para><para>示例值：4208450740201411110007820472</para></param>
+        /// <param name="out_order_no">商户分账单号 <para>商户系统内部的分账单号，在商户系统内部唯一，同一分账单号多次请求等同一次。只能是数字、大小写字母_-|*@</para><para>示例值：P20150806125346</para></param>
+        /// <param name="order_id">微信分账单号 <para>微信分账单号，微信系统返回的唯一标识</para><para>示例值：3008450740201411110007820472</para></param>
+        /// <param name="state">分账单状态 <para>分账单状态（每个接收方的分账结果请查看receivers中的result字段），枚举值：1、PROCESSING：处理中2、FINISHED：分账完成</para><para>示例值：FINISHED</para></param>
+        /// <param name="receivers">分账接收方列表 <para>分账接收方列表</para><para>可为null</para></param>
+        public CreateProfitsharingReturnJson(string brand_mchid, string sub_mchid, string transaction_id, string out_order_no, string order_id, string state, Receiver[] receivers)
+        {
+            this.brand_mchid = brand_mchid;
+            this.sub_mchid = sub_mchid;
+            this.transaction_id = transaction_id;
+            this.out_order_no = out_order_no;
+            this.order_id = order_id;
+            this.state = state;
+            this.receivers = receivers;
+        }
+
+        #region 品牌连锁
+        /// <summary>
+        /// 品牌主商户号 
+        /// 连锁平台需要
+        /// <para>品牌主商户号，填写微信支付分配的商户号。</para>
+        /// </summary>
+        public string brand_mchid { get; set; }
+        #endregion
+
+        #region 服务商
+        /// <summary>
+        /// 子商户号 
+        /// 服务商模式返回
+        /// </summary>
+        public string sub_mchid { get; set; }
+        #endregion
 
         /// <summary>
         /// 微信订单号

@@ -46,6 +46,13 @@ namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
     {
 
         /// <summary>
+        /// 无参构造函数
+        /// </summary>
+        public CreateProfitsharingRequestData()
+        {
+        }
+
+        /// <summary>
         /// 含参构造函数
         /// </summary>
         /// <param name="appid">应用ID <para>body微信分配的商户appid</para><para>示例值：wx8888888888888888</para></param>
@@ -63,11 +70,72 @@ namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
         }
 
         /// <summary>
-        /// 无参构造函数
+        /// 含参构造函数(服务商模式)
         /// </summary>
-        public CreateProfitsharingRequestData()
+        /// <param name="sub_mchid">子商户号 <para>微信支付分配的子商户号，即分账的出资商户号。</para></param>
+        /// <param name="sub_appid">子商户应用ID <para>微信分配的子商户公众账号ID，分账接收方类型包含PERSONAL_SUB_OPENID时必填。</para>示例值：wx8888888888888889<para></para></param>
+        /// <param name="appid">应用ID <para>body微信分配的商户appid</para><para>示例值：wx8888888888888888</para></param>
+        /// <param name="transaction_id">微信订单号 <para>body微信支付订单号</para><para>示例值：4208450740201411110007820472</para></param>
+        /// <param name="out_order_no">商户分账单号 <para>body商户系统内部的分账单号，在商户系统内部唯一，同一分账单号多次请求等同一次。只能是数字、大小写字母_-|*@</para><para>示例值：P20150806125346</para></param>
+        /// <param name="receivers">分账接收方列表 <para>body分账接收方列表，可以设置出资商户作为分账接受方，最多可有50个分账接收方</para></param>
+        /// <param name="unfreeze_unsplit">是否解冻剩余未分资金 <para>body1、如果为true，该笔订单剩余未分账的金额会解冻回分账方商户；2、如果为false，该笔订单剩余未分账的金额不会解冻回分账方商户，可以对该笔订单再次进行分账。</para><para>示例值：true</para></param>
+        public CreateProfitsharingRequestData(string sub_mchid, string sub_appid, string appid, string transaction_id, string out_order_no, Receiver[] receivers, bool unfreeze_unsplit)
         {
+            this.sub_mchid = sub_mchid;
+            this.sub_appid = sub_appid;
+            this.appid = appid;
+            this.transaction_id = transaction_id;
+            this.out_order_no = out_order_no;
+            this.receivers = receivers;
+            this.unfreeze_unsplit = unfreeze_unsplit;
         }
+
+        /// <summary>
+        /// 含参构造函数(服务商模式-连锁品牌)
+        /// </summary>
+        /// <param name="brand_mchid">品牌主商户号 <para>品牌主商户号，填写微信支付分配的商户号。</para></param>
+        /// <param name="sub_mchid">子商户号 <para>微信支付分配的子商户号，即分账的出资商户号。</para></param>
+        /// <param name="sub_appid">子商户应用ID <para>微信分配的子商户公众账号ID，分账接收方类型包含PERSONAL_SUB_OPENID时必填。</para>示例值：wx8888888888888889<para></para></param>
+        /// <param name="appid">应用ID <para>body微信分配的商户appid</para><para>示例值：wx8888888888888888</para></param>
+        /// <param name="transaction_id">微信订单号 <para>body微信支付订单号</para><para>示例值：4208450740201411110007820472</para></param>
+        /// <param name="out_order_no">商户分账单号 <para>body商户系统内部的分账单号，在商户系统内部唯一，同一分账单号多次请求等同一次。只能是数字、大小写字母_-|*@</para><para>示例值：P20150806125346</para></param>
+        /// <param name="receivers">分账接收方列表 <para>body分账接收方列表，可以设置出资商户作为分账接受方，最多可有50个分账接收方</para></param>
+        /// <param name="unfreeze_unsplit">是否解冻剩余未分资金 <para>body1、如果为true，该笔订单剩余未分账的金额会解冻回分账方商户；2、如果为false，该笔订单剩余未分账的金额不会解冻回分账方商户，可以对该笔订单再次进行分账。</para><para>示例值：true</para></param>
+        public CreateProfitsharingRequestData(string brand_mchid, string sub_mchid, string sub_appid, string appid, string transaction_id, string out_order_no, Receiver[] receivers, bool unfreeze_unsplit)
+        {
+            this.brand_mchid = brand_mchid;
+            this.sub_mchid = sub_mchid;
+            this.sub_appid = sub_appid;
+            this.appid = appid;
+            this.transaction_id = transaction_id;
+            this.out_order_no = out_order_no;
+            this.receivers = receivers;
+            this.unfreeze_unsplit = unfreeze_unsplit;
+        }
+
+        #region 品牌连锁
+        /// <summary>
+        /// 品牌主商户号 
+        /// 连锁平台需要
+        /// <para>品牌主商户号，填写微信支付分配的商户号。</para>
+        /// </summary>
+        public string brand_mchid { get; set; }
+        #endregion
+
+        #region 服务商
+        /// <summary>
+        /// 子商户号 
+        /// 服务商模式需要
+        /// </summary>
+        public string sub_mchid { get; set; }
+
+        /// <summary>
+        /// 子商户应用ID	 
+        /// 微信分配的子商户公众账号ID，分账接收方类型包含PERSONAL_SUB_OPENID时必填。
+        /// 服务商模式需要
+        /// </summary>
+        public string sub_appid { get; set; }
+        #endregion
 
         /// <summary>
         /// 应用ID

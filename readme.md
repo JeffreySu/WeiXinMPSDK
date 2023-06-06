@@ -178,9 +178,9 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 * [⭐ Star 数量统计](#-star-数量统计)
 * [📎 License](#-license)
 
-本库包含了 .NET Framework/.NET Standard 2.0/.NET Core/.NET 6 多个版本的源代码（核心逻辑完全一致）：
+本库包含了 .NET Framework/.NET Standard 2.0+/.NET Core 3.1/.NET 6/.NET 7 等多个版本的源代码（核心逻辑完全一致）：
 
-* 使用 Visual Studio 2022 打开 Demo（支持所有版本）：.NET 6.0 - [Senparc.Weixin.Sample.Net6.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net6-mvc)（包含源码引用推荐）
+* 使用 Visual Studio 2022 打开 Demo（支持所有版本）：.NET 7.0 - [Senparc.Weixin.Sample.Net7.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net7-mvc)（包含源码引用推荐）
 * 使用 Visual Studio 2019 或更高版本打开 .NET Framework Demo：[Senparc.Weixin.MP.Sample.Net45.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net45-mvc/)（不包含源码，仅引用类库）
 * 使用 Visual Studio 2019 或更高版本打开命令行 Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/console)
 

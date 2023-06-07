@@ -48,6 +48,9 @@
     修改标识：IcedMango - 20221106
     修改描述：v3.15.10 增加企业微信获取成员ID列表的接口
 
+    修改标识：IcedMango - 20221106
+    修改描述：v3.15.17 添加“邮箱获取 userid”接口
+
 ----------------------------------------------------------------*/
 
 /*
@@ -59,6 +62,7 @@
     获取部门成员：http://work.weixin.qq.com/api/doc#10061
     获取部门成员详情：http://work.weixin.qq.com/api/doc#10063
     手机号获取userid：https://work.weixin.qq.com/api/doc#90001/90143/91693
+    邮箱获取userid：https://work.weixin.qq.com/api/doc#90001/90143/95892
  */
 
 using System;
@@ -217,6 +221,30 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var data = new
                 {
                     mobile
+                };
+
+                return CommonJsonSend.Send<GetUseridResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 邮箱获取 userid
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="email">邮箱</param>
+        /// <param name="emailType">邮箱类型：1-企业邮箱（默认）；2-个人邮箱</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static GetUseridResult GetUseridByEmail(string accessTokenOrAppKey, string email, Email_Type emailType = Email_Type.企业邮箱, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/get_userid_by_email?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    email = email,
+                    email_type = (int)emailType
                 };
 
                 return CommonJsonSend.Send<GetUseridResult>(null, url, data, CommonJsonSendType.POST, timeOut);
@@ -792,6 +820,30 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var data = new
                 {
                     mobile
+                };
+
+                return await CommonJsonSend.SendAsync<GetUseridResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】邮箱获取 userid
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="email">邮箱</param>
+        /// <param name="emailType">邮箱类型：1-企业邮箱（默认）；2-个人邮箱</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<GetUseridResult> GetUseridByEmailAsync(string accessTokenOrAppKey, string email, Email_Type emailType = Email_Type.企业邮箱, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/get_userid_by_email?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    email = email,
+                    email_type = (int)emailType
                 };
 
                 return await CommonJsonSend.SendAsync<GetUseridResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);

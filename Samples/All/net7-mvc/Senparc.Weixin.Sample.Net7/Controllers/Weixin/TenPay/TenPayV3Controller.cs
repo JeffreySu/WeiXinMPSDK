@@ -1182,6 +1182,8 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
 
         //TODO：完善
 
+        //由于此 Demo 会直接部署，因此不演示敏感代码。请直接调用 TenPayV3.PayBank() 方法，使用方法和统一下单等其他支付方法一致。
+
         #endregion
     }
 }

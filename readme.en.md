@@ -17,7 +17,7 @@ Now, Senparc.Weixin has been supported almost all of the API for Wechat's all mo
 
 Senparc.Weixin SDK is the most widly used .NET Wechat SDK. Also it is one of the most popular .NET open source project in China.
 
-For more than 8 years, we have been keeping the project constantly updated, share the complete source code and design ideas without reservation. Hopefully more people will benefit from it, understand and disseminate the spirit of open source. Grateful to the friends who helped us along the way!
+For more than 10 years, we have been keeping the project constantly updated, share the complete source code and design ideas without reservation. Hopefully more people will benefit from it, understand and disseminate the spirit of open source. Grateful to the friends who helped us along the way!
 
 If you like and hope us to continue to optimize this project, please give us a Star:)
 
@@ -26,6 +26,17 @@ If you like and hope us to continue to optimize this project, please give us a S
 > 🔒 [TenPay V3 Module](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3) has been released！<br />
 > ⚡ Sample has already supported for .NET 6.0, [Click Here](Samples/net6-mvc) !<br/>
 > 🍦 [file.api.weixin.qq.com Domain name officially disabled(2020.9.15)](https://developers.weixin.qq.com/community/develop/doc/0002245dcdc8c06f36fa6a47d56400), please update to the latest version! <br />
+
+
+## Start：Separate document by module
+
+Module | URL
+----|----
+Official Accounty (MP) | https://sdk.weixin.senparc.com/Docs/MP/
+Mini Program (WxOpen) | https://sdk.weixin.senparc.com/Docs/WxOpen/
+Entripise Account (Work) | https://sdk.weixin.senparc.com/Docs/Work/
+TenPay V3 (Recommended) | https://sdk.weixin.senparc.com/Docs/TenPayV3/
+TenPay V2 (Not Recommended) | https://sdk.weixin.senparc.com/Docs/TenPayV2/
 
 <img src="https://sdk.weixin.senparc.com/images/SenparcRobotsnapshoot.jpg" width="350" align="right">
 
@@ -61,12 +72,12 @@ Index
 * [Stargazers over time](#stargazers-over-time)
 * [License](#license)
 
-The library contains the source code (the Core logic is exactly the same) that includes .Net 3.5/4.0/4.5/.NET Standard 2.0/.NET Core/.NET 6.
+The library contains the source code (the Core logic is exactly the same) that includes .Net 3.5/4.0/4.5/.NET Standard 2.0/.NET Core/.NET 6/.NET 7.
 
-* Use Visual Studio 2019 open Demo(support for all .NET Versions)：.NET 6.0 - [Senparc.Weixin.Sample.Net6.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net6-mvc) (referenced source code, recommanded)
+* Use Visual Studio 2022 open Demo(support for all .NET Versions)：.NET 7.0 - [Senparc.Weixin.Sample.Net7.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net7-mvc) (referenced source code, recommanded)
 * Use other versions of Visual Studio to open the Demo (support .net 4.5 only) :
 [Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net45-mvc)
-* Use Visual Studio 2017/2019 to open Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/console)
+* Use Visual Studio 2019 to open Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/console)
 
 
 SDK Modules
@@ -92,11 +103,12 @@ SDK Modules
 
 | ![.NET 4.5][net45Y] | ![.NET Standard 2.x][core20Y] |  ![.NET Core][netcore] | ![.NET 5.0 / 6.0][net6]  
 |--|--|--|--|
-| .NET 4.5.1            |  .NET Standard 2.0 / 2.1  |   .NET Core 2.x / 3.x  |  .NET 5.0 / .NET 6.0
+| .NET 4.6.2            |  .NET Standard 2.0 / 2.1  |   .NET Core 2.x / 3.x  |  .NET 5.0 / .NET 6.0 / .NET 7.0
 
 > Tip:<br>
 > 1. ![.NET 3.5][net35Y]  ![.NET 4.0][net40Y] last stable release [click here](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.6.15) (minimum .NET 4.5.1 support from November 7, 2021), since May 1, 2019 to stop updating.
-> 2. The .NET Framework 4.5 update is scheduled to end on December 31, 2024. It's strongly advice you to use .NET 3.1 or .NET 6.0+ for new projects.
+> 2. The .NET Framework 4.5 update is scheduled to end on December 31, 2024. It's strongly advice you to use .NET 3.1 or .NET 6.0+ for new projects.<br>
+> If you are still using .NET Framework, it is recommended that upgrade .NET Framework applications to .NET Framework 4.8+ before January 12, 2027, when .NET Framework 4.6.2 will be officially stopped Support ([see more] (https://learn.microsoft.com/en-us/lifecycle/products/microsoft-net-framework))
 
 
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
@@ -674,7 +686,7 @@ License
 Apache License Version 2.0
 
 ```
-Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file 
 except in compliance with the License. You may obtain a copy of the License at

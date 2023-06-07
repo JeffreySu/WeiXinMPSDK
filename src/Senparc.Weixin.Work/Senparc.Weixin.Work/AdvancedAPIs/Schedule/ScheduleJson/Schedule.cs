@@ -7,6 +7,9 @@
     
     创建标识：lishewen - 20191226
     
+    修改标识：Senparc - 20230226
+    修改描述：v3.15.16 添加 RepeatDayOfWeek 枚举、完善 Schedule 属性
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -32,6 +35,16 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
         每月 = 2,
         每年 = 5,
         工作日 = 7
+    }
+    public enum RepeatDayOfWeek
+    {
+        Monday = 1,
+        Tuesday = 2,
+        Wednesday = 3,
+        Thursday = 4,
+        Friday = 5,
+        Saturday = 6,
+        Sunday = 7
     }
     /// <summary>
     /// 日程信息
@@ -70,6 +83,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
         /// 日程地址。0 ~ 128 字符
         /// </summary>
         public string location { get; set; }
+        /// <summary>
+        /// 日程所属日历ID
+        /// 第三方应用必须指定cal_id
+        /// </summary>
+        public string cal_id { get; set; }
     }
 
     public class Reminders
@@ -90,6 +108,42 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
         /// 重复类型，当is_repeat为1时有效。
         /// </summary>
         public Repeat_Type repeat_type { get; set; }
+        /// <summary>
+        /// 重复结束时刻，Unix时间戳。不填或填0表示一直重复
+        /// </summary>
+        public int repeat_unit { get; set; }
+        /// <summary>
+        /// 是否自定义重复。0-否；1-是
+        /// </summary>
+        public ushort is_custom_repeat { get; set; }
+        /// <summary>
+        /// 重复间隔
+        /// 仅当指定为自定义重复时有效
+        /// 该字段随repeat_type不同而含义不同
+        /// 例如：
+        /// repeat_interval指定为3，repeat_type指定为每周重复，那么每3周重复一次；
+        /// repeat_interval指定为3，repeat_type指定为每月重复，那么每3个月重复一次
+        /// </summary>
+        public int repeat_interval { get; set; }
+        /// <summary>
+        /// 每周周几重复
+        /// 仅当指定为自定义重复且重复类型为每周时有效
+        /// 取值范围：1 ~ 7，分别表示周一至周日
+        /// </summary>
+        public RepeatDayOfWeek[] repeat_day_of_week { get; set; }
+        /// <summary>
+        /// 每月哪几天重复
+        /// 仅当指定为自定义重复且重复类型为每月时有效
+        /// 取值范围：1 ~ 31，分别表示1~31号
+        /// </summary>
+        public int[] repeat_day_of_month { get; set; }
+        /// <summary>
+        /// 时区。UTC偏移量表示(即偏离零时区的小时数)，东区为正数，西区为负数。
+        /// 例如：+8 表示北京时间东八区
+        /// 默认为北京时间东八区
+        /// 取值范围：-12 ~ +12
+        /// </summary>
+        public int timezone { get; set; } = 8;
     }
 
     public class Attendee
@@ -98,6 +152,17 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
         /// 日程参与者ID
         /// </summary>
         public string userid { get; set; }
+    }
+    public class ScheduleAdd
+    {
+        /// <summary>
+        /// 日程信息
+        /// </summary>
+        public Schedule schedule { get; set; }
+        /// <summary>
+        /// 授权方安装的应用agentid
+        /// </summary>
+        public int agentid { get; set; }
     }
     /// <summary>
     /// 注意，更新日程，不可变更组织者

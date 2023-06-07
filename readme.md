@@ -16,11 +16,11 @@ Senparc.Weixin —— 微信 .NET SDK
 
 Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最受欢迎的 .NET 开源项目之一。
 
-自 2013 年起立项 9 年多来，我们一直保持着项目的持续更新，并将完整的源代码以及设计思想毫无保留地分享给大家，希望有更多的人可以从中受益，理解并传播开源的精神，一同助力中国开源事业！感恩一路上给我们提供帮助的朋友们！
+自 2013 年起立项 10 年多来，我们一直保持着项目的持续更新，并将完整的源代码以及设计思想毫无保留地分享给大家，希望有更多的人可以从中受益，理解并传播开源的精神，一同助力中国开源事业！感恩一路上给我们提供帮助的朋友们！
 
 如果你喜欢并希望我们继续优化这个项目，请给我们一个 ★Star ：)
 
-## 公告
+## 🔔 公告
 
 > ⚡ Sample 已支持 .NET 7.0（向下兼容），[点击这里查看](/Samples/All/net7-mvc)！<br/>
 > 🔒 [微信支付 V3 模块](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3)已上线！<br>
@@ -29,9 +29,19 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 <!-- _1. 为了将 Demo 和源代码隔离，并让大家更方便地找到 Demo，现已将 Senparc.Weixin.MP.Sample 等文件夹转移到 [/Samples/](/Samples/) 文件夹下。_<br> -->
 <!-- _2. `Senparc.Weixin.Plugins`计划已经启动，详情 [点击这里](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Plugins)。_ -->
 
+## 🌟 Start：分模块独立文档
 
+模块 | 地址
+----|----
+公众号 | https://sdk.weixin.senparc.com/Docs/MP/
+小程序 | https://sdk.weixin.senparc.com/Docs/WxOpen/
+企业微信 | https://sdk.weixin.senparc.com/Docs/Work/
+微信支付 V3（推荐） | https://sdk.weixin.senparc.com/Docs/TenPayV3/
+微信支付 V2（不推荐） | https://sdk.weixin.senparc.com/Docs/TenPayV2/
 
-## Hello World ：用 3 句代码开启你的微信开发之旅！
+> 说明：所有模块的配置、注册、接口调用方法均一致，只要学会其中一个模块开发，就可以举一反三，以下以公众号为例。
+
+## 🚀 Hello World ：用 3 句代码开启你的微信开发之旅！
 
 > 说明：<br>
 > 下述源码位于 [`/Samples/MP/`](/Samples/MP/) 文件夹，以微信公众号为例。学会公众号就可以举一反三使用其他模块，基本用法一致（小程序、企业微信、微信支付等）。<br>
@@ -149,32 +159,32 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 
 <img src="https://sdk.weixin.senparc.com/images/SenparcRobotsnapshoot.jpg" width="300" align="right">
 
-## 更多介绍索引
+## 📇 更多介绍索引
 
-* [各模块类库](#各模块类库)
-* [源码项目文件夹说明（src文件夹下）](#源码项目文件夹说明src文件夹下)
-* [Samples 文件夹说明（Samples文件夹下）](#samples-文件夹说明samples文件夹下)
-* [资源](#资源)
-* [:book: Senparc 官方图书教程](#senparc-官方图书教程)
-* [:computer: Senparc 官方视频教程](#senparc-官方视频教程)
-* [贡献代码](#贡献代码)
-* [关注测试账号（SenparcRobot）](#关注测试账号体验功能senparcrobot)
-* [如何使用 .NET Core 开发](#如何使用-net-core-开发)
-* [使用Nuget安装到项目中](#使用nuget安装到项目中)
-* [如何部署](#如何部署)
-* [各重要分支说明](#各重要分支说明)
-* [感谢贡献者](#感谢贡献者)
-* [捐助](#捐助)
-* [Star 数量统计](#star-数量统计)
-* [License](#license)
+* [🏹 各模块类库](#-各模块类库)
+* [💾 源码项目文件夹说明（src文件夹下）](#-源码项目文件夹说明src文件夹下)
+* [🖥️ Samples 文件夹说明（Samples文件夹下）](#%EF%B8%8F-samples-文件夹说明samples文件夹下)
+* [🎨 资源](#-资源)
+* [📖 Senparc 官方图书教程](#-senparc-官方图书教程)
+* [🖥️ Senparc 官方视频教程](#-senparc-官方视频教程)
+* [🧪 关注测试账号（SenparcRobot）](#-关注测试账号体验功能senparcrobot)
+* [✋ 贡献代码](#-贡献代码)
+* [👩‍🏫 如何使用 .NET Core 开发](#-如何使用-net-core-开发)
+* [↕️ 使用 Nuget 安装到项目中](#%EF%B8%8F-使用-nuget安装到项目中)
+* [🏬 如何部署](#-如何部署)
+* [🍴 各重要分支说明](#-各重要分支说明)
+* [🍟 感谢贡献者](#-感谢贡献者)
+* [💰 捐助](#-捐助)
+* [⭐ Star 数量统计](#-star-数量统计)
+* [📎 License](#-license)
 
-本库包含了 .NET Framework/.NET Standard 2.0/.NET Core/.NET 6 多个版本的源代码（核心逻辑完全一致）：
+本库包含了 .NET Framework/.NET Standard 2.0+/.NET Core 3.1/.NET 6/.NET 7 等多个版本的源代码（核心逻辑完全一致）：
 
-* 使用 Visual Studio 2022 打开 Demo（支持所有版本）：.NET 6.0 - [Senparc.Weixin.Sample.Net6.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net6-mvc)（包含源码引用推荐）
+* 使用 Visual Studio 2022 打开 Demo（支持所有版本）：.NET 7.0 - [Senparc.Weixin.Sample.Net7.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net7-mvc)（包含源码引用推荐）
 * 使用 Visual Studio 2019 或更高版本打开 .NET Framework Demo：[Senparc.Weixin.MP.Sample.Net45.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net45-mvc/)（不包含源码，仅引用类库）
 * 使用 Visual Studio 2019 或更高版本打开命令行 Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/console)
 
-## 各模块类库
+## 🏹 各模块类库
 
 | # | 模块功能                                            | DLL                                             | Nuget                          | 支持 .NET 版本 
 |---|----------------------------------------------------|-------------------------------------------------|---------------------------------------|--------------------------------------
@@ -199,8 +209,10 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 
 > 提示：<br>
 > 1. 自 2019 年 5 月 1 日起，.NET Framework 3.5 及 4.0 停止更新，最后一个 .NET Framework 3.5 + 4.0 稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.6.15)。<br>
-> 2. 自 2022 年 4 月 3 日起，.NET Framework 4.5 升级为 4.6.2，最后一个 .NET Framework 4.5 的稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.17.9)。
-
+> 2. 自 2022 年 4 月 3 日起，.NET Framework 4.5 升级为 4.6.2，最后一个 .NET Framework 4.5 的稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.17.9)。<br>
+> 3. 如果您还在使用 .NET Framework，建议您在 2027 年 1 月 12 日之间，将 .NET Framework 应用升级至 .NET Framework 4.8+，彼时官方将停止对 .NET Framework 4.6.2 的支持（[查看](https://learn.microsoft.com/en-us/lifecycle/products/microsoft-net-framework)）。
+	
+	
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
 [1.2]: https://www.nuget.org/packages/Senparc.Weixin
 [2.1]: https://img.shields.io/nuget/v/Senparc.Weixin.MP.svg?style=flat
@@ -277,7 +289,7 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 > 1.目前官方的 API 都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的 dll，建议使用 [Nuget](https://www.nuget.org/) 进行更新。<br>
 > 2. 您也可以自行修改并编译代码，打开 [Senparc.Weixin.Sample.Net6.sln](/Samples/All/net6-mvc/) 或 [Senparc.Weixin.Sample.Net7.sln](/Samples/All/net7-mvc/) 解决方案即可看到所有源码。当编译模式为 `Release` 时，将自动生成本地 Nuget 包（默认生成到 `/src/BuildOutPut/` 文件夹下）。
 
-## 源码项目文件夹说明（src文件夹下）
+## 💾 源码项目文件夹说明（src文件夹下）
 
 <details>
 <summary>展开</summary>
@@ -302,7 +314,7 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 
 [进入文件夹](/src/)
 
-## Samples 文件夹说明（Samples文件夹下）
+## 🖥️ Samples 文件夹说明（Samples文件夹下）
 
 Senparc.Weixin SDK 所有的模块的用法都保持了高度的一致，包括配置过程、AccessToken 管理、消息处理、服务消息、接口调用，等等。您只需参考任意一个模块的用法（推荐从`公众号`或`小程序`开始），就可以举一反三使用其他模块。
 
@@ -339,7 +351,7 @@ Web 版：<a href="https://www.cnblogs.com/szw/p/WeChatSampleBuilder-V2.html#Web
 <!-- > 注意：使用 WeChatSampleBuilder 工具只是方便您简化 Sample 代码进行测试和学习，并不能帮助您生成完整的带有业务逻辑的生产环境项目。如需构建生产环境项目，请参考完整的 Demo 或其他教程，推荐使用已有的系统框架进行项目搭建，如 [NeuCharFramework](https://github.com/NeuCharFramework/NCF)。 -->
 
 
-## 资源
+## 🎨 资源
 
 1. 官网地址：https://weixin.senparc.com/
 2. 在线 Demo 地址（.NET 7.0，向下兼容 .NET 6.0 和 .NET Core）：https://sdk.weixin.senparc.com/
@@ -378,7 +390,7 @@ Web 版：<a href="https://www.cnblogs.com/szw/p/WeChatSampleBuilder-V2.html#Web
 资金捐助：[进入](http://sdk.weixin.senparc.com#donate)
 
 
-## Senparc 官方图书教程
+## 📖 Senparc 官方图书教程
 
 <img src="https://sdk.weixin.senparc.com/images/book-cover-front-small-3d.png" width="400" align="right">
 
@@ -387,7 +399,7 @@ Web 版：<a href="https://www.cnblogs.com/szw/p/WeChatSampleBuilder-V2.html#Web
 > 图书出版时的代码版本快照见分支 [BookVersion1](https://github.com/JeffreySu/WeiXinMPSDK/tree/BookVersion1)。
 
 
-## Senparc 官方视频教程
+## 💻 Senparc 官方视频教程
 
 > 为了帮助大家更直观地了解微信开发细节，同时结合《微信开发深度解析》图书进行学习，我们成立“盛派课堂”小组，开设了微信开发视频课程，帮助大家从多个维度学习微信开发以及 .NET 开发过程中的诸多技巧。<br>
 > 视频包含两大部分：<br>
@@ -398,12 +410,12 @@ Web 版：<a href="https://www.cnblogs.com/szw/p/WeChatSampleBuilder-V2.html#Web
 > 目前视频已经在网易云课堂上线，课程制作精良、内容充实，被选为“A”级课程，[【观看视频】](https://book.weixin.senparc.com/book/videolinknetease?code=github-homepage)，[【查看课程代码及课件】](https://github.com/JeffreySu/WechatVideoCourse)。
 
 
-### 关注测试账号体验功能（SenparcRobot）：
+## 🧪 关注测试账号体验功能（SenparcRobot）：
 |盛派网络小助手公众号|盛派网络小助手小程序|BookHelper|
 |--|--|--|
 | <img src="https://sdk.weixin.senparc.com/Images/qrcode.jpg" width="258" /> | <img src="https://sdk.weixin.senparc.com/Images/SenparcRobot_MiniProgram.jpg" width="258" /> | <img src="https://sdk.weixin.senparc.com/Images/qrcode-bookhelper.jpg" width="258" /> |
 
-## 贡献代码
+## ✋ 贡献代码
 
 > 如果需要使用或修改此项目的源代码，建议先Fork。也欢迎将您修改的通用版本Pull Request过来。
 
@@ -551,7 +563,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 -->
 
 
-## 如何使用 .NET Core 开发
+## 👩‍🏫 如何使用 .NET Core 开发
 
 > 当前分支包含了 .NET Framework 3.5 / 4.0 / 4.5 / 4.6.2 及 .NET Core 2.0 + 2.1 / .NET 5.0 + 6.0 的全版本代码（已经不更新的版本请查看 [release](https://github.com/JeffreySu/WeiXinMPSDK/releases) 快照）。<br>
 > 其中 .NET Framework 的 Demo 位于 `/src/Samples/All/net45-mvc` 目录下，<br>
@@ -560,11 +572,11 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 > 1. 以上 Sample 中，`net7-mvc` 中的 Sample 直接引用了每个模块的源码，使用 `Release` 编译后可生成兼容不同版本的 Senaprc.Weixin SDK 库。<br>
 > 2. 您也可以使用 .NET 6.0（向下兼容 .NET 5.0 及 .NET Core 3.1 等更低版本） 的 Demo 位于 `/Samples/All/net6-mvc` 目录下。
 
-## 使用Nuget安装到项目中
+## ↕️ 使用Nuget安装到项目中
 
 各个模块的 Nuget 安装方式：《[使用 Nuget 将 SDK 安装到项目中](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E4%BD%BF%E7%94%A8-Nuget-%E5%B0%86-SDK-%E5%AE%89%E8%A3%85%E5%88%B0%E9%A1%B9%E7%9B%AE%E4%B8%AD)》
 
-## 如何部署
+## 🏬 如何部署
 
 ### 1) 部署到 Azure App Service
 
@@ -652,7 +664,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
  欢迎开发者对未完成或需要补充的模块进行 Pull Request！
 -->
 
-## 各重要分支说明
+## 🍴 各重要分支说明
 
 
 |  分支      |     说明         
@@ -666,11 +678,11 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 | Developer-Senparc.SDK | 此分支仅用于 Senparc 团队内部测试，可忽略。
 
 
-## 感谢贡献者
+## 🍟 感谢贡献者
 
 感谢为此项目做出贡献的开发者，你们不光完善了这个项目，也为中国开源事业出了一份力，感谢你们！名单[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/blob/master/Contributors.md)查看。
 
-## 捐助
+## 💰 捐助
 
 如果这个项目对您有用，我们欢迎各方任何形式的捐助，也包括参与到项目代码更新或意见反馈中来。谢谢！
 
@@ -678,16 +690,16 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 
 [![donate](http://sdk.weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png)](http://sdk.weixin.senparc.com#donate)
 
-## Star 数量统计 
+## ⭐ Star 数量统计 
 
 [![starcharts stargazers over time](https://starchart.cc/JeffreySu/WeiXinMPSDK.svg)](https://starchart.cc/JeffreySu/WeiXinMPSDK)
 
-## License
+## 📎 License
 
 Apache License Version 2.0
 
 ```
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file 
 except in compliance with the License. You may obtain a copy of the License at

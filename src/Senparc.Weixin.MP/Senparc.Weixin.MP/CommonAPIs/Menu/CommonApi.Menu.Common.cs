@@ -56,6 +56,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20220511
     修改描述：v16.18.2.1 修复二级菜单按钮判断逻辑
+    
+    修改标识：JaneConan - 20230417
+    修改描述：v16.18.10.7 修复自定义菜单实体问题
 
 ----------------------------------------------------------------*/
 
@@ -426,7 +429,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 //重新整理按钮信息
                 ButtonGroupBase buttonGroup = buttonGroupBase; // ?? new ButtonGroup();
-                var rootButtonList = resultFull.menu.button;
+                var rootButtonList = resultFull.menu.list.subbutton;
 
                 GetButtonGroup(rootButtonList, buttonGroup);//设置默认菜单
                 result = new GetMenuResult(buttonGroupBase)
@@ -448,7 +451,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         conditionalButtonGroup.menuid = conditionalMenu.menuid;
                         //fix bug 16030701 end
 
-                        GetButtonGroup(conditionalMenu.button, conditionalButtonGroup);//设置默认菜单
+                        GetButtonGroup(conditionalMenu.list.subbutton, conditionalButtonGroup);//设置默认菜单
                         conditionalMenuList.Add(conditionalButtonGroup);
                     }
                     result.conditionalmenu = conditionalMenuList;

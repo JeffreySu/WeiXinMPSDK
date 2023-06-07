@@ -48,6 +48,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20220805
     修改描述：v3.15.6 添加“异步校验图片/音频是否含有违法违规内容”接口
 
+    修改标识：mojinxun - 20230219
+    修改描述：v3.15.13 添加“文本内容安全识别”接口
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;
@@ -663,6 +666,41 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 var data = new { content = content };
 
                 return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 文本内容安全识别
+        /// <para>该接口用于检查一段文本是否含有违法违规内容。</para>
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/OpenApiDoc/sec-center/sec-check/msgSecCheck.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="content">要检测的文本内容，长度不超过 500KB，编码格式为utf-8</param>
+        /// <param name="version">接口版本号，2.0版本为固定值2</param>
+        /// <param name="scene">场景枚举值（1 资料；2 评论；3 论坛；4 社交日志）</param>
+        /// <param name="openid">用户的openid（用户需在近两小时访问过小程序）</param>
+        /// <param name="title">非必填 文本标题，需使用UTF-8编码</param>
+        /// <param name="nickname">非必填 用户昵称，需使用UTF-8编码</param>
+        /// <param name="signature">非必填 个性签名，该参数仅在资料类场景有效(scene=1)，需使用UTF-8编码</param>
+        /// <returns></returns>
+        public static MsgSecCheckResult MsgSecCheck(string accessTokenOrAppId, string content, int version, int scene, string openid, string title = null, string nickname = null, string signature = null, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/wxa/msg_sec_check?access_token={0}";
+                var data = new
+                {
+                    content = content,
+                    version = version,
+                    scene = scene,
+                    openid = openid,
+                    title = title,
+                    nickname = nickname,
+                    signature = signature,
+                };
+
+                return CommonJsonSend.Send<MsgSecCheckResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -1483,6 +1521,44 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+
+
+        /// <summary>
+        /// 文本内容安全识别
+        /// <para>该接口用于检查一段文本是否含有违法违规内容。</para>
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/OpenApiDoc/sec-center/sec-check/msgSecCheck.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="content">要检测的文本内容，长度不超过 500KB，编码格式为utf-8</param>
+        /// <param name="version">接口版本号，2.0版本为固定值2</param>
+        /// <param name="scene">场景枚举值（1 资料；2 评论；3 论坛；4 社交日志）</param>
+        /// <param name="openid">用户的openid（用户需在近两小时访问过小程序）</param>
+        /// <param name="title">非必填 文本标题，需使用UTF-8编码</param>
+        /// <param name="nickname">非必填 用户昵称，需使用UTF-8编码</param>
+        /// <param name="signature">非必填 个性签名，该参数仅在资料类场景有效(scene=1)，需使用UTF-8编码</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<MsgSecCheckResult> MsgSecCheckAsync(string accessTokenOrAppId, string content, int version, int scene, string openid, string title = null, string nickname = null, string signature = null, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/wxa/msg_sec_check?access_token={0}";
+                var data = new
+                {
+                    content = content,
+                    version = version,
+                    scene = scene,
+                    openid = openid,
+                    title = title,
+                    nickname = nickname,
+                    signature = signature,
+                };
+
+                return await CommonJsonSend.SendAsync<MsgSecCheckResult>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
         }
 
         #endregion

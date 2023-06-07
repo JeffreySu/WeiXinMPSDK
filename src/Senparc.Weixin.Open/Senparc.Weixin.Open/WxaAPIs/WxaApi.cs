@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
   
     文件名：WxaApi.cs
     文件功能描述：小程序接口
@@ -46,7 +46,9 @@ using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP.AdvancedAPIs.Media;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.WxaAPIs
@@ -200,6 +202,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         }
         #endregion
 
+        #region 查询小程序版本信息
         /// <summary>
         /// 查询小程序版本信息
         /// <para>调用本接口可以查询小程序的体验版和线上版本信息。</para>
@@ -218,6 +221,66 @@ namespace Senparc.Weixin.Open.WxaAPIs
             };
             return CommonJsonSend.Send<GetVersionInfoJsonResult>(null, url, data, CommonJsonSendType.POST);
         }
+        #endregion
+
+        #region 订单页path信息
+        /// <summary>
+        /// 获取订单页 path 信息
+        /// <para>该接口用于获取订单页 path 信息。</para>
+        /// https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/miniprogram-management/basic-info-management/getOrderPathInfo.html
+        /// </summary>
+        /// <param name="accessToken">第三方平台接口调用凭证authorizer_access_token，该参数为 URL 参数，非 Body 参数。</param>
+        /// <param name="info_type">0:线上版，1:审核版</param>
+        /// <returns></returns>
+        public static GetOrderPathInfoJsonResult GetOrderPathInfo(string accessToken, int info_type)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/security/getorderpathinfo?access_token={accessToken.AsUrlData()}";
+
+            var data = new
+            {
+                info_type
+            };
+            return CommonJsonSend.Send<GetOrderPathInfoJsonResult>(null, url, data, CommonJsonSendType.POST);
+        }
+
+        /// <summary>
+        /// 申请设置订单页 path 信息
+        /// <para>该接口用于申请设置订单页 path 信息</para>
+        /// https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/miniprogram-management/basic-info-management/applySetOrderPathInfo.html
+        /// </summary>
+        /// <param name="accessToken">第三方平台接口调用凭证authorizer_access_token，该参数为 URL 参数，非 Body 参数。</param>
+        /// <param name="info_type">0:线上版，1:审核版</param>
+        /// <returns></returns>
+        public static ApplySetOrderPathInfoJsonResult ApplySetOrderPathInfo(string accessToken, ApplySetOrderPathInfo batch_req)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/security/applysetorderpathinfo?access_token={accessToken.AsUrlData()}";
+
+            var data = new
+            {
+                batch_req
+            };
+            return CommonJsonSend.Send<ApplySetOrderPathInfoJsonResult>(null, url, data, CommonJsonSendType.POST);
+        }
+        #endregion
+
+        #region 上传提审素材
+        /// <summary>
+        /// 上传提审素材
+        /// <para>调用本接口可将小程序页面截图和操作录屏上传，提审时带上相关参数，可以帮助审核人员判断</para>
+        /// https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/miniprogram-management/code-management/uploadMediaToCodeAudit.html
+        /// </summary>
+        /// <param name="accessToken">第三方平台接口调用凭证authorizer_access_token，该参数为 URL 参数，非 Body 参数。</param>
+        /// <param name="file">上传文件的绝对路径</param>
+        /// <returns></returns>
+        public static UploadMediaResultJson UploadMedia(string accessToken, string file, int timeOut = 40000)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/uploadmedia?access_token={accessToken.AsUrlData()}";
+            var fileDictionary = new Dictionary<string, string>();
+            fileDictionary["media"] = file;
+            return CO2NET.HttpUtility.Post.PostFileGetJson<UploadMediaResultJson>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
+        }
+        #endregion
+
 
         #endregion
 
@@ -366,6 +429,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         }
         #endregion
 
+        #region 小程序版本信息
         /// <summary>
         /// 【异步方法】查询小程序版本信息
         /// <para>调用本接口可以查询小程序的体验版和线上版本信息。</para>
@@ -384,6 +448,65 @@ namespace Senparc.Weixin.Open.WxaAPIs
             };
             return await CommonJsonSend.SendAsync<GetVersionInfoJsonResult>(null, url, data, CommonJsonSendType.POST);
         }
+        #endregion
+
+        #region 订单页path信息
+        /// <summary>
+        /// 获取订单页 path 信息
+        /// <para>该接口用于获取订单页 path 信息。</para>
+        /// https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/miniprogram-management/basic-info-management/getOrderPathInfo.html
+        /// </summary>
+        /// <param name="accessToken">第三方平台接口调用凭证authorizer_access_token，该参数为 URL 参数，非 Body 参数。</param>
+        /// <param name="info_type">0:线上版，1:审核版</param>
+        /// <returns></returns>
+        public static async Task<GetOrderPathInfoJsonResult> GetOrderPathInfoAsync(string accessToken, int info_type)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/security/getorderpathinfo?access_token={accessToken.AsUrlData()}";
+
+            var data = new
+            {
+                info_type
+            };
+            return await CommonJsonSend.SendAsync<GetOrderPathInfoJsonResult>(null, url, data, CommonJsonSendType.POST);
+        }
+
+        /// <summary>
+        /// 申请设置订单页 path 信息
+        /// <para>该接口用于申请设置订单页 path 信息</para>
+        /// https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/miniprogram-management/basic-info-management/applySetOrderPathInfo.html
+        /// </summary>
+        /// <param name="accessToken">第三方平台接口调用凭证authorizer_access_token，该参数为 URL 参数，非 Body 参数。</param>
+        /// <param name="info_type">0:线上版，1:审核版</param>
+        /// <returns></returns>
+        public static async Task<ApplySetOrderPathInfoJsonResult> ApplySetOrderPathInfoAsync(string accessToken, ApplySetOrderPathInfo batch_req)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/security/applysetorderpathinfo?access_token={accessToken.AsUrlData()}";
+
+            var data = new
+            {
+                batch_req
+            };
+            return await CommonJsonSend.SendAsync<ApplySetOrderPathInfoJsonResult>(null, url, data, CommonJsonSendType.POST);
+        }
+        #endregion
+
+        #region 上传提审素材
+        /// <summary>
+        /// 上传提审素材
+        /// <para>调用本接口可将小程序页面截图和操作录屏上传，提审时带上相关参数，可以帮助审核人员判断</para>
+        /// https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/miniprogram-management/code-management/uploadMediaToCodeAudit.html
+        /// </summary>
+        /// <param name="accessToken">第三方平台接口调用凭证authorizer_access_token，该参数为 URL 参数，非 Body 参数。</param>
+        /// <param name="file">上传文件的绝对路径</param>
+        /// <returns></returns>
+        public static async Task<UploadMediaResultJson> UploadMediaAsync(string accessToken, string file, int timeOut = 40000)
+        {
+            var url = $"{Config.ApiMpHost}/wxa/uploadmedia?access_token={accessToken.AsUrlData()}";
+            var fileDictionary = new Dictionary<string, string>();
+            fileDictionary["media"] = file;
+            return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<UploadMediaResultJson>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
+        }
+        #endregion
 
         #endregion
 

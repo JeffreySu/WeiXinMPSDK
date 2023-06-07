@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.6.8.13</Version>
+    <Version>0.7.3</Version>
     <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
     <LangVersion>10.0</LangVersion>
@@ -42,6 +42,9 @@
 		v0.6.8.13 修复验签时 204（NoContent）情况下的异常
 		v0.6.8.14 修复 PayScoreApis.QueryServiceOrderAsync() 重复代码
 		v0.6.8.15 修复 PayScoreApis.QueryServiceOrderAsync() 参数判断逻辑
+		v0.7.0 BasePay 支持服务商模式
+		v0.7.1 修复 TradeBillQueryRequestData 默认参数问题
+		v0.7.3 新增微信支付 V3 服务商的“经营能力”“资金应用”相关接口
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -67,7 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Apis\Marketing\Entities\MarketingApis.Busifavor.cs" />
-    <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />

@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
   
     文件名：RegisterGuideRequestData.cs
     文件功能描述：微信支付V3服务人员注册接口请求数据
@@ -45,6 +45,12 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
     /// </summary>
     public class RegisterGuideRequestData
     {
+        /// <summary>
+        /// 无参构造函数
+        /// </summary>
+        public RegisterGuideRequestData()
+        {
+        }
 
         /// <summary>
         /// 含参构造函数
@@ -70,11 +76,37 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         }
 
         /// <summary>
-        /// 无参构造函数
+        /// 含参构造函数(服务商模式)
         /// </summary>
-        public RegisterGuideRequestData()
+        /// <param name="sub_mchid">服务人员所属商户的商户ID</param>
+        /// <param name="corpid">企业ID <para>body商户的企业微信唯一标识</para><para>示例值：1234567890</para></param>
+        /// <param name="store_id">门店ID <para>body门店在微信支付商户平台的唯一标识（查找路径：登录商户平台—>营销中心—>门店管理，若无门店则需先创建门店）</para><para>示例值：12345678</para></param>
+        /// <param name="userid">企业微信的员工ID <para>body员工在商户企业微信通讯录使用的唯一标识（企业微信的员工信息可通过接口从企业微信通讯录获取，具体请参考企业微信的API文档）</para><para>示例值：robert</para></param>
+        /// <param name="name">企业微信的员工姓名 <para>body员工在商户企业微信通讯录上的姓名,需使用微信支付平台公钥加密该字段需进行加密处理，加密方法详见敏感信息加密说明。</para><para>特殊规则：加密前字段长度限制为64个字节</para><para>示例值：pVd1HJ6v/69bDnuC4EL5Kz4jBHLiCa8MRtelw/wDa4SzfeespQO/0kjiwfqdfg==</para><para></para></param>
+        /// <param name="mobile">手机号码 <para>员工在商户企业微信通讯录上设置的手机号码，使用微信支付平台公钥加密该字段需进行加密处理，加密方法详见敏感信息加密说明。</para><para>特殊规则：加密前字段长度限制为32个字节</para><para>示例值：pVd1HJ6v/69bDnuC4EL5Kz4jBHLiCa8MRtelw/wDa4SzfeespQO/0kjiwfqdfg==</para><para></para></param>
+        /// <param name="qr_code">员工个人二维码 <para>body员工在商户企业微信通讯录上的二维码串</para><para>示例值：https://open.work.weixin.qq.com/wwopen/userQRCode?vcode=xxx</para></param>
+        /// <param name="avatar">头像URL <para>body员工在商户企业微信通讯录上头像的URL示例值：http://wx.qlogo.cn/mmopen/ajNVdqHZLLA3WJ6DSZUfiakYe37PKnQhBIeOQBO4czqrnZDS79FH5Wm5m4X69TBicnHFlhiafvDwklOpZeXYQQ2icg/0</para></param>
+        /// <param name="group_qrcode">群二维码URL <para>body员工所在门店在企业微信配置的群活码的URL（可通过企业微信“获取客户群进群方式API”获取，请登录企业微信后查看API文档，若无查看权限可通过问卷提交需求）示例值：http://p.qpic.cn/wwhead/nMl9ssowtibVGyrmvBiaibzDtp/0</para><para>可为null</para></param>
+        public RegisterGuideRequestData(string sub_mchid, string corpid, int store_id, string userid, string name, string mobile, string qr_code, string avatar, string group_qrcode)
         {
+            this.sub_mchid = sub_mchid;
+            this.corpid = corpid;
+            this.store_id = store_id;
+            this.userid = userid;
+            this.name = name;
+            this.mobile = mobile;
+            this.qr_code = qr_code;
+            this.avatar = avatar;
+            this.group_qrcode = group_qrcode;
         }
+
+        #region 服务商
+        /// <summary>
+        /// 子商户号 
+        /// 服务商模式需要
+        /// </summary>
+        public string sub_mchid { get; set; }
+        #endregion
 
         /// <summary>
         /// 企业ID

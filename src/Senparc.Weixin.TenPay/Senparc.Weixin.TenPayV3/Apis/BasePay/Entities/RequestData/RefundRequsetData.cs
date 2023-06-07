@@ -41,8 +41,14 @@ using System.Xml.Schema;
 
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay
 {
+    [Obsolete("请使用 RefundRequestData", true)]
     public class RefundRequsetData
     {
+        /// <summary>
+        /// 无参构造函数
+        /// </summary>
+        public RefundRequsetData() { }
+
         /// <summary>
         /// 含参构造函数
         /// </summary>
@@ -64,13 +70,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             this.funds_account = funds_account;
             this.amount = amount;
             this.goods_detail = goods_detail;
-        }
-
-        /// <summary>
-        /// 无参构造函数
-        /// </summary>
-        public RefundRequsetData()
-        {
         }
 
         /// <summary>

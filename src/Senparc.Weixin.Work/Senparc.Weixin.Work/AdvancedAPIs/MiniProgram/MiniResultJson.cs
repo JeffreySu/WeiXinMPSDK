@@ -26,5 +26,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         public string userid { get; set; }
         public string session_key { get; set; }
         public string open_userid { get; set; }
-    } 
+    }
+
+    /// <summary>
+    /// 获取下级/下游企业小程序session返回结果
+    /// </summary>
+    public class TransferSessionResultJson : WorkJsonResult
+    {
+        public string userid { get; set; }
+        public string session_key { get; set; }
+    }
 }

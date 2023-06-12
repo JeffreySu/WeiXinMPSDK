@@ -204,8 +204,8 @@ namespace Senparc.Weixin.MP.Test
                 {
                     Description = "测试说明",
                     Title = "测试标题",
-                    Url = "http://www.senparc.com",
-                    PicUrl = "http://img.senparc.com/images/v2/logo.jpg'"
+                    Url = "https://www.senparc.com",
+                    PicUrl = "https://img.senparc.com/images/v2/logo.jpg'"
                 });
                 Assert.AreEqual(1, responseNews.ArticleCount);
                 var responseDoc = EntityHelper.ConvertEntityToXml(responseNews);
@@ -242,7 +242,7 @@ namespace Senparc.Weixin.MP.Test
                 //{
                 //    Description = "测试说明",
                 //    Title = "测试标题",
-                //    Url = "http://www.senparc.com",
+                //    Url = "https://www.senparc.com",
                 //    PicUrl = requestEntity.PicUrl
                 //});
                 //Assert.AreEqual(1, responseNews.ArticleCount);

@@ -27,6 +27,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20220912
 
+    修改标识：Senparc - 20230612
+    修改描述：v3.15.20 增加更新模版卡片消息（PR #2850）
 
 ----------------------------------------------------------------*/
 

@@ -54,6 +54,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20230226
     修改描述：v3.15.16 添加企业微信应用“消息撤回”（PR #2793）
 
+    修改标识：Senparc - 20230612
+    修改描述：v3.15.20 增加更新模版卡片消息（PR #2850）
+
 ----------------------------------------------------------------*/
 
 /*
@@ -72,6 +75,7 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Work.AdvancedAPIs.Mass;
 using Senparc.Weixin.Work.AdvancedAPIs.Mass.SendTemplateCard;
+using Senparc.Weixin.Work.AdvancedAPIs.Mass.UpdateTemplateCard;
 using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Entities;
 
@@ -84,6 +88,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     public static class MassApi
     {
         private static string _urlFormat = Config.ApiWorkHost + "/cgi-bin/message/send?access_token={0}";
+        private static string _updateTemplateCardFormat = Config.ApiWorkHost + "/cgi-bin/message/update_template_card?access_token={0}";
         private static string _taskUrlFormat = Config.ApiWorkHost + "/cgi-bin/message/update_taskcard?access_token={0}";
         private static string _recallUrlFormat = Config.ApiWorkHost + "/cgi-bin/message/recall?access_token={0}";
 
@@ -572,6 +577,23 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 JsonSetting jsonSetting = new JsonSetting(true);
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 更新模版卡片消息
+        /// https://developer.work.weixin.qq.com/document/path/94888
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static MassResult UpdateTemplateCard(string accessTokenOrAppKey, UpdateTemplateCardRequest data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                JsonSetting jsonSetting = new JsonSetting(true);
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _updateTemplateCardFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
         }
 
@@ -1092,6 +1114,23 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 JsonSetting jsonSetting = new JsonSetting(true);
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 【异步方法】更新模版卡片消息
+        /// https://developer.work.weixin.qq.com/document/path/94888
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<MassResult> UpdateTemplateCardAsync(string accessTokenOrAppKey, UpdateTemplateCardRequest data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                JsonSetting jsonSetting = new JsonSetting(true);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _updateTemplateCardFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
         }
 

@@ -27,6 +27,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20220912
 
+    修改标识：Senparc - 20230612
+    修改描述：v3.15.20 增加更新模版卡片消息（PR #2850）
 
 ----------------------------------------------------------------*/
 
@@ -158,7 +160,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Mass.SendTemplateCard
     public class Template_Card_ButtonInteraction : Template_CardWithJumpListBase
     {
         public Checkbox checkbox { get; set; }
-        public Submit_Button submit_button { get; set; }
+        public Button_List[] button_list { get; set; }
 
         public string sub_title_text { get; set; }
         public Template_Card_ButtonInteraction()
@@ -181,10 +183,16 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Mass.SendTemplateCard
             public bool is_checked { get; set; }
         }
 
-        public class Submit_Button
+        public class Button_List
         {
             public string text { get; set; }
             public string key { get; set; }
+
+            public int type { get; set; }
+
+            public int style { get; set; }
+
+            public string url { get; set; }
         }
 
     }
@@ -264,7 +272,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Mass.SendTemplateCard
 
     }
 
-
+    public class Template_Card_Button : Template_CardBase
+    {
+        public Button button { get; set; }
+        public class Button
+        {
+            public string replace_name { get; set; }
+        }
+    }
     #endregion
 
     #endregion

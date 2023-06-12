@@ -69,7 +69,7 @@ var registerService = app.UseSenparcWeixin(app.Environment, null, null, register
 ### 调用高级接口（只需 1 句代码）：
 可在程序任意位置调用接口（以客服接口为例）：
 ``` C#
-await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync("AppId", "OpenId", "Hello World!");
+await CustomApi.SendTextAsync("AppId", "OpenId", "Hello World!");
 ```
 > 提示：<br>
 > 1. Senparc.Weixin SDK 将全生命周期自动托管 AccessToken，因此开发过程只需提供 AppId，无需操心 AccessToken 过期等问题。<br>

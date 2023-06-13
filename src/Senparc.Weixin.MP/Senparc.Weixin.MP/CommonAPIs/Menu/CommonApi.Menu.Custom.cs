@@ -245,7 +245,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                     var jsonResult = Newtonsoft.Json.JsonConvert.DeserializeObject<GetMenuResultFull>(jsonString);
 #endif
 
-                    if (jsonResult.menu == null || jsonResult.menu.list == null || jsonResult.menu.list.subbutton.Count == 0)
+                    if (jsonResult.menu == null || jsonResult.menu.button == null)
                     {
                         throw new WeixinMenuException(jsonResult.errmsg);
                     }

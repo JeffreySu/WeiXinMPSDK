@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
 		<FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-		<Version>3.15.20</Version>
+		<Version>3.15.21</Version>
 		<LangVersion>10.0</LangVersion>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -201,6 +201,7 @@
 			v3.15.18.1 GetMomentListLocation.latitude / longitude 设置为 long 类型 （Issue #2823）
 			v3.15.19 自定义工作台接口（PR #2840）
 			v3.15.20 增加更新模版卡片消息（PR #2580）
+			v3.15.21 添加获取子部门ID列表方法,包含同步及异步（PR #2858）
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

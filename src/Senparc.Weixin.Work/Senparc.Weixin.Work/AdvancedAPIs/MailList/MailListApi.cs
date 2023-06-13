@@ -439,6 +439,27 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
 
+
+        /// <summary>
+        /// 获取子部门ID列表
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="id">部门id。获取指定部门及其下的子部门。 如果不填，默认获取全量组织架构</param>
+        /// <returns></returns>
+        public static  GetDepartmentIdListResult GetDepartmentIdList(string accessTokenOrAppKey, long? id = null)
+        {
+            return  ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/department/simplelist?access_token={0}", accessToken.AsUrlData());
+                if (id.HasValue)
+                {
+                    url += string.Format("&id={0}", id.Value);
+                }
+                return  CommonJsonSend.Send<GetDepartmentIdListResult>(null, url, null, CommonJsonSendType.GET);
+            }, accessTokenOrAppKey);
+
+        }
+
         #endregion
 
         #region 标签管理
@@ -1037,6 +1058,26 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return await CommonJsonSend.SendAsync<GetDepartmentListResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
 
+
+        }
+        
+        /// <summary>
+        /// 获取子部门ID列表
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="id">部门id。获取指定部门及其下的子部门。 如果不填，默认获取全量组织架构</param>
+        /// <returns></returns>
+        public static async Task<GetDepartmentIdListResult> GetDepartmentIdListAsync(string accessTokenOrAppKey, long? id = null)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/department/simplelist?access_token={0}", accessToken.AsUrlData());
+                if (id.HasValue)
+                {
+                    url += string.Format("&id={0}", id.Value);
+                }
+                return await CommonJsonSend.SendAsync<GetDepartmentIdListResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
         }
 

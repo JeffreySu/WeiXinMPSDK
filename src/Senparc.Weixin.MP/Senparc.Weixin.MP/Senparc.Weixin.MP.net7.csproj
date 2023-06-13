@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>16.18.12</Version>
+    <Version>16.18.13</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -523,6 +523,7 @@
 		v16.18.7 OAuthApi.GetAuthorizeUrl() 方法添加 forcePopup 参数
 		v16.18.10.7 修复自定义菜单实体问题
 		v16.18.11 新增“获取稳定版接口调用凭据”接口
+		v16.18.13 回退代码，修复菜单问题 #2843
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

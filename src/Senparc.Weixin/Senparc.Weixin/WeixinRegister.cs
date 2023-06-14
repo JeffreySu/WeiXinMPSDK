@@ -60,6 +60,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20220224
     修改描述：完善 UseSenparcWeixin() 方法，为 null 值的 senparcWeixinSetting 自动获取值
 
+    修改标识：Senparc - 20230614
+    修改描述：v6.15.10 UseSenparcWeixin() 方法添加 autoCreateApi 参数，用于设置是自动生成微信接口的 API，默认为关闭
+
 ----------------------------------------------------------------*/
 
 #if !NET462
@@ -169,9 +172,6 @@ namespace Senparc.Weixin
             WeixinTrace.SendCustomLog("微信扩展缓存注册完成", exCacheLog);
 
             /* 扩展缓存注册结束 */
-
-            //注册 NeuChar
-            Senparc.NeuChar.Register.AddNeuChar();
 
             return registerService;
         }

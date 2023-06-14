@@ -25,7 +25,7 @@
 	<!--引用 Nuget 包-->
 	<ItemGroup>
 	  <PackageReference Include="Senparc.Weixin.AspNet" Version="0.8.6" />
-	  <PackageReference Include="Senparc.Weixin.MP" Version="16.18.12" />
+	  <PackageReference Include="Senparc.Weixin.MP" Version="16.18.13" />
 	  <PackageReference Include="Senparc.Weixin.MP.Middleware" Version="0.8.6" />
 	  <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.12.6" />
 	</ItemGroup>

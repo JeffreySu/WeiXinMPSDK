@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
-    <Version>0.8.6</Version>
+    <Version>1.0.0-beta1</Version>
     <AssemblyName>Senparc.Weixin.Work.Middleware</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work.Middleware</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -22,8 +22,9 @@
     <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
     <PackageIcon>icon.jpg</PackageIcon>
     <PackageReleaseNotes>
-			v0.1.0 创世
-</PackageReleaseNotes>
+		v0.1.0 创世
+		v1.0.0 发布正式版
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <PackageId>Senparc.Weixin.Work.Middleware</PackageId>
   </PropertyGroup>
@@ -71,7 +72,7 @@
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar.AspNet" Version="1.1.4" />
+    <PackageReference Include="Senparc.NeuChar.AspNet" Version="1.1.6" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.net7.csproj" />

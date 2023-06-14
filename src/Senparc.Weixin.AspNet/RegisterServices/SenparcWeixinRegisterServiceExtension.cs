@@ -64,9 +64,11 @@ namespace Senparc.Weixin.AspNet.RegisterServices
         /// <param name="serviceCollection">IServiceCollection</param>
         /// <param name="configuration">IConfiguration</param>
         /// <param name="env">IHostingEnvironment</param>
+        /// <param name="autoCreateApi">是否自动创建 API</param>
         /// <returns></returns>
-        public static IServiceCollection AddSenparcWeixinServices(this IServiceCollection serviceCollection, IConfiguration configuration, IHostEnvironment env)
+        public static IServiceCollection AddSenparcWeixinServices(this IServiceCollection serviceCollection, IConfiguration configuration, IHostEnvironment env, bool autoCreateApi = false)
         {
+
             serviceCollection.Configure<SenparcWeixinSetting>(configuration.GetSection("SenparcWeixinSetting"));
 
             var services = serviceCollection;
@@ -87,6 +89,13 @@ namespace Senparc.Weixin.AspNet.RegisterServices
 
                 services.AddCertHttpClient(key, tenPayV3Setting.TenPayV3_CertSecret, tenPayV3Setting.TenPayV3_CertPath, env);
             }
+
+            //注册 NeuChar
+#if NET462
+            Senparc.NeuChar.Register.AddNeuChar(ignoreNeuCharApiBind: !autoCreateApi);
+#else
+            Senparc.NeuChar.Register.AddNeuChar(null, ignoreNeuCharApiBind: !autoCreateApi);
+#endif
 
             return services;
 
@@ -161,14 +170,14 @@ namespace Senparc.Weixin.AspNet.RegisterServices
             //处理相对路径
             if (certPath.StartsWith("~/"))
             {
-//#if NET6_0_OR_GREATER
-//                if (env is Microsoft.AspNetCore.Hosting.IWebHostEnvironment webHostEnv)
-//                {
-//                    Config.RootDirectoryPath = webHostEnv.ContentRootPath;
-//                }
-//#endif
+                //#if NET6_0_OR_GREATER
+                //                if (env is Microsoft.AspNetCore.Hosting.IWebHostEnvironment webHostEnv)
+                //                {
+                //                    Config.RootDirectoryPath = webHostEnv.ContentRootPath;
+                //                }
+                //#endif
                 Config.RootDirectoryPath = env.ContentRootPath;
-                
+
                 certPath = Senparc.CO2NET.Utilities.ServerUtility.ContentRootMapPath(certPath);
             }
 

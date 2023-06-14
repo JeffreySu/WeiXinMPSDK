@@ -692,7 +692,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        [IgnoreApiBind]
         public static WorkJsonResult AuthSucc(string accessTokenOrAppKey, string userId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -1315,7 +1314,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        [IgnoreApiBind]
         public static async Task<WorkJsonResult> AuthSuccAsync(string accessTokenOrAppKey, string userId)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

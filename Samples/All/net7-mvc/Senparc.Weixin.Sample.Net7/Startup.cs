@@ -61,8 +61,8 @@ namespace Senparc.Weixin.Sample.Net6
 
             var builder = services.AddControllersWithViews()
                                   .AddNewtonsoftJson();// 支持 NewtonsoftJson
-                            //.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
-                            // Add CookieTempDataProvider after AddMvc and include ViewFeatures.
+                                                       //.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+                                                       // Add CookieTempDataProvider after AddMvc and include ViewFeatures.
 
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
 
@@ -129,9 +129,9 @@ namespace Senparc.Weixin.Sample.Net6
             }
 #endif
             #endregion
-            
+
             app.UseRouting();
-            
+
             // 启动 CO2NET 全局注册，必须！
             // 关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.net7/Startup.cs
             var registerService = app.UseSenparcGlobal(env, senparcSetting.Value, globalRegister =>

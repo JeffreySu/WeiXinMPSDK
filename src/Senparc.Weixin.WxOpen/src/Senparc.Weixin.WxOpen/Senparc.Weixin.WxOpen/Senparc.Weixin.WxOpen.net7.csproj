@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-		<Version>3.15.15</Version>
+		<Version>3.15.15.1</Version>
 		<LangVersion>9.0</LangVersion>
 		<AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
 		<RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
@@ -172,6 +172,7 @@
 			v3.15.12 添加小程序类目审核结果事件推送
 			v3.15.13 添加“文本内容安全识别”接口 PR #2786
 			v3.15.15 添加物流服务相关接口和事件推送 PR #2834
+			v3.15.15.1 获取小程序服务GenerateScheme模型增加env_version字段 PR #2861
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 	</PropertyGroup>

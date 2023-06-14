@@ -21,16 +21,22 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.UrlScheme
         /// （必填）通过scheme码进入小程序时的query，最大128个字符，只支持数字，大小写英文以及部分特殊字符：!#$&'()*+,/:;=?@-._~
         /// </summary>
         public string query { get; set; }
+        /// <summary>
+        /// (选填)默认值"release"。要打开的小程序版本。正式版为"release"，体验版为"trial"，开发版为"develop"，仅在微信外打开时生效。
+        /// </summary>
+        public string env_version { get; set; }
 
         /// <summary>
         /// GenerateScheme() 接口中的 jumpWxa 参数
         /// </summary>
         /// <param name="path"></param>
         /// <param name="query"></param>
-        public GenerateSchemeJumpWxa(string path, string query)
+        /// <param name="env_version"></param>
+        public GenerateSchemeJumpWxa(string path, string query, string env_version = null)
         {
             this.path = path ?? "";
             this.query = query ?? "";
+            this.env_version = env_version ?? "release";
         }
     }
 }

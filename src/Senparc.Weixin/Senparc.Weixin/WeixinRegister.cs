@@ -89,9 +89,8 @@ namespace Senparc.Weixin
         /// <param name="registerService"></param>
         /// <param name="senparcWeixinSetting">微信全局设置参数，必填</param>
         /// <param name="senparcSetting">用于提供 SenparcSetting.Cache_Redis_Configuration 和 Cache_Memcached_Configuration 两个参数，如果不使用这两种分布式缓存可传入null</param>
-        /// <param name="autoCreateApi">是自动生成微信接口的 API</param>
         /// <returns></returns>
-        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, SenparcSetting senparcSetting = null, bool autoCreateApi = false)
+        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, SenparcSetting senparcSetting = null)
         {
             senparcWeixinSetting = senparcWeixinSetting ?? new SenparcWeixinSetting();
             senparcSetting = (senparcSetting ?? CO2NET.Config.SenparcSetting) ?? new SenparcSetting();
@@ -174,12 +173,6 @@ namespace Senparc.Weixin
 
             /* 扩展缓存注册结束 */
 
-            //注册 NeuChar
-#if NET462
-            Senparc.NeuChar.Register.AddNeuChar();
-#else
-            Senparc.NeuChar.Register.AddNeuChar(null, ignoreNeuCharApiBind: !autoCreateApi);
-#endif
             return registerService;
         }
 
@@ -192,13 +185,12 @@ namespace Senparc.Weixin
         /// <param name="registerService"></param>
         /// <param name="senparcWeixinSetting"></param>
         /// <param name="registerConfigure"></param>
-        /// <param name="autoCreateApi">是自动生成微信接口的 API</param>
         /// <returns></returns>
         public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, Action<IRegisterService, SenparcWeixinSetting> registerConfigure
 #if !NET462
             , IServiceProvider serviceProvider = null
 #endif
-            , bool autoCreateApi = false)
+            )
         {
 #if !NET462
             //默认从 appsettings.json 中取
@@ -208,7 +200,7 @@ namespace Senparc.Weixin
             }
 #endif
 
-            var register = registerService.UseSenparcWeixin(senparcWeixinSetting, senparcSetting: null, autoCreateApi: autoCreateApi);
+            var register = registerService.UseSenparcWeixin(senparcWeixinSetting, senparcSetting: null);
 
             //由于 registerConfigure 内可能包含了 app.UseSenparcWeixinCacheRedis() 等注册代码，需要在在 registerService.UseSenparcWeixin() 自动加载 Redis 后进行
             //因此必须在 registerService.UseSenparcWeixin() 之后执行。

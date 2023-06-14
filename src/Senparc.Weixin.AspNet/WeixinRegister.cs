@@ -73,16 +73,14 @@ namespace Senparc.Weixin.AspNet
             Action<IRegisterService, SenparcWeixinSetting> weixinRegisterConfigure,
              //CO2NET 全局设置
              bool autoScanExtensionCacheStrategies = false,
-             Func<List<IDomainExtensionCacheStrategy>> extensionCacheStrategiesFunc = null,
-             bool autoCreateApi = false
+             Func<List<IDomainExtensionCacheStrategy>> extensionCacheStrategiesFunc = null
             )
         {
             //注册 CO2NET 全局
             var register = app.UseSenparcGlobal(env, senparcSetting, globalRegisterConfigure, autoScanExtensionCacheStrategies, extensionCacheStrategiesFunc);
 
             //注册微信
-            register.UseSenparcWeixin(senparcWeixinSetting, weixinRegisterConfigure, app.ApplicationServices,
-                autoCreateApi);
+            register.UseSenparcWeixin(senparcWeixinSetting, weixinRegisterConfigure, app.ApplicationServices);
 
             return register;
         }

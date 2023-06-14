@@ -379,7 +379,7 @@
     <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Senparc.CO2NET" Version="2.1.9" />
-    <PackageReference Include="Senparc.NeuChar" Version="2.1.7.1" />
+    <PackageReference Include="Senparc.NeuChar" Version="2.1.7.2" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
     <Reference Include="System.Core" />

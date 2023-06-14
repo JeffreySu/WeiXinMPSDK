@@ -581,7 +581,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET.APM" Version="1.2.4.7" />
-    <PackageReference Include="Senparc.NeuChar" Version="2.1.7.1" />
+    <PackageReference Include="Senparc.NeuChar" Version="2.1.7.2" />
     <PackageReference Include="Senparc.NeuChar.App" Version="1.1.7" />
   </ItemGroup>
   <ItemGroup>

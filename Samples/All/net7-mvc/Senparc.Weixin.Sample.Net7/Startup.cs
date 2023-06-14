@@ -377,7 +377,7 @@ namespace Senparc.Weixin.Sample.Net6
                     /* 微信配置结束 */
 
                     #endregion
-                }, autoCreateApi: true);
+                });
 
             #region 使用 MessageHadler 中间件，用于取代创建独立的 Controller
             //MessageHandler 中间件介绍：https://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html

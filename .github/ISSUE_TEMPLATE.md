@@ -40,7 +40,8 @@
 - [ ] .net core 1.x
 - [ ] .net core 2.x
 - [ ] .net core 3.x
-- [x] .net 5.x / 6.x
+- [ ] .net 5.x / 6.x
+- [x] .net 7.0
 
 ##### 开发环境
 
@@ -66,6 +67,6 @@
 ##### 联系方式
 Email：
 
-（也可将问题地址及联系方式发送到 www.jeffrey.su@gmail.com）
+（也可将问题地址及联系方式发送到 zsu@senparc.com）
 
 > 发布问题后，请保持对 issue 的关注，有时会有需要进一步沟通的信息，很长时间内没有得到答复的 issue 将被关闭。

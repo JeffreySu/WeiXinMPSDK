@@ -712,3 +712,5 @@ either express or implied. See the License for the specific language governing p
 and limitations under the License.
 ```
 Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+> 100% 开源，支持商用。

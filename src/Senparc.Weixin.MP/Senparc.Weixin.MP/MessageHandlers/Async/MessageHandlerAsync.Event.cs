@@ -240,6 +240,12 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     break;
                 #endregion
 
+                #region 发布结果事件推送
+                case Event.publish_job_finish:
+                    responseMessage = await OnEvent_PublishJobFinishAsync(RequestMessage as RequestMessageEvent_Publish_Job_Finish).ConfigureAwait(false);
+                    break;
+                #endregion
+
 
                 default:
                     throw new Exceptions.UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -765,6 +771,18 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
         #endregion
 
+        #endregion
+
+        #region 发布结果
+        /// <summary>
+        /// 事件推送发布结果
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_PublishJobFinishAsync(RequestMessageEvent_Publish_Job_Finish requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_PublishJobFinish(requestMessage));
+        }
         #endregion
     }
 }

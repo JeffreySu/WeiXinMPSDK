@@ -55,6 +55,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20181226
     修改描述：v16.6.2 修改 DateTime 为 DateTimeOffset
 
+    修改标识：Senparc - 20230628
+    修改描述：v16.18.14 JSSDKHelper.GetNoncestr() 弃用 MD5 加密方法
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -81,7 +84,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// <returns></returns>
         public static string GetNoncestr()
         {
-            return EncryptHelper.GetMD5(Guid.NewGuid().ToString(), "UTF-8");
+            return Guid.NewGuid().ToString().Replace("-", "");
         }
 
         /// <summary>

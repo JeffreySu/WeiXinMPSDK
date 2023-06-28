@@ -35,6 +35,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
         
     修改标识：Senparc - 20171010
     修改描述：v14.8.1 修复几处GetNoncestr还在使用GBK编码
+        
+    修改标识：Senparc - 20230628
+    修改描述：v1.12.8 TenPayUtil.GetNoncestr() 弃用 MD5 加密方法
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -58,7 +62,7 @@ namespace Senparc.Weixin.TenPay.V2
         /// <returns></returns>
         public static string GetNoncestr()
         {
-            return EncryptHelper.GetMD5(Guid.NewGuid().ToString(), "UTF-8");
+            return Guid.NewGuid().ToString().Replace("-", "");
         }
 
         public static string GetTimestamp()

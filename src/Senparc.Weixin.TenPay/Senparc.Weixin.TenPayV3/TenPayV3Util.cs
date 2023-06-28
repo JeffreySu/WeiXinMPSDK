@@ -43,6 +43,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180331
     修改描述：v14.4.9 修改TenPayUtil.GetNoncestr()方法，将编码由GBK改为UTF8
 
+    修改标识：Senparc - 20230628
+    修改描述：v0.7.5 TenPayV3Util.GetNoncestr() 弃用 MD5 加密方法
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -66,7 +69,7 @@ namespace Senparc.Weixin.TenPayV3
         /// <returns></returns>
         public static string GetNoncestr()
         {
-            return EncryptHelper.GetMD5(Guid.NewGuid().ToString(), "UTF-8");
+            return Guid.NewGuid().ToString().Replace("-", "");
         }
 
         /// <summary>

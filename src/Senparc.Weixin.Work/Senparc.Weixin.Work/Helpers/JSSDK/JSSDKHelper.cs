@@ -16,6 +16,8 @@
     修改标识：Senparc - 20170522
     修改描述：v14.4.9 修改TenPayUtil.GetNoncestr()方法，将编码由GBK改为UTF8
 
+    修改标识：Senparc - 20230628
+    修改描述：v3.15.22 JSSDKHelper.GetNoncestr() 弃用 MD5 加密方法
 
 ----------------------------------------------------------------*/
 
@@ -37,7 +39,7 @@ namespace Senparc.Weixin.Work.Helpers
         /// <returns></returns>
         public static string GetNoncestr()
         {
-            return EncryptHelper.GetMD5(Guid.NewGuid().ToString(), "UTF-8");
+            return Guid.NewGuid().ToString().Replace("-", "");
         }
 
         /// <summary>
@@ -77,7 +79,7 @@ namespace Senparc.Weixin.Work.Helpers
         /// <param name="appId"></param>
         /// <param name="prepayId"></param>
         /// <returns></returns>
-        public static async Task<JsApiUiPackage> GetJsApiUiPackageAsync(string appId, string secret, string url,string jsApiTicket,bool isAgentConfig)
+        public static async Task<JsApiUiPackage> GetJsApiUiPackageAsync(string appId, string secret, string url, string jsApiTicket, bool isAgentConfig)
         {
             var nonceStr = GetNoncestr();
             var timeStamp = GetTimestamp();

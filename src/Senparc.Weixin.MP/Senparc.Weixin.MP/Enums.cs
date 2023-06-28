@@ -423,11 +423,7 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 发送订阅通知  场景：调用 bizsend 接口发送通知
         /// </summary>
-        subscribe_msg_sent_event,
-        #endregion
-
-        #region 推送发布结果
-        publish_job_finish
+        subscribe_msg_sent_event
         #endregion
     }
 

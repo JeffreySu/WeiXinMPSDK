@@ -771,17 +771,5 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
         #endregion
         #endregion
-
-        #region 发布结果
-        /// <summary>
-        /// 事件推送发布结果
-        /// </summary>
-        /// <param name="requestMessage"></param>
-        /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_PublishJobFinish(RequestMessageEvent_Publish_Job_Finish requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-        #endregion
     }
 }

@@ -271,12 +271,7 @@ namespace Senparc.Weixin.MP.MessageContexts
                             requestMessage = new RequestMessageEvent_Subscribe_Msg_Sent();
                             break;
                         #endregion
-
-                        #region 推送发布结果事件
-                        case "PUBLISHJOBFINISH":
-                            requestMessage = new RequestMessageEvent_Publish_Job_Finish();
-                            break;
-                        #endregion
+                        
                         default://其他意外类型（也可以选择抛出异常）
                             requestMessage = new RequestMessageEventBase();
                             break;

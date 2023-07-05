@@ -60,3 +60,5 @@ packages/
 /src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPay/Senparc - Backup.Weixin.TenPay.net7.csproj
 /src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3/Senparc - Backup.Weixin.TenPayV3.net7.csproj
 Thumbs.db
+/Samples/All/net7-mvc/Senparc.Weixin.Sample.Net7/App_Data/NeuChar
+/Samples/All/net7-mvc/Senparc.Weixin.Sample.Net7/App_Data/WeChat_OfficialAccount/2023-07-05

@@ -27,7 +27,7 @@
 	  <PackageReference Include="Senparc.Weixin.AspNet" Version="1.0.1-beta1" />
 	  <PackageReference Include="Senparc.Weixin.MP" Version="16.18.14" />
 	  <PackageReference Include="Senparc.Weixin.MP.Middleware" Version="1.0.0-beta1" />
-	  <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.12.6" />
+	  <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.12.7" />
 	</ItemGroup>
 
 	<!--直接引用源码-->

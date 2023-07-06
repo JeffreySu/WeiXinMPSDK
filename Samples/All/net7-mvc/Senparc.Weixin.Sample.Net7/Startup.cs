@@ -114,7 +114,11 @@ namespace Senparc.Weixin.Sample.Net6
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+#if !DEBUG
+
             app.UseHttpsRedirection();
+#endif
             app.UseStaticFiles();
             #region 此部分代码为 Sample 共享文件需要而添加，实际项目无需添加
 #if DEBUG

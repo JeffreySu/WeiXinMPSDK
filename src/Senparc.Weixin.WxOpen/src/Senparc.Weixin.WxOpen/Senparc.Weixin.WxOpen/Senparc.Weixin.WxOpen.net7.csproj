@@ -216,7 +216,7 @@
 		<PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Senparc.NeuChar" Version="2.2.0-beta1" />
+		<PackageReference Include="Senparc.NeuChar" Version="2.2.0-beta2" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net7.csproj" />

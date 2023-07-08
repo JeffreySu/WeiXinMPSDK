@@ -30,6 +30,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 	修改标识：Senparc - 20191004
     修改描述：使用异步方法
 
+	修改标识：Senparc - 20230709
+    修改描述：v16.19.0 MessageHandler 和客服接口支持长文本自动切割后连续发送
 
 ----------------------------------------------------------------*/
 

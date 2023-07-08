@@ -28,6 +28,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20210719
     修改描述：v3.12.2 修复小程序客服接口和公众号混用的问题
+    
+    修改标识：Senparc - 20230709
+    修改描述：v3.16.0 客服接口支持长文本自动切割后连续发送
 
 ----------------------------------------------------------------*/
 
@@ -260,16 +263,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> SendTextAsync(string accessTokenOrAppId, string openId, string content, string businessId = null, int timeOut = Config.TIME_OUT, int limitedBytes = 2048)
         {
-            //尝试超长内容发送
-            var trySendResult = await MessageHandlerHelper.TrySendLimistedText(accessTokenOrAppId,
-                content, limitedBytes,
-                c => SendTextAsync(accessTokenOrAppId, openId, c, businessId, timeOut, limitedBytes));
-
-            if (trySendResult != null)
-            {
-                return trySendResult;
-            }
-
             object data = null;
             data = new
             {
@@ -284,6 +277,16 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
 
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
+                //尝试超长内容发送
+                var trySendResult = await MessageHandlerHelper.TrySendLimistedText(accessTokenOrAppId,
+                    content, limitedBytes,
+                    c => SendTextAsync(accessTokenOrAppId, openId, c, businessId, timeOut, limitedBytes));
+
+                if (trySendResult != null)
+                {
+                    return trySendResult;
+                }
+
                 var urlFormat = GetSendUrlFormat(businessId);
                 var jsonSetting = new JsonSetting() { IgnoreNulls = true };
                 return await CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);

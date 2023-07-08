@@ -27,7 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20180910
 
-    
+	修改标识：Senparc - 20230709
+    修改描述：v3.16.0 客服接口支持长文本自动切割后连续发送
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Trace;

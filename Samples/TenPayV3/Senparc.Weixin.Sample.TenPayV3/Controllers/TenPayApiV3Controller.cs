@@ -449,7 +449,7 @@ namespace Senparc.Weixin.Sample.TenPayV3.Controllers
 
                 WeixinTrace.SendCustomLog("H5Pay接口返回", result.ToJson());
 
-                if (!result.VerifySignSuccess == true)
+                if (result.VerifySignSuccess != true)
                 {
                     return Content("未通过验证，请检查数据有效性！");
                 }

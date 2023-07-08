@@ -54,10 +54,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId"></param>
         /// <param name="content"></param>
+        /// <param name="limitedBytes">最大允许发送限制，如果超出限制，则分多条发送</param>
         /// <returns></returns>
-        public override async Task<ApiResult> SendText(string accessTokenOrAppId, string openId, string content)
+        public override async Task<ApiResult> SendText(string accessTokenOrAppId, string openId, string content, int limitedBytes = 2048)
         {
-            throw new NotImplementedException();
+            var result = await Senparc.Weixin.Work.AdvancedAPIs.MassApi.SendTextAsync(accessTokenOrAppId, openId, content);
+            return new ApiResult((int)result.errcode, result.errmsg, result);
         }
 
         /// <summary>

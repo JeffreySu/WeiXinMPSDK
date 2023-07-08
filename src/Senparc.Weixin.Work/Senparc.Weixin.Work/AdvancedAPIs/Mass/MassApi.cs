@@ -71,6 +71,7 @@ using System.Threading.Tasks;
 using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Work.AdvancedAPIs.Mass;
@@ -655,14 +656,26 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="enableDuplicateCheck">表示是否开启重复消息检查，0表示否，1表示是，默认为0</param>
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="limitedBytes">最大允许发送限制，如果超出限制，则分多条发送</param>
         /// <returns></returns>
         public static async Task<MassResult> SendTextAsync(string accessTokenOrAppKey, string agentId, string content, string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                 int enableDuplicateCheck = 0,
                 int duplicateCheckInterval = 1800,
-                int timeOut = Config.TIME_OUT)
+                int timeOut = Config.TIME_OUT, int limitedBytes = 2048)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
+                //尝试超长内容发送
+                var trySendResult = await MessageHandlerHelper.TrySendLimistedText(accessTokenOrAppKey,
+                    content, limitedBytes,
+                    c => SendTextAsync(accessTokenOrAppKey, agentId, c, toUser, toParty, toTag, safe,
+                    enableDuplicateCheck, duplicateCheckInterval, timeOut, limitedBytes));
+
+                if (trySendResult != null)
+                {
+                    return trySendResult;
+                }
+
                 var data = new
                 {
                     touser = toUser,

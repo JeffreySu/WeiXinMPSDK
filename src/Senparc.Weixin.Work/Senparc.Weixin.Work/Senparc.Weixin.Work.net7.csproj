@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.15.23</Version>
+    <Version>3.16.0</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -171,38 +171,39 @@
 			v3.14.3 修正“批量获取客户详情”接口传入参数
 			v3.14.6 添加“审批申请状态变化回调通知”接口
 			v3.14.7 添加“自建应用&gt;审批流程引擎”接口及 Sample
-			v3.14.8 为 JsApiTicket 提供 IsAgentConfig 参数
-			v3.14.10 添加异步方法
-			v3.14.11 优化OAuth相关接口
-			v3.15.1 修复 LoginCheckResultJson 缺少 open_userid
-			v3.15.2 添加“用户标签管理”接口
-			v3.15.4 添加 MailList.Member 下的 biz_mail 属性
-			v3.15.5 调整批量获取客户详情返回值
-			v3.15.7
-			1、添加“创建企业群发”接口
-			2、添加“获取企业的全部群发记录”接口
-			3、添加“发送新客户欢迎语”接口
-			v3.15.8 支持“发送应用消息”的“模板卡片消息”类型（MassApi.SendTemplateCard() 方法）
-			v3.15.9
-			1、补充完整“客户联系「联系我」管理”接口
-			2、添加“客户群「加入群聊」管理”接口
-			v3.15.13 ThirdParty_AuthCorpInfo 增加 3 个属性：corp_scale、corp_industry、corp_sub_industry
-			v3.15.15
-			1、添加：重置永久授权码通知枚举：ThirdpartyInfo.RESET_PERMANENT_CODE
-			2、丰富 Webhook 接口：SendTemplateCard， SendFile
-			v3.15.16
-			1、添加应用“消息撤回”（PR #2793）
-			2、添加“上下游及互联企业”相关接口、“获取下级/下游企业小程序session”接口（PR #2794）
-			3、添加“审批”接口
-			4、添加“客户标签管理Api”接口，添加“任务卡片事件推送”事件（待完善）（PR #2414）
-			v3.15.17 添加“邮箱获取 userid”接口
-			v3.15.17.1 修改 RequestMessageEvent_OpenApprovalChange 中 OpenTemplateId 参数类型为 string
-			v3.15.18.1 GetMomentListLocation.latitude / longitude 设置为 long 类型 （Issue #2823）
-			v3.15.19 自定义工作台接口（PR #2840）
-			v3.15.20 增加更新模版卡片消息（PR #2580）
-			v3.15.21 添加获取子部门ID列表方法,包含同步及异步（PR #2858）
-			v3.15.22 v3.15.22 JSSDKHelper.GetNoncestr() 弃用 MD5 加密方法
-</PackageReleaseNotes>
+		v3.14.8 为 JsApiTicket 提供 IsAgentConfig 参数
+		v3.14.10 添加异步方法
+		v3.14.11 优化OAuth相关接口
+		v3.15.1 修复 LoginCheckResultJson 缺少 open_userid
+		v3.15.2 添加“用户标签管理”接口
+		v3.15.4 添加 MailList.Member 下的 biz_mail 属性
+		v3.15.5 调整批量获取客户详情返回值
+		v3.15.7
+		1、添加“创建企业群发”接口
+		2、添加“获取企业的全部群发记录”接口
+		3、添加“发送新客户欢迎语”接口
+		v3.15.8 支持“发送应用消息”的“模板卡片消息”类型（MassApi.SendTemplateCard() 方法）
+		v3.15.9
+		1、补充完整“客户联系「联系我」管理”接口
+		2、添加“客户群「加入群聊」管理”接口
+		v3.15.13 ThirdParty_AuthCorpInfo 增加 3 个属性：corp_scale、corp_industry、corp_sub_industry
+		v3.15.15
+		1、添加：重置永久授权码通知枚举：ThirdpartyInfo.RESET_PERMANENT_CODE
+		2、丰富 Webhook 接口：SendTemplateCard， SendFile
+		v3.15.16
+		1、添加应用“消息撤回”（PR #2793）
+		2、添加“上下游及互联企业”相关接口、“获取下级/下游企业小程序session”接口（PR #2794）
+		3、添加“审批”接口
+		4、添加“客户标签管理Api”接口，添加“任务卡片事件推送”事件（待完善）（PR #2414）
+		v3.15.17 添加“邮箱获取 userid”接口
+		v3.15.17.1 修改 RequestMessageEvent_OpenApprovalChange 中 OpenTemplateId 参数类型为 string
+		v3.15.18.1 GetMomentListLocation.latitude / longitude 设置为 long 类型 （Issue #2823）
+		v3.15.19 自定义工作台接口（PR #2840）
+		v3.15.20 增加更新模版卡片消息（PR #2580）
+		v3.15.21 添加获取子部门ID列表方法,包含同步及异步（PR #2858）
+		v3.15.22 v3.15.22 JSSDKHelper.GetNoncestr() 弃用 MD5 加密方法
+		v3.16.0 MessageHandler 和客服接口支持长文本自动切割后连续发送
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>
   </PropertyGroup>
@@ -250,7 +251,7 @@
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="2.2.0" />
+    <PackageReference Include="Senparc.NeuChar" Version="2.2.1-beta5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net7.csproj" />

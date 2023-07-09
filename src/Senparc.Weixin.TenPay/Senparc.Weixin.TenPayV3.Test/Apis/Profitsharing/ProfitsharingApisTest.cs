@@ -3,6 +3,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.TenPayV3.Apis;
 using Senparc.Weixin.TenPayV3.Apis.Profitsharing;
+using Senparc.Weixin.TenPayV3.Apis.Profitsharing.Entities.RequestData;
 using System;
 using System.Collections.Generic;
 using System.Linq;

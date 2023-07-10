@@ -398,7 +398,7 @@ namespace Senparc.Weixin.Sample.Net6
 
                 #region 配置 SenparcWeixinSetting 参数，以自动提供 Token、EncodingAESKey 等参数
 
-                //此处为委托，可以根据条件动态判断输入条件（必须）
+                //[必须] 此处为委托，可以根据条件动态判断输入条件
                 options.AccountSettingFunc = context =>
                 //方法一：使用默认配置
                     senparcWeixinSetting.Value;
@@ -410,18 +410,21 @@ namespace Senparc.Weixin.Sample.Net6
 
                 #endregion
 
-                //对 MessageHandler 内异步方法未提供重写时，调用同步方法（按需）
+                //[可选]  对 MessageHandler 内异步方法未提供重写时，调用同步方法（按需）
                 options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
 
-                options.EnableRequestLog = true;//默认就为 true，如需关闭日志，可设置为 false
-                options.EnbleResponseLog = true;//默认就为 true，如需关闭日志，可设置为 false
+                options.EnableRequestLog = true;//[可选] 默认就为 true，如需关闭日志，可设置为 false
+                options.EnbleResponseLog = true;//[可选] 默认就为 true，如需关闭日志，可设置为 false
 
-                //对发生异常进行处理（可选）
+                //[可选]  对发生异常进行处理（可选）
                 options.AggregateExceptionCatch = ex =>
                 {
                     //逻辑处理...
                     return false;//系统层面抛出异常
                 };
+
+                //[可选] 设置最大文本长度回复限制（超长后会调用客服接口分批次回复）
+                options.TextResponseLimitOptions = new TextResponseLimitOptions(2048, senparcWeixinSetting.Value.WeixinAppId);
             });                                                                                   // DPBMARK_END
 
             //使用 小程序 MessageHandler 中间件                                                   // -- DPBMARK MiniProgram

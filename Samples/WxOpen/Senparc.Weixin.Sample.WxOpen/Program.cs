@@ -37,7 +37,14 @@ var registerService = app.UseSenparcWeixin(app.Environment,
 //使用公众号的 MessageHandler 中间件（不再需要创建 Controller）                       --DPBMARK MP
 app.UseMessageHandlerForWxOpen("/WxOpenAsync", CustomWxOpenMessageHandler.GenerateMessageHandler, options =>
 {
-    options.AccountSettingFunc = context => Senparc.Weixin.Config.SenparcWeixinSetting;
+    //获取默认微信配置
+    var weixinSetting = Senparc.Weixin.Config.SenparcWeixinSetting;
+
+    //[必须] 设置微信配置
+    options.AccountSettingFunc = context => weixinSetting;
+
+    //[可选] 设置最大文本长度回复限制（超长后会调用客服接口分批次回复）
+    options.TextResponseLimitOptions = new TextResponseLimitOptions(2048, weixinSetting.WxOpenAppId);
 });
 #endregion
 

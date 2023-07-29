@@ -41,11 +41,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.Domain
         /// 
         /// </summary>
         public string url { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public int status { get; set; }
     }
 
 }

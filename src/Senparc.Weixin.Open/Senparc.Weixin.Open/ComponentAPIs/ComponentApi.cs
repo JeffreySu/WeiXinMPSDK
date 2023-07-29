@@ -616,7 +616,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <returns></returns>
         public static ModifyWxaServerDomainResult ModifyWxaServerDomain(string componentAccessToken, ModifyWxaServerDomain_Action action, string wxa_server_domain = null, bool? is_modify_published_together = null, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/modify_wxa_jump_domain?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/modify_wxa_server_domain?access_token={0}";
             var data = new
             {
                 action = action.ToString(),
@@ -1199,7 +1199,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <returns></returns>
         public static async Task<ModifyWxaServerDomainResult> ModifyWxaServerDomainAsync(string componentAccessToken, ModifyWxaServerDomain_Action action, string wxa_server_domain = null, bool? is_modify_published_together = null, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/modify_wxa_jump_domain?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/modify_wxa_server_domain?access_token={0}";
             var data = new
             {
                 action = action.ToString(),

@@ -20,33 +20,32 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
-
-    文件名：GetPrefetchDNSDomainResultJson.cs
-    文件功能描述：获取DNS预解析域名 接口返回类型
-
-
+    
+    文件名：SetPrefetchDNSDomain.cs
+    文件功能描述：设置DNS预解析域名请求参数
+    
+    
     创建标识：Yaofeng - 20220809
     
-----------------------------------------------------------------*/
 
-using Senparc.Weixin.Entities;
-using System.Collections.Generic;
+----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Open.WxaAPIs.Domain
 {
     /// <summary>
-    /// 获取DNS预解析域名 接口返回类型
+    /// 获取DNS预解析域名
     /// </summary>
-    public class GetPrefetchDNSDomainResultJson : WxJsonResult
+    public class GetPrefetchDNSDomainData
     {
         /// <summary>
-        /// 预解析 dns 域名
+        /// 
         /// </summary>
-        public List<GetPrefetchDNSDomainData> prefetch_dns_domain { get; set; }
+        public string url { get; set; }
 
         /// <summary>
-        /// 总共可配置域名个数
+        /// 
         /// </summary>
-        public int size_limit { get; set; }
+        public int status { get; set; }
     }
+
 }

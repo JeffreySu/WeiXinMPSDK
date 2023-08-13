@@ -30,6 +30,35 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 <!-- _1. 为了将 Demo 和源代码隔离，并让大家更方便地找到 Demo，现已将 Senparc.Weixin.MP.Sample 等文件夹转移到 [/Samples/](/Samples/) 文件夹下。_<br> -->
 <!-- _2. `Senparc.Weixin.Plugins`计划已经启动，详情 [点击这里](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Plugins)。_ -->
 
+## 如何使用文档
+
+::: warning 前提条件
+文档需要 [Node.js](https://nodejs.org/en/) >= 8.6
+:::
+
+**相关阅读：** 可使用NVM管理Node版本，下载[NVM](https://github.com/coreybutler/nvm-windows/releases)。
+
+
+1. 通过Node安装yarn
+
+   ``` bash
+   npm install -g yarn
+   ```
+
+2. 安装项目依赖运行
+
+   ``` bash
+   yarn install
+   ```
+
+3. 运行文档项目
+
+   ``` bash
+   yarn docs:dev
+   ```
+
+   
+
 ## 🌟 Start：分模块独立文档
 
 模块 | 地址

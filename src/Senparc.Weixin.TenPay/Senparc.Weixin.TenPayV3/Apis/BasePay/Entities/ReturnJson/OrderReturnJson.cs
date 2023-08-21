@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20210813
     
+    修改标识：Senparc - 20230821
+    修改描述：v0.7.10.3 基础支付参数缺失处理 RP#2901
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -154,6 +157,20 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             /// 示例值：oUpF8uMuAJO_M2pxb1Q9zNjWeS6o
             /// </summary>
             public string openid { get; set; }
+
+            #region 服务商专用
+            /// <summary>
+            /// 用户在服务商appid下的唯一标识。 下单前需获取到用户的Openid，Openid获取详见。
+            /// 示例值：oUpF8uMuAJO_M2pxb1Q9zNjWeS6o
+            /// </summary>
+            public string sp_openid { get; set; }
+
+            /// <summary>
+            /// 用户在子商户appid下的唯一标识。若传sub_openid，那sub_appid必填。下单前需获取到用户的Openid，Openid获取详见。
+            /// 示例值：oUpF8uMuAJO_M2pxb1Q9zNjWeS6o
+            /// </summary>
+            public string sub_openid { get; set; }
+            #endregion
         }
 
         /// <summary>

@@ -27,7 +27,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20210825
 
-    
+    修改标识：Senparc - 20230821
+    修改描述：v0.7.10.3 基础支付参数缺失处理 RP#2901
 ----------------------------------------------------------------*/
 
 using System;

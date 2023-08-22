@@ -28,12 +28,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     创建标识：Senparc - 20210925
     
 ----------------------------------------------------------------*/
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+
+using Newtonsoft.Json;
 using Senparc.Weixin.TenPayV3.Apis.Entities;
 
 namespace Senparc.Weixin.TenPayV3.Apis.PayScore

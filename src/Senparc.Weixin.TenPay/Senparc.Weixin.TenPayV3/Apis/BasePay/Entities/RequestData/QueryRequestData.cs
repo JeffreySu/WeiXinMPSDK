@@ -30,7 +30,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
-using System.Text.Json.Serialization;
+
+using Newtonsoft.Json;
 
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay
 {

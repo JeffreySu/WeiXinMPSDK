@@ -29,13 +29,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
+
 using Newtonsoft.Json;
-using Senparc.Weixin.TenPayV3.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis.Marketing
 {

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.7.10.3</Version>
+    <Version>0.7.10.4</Version>
     <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
     <LangVersion>10.0</LangVersion>
@@ -46,7 +46,8 @@
 		v0.7.1 修复 TradeBillQueryRequestData 默认参数问题
 		v0.7.3 新增微信支付 V3 服务商的“经营能力”“资金应用”相关接口
 		v0.7.5 TenPayV3Util.GetNoncestr() 弃用 MD5 加密方法
-</PackageReleaseNotes>
+		v0.7.10.4 处理JsonIgnore的问题
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

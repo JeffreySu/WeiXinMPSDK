@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright(C) 2021 Senparc
+    Copyright(C) 2023 Senparc
     
     文件名：SendTemplateCardRequest.cs
     文件功能描述：“发送模板卡片消息”接口请求信息
@@ -27,6 +27,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20220912
 
+    修改标识：Senparc - 20230612
+    修改描述：v3.15.20 增加更新模版卡片消息（PR #2850）
 
 ----------------------------------------------------------------*/
 

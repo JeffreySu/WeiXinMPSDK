@@ -42,7 +42,8 @@ namespace Senparc.Weixin.Open.WxaAPIs.Domain
         /// <summary>
         /// 预解析 dns 域名
         /// </summary>
-        public List<SetPrefetchDNSDomainData> prefetch_dns_domain { get; set; }
+        public List<GetPrefetchDNSDomainData> prefetch_dns_domain { get; set; }
+
         /// <summary>
         /// 总共可配置域名个数
         /// </summary>

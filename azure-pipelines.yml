@@ -41,7 +41,7 @@ steps:
     command: 'restore'
     restoreSolution: '$(solution)'
     feedsToUse: 'config'
-    externalFeedCredentials: 'Nuget-V3-SupportSymbol'
+    externalFeedCredentials: 'Nuget Official （V2）'
    
 - task: DotNetCoreCLI@2
   displayName: Build
@@ -56,7 +56,7 @@ steps:
     command: push
     packagesToPush: '**/Weixin.*.nupkg'
     nuGetFeedType: external
-    publishFeedCredentials: 'Nuget-V3-SupportSymbol'
+    publishFeedCredentials: 'Nuget Official （V2）'
   continueOnError: true
   condition: succeededOrFailed()
 
@@ -67,7 +67,7 @@ steps:
     command: push
     packagesToPush: '**/WeChat.*.nupkg'
     nuGetFeedType: external
-    publishFeedCredentials: 'Nuget-V3-SupportSymbol'
+    publishFeedCredentials: 'Nuget Official （V2）'
   continueOnError: true
   condition: succeededOrFailed()
 

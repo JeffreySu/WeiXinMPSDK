@@ -12,7 +12,7 @@ Senparc.Weixin —— 微信 .NET SDK
 使用 Senparc.Weixin，您可以方便快速地开发微信全平台的应用（包括微信公众号、小程序、小游戏、企业号、开放平台、微信支付、JS-SDK、微信硬件/蓝牙，等等）。本项目的 Demo 同样适合初学者进行 .NET 编程学习。
 
 目前 Senparc.Weixin 已经支持几乎所有微信平台模块和接口，并同时支持 
-[.NET 3.5 / 4.0 / 4.5 / .NET Standard 2.x / .NET Core 2.x / .NET Core 3.x / .NET 6.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer) 多种框架，同时兼容所有 MVC、Razor、WebApi、Console（命令行）、桌面应用（.exe）、Blazor、MAUI、后台服务等环境，和外部框架完全解耦。<br>
+[.NET 3.5 / 4.0 / 4.5 / .NET Standard 2.x / .NET Core 2.x / .NET Core 3.x / .NET 6.0 / .NET 7.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer) 多种框架，同时兼容所有 MVC、Razor、WebApi、Console（命令行）、桌面应用（.exe）、Blazor、MAUI、后台服务等环境，和外部框架完全解耦。<br>
 
 Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最受欢迎的 .NET 开源项目之一。
 
@@ -22,6 +22,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 ## 🔔 公告
 
+> 🎠 全面支持长文本自动分片发送，更多：[《顺应 AIGC 应用，自动“续航”回复超长文本消息》](https://www.cnblogs.com/szw/p/weixin-large-text-response.html)<br/>
 > ⚡ Sample 已支持 .NET 7.0（向下兼容），[点击这里查看](/Samples/All/net7-mvc)！<br/>
 > 🔒 [微信支付 V3 模块](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3)已上线！<br>
 
@@ -69,7 +70,7 @@ var registerService = app.UseSenparcWeixin(app.Environment, null, null, register
 ### 调用高级接口（只需 1 句代码）：
 可在程序任意位置调用接口（以客服接口为例）：
 ``` C#
-await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync("AppId", "OpenId", "Hello World!");
+await CustomApi.SendTextAsync("AppId", "OpenId", "Hello World!");
 ```
 > 提示：<br>
 > 1. Senparc.Weixin SDK 将全生命周期自动托管 AccessToken，因此开发过程只需提供 AppId，无需操心 AccessToken 过期等问题。<br>
@@ -712,3 +713,5 @@ either express or implied. See the License for the specific language governing p
 and limitations under the License.
 ```
 Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+> 100% 开源，支持商用。

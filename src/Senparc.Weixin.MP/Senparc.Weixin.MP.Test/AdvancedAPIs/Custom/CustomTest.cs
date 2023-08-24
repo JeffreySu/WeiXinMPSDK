@@ -22,7 +22,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.AdvancedAPIs;
@@ -38,7 +40,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
     [TestClass]
     public class CustomTest : CommonApiTest
     {
-        private string openId = "od16Wjj1-jMmbemHKgFFQzd7I43Q";
+        private string openId = "oxRg0uLsnpHjb8o93uVnwMK_WAVw";
 
         [TestMethod]
         public void SendTextTest()
@@ -83,7 +85,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             try
             {
-                var result = CustomApi.SendVideo(accessToken, openId, "1000018", "1000012","[description]");
+                var result = CustomApi.SendVideo(accessToken, openId, "1000018", "1000012", "[description]");
                 Assert.Fail();//因为这里写测试代码的时候，微信账号还没有权限，所以会抛出异常（故意的），如果是已经开通的应该是“请求成功”
             }
             catch (ErrorJsonResultException ex)
@@ -116,6 +118,38 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var result = CustomApi.SendNews(accessToken, openId, articles);
             Assert.IsNotNull(result);
             Assert.AreEqual("ok", result.errmsg);
+        }
+
+        [TestMethod]
+        public async Task TestMaxLegth()
+        {
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
+            var content = new string('盛', 682);
+            var result = await CustomApi.SendTextAsync(accessToken, openId, content);
+            await Console.Out.WriteLineAsync(result.ToJson(true));
+
+            //超出
+            try
+            {
+                content = new string('盛', 683);
+                result = await CustomApi.SendTextAsync(accessToken, openId, content, 0);
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                //不限制则会出错
+                await Console.Out.WriteLineAsync(ex.ToString());
+                await Console.Out.WriteLineAsync();
+                //Assert.IsTrue(ex.Message.Contains("limit"));
+            }
+
+            //进行切割
+            content = new string('盛', 683);//最后一个字会被切割，因此最后一个“盛”会被放到吓一条
+            content += "派";
+            content += "\r\n上面第二条自动消息会包含“盛派”两个字";
+            result = await CustomApi.SendTextAsync(accessToken, openId, content);
+            await Console.Out.WriteLineAsync(result.ToJson(true));
+
         }
     }
 }

@@ -32,5 +32,15 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
 
             return Content(data + " Ajax:" + isAjax + " Server Time:" + DateTime.Now);
         }
+
+        [HttpGet]
+        public ActionResult GetTest(string data)
+        {
+            var isAjax = Request.IsAjaxRequest();
+
+            Response.Cookies.Append("TestCookie", SystemTime.Now.ToString());
+
+            return Content(data + " Ajax:" + isAjax + " Server Time:" + DateTime.Now);
+        }
     }
 }

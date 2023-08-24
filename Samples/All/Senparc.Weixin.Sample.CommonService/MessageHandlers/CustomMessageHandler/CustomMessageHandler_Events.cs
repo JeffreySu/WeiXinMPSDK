@@ -76,6 +76,8 @@ QQ群：377815480
 
 【open】   进入第三方开放平台（Senparc.Weixin.Open）测试
 
+【超长】  测试超长文本自动分批发送
+
 【tm】     测试异步模板消息
 
 【openid】 获取OpenId等用户信息

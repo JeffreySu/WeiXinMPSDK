@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20220224
     修改描述：v6.14.4 优化 UseSenparcWeixin() 参数
 
+    修改标识：Senparc - 20230614
+    修改描述：v6.15.10 UseSenparcWeixin() 方法添加 autoCreateApi 参数，用于设置是自动生成微信接口的 API，默认为关闭
+
 ----------------------------------------------------------------*/
 
 
@@ -65,7 +68,7 @@ namespace Senparc.Weixin.AspNet
         /// <returns></returns>
         public static IRegisterService UseSenparcWeixin(this IApplicationBuilder app,
             Microsoft.Extensions.Hosting.IHostEnvironment/*IHostingEnvironment*/ env,
-            SenparcSetting senparcSetting, SenparcWeixinSetting senparcWeixinSetting, 
+            SenparcSetting senparcSetting, SenparcWeixinSetting senparcWeixinSetting,
             Action<IRegisterService/*, SenparcSetting*/> globalRegisterConfigure,
             Action<IRegisterService, SenparcWeixinSetting> weixinRegisterConfigure,
              //CO2NET 全局设置

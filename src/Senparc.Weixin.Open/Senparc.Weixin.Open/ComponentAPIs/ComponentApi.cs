@@ -42,6 +42,9 @@
     修改标识：Senparc - 20230207
     修改描述：v4.14.15 完善“第三方平台业务域名” #2767 #2789
 
+    修改标识：Senparc - 20230730
+    修改描述：v4.14.25 解决问题：设置第三方平台服务器域名调用url参数错误 #2882
+
 ----------------------------------------------------------------*/
 
 /*
@@ -616,7 +619,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <returns></returns>
         public static ModifyWxaServerDomainResult ModifyWxaServerDomain(string componentAccessToken, ModifyWxaServerDomain_Action action, string wxa_server_domain = null, bool? is_modify_published_together = null, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/modify_wxa_jump_domain?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/modify_wxa_server_domain?access_token={0}";
             var data = new
             {
                 action = action.ToString(),
@@ -1199,7 +1202,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <returns></returns>
         public static async Task<ModifyWxaServerDomainResult> ModifyWxaServerDomainAsync(string componentAccessToken, ModifyWxaServerDomain_Action action, string wxa_server_domain = null, bool? is_modify_published_together = null, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/modify_wxa_jump_domain?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/modify_wxa_server_domain?access_token={0}";
             var data = new
             {
                 action = action.ToString(),

@@ -365,6 +365,16 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                     defaultResponseMessage.Content = "点击打开：https://sdk.weixin.senparc.com/WeixinJsSdk";
                     return defaultResponseMessage;
                 })
+                .Keyword("超长", () =>
+                {
+                    var sb = new StringBuilder();
+                    for (int i = 0; i < 40; i++)
+                    {
+                        sb.Append($"{i + 1}.这是一条超长文本，将会自动分成多条发送。");
+                    }
+                    defaultResponseMessage.Content = sb.ToString();
+                    return defaultResponseMessage;
+                })
 
 
                 //选择菜单，关键字：101（微信服务器端最终格式：id="s:101",content="满意"）
@@ -418,7 +428,6 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                         defaultResponseMessage.Content = $"ServiceProvider 载入成功，从 IHttpContextAccessor 读取当前服务器协议：{httpContextAccessor.HttpContext.Request.Scheme}";
 #endif
                     }
-
 
                     return defaultResponseMessage;
                 })

@@ -27,12 +27,16 @@ jobs:
       with:
         dotnet-version: '3.1.301'
 
-
     - name: Set up .NET 6.0
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.100'
         
+
+    - name: Set up .NET 7.0
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '7.0.302'
         
     #- name: CMD1
     #  run: dir 
@@ -45,16 +49,16 @@ jobs:
     #  run: dir
       
     - name: Restore NuGet packages
-      run: nuget restore "./Samples/All/net6-mvc/"
-      #-SolutionDirectory ./Samples/All/net6-mvc/
+      run: nuget restore "./Samples/All/net7-mvc/"
+      #-SolutionDirectory ./Samples/All/net7-mvc/
       
     - name: Publish to folder
-      run: msbuild "Samples/All/net6-mvc/Senparc.Weixin.Sample.Net6.sln" /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\"
+      run: msbuild "Samples/All/net7-mvc/Senparc.Weixin.Sample.Net7.sln" /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\"
 
-    - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: 'senparcweixinsamplenetcore3'
-        slot-name: 'senparcweixinsamplenet5'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_3ee3a42f0a324bf7be968d8c232a8555 }}
-        package: \published\
+    #- name: Deploy to Azure Web App
+    #  uses: azure/webapps-deploy@v2
+    #  with:
+    #    app-name: 'senparcweixinsamplenetcore3'
+    #    slot-name: 'senparcweixinsamplenet5'
+    #    publish-profile: ${{ secrets.AzureAppService_PublishProfile_3ee3a42f0a324bf7be968d8c232a8555 }}
+    #    package: \published\

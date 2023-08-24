@@ -52,3 +52,13 @@ packages/
 /Samples/All/net7-mvc/Senparc.Weixin.Sample.Net7/App_Data/cert
 *.DS_Store
 /Samples/WxOpen/Senparc.Weixin.Sample.WxOpen/Properties/PublishProfiles/FolderProfile1.pubxml
+/src/Senparc.Weixin.Cache/Senparc.Weixin.Cache.CsRedis/Senparc - Backup.Weixin.Cache.CsRedis.net7.csproj
+/src/Senparc.WebSocket/src/Senparc.WebSocket/Senparc.WebSocket/Senparc - Backup.WebSocket.net7.csproj
+/src/Senparc.Weixin.Cache/Senparc.Weixin.Cache.Memcached/Senparc - Backup.Weixin.Cache.Memcached.net7.csproj
+/src/Senparc.Weixin.Cache/Senparc.Weixin.Cache.Redis/Senparc - Backup.Weixin.Cache.Redis.net7.csproj
+/src/Senparc.Weixin.MP/Senparc.Weixin.MP/Senparc - Backup.Weixin.MP.net7.csproj
+/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPay/Senparc - Backup.Weixin.TenPay.net7.csproj
+/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3/Senparc - Backup.Weixin.TenPayV3.net7.csproj
+Thumbs.db
+/Samples/All/net7-mvc/Senparc.Weixin.Sample.Net7/App_Data/NeuChar
+/Samples/All/net7-mvc/Senparc.Weixin.Sample.Net7/App_Data/WeChat_OfficialAccount/

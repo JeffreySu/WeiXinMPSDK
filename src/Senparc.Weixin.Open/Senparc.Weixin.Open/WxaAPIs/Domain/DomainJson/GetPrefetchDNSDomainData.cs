@@ -20,53 +20,32 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
-  
-    文件名：QueryMerchantsReturnJson.cs
-    文件功能描述：查询代金券可用商户返回Json
+    
+    文件名：SetPrefetchDNSDomain.cs
+    文件功能描述：设置DNS预解析域名请求参数
     
     
-    创建标识：Senparc - 20210901
+    创建标识：Yaofeng - 20220809
     
-----------------------------------------------------------------*/
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Senparc.Weixin.TenPayV3.Apis.Entities;
 
-namespace Senparc.Weixin.TenPayV3.Apis.Marketing
+----------------------------------------------------------------*/
+
+namespace Senparc.Weixin.Open.WxaAPIs.Domain
 {
     /// <summary>
-    /// 查询代金券可用商户返回Json
-    /// <para>详细请参考微信支付官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter9_1_7.shtml </para>
+    /// 获取DNS预解析域名
     /// </summary>
-    public class QueryMerchantsReturnJson : ReturnJsonBase
+    public class GetPrefetchDNSDomainData
     {
         /// <summary>
-        /// 可用商户总数量
+        /// 
         /// </summary>
-        public uint total_count { get; set; }
+        public string url { get; set; }
 
         /// <summary>
-        /// 可用商户列表
-        /// <para>特殊规则：单个商户号的字符长度为【1，20】,条目个数限制为【1，50】</para>
+        /// 
         /// </summary>
-        public string[] data { get; set; }
-
-        /// <summary>
-        /// 分页页码
-        /// </summary>
-        public uint offset { get; set; }
-
-        /// <summary>
-        /// 分页大小
-        /// </summary>
-        public uint limit { get; set; }
-
-        /// <summary>
-        /// 批次号
-        /// </summary>
-        public string stock_id { get; set; }
+        public int status { get; set; }
     }
+
 }

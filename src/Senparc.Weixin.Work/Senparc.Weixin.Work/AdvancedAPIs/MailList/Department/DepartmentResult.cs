@@ -18,6 +18,10 @@
 
     修改标识：Senparc - 20171127
     修改描述：v1.2.3 GetDepartmentListResult.order改为long类型
+
+    修改标识：Senparc - 20230613
+    修改描述：v3.15.21 添加获取子部门ID列表方法,包含同步及异步（PR #2858）
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -41,6 +45,15 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         public List<DepartmentList> department { get; set; }
     }
 
+
+    /// <summary>
+    /// 获取子部门ID列表返回结果
+    /// </summary>
+    public class GetDepartmentIdListResult: WorkJsonResult
+    {
+        public List<DepartmentIdList> department_id { get; set; }
+    }
+
     public class DepartmentList
     {
         /// <summary>
@@ -51,6 +64,22 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         /// 部门名称
         /// </summary>
         public string name { get; set; }
+        /// <summary>
+        /// 上级部门id
+        /// </summary>
+        public long parentid { get; set; }
+        /// <summary>
+        /// 在父部门中的次序值。order值小的排序靠前。
+        /// </summary>
+        public long order { get; set; }
+    }
+
+    public class DepartmentIdList
+    {
+        /// <summary>
+        /// 部门id
+        /// </summary>
+        public long id { get; set; }
         /// <summary>
         /// 上级部门id
         /// </summary>

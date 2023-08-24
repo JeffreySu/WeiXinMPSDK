@@ -5,16 +5,24 @@
 欢迎提交您收集到的资源！
 
 
-# 小程序
+# 🌟 Start：分模块独立文档
+
+模块 | 地址
+----|----
+公众号 | https://sdk.weixin.senparc.com/Docs/MP/
+小程序 | https://sdk.weixin.senparc.com/Docs/WxOpen/
+企业微信 | https://sdk.weixin.senparc.com/Docs/Work/
+微信支付 V3（推荐） | https://sdk.weixin.senparc.com/Docs/TenPayV3/
+微信支付 V2（不推荐） | https://sdk.weixin.senparc.com/Docs/TenPayV2/
+
+# 小程序独立项目
 
 [进入微信小程序项目](https://github.com/JeffreySu/WxOpen)
 
 
-
-
 # Senparc 官方图书教程
 
-<img src="http://sdk.weixin.senparc.com/images/book-cover-front-small-3d.jpg" width="400" /> <br >
+<img src="https://sdk.weixin.senparc.com/images/book-cover-front-small-3d.png" width="400" /> <br/>
 
 > 由 Senparc.Weixin SDK 作者亲笔撰写的微信开发图书已经出版，书名：《微信开发深度解析：公众号、小程序高效开发秘籍》，Senparc 团队全程参与了图书整理工作及配套的 [BookHelper](http://book.weixin.senparc.com) 辅助阅读系统开发。<br>
 > 欢迎购买正版图书：[【购买正版】](https://book.weixin.senparc.com/book/link?code=github-master-resource)<br>

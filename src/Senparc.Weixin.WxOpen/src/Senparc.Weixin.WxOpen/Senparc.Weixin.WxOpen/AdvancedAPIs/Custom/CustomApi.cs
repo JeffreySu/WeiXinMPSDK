@@ -28,6 +28,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20210719
     修改描述：v3.12.2 修复小程序客服接口和公众号混用的问题
+    
+    修改标识：Senparc - 20230709
+    修改描述：v3.16.0 客服接口支持长文本自动切割后连续发送
 
 ----------------------------------------------------------------*/
 
@@ -38,6 +41,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.NeuChar;
+using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using System.Threading.Tasks;
@@ -255,8 +259,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="content">文本消息内容</param>
         /// <param name="businessId">添加 businessId 参数，则发送到子商户</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="limitedBytes">最大允许发送限制，如果超出限制，则分多条发送</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> SendTextAsync(string accessTokenOrAppId, string openId, string content, string businessId = null, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> SendTextAsync(string accessTokenOrAppId, string openId, string content, string businessId = null, int timeOut = Config.TIME_OUT, int limitedBytes = 2048)
         {
             object data = null;
             data = new
@@ -272,6 +277,16 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
 
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
+                //尝试超长内容发送
+                var trySendResult = await MessageHandlerHelper.TrySendLimistedText(accessTokenOrAppId,
+                    content, limitedBytes,
+                    c => SendTextAsync(accessTokenOrAppId, openId, c, businessId, timeOut, limitedBytes));
+
+                if (trySendResult != null)
+                {
+                    return trySendResult;
+                }
+
                 var urlFormat = GetSendUrlFormat(businessId);
                 var jsonSetting = new JsonSetting() { IgnoreNulls = true };
                 return await CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);

@@ -1,4 +1,4 @@
-# 关于Senparc.Weixin SDK
+# 初识 Senparc.Weixin SDK
 
 Senparc.Weixin SDK 是由盛派网络（Senparc）团队自主研发的针对微信各模块的
 开发套件（C# SDK），

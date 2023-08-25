@@ -12,7 +12,7 @@ In the login page, you need to set the official OAuth 2.0 request URL (called **
 
 Since WeChat authorisation has two methods (**snsapi_userinfo** and **snsapi_base**), the code below directly provides two ways to get the **AuthorizeUrl**:
 
-```c#
+```cs
 public ActionResult Index(string returnUrl)
 {
     ViewData["returnUrl"] = returnUrl;
@@ -43,7 +43,7 @@ The above `returnUrl` parameter is usually the URL before jumping to the login p
 
 The ultimate function of the login page is to direct the user to open the **AuthorizeUrl**, which can be done using a direct connection:
 
-```c#
+```cs
 <! -- snsapi_userinfo Mode Callback Address-->
 <a href="@ViewData["UrlUserInfo"]">Click here to test snsapi_userinfo</a>
 
@@ -59,7 +59,7 @@ The ultimate function of the login page is to direct the user to open the **Auth
 
 After successful authorisation, the webpage will automatically jump to the callback URL set in the first step (`"http://sdk.weixin.senparc.com/oauth2/UserInfoCallback?returnUrl=" + returnUrl.UrlEncode()`), take **UserInfoCallback** as an example:
 
-```c#
+```cs
 public ActionResult UserInfoCallback(string code, string returnUrl)
 {
     if (string.IsNullOrEmpty(code))

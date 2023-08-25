@@ -24,7 +24,7 @@ The above code is the same for all Senparc.Weixin descendant modules, only 3 lin
 
 Insert code into the delegate method in line 17 of the above code to complete the registration of the default public number:
 
-```
+```cs
 register.RegisterWxOpenAccount(weixinSetting, "[Shengpai Networks Little Helper] applet");
 ```
 

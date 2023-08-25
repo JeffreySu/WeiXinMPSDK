@@ -1,8 +1,8 @@
-# Registration 
+# Registration
 
 ## Global Registration
 
-The registration process for all Senparc.Weixin SDKs is similar. 
+The registration process for all Senparc.Weixin SDKs is similar.
 
 First, complete the overall registration code for all Senparc.Weixin SDKs. Add the following code in Program.cs:
 
@@ -18,16 +18,16 @@ Notes:
 
 The above code is the same for all Senparc.Weixin sub-modules, and only 3 lines are needed.
 
-> Reference file for this project: 
+> Reference file for this project:
 >
 > /**_Program.cs_**
 
-## Official Account Registration 
+## Official Account Registration
 
 Insert the following code in the delegate method on line 17 of the above code to complete the default official account registration:
 
-```
-register.RegisterMpAccount(weixinSetting, "【Senparc Network Assistant】Official Account"); 
+```cs
+register.RegisterMpAccount(weixinSetting, "[Senparc Network Assistant]Official Account");
 ```
 
 ![Register WeChat Official Account](https://sdk.weixin.senparc.com/Docs/MP/images/home-dev-register-02.png "Register WeChat Official Account")

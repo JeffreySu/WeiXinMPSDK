@@ -8,17 +8,17 @@ You can reference (copy) the assemblies you need to reference in the current sol
 
 The current example project uses a direct reference to the source code by default, which can be seen in the .csproj file:
 
-```
-<ItemGroup
+```cs
+<ItemGroup>
     <ProjectReference Include="... \... \... \src\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.net6.csproj" />
     <ProjectReference Include="... \... \... \src\Senparc.Weixin.Work.Middleware\Senparc.Weixin.Work.Middleware.net6.csproj" />
     <ProjectReference Include="... \... \... \src\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.net6.csproj" />
-</ItemGroup
+</ItemGroup>
 ```
 
 ## Referencing assemblies (recommended)
 
-You can install Nuget packages automatically via ``Visual Studio``, ``Visual Studio Code``, ``dotnet command line``, and many other ways.
+You can install Nuget packages automatically via `Visual Studio`, `Visual Studio Code`, `dotnet command line`, and many other ways.
 
 ### Visual Studio
 
@@ -32,7 +32,7 @@ First, make sure you have installed [VS Code](https://code.visualstudio.com/) an
 
 Then, open the directory where the solution or project is located, press Ctrl+~ to open the Terminal panel, go to the directory of the project where you need to add the module Senparc.Weixin.Work and type:
 
-> ```
+> ```cs
 > dotnet add package Senparc.Weixin.Work
 > ```
 
@@ -40,12 +40,11 @@ Then, open the directory where the solution or project is located, press Ctrl+~ 
 
 After the installation is complete, you can see the corresponding .csproj file, which has been added as a reference, for example:
 
-```
-<ItemGroup
+```cs
+<ItemGroup>
     <PackageReference Include="Senparc.Weixin.Work" Version="3.14.10" />
 </ItemGroup>
 ```
-
 
 ## dotnet command line
 
@@ -53,7 +52,7 @@ First of all, make sure that you have installed the dotnet command line (it will
 
 Go to the directory of the project where you want to add the Senparc.Weixin.Work module and type:
 
-> ```
+> ```cs
 > dotnet add package Senparc.Weixin.Work
 > ```
 
@@ -61,9 +60,8 @@ Go to the directory of the project where you want to add the Senparc.Weixin.Work
 
 After the installation is complete, you can see the corresponding .csproj file, which is added with references such as:
 
-```
-<ItemGroup
+```cs
+<ItemGroup>
     <PackageReference Include="Senparc.Weixin.Work" Version="3.14.10" />
 </ItemGroup>
 ```
-

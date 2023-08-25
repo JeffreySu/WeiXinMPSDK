@@ -23,12 +23,15 @@ The MessageHandler has two ways of carrying the message so that it can be access
 
 The middleware approach is the recommended and simplest way to introduce middleware without creating any new files, just below the `Program.cs` file after all Senparc.Weixin registration code has been executed:
 
-```C#
-app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
-{
-    options.AccountSettingFunc = context => Senparc.Weixin.Config.SenparcWeixinSetting;
-});
-
+```cs
+app.UseMessageHandlerForMp(
+  "/WeixinAsync",
+  CustomMessageHandler.GenerateMessageHandler,
+  (options) => {
+    options.AccountSettingFunc = (context) =>
+      Senparc.Weixin.Config.SenparcWeixinSetting;
+  }
+);
 ```
 
 Once done, the MessageHandler can be accessed via Url **`Domain/WeixinAsync`**, set to the message URL of the public backend.
@@ -51,7 +54,7 @@ To use Controller, you need to create 2 Actions, which correspond to WeChat back
 >
 > /**_Controllers/WeixinController.cs_**
 
-Once done, you can access MessageHandler via Url **`Domain/Weixin` **, set as the message URL of public backend.
+Once done, you can access MessageHandler via Url **`Domain/Weixin`**, set as the message URL of public backend.
 
 [Test /Weixin](https://sdk.weixin.senparc.com/Weixin)
 

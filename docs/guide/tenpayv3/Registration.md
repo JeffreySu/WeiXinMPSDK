@@ -18,13 +18,13 @@ The above code is the same for all Senparc.Weixin descendant modules, only 3 lin
 
 > Reference file for this project:
 >
-> /Program.cs
+> /**_Program.cs_**
 
 ## Public Registration
 
 Insert code into the delegate method in line 27 of the above code to complete the registration of the default public number as well as Weixin payment:
 
-```
+```cs
  // Register public number information (can be executed multiple times to register multiple public numbers)
     register.RegisterMpAccount(weixinSetting, "[Shengpai Networks Little Helper] Public No.");; //Register public number information (can be executed multiple times, register multiple public numbers)
     // Register Weixin Payment (can be executed multiple times, register multiple Weixin Payments)

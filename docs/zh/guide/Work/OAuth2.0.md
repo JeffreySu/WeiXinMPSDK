@@ -12,7 +12,7 @@ SDK 已经封装了所有相关的过程，您只需要参考示例进行简单�
 
 由于微信授权具有两种方式：**snsapi_userinfo** 和 **snsapi_base**，企业自建应用使用 **snsapi_base**，因此本示例中使用此方式进行介绍 **snsapi_base**（默认）的 **AuthorizeUrl** 获取的方式（此方式也是所有场景下兼容的方式）：
 
-```c#
+```cs
 public IActionResult Index(string returnUrl)
 {
     // 设置自己的 URL
@@ -35,8 +35,8 @@ public IActionResult Index(string returnUrl)
 > 注意：上述的网址和路径需要在公众号后台匹配成你自己服务器的地址（参考文档：[网页授权登录](https://developer.work.weixin.qq.com/document/path/91335)）。
 
 > 本项目参考文件：
-
-/Controllers/OAuth2Controller.cs
+>
+> /Controllers/OAuth2Controller.cs
 
 ## 第二步：前端登录页面设置
 
@@ -54,7 +54,7 @@ public IActionResult Index(string returnUrl)
 
 授权成功后，网页将自动跳转到第一步中设置的回调 URL（`$"{url}/OAuth2/BaseCallback?returnUrl={returnUrl.UrlEncode()}"`）：
 
-```c#
+```cs
 public async Task BaseCallback(string code, string returnUrl)
 {
     if (string.IsNullOrEmpty(code))
@@ -95,4 +95,4 @@ public async Task BaseCallback(string code, string returnUrl)
 
 > 本项目参考文件：
 >
-> /Controllers/\*\*\*OAuth2Controller.cs
+> /Controllers/**_OAuth2Controller.cs_**

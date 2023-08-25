@@ -10,7 +10,7 @@ Method 2 (recommended): Use visual editor (No Code): [Click to view the introduc
 
 Method 3: Setup using code (only needs to be executed once, it is recommended to put it in the administrator background and run it manually), e.g.:
 
-```c#
+```CS
 public async Task CreateMenuAsync()
 {
     ButtonGroup bg = new ButtonGroup();
@@ -49,7 +49,7 @@ public async Task CreateMenuAsync()
 
 After setting up the menu, when the client clicks on the menu, the WeChat server will automatically push the response callback information to the message URL (i.e., within the MessageHandler that has been set up), just override (`override`) the corresponding method in the CustomMessageHandler. For example, for the above **Method 3** menu that has already been set to take effect, when the user clicks the [Click to Test] button, we can receive and process it in the CustomMessageHandler:
 
-```c#
+```cs
 public override async Task OnEvent_ClickRequestAsync(RequestMessageEvent_Click requestMessage)
 {
     var requestMessage = CreateResponseMessage();

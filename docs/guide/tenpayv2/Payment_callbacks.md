@@ -4,7 +4,7 @@
 
 When a user completes a payment on the WeChat side, the WeChat server will actively push a notification to the application server. This message will only occur between the official WeChat server and the application server, without the user's involvement, and with additional signature checking so that it is trusted.
 
-> **Note: Never trust the status of the mobile client completing the payment and using this to notify the app server that the user has completed the payment! **
+> **Note: Never trust the status of the mobile client completing the payment and using this to notify the app server that the user has completed the payment!**
 
 Taking JsApi payment as an example, when initiating a unified payment, the callback address will be requested (`notifyUrl` parameter in `TenPayV3UnifiedorderRequestData`, see **JSAPI Payment** related note).
 
@@ -12,7 +12,7 @@ Taking JsApi payment as an example, when initiating a unified payment, the callb
 
 ## Define the callback entry
 
-```c#
+```cs
 /// <summary
 /// JS-SDK payment callback address (set notify_url in Unified Order Interface)
 /// </summary>
@@ -58,4 +58,4 @@ public ActionResult PayNotifyUrl()
 
 > Reference file for this project:
 >
-> /Controllers/TenPayV3Controller.cs
+> /Controllers/**_TenPayV3Controller.cs_**

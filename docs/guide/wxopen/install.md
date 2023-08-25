@@ -8,7 +8,7 @@ You can open **. /All/net6-mvc/** before the solution (full advanced example), i
 
 The current example project uses a direct reference to the source code by default, which can be seen in the .csproj file:
 
-```
+```cs
 <ProjectReference Include="... \... \... \src\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.net6.csproj" />
 		<ProjectReference Include="... \... \... \src\Senparc.Weixin.WxOpen.Middleware\Senparc.Weixin.WxOpen.Middleware.net6.csproj" />
 		<ProjectReference Include="... \... \... \src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net6.csproj" />
@@ -17,7 +17,7 @@ The current example project uses a direct reference to the source code by defaul
 
 ## Referencing assemblies (recommended)
 
-You can install Nuget packages automatically via ``Visual Studio``, ``Visual Studio Code``, ``dotnet command line``, and many other ways.
+You can install Nuget packages automatically via `Visual Studio`, `Visual Studio Code`, `dotnet command line`, and many other ways.
 
 ### Visual Studio
 
@@ -35,7 +35,7 @@ Then, open the solution or project directory and press Ctrl+~ to open the termin
 
 Go to the directory of the project where you need to add the module Senparc.Weixin.WxOpen and type:
 
-> ```
+> ```cs
 > dotnet add package Senparc.Weixin.WxOpen
 > ```
 
@@ -43,8 +43,8 @@ Go to the directory of the project where you need to add the module Senparc.Weix
 
 After the installation is complete, you can see the corresponding .csproj file, being added references such as:
 
-```c#
-<ItemGroup
+```cs
+<ItemGroup>
     <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.14.10.1" />
 </ItemGroup>
 ```
@@ -55,7 +55,7 @@ First of all, make sure that the dotnet command line is installed (it will be in
 
 Go to the directory of the project where you want to add the Senparc.Weixin.WxOpen module and type:
 
-> ```
+> ```cs
 > dotnet add package Senparc.Weixin.WxOpen
 > ```
 
@@ -63,8 +63,8 @@ Go to the directory of the project where you want to add the Senparc.Weixin.WxOp
 
 After the installation is complete, you can see the corresponding .csproj file that was added with a reference such as:
 
-```c#
-<ItemGroup
+```cs
+<ItemGroup>
     <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.14.10.1" />
 </ItemGroup>
 ```

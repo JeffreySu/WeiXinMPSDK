@@ -1,6 +1,6 @@
 # Get phone number
 
-Note: The interface of the applet to get the mobile phone number has been upgraded, the previous way to get the mobile phone number directly in the client has been eliminated (the left side of the example [Get Mobile Phone Number] button), and the latest interface is to use the code to get the mobile phone number in the server background (the right side of the example [Get Mobile Phone Number (Code)] button.
+Note: The interface of the applet to get the mobile phone number has been upgraded, the previous way to get the mobile phone number directly in the client has been eliminated (the left side of the example [Get Mobile Phone Number] button), and the latest interface is to use the code to get the mobile phone number in the server background the right side of the example [Get Mobile Phone Number (Code)] button.
 
 ![入口页面](https://sdk.weixin.senparc.com/Docs/WxOpen/images/use-phone-01.png)
 
@@ -16,7 +16,7 @@ Click the [Allow] button to get the mobile phone number by accessing the back-en
 
 Place buttons in the Index.wxml file:
 
-```html
+```xml
 <button
   open-type="getPhoneNumber"
   bindgetphonenumber="getUserPhoneNumber"
@@ -73,7 +73,7 @@ When the user clicks the button and authorises the phone number, the above metho
 
 ## Backend code - GetUserPhoneNumber
 
-```c#
+```cs
 public async Task GetUserPhoneNumber(string code)
 {
     try

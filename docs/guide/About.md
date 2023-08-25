@@ -2,9 +2,9 @@
 
 With Senparc.Weixin, you can easily and quickly develop WeChat's full-platform applications (including WeChat Public, Applets, Games, Enterprise, Open Platform, WeChat Pay, JS-SDK, WeChat Hardware/Bluetooth, and more). The demo of this project is also suitable for beginners to learn .NET programming.
 
-Currently Senparc.Weixin already supports almost all WeChat platform modules and interfaces, and also supports [.NET 3.5 / 4.0 / 4.5 / .NET Standard 2.x / .NET Core 2.x / .NET Core 3.x / .NET 6.0] (https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer) Multiple frameworks.
+Currently Senparc.Weixin already supports almost all WeChat platform modules and interfaces, and also supports [.NET 3.5 / 4.0 / 4.5 / .NET Standard 2.x / .NET Core 2.x / .NET Core 3.x / .NET 6.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer) Multiple frameworks.
 
-Senparc.Weixin SDK is currently the most used WeChat .NET SDK, is also one of the most popular .NET open source projects in China, is the only selected **2021 "Science and Innovation China" open source innovation list **[[1\]](https://tv.sohu.com/v/dXMvOTkyNjI2MTAvMzI3NjU3NDI0LnNodG1s.html?key=/v/dXMvOTkyNjI2MTAvMzI3NjU3NDI0LnNodG1s.html?vid=327657424&vid=327657424) [[2\]](https://cccst.org.cn/detail?id=846)
+Senparc.Weixin SDK is currently the most used WeChat .NET SDK, is also one of the most popular .NET open source projects in China, is the only selected **2021 "Science and Innovation China" open source innovation list**[[1]](https://tv.sohu.com/v/dXMvOTkyNjI2MTAvMzI3NjU3NDI0LnNodG1s.html?key=/v/dXMvOTkyNjI2MTAvMzI3NjU3NDI0LnNodG1s.html?vid=327657424&vid=327657424) [[2]](https://cccst.org.cn/detail?id=846)
 
 The project has been open-sourced since 2012, and officially released to GitHub since January 2013. In the past 10 years, we have kept the project continuously updated, and shared the complete source code and design ideas without reservation, hoping that more people can benefit from it, understand and spread the spirit of open source, and help China's open-source cause together! We are grateful to all the friends who have helped us along the way!
 

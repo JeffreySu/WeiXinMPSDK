@@ -18,13 +18,13 @@ The above code is the same for all Senparc.Weixin descendant modules, only 3 lin
 
 > Reference file for this project:
 >
-> /Program.cs
+> /**_Program.cs_**
 
 ## Public number registration
 
 Inserting code into the delegate method in line 27 of the above code will complete the registration of the default public number as well as WeChat Pay:
 
-```c#
+```cs
     // Register public number information (can be executed multiple times to register multiple public numbers)
     register.RegisterMpAccount(weixinSetting, "[Shengpai Networks Little Helper] public number");;
     // Register Weixin Payment (can be executed multiple times, register multiple Weixin Payments)
@@ -39,7 +39,7 @@ Inserting code into the delegate method in line 27 of the above code will comple
 
 The value of `weixinSetting` comes from `appsettings.json` by default:
 
-```c#
+```json
 "SenparcWeixinSetting": {
     "IsDebug": true,
 
@@ -79,7 +79,7 @@ Special Note: The `TenPayV3_CertPath` parameter supports both full physical path
 
 > Reference file for this project:
 >
-> /appsettings.json
+> /**_appsettings.json_**
 
 Configuration complete.
 

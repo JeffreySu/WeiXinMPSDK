@@ -15,7 +15,7 @@
 
 参考代码：`TenPayApiV3Controller` 下的 ProductList() 方法。
 
-```c#
+```cs
 public ActionResult ProductList()
 {
     var products = ProductModel.GetFakeProductList();
@@ -31,7 +31,7 @@ public ActionResult ProductList()
 
 > 本项目参考文件：
 >
-> **/Views/TenPayApiV3/ProductItem.cshtml\_**
+> **_/Views/TenPayApiV3/ProductItem.cshtml_**
 
 **效果**
 
@@ -45,7 +45,7 @@ public ActionResult ProductList()
 
 参考代码：`TenPayApiV3Controller` 下的 ProductItem() 方法。
 
-```c#
+```cs
 public ActionResult ProductItem(int productId, int hc)
 {
     var products = ProductModel.GetFakeProductList();
@@ -79,7 +79,7 @@ public ActionResult ProductItem(int productId, int hc)
 
 > 本项目参考文件：
 >
-> **/Views/TenPayApiV3/ProductItem.cshtml\_**
+> **_/Views/TenPayApiV3/ProductItem.cshtml_**
 
 **效果**
 
@@ -95,7 +95,7 @@ public ActionResult ProductItem(int productId, int hc)
 
 用户点击下单按钮后，需要在后台生成一个预支付订单并在页面上登记，代码请参考 `TenPayApiV3Controller.JsApi()`
 
-```c#
+```cs
 [CustomOAuth(null, "/TenpayApiV3/OAuthCallback")]
 public ActionResult JsApi(int productId, int hc)
 {
@@ -150,9 +150,9 @@ public ActionResult JsApi(int productId, int hc)
 
 前端的关键操作是当用户点击“支付”按钮后，执行 JS 代码：
 
-```c#
+```cs
 // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
-document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+document.addEventListener('WeixinJSBridgeReady'). function onBridgeReady() {
     //公众号支付
     jQuery('a#getBrandWCPayRequest').click(function (e) {
         WeixinJSBridge.invoke('getBrandWCPayRequest', {

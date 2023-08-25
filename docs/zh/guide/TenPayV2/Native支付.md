@@ -4,7 +4,7 @@ Native 支付用于线下（或微信环境以外）的支付，通过微信扫�
 
 生成二维码的控件很多，以 [ZXing.Net](https://www.nuget.org/packages/ZXing.Net) 为例，在 `TenPayV3Controller` 中创建方法：
 
-```c#
+```cs
 /// <summary>
 /// 原生支付 模式一
 /// </summary>
@@ -64,8 +64,8 @@ public ActionResult Native()
 ```
 
 > 本项目参考文件：
-
-/Controllers/TenPayV3Controller.cs
+>
+> /Controllers/**_TenPayV3Controller.cs_**
 
 上述过程将自动生成对应于指定商户、指定商品（productId）的付款二维码，前端 HTML 调用方式如下：
 
@@ -75,7 +75,7 @@ public ActionResult Native()
 
 用户扫码完成支付后，微信服务器会自动请求回调地址，如 /TenPayV3/NativeNotifyUrl，代码如下：
 
-```c#
+```cs
 public ActionResult NativeNotifyUrl()
 {
     ResponseHandler resHandler = new ResponseHandler(null);
@@ -129,8 +129,8 @@ public ActionResult NativeNotifyUrl()
 ```
 
 > 本项目参考文件：
-
-/Controllers/TenPayV3Controller.cs
+>
+> /Controllers/TenPayV3Controller.cs
 
 > 提示：
 >

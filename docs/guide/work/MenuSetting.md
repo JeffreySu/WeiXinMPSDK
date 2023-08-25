@@ -8,7 +8,7 @@ Method 1: In the background of enterprise WeChat [Application Management], in an
 
 Method 2: Use the code to set (only need to execute once, it is recommended to put it in the administrator background and run it manually), such as:
 
-```c#
+```cs
 public async Task CreateMenuTest()
 {
     ButtonGroup bg = new ButtonGroup();
@@ -56,7 +56,7 @@ public async Task CreateMenuTest()
 
 After setting up the menu, when the client clicks on the menu, the WeChat server will automatically push the response callback information to the message URL (i.e., within the MessageHandler that has been set up), just override (`override`) the corresponding method in the WorkCustomMessageHandler. For example, for the above **Method 2** menu that has already been set to take effect, when the user clicks the [Click to Test] button, we can receive and process it in the WorkCustomMessageHandler:
 
-```​c#
+```cs
 public override IWorkResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
 {
     var replyMessage = CreateResponseMessage();
@@ -74,4 +74,4 @@ public override IWorkResponseMessageBase OnEvent_ClickRequest(RequestMessageEven
 
 > Reference file for this project:
 >
-> /MessageHandlers/\*\*\*\*WorkCustomMessageHandler.cs
+> /MessageHandlers/**_WorkCustomMessageHandler.cs_**

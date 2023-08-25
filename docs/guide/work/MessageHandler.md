@@ -22,7 +22,7 @@ The MessageHandler has two ways of carrying the message so that it can be access
 
 The middleware approach is the recommended and most simplified way, there is no need to create any new files, just introduce the middleware in the `Program.cs` file underneath all the Senparc.Weixin registration code after it has been executed:
 
-```
+```cs
 app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMessageHandler, options =>
 {
     options.AccountSettingFunc = context => Senparc.Weixin.Config.SenparcWeixinSetting;

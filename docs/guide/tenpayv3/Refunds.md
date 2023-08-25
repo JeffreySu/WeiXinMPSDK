@@ -4,7 +4,7 @@
 
 The core code for the refund method is as follows:
 
-```c#
+```cs
 /// <summary>
 /// Refund request interface
 /// </summary>
@@ -50,7 +50,7 @@ public async Task<IActionResult> Refund()
 
 In the process of calling the refund interface, there is a `notifyUrl` parameter, this address is used to receive the refund information sent by WeChat server callback information. The code is as follows:
 
-```c#
+```cs
 /// <summary
 /// Refund notification address
 /// </summary>

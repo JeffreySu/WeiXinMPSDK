@@ -12,7 +12,7 @@ SDK 已经封装了所有相关的过程，您只需要参考示例进行简单�
 
 由于微信授权具有两种方式（**snsapi_userinfo** 和 **snsapi_base**，下方代码直接提供了两种获取 **AuthorizeUrl** 的方式：
 
-```c#
+```cs
 public ActionResult Index(string returnUrl)
 {
     ViewData["returnUrl"] = returnUrl;
@@ -43,7 +43,7 @@ public ActionResult Index(string returnUrl)
 
 登录页面最终的功能是引导用户打开 **AuthorizeUrl**，可以直接使用连接的方式：
 
-```c#
+```cs
 <!-- snsapi_userinfo方式回调地址 -->
 <a href="@ViewData["UrlUserInfo"]">点击这里测试snsapi_userinfo</a>
 
@@ -59,7 +59,7 @@ public ActionResult Index(string returnUrl)
 
 授权成功后，网页将自动跳转到第一步中设置的回调 URL（`"http://sdk.weixin.senparc.com/oauth2/UserInfoCallback?returnUrl=" + returnUrl.UrlEncode()`），以 **UserInfoCallback** 为例：
 
-```c#
+```cs
 public ActionResult UserInfoCallback(string code, string returnUrl)
 {
     if (string.IsNullOrEmpty(code))

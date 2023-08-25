@@ -6,7 +6,7 @@ Native payment is used for offline (or outside of WeChat environment) payment, b
 
 There are many controls to generate QR code, take [ZXing.Net](https://www.nuget.org/packages/ZXing.Net) as an example, create the method in `TenPayApiV3Controller`:
 
-```c#
+```cs
 /// <summary
 /// Using Native Payments
 /// </summary
@@ -54,7 +54,7 @@ public async Task<IActionResult> NativePayCode(int productId, int hc)
 
 The above process will automatically generate the payment QR code corresponding to the specified merchant and specified product (productId), and the front-end HTML call is as follows:
 
-```
+```html
 <img src="/TenpayApiV3/NativePayCode" alt="Scan code to pay" />
 ```
 
@@ -63,6 +63,7 @@ After the user sweeps the code to complete the payment, WeChat server will autom
 ```
 //to be added
 ```
+
 > Reference file for this project:
 >
 > /Controllers/TenPayApiV3Controller.cs

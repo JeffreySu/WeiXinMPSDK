@@ -12,7 +12,7 @@ After completing the usual registration in the `Program.cs` file, you can use th
 
 For example, we can call a high-level interface in any of the methods:
 
-```c#
+```cs
 public async Task<IActionResult> TryApiTryApiByAppKey()
 {
     // Get the registration information
@@ -33,7 +33,7 @@ public async Task<IActionResult> TryApiTryApiByAppKey()
 }
 ```
 
-The > `workWeixinSetting` parameter must be the registered enterprise WeChat information (including CorpId and Secret), so that even if the AccessToken is expired, the SDK will process it automatically. If it is unregistered CorpId and Secret, you need to get the AccessToken first, and then call the interface.
+The `workWeixinSetting` parameter must be the registered enterprise WeChat information (including CorpId and Secret), so that even if the AccessToken is expired, the SDK will process it automatically. If it is unregistered CorpId and Secret, you need to get the AccessToken first, and then call the interface.
 
 > Reference document for this project:
 >
@@ -41,7 +41,7 @@ The > `workWeixinSetting` parameter must be the registered enterprise WeChat inf
 
 ## Calling an interface using an AccessToken (not recommended)
 
-```c#
+```cs
 public async Task<IActionResult> TryApiByAccessToken()
 {
     // Get the registration information

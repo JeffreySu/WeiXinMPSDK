@@ -15,7 +15,7 @@ In the current example, 3 key pages are provided: ProductList, ProductItem and J
 
 Reference code: ProductList() method under `TenPayApiV3Controller`.
 
-```c#
+```cs
 public ActionResult ProductList()
 {
     var products = ProductModel.GetFakeProductList();
@@ -45,7 +45,7 @@ public ActionResult ProductList()
 
 Reference code: `ProductItem() method under TenPayApiV3Controller`.
 
-```c#
+```cs
 public ActionResult ProductItem(int productId, int hc)
 {
     var products = ProductModel.GetFakeProductList();
@@ -96,7 +96,7 @@ The above **Payment Method 2: "Sweep" Payment** There is a QR code automatically
 
 After the user clicks the order button, a prepaid order needs to be generated in the backend and registered on the page, please refer to `TenPayApiV3Controller.JsApi()`
 
-```c#
+```cs
 [CustomOAuth(null, "/TenpayApiV3/OAuthCallback")]
 public ActionResult JsApi(int productId, int hc)
 {
@@ -151,7 +151,7 @@ Note: This method uses the **[CustomOAuth]** feature, which is used to automatic
 
 The key operation of the front-end is to execute the JS code when the user clicks the "Pay" button:
 
-```c#
+```cs
 // The WeixinJSBridgeReady event is triggered when the built-in WeChat browser completes its internal initialisation.
 document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
     // Public Payment

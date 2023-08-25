@@ -8,7 +8,7 @@
 
 后端除了后端通过 `JSSDKHelper.GetJsSdkUiPackageAsync()` 方法获取常规 JSSDK 运行所需参数以外，还需要使用同一个方法，传入不同参数来获取 `agetntConfig` 的对应参数：
 
-```js
+```JS
 public async Task<ActionResult> AgentConfig()
 {
     //此处演示同时支持多个应用的注册，请参考 appsettings.json 文件
@@ -49,7 +49,7 @@ public async Task<ActionResult> AgentConfig()
 >
 > 文件中的设置方法：
 >
-> ```json
+> ```JSON
 > "Items": {
 > //添加多个企业微信应用
 > "企业微信审批": {
@@ -73,7 +73,7 @@ public async Task<ActionResult> AgentConfig()
 
 网页端除了进行常规的 JSSDK 配置以外，还需要在执行特定的 JsApi 方法之前，添加 `wx.agentConfig()` 的配置：
 
-```c#
+```cs
 function invoke(){
     wx.agentConfig({
         corpid: '@ViewData["corpId"]', // 必填，企业微信的corpid，必须与当前登录的企业一致
@@ -125,4 +125,4 @@ HTML 页面进行触发：`<a href="javascript:void(0)" onclick="invoke()">点�
 
 > 本项目参考文件：
 >
-> /Views/\*\*\*JSSDK/Index.cshtml
+> /Views/**_JSSDK/Index.cshtml_**

@@ -8,7 +8,7 @@ JSSDK 用于提供微信内置浏览器接口的能力，例如转发控制、�
 
 后端通过 `JSSDKHelper.GetJsSdkUiPackageAsync()` 方法即可自动获取前端所需的所有 JSSDK 运行所需参数：
 
-```c#
+```cs
 public async Task Index()
 {
     var jssdkUiPackage = await JSSDKHelper.GetJsSdkUiPackageAsync(appId, appSecret, Request.AbsoluteUri());
@@ -76,7 +76,7 @@ wx.ready(function () {
 
 > 提示：在 MVC 中传递 ViewModel 需要在 .cshtml 文件顶部定义：
 >
-> ```
+> ```cs
 > @model Senparc.Weixin.MP.Helpers.JsSdkUiPackage
 > ```
 

@@ -81,7 +81,7 @@ The server side can use various methods that can accept requests, such as pages,
 
 The above request address for local environment is **https://localhost:44367/WxOpen/RequestData**, we create an Action of RequestData under WxOpenController to receive the request:
 
-```c#
+```cs
 [HttpPost]
 public ActionResult RequestData(string nickName)
 {

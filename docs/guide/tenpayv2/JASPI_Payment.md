@@ -15,7 +15,7 @@ In the current example, 3 key pages are provided: ProductList, ProductItem and J
 
 Reference code: ProductList() method under TenPayV3Controller.
 
-```c#
+```cs
 public ActionResult ProductList()
 {
     var products = ProductModel.GetFakeProductList();
@@ -25,13 +25,13 @@ public ActionResult ProductList()
 
 > Reference file for this project:
 >
-> /Controllers/TenPayV3Controller.cs
+> /Controllers/**_TenPayV3Controller.cs_**
 
 **Frontend**
 
 > Reference file for this project:
 >
-> /Views/TenPayV3/ProductItem.cshtml
+> /Views/TenPayV3/**_ProductItem.cshtml_**
 
 **Effects**
 
@@ -45,7 +45,7 @@ public ActionResult ProductList()
 
 Reference code: ProductItem() method under TenPayV3Controller.
 
-```c#
+```cs
 public ActionResult ProductItem(int productId, int hc)
 {
     var products = ProductModel.GetFakeProductList();
@@ -73,13 +73,13 @@ public ActionResult ProductItem(int productId, int hc)
 
 > Reference file for this project:
 >
-> /Controllers/TenPayV3Controller.cs
+> /Controllers/**_TenPayV3Controller.cs_**
 
 **Front-end**.
 
 > Reference file for this project:
 >
-> /Views/TenPayV3/ProductItem.cshtml
+> /Views/TenPayV3/**_ProductItem.cshtml_**
 
 **Effects**
 
@@ -97,7 +97,7 @@ The above **Payment Method 2: "Sweep" Payment** There is a QR code automatically
 
 After the user clicks the order button, a prepaid order needs to be generated in the backend and registered on the page, please refer to `TenPayV3Controller.JsApi()` for the code.
 
-```c#
+```cs
 [CustomOAuth(null, "/TenpayV3/OAuthCallback")]
 public ActionResult JsApi(int productId, int hc)
 {
@@ -133,7 +133,7 @@ Note: This method uses the **[CustomOAuth]** feature, which is used to automatic
 
 The key operation of the front-end is to execute the JS code when the user clicks the "Pay" button:
 
-```c#
+```JS
 WeixinJSBridge.invoke(
   "getBrandWCPayRequest",
   {
@@ -154,9 +154,9 @@ WeixinJSBridge.invoke(
 
 > Reference file for this project:
 >
-> /Views/TenPayV3/JsApi.cshtml
+> /Views/TenPayV3/**_JsApi.cshtml_**
 
-**Effects** **Effects** \*\*Effects
+**Effects**
 
 ![订单支付页面](https://sdk.weixin.senparc.com/Docs/TenPayV2/images/home-dev-jsapi-03.jpg)
 

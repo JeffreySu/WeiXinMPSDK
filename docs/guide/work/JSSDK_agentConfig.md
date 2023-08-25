@@ -8,7 +8,7 @@ The `wx.agentConfig()` is also divided into two parts, server-side and client-si
 
 The backend, in addition to the backend's `JSSDKHelper.GetJsSdkUiPackageAsync()` method to get the parameters needed to run the regular JSSDK, also needs to use the same method, passing in different parameters to get the corresponding parameters for `agetntConfig`:
 
-```js
+```cs
 public async Task<ActionResult> AgentConfig()
 {
     //This demonstrates the support of multiple apps registration at the same time, please refer to appsettings.json file.
@@ -73,7 +73,7 @@ public async Task<ActionResult> AgentConfig()
 
 In addition to the usual JSSDK configuration, the web side needs to add `wx.agentConfig()`'' configuration before executing specific JsApi methods:
 
-```c#
+```cs
 function invoke(){
     wx.agentConfig({
         corpid: '@ViewData["corpId"]', // mandatory, the corpid of the enterprise wx, must be the same as the currently logged in enterprise
@@ -110,12 +110,14 @@ function invoke(){
 ​       });
 },
     fail: function(res)  { // output console.
-​       if(res.errMsg.indexOf('function not exist') > -1){
-​            	alert('Version too low, please upgrade')
+​       if(res.errMsg.indexOf('function not exist') > -1)
+        {
+​            alert('Version too low, please upgrade')
 ​        }
-​        else{
-​            alert('wx.invoke fail:'+JSON.stringify(res));
-​        	}
+​        else
+        {
+​           alert('wx.invoke fail:'+JSON.stringify(res));
+​        }
 ​   	 }
 	});
 }
@@ -125,4 +127,4 @@ HTML page to trigger: `<a href="javascript:void(0)" onclick="invoke()">Click to 
 
 > Reference document for this project:
 >
-> /Views/\*\*\*\*JSSDK/Index.cshtml
+> /Views/JSSDK/**_Index.cshtml_**

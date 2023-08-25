@@ -12,7 +12,7 @@ For more interface usage, please refer to the method in [Get Mobile Number], ref
 >
 > Senparc.Weixin.WxOpen.AppDemo/**_pages/index_** - Home page files.
 >
-> Senparc.Weixin.WxOpen.AppDemo**_/pages/Login_** - Login page files
+> Senparc.Weixin.WxOpen.AppDemo/**_pages/Login_** - Login page files
 >
 > Senparc.Weixin.WxOpen.AppDemo/**_pages/QrCode_** - Get QR Code file
 >

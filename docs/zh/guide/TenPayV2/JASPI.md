@@ -15,7 +15,7 @@
 
 参考代码：TenPayV3Controller 下的 ProductList() 方法。
 
-```c#
+```cs
 public ActionResult ProductList()
 {
     var products = ProductModel.GetFakeProductList();
@@ -24,14 +24,14 @@ public ActionResult ProductList()
 ```
 
 > 本项目参考文件：
-
-/Controllers/TenPayV3Controller.cs
+>
+> /Controllers/**_TenPayV3Controller.cs_**
 
 **前端**
 
 > 本项目参考文件：
-
-/Views/TenPayV3/ProductItem.cshtml
+>
+> /Views/TenPayV3/**_ProductItem.cshtml_**
 
 **效果**
 
@@ -45,7 +45,7 @@ public ActionResult ProductList()
 
 参考代码：TenPayV3Controller 下的 ProductItem() 方法。
 
-```c#
+```cs
 public ActionResult ProductItem(int productId, int hc)
 {
     var products = ProductModel.GetFakeProductList();
@@ -73,13 +73,13 @@ public ActionResult ProductItem(int productId, int hc)
 
 > 本项目参考文件：
 >
-> /Controllers/TenPayV3Controller.cs
+> /Controllers/**_TenPayV3Controller.cs_**
 
 **前端**
 
 > 本项目参考文件：
-
-/Views/TenPayV3/ProductItem.cshtml
+>
+> /Views/TenPayV3/ProductItem.cshtml
 
 **效果**
 
@@ -95,7 +95,7 @@ public ActionResult ProductItem(int productId, int hc)
 
 用户点击下单按钮后，需要在后台生成一个预支付订单并在页面上登记，代码请参考 `TenPayV3Controller.JsApi()`
 
-```c#
+```cs
 [CustomOAuth(null, "/TenpayV3/OAuthCallback")]
 public ActionResult JsApi(int productId, int hc)
 {
@@ -116,8 +116,8 @@ public ActionResult JsApi(int productId, int hc)
 ```
 
 > 本项目参考文件：
-
-/Controllers/TenPayV3Controller.cs
+>
+> /Controllers/**_TenPayV3Controller.cs_**
 
 上述代码中，传入的 `productId` 参数是商品的编号，此处作为 Sample 演示，是从内存中模拟列表并查询，实际项目中，商品信息一般存储在数据库中，根据 `productId` 从数据中查找商品数据；`hc` 函数是为了确保当前内存信息的有效性而设置的对应商品信息的 HashCode，实际开发项目中无需使用，可忽略。
 
@@ -129,7 +129,7 @@ public ActionResult JsApi(int productId, int hc)
 
 前端的关键操作是当用户点击“支付”按钮后，执行 JS 代码：
 
-```c#
+```JS
 WeixinJSBridge.invoke(
   "getBrandWCPayRequest",
   {
@@ -149,8 +149,8 @@ WeixinJSBridge.invoke(
 ```
 
 > 本项目参考文件：
-
-/Views/TenPayV3/JsApi.cshtml
+>
+> /Views/TenPayV3/**_JsApi.cshtml_**
 
 **效果**
 

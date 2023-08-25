@@ -12,7 +12,7 @@ After completing the usual registration in the `Program.cs` file, you can use th
 
 For example, we can call a high-level interface in any method:
 
-```c#
+```cs
 var appId = Senparc.Weixin.Config.SenparcWeixinSetting.AppId;
 var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(appId);//Get follower OpenId information
 ```
@@ -21,7 +21,7 @@ var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(appId);//Get 
 
 ## Calling an interface with an AccessToken (not recommended)
 
-```c#
+```cs
 var accessToken = Senparc.Weixin.MP.CommonApi.GetTokenAsync(appId, appSecret);//get AccessToken
 var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(accessToken);//get the follower OpenId information
 ```

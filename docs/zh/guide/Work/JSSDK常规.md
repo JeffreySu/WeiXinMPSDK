@@ -10,7 +10,7 @@ JSSDK 用于提供微信内置浏览器接口的能力，例如转发控制、�
 
 后端通过 `JSSDKHelper.GetJsSdkUiPackageAsync()` 方法即可自动获取前端所需的所有 JSSDK 运行所需参数：
 
-```c#
+```cs
 public async Task<ActionResult> Index()
 {
     // 当前 URL
@@ -35,7 +35,7 @@ public async Task<ActionResult> Index()
 
 后端配置完成的参数，直接在前端 JS 中使用 `wx.config` 进行设置，例如以下代码将完成从企业微信内转发网页到**个人微信**：
 
-```c#
+```cs
 $(function(){
     wx.config({
             beta: true,// 必须这么写，否则wx.invoke调用形式的jsapi会有问题

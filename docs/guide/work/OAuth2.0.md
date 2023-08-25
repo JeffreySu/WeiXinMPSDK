@@ -12,7 +12,7 @@ In the login page, you need to set the official OAuth 2.0 request URL (called **
 
 Since WeChat has two types of authorisation: **snsapi_userinfo** and **snsapi_base**, and enterprise self-built apps use **snsapi_base**, this is the method used in this example to introduce the way of obtaining **AuthorizeUrl** from **snsapi_base** (the default). This method is also compatible in all scenarios:
 
-```c#
+```cs
 public IActionResult Index(string returnUrl)
 {
     // Set your own URL
@@ -42,7 +42,7 @@ The above `returnUrl` parameter is usually the URL before jumping to the login p
 
 The ultimate function of the login page is to direct the user to open the **AuthorizeUrl**, which can be done using a direct connection:
 
-```html
+```cs
 <a href="@ViewData["UrlBase"]">Click here to test snsapi_base</a>
 ```
 
@@ -54,7 +54,7 @@ The ultimate function of the login page is to direct the user to open the **Auth
 
 After successful authorisation, the web page will automatically jump to the callback URL (`$"{url}/OAuth2/BaseCallback?returnUrl={returnUrl.UrlEncode()}"`) set in the first step:
 
-```c#
+```cs
 public async Task BaseCallback(string code, string returnUrl)
 {
 ​   if (string.IsNullOrEmpty(code))

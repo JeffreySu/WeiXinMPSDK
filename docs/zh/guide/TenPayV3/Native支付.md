@@ -6,7 +6,7 @@ Native 支付用于线下（或微信环境以外）的支付，通过微信扫�
 
 生成二维码的控件很多，以 [ZXing.Net](https://www.nuget.org/packages/ZXing.Net) 为例，在 `TenPayApiV3Controller` 中创建方法：
 
-```c#
+```cs
 /// <summary>
 /// 使用 Native 支付
 /// </summary>
@@ -66,7 +66,7 @@ public async Task<IActionResult> NativePayCode(int productId, int hc)
 
 > 本项目参考文件：
 >
-> /Controllers/TenPayApiV3Controller.cs
+> /Controllers/**_TenPayApiV3Controller.cs_**
 
 > 提示：
 >

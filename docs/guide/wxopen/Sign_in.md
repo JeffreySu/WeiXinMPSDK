@@ -8,7 +8,7 @@ Most applets need to identify the user's identity (OpenId) and obtain the user's
 
 User login is initiated on the applet side. Generally speaking, a separate page can be made for placing instructions and login buttons. Firstly, an entry button is placed on the entry page:
 
-```c#
+```cs
 <button bindtap="getUserInfo"> Get Avatar Nickname </button>
 ```
 
@@ -32,8 +32,8 @@ This button will direct the page to a separate Login page.
 
 The login page contains the system login display, privacy agreement, etc., and includes a button that triggers the final applet client login event:
 
-```
-<! --pages/Login/Login.wxml-->
+```xml
+<!--pages/Login/Login.wxml-->
 <view class="auth-notice">
       <text class="auth-notice">Hello，</text><open-data type="userNickName" id="login-nickname"></open-data>，
       <text class="auth-notice">The current applet is a functional experience applet for Senparc.Weixin SDK, including subscription messages, get user authorisation information, mobile phone number, WebSocket, customer service messages and other demo content, most of the content needs to be authorised to carry out, click on the [Get Avatar Nickname] button for authorisation in order to enter the test page. </text>
@@ -171,13 +171,13 @@ Among them:
 
 > Reference document for this project:
 >
-> Senparc.Weixin.\*\*\_WxOpen.AppDemo/app.js
+> Senparc.Weixin.**_WxOpen.AppDemo/app.js_**
 
 ## Server Side - OnLogin
 
 The server side **/WxOpen/OnLogin** code is as follows:
 
-```c#
+```cs
 [HttpPost]
 public ActionResult OnLogin(string code)
    {
@@ -209,13 +209,13 @@ public ActionResult OnLogin(string code)
 
 > Reference files for this project:
 >
-> /Controllers/\*\*\_WxOpenController.cs
+> /Controllers/**_WxOpenController.cs_**
 
 ## Server-side - CheckWxOpenSignature
 
-Server-side **/WxOpen/CheckWxOpenSignature** The code is as follows:
+Server-side **_/WxOpen/CheckWxOpenSignature_** The code is as follows:
 
-```c#
+```cs
 [HttpPost]
 public ActionResult CheckWxOpenSignature(string sessionId, string rawData, string signature)
 {
@@ -233,13 +233,13 @@ public ActionResult CheckWxOpenSignature(string sessionId, string rawData, strin
 
 > Reference file for this project:
 >
-> /Controllers/\*\*\_WxOpenController.cs
+> /Controllers/**_WxOpenController.cs_**
 
 ## Server-side - DecodeEncryptedData
 
 Server Side **/WxOpen/DecodeEncryptedData** The code is as follows:
 
-```c#
+```cs
 public async Task<IActionResult> DecodeEncryptedData(string type, string sessionId, string encryptedData, string iv)
 {
     DecodeEntityBase decodedEntity = null;
@@ -301,7 +301,7 @@ Exception Message:
 
 > Reference file for this project:
 >
-> /Controllers/\*\*\_WxOpenController.cs
+> /Controllers/**_WxOpenController.cs_**
 
 ## Finish
 

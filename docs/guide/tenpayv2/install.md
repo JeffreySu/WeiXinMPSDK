@@ -22,7 +22,7 @@ Then, open the solution or project directory and press Ctrl+~ to open the termin
 
 Go to the directory of the project where you need to add the module Senparc.Weixin.Tenpay and type:
 
-> ```
+> ```cs
 > dotnet add package Senparc.Weixin.Tenpay
 > ```
 
@@ -30,8 +30,8 @@ Go to the directory of the project where you need to add the module Senparc.Weix
 
 After the installation is complete, you can see the corresponding .csproj file that was added with a reference such as:
 
-```c#
-<ItemGroup
+```cs
+<ItemGroup>
     <PackageReference Include="Senparc.Weixin.Tenpay" Version="16.17.7" />
 </ItemGroup>
 ```
@@ -42,7 +42,7 @@ First of all, make sure that you have installed the dotnet command line (it will
 
 Go to the directory of the project where you want to add the Senparc.Weixin.Tenpay module and enter:
 
-> ```
+> ```cs
 > dotnet add package Senparc.Weixin.Tenpay
 > ```
 
@@ -50,9 +50,9 @@ Go to the directory of the project where you want to add the Senparc.Weixin.Tenp
 
 After the installation is complete, you can see the corresponding .csproj file, which is being added with references such as:
 
-```c#
-<ItemGroup
+```cs
+<ItemGroup>
     <PackageReference Include="Senparc.Weixin.TenPay" Version="16.17.7" />
 </ItemGroup>
-``
+
 ```

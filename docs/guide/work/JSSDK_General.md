@@ -10,7 +10,7 @@ The web-side JSSDK configuration of enterprise WeChat is similar to that of the 
 
 The backend can automatically get all the JSSDK parameters needed for the frontend to run by using the `JSSDKHelper.GetJsSdkUiPackageAsync()` method:
 
-```c#
+```cs
 public async Task<ActionResult> Index()
 {
     // Current URL
@@ -36,7 +36,7 @@ return View();
 
 Parameters configured in the back-end are set directly in the front-end JS using `wx.config`, e.g. the following code will complete the forwarding of a web page from within an enterprise WeChat to a **personal WeChat**:
 
-```c#
+```cs
 $(function(){
     wx.config({
             beta: true, // must be written this way, otherwise there will be problems with the wx.invoke call form jsapi
@@ -71,7 +71,7 @@ wx.error(function(res){
 function invoke(){
     wx.invoke(
     "shareWechatMessage", {
-              title: 'Enterprise WeChat JSSDK Demo - Forward', // Share title
+            title: 'Enterprise WeChat JSSDK Demo - Forward', // Share title
             desc: 'From Senparc.Weixin.Work', // share description
             link: 'https://sdk.work.weixin.senparc.com/JSSDK', // Share link
             imgUrl: '' // Share the cover

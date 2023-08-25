@@ -8,7 +8,7 @@ To use JSSDK only in the built-in browser, there are two steps: "Getting signatu
 
 The backend can automatically get all the JSSDK parameters needed by the frontend by using the `JSSDKHelper.GetJsSdkUiPackageAsync()` method:
 
-```c#
+```cs
 public async Task Index()
 {
     var jssdkUiPackage = await JSSDKHelper.GetJsSdkUiPackageAsync(appId, appSecret, Request)
@@ -23,7 +23,7 @@ public async Task Index()
 
 Parameters configured in the back-end can be set directly in the front-end JS using `wx.config`, for example, the following code will customise the title and image of the forwarded message when forwarding a web page:
 
-```c#
+```JS
 wx.config({
         debug: false, // 开启调试模式
         appId: '@Model.AppId', // 必填，公众号的唯一标识
@@ -79,7 +79,7 @@ wx.config({
 
 > Tip: Passing a ViewModel in MVC needs to be defined at the top of the .cshtml file:
 >
-> ```
+> ```cs
 > @model Senparc.Weixin.MP.Helpers.JsSdkUiPackage
 > ```
 

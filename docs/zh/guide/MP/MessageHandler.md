@@ -23,7 +23,7 @@ MessageHandler 有两种承载方式，使其可以被外部（微信服务器�
 
 中间件方式是推荐的方式，也是最简化的方式，无需创建任何新文件，只需在 `Program.cs` 文件所有 Senparc.Weixin 注册代码执行后的下方，引入中间件：
 
-```C#
+```cs
 app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
 {
     options.AccountSettingFunc = context =>  Senparc.Weixin.Config.SenparcWeixinSetting;

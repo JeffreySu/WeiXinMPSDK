@@ -8,7 +8,7 @@ You can reference (copy) the assemblies you need to reference in the current sol
 
 The current example project uses a direct reference to the source code by default, which can be seen in the .csproj file:
 
-```
+```cs
 <ItemGroup>
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.MP.Middleware\Senparc.Weixin.MP.Middleware.net6.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.net6.csproj" />
@@ -35,7 +35,7 @@ Then, open the solution or project directory and press Ctrl+~ to open the Termin
 
 Go to the directory of the project where you need to add the module Senparc.Weixin.MP and type:
 
-> ```git
+> ```bash
 > dotnet add package Senparc.Weixin.MP
 > ```
 
@@ -45,8 +45,8 @@ To install the Senparc.Weixin.MP module
 
 After the installation is complete, you can see the corresponding .csproj file, being added references such as:
 
-```c#
-<ItemGroup
+```cs
+<ItemGroup>
     <PackageReference Include="Senparc.Weixin.MP" Version="16.17.7" />
 </ItemGroup>
 ```
@@ -57,7 +57,7 @@ First of all, make sure that you have installed the dotnet command line (it will
 
 Go to the directory of the project where you want to add the module Senparc.Weixin.MP and enter:
 
-> ```
+> ```cs
 > dotnet add package Senparc.Weixin.MP
 > ```
 
@@ -65,8 +65,8 @@ Go to the directory of the project where you want to add the module Senparc.Weix
 
 After the installation is complete, you can view the corresponding .csproj file that was added to the reference, for example:
 
-```
+```cs
 <ItemGroup>
-    <PackageReference Include="Senparc.Weixin.MP" Version="16.17.7" />
+  <PackageReference Include="Senparc.Weixin.MP" Version="16.17.7" />
 </ItemGroup>
 ```

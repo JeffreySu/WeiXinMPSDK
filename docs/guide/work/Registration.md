@@ -24,7 +24,7 @@ The above code is the same for all Senparc.Weixin descendant modules, only 3 lin
 
 Insert code into the delegate method in line 17 of the above code to complete the registration of the default public number:
 
-```
+```cs
 register.RegisterWorkAccount(weixinSetting, "[Shengpai Networks] Enterprise WeChat");
 ```
 
@@ -32,7 +32,7 @@ register.RegisterWorkAccount(weixinSetting, "[Shengpai Networks] Enterprise WeCh
 
 where the value of `weixinSetting` comes from `appsettings.json` by default:`json`.
 
-```
+```json
 "SenparcWeixinSetting": {
   // The following is the SenparcWeixinSetting microsoft configuration for Senparc.Weixin
   //Note: All string values may be used for dictionary indexing, so please do not leave empty strings (but you can remove the corresponding whole setting as needed)!

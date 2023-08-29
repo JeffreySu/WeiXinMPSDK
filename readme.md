@@ -141,7 +141,7 @@ namespace Senparc.Weixin.Sample.MP
 
 #### 第二步：请求 CustomMessageHandler：
 
-有 `中间件`（推荐）和 `Controller（或WebApi）` 两种方式请求 CustomMessageHandler。以中间件为例，在 Program.cs 中启用配置后添加代码，注册 MessageHandler：
+我们提供了 `中间件`（推荐）和 `Controller（或WebApi）` 两种方式请求 CustomMessageHandler，您可以任选其一。以中间件为例，在 Program.cs 中启用配置后添加代码，注册 MessageHandler：
 ``` C#
 app.UseMessageHandlerForMp("/WeixinAsync",
     (stream, postModel, maxRecordCount, serviceProvider)

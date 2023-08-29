@@ -35,6 +35,7 @@ using Senparc.Weixin.Tencent;
 using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Cache;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace Senparc.Weixin.Sample.Net6.Controllers
 {
@@ -333,7 +334,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            ViewData["Token"] = WeixinController.Token;
+            ViewData["Token"] = Request.IsLocal() ? WeixinController.Token : "<请输入您自己的 URL 和 Token>";
             return View();
         }
 

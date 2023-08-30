@@ -46,7 +46,7 @@
 		v0.7.1 修复 TradeBillQueryRequestData 默认参数问题
 		v0.7.3 新增微信支付 V3 服务商的“经营能力”“资金应用”相关接口
 		v0.7.5 TenPayV3Util.GetNoncestr() 弃用 MD5 加密方法
-		v0.7.10.4 处理JsonIgnore的问题
+		v0.7.10.4 基础支付参数缺失处理 、JsonIgnore的问题处理
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

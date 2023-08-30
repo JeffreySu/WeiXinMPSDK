@@ -25,10 +25,10 @@
 
 	<!--引用 Nuget 包-->
 	<ItemGroup>
-		<PackageReference Include="Senparc.Weixin.AspNet" Version="1.0.4.1-beta1" />
-		<PackageReference Include="Senparc.Weixin.MP" Version="16.19.2.1" />
-		<PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.12.12.1" />
-		<PackageReference Include="Senparc.Weixin.TenpayV3" Version="0.7.10.1" />
+		<PackageReference Include="Senparc.Weixin.AspNet" Version="1.0.4.2-beta1" />
+		<PackageReference Include="Senparc.Weixin.MP" Version="16.19.2.2" />
+		<PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.12.12.2" />
+		<PackageReference Include="Senparc.Weixin.TenpayV3" Version="0.7.10.4" />
 		<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
 		<PackageReference Include="ZXing.Net" Version="0.16.8" />
 	</ItemGroup>

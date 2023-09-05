@@ -296,6 +296,8 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 var price = product == null ? 100 : (int)(product.Price * 100);//单位：分
                 var notifyUrl = TenPayV3Info.TenPayV3Notify.Replace("/TenpayV3/", "/TenPayApiV3/").Replace("http://", "https://");
 
+               
+
                 //请求信息
                 TransactionsRequestData jsApiRequestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name + " - 微信支付 V3", sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1), false), null, notifyUrl, null, new() { currency = "CNY", total = price }, new(openId), null, null, null);
 

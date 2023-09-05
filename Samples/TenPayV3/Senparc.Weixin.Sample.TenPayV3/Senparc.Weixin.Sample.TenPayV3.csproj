@@ -28,9 +28,11 @@
 		<PackageReference Include="Senparc.Weixin.AspNet" Version="0.8.5.8" />
 		<PackageReference Include="Senparc.Weixin.MP" Version="16.18.10.6" />
 		<PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.12.5.7" />
-		<PackageReference Include="Senparc.Weixin.TenpayV3" Version="0.6.8.13" />
 		<PackageReference Include="System.Drawing.Common" Version="6.0.0" />
 		<PackageReference Include="ZXing.Net" Version="0.16.8" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.TenPayV3\Senparc.Weixin.TenPayV3.net6.csproj" />
 	</ItemGroup>
 
 	<!--直接引用源码-->

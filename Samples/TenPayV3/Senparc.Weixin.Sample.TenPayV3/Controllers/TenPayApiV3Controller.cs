@@ -723,5 +723,26 @@ namespace Senparc.Weixin.Sample.TenPayV3.Controllers
         }
 
         #endregion
+
+        #region 分账
+        /// <summary>
+        /// 添加分账接收方接口
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> AddProfitsharingReceiver()
+        {
+            var profitsharingApis = new ProfitsharingApis(_tenpayV3Setting);
+            await profitsharingApis.AddProfitsharingReceiverAsync(new Weixin.TenPayV3.Apis.Profitsharing.AddProfitsharingReceiverRequestData()
+            {
+                account = "1572122941",
+                appid = _tenpayV3Setting.TenPayV3_AppId,
+                name = "杭州掌流信息技术有限公司",
+                sub_mchid = "1632369346",
+                relation_type = "PARTNER",
+                type = "MERCHANT_ID"
+            });
+            return Content("执行成功");
+        }
+        #endregion
     }
 }

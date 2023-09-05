@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.7.10.4</Version>
+    <Version>1.0.0-beta1</Version>
     <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
     <LangVersion>10.0</LangVersion>
@@ -47,6 +47,11 @@
 		v0.7.3 新增微信支付 V3 服务商的“经营能力”“资金应用”相关接口
 		v0.7.5 TenPayV3Util.GetNoncestr() 弃用 MD5 加密方法
 		v0.7.10.4 基础支付参数缺失处理 、JsonIgnore的问题处理
+		v0.7.11
+		v1.0.0-beta1
+		1、TenPayV3 RefundQueryRequestData.sub_mchid 属性添加 [JsonIgnore] 标签 #2905
+		2、添加小程序发货信息管理服务消息事件 PR#2908
+		3、TenPayV3分账 字段内部加密 PR#2909
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -78,6 +83,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.2.1" />
     <PackageReference Include="Senparc.CO2NET.AspNet" Version="1.1.5.9" />
     <PackageReference Include="System.Security.Cryptography.Cng" Version="5.0.0" />
   </ItemGroup>

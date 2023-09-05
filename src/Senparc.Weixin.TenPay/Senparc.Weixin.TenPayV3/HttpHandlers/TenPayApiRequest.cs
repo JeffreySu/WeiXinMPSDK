@@ -59,10 +59,12 @@ namespace Senparc.Weixin.TenPayV3
     public class TenPayApiRequest
     {
         private ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting;
+        private Action<HttpClient> _setHeaderAction;
 
-        public TenPayApiRequest(ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null)
+        public TenPayApiRequest(ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null, Action<HttpClient> setHeaderAction = null)
         {
             _tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
+            _setHeaderAction = setHeaderAction;
         }
 
         /// <summary>
@@ -81,6 +83,10 @@ namespace Senparc.Weixin.TenPayV3
             client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue($"(Senparc.Weixin {userAgentValues.SenparcWeixinVersion})"));
             client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(".NET", userAgentValues.RuntimeVersion));
             client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue($"({userAgentValues.OSVersion})"));
+
+            // 外部
+            if (_setHeaderAction != null)
+                _setHeaderAction(client);
         }
 
         /// <summary>

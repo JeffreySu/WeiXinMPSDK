@@ -121,7 +121,15 @@ namespace Senparc.Weixin.Open
         /// <summary>
         /// 创建试用小程序成功/失败的事件推送
         /// </summary>
-        notify_third_fastregisterbetaapp
+        notify_third_fastregisterbetaapp,
+        /// <summary>
+        /// 小程序管理员人脸核身完成事件
+        /// </summary>
+        notify_icpfiling_verify_result,
+        /// <summary>
+        /// 当备案审核被驳回或通过时会推送该事件
+        /// </summary>
+        notify_apply_icpfiling_result
     }
 
     /// <summary>

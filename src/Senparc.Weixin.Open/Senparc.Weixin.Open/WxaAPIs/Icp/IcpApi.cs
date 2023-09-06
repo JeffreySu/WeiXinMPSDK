@@ -110,7 +110,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
             var url = string.Format(Config.ApiMpHost + "/wxa/icp/get_icp_entrance_info?access_token={0}", accessToken.AsUrlData());
 
 
-            return CommonJsonSend.Send<GetIcpEntranceInfoResultJson>(null, url, null);
+            return CommonJsonSend.Send<GetIcpEntranceInfoResultJson>(null, url, null, CommonJsonSendType.GET);
         }
 
         public static GetOnlineIcpOrderResultJson GetOnlineIcpOrder(string accessToken, int timeOut = Config.TIME_OUT)
@@ -118,7 +118,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
             var url = string.Format(Config.ApiMpHost + "/wxa/icp/get_online_icp_order?access_token={0}", accessToken.AsUrlData());
 
 
-            return CommonJsonSend.Send<GetOnlineIcpOrderResultJson>(null, url, null);
+            return CommonJsonSend.Send<GetOnlineIcpOrderResultJson>(null, url, null, CommonJsonSendType.GET);
         }
 
         public static QueryIcpServiceContentTypesResultJson QueryIcpServiceContentTypes(string accessToken, int timeOut = Config.TIME_OUT)
@@ -126,7 +126,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
             var url = string.Format(Config.ApiMpHost + "/wxa/icp/query_icp_service_content_types?access_token={0}", accessToken.AsUrlData());
 
 
-            return CommonJsonSend.Send<QueryIcpServiceContentTypesResultJson>(null, url, null);
+            return CommonJsonSend.Send<QueryIcpServiceContentTypesResultJson>(null, url, null, CommonJsonSendType.GET);
         }
 
         public static QueryIcpCertificateTypesResultJson QueryIcpCertificateTypes(string accessToken, int timeOut = Config.TIME_OUT)
@@ -134,7 +134,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
             var url = string.Format(Config.ApiMpHost + "/wxa/icp/query_icp_certificate_types?access_token={0}", accessToken.AsUrlData());
 
 
-            return CommonJsonSend.Send<QueryIcpCertificateTypesResultJson>(null, url, null);
+            return CommonJsonSend.Send<QueryIcpCertificateTypesResultJson>(null, url, null, CommonJsonSendType.GET);
         }
 
         public static QueryIcpDistrictCodeResultJson QueryIcpDistrictCode(string accessToken, int timeOut = Config.TIME_OUT)
@@ -142,7 +142,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
             var url = string.Format(Config.ApiMpHost + "/wxa/icp/query_icp_district_code?access_token={0}", accessToken.AsUrlData());
 
 
-            return CommonJsonSend.Send<QueryIcpDistrictCodeResultJson>(null, url, null);
+            return CommonJsonSend.Send<QueryIcpDistrictCodeResultJson>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
             var url = string.Format(Config.ApiMpHost + "/wxa/icp/query_icp_nrlx_types?access_token={0}", accessToken.AsUrlData());
 
 
-            return CommonJsonSend.Send<QueryIcpNrlxTypesResultJson>(null, url, null);
+            return CommonJsonSend.Send<QueryIcpNrlxTypesResultJson>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
             var url = string.Format(Config.ApiMpHost + "/wxa/icp/query_icp_subject_types?access_token={0}", accessToken.AsUrlData());
 
 
-            return CommonJsonSend.Send<QueryIcpSubjectTypesResultJson>(null, url, null);
+            return CommonJsonSend.Send<QueryIcpSubjectTypesResultJson>(null, url, null, CommonJsonSendType.GET);
         }
     }
 }

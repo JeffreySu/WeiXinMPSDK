@@ -20,7 +20,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Icp.IcpJson
         /// <summary>
         /// 备案状态，取值参考备案状态枚举，示例值：`1024`
         /// </summary>
-        public int status { get; set; }
+        public StatusCode status { get; set; }
 
         /// <summary>
         /// 是否正在注销备案
@@ -31,6 +31,19 @@ namespace Senparc.Weixin.Open.WxaAPIs.Icp.IcpJson
         /// 驳回原因，备案不通过时返回
         /// </summary>
         public List<AuditDataModel> audit_data { get; set; }
+    }
+
+    public enum StatusCode
+    {
+        平台审核中=2,
+        平台审核驳回=3,
+        管局审核中 = 4,
+        管局审核驳回 = 5,
+        已备案 = 6,
+        未备案 = 1024,
+        未备案_小程序基本信息未填 = 1025,
+        未备案_小程序类目未填 = 1026,
+        未备案_小程序基本信息未填_小程序类目未填 = 1027
     }
 
 

@@ -29,6 +29,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.TenPayV3.Attributes;
 using Senparc.Weixin.TenPayV3.Entities;
 using System;
 using System.Collections.Generic;
@@ -217,8 +218,9 @@ namespace Senparc.Weixin.TenPayV3.Apis.Profitsharing
             /// 分账个人接收方姓名
             /// <para>可选项，在接收方类型为个人的时可选填，若有值，会检查与 name 是否实名匹配，不匹配会拒绝分账请求 1、分账接收方类型是PERSONAL_OPENID，是个人姓名的密文（选传，传则校验） 此字段的加密方法详见：敏感信息加密说明 2、使用微信支付平台证书中的公钥 3、使用RSAES-OAEP算法进行加密 4、将请求中HTTP头部的Wechatpay-Serial设置为证书序列号</para>
             /// <para>示例值：hu89ohu89ohu89o</para>
-            /// <para>可为null</para>
+            /// <para>可为null  方法内部已自动加密，只需要赋值明文即可</para>
             /// </summary>
+            [FieldEncrypt]
             public string name { get; set; }
 
             /// <summary>

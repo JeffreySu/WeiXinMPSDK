@@ -1,0 +1,9 @@
+﻿global using Senparc.NeuChar.MessageHandlers;
+global using Senparc.Weixin.AspNet;
+global using Senparc.Weixin.MP;
+global using Senparc.Weixin.TenPay;
+global using Senparc.Weixin.RegisterServices;
+global using Senparc.Weixin.Sample.TenPayV2;
+global using Microsoft.Extensions.Options;
+global using Senparc.Weixin.Entities;
+global using Microsoft.Extensions.FileProviders;

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：WeixinResult.cs
     文件功能描述：给MVC使用的返回结果
@@ -39,7 +39,7 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.NeuChar.MessageHandlers;
-#if NET451
+#if NET462
 using System.Web.Mvc;
 using System.Web;
 #else
@@ -102,7 +102,7 @@ namespace Senparc.Weixin.AspNet.MvcExtension
             set { base.Content = value; }
         }
 
-#if NET451
+#if NET462
         public override void ExecuteResult(ControllerContext context)
 #else
         public override void ExecuteResult(ActionContext context)
@@ -122,7 +122,7 @@ namespace Senparc.Weixin.AspNet.MvcExtension
                 }
                 else
                 {
-#if NET451
+#if NET462
                     context.HttpContext.Response.ClearContent();
                     context.HttpContext.Response.ContentType = "text/xml";
                     _messageHandlerDocument.FinalResponseDocument.Save(context.HttpContext.Response.OutputStream);

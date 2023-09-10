@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
  
     文件名：RequestHandler.cs
     文件功能描述：微信支付V3 请求处理
@@ -64,7 +64,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Senparc.CO2NET.Helpers;
 
-#if NET451
+#if NET462
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
@@ -101,7 +101,7 @@ namespace Senparc.Weixin.TenPay.V3
         public RequestHandler(HttpContext httpContext)
         {
             Parameters = new Hashtable();
-#if NET451
+#if NET462
             this.HttpContext = httpContext ?? HttpContext.Current;
 #else
             this.HttpContext = httpContext ?? new DefaultHttpContext();
@@ -342,7 +342,7 @@ namespace Senparc.Weixin.TenPay.V3
 
         protected virtual string GetCharset()
         {
-#if NET451
+#if NET462
             if (this.HttpContext == null)//构造函数已经排除了这种可能，暂时保留
             {
                 return Encoding.UTF8.BodyName;

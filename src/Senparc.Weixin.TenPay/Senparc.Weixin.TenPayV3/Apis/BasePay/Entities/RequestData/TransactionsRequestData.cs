@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
   
     文件名：TransactionsRequestData.cs
     文件功能描述：下单请求数据实体
@@ -27,7 +27,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20210825
 
-    
+    修改标识：Senparc - 20230821
+    修改描述：v0.7.10.3 基础支付参数缺失处理 RP#2901
 ----------------------------------------------------------------*/
 
 using System;
@@ -42,7 +43,12 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
     public class TransactionsRequestData
     {
         /// <summary>
-        /// 含参构造函数
+        /// 无参构造函数
+        /// </summary>
+        public TransactionsRequestData() { }
+
+        /// <summary>
+        /// 含参构造函数(商家模式)
         /// </summary>
         /// <param name="appid">由微信生成的应用ID，全局唯一</param>
         /// <param name="mchid">直连商户的商户号，由微信支付生成并下发</param>
@@ -57,10 +63,12 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <param name="detail">优惠功能，可为null</param>
         /// <param name="settle_info">结算信息，可为null</param>
         /// <param name="scene_info">支付场景描述，H5下单必填，其它支付方式可为null</param>
+        /// <param name="support_fapiao">电子发票入口开放标识</param>
         public TransactionsRequestData(string appid, string mchid, string description,
             string out_trade_no, TenpayDateTime time_expire, string attach,
             string notify_url, string goods_tag, Amount amount, Payer payer = null,
-            Detail detail = null, Settle_Info settle_info = null, Scene_Info scene_info = null)
+            Detail detail = null, Settle_Info settle_info = null, Scene_Info scene_info = null,
+            bool support_fapiao = false)
         {
             this.appid = appid;
             this.mchid = mchid;
@@ -75,8 +83,54 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             this.detail = detail;
             this.settle_info = settle_info;
             this.scene_info = scene_info;
+            this.support_fapiao = support_fapiao;
         }
 
+
+        /// <summary>
+        /// 含参构造函数(服务商模式)
+        /// </summary>
+        /// <param name="sp_appid">由微信生成的应用ID，全局唯一。请求基础下单接口时请注意APPID的应用属性，例如公众号场景下，需使用应用属性为公众号的服务号APPID</param>
+        /// <param name="sp_mchid">服务商户号，由微信支付生成并下发</param>
+        /// <param name="sub_appid">子商户申请的应用ID，全局唯一。请求基础下单接口时请注意APPID的应用属性，例如公众号场景下，需使用应用属性为公众号的APPID 若sub_openid有传的情况下，sub_appid必填，且sub_appid需与sub_openid对应</param>
+        /// <param name="sub_mchid">子商户的商户号，由微信支付生成并下发。</param>
+        /// <param name="description">商品描述 示例值：Image形象店-深圳腾大-QQ公仔</param>
+        /// <param name="out_trade_no">商户系统内部订单号</param>
+        /// <param name="time_expire">订单失效时间 遵循rfc3339标准格式，格式为YYYY-MM-DDTHH:mm:ss+TIMEZONE，可为null</param>
+        /// <param name="attach">附加数据，在查询API和支付通知中原样返回，可作为自定义参数使用，可为null</param>
+        /// <param name="notify_url">通知URL 必须为直接可访问的URL，不允许携带查询串，要求必须为https地址</param>
+        /// <param name="goods_tag">订单优惠标记 示例值：WXG，可为null</param>
+        /// <param name="amount">订单金额</param>
+        /// <param name="payer">支付者，JSAPI下单必填，其它下单方式必须为null</param>
+        /// <param name="detail">优惠功能，可为null</param>
+        /// <param name="settle_info">结算信息，可为null</param>
+        /// <param name="scene_info">支付场景描述，H5下单必填，其它支付方式可为null</param>
+        /// <param name="support_fapiao">电子发票入口开放标识</param>
+        public TransactionsRequestData(string sp_appid, string sp_mchid, string sub_appid, string sub_mchid,
+            string description, string out_trade_no, TenpayDateTime time_expire, string attach,
+            string notify_url, string goods_tag, Amount amount, Payer payer = null,
+            Detail detail = null, Settle_Info settle_info = null, Scene_Info scene_info = null, 
+            bool support_fapiao = false)
+        {
+            this.sp_appid = sp_appid;
+            this.sp_mchid = sp_mchid;
+            this.sub_appid = sub_appid;
+            this.sub_mchid = sub_mchid;
+            this.description = description;
+            this.out_trade_no = out_trade_no;
+            this.time_expire = time_expire.ToString();
+            this.attach = attach;
+            this.notify_url = notify_url;
+            this.goods_tag = goods_tag;
+            this.amount = amount;
+            this.payer = payer;
+            this.detail = detail;
+            this.settle_info = settle_info;
+            this.scene_info = scene_info;
+            this.support_fapiao = support_fapiao;
+        }
+
+        #region 商户
         /// <summary>
         /// 应用ID
         /// 由微信生成的应用ID，全局唯一。请求基础下单接口时请注意APPID的应用属性，例如公众号场景下，需使用应用属性为公众号的APPID
@@ -90,6 +144,39 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// 示例值：1230000109
         /// </summary>
         public string mchid { get; set; }
+        #endregion
+
+        #region 服务商
+        /// <summary>
+        /// 服务商应用ID
+        /// 由微信生成的应用ID，全局唯一。请求基础下单接口时请注意APPID的应用属性，例如公众号场景下，需使用应用属性为公众号的服务号APPID
+        /// 示例值：wx8888888888888888
+        /// </summary>
+        public string sp_appid { get; set; }
+
+        /// <summary>
+        /// 服务商户号
+        /// 服务商户号，由微信支付生成并下发
+        /// 示例值：1230000109
+        /// </summary>
+        public string sp_mchid { get; set; }
+
+        /// <summary>
+        /// 子商户应用ID
+        /// 子商户申请的应用ID，全局唯一。请求基础下单接口时请注意APPID的应用属性，例如公众号场景下，需使用应用属性为公众号的APPID
+        /// 若sub_openid有传的情况下，sub_appid必填，且sub_appid需与sub_openid对应
+        /// 示例值：wxd678efh567hg6999
+        /// </summary>
+        public string sub_appid { get; set; }
+
+        /// <summary>
+        /// 子商户号
+        /// 子商户的商户号，由微信支付生成并下发。
+        /// 示例值：1900000109
+        /// </summary>
+        public string sub_mchid { get; set; }
+        #endregion
+
 
         /// <summary>
         /// 商品描述
@@ -131,6 +218,14 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// 示例值：WXG
         /// </summary>
         public string goods_tag { get; set; }
+
+        /// <summary>
+        /// 电子发票入口开放标识
+        /// 传入true时，支付成功消息和支付详情页将出现开票入口。需要在微信支付商户平台或微信公众平台开通电子发票功能，传此字段才可生效。
+        /// true：是
+        /// false：否
+        /// </summary>
+        public bool support_fapiao { get; set; }
 
         /// <summary>
         /// 订单金额
@@ -204,11 +299,24 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         {
             /// <summary>
             /// 含参构造函数
+            /// 商户专用
             /// </summary>
             /// <param name="openid">用户在直连商户appid下的唯一标识</param>
             public Payer(string openid)
             {
                 this.openid = openid;
+            }
+
+            /// <summary>
+            /// 含参构造函数
+            /// 服务商专用
+            /// </summary>
+            /// <param name="sp_openid"></param>
+            /// <param name="sub_openid"></param>
+            public Payer(string sp_openid, string sub_openid)
+            {
+                this.sp_openid = sp_openid;
+                this.sub_openid = sub_openid;
             }
 
             /// <summary>
@@ -224,6 +332,20 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             /// 示例值：oUpF8uMuAJO_M2pxb1Q9zNjWeS6o
             /// </summary>
             public string openid { get; set; }
+
+            #region 服务商专用
+            /// <summary>
+            /// 用户在服务商appid下的唯一标识。 下单前需获取到用户的Openid，Openid获取详见。
+            /// 示例值：oUpF8uMuAJO_M2pxb1Q9zNjWeS6o
+            /// </summary>
+            public string sp_openid { get; set; }
+
+            /// <summary>
+            /// 用户在子商户appid下的唯一标识。若传sub_openid，那sub_appid必填。下单前需获取到用户的Openid，Openid获取详见。
+            /// 示例值：oUpF8uMuAJO_M2pxb1Q9zNjWeS6o
+            /// </summary>
+            public string sub_openid { get; set; }
+            #endregion
         }
 
         /// <summary>

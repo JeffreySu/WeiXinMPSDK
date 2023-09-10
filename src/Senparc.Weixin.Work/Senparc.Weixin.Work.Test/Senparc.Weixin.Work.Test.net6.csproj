@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
-    <PackageReference Include="Moq" Version="4.12.0" />
+    <PackageReference Include="Moq" Version="4.17.2" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
   </ItemGroup>
@@ -27,6 +27,10 @@
     <ProjectReference Include="..\..\Senparc.Weixin.MP\Senparc.WeixinTests\Senparc.WeixinTests.net6.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />
     <ProjectReference Include="..\Senparc.Weixin.Work\Senparc.Weixin.Work.net6.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
   </ItemGroup>
 
 </Project>

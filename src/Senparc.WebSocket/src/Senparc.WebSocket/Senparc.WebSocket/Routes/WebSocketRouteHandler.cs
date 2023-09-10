@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
 
     文件名：WebSocketRouteHandler.cs
     文件功能描述：WebSocketRouteHandler，处理WebSocket请求
@@ -16,14 +16,14 @@ using System.Text;
 using System.Threading.Tasks;
 //using Microsoft.AspNetCore.Http;
 //using Microsoft.AspNetCore.Routing;
-#if NET451
+#if NET462
 using System.Web;
 using System.Web.Routing;
 #endif
 
 namespace Senparc.WebSocket
 {
-#if NET451
+#if NET462
     /// <summary>
     /// WebSocketHansler，处理WebSocket请求
     /// </summary>

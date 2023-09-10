@@ -1,0 +1,66 @@
+﻿<div class="tab-pane fade" id="nav-paycallback" role="tabpanel" aria-labelledby="nav-profile-tab">
+    <h5>支付回调</h5>
+    <p>
+        当用户在微信端完成支付后，微信服务器会主动推送一条通知到应用服务器。这条信息只会在微信官方服务器和应用服务器之间发生，不会有用户的参与，并且附加签名校验，因此才是可信的。
+        <blockquote class="blockquote">
+            <p><strong>注意：千万不能信任手机客户端完成支付的状态，并以此通知应用服务器用户已完成支付！</strong></p>
+        </blockquote>
+
+    <p>以 JsApi 支付为例，当发起统一支付时，会要求填写回调地址（<code>TenPayV3UnifiedorderRequestData</code> 中的 <code>notifyUrl</code> 参数，见 <strong>JSAPI 支付</strong> 相关说明）。</p>
+    <blockquote class="blockquote">
+        <p>注意：不同的支付方式提供回调地址的设置可能不同，如“Native 支付”，则是在微信支付的管理后台设置。</p>
+    </blockquote>
+
+    <h5>定义回调入口</h5>
+    <pre><code>/// &lt;summary&gt;
+/// JS-SDK支付回调地址（在统一下单接口中设置notify_url）
+/// &lt;/summary&gt;
+/// &lt;returns&gt;&lt;/returns&gt;
+public ActionResult PayNotifyUrl()
+{
+    try
+    {
+        ResponseHandler resHandler = new ResponseHandler(HttpContext);
+
+        string return_code = resHandler.GetParameter(&quot;return_code&quot;);
+        string return_msg = resHandler.GetParameter(&quot;return_msg&quot;);
+
+        string res = null;
+
+        resHandler.SetKey(TenPayV3Info.Key);
+        //验证请求是否从微信发过来（安全）
+        if (resHandler.IsTenpaySign() &amp;&amp; return_code.ToUpper() == &quot;SUCCESS&quot;)
+        {
+            res = &quot;success&quot;;//正确的订单处理
+            //直到这里，才能认为交易真正成功了，可以进行数据库操作，但是别忘了返回规定格式的消息！
+        }
+        else
+        {
+            res = &quot;wrong&quot;;//错误的订单处理
+        }
+
+        /* 这里可以进行订单处理的逻辑 */
+
+        string xml = string.Format(@@&quot;&lt;xml&gt;
+&lt;return_code&gt;&lt;![CDATA[{0}]]&gt;&lt;/return_code&gt;
+&lt;return_msg&gt;&lt;![CDATA[{1}]]&gt;&lt;/return_msg&gt;
+&lt;/xml&gt;&quot;, return_code, return_msg);
+        return Content(xml, &quot;text/xml&quot;);
+    }
+    catch (Exception ex)
+    {
+        WeixinTrace.WeixinExceptionLog(new WeixinException(ex.Message, ex));
+        throw;
+    }
+}</code></pre>
+
+    <figure class="file">
+        <blockquote class="blockquote">
+            <p>本项目参考文件：</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            /<cite title="Source Title">Controllers/TenPayV3Controller.cs</cite>
+        </figcaption>
+    </figure>
+
+</div>

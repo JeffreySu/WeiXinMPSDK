@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：OAuthJoinAPI.cs
     文件功能描述：公众号授权给第三方平台
@@ -32,6 +32,18 @@
 
     修改标识：mc7246 - 20211121
     修改描述：v4.13.1 配置小程序用户隐私保护指引接口增加privacy_ver参数
+
+    修改标识：mc7246 - 20220402
+    修改描述：v4.13.9 添加试用小程序接口
+
+    修改标识：Senparc - 20230110
+    修改描述：v4.14.14 添加接口：设置第三方平台服务器域名
+
+    修改标识：Senparc - 20230207
+    修改描述：v4.14.15 完善“第三方平台业务域名” #2767 #2789
+
+    修改标识：Senparc - 20230730
+    修改描述：v4.14.25 解决问题：设置第三方平台服务器域名调用url参数错误 #2882
 
 ----------------------------------------------------------------*/
 
@@ -369,7 +381,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public static FastRegisterPersonalWeAppResult FastRegisterPersonalWeApp(string componentAccessToken, string idName = "", string wxUser = "", string taskid = "", string action = "create", string componentPhone = "", int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(
-                Config.ApiMpHost + "/cgi-bin/component/fastregisterpersonalweapp?action={0}&component_access_token={1}",
+                Config.ApiMpHost + "/wxa/component/fastregisterpersonalweapp?action={0}&component_access_token={1}",
                 action.AsUrlData(),
                 componentAccessToken.AsUrlData());
 
@@ -393,6 +405,92 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             }
 
             return CommonJsonSend.Send<FastRegisterPersonalWeAppResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 创建试用小程序
+        /// 文档：https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/beta_Mini_Programs/fastregister.html
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="name">小程序名称，昵称半自动设定，强制后缀“的体验小程序”。且该参数会进行关键字检查，如果命中品牌关键字则会报错。如遇到品牌大客户要用试用小程序，建议用户先换个名字，认证后再修改成品牌名。只支持4-30个字符</param>
+        /// <param name="openid">微信用户的openid（不是微信号），试用小程序创建成功后会默认将该用户设置为小程序管理员。获取openid的方法请查看公众号获取openid</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static FastRegisterBetaWeAppResult FastRegisterBetaWeApp(string componentAccessToken, string name, string openid, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(
+                Config.ApiMpHost + "/wxa/component/fastregisterbetaweapp?access_token={0}",
+                componentAccessToken.AsUrlData());
+
+            //var data;
+            object data = new
+            {
+                name = name,
+                openid = openid
+            };
+
+            return CommonJsonSend.Send<FastRegisterBetaWeAppResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 试用小程序快速认证
+        /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/beta_Mini_Programs/fastverify.html
+        /// </summary>
+        /// <param name="componentAccessToken">第三方平台接口调用令牌authorizer_access_token</param>
+        /// <param name="entName">企业名（需与工商部门登记信息一致)；如果是“无主体名称个体工商户”则填“个体户+法人姓名”，例如“个体户张三”</param>
+        /// <param name="entCode">企业代码</param>
+        /// <param name="legalPersonaWechat">法人微信号</param>
+        /// <param name="legalPersonaName">法人姓名（绑定银行卡）</param>
+        /// <param name="legalPersonaIDCard">法人身份证号</param>
+        /// <param name="codeType">企业代码类型 1：统一社会信用代码（18 位） 2：组织机构代码（9 位 xxxxxxxx-x） 3：营业执照注册号(15 位)</param>
+        /// <param name="componentPhone">第三方联系电话</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult VerifyBetaWeApp(string componentAccessToken, string entName, string entCode, string legalPersonaWechat, string legalPersonaName, string legalPersonaIDCard, CodeType codeType = CodeType.统一社会信用代码, string componentPhone = "", int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(
+                Config.ApiMpHost + "/wxa/verifybetaweapp?access_token={0}",
+                componentAccessToken.AsUrlData());
+
+            //var data;
+            object data = new
+            {
+                verify_info = new
+                {
+                    enterprise_name = entName,
+                    code = entCode,
+                    code_type = codeType,
+                    legal_persona_wechat = legalPersonaWechat,
+                    legal_persona_name = legalPersonaName,
+                    legal_persona_idcard = legalPersonaIDCard,
+                    component_phone = componentPhone
+                }
+            };
+
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 修改试用小程序名称
+        /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/beta_Mini_Programs/fastmodify.html
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="name"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult SetBetaWeAppNickName(string componentAccessToken, string name, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(
+                Config.ApiMpHost + "/wxa/setbetaweappnickname?access_token={0}",
+                componentAccessToken.AsUrlData());
+
+            //var data;
+            object data = new
+            {
+                name = name
+            };
+
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -502,6 +600,83 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             fileDictionary["file"] = file;
             return CO2NET.HttpUtility.Post.PostFileGetJson<UploadPrivacyExtFileResult>(serviceProvider ?? CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
         }
+
+        #region 域名管理
+
+        /// <summary>
+        /// 设置第三方平台服务器域名
+        /// <para>本接口用于配置第三方平台小程序服务器域名。</para>
+        /// <para>授权给第三方代开发的小程序，其服务器域名只可以为在第三方平台账号中配置的小程序服务器域名。即调用接口设置小程序服务器域名之前可以调本接口先进行第三方平台小程序服务器域名配置。</para>
+        /// <para>使用过程中如遇到问题，可在开放平台服务商专区发帖交流。</para>
+        /// <para>调试工具：https://developers.weixin.qq.com/apiExplorer?apiName=modifyThirdpartyServerDomain&plat=thirdparty</para>
+        /// <para>文档：https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/thirdparty-management/domain-mgnt/modifyThirdpartyServerDomain.html</para>
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="action">操作类型。</param>
+        /// <param name="wxa_server_domain">最多可以添加1000个服务器域名，以;隔开。注意：域名不需带有http:// 等协议内容，也不能在域名末尾附加详细的 URI 地址，严格按照类似 www.qq.com 的写法。</param>
+        /// <param name="is_modify_published_together">是否同时修改“全网发布版本的值”。（false：只改“测试版”；true：同时改“测试版”和“全网发布版”）省略时，默认为false。</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static ModifyWxaServerDomainResult ModifyWxaServerDomain(string componentAccessToken, ModifyWxaServerDomain_Action action, string wxa_server_domain = null, bool? is_modify_published_together = null, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/modify_wxa_server_domain?access_token={0}";
+            var data = new
+            {
+                action = action.ToString(),
+                wxa_server_domain,
+                is_modify_published_together
+            };
+
+            return CommonJsonSend.Send<ModifyWxaServerDomainResult>(componentAccessToken, urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting(true));
+        }
+
+        /// <summary>
+        /// 获取第三方平台业务域名校验文件
+        /// <para>本接口用于获取第三方平台小程序业务域名的校验文件。</para>
+        /// <para>使用过程中如遇到问题，可在开放平台服务商专区发帖交流。</para>
+        /// <para>文档：https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/thirdparty-management/domain-mgnt/getThirdpartyJumpDomainConfirmFile.html </para>
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="action">操作类型。</param>
+        /// <param name="wxa_jump_h5_domain">最多可以添加200个小程序业务域名，以;隔开。注意：域名不需带有http:// 等协议内容，也不能在域名末尾附加详细的 URI 地址，严格按照类似 www.qq.com 的写法。</param>
+        /// <param name="is_modify_published_together">是否同时修改“全网发布版本的值”。（false：只改“测试版”；true：同时改“测试版”和“全网发布版”）省略时，默认为false。</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetDomainConfirmFileResult GetDomainConfirmFile(string componentAccessToken, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/get_domain_confirmfile?access_token={0}";
+            return CommonJsonSend.Send<GetDomainConfirmFileResult>(componentAccessToken, urlFormat, null, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 设置第三方平台业务域名
+        /// <para>本接口用于配置第三方平台小程序业务域名。</para>
+        /// <para>配置业务域名时，需要将校验文件放置在域名根目录下，例如wx.qq.com，并确保可以访问该文件。可以通过获取第三方小程序业务域名的校验文件接口获取检验文件。</para>
+        /// <para>授权给第三方代开发的小程序，其业务域名只可以为在第三方平台账号中配置的小程序业务域名。即调用接口设置小程序业务域名之前可以调本接口先进行第三方平台小程序业务域名配置。</para>
+        /// <para>使用过程中如遇到问题，可在开放平台服务商专区发帖交流。</para>
+        /// <para>文档：https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/thirdparty-management/domain-mgnt/modifyThirdpartyJumpDomain.html</para>
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="action">操作类型。</param>
+        /// <param name="wxa_jump_h5_domain">最多可以添加200个小程序业务域名，以;隔开。注意：域名不需带有http:// 等协议内容，也不能在域名末尾附加详细的 URI 地址，严格按照类似 www.qq.com 的写法。</param>
+        /// <param name="is_modify_published_together">是否同时修改“全网发布版本的值”。（false：只改“测试版”；true：同时改“测试版”和“全网发布版”）省略时，默认为false。</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static ModifyWxaJumpDomainResult ModifyWxaJumpDomain(string componentAccessToken, ModifyWxaJumpDomain_Action action, string wxa_jump_h5_domain = null, bool? is_modify_published_together = null, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/modify_wxa_jump_domain?access_token={0}";
+            var data = new
+            {
+                action = action.ToString(),
+                wxa_jump_h5_domain,
+                is_modify_published_together
+            };
+
+            return CommonJsonSend.Send<ModifyWxaJumpDomainResult>(componentAccessToken, urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting(true));
+        }
+
+        #endregion
+
         #endregion
 
 
@@ -787,7 +962,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public static async Task<FastRegisterPersonalWeAppResult> FastRegisterPersonalWeAppAsync(string componentAccessToken, string idName = "", string wxUser = "", string taskid = "", string action = "create", string componentPhone = "", int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(
-                Config.ApiMpHost + "/cgi-bin/component/fastregisterpersonalweapp?action={0}&component_access_token={1}",
+                Config.ApiMpHost + "/wxa/component/fastregisterpersonalweapp?action={0}&component_access_token={1}",
                 action.AsUrlData(),
                 componentAccessToken.AsUrlData());
 
@@ -811,6 +986,92 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             }
 
             return await CommonJsonSend.SendAsync<FastRegisterPersonalWeAppResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】创建试用小程序
+        /// 文档：https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/beta_Mini_Programs/fastregister.html
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="name">小程序名称，昵称半自动设定，强制后缀“的体验小程序”。且该参数会进行关键字检查，如果命中品牌关键字则会报错。如遇到品牌大客户要用试用小程序，建议用户先换个名字，认证后再修改成品牌名。只支持4-30个字符</param>
+        /// <param name="openid">微信用户的openid（不是微信号），试用小程序创建成功后会默认将该用户设置为小程序管理员。获取openid的方法请查看公众号获取openid</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<FastRegisterBetaWeAppResult> FastRegisterBetaWeAppAsync(string componentAccessToken, string name, string openid, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(
+                Config.ApiMpHost + "/wxa/component/fastregisterbetaweapp?access_token={0}",
+                componentAccessToken.AsUrlData());
+
+            //var data;
+            object data = new
+            {
+                name = name,
+                openid = openid
+            };
+
+            return await CommonJsonSend.SendAsync<FastRegisterBetaWeAppResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】试用小程序快速认证
+        /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/beta_Mini_Programs/fastverify.html
+        /// </summary>
+        /// <param name="componentAccessToken">第三方平台接口调用令牌authorizer_access_token</param>
+        /// <param name="entName">企业名（需与工商部门登记信息一致)；如果是“无主体名称个体工商户”则填“个体户+法人姓名”，例如“个体户张三”</param>
+        /// <param name="entCode">企业代码</param>
+        /// <param name="legalPersonaWechat">法人微信号</param>
+        /// <param name="legalPersonaName">法人姓名（绑定银行卡）</param>
+        /// <param name="legalPersonaIDCard">法人身份证号</param>
+        /// <param name="codeType">企业代码类型 1：统一社会信用代码（18 位） 2：组织机构代码（9 位 xxxxxxxx-x） 3：营业执照注册号(15 位)</param>
+        /// <param name="componentPhone">第三方联系电话</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> VerifyBetaWeAppAsync(string componentAccessToken, string entName, string entCode, string legalPersonaWechat, string legalPersonaName, string legalPersonaIDCard, CodeType codeType = CodeType.统一社会信用代码, string componentPhone = "", int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(
+                Config.ApiMpHost + "/wxa/verifybetaweapp?access_token={0}",
+                componentAccessToken.AsUrlData());
+
+            //var data;
+            object data = new
+            {
+                verify_info = new
+                {
+                    enterprise_name = entName,
+                    code = entCode,
+                    code_type = codeType,
+                    legal_persona_wechat = legalPersonaWechat,
+                    legal_persona_name = legalPersonaName,
+                    legal_persona_idcard = legalPersonaIDCard,
+                    component_phone = componentPhone
+                }
+            };
+
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】修改试用小程序名称
+        /// https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/beta_Mini_Programs/fastmodify.html
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="name"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> SetBetaWeAppNickNameAsync(string componentAccessToken, string name, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(
+                Config.ApiMpHost + "/wxa/setbetaweappnickname?access_token={0}",
+                componentAccessToken.AsUrlData());
+
+            //var data;
+            object data = new
+            {
+                name = name
+            };
+
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -922,6 +1183,83 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             fileDictionary["file"] = file;
             return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<UploadPrivacyExtFileResult>(serviceProvider ?? CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
         }
+
+        #region 域名管理
+
+        /// <summary>
+        /// 设置第三方平台服务器域名
+        /// <para>本接口用于配置第三方平台小程序服务器域名。</para>
+        /// <para>授权给第三方代开发的小程序，其服务器域名只可以为在第三方平台账号中配置的小程序服务器域名。即调用接口设置小程序服务器域名之前可以调本接口先进行第三方平台小程序服务器域名配置。</para>
+        /// <para>使用过程中如遇到问题，可在开放平台服务商专区发帖交流。</para>
+        /// <para>调试工具：https://developers.weixin.qq.com/apiExplorer?apiName=modifyThirdpartyServerDomain&plat=thirdparty</para>
+        /// <para>文档：https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/thirdparty-management/domain-mgnt/modifyThirdpartyServerDomain.html</para>
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="action">操作类型。</param>
+        /// <param name="wxa_server_domain">最多可以添加1000个服务器域名，以;隔开。注意：域名不需带有http:// 等协议内容，也不能在域名末尾附加详细的 URI 地址，严格按照类似 www.qq.com 的写法。</param>
+        /// <param name="is_modify_published_together">是否同时修改“全网发布版本的值”。（false：只改“测试版”；true：同时改“测试版”和“全网发布版”）省略时，默认为false。</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<ModifyWxaServerDomainResult> ModifyWxaServerDomainAsync(string componentAccessToken, ModifyWxaServerDomain_Action action, string wxa_server_domain = null, bool? is_modify_published_together = null, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/modify_wxa_server_domain?access_token={0}";
+            var data = new
+            {
+                action = action.ToString(),
+                wxa_server_domain,
+                is_modify_published_together
+            };
+
+            return await CommonJsonSend.SendAsync<ModifyWxaServerDomainResult>(componentAccessToken, urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting(true));
+        }
+
+        /// <summary>
+        /// 获取第三方平台业务域名校验文件
+        /// <para>本接口用于获取第三方平台小程序业务域名的校验文件。</para>
+        /// <para>使用过程中如遇到问题，可在开放平台服务商专区发帖交流。</para>
+        /// <para>文档：https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/thirdparty-management/domain-mgnt/getThirdpartyJumpDomainConfirmFile.html </para>
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="action">操作类型。</param>
+        /// <param name="wxa_jump_h5_domain">最多可以添加200个小程序业务域名，以;隔开。注意：域名不需带有http:// 等协议内容，也不能在域名末尾附加详细的 URI 地址，严格按照类似 www.qq.com 的写法。</param>
+        /// <param name="is_modify_published_together">是否同时修改“全网发布版本的值”。（false：只改“测试版”；true：同时改“测试版”和“全网发布版”）省略时，默认为false。</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetDomainConfirmFileResult> GetDomainConfirmFileAsync(string componentAccessToken, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/get_domain_confirmfile?access_token={0}";
+            return await CommonJsonSend.SendAsync<GetDomainConfirmFileResult>(componentAccessToken, urlFormat, null, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 设置第三方平台业务域名
+        /// <para>本接口用于配置第三方平台小程序业务域名。</para>
+        /// <para>配置业务域名时，需要将校验文件放置在域名根目录下，例如wx.qq.com，并确保可以访问该文件。可以通过获取第三方小程序业务域名的校验文件接口获取检验文件。</para>
+        /// <para>授权给第三方代开发的小程序，其业务域名只可以为在第三方平台账号中配置的小程序业务域名。即调用接口设置小程序业务域名之前可以调本接口先进行第三方平台小程序业务域名配置。</para>
+        /// <para>使用过程中如遇到问题，可在开放平台服务商专区发帖交流。</para>
+        /// <para>文档：https://developers.weixin.qq.com/doc/oplatform/openApi/OpenApiDoc/thirdparty-management/domain-mgnt/modifyThirdpartyJumpDomain.html</para>
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="action">操作类型。</param>
+        /// <param name="wxa_jump_h5_domain">最多可以添加200个小程序业务域名，以;隔开。注意：域名不需带有http:// 等协议内容，也不能在域名末尾附加详细的 URI 地址，严格按照类似 www.qq.com 的写法。</param>
+        /// <param name="is_modify_published_together">是否同时修改“全网发布版本的值”。（false：只改“测试版”；true：同时改“测试版”和“全网发布版”）省略时，默认为false。</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<ModifyWxaJumpDomainResult> ModifyWxaJumpDomainAsync(string componentAccessToken, ModifyWxaJumpDomain_Action action, string wxa_jump_h5_domain = null, bool? is_modify_published_together = null, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/component/modify_wxa_jump_domain?access_token={0}";
+            var data = new
+            {
+                action = action.ToString(),
+                wxa_jump_h5_domain,
+                is_modify_published_together
+            };
+
+            return await CommonJsonSend.SendAsync<ModifyWxaJumpDomainResult>(componentAccessToken, urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting(true));
+        }
+
+        #endregion
+
         #endregion
     }
 }

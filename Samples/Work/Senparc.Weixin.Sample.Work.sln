@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.Work", "Senparc.Weixin.Sample.Work\Senparc.Weixin.Sample.Work.csproj", "{DA54346E-7D69-4065-875D-985A40D45C58}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{da54346e-7d69-4065-875d-985a40d45c58}*SharedItemsImports = 5
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA54346E-7D69-4065-875D-985A40D45C58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA54346E-7D69-4065-875D-985A40D45C58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA54346E-7D69-4065-875D-985A40D45C58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA54346E-7D69-4065-875D-985A40D45C58}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BE5A674E-BFBE-486F-AD83-14D1CB2A3AC1}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.TenPayV2", "Senparc.Weixin.Sample.TenPayV2\Senparc.Weixin.Sample.TenPayV2.csproj", "{0FA694CF-308E-4763-AC3A-5799BFD20068}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{0fa694cf-308e-4763-ac3a-5799bfd20068}*SharedItemsImports = 5
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0FA694CF-308E-4763-AC3A-5799BFD20068}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FA694CF-308E-4763-AC3A-5799BFD20068}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FA694CF-308E-4763-AC3A-5799BFD20068}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FA694CF-308E-4763-AC3A-5799BFD20068}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {64CCB121-C5D5-4198-9F2C-949829F1828A}
+	EndGlobalSection
+EndGlobal

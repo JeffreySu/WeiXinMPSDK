@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：WxOpenApiEnlightener.cs
     文件功能描述：WxOpenApiEnlightener
@@ -27,7 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20180910
 
-    
+	修改标识：Senparc - 20230709
+    修改描述：v3.16.0 客服接口支持长文本自动切割后连续发送
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Trace;
@@ -50,11 +52,10 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId"></param>
         /// <param name="content"></param>
+        /// <param name="limitedBytes">最大允许发送限制，如果超出限制，则分多条发送</param>
         /// <returns></returns>
-        public override async Task<ApiResult> SendText(string accessTokenOrAppId, string openId, string content)
+        public override async Task<ApiResult> SendText(string accessTokenOrAppId, string openId, string content,int limitedBytes = 2048)
         {
-            SenparcTrace.SendCustomLog("wxTest-sendText", "openID：" + openId + " || appID:" + accessTokenOrAppId + "|| content:" + content);
-
             var result = await AdvancedAPIs.CustomApi.SendTextAsync(accessTokenOrAppId, openId, content);
             return new ApiResult((int)result.errcode, result.errmsg, result);
         }

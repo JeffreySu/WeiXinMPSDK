@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
  
     文件名：TenPayV3Util.cs
     文件功能描述：微信支付V3配置文件
@@ -42,6 +42,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180331
     修改描述：v14.4.9 修改TenPayUtil.GetNoncestr()方法，将编码由GBK改为UTF8
+
+    修改标识：Senparc - 20230628
+    修改描述：v0.7.5 TenPayV3Util.GetNoncestr() 弃用 MD5 加密方法
 
 ----------------------------------------------------------------*/
 
@@ -66,7 +69,7 @@ namespace Senparc.Weixin.TenPayV3
         /// <returns></returns>
         public static string GetNoncestr()
         {
-            return EncryptHelper.GetMD5(Guid.NewGuid().ToString(), "UTF-8");
+            return Guid.NewGuid().ToString().Replace("-", "");
         }
 
         /// <summary>

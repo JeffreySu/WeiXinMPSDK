@@ -1,0 +1,191 @@
+﻿@using Senparc.Weixin.Sample
+@{
+    ViewData["Title"] = "Senparc.Weixin.TenPayV3 微信支付（V3）模块";
+
+    ViewData["PlatformName"] = "TenPayV3";
+}
+<div class="sdk-doc">
+    <div class="row" style="position:relative;">
+        <div class="col-sm-2" id="leftMenu">
+            <div class="row">
+                @(await Html.PartialAsync("_SideTopNote"))
+
+                <nav id="navbar_left" class="navbar navbar-light bg-light flex-column align-items-stretch p-3">
+                    <a class="navbar-brand" href="#">索引</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link" href="#source_code">源码</a>
+                        <a class="nav-link" href="#title_install">如何安装？</a>
+                        <a class="nav-link" href="#title_setting">如何使用？</a>
+                        <a class="nav-link" href="#title_advance">进阶</a>
+                        <a class="nav-link" href="#title_about">关于</a>
+                        <nav class="nav nav-pills flex-column">
+                            <a class="nav-link ms-3 my-1" href="#title_about_team">团队</a>
+                            <a class="nav-link ms-3 my-1" href="#title_about_support">支持</a>
+                            <a class="nav-link ms-3 my-1" href="#title_about_license">开源协议</a>
+                        </nav>
+                    </nav>
+                </nav>
+            </div>
+
+            @(await Html.PartialAsync("_SideBottomNote"))
+        </div>
+
+        <div class="col-sm-10 bd-main" data-bs-spy="scroll" data-bs-target="#navbar_left" data-bs-offset="0" tabindex="0">
+
+            <div class="text-center">
+                <h1 id="top-title" class="display-4">Senparc.Weixin.TenPayV3 微信支付（APIv3）模块</h1>
+
+                <p class="no-text-indent"><a href="https://www.nuget.org/packages/Senparc.Weixin.TenpayV3" target="_blank">Senparc.Weixin.TenPayV3</a> 模块用于提供微信支付（ApiV3）的支持能力。</p>
+                <p>注意：此模块是针对最新的<a href="https://pay.weixin.qq.com/wiki/doc/apiv3/index.shtml" target="_blank">微信支付 APIv3</a>，而不是 V3 文档。</p>
+                @(await Html.PartialAsync("_IconsPartial"))
+            </div>
+
+            <!-- Carousel -->
+            <div id="banner-top" class="carousel slide" data-bs-ride="carousel">
+
+                <!-- Indicators/dots -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#banner-top" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#banner-top" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#banner-top" data-bs-slide-to="2"></button>
+                </div>
+
+                <!-- The slideshow/carousel -->
+                <div class="carousel-inner">
+                    @(await Html.PartialAsync("_CarouselPartial"))
+                </div>
+
+                <!-- Left and right controls/icons -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#banner-top" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#banner-top" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+
+            <div id="main-doc">
+                <div id="source_code" class="target-fix"></div>
+
+                <partial name="_SourceCode" model='new SourceCodeViewModel("Senparc.Weixin.TenpayV3","/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3")' />
+
+                <div id="title_install" class="target-fix"></div>
+
+                <div>
+                    <h3>如何安装？</h3>
+                    <p>您可以直接引用 Senparc.Weixin 的源码进行开发，也可以引用已经打包完成的 dll（通过 Nuget 包，推荐），以方便随时获取官方的更新。注意：直接引用源码和引用 Nuget 包只能二选一。</p>
+
+                    <h5>引用程序集（推荐）</h5>
+                    <p>您可以通过 <code>Visual Studio</code>、<code>Visual Studio Code</code>、<code>dotnet 命令行</code> 等多种方式自动安装 Nuget 包。</p>
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-vs" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Visual Studio</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-vscode" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Visual Studio Code</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-cli" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">dotnet 命令行</button>
+                        </div>
+                    </nav>
+
+                    <div class="tab-content" id="nav-tabContent-install">
+                        <div class="tab-pane fade show active" id="nav-vs" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <p>
+                                在开发项目【解决方案资源管理器】中，对需要添加 Senparc.Weixin.TenpayV3 的模块点击右键，点击【管理 Nuget 程序包】，在【浏览】标签中输入 <strong>Senparc.Weixin.TenpayV3</strong>，点击右侧【安装】按钮。如下图所示：<br />
+                            </p>
+                            <p>
+                                <figure class="figure">
+                                    <img src="~/images/home-install-01.png" class="figure-img img-fluid rounded" alt="通过 Visual Studio 安装" />
+                                    <figcaption class="figure-caption text-center">通过 Visual Studio 安装</figcaption>
+                                </figure>
+                            </p>
+
+                        </div>
+                        <div class="tab-pane fade" id="nav-vscode" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p>首先，确认已经安装好 <a href="https://code.visualstudio.com/">VS Code</a> 以及 dotnet 命令行（安装 <a href="https://dotnet.microsoft.com/en-us/download" target="_blank">.NET SDK</a> 后会自动安装）。</p>
+                            <p>然后，打开解决方案或项目所在目录，按 <kbd>Ctrl</kbd>+<kbd>~</kbd>，打开终端面板：</p>
+                            <figure class="figure">
+                                <img src="~/images/home-install-03.png" class="figure-img img-fluid rounded" alt="通过 VS Code 安装" />
+                                <figcaption class="figure-caption text-center">打开 VS Code 终端面板</figcaption>
+                            </figure>
+
+                            <p>进入需要添加 Senparc.Weixin.Tenpay 的模块的项目的目录，输入：</p>
+                            <blockquote class="blockquote">
+                                <code>dotnet add package Senparc.Weixin.TenpayV3</code>
+                            </blockquote>
+
+                            <p>
+                                <figure class="figure">
+                                    <img src="~/images/home-install-04.png" class="figure-img img-fluid rounded" alt="通过 VS Code 安装" />
+                                    <figcaption class="figure-caption text-center">安装 Senparc.Weixin.Tenpay 模块</figcaption>
+                                </figure>
+                            </p>
+
+                            <p>
+                                安装完成后，可查看对应 .csproj 文件，被添加引用，如：
+                            </p>
+                            <pre><code>&lt;ItemGroup&gt;
+    &lt;PackageReference Include="Senparc.Weixin.TenpayV3" Version="0.6.4-beta1" /&gt;
+&lt;/ItemGroup&gt;</code></pre>
+                        </div>
+                        <div class="tab-pane fade" id="nav-cli" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p>首先，确认已经安装好 dotnet 命令行（安装 <a href="https://dotnet.microsoft.com/en-us/download" target="_blank">.NET SDK</a> 后会自动安装）。</p>
+                            <p>进入需要添加 Senparc.Weixin.TenpayV3 的模块的项目的目录，输入：</p>
+                            <blockquote class="blockquote">
+                                <code>dotnet add package Senparc.Weixin.TenpayV3</code>
+                            </blockquote>
+
+                            <p>
+                                <figure class="figure">
+                                    <img src="~/images/home-install-02.png" class="figure-img img-fluid rounded" alt="通过 dotnet CLI 安装" />
+                                    <figcaption class="figure-caption text-center">通过 dotnet CLI 安装</figcaption>
+                                </figure>
+                            </p>
+
+                            <p>
+                                安装完成后，可查看对应 .csproj 文件，被添加引用，如：
+                            </p>
+                            <pre><code>&lt;ItemGroup&gt;
+    &lt;PackageReference Include="Senparc.Weixin.TenPayV3" Version="0.6.4-beta1" /&gt;
+&lt;/ItemGroup&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="title_setting" class="target-fix"></div>
+                <div @*class="mt-5 pt-5"*@>
+
+                    <h3>如何使用？</h3>
+
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-home" aria-selected="true">注册</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-jsapi" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">JASPI 支付</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-paycallback" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">支付回调</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-native" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Native 支付</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-refund" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">退款</button>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent-setting">
+                        @*全局注册*@
+                        <partial name="_Partial_01_Register" />
+
+                        @*JASPI 支付*@
+                        <partial name="_Partial_02_JsApi" />
+
+                        @*支付回调*@
+                        <partial name="_Partial_03_PayCallback" />
+
+                        @*Native 支付*@
+                        <partial name="_Partial_04_Native" />
+
+                        @*退款*@
+                        <partial name="_Partial_05_Refund" />
+                    </div>
+
+
+                    @(await Html.PartialAsync("_AdvancedPartial"))
+
+                    @(await Html.PartialAsync("_AboutPartial"))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

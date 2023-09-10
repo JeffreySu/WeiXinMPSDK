@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
   
     文件名：PatchBusifavorBudgetRequestData.cs
     文件功能描述：修改批次预算接口请求数据
@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20210914
     
+    修改标识：Senparc - 20230107
+    修改描述：v0.6.8.3 更新 ModifyBusifavorStockBudgetRequestData 参数，删除 stock_id
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.TenPayV3.Entities;
@@ -48,15 +51,13 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         /// <summary>
         /// 含参构造函数
         /// </summary>
-        /// <param name="stock_id">批次号 <para>path批次号</para><para>示例值：98065001</para></param>
         /// <param name="target_max_coupons">目标批次最大发放个数 <para>body批次最大发放个数</para><para>注：目标批次即修改后的批次</para><para>示例值：3000</para><para>target_max_coupons和target_max_coupons_by_day二选一</para></param>
         /// <param name="target_max_coupons_by_day">目标单天发放上限个数 <para>body单天发放上限个数</para><para>注：目标批次即修改后的批次</para><para>示例值：500</para><para>target_max_coupons和target_max_coupons_by_day二选一</para></param>
         /// <param name="current_max_coupons">当前批次最大发放个数 <para>body当前批次最大发放个数，当传入target_max_coupons大于0时，current_max_coupons必传</para><para>注：当前批次即未修改的批次</para><para>示例值：500</para><para>可为null</para></param>
         /// <param name="current_max_coupons_by_day">当前单天发放上限个数 <para>body当前单天发放上限个数，当传入target_max_coupons_by_day大于0时，current_max_coupons_by_day必填</para><para>注：当前批次即未修改的批次</para><para>示例值：300</para><para>可为null</para></param>
         /// <param name="modify_budget_request_no">修改预算请求单据号 <para>body修改预算请求单据号</para><para>示例值：1002600620019090123143254436</para></param>
-        public ModifyBusifavorStockBudgetRequestData(string stock_id, int? target_max_coupons, int? target_max_coupons_by_day, int? current_max_coupons, int? current_max_coupons_by_day, string modify_budget_request_no)
+        public ModifyBusifavorStockBudgetRequestData( int? target_max_coupons, int? target_max_coupons_by_day, int? current_max_coupons, int? current_max_coupons_by_day, string modify_budget_request_no)
         {
-            this.stock_id = stock_id;
             this.target_max_coupons = target_max_coupons;
             this.target_max_coupons_by_day = target_max_coupons_by_day;
             this.current_max_coupons = current_max_coupons;
@@ -70,14 +71,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         public ModifyBusifavorStockBudgetRequestData()
         {
         }
-
-        /// <summary>
-        /// 批次号
-        /// <para>path批次号 </para>
-        /// <para>示例值：98065001</para>
-        /// </summary>
-        [JsonIgnore]
-        public string stock_id { get; set; }
 
         /// <summary>
         /// 目标批次最大发放个数

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：WxOpenApi.cs
     文件功能描述：微信小程序 API
@@ -27,6 +27,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20180716
 
+    修改标识：Senparc - 20220730
+    修改描述：v4.14.7 添加“获取公众号关联的小程序”接口
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;
@@ -42,7 +44,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.WxOpenAPIs
 {
-    [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
+    [NcApiBind(NeuChar.PlatformType.WeChat_Open, true)]
     public class WxOpenApi
     {
         #region 同步方法
@@ -158,6 +160,22 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
 
         #endregion
 
+        #region 小程序管理
+
+        /// <summary>
+        /// 获取公众号关联的小程序
+        /// </summary>
+        /// <param name="accessToken">小程序的access_token</param>
+        /// <returns></returns>
+        public static WxaMpLinkGetJsonResult WxaMpLinkGet(string accessToken)
+        {
+            var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/wxamplinkget?access_token={accessToken.AsUrlData()}";
+            return CommonJsonSend.Send<WxaMpLinkGetJsonResult>(null, url, null, CommonJsonSendType.POST);
+        }
+
+        #endregion
+
+
         #endregion
 
         #region 异步方法
@@ -242,6 +260,21 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
                 certicates = certicates
             };
             return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region 小程序管理
+
+        /// <summary>
+        /// 获取公众号关联的小程序
+        /// </summary>
+        /// <param name="accessToken">小程序的access_token</param>
+        /// <returns></returns>
+        public static async Task<WxaMpLinkGetJsonResult> WxaMpLinkGetAsync(string accessToken)
+        {
+            var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/wxamplinkget?access_token={accessToken.AsUrlData()}";
+            return await CommonJsonSend.SendAsync<WxaMpLinkGetJsonResult>(null, url, null, CommonJsonSendType.POST);
         }
 
         #endregion

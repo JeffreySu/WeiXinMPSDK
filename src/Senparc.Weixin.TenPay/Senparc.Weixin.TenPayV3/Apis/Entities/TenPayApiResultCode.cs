@@ -1,4 +1,38 @@
-﻿using Senparc.CO2NET.Extensions;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2023 Senparc
+  
+    文件名：TenPayApiResultCode.cs
+    文件功能描述：微信支付 API 请求返回 HTTP 状态代码
+    
+    
+    创建标识：Senparc - 20210815
+
+    修改标识：Senparc - 20220111
+    修改描述：v0.6.8.7 优化 TenPayApiResultCode 获取逻辑，修复 TryGetCode() 方法中当匹配不到预设错误信息时，返回 null 的问题
+    
+----------------------------------------------------------------*/
+
+using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.TenPayV3.Entities;
 using System;
@@ -48,8 +82,8 @@ namespace Senparc.Weixin.TenPayV3.Apis.Entities
                                     new TenPayApiResultCode("400","INVALID_REQUEST","openid与appid不匹配","请使用appid下的openid",false),
                                     new TenPayApiResultCode("400","INVALID_REQUEST","活动已结束或未激活","请检查批次状态",false),
                                     new TenPayApiResultCode("400","INVALID_REQUEST","非法的商户号","请检查商户号是否正确",false),
-                                    new TenPayApiResultCode("400","APPID_MCHID_NOT_MATCH","商户号与appid不匹配","请绑定调用接口的商户号和appid后重试",false)
-                                    }},
+                                    new TenPayApiResultCode("400","APPID_MCHID_NOT_MATCH","商户号与appid不匹配","请绑定调用接口的商户号和appid后重试",false),
+                                    new TenPayApiResultCode("400","RESOURCE_ALREADY_EXISTS","创建请求重入，但本次请求与上次请求信息不一致","创建请求重入，但本次请求与上次请求信息不一致",false)                                    }},
                     {"401", new[] { new TenPayApiResultCode("401","SIGN_ERROR","签名错误","请检查签名参数和方法是否都符合签名算法要求"),
                                     new TenPayApiResultCode("401","SIGN_ERROR","商户未设置加密的密钥","请登录商户平台操作！请参考http://kf.qq.com/faq/180830E36vyQ180830AZFZvu.html")//通过测试得到
                                     }},
@@ -70,7 +104,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Entities
                                     new TenPayApiResultCode("403","NO_AUTH","你配置的信息需要开通特殊权限","请参考：QA方案",false)
                                     }},
                     {"404", new[] { new TenPayApiResultCode("404","ORDER_NO_TEXIST","订单不存在","请检查订单是否发起过交易"),
-                                    
+
                                     new TenPayApiResultCode("404","RESOURCE_NOT_EXISTS","批次不存在","请检查批次ID是否正确",false),
                                     }},
                     {"429", new[] { new TenPayApiResultCode("429","FREQUENCY_LIMITED","频率超限","请降低请求接口频率")} },
@@ -81,18 +115,16 @@ namespace Senparc.Weixin.TenPayV3.Apis.Entities
                                     }}
                     };
 
-
-
-
-
-
         /// <summary>
         /// 尝试获取 HTTP 返回代码，并附带备注信息
         /// </summary>
         /// <param name="httpStatusCode"></param>
+        /// <param name="responseContent"></param>
         /// <returns></returns>
         public static TenPayApiResultCode TryGetCode(HttpStatusCode httpStatusCode, string responseContent)
         {
+            //responseContent ??= "{}";
+                
             TenPayApiResultCode resultCode = null;
 
             if (CodesCollection.TryGetValue(((int)httpStatusCode).ToString(), out var result))
@@ -121,6 +153,10 @@ namespace Senparc.Weixin.TenPayV3.Apis.Entities
                         {
                             resultCode = resultCode with { Additional = $"发生错误：{responseErrorMessage.ToJson()}" };
                         }
+                        else
+                        {
+                            resultCode = new TenPayApiResultCode(((int)httpStatusCode).ToString(), responseErrorMessage.code, "未找到匹配的错误信息", $"发生错误：{responseErrorMessage.ToJson()}");
+                        }
                     }
                     else
                     {
@@ -137,7 +173,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Entities
             else
             {
                 //错误代码不在预设范围内
-                resultCode = new TenPayApiResultCode(httpStatusCode.ToString(), "UNKNOW CODE", "未知的代码", "请检查日志", false);//没有匹配到
+                resultCode = new TenPayApiResultCode(((int)httpStatusCode).ToString(), "UNKNOW CODE", "未知的代码", "请检查日志", false);//没有匹配到
 
                 var responseErrorMessage = responseContent.GetObject<ResponseErrorJsonResult>();
                 if (responseErrorMessage != null)
@@ -151,7 +187,13 @@ namespace Senparc.Weixin.TenPayV3.Apis.Entities
             return resultCode;
         }
 
+        /// <summary>
+        /// 是否为成功消息
+        /// </summary>
         public bool Success { get; protected set; } = false;
+        /// <summary>
+        /// HttpStatusCode
+        /// </summary>
         public string StateCode { get; protected set; }
         public string ErrorCode { get; protected set; }
         public string ErrorMessage { get; internal set; }

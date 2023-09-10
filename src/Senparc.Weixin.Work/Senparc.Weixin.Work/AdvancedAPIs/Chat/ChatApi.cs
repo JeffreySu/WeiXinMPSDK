@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：ChatApi.cs
     文件功能描述：企业号消息接口
@@ -43,6 +43,10 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {
 
+    /// <summary>
+    /// 群聊会话接口
+    /// 文档：https://developer.work.weixin.qq.com/document/path/90245
+    /// </summary>
     [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
     public static class ChatApi
     {

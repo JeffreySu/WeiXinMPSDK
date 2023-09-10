@@ -22,21 +22,18 @@
 
 	<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
 	<Import Project="..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems" Label="Shared" />
+
+	<!--引用 Nuget 包-->
 	<ItemGroup>
-	  <None Remove="Views\Shared\_Layout.cshtml.css" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Content Include="Views\Shared\_Layout.cshtml.css" />
+	  <PackageReference Include="Senparc.Weixin.AspNet" Version="0.8.5.8" />
+	  <PackageReference Include="Senparc.Weixin.Work" Version="3.15.14.7" />
+	  <PackageReference Include="Senparc.Weixin.Work.Middleware" Version="0.8.5.7" />
 	</ItemGroup>
 
-	<ItemGroup>
-<ProjectReference Include="..\..\..\src\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.net6.csproj" />
-<ProjectReference Include="..\..\..\src\Senparc.Weixin.Work.Middleware\Senparc.Weixin.Work.Middleware.net6.csproj" />
-<ProjectReference Include="..\..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.net6.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="wwwroot\css\" />
-	</ItemGroup>
-
+	<!--直接引用源码-->
+	<!--<ItemGroup>
+		<ProjectReference Include="..\..\..\src\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.net6.csproj" />
+		<ProjectReference Include="..\..\..\src\Senparc.Weixin.Work.Middleware\Senparc.Weixin.Work.Middleware.net6.csproj" />
+		<ProjectReference Include="..\..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.net6.csproj" />
+	</ItemGroup>-->
 </Project>

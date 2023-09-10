@@ -1,9 +1,37 @@
-﻿using Senparc.Weixin.Annotations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2023 Senparc
+    
+    文件名：GenerateSchemeJumpWxa.cs
+    文件功能描述：GenerateScheme() 接口中的 jumpWxa 参数
+    
+    
+    创建标识：Senparc - 20210108
+    
+    修改标识：Senparc - 20230614
+    修改描述：v3.15.15.1 获取小程序服务GenerateScheme模型增加env_version字段
+
+----------------------------------------------------------------*/
+
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.UrlScheme
 {
@@ -21,16 +49,22 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.UrlScheme
         /// （必填）通过scheme码进入小程序时的query，最大128个字符，只支持数字，大小写英文以及部分特殊字符：!#$&'()*+,/:;=?@-._~
         /// </summary>
         public string query { get; set; }
+        /// <summary>
+        /// (选填)默认值"release"。要打开的小程序版本。正式版为"release"，体验版为"trial"，开发版为"develop"，仅在微信外打开时生效。
+        /// </summary>
+        public string env_version { get; set; }
 
         /// <summary>
         /// GenerateScheme() 接口中的 jumpWxa 参数
         /// </summary>
         /// <param name="path"></param>
         /// <param name="query"></param>
-        public GenerateSchemeJumpWxa(string path, string query)
+        /// <param name="env_version"></param>
+        public GenerateSchemeJumpWxa(string path, string query, string env_version = null)
         {
             this.path = path ?? "";
             this.query = query ?? "";
+            this.env_version = env_version ?? "release";
         }
     }
 }

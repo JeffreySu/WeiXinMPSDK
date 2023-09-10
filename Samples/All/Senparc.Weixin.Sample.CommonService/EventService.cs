@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：EventService.cs
     文件功能描述：事件处理程序，此代码的简化MessageHandler方法已由/CustomerMessageHandler/CustomerMessageHandler_Event.cs完成
@@ -24,7 +24,7 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP;
 //DPBMARK_END
-#if NET451
+#if NET462
 using System.Web;
 using System.Configuration;
 using Senparc.Weixin.Sample.CommonService.TemplateMessage;//DPBMARK MP DPBMARK_END
@@ -69,7 +69,7 @@ namespace Senparc.Weixin.Sample.CommonService
                         var strongResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
 
                         //获取Senparc.Weixin.MP.dll版本信息
-#if NET451
+#if NET462
                         var dllPath = HttpContext.Current.Server.MapPath("~/bin/Senparc.Weixin.MP.dll");
 #else
                         //var dllPath = ServerUtility.ContentRootMapPath("~/bin/Release/netcoreapp2.2/Senparc.Weixin.MP.dll");//本地测试路径

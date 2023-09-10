@@ -1,11 +1,14 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：GetMomentListParam.cs
     文件功能描述：获取企业全部的发表内容 参数
     
     
     创建标识：WangDrama - 20210714
+
+    修改标识：Senparc - 20230528
+    修改描述：v3.15.18.1 GetMomentListLocation.latitude / longitude 设置为 long 类型 （Issue #2823）
 
 ----------------------------------------------------------------*/
 
@@ -143,12 +146,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External
         /// <summary>
         /// 地理位置纬度
         /// </summary>
-        public int latitude { get; set; }
+        public long latitude { get; set; }
 
         /// <summary>
         /// 地理位置经度
         /// </summary>
-        public int longitude { get; set; }
+        public long longitude { get; set; }
 
         /// <summary>
         /// 地理位置名称

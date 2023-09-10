@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net451;net461;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>2.14.4</Version>
+    <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Version>2.15.4</Version>
     <AssemblyName>Senparc.Weixin.Cache.Redis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Redis</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -101,13 +101,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net451|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net462|AnyCPU'">
     <OutputPath>..\..\BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\BuildOutPut\net451\Senparc.Cache.Redis.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
-    <OutputPath>..\..\BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\BuildOutPut\net461\Senparc.Cache.Redis.xml</DocumentationFile>
+    <DocumentationFile>..\..\BuildOutPut\net462\Senparc.Cache.Redis.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
     <OutputPath>..\..\BuildOutPut\</OutputPath>
@@ -134,12 +130,12 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BinaryFormatter" Version="2.1.4" />
-    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="4.0.1" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="4.1.2.6" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
-    <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
+    <!--<PackageReference Include="StackExchange.Redis" Version="1.2.6" />-->
   </ItemGroup>
-  <!--<ItemGroup Condition=" '$(TargetFramework)' != 'net451'">
+  <!--<ItemGroup Condition=" '$(TargetFramework)' != 'net462'">
     <PackageReference Include="StackExchange.Redis" Version="2.0.600" />
   </ItemGroup>-->
   <ItemGroup>
@@ -147,5 +143,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
   </ItemGroup>
 </Project>

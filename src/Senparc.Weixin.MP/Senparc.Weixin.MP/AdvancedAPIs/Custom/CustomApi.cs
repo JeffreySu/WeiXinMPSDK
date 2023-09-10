@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -18,7 +18,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：CustomAPI.cs
     文件功能描述：客服接口
@@ -56,6 +56,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190129
     修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
 
+    修改标识：Senparc - 20230709
+    修改描述：v16.19.0 MessageHandler 和客服接口支持长文本自动切割后连续发送
+
 ----------------------------------------------------------------*/
 
 /* 
@@ -70,6 +73,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
@@ -82,7 +86,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 客服接口
     /// </summary>
-    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, true)]
     public static class CustomApi
     {
         /// <summary>
@@ -513,7 +517,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="kfAccount"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult SendMiniProgramPage(string accessTokenOrAppId, string openId, string title, string appid, string pagepath, string thumb_media_id, string kfAccount="", int timeOut = Config.TIME_OUT)
+        public static WxJsonResult SendMiniProgramPage(string accessTokenOrAppId, string openId, string title, string appid, string pagepath, string thumb_media_id, string kfAccount = "", int timeOut = Config.TIME_OUT)
         {
             object data = null;
             if (kfAccount.IsNullOrWhiteSpace())
@@ -525,8 +529,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     miniprogrampage = new
                     {
                         title = title,
-                        appid=appid,
-                        pagepath= pagepath,
+                        appid = appid,
+                        pagepath = pagepath,
                         thumb_media_id = thumb_media_id
                     }
                 };
@@ -627,8 +631,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="content"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="kfAccount">客服</param>
+        /// <param name="limitedBytes">最大允许发送限制，如果超出限制，则分多条发送</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> SendTextAsync(string accessTokenOrAppId, string openId, string content, int timeOut = Config.TIME_OUT, string kfAccount = "")
+        public static async Task<WxJsonResult> SendTextAsync(string accessTokenOrAppId, string openId, string content, int timeOut = Config.TIME_OUT, string kfAccount = "", int limitedBytes = 2048)
         {
             object data = null;
             if (string.IsNullOrEmpty(kfAccount))
@@ -664,6 +669,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
+                //尝试超长内容发送
+                var trySendResult = await MessageHandlerHelper.TrySendLimistedText(accessTokenOrAppId,
+                    content, limitedBytes,
+                    c => SendTextAsync(accessTokenOrAppId, openId, c, timeOut, kfAccount, limitedBytes));
+
+                if (trySendResult != null)
+                {
+                    return trySendResult;
+                }
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 

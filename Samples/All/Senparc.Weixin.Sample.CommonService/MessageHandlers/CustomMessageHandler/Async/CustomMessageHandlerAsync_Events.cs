@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：CustomMessageHandler_Events.cs
     文件功能描述：自定义MessageHandler
@@ -19,7 +19,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-#if NET451
+#if NET462
 using System.Web;
 #endif
 

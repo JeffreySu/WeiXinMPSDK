@@ -1,5 +1,8 @@
-﻿@{
+﻿@using Senparc.Weixin.Sample
+@{
     ViewData["Title"] = "Senparc.Weixin.Work 企业微信模块";
+
+    ViewData["PlatformName"] = "Work";
 }
 <div class="sdk-doc">
     <div class="row" style="position:relative;">
@@ -64,7 +67,8 @@
 
             <div id="main-doc">
                 <div id="source_code" class="target-fix"></div>
-                @(await Html.PartialAsync("_SourceCode",@"Senparc.Weixin.Work 源码位置：<a href=""https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.Work"" target=""_blank"">/src/Senparc.Weixin.Work/</a>"))
+                
+                <partial name="_SourceCode" model='new SourceCodeViewModel("Senparc.Weixin.Work","/src/Senparc.Weixin.Work")' />
 
                 <div id="title_install" class="target-fix"></div>
 

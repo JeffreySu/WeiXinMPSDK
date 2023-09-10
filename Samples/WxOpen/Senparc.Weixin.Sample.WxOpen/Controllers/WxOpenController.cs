@@ -15,12 +15,15 @@
 //DPBMARK_FILE MiniProgram
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.AspNet.HttpUtility;
+using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.AspNet.MvcExtension;
 using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP;
+using Senparc.Weixin.TenPayV3;
+using Senparc.Weixin.TenPayV3.Helpers;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Template;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp;
@@ -82,12 +85,6 @@ namespace Senparc.Weixin.Sample.WxOpen.Controllers
 
             //v4.2.2之后的版本，可以设置每个人上下文消息储存的最大数量，防止内存占用过多，如果该参数小于等于0，则不限制
             var maxRecordCount = 10;
-
-            var logPath = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/WxOpen/{0}/", SystemTime.Now.ToString("yyyy-MM-dd")));
-            if (!Directory.Exists(logPath))
-            {
-                Directory.CreateDirectory(logPath);
-            }
 
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
             var messageHandler = new CustomWxOpenMessageHandler(Request.GetRequestMemoryStream(), postModel, maxRecordCount);
@@ -234,7 +231,7 @@ namespace Senparc.Weixin.Sample.WxOpen.Controllers
                     $@"sessionId: {sessionId}
 encryptedData: {encryptedData}
 iv: {iv}
-sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
+sessionKey: {(await SessionContainer.CheckRegisteredAsync(sessionId)
                 ? (await SessionContainer.GetSessionAsync(sessionId)).SessionKey
                 : "未保存sessionId")}
 
@@ -538,6 +535,51 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
             catch (Exception ex)
             {
                 return Json(new { success = false, msg = ex.Message });
+            }
+        }
+
+        public async Task<ActionResult> GetPrepayid(string sessionId)
+        {
+            try
+            {
+                var sessionBag = SessionContainer.GetSession(sessionId);
+                var openId = sessionBag.OpenId;
+
+                //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
+                var sp_billno = string.Format("{0}{1}{2}", Config.SenparcWeixinSetting.TenPayV3_MchId /*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
+                        TenPayV3Util.BuildRandomStr(6));
+
+                var body = "小程序微信支付Demo";
+                var price = 1;//单位：分
+                var notifyUrl = Config.SenparcWeixinSetting.TenPayV3_WxOpenTenpayNotify;
+                var basePayApis = new Senparc.Weixin.TenPayV3.Apis.BasePayApis(Config.SenparcWeixinSetting);
+
+                var requestData = new TenPayV3.Apis.BasePay.TransactionsRequestData(WxOpenAppId, Config.SenparcWeixinSetting.TenPayV3_MchId, body, sp_billno, new TenPayV3.Entities.TenpayDateTime(SystemTime.Now.AddMinutes(120).DateTime, false), HttpContext.UserHostAddress().ToString(), notifyUrl, null, new() { currency = "CNY", total = price }, new(openId), null, null, null);
+                var result = await basePayApis.JsApiAsync(requestData);
+
+                var packageStr = "prepay_id=" + result.prepay_id;
+
+                var jsApiUiPackage = TenPaySignHelper.GetJsApiUiPackage(WxOpenAppId, result.prepay_id);
+
+                return Json(new
+                {
+                    success = true,
+                    prepay_id = result.prepay_id,
+                    appId = Config.SenparcWeixinSetting.WxOpenAppId,
+                    timeStamp = jsApiUiPackage.Timestamp,
+                    nonceStr = jsApiUiPackage.NonceStr,
+                    package = packageStr,
+                    signType = "RSA",
+                    paySign = jsApiUiPackage.Signature
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    msg = ex.Message
+                });
             }
         }
 

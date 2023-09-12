@@ -82,7 +82,7 @@ module.exports = {
             {
               title: "Guide",
               collapsable: false,
-              children: ["", "About"],
+              children: ["", "lab"],
             },
             {
               title: "MP",
@@ -213,7 +213,7 @@ module.exports = {
             {
               title: "概要",
               collapsable: false,
-              children: ["", "关于"],
+              children: ["", "库和组件"],
             },
             {
               title: "公众号",

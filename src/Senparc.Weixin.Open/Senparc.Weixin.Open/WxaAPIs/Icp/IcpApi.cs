@@ -65,13 +65,12 @@ namespace Senparc.Weixin.Open.WxaAPIs
             var url = string.Format(Config.ApiMpHost + "/wxa/icp/upload_icp_media?access_token={0}", accessToken.AsUrlData());
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = file;
+            fileDictionary["type"] = type;
+            fileDictionary["icp_order_field"] = icp_order_field;
+            if (certificate_type > -1)
+                fileDictionary["certificate_type"] = certificate_type.ToString();
 
-            var dataDictionary = new Dictionary<string, string>();
-            dataDictionary["type"] = type;
-            dataDictionary["icp_order_field"] = icp_order_field;
-            dataDictionary["certificate_type"] = certificate_type.ToString();
-
-            return Post.PostFileGetJson<UploadIcpMediaResultJson>(CommonDI.CommonSP, url, null, fileDictionary, dataDictionary, timeOut: timeOut);
+            return Post.PostFileGetJson<UploadIcpMediaResultJson>(CommonDI.CommonSP, url, null, fileDictionary, timeOut: timeOut);
 
         }
 
@@ -248,13 +247,12 @@ namespace Senparc.Weixin.Open.WxaAPIs
             var url = string.Format(Config.ApiMpHost + "/wxa/icp/upload_icp_media?access_token={0}", accessToken.AsUrlData());
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = file;
+            fileDictionary["type"] = type;
+            fileDictionary["icp_order_field"] = icp_order_field;
+            if (certificate_type > -1)
+                fileDictionary["certificate_type"] = certificate_type.ToString();
 
-            var dataDictionary = new Dictionary<string, string>();
-            dataDictionary["type"] = type;
-            dataDictionary["icp_order_field"] = icp_order_field;
-            dataDictionary["certificate_type"] = certificate_type.ToString();
-
-            return await Post.PostFileGetJsonAsync<UploadIcpMediaResultJson>(CommonDI.CommonSP, url, null, fileDictionary, dataDictionary, timeOut: timeOut);
+            return await Post.PostFileGetJsonAsync<UploadIcpMediaResultJson>(CommonDI.CommonSP, url, null, fileDictionary,timeOut: timeOut);
 
         }
 

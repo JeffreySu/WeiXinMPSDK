@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Senparc.Weixin.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Icp.IcpJson
     /// <summary>
     /// 获取区域信息
     /// </summary>
-    public class QueryIcpDistrictCodeResultJson
+    public class QueryIcpDistrictCodeResultJson : WxJsonResult
     {
         public List<ProvinceModel> items { get; set; }
     }

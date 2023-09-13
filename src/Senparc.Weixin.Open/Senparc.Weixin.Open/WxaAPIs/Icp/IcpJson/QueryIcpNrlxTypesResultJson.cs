@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Senparc.Weixin.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Icp.IcpJson
     /// <summary>
     /// 获取前置审批项类型结果
     /// </summary>
-    public class QueryIcpNrlxTypesResultJson
+    public class QueryIcpNrlxTypesResultJson : WxJsonResult
     {
         /// <summary>
         /// 前置审批项类型列表

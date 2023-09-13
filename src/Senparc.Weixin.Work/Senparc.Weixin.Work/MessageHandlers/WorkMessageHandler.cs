@@ -1,4 +1,4 @@
-﻿/*----------------------------------------------------------------
+/*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
     
     文件名：WorkMessageHandler.cs
@@ -248,7 +248,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
             {
                 requestDocument = postDataDocument;//TODO:深拷贝
             }
-            
+
             RequestMessage = RequestMessageFactory.GetRequestEntity<TMC>(new TMC(), doc: requestDocument);
 
             return requestDocument;
@@ -889,7 +889,13 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return ThirdPartyEventSuccessResult;
         }
 
+        [Obsolete("请使用修复拼写之后的方法:OnThirdPartyEvent_Register_Corp", true)]
         protected virtual string OnThirdPartyEvent_REGISTER_CORP(RequestMessager_Register_Corp thirdPartyInfo)
+        {
+            return OnThirdPartyEvent_Register_Corp(thirdPartyInfo);
+        }
+
+        protected virtual string OnThirdPartyEvent_Register_Corp(RequestMessager_Register_Corp thirdPartyInfo)
         {
             return ThirdPartyEventSuccessResult;
         }
@@ -910,6 +916,11 @@ namespace Senparc.Weixin.Work.MessageHandlers
         }
 
         protected virtual string OnThirdPartyEvent_Suite_Ticket(RequestMessageInfo_Suite_Ticket thirdPartyInfo)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        protected virtual string OnThirdPartEvent_ResetPermanentCode(RequestMessageInfo_Reset_Permanent_Code requestMessage)
         {
             return ThirdPartyEventSuccessResult;
         }

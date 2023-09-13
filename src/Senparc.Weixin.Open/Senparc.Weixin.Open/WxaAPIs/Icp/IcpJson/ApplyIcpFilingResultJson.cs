@@ -23,6 +23,9 @@ namespace Senparc.Weixin.Open.WxaAPIs.Icp.IcpJson
     /// </summary>
     public class ApplyIcpFilingResultJson : WxJsonResult
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public List<HintsModel> hints { get; set; }
     }
 

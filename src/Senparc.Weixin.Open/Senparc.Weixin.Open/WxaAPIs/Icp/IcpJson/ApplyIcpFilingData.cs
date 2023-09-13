@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2023 Senparc
+    
+    文件名：ApplyIcpFilingData.cs
+    文件功能描述：申请小程序备案 接口返回消息
+    
+    
+    创建标识：Senparc - 20230905
+
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.IO.Compression;
 using System.Linq;
@@ -7,6 +18,9 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.WxaAPIs.Icp.IcpJson
 {
+    /// <summary>
+    /// 申请小程序备案 接口返回消息
+    /// </summary>
     public class ApplyIcpFilingData
     {
         /// <summary>

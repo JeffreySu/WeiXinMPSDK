@@ -25,7 +25,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：小程序 Sec下接口
     
     创建标识：mc7246 - 20230831
+
+    修改标识：Senparc - 20230905
+    修改描述：v4.15.0 完善“第三方服务商小程序备案”接口
+
 ----------------------------------------------------------------*/
+
 
 using Senparc.NeuChar;
 using Senparc.NeuChar.Helpers;

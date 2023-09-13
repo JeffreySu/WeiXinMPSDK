@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2023 Senparc
+    
+    文件名：CreateIcpVerifyTaskResultJson.cs
+    文件功能描述：GetOnlineIcpOrderResultJson 接口返回消息
+    
+    
+    创建标识：Senparc - 20230905
+
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +17,9 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.WxaAPIs.Icp.IcpJson
 {
+    /// <summary>
+    /// 获取小程序已备案详情
+    /// </summary>
     public class GetOnlineIcpOrderResultJson
     {
         /// <summary>

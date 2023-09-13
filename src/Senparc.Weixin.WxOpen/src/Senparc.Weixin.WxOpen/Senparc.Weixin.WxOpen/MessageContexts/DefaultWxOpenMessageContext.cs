@@ -1,4 +1,15 @@
-﻿using Senparc.NeuChar;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2023 Senparc
+    
+    文件名：DefaultWxOpenMessageContext.cs
+    文件功能描述：小程序上下文消息的默认实现
+    
+    
+    创建标识：Senparc - 20230905
+
+----------------------------------------------------------------*/
+
+using Senparc.NeuChar;
 using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Exceptions;

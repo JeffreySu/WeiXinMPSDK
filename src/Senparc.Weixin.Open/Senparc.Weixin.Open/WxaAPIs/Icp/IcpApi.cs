@@ -1,4 +1,18 @@
-﻿using Senparc.CO2NET.Extensions;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2023 Senparc
+    
+    文件名：IcpApi.cs
+    文件功能描述：第三方服务商小程序备案 接口
+    
+    
+    创建标识：Senparc - 20230905
+
+    修改标识：Senparc - 20230805
+    修改描述：v4.15.0 完善“第三方服务商小程序备案”接口
+
+----------------------------------------------------------------*/
+
+using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.Annotations;
 using Senparc.Weixin.CommonAPIs;
@@ -13,6 +27,9 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.WxaAPIs
 {
+    /// <summary>
+    /// 第三方服务商小程序备案
+    /// </summary>
     public class IcpApi
     {
         #region 同步方法
@@ -106,7 +123,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="cancel_type">注销类型：1 -- 注销主体, 2 -- 注销小程序, 3 -- 注销微信小程序</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult CancelIcpFiling(string accessToken, int cancel_type,int timeOut = Config.TIME_OUT)
+        public static ApplyIcpFilingResultJson CancelIcpFiling(string accessToken, int cancel_type,int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/icp/cancel_icp_filing?access_token={0}", accessToken.AsUrlData());
 

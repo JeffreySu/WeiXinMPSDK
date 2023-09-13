@@ -21,7 +21,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Icp.IcpJson
     public class QueryIcpCertificateTypesItemModel
     {
         /// <summary>
-        /// 服务内容类型id
+        /// 证件类型id
         /// </summary>
         public int type { get; set; }
 
@@ -31,7 +31,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Icp.IcpJson
         public int subject_type { get; set; }
 
         /// <summary>
-        /// 名称
+        /// 证件名称
         /// </summary>
         public string name { get; set; }
 

@@ -1,4 +1,4 @@
-﻿/*----------------------------------------------------------------
+/*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
   
     文件名：RequestMessageFactory.cs
@@ -100,6 +100,9 @@ namespace Senparc.Weixin.Work
                             break;
                         case ThirdPartyInfo.CHANGE_CONTACT://通讯录变更通知
                             requestMessage = new RequestMessageInfo_Change_Contact();
+                            break;
+                        case ThirdPartyInfo.RESET_PERMANENT_CODE:
+                            requestMessage = new RequestMessageInfo_Reset_Permanent_Code();
                             break;
                         case ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT:
                             switch (doc.Root.Element("ChangeType").Value.ToUpper())

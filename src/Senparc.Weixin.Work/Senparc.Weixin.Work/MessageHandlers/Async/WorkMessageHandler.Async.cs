@@ -1,4 +1,4 @@
-﻿/*----------------------------------------------------------------
+/*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
     
     文件名：WorkMessageHandler.cs
@@ -20,6 +20,7 @@ using Senparc.NeuChar;
 using System.Threading.Tasks;
 using System.Threading;
 using Senparc.Weixin.Work.Entities.Request.Event;
+using System;
 
 namespace Senparc.Weixin.Work.MessageHandlers
 {
@@ -29,7 +30,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
     {
         public override async Task BuildResponseMessageAsync(CancellationToken cancellationToken)
         {
-          
+
             switch (RequestMessage.MsgType)
             {
                 case RequestMsgType.Unknown: //第三方回调
@@ -44,7 +45,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
                         throw new WeixinException("没有找到合适的消息类型。");
                     }
                 }
-                    break;
+                break;
                 //以下是普通信息
                 case RequestMsgType.Text:
                 {
@@ -52,7 +53,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     ResponseMessage = await OnTextOrEventRequestAsync(requestMessage) ??
                                       await OnTextRequestAsync(requestMessage);
                 }
-                    break;
+                break;
                 case RequestMsgType.Location:
                     ResponseMessage = await OnLocationRequestAsync(RequestMessage as RequestMessageLocation);
                     break;
@@ -77,7 +78,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     ResponseMessage = await OnTextOrEventRequestAsync(requestMessageText) ??
                                       await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase);
                 }
-                    break;
+                break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
             }
@@ -182,8 +183,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     responseMessage = await OnEvent_ViewRequestAsync(RequestMessage as RequestMessageEvent_View);
                     break;
                 case Event.PIC_PHOTO_OR_ALBUM: //弹出拍照或者相册发图
-                    responseMessage =
-                        await OnEvent_PicPhotoOrAlbumRequestAsync(
+                    responseMessage = await OnEvent_PicPhotoOrAlbumRequestAsync(
                             RequestMessage as RequestMessageEvent_Pic_Photo_Or_Album);
                     break;
                 case Event.SCANCODE_PUSH: //扫码推事件
@@ -281,7 +281,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
                                     RequestMessage as RequestMessageEvent_Change_ExternalContact_Add);
                             break;
                         case ExternalContactChangeType.edit_external_contact:
-                            OnEvent_ChangeExternalContactUpdateRequestAsync(
+                            responseMessage = await OnEvent_ChangeExternalContactUpdateRequestAsync(
                                 requestMessage as RequestMessageEvent_Change_ExternalContact_Modified);
                             break;
                         case ExternalContactChangeType.add_half_external_contact:
@@ -680,7 +680,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IWorkResponseMessageBase> OnEvent_SwitchWorkbenchModel(RequestMessageEvent_Switch_WorkBench_Mode requestMessage)
         {
-            return await Task.Run(()=>OnEvent_SwitchWorkBenchMode(requestMessage)).ConfigureAwait (false);
+            return await Task.Run(() => OnEvent_SwitchWorkBenchMode(requestMessage)).ConfigureAwait(false);
         }
 
         #region 审批事件
@@ -732,7 +732,9 @@ namespace Senparc.Weixin.Work.MessageHandlers
                 case ThirdPartyInfo.CHANGE_CONTACT:
                     return OnThirdPartyEvent_Change_ContactAsync((RequestMessageInfo_Change_Contact)thirdPartyInfo);
                 case ThirdPartyInfo.REGISTER_CORP:
-                    return OnThirdPartyEvent_REGISTER_CORPAsync((RequestMessager_Register_Corp)thirdPartyInfo);
+                    return OnThirdPartyEvent_Register_CorpAsync((RequestMessager_Register_Corp)thirdPartyInfo);
+                case ThirdPartyInfo.RESET_PERMANENT_CODE:
+                    return OnThirdPartEvent_Reset_Permanent_CodeAsync((RequestMessageInfo_Reset_Permanent_Code)thirdPartyInfo);
                 case ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT:
                 {
                     var cecRequestMessage = RequestMessage as IRequestMessageEvent_Change_ExternalContact_Base;
@@ -772,34 +774,46 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return await Task.Run(() => OnThirdPartyEvent_Change_Contact(thirdPartyInfo)).ConfigureAwait(false);
         }
 
-        protected virtual async Task<string> OnThirdPartyEvent_REGISTER_CORPAsync(
+        protected virtual async Task<string> OnThirdPartyEvent_Register_CorpAsync(
             RequestMessager_Register_Corp thirdPartyInfo)
         {
-            return await Task.Run(() => OnThirdPartyEvent_REGISTER_CORPAsync(thirdPartyInfo)).ConfigureAwait(false);
+            return await Task.Run(() => OnThirdPartyEvent_Register_Corp(thirdPartyInfo)).ConfigureAwait(false);
+        }
+
+        [Obsolete("请使用修复拼写之后的方法:OnThirdPartyEvent_Register_CorpAsync", true)]
+        protected virtual Task<string> OnThirdPartyEvent_REGISTER_CORPAsync(
+            RequestMessager_Register_Corp thirdPartyInfo)
+        {
+            return OnThirdPartyEvent_Register_CorpAsync(thirdPartyInfo);
         }
 
         protected virtual async Task<string> OnThirdPartyEvent_Create_AuthAsync(
             RequestMessageInfo_Create_Auth thirdPartyInfo)
         {
-            return await Task.Run(() => OnThirdPartyEvent_Create_AuthAsync(thirdPartyInfo)).ConfigureAwait(false);
+            return await Task.Run(() => OnThirdPartyEvent_Create_Auth(thirdPartyInfo)).ConfigureAwait(false);
         }
 
         protected virtual async Task<string> OnThirdPartyEvent_Cancel_AuthAsync(
             RequestMessageInfo_Cancel_Auth thirdPartyInfo)
         {
-            return await Task.Run(() => OnThirdPartyEvent_Cancel_AuthAsync(thirdPartyInfo)).ConfigureAwait(false);
+            return await Task.Run(() => OnThirdPartyEvent_Cancel_Auth(thirdPartyInfo)).ConfigureAwait(false);
         }
 
         protected virtual async Task<string> OnThirdPartyEvent_Change_AuthAsync(
             RequestMessageInfo_Change_Auth thirdPartyInfo)
         {
-            return await Task.Run(() => OnThirdPartyEvent_Change_AuthAsync(thirdPartyInfo)).ConfigureAwait(false);
+            return await Task.Run(() => OnThirdPartyEvent_Change_Auth(thirdPartyInfo)).ConfigureAwait(false);
         }
 
         protected virtual async Task<string> OnThirdPartyEvent_Suite_TicketAsync(
             RequestMessageInfo_Suite_Ticket thirdPartyInfo)
         {
-            return await Task.Run(() => OnThirdPartyEvent_Suite_TicketAsync(thirdPartyInfo)).ConfigureAwait(false);
+            return await Task.Run(() => OnThirdPartyEvent_Suite_Ticket(thirdPartyInfo)).ConfigureAwait(false);
+        }
+
+        protected virtual async Task<string> OnThirdPartEvent_Reset_Permanent_CodeAsync(RequestMessageInfo_Reset_Permanent_Code thirdPartyInfo)
+        {
+            return await Task.Run(() => OnThirdPartEvent_ResetPermanentCode(thirdPartyInfo)).ConfigureAwait(false);
         }
 
         #region 外部联系人

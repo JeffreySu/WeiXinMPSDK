@@ -1,4 +1,4 @@
-﻿/*----------------------------------------------------------------
+/*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
     
     文件名：RequestMessager_Register_Corp.cs
@@ -23,15 +23,12 @@ namespace Senparc.Weixin.Work.Entities
         //    get { return RequestMsgType.Unknown; }
         //}
 
-        public ThirdPartyInfo InfoType
-        {
-            get { return ThirdPartyInfo.REGISTER_CORP; }
-        }
+        public override ThirdPartyInfo InfoType => ThirdPartyInfo.REGISTER_CORP;
+
         /// <summary>
         /// 服务商corpid
         /// </summary>
         public string ServiceCorpId { get; set; }
-        public string TimeStamp { get; set; }
         /// <summary>
         /// 创建企业对应的注册码
         /// </summary>

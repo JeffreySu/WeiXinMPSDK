@@ -1,4 +1,4 @@
-﻿/*----------------------------------------------------------------
+/*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
 
     文件名：Enums.cs
@@ -198,7 +198,7 @@ namespace Senparc.Weixin.Work
         OPEN_APPROVAL_CHANGE
         #endregion
     }
-    
+
     public enum TencentGender
     {
         /// <summary>
@@ -259,16 +259,20 @@ namespace Senparc.Weixin.Work
         /// <summary>
         /// 重置永久授权码通知
         /// </summary>
-        RESET_PERMANENT_CODE
+        RESET_PERMANENT_CODE,
+        /// <summary>
+        /// 开启订单
+        /// </summary>
+        OPEN_ORDER,
     }
-    
+
     public enum ExternalAttributeType
     {
         Text,
         Web,
         Miniprogram
     }
-    
+
     public enum GroupChatJoinScene
     {
         /// <summary>

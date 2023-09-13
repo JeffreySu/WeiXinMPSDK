@@ -38,6 +38,9 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.WxaAPIs
 {
+    /// <summary>
+    /// 三方平台API - 小程序域名管理
+    /// </summary>
     [NcApiBind(NeuChar.PlatformType.WeChat_Open, true)]
     public class DomainApi
     {

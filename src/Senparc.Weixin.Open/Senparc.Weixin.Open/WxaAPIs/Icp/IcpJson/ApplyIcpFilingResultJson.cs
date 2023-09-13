@@ -7,8 +7,14 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.WxaAPIs.Icp.IcpJson
 {
+    /// <summary>
+    /// 申请小程序备案
+    /// </summary>
     public class ApplyIcpFilingResultJson : WxJsonResult
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public List<HintsModel> hints { get; set; }
     }
 

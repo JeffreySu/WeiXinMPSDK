@@ -50,6 +50,15 @@ namespace Senparc.Weixin.Entities
         /// errcode的
         /// </summary>
         public abstract int ErrorCodeValue { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual object P2PData { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual object Hints { get; set; }
     }
 }

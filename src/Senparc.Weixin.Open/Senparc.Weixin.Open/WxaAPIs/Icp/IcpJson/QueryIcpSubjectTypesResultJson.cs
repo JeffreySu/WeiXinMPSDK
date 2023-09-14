@@ -1,4 +1,16 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2023 Senparc
+    
+    文件名：QueryIcpSubjectTypesResultJson.cs
+    文件功能描述：获取单位性质 接口返回消息
+    
+    
+    创建标识：Senparc - 20230905
+
+----------------------------------------------------------------*/
+
+using Senparc.Weixin.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +21,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Icp.IcpJson
     /// <summary>
     /// 获取单位性质
     /// </summary>
-    public class QueryIcpSubjectTypesResultJson
+    public class QueryIcpSubjectTypesResultJson : WxJsonResult
     {
         /// <summary>
         /// 单位性质列表

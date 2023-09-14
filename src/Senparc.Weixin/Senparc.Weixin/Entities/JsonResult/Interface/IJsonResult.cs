@@ -56,6 +56,15 @@ namespace Senparc.Weixin.Entities
         /// errcode的
         /// </summary>
         int ErrorCodeValue { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         object P2PData { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        object Hints { get; set; }
     }
 }

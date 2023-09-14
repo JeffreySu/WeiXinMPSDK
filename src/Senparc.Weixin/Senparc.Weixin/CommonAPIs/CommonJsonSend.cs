@@ -106,9 +106,10 @@ namespace Senparc.Weixin.CommonAPIs
                 {
                     //发生错误，记录异常
                     ex = new ErrorJsonResultException(
-                          string.Format("微信 POST 请求发生错误！错误代码：{0}，说明：{1}",
+                          string.Format("微信 POST 请求发生错误！错误代码：{0}；说明：{1}；Hints：{2}",
                                         (int)errorResult.errcode,
-                                        errorResult.errmsg),
+                                        errorResult.errmsg,
+                                        errorResult.Hints?.ToJson()),
                           null, errorResult, apiUrl);
                 }
 

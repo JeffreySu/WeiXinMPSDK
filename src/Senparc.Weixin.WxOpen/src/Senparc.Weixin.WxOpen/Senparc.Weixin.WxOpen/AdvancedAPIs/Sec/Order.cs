@@ -25,7 +25,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：小程序 Sec下接口
     
     创建标识：mc7246 - 20230831
+
+    修改标识：Senparc - 20230905
+    修改描述：v4.15.0 完善“第三方服务商小程序备案”接口
+
 ----------------------------------------------------------------*/
+
 
 using Senparc.NeuChar;
 using Senparc.NeuChar.Helpers;
@@ -140,14 +145,14 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sec
         /// <param name="merchant_trade_no">商户系统内部订单号，只能是数字、大小写字母_-*且在同一个商户号下唯一</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult NotifyConfirmReceive(string accessTokenOrAppId, long receive_time, string transaction_id="", string merchant_id="", string sub_merchant_id="", string merchant_trade_no="", int timeOut = Config.TIME_OUT)
+        public static WxJsonResult NotifyConfirmReceive(string accessTokenOrAppId, long received_time, string transaction_id="", string merchant_id="", string sub_merchant_id="", string merchant_trade_no="", int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/sec/order/notify_confirm_receive?access_token={0}";
                 var postBody = new
                 {
-                    receive_time,
+                    received_time,
                     transaction_id,
                     merchant_id,
                     sub_merchant_id,

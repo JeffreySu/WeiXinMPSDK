@@ -1,11 +1,12 @@
 module.exports = {
-  base: "/docs/",
+  base: "/docs/zh/",
+  lang: "zh-CN",
   head: [
     ["link", { rel: "shortcut icon", type: "image/x-icon", href: "/icon.jpg" }],
     ["script", {}, ``],
   ],
   locales: {
-    "/": {
+    "/en/": {
       lang: "en-US",
       title: "Wechat.NET SDK",
       description:
@@ -20,6 +21,8 @@ module.exports = {
   },
   // evergreen: true,
   port: 8080,
+  host: "localhost",
+  open: true,
   plugins: ["@vuepress/back-to-top"],
   themeConfig: {
     repo: "JeffreySu/WeiXinMPSDK",
@@ -40,7 +43,7 @@ module.exports = {
     // 默认为 "Edit this page"
     // editLinkText: '帮助我们改善此页面！',
     locales: {
-      "/": {
+      "/en/": {
         label: "English",
         repoLabel: "Github",
         selectText: "Languages",
@@ -48,14 +51,14 @@ module.exports = {
         editLinkText: "Edit this page on GitHub",
         lastUpdated: "Last Updated",
         nav: [
-          { text: "Guide", link: "/guide/" },
+          { text: "Guide", link: "/en/guide/" },
           {
             text: "Ecosystem",
             items: [
               {
                 text: "Project",
                 items: [
-                  { text: "Dynamic WebApi", link: "/dynamic-webapi/index" },
+                  { text: "Dynamic WebApi", link: "/en/dynamic-webapi/index" },
                 ],
               },
               {
@@ -78,7 +81,7 @@ module.exports = {
           { text: "Gitee", link: "https://gitee.com/JeffreySu/WeiXinMPSDK" },
         ],
         sidebar: {
-          "/guide/": [
+          "/en/guide/": [
             {
               title: "Guide",
               collapsable: false,
@@ -163,10 +166,13 @@ module.exports = {
             {
               title: "Newly Release",
               collapsable: false,
-              children: ["/guide/release/new_function", "/guide/release/log"],
+              children: [
+                "/en/guide/release/new_function",
+                "/en/guide/release/log",
+              ],
             },
           ],
-          "/dynamic-webapi/": [
+          "/en/dynamic-webapi/": [
             {
               title: "Dynamic WebApi",
               collapsable: false,

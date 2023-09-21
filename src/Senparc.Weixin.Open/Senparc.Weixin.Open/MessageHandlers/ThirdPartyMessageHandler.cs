@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
   
     文件名：ThirdPartyMessageHandler.cs
     文件功能描述：开放平台消息处理器
@@ -162,6 +162,18 @@ namespace Senparc.Weixin.Open.MessageHandlers
                             ResponseMessageText = OnFastRegisterBetaAppRequest(requestMessage);
                         }
                         break;
+                    case RequestInfoType.notify_icpfiling_verify_result:
+                        {
+                            var requestMessage = RequestMessage as RequestMessageIcpFilingVerify;
+                            ResponseMessageText = OnIcpFilingVerifyRequest(requestMessage);
+                        }
+                        break;
+                    case RequestInfoType.notify_apply_icpfiling_result:
+                        {
+                            var requestMessage = RequestMessage as RequestMessageIcpFilingApply;
+                            ResponseMessageText = OnIcpFilingApplyRequest(requestMessage);
+                        }
+                        break;
                     default:
                         throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
                 }
@@ -185,6 +197,17 @@ namespace Senparc.Weixin.Open.MessageHandlers
         {
         }
 
+        public virtual string OnIcpFilingApplyRequest(RequestMessageIcpFilingApply requestMessage) 
+        {
+            return "success";
+        }
+
+
+        public virtual string OnIcpFilingVerifyRequest(RequestMessageIcpFilingVerify requestMessage)
+        {
+            return "success";
+
+        }
 
 
         /// <summary>

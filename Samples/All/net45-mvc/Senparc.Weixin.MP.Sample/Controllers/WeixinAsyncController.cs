@@ -25,6 +25,7 @@ using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.Sample.CommonService.CustomMessageHandler;
 using System.IO;
 using System.Threading;
+using Senparc.Weixin.AspNet.MvcExtension;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {

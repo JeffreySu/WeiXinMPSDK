@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：MsgTypeHelper.cs
     文件功能描述：根据xml信息返回MsgType、ThirdPartyInfo、RequestInfoType
@@ -33,6 +33,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System;
 using System.Xml.Linq;
+using Senparc.Weixin.Work.Entities.Request.Event;
 
 namespace Senparc.Weixin.Work.Helpers
 {
@@ -56,6 +57,27 @@ namespace Senparc.Weixin.Work.Helpers
         public static ThirdPartyInfo GetThirdPartyInfo(string str)
         {
             return (ThirdPartyInfo)Enum.Parse(typeof(ThirdPartyInfo), str, true);
+        }
+
+        #endregion
+        
+        #region ExternalContactChangeType
+
+        /// <summary>
+        /// 根据xml信息，返回ExternalContactChangeType
+        /// </summary>
+        /// <returns></returns>
+        public static ExternalContactChangeType GetExternalContactChangeType(XDocument doc)
+        {
+            return GetExternalContactChangeType(doc.Root.Element("ChangeType").Value);
+        }
+        /// <summary>
+        /// 根据xml信息，返回ExternalContactChangeType
+        /// </summary>
+        /// <returns></returns>
+        public static ExternalContactChangeType GetExternalContactChangeType(string str)
+        {
+            return (ExternalContactChangeType)Enum.Parse(typeof(ExternalContactChangeType), str, true);
         }
 
         #endregion

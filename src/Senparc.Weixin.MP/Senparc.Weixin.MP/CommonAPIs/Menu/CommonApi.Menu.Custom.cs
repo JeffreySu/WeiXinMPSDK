@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：CommonApi.Menu.Custom.cs
     文件功能描述：通用自定义菜单接口（自定义接口）
@@ -44,6 +44,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180928
     修改描述：添加GetCurrentSelfMenuInfo方法
+
+    修改标识：JaneConan - 20230417
+    修改描述：v16.18.10.7 修复自定义菜单实体问题
+
 ----------------------------------------------------------------*/
 
 /*
@@ -241,7 +245,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                     var jsonResult = Newtonsoft.Json.JsonConvert.DeserializeObject<GetMenuResultFull>(jsonString);
 #endif
 
-                    if (jsonResult.menu == null || jsonResult.menu.button.Count == 0)
+                    if (jsonResult.menu == null || jsonResult.menu.button == null)
                     {
                         throw new WeixinMenuException(jsonResult.errmsg);
                     }

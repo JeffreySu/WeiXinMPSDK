@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
   
     文件名：Register.cs
     文件功能描述：注册小程序信息
@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20191004
     修改描述：使用异步方法
+
+    修改标识：Senparc - 20230709
+    修改描述：v3.16.0 MessageHandler 和客服接口支持长文本自动切割后连续发送
 
 ----------------------------------------------------------------*/
 
@@ -54,10 +57,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId"></param>
         /// <param name="content"></param>
+        /// <param name="limitedBytes">最大允许发送限制，如果超出限制，则分多条发送</param>
         /// <returns></returns>
-        public override async Task<ApiResult> SendText(string accessTokenOrAppId, string openId, string content)
+        public override async Task<ApiResult> SendText(string accessTokenOrAppId, string openId, string content, int limitedBytes = 2048)
         {
-            throw new NotImplementedException();
+            var result = await Senparc.Weixin.Work.AdvancedAPIs.MassApi.SendTextAsync(accessTokenOrAppId, openId, content);
+            return new ApiResult((int)result.errcode, result.errmsg, result);
         }
 
         /// <summary>
@@ -69,12 +74,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public override async Task<ApiResult> SendImage(string accessTokenOrAppId, string openId, string mediaId)
         {
-            throw new NotImplementedException();
+            var result = await Senparc.Weixin.Work.AdvancedAPIs.MassApi.SendImageAsync(accessTokenOrAppId, openId, mediaId);
+            return new ApiResult((int)result.errcode, result.errmsg, result);
         }
 
         public override async Task<ApiResult> SendNews(string accessTokenOrAppId, string openId, List<Article> articleList)
         {
-            throw new NotImplementedException();
+            var result = await Senparc.Weixin.Work.AdvancedAPIs.MassApi.SendNewsAsync(accessTokenOrAppId, openId, articleList);
+            return new ApiResult((int)result.errcode, result.errmsg, result);
         }
     }
 }

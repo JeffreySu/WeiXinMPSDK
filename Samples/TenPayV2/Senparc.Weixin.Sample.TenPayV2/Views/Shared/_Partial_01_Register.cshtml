@@ -1,0 +1,112 @@
+﻿<div class="tab-pane fade show active" id="nav-register" role="tabpanel" aria-labelledby="nav-home-tab">
+    <h5>全局注册</h5>
+    <p>所有的 Senparc.Weixin SDK 注册过程都是类似的。</p>
+    <p>
+        首先，完成所有 Senparc.Weixin SDK 的整体注册代码。在 Program.cs 中加入以下代码：
+    </p>
+    <p>
+        <figure class="figure">
+            <img src="~/images/home-dev-register-01.png" class="figure-img img-fluid rounded" alt="注册 Senparc.Weixin" />
+            <figcaption class="figure-caption text-center">注册 Senparc.Weixin</figcaption>
+        </figure>
+    </p>
+    <p>
+        说明：
+        <ol>
+            <li><code>builder.Services.AddMemoryCache()</code> Senparc.Weixin 支持本机缓存、Redis、Memcached 等多种缓存策略，默认使用本机缓存，此时需要激活本地缓存。</li>
+            <li><code>builder.Services.AddSenparcWeixinServices(builder.Configuration)</code> 用于完成 Senparc.Weixin 的注册。</li>
+            <li><code>app.UseSenparcWeixin()</code> 方法用于配置和启用 Senparc.Weixin。</li>
+        </ol>
+    </p>
+    <p>
+        以上代码对于所有的 Senparc.Weixin 下级模块都是相同的，只需要 3 句代码。
+    </p>
+    <figure class="file">
+        <blockquote class="blockquote">
+            <p>本项目参考文件：</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            /<cite title="Source Title">Program.cs</cite>
+        </figcaption>
+    </figure>
+
+    <h5>公众号注册</h5>
+    <p>在上述代码中的第 27 行委托方法中插入代码，即可完成默认公众号以及微信支付的注册：</p>
+    <p>
+        <pre><code>    //注册公众号信息（可以执行多次，注册多个公众号）
+    register.RegisterMpAccount(weixinSetting, "【盛派网络小助手】公众号");
+    //注册微信支付（可以执行多次，注册多个微信支付）
+    register.RegisterTenpayOld(weixinSetting, "【盛派网络小助手】微信支付（V2）");
+</code></pre>
+    </p>
+    <p>
+        <figure class="figure">
+            <img src="~/images/home-dev-register-02.png" class="figure-img img-fluid rounded" alt="注册微信公众号" />
+            <figcaption class="figure-caption text-center">注册微信公众号和微信新支付</figcaption>
+        </figure>
+    </p>
+
+    <p>
+        <figure class="file">
+            <blockquote class="blockquote">
+                <p>注意：</p>
+                <p>上述代码同时注册了公众号和微信支付（V2），因为微信支付需要提供微信用户的标识（OpenId），OpenId 必须来自微信公众号、小程序等模块。如果需要在小程序内使用微信支付，则需要对应注册小程序。</p>
+            </blockquote>
+        </figure>
+    </p>
+
+    <p>其中，<code>weixinSetting</code> 的值默认来自于 <code>appsettings.json</code>：</p>
+    <p>
+        <pre><code>  "SenparcWeixinSetting": {
+    "IsDebug": true,
+
+    //公众号
+    "Token": "#{Token}#", 
+    "EncodingAESKey": "#{EncodingAESKey}#",
+    "WeixinAppId": "#{WeixinAppId}#",
+    "WeixinAppSecret": "#{WeixinAppSecret}#",
+
+    //微信支付
+    //微信支付V3（旧版文档V3）
+    "TenPayV3_AppId": "#{TenPayV3_AppId}#",
+    "TenPayV3_AppSecret": "#{TenPayV3_AppSecret}#",
+    "TenPayV3_SubAppId": "#{TenPayV3_SubAppId}#",
+    "TenPayV3_SubAppSecret": "#{TenPayV3_SubAppSecret}#",
+    "TenPayV3_MchId": "#{TenPayV3_MchId}#",
+    "TenPayV3_SubMchId": "#{TenPayV3_SubMchId}#", //子商户，没有可留空
+    "TenPayV3_Key": "#{TenPayV3_Key}#",
+    /* 证书路径（APIv3 可不使用）
+     * 1、物理路径如：D:\\cert\\apiclient_cert.p12
+     * 2、相对路径，如：~/App_Data/cert/apiclient_cert.p12，注意：必须放在 App_Data 等受保护的目录下，避免泄露
+     * 备注：证书下载地址：https://pay.weixin.qq.com/index.php/account/api_cert
+     */
+    "TenPayV3_CertPath": "#{TenPayV3_CertPath}#", //（V3 API 可不使用）证书路径
+    "TenPayV3_CertSecret": "#{TenPayV3_CertSecret}#", //（V3 API 可不使用）支付证书密码（原始密码和 MchId 相同）
+    "TenPayV3_TenpayNotify": "#{TenPayV3_TenpayNotify}#", //http://YourDomainName/TenpayV3/PayNotifyUrl
+    //如果不设置TenPayV3_WxOpenTenpayNotify，默认在 TenPayV3_TenpayNotify 的值最后加上 "WxOpen"
+    "TenPayV3_WxOpenTenpayNotify": "#{TenPayV3_WxOpenTenpayNotify}#" //http://YourDomainName/TenpayV3/PayNotifyUrlWxOpen
+  }</code></pre>
+    </p>
+    
+    <p>其中，<code>Token</code>、<code>EncodingAESKey</code>、<code>WeixinAppId</code> 和 <code>WeixinAppSecret</code> 对应了微信公众号后台的配置参数。</p>
+    <p>特别说明：<code>TenPayV3_CertPath</code> 参数同时支持完整的物理路径或相对路径（相对于程序根目录以 <code>~/</code> 开头）。证书文件必须放在 App_Data 等受保护的目录下，避免泄露。</p>
+    <p>
+        <figure class="figure">
+            <img src="~/images/home-dev-register-03.png" class="figure-img img-fluid rounded" alt="配置参数" />
+            <figcaption class="figure-caption text-center">配置参数</figcaption>
+        </figure>
+    </p>
+    <figure class="file">
+        <blockquote class="blockquote">
+            <p>本项目参考文件：</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            /<cite title="Source Title">appsettings.json</cite>
+        </figcaption>
+    </figure>
+
+    <p>配置完成。</p>
+    <blockquote class="blockquote">
+        提示：自动注册的信息可通过 <code>Senparc.Weixin.Config.SenparcWeixinSetting</code> 获取。
+    </blockquote>
+</div>

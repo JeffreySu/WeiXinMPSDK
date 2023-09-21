@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
 
     文件名：CustomWxOpenMessageHandler.cs
     文件功能描述：微信小程序自定义MessageHandler
@@ -26,6 +26,7 @@ using System.Threading.Tasks;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP;
+using Senparc.CO2NET.Trace;
 
 #if NET462
 using System.Web.Configuration;
@@ -97,7 +98,7 @@ namespace Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler
             }
             catch (Exception ex)
             {
-                Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog("小程序 OnExecutedAsync 常规跟踪（开发者请忽略）", ex.ToString());
+                Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog("小程序 OnExecutedAsync 常规跟踪（开发者请忽略）", ex.ToString() + "\r\n" + ex.StackTrace?.ToString());
             }
         }
 
@@ -135,6 +136,15 @@ namespace Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler
                 await Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, "您即将进入客服");
                 var responseMessage = base.CreateResponseMessage<ResponseMessageTransfer_Customer_Service>();
                 return responseMessage;
+            }
+            else if (contentUpper == "超长")
+            {
+                var sb = new StringBuilder();
+                for (int i = 0; i < 40; i++)
+                {
+                    sb.Append($"{i + 1}.这是一条超长文本，将会自动分成多条发送。");
+                }
+                await Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, sb.ToString());
             }
             else
             {
@@ -225,12 +235,17 @@ namespace Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler
 
         public override async Task<IResponseMessageBase> OnMiniProgramPageRequestAsync(RequestMessageMiniProgramPage requestMessage)
         {
-            var msg = $"您从某个小程序页面来到客服，并且发送了小程序卡片。\r\nTitle：{requestMessage.Title}\r\nAppId：{requestMessage.AppId.Substring(1,5)}...\r\nPagePath：{requestMessage.PagePath}\r\n附带照片：";
-            await Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, msg); 
+            var msg = $"您从某个小程序页面来到客服，并且发送了小程序卡片。\r\nTitle：{requestMessage.Title}\r\nAppId：{requestMessage.AppId.Substring(1, 5)}...\r\nPagePath：{requestMessage.PagePath}\r\n附带照片：";
+            await Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, msg);
             await Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendImageAsync(appId, OpenId, requestMessage.ThumbMediaId);
             return await DefaultResponseMessageAsync(requestMessage);
         }
 
+        public override async Task<IResponseMessageBase> OnEvent_MediaCheckRequestAsync(RequestMessageEvent_MediaCheck requestMessage)
+        {
+            SenparcTrace.SendCustomLog("收到 OnEvent_MediaCheckRequestAsync 回调请求", requestMessage.ToJson());
+            return new SuccessResponseMessage();
+        }
 
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {

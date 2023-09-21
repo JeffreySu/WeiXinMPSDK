@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -204,8 +204,8 @@ namespace Senparc.Weixin.MP.Test
                 {
                     Description = "测试说明",
                     Title = "测试标题",
-                    Url = "http://www.senparc.com",
-                    PicUrl = "http://img.senparc.com/images/v2/logo.jpg'"
+                    Url = "https://www.senparc.com",
+                    PicUrl = "https://img.senparc.com/images/v2/logo.jpg'"
                 });
                 Assert.AreEqual(1, responseNews.ArticleCount);
                 var responseDoc = EntityHelper.ConvertEntityToXml(responseNews);
@@ -242,7 +242,7 @@ namespace Senparc.Weixin.MP.Test
                 //{
                 //    Description = "测试说明",
                 //    Title = "测试标题",
-                //    Url = "http://www.senparc.com",
+                //    Url = "https://www.senparc.com",
                 //    PicUrl = requestEntity.PicUrl
                 //});
                 //Assert.AreEqual(1, responseNews.ArticleCount);

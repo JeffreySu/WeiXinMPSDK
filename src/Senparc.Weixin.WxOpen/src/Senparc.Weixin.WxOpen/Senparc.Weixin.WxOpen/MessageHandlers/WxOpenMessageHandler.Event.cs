@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：MessageHandler.Event.cs
     文件功能描述：微信请求的集中处理方法：Event相关
@@ -35,6 +35,23 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：mc7246 - 20211209
     修改描述：v4.13.2 添加 OnEvent_AppealRecordRequest()、OnEvent_IllegalRecordRequest() 方法
+
+    修改标识：mc7246 - 20220504
+    修改描述：v3.15.2 添加小程序隐私权限审核结果推送
+
+    修改标识：Senparc - 20220806
+    修改描述：v3.15.7 添加 OnEvent_MediaCheckRequest() 方法 
+               - 内容安全回调：wxa_media_check 推送结果内容安全回调：wxa_media_check 推送结果
+
+    修改标识：mc7246 - 20230119
+    修改描述：v3.15.12 添加小程序类目审核结果事件推送，增加 OnEvent_WxaCategoryAuditRequestAsync() 方法
+
+    修改标识：chinanhb - 20230529
+    修改描述：添加运单轨迹更新推送 添加OnEvent_AddExpressPath()方法
+
+
+    修改标识：mc7246 - 20230831
+    修改描述：添加小程序发货信息管理服务事件推送 添加OnEvent_TradeManageRemindAccessApi()、OnEvent_TradeManageOrderSettlement()、OnEvent_TradeManageRemindShipping()方法
 
 ----------------------------------------------------------------*/
 
@@ -89,6 +106,27 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.wxa_appeal_record:
                     responseMessage = OnEvent_AppealRecordRequest(RequestMessage as RequestMessageEvent_AppealRecord);
                     break;
+                case Event.wxa_privacy_apply:
+                    responseMessage = OnEvent_PrivacyApplyRequest(RequestMessage as RequestMessageEvent_PrivacyApply);
+                    break;
+                case Event.wxa_media_check:
+                    responseMessage = OnEvent_MediaCheckRequest(RequestMessage as RequestMessageEvent_MediaCheck);
+                    break;
+                case Event.wxa_category_audit:
+                    responseMessage = OnEvent_WxaCategoryAuditRequest(RequestMessage as RequestMessageEvent_WxaCategoryAudit);
+                    break;
+                case Event.add_express_path:
+                    responseMessage=OnEvent_AddExpressPath(RequestMessage as RequestMessageEvent_AddExpressPath); 
+                    break;
+                case Event.trade_manage_order_settlement:
+                    responseMessage = OnEvent_TradeManageOrderSettlement(RequestMessage as RequestMessageEvent_TradeManageOrderSettlement);
+                    break;
+                case Event.trade_manage_remind_access_api:
+                    responseMessage = OnEvent_TradeManageRemindAccessApi(RequestMessage as RequestMessageEvent_TradeManageRemindAccessApi);
+                    break;
+                case Event.trade_manage_remind_shipping:
+                    responseMessage = OnEvent_TradeManageRemindShipping(RequestMessage as RequestMessageEvent_TradeManageRemindShipping);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -96,7 +134,51 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         }
 
         #region Event 下属分类
-
+        /// <summary>
+        /// 订单将要结算或已经结算事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_TradeManageOrderSettlement(RequestMessageEvent_TradeManageOrderSettlement requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 提醒接入发货信息管理服务API事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_TradeManageRemindAccessApi(RequestMessageEvent_TradeManageRemindAccessApi requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 提醒需要上传发货信息事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_TradeManageRemindShipping(RequestMessageEvent_TradeManageRemindShipping requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 运单轨迹更新推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_AddExpressPath(RequestMessageEvent_AddExpressPath requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 小程序类目审核结果事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_WxaCategoryAuditRequest(RequestMessageEvent_WxaCategoryAudit requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
         /// <summary>
         /// 在腾讯地图中创建门店的审核结果
         /// </summary>
@@ -195,7 +277,25 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
+        /// <summary>
+        /// 隐私权限申请结果推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_PrivacyApplyRequest(RequestMessageEvent_PrivacyApply requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
 
+        /// <summary>
+        /// 内容安全回调：wxa_media_check 推送结果
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_MediaCheckRequest(RequestMessageEvent_MediaCheck requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
 
         #endregion
 
@@ -243,6 +343,24 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.wxa_appeal_record:
                     responseMessage = await OnEvent_AppealRecordRequestAsync(RequestMessage as RequestMessageEvent_AppealRecord);
                     break;
+                case Event.wxa_privacy_apply:
+                    responseMessage = await OnEvent_PrivacyApplyRequestAsync(RequestMessage as RequestMessageEvent_PrivacyApply);
+                    break;
+                case Event.wxa_media_check:
+                    responseMessage = await OnEvent_MediaCheckRequestAsync(RequestMessage as RequestMessageEvent_MediaCheck);
+                    break;
+                case Event.add_express_path:
+                    responseMessage =await OnEvent_AddExpressPathAsync(requestMessage as RequestMessageEvent_AddExpressPath);
+                    break;
+                case Event.trade_manage_order_settlement:
+                    responseMessage = await OnEvent_TradeManageOrderSettlementAsync(RequestMessage as RequestMessageEvent_TradeManageOrderSettlement);
+                    break;
+                case Event.trade_manage_remind_access_api:
+                    responseMessage = await OnEvent_TradeManageRemindAccessApiAsync(RequestMessage as RequestMessageEvent_TradeManageRemindAccessApi);
+                    break;
+                case Event.trade_manage_remind_shipping:
+                    responseMessage = await OnEvent_TradeManageRemindShippingAsync(RequestMessage as RequestMessageEvent_TradeManageRemindShipping);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -250,7 +368,51 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         }
 
         #region Event 下属分类
-
+        /// <summary>
+        /// 【异步方法】订单将要结算或已经结算事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_TradeManageOrderSettlementAsync(RequestMessageEvent_TradeManageOrderSettlement requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_TradeManageOrderSettlement(requestMessage)).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】提醒接入发货信息管理服务API事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_TradeManageRemindAccessApiAsync(RequestMessageEvent_TradeManageRemindAccessApi requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_TradeManageRemindAccessApi(requestMessage)).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】提醒需要上传发货信息事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_TradeManageRemindShippingAsync(RequestMessageEvent_TradeManageRemindShipping requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_TradeManageRemindShipping(requestMessage)).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】运单轨迹更新推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_AddExpressPathAsync(RequestMessageEvent_AddExpressPath requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, ()=>OnEvent_AddExpressPath(requestMessage)).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】小程序类目审核结果事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_WxaCategoryAuditRequestAsync(RequestMessageEvent_WxaCategoryAudit requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_WxaCategoryAuditRequest(requestMessage)).ConfigureAwait(false);
+        }
         /// <summary>
         /// 在腾讯地图中创建门店的审核结果
         /// </summary>
@@ -348,7 +510,26 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_AppealRecordRequest(requestMessage)).ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// 【异步方法】隐私权限申请结果推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_PrivacyApplyRequestAsync(RequestMessageEvent_PrivacyApply requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_PrivacyApplyRequest(requestMessage)).ConfigureAwait(false);
+        }
 
+
+        /// <summary>
+        /// 【异步方法】内容安全回调：wxa_media_check 推送结果
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_MediaCheckRequestAsync(RequestMessageEvent_MediaCheck requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_MediaCheckRequest(requestMessage)).ConfigureAwait(false);
+        }
 
         #endregion
 

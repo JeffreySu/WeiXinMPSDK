@@ -1,0 +1,136 @@
+﻿<div class="tab-pane fade" id="nav-refund" role="tabpanel" aria-labelledby="nav-profile-tab">
+    <h5>退款</h5>
+    <p>退款方法核心代码如下：</p>
+
+    <pre><code>/// &lt;summary&gt;
+/// 退款申请接口
+/// &lt;/summary&gt;
+/// &lt;returns&gt;&lt;/returns&gt;
+public ActionResult Refund()
+{
+    try
+    {
+        string nonceStr = TenPayV3Util.GetNoncestr();
+
+        string outTradeNo = HttpContext.Session.GetString(&quot;BillNo&quot;);
+
+        string outRefundNo = &quot;OutRefunNo-&quot; + SystemTime.Now.Ticks;
+        int totalFee = int.Parse(HttpContext.Session.GetString(&quot;BillFee&quot;));
+        int refundFee = totalFee;
+        string opUserId = TenPayV3Info.MchId;
+        var notifyUrl = &quot;https://sdk.weixin.senparc.com/TenPayV3/RefundNotifyUrl&quot;;
+        var dataInfo = new TenPayV3RefundRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, TenPayV3Info.Key,
+            null, nonceStr, null, outTradeNo, outRefundNo, totalFee, refundFee, opUserId, null, notifyUrl: notifyUrl);
+
+        var result = TenPayOldV3.Refund(_serviceProvider, dataInfo);//证书地址、密码，在配置文件中设置，并在注册微信支付信息时自动记录
+
+        ViewData[&quot;Message&quot;] = $&quot;退款结果：{result.result_code} {result.err_code_des}。您可以刷新当前页面查看最新结果。&quot;;
+        return View();
+    }
+    catch (Exception ex)
+    {
+        WeixinTrace.WeixinExceptionLog(new WeixinException(ex.Message, ex));
+
+        throw;
+    }
+}</code></pre>
+
+    <figure class="file">
+        <blockquote class="blockquote">
+            <p>本项目参考文件：</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            /<cite title="Source Title">Controllers/TenPayV3Controller.cs</cite>
+        </figcaption>
+    </figure>
+
+    <blockquote class="blockquote">
+        <p>说明：上述代码为了方便演示，并限定在没有登录功能的情况下只能退款本人自己支付过的订单，因此将 BillNo（订单号）存在 Session 中，实际开发过程中可放入 URL 或 Post 参数中进行请求，并注意做好权限验证！</p>
+    </blockquote>
+
+    <h5>退款回调</h5>
+    <p>在退款接口调用过程中，有一个 <code>notifyUrl</code> 的参数，此地址用于接收微信服务器发送的退款信息回调信息。代码如下：</p>
+    
+    <pre><code>/// &lt;summary&gt;
+/// 退款通知地址
+/// &lt;/summary&gt;
+/// &lt;returns&gt;&lt;/returns&gt;
+public ActionResult RefundNotifyUrl()
+{
+    string responseCode = &quot;FAIL&quot;;
+    string responseMsg = &quot;FAIL&quot;;
+    try
+    {
+        ResponseHandler resHandler = new ResponseHandler(HttpContext);
+
+        string return_code = resHandler.GetParameter(&quot;return_code&quot;);
+        string return_msg = resHandler.GetParameter(&quot;return_msg&quot;);
+
+        WeixinTrace.SendCustomLog(&quot;跟踪RefundNotifyUrl信息&quot;, resHandler.ParseXML());
+
+        if (return_code == &quot;SUCCESS&quot;)
+        {
+            responseCode = &quot;SUCCESS&quot;;
+            responseMsg = &quot;OK&quot;;
+
+            string appId = resHandler.GetParameter(&quot;appid&quot;);
+            string mch_id = resHandler.GetParameter(&quot;mch_id&quot;);
+            string nonce_str = resHandler.GetParameter(&quot;nonce_str&quot;);
+            string req_info = resHandler.GetParameter(&quot;req_info&quot;);
+
+            if (!appId.Equals(Senparc.Weixin.Config.SenparcWeixinSetting.TenPayV3_AppId))
+            {
+                /* 
+                    * 注意：
+                    * 这里添加过滤只是因为盛派Demo经常有其他公众号错误地设置了我们的地址，
+                    * 导致无法正常解密，平常使用不需要过滤！
+                    */
+                SenparcTrace.SendCustomLog(&quot;RefundNotifyUrl 的 AppId 不正确&quot;,
+                    $&quot;appId:{appId}\r\nmch_id:{mch_id}\r\nreq_info:{req_info}&quot;);
+                return Content(&quot;faild&quot;);
+            }
+
+            var decodeReqInfo = TenPayV3Util.DecodeRefundReqInfo(req_info, TenPayV3Info.Key);//解密
+            var decodeDoc = XDocument.Parse(decodeReqInfo);
+
+            //获取接口中需要用到的信息
+            string transaction_id = decodeDoc.Root.Element(&quot;transaction_id&quot;).Value;
+            string out_trade_no = decodeDoc.Root.Element(&quot;out_trade_no&quot;).Value;
+            string refund_id = decodeDoc.Root.Element(&quot;refund_id&quot;).Value;
+            string out_refund_no = decodeDoc.Root.Element(&quot;out_refund_no&quot;).Value;
+            int total_fee = int.Parse(decodeDoc.Root.Element(&quot;total_fee&quot;).Value);
+            int? settlement_total_fee = decodeDoc.Root.Element(&quot;settlement_total_fee&quot;) != null
+                    ? int.Parse(decodeDoc.Root.Element(&quot;settlement_total_fee&quot;).Value)
+                    : null as int?;
+            int refund_fee = int.Parse(decodeDoc.Root.Element(&quot;refund_fee&quot;).Value);
+            int tosettlement_refund_feetal_fee = int.Parse(decodeDoc.Root.Element(&quot;settlement_refund_fee&quot;).Value);
+            string refund_status = decodeDoc.Root.Element(&quot;refund_status&quot;).Value;
+            string success_time = decodeDoc.Root.Element(&quot;success_time&quot;).Value;
+            string refund_recv_accout = decodeDoc.Root.Element(&quot;refund_recv_accout&quot;).Value;
+            string refund_account = decodeDoc.Root.Element(&quot;refund_account&quot;).Value;
+            string refund_request_source = decodeDoc.Root.Element(&quot;refund_request_source&quot;).Value;
+
+            //验证通过，进行后续业务处理
+        }
+    }
+    catch (Exception ex)
+    {
+        responseMsg = ex.Message;
+        WeixinTrace.WeixinExceptionLog(new WeixinException(ex.Message, ex));
+    }
+
+    string xml = string.Format(@@&quot;&lt;xml&gt;
+&lt;return_code&gt;&lt;![CDATA[{0}]]&gt;&lt;/return_code&gt;
+&lt;return_msg&gt;&lt;![CDATA[{1}]]&gt;&lt;/return_msg&gt;
+&lt;/xml&gt;&quot;, responseCode, responseMsg);
+    return Content(xml, &quot;text/xml&quot;);
+}</code></pre>
+        <figure class="file">
+        <blockquote class="blockquote">
+            <p>本项目参考文件：</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            /<cite title="Source Title">Controllers/TenPayV3Controller.cs</cite>
+        </figcaption>
+    </figure>
+</div>

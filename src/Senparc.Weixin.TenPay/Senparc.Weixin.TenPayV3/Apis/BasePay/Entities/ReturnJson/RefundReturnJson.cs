@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,14 +19,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
   
     文件名：RefundReturnJson.cs
     文件功能描述：微信支付退款结果Json
     
     
     创建标识：Senparc - 20210813
-    
+  
+    修改标识：Senparc - 20220526
+    修改描述：v0.6.2.3 修复 RefundReturnJson.Amount.refund 参数类型
+
 ----------------------------------------------------------------*/
 
 
@@ -158,7 +161,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             /// 退款金额	
             /// 退款标价金额，单位为分，可以做部分退款
             /// 示例值：100
-            public string refund { get; set; }
+            public int refund { get; set; }
 
             /// <summary>
             /// 退款出资的账户类型及金额信息

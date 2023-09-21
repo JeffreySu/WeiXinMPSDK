@@ -55,6 +55,10 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 支付应答
+        /// </summary>
+        /// <returns></returns>
         public ActionResult FeedBack()
         {
             //创建支付应答对象
@@ -80,13 +84,16 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             return Content(result);
         }
 
+        /// <summary>
+        /// JSAPI 支付
+        /// </summary>
+        /// <returns></returns>
         public ActionResult JsApi()
         {
-            //string appId = TenPayInfo.AppId;
-            string timeStamp = "";
-            string nonceStr = "";
-            string packageValue = "";
-            string paySign = "";
+            string timeStamp = null;
+            string nonceStr = null;
+            string packageValue = null;
+            string paySign = null;
 
             string sp_billno = Request.Form["order_no"];
             //当前时间 yyyyMMdd
@@ -136,15 +143,6 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             paySignReqHandler.SetParameter("timestamp", timeStamp);
             paySignReqHandler.SetParameter("package", packageValue);
             paySign = paySignReqHandler.CreateSHA1Sign();
-            //TenPay.Delivernotify(TenPayInfo.AppId, "oX99MDgNcgwnz3zFN3DNmo8uwa-w", "111112222233333", sp_billno,
-            //                     timeStamp, "1", "ok", "53cca9d47b883bd4a5c85a9300df3da0cb48565c", "sha1");
-
-
-            //获取debug信息,建议把请求和debug信息写入日志，方便定位问题
-            //string pakcageDebuginfo = packageReqHandler.getDebugInfo();
-            //result +="<br/>pakcageDebuginfo:" + pakcageDebuginfo + "<br/>");
-            //string paySignDebuginfo = paySignReqHandler.getDebugInfo();
-            //result +="<br/>paySignDebuginfo:" + paySignDebuginfo + "<br/>");
 
             //TODO：和JSSDK一样整合信息包
             ViewData["appId"] = TenPayInfo.AppId;
@@ -156,7 +154,10 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             return View();
         }
 
-
+        /// <summary>
+        /// Native 支付
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Native()
         {
             string sp_billno = Request.Form["order_no"];
@@ -198,6 +199,10 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             return View();
         }
 
+        /// <summary>
+        /// NativeCall
+        /// </summary>
+        /// <returns></returns>
         public ActionResult NativeCall()
         {
             string sp_billno = Request.Form["order_no"];
@@ -264,14 +269,12 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             return View();
         }
 
-        public ActionResult Alert()
-        {
-            return Content("success");
-        }
-
+        /// <summary>
+        /// 支付回调
+        /// </summary>
+        /// <returns></returns>
         public ActionResult PayNotifyUrl()
         {
-
             ResponseHandler resHandler = new ResponseHandler(null);
             resHandler.Init();
             resHandler.SetKey(TenPayInfo.Key, TenPayInfo.AppKey);
@@ -340,6 +343,10 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             return Content("Success");
         }
 
+        /// <summary>
+        /// 退款
+        /// </summary>
+        /// <returns></returns>
         protected ActionResult Refund()
         {
             //创建请求对象
@@ -370,6 +377,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             reqHandler.SetParameter("service_version", "1.1");
 
             string requestUrl = reqHandler.GetRequestURL();
+            //输入证书地址和秘钥，根据实际情况修改
             httpClient.SetCertInfo("c:\\key\\1900000109.pfx", "1900000109");
             //设置请求内容
             httpClient.SetReqContent(requestUrl);

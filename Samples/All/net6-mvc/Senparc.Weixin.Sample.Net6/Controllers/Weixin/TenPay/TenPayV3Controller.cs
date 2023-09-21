@@ -18,7 +18,7 @@
 ----------------------------------------------------------------*/
 
 /* 注意：TenPayV3Controller 是微信文档 V3 的示例，并非微信之后出来的 API V3，
- * 微信真正微信支付 API V3 的示例请见 TenPayRealV3Controller 
+ * 微信真正微信支付 API V3 的示例请见 TenPayApiV3Controller 
  */
 
 //DPBMARK_FILE TenPay
@@ -56,7 +56,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
 {
     /* 
      * 友情提示：微信支付正式上线之前，请进行沙箱测试！ 
-     * 单元测试见：Senparc.Weixin.MP.Test.TenPayV3/TenPayV3Test.cs/GetSignKeyTest()
+     * 单元测试见：Senparc.Weixin.MP.Test/TenPayV3/TenPayV3Test.cs/GetSignKeyTest()
      */
 
 

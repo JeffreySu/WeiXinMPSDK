@@ -1,12 +1,14 @@
+using Senparc.Weixin.MP.MessageHandlers.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-#region 添加微信配置
-
 //使用本地缓存必须添加
 builder.Services.AddMemoryCache();
+
+#region 添加微信配置（一行代码）
 
 //Senparc.Weixin 注册（必须）
 builder.Services.AddSenparcWeixinServices(builder.Configuration);
@@ -15,9 +17,10 @@ builder.Services.AddSenparcWeixinServices(builder.Configuration);
 
 var app = builder.Build();
 
-#region 启用微信配置
+#region 启用微信配置（一句代码）
 
-var senparcWeixinSetting = app.Services.GetService<IOptions<SenparcWeixinSetting>>()!.Value;
+//手动获取配置信息可使用以下方法
+//var senparcWeixinSetting = app.Services.GetService<IOptions<SenparcWeixinSetting>>()!.Value;
 
 //启用微信配置（必须）
 var registerService = app.UseSenparcWeixin(app.Environment,
@@ -33,11 +36,19 @@ var registerService = app.UseSenparcWeixin(app.Environment,
 #region 使用 MessageHadler 中间件，用于取代创建独立的 Controller
 
 //MessageHandler 中间件介绍：https://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html
-//使用公众号的 MessageHandler 中间件（不再需要创建 Controller）                       --DPBMARK MP
+//使用公众号的 MessageHandler 中间件（不再需要创建 Controller）
 app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
 {
-    options.AccountSettingFunc = context => Senparc.Weixin.Config.SenparcWeixinSetting;
+    //获取默认微信配置
+    var weixinSetting = Senparc.Weixin.Config.SenparcWeixinSetting;
+
+    //[必须] 设置微信配置
+    options.AccountSettingFunc = context => weixinSetting;
+
+    //[可选] 设置最大文本长度回复限制（超长后会调用客服接口分批次回复）
+    options.TextResponseLimitOptions = new TextResponseLimitOptions(2048, weixinSetting.WeixinAppId);
 });
+
 #endregion
 
 #endregion
@@ -68,7 +79,6 @@ app.UseStaticFiles(new StaticFileOptions
 });
 #endif
 #endregion
-
 
 app.UseRouting();
 

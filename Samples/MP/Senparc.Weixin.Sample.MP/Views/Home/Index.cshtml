@@ -1,5 +1,8 @@
-﻿@{
+﻿@using Senparc.Weixin.Sample
+@{
     ViewData["Title"] = "Senparc.Weixin.MP 微信公众号模块";
+
+    ViewData["PlatformName"] = "MP";
 }
 <div class="sdk-doc">
     <div class="row" style="position:relative;">
@@ -32,7 +35,6 @@
             <div class="text-center">
                 <h1 id="top-title" class="display-4">Senparc.Weixin.MP 微信公众号模块</h1>
 
-
                 <p class="no-text-indent"><a href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">Senparc.Weixin.MP</a> 模块用于提供微信公众号的支持能力。</p>
                 @(await Html.PartialAsync("_IconsPartial"))
 
@@ -64,8 +66,9 @@
 
             <div id="main-doc">
                 <div id="source_code" class="target-fix"></div>
-                @(await Html.PartialAsync("_SourceCode",@"Senparc.Weixin.MP 源码位置：<a href=""https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP"" target=""_blank"">/src/Senparc.Weixin.MP/</a>"))
 
+                <partial name="_SourceCode" model='new SourceCodeViewModel("Senparc.Weixin.MP","/src/Senparc.Weixin.MP")' />
+                
                 <div id="title_install" class="target-fix"></div>
 
                 <div>

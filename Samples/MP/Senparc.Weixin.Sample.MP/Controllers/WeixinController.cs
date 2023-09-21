@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
 
     文件名：WeixinController.cs
     文件功能描述：用于处理微信回调的信息
@@ -93,7 +93,7 @@ namespace Senparc.Weixin.Sample.MP.Controllers
             var maxRecordCount = 10;
 
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
-            var messageHandler = new CustomMessageHandler(await Request.GetRequestMemoryStreamAsync(), postModel, maxRecordCount);
+            var messageHandler = new CustomMessageHandler(await Request.GetRequestMemoryStreamAsync(), postModel, maxRecordCount);//接收消息（第一步）
 
             #region 设置消息去重设置 + 优先调用同步、异步方法设置
 
@@ -110,13 +110,11 @@ namespace Senparc.Weixin.Sample.MP.Controllers
                 messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
                 var ct = new CancellationToken();
-                await messageHandler.ExecuteAsync(ct);//执行微信处理过程（关键）
+                await messageHandler.ExecuteAsync(ct);//执行微信处理过程（关键，第二步）
 
                 messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
 
-                //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
-                //return new WeixinResult(messageHandler);//v0.8+
-                return new FixWeixinBugWeixinResult(messageHandler);//为了解决官方微信5.0软件换行bug暂时添加的方法，平时用下面一个方法即可
+                return new FixWeixinBugWeixinResult(messageHandler);//返回（第三步）
             }
             catch (Exception ex)
             {

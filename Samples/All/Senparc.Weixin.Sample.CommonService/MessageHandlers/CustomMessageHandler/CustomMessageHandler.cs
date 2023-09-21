@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
 
     文件名：CustomMessageHandler.cs
     文件功能描述：微信公众号自定义MessageHandler
@@ -62,7 +62,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
          */
 
 
-#if !DEBUG || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
+#if !DEBUG ||  NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
         string agentUrl = "http://localhost:12222/App/Weixin/4";
         string agentToken = "27C455F496044A87";
         string wiweihiKey = "CNadjJuWzyX5bz5Gn+/XoyqiqMa5DjXQ";
@@ -365,6 +365,16 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                     defaultResponseMessage.Content = "点击打开：https://sdk.weixin.senparc.com/WeixinJsSdk";
                     return defaultResponseMessage;
                 })
+                .Keyword("超长", () =>
+                {
+                    var sb = new StringBuilder();
+                    for (int i = 0; i < 40; i++)
+                    {
+                        sb.Append($"{i + 1}.这是一条超长文本，将会自动分成多条发送。");
+                    }
+                    defaultResponseMessage.Content = sb.ToString();
+                    return defaultResponseMessage;
+                })
 
 
                 //选择菜单，关键字：101（微信服务器端最终格式：id="s:101",content="满意"）
@@ -418,7 +428,6 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                         defaultResponseMessage.Content = $"ServiceProvider 载入成功，从 IHttpContextAccessor 读取当前服务器协议：{httpContextAccessor.HttpContext.Request.Scheme}";
 #endif
                     }
-
 
                     return defaultResponseMessage;
                 })

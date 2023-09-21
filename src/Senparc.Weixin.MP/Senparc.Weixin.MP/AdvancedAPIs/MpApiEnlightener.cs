@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2021 Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：SenparcWeixinSettingItem.cs
     文件功能描述：Senparc.Weixin SDK 中单个公众号配置信息
@@ -30,6 +30,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 	修改标识：Senparc - 20191004
     修改描述：使用异步方法
 
+	修改标识：Senparc - 20230709
+    修改描述：v16.19.0 MessageHandler 和客服接口支持长文本自动切割后连续发送
 
 ----------------------------------------------------------------*/
 
@@ -58,12 +60,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId"></param>
         /// <param name="content"></param>
+        /// <param name="limitedBytes">最大允许发送限制，如果超出限制，则分多条发送</param>
         /// <returns></returns>
-        public override async Task<ApiResult> SendText(string accessTokenOrAppId, string openId, string content)
+        public override async Task<ApiResult> SendText(string accessTokenOrAppId, string openId, string content, int limitedBytes = 2048)
         {
             try
             {
-                var result = await AdvancedAPIs.CustomApi.SendTextAsync(accessTokenOrAppId, openId, content);
+                var result = await AdvancedAPIs.CustomApi.SendTextAsync(accessTokenOrAppId, openId, content, limitedBytes: limitedBytes);
                 return new ApiResult((int)result.errcode, result.errmsg, result);
             }
             catch (ErrorJsonResultException ex)

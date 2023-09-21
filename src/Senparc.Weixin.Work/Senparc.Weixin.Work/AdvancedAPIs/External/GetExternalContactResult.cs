@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：GetExternalContactResult.cs
     文件功能描述：获取外部联系人详情返回结果
@@ -15,6 +15,7 @@
 
 ----------------------------------------------------------------*/
 
+using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.External
@@ -181,6 +182,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External
         public string[] remark_mobiles { get; set; }
 
         public Follow_User_Tags[] tags { get; set; }
+    }
+    
+    public class Follow_User_Tag
+    {
+        public string group_name { get; set; }
+        public string tag_name { get; set; }
+        public string tag_id { get; set; }
+        public int type { get; set; }
     }
 
     public class Follow_User_Tags

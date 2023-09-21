@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -47,6 +47,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：mc7246 - 20220402
     修改描述：v4.13.9 添加试用小程序接口及事件
+
+    修改标识：mc7246 - 20220514
+    修改描述：v4.14.3 补充小程序/公众号获取基本信息字段（PrincipalType、CustomerType）
+
+    修改标识：Senparc - 20230207
+    修改描述：v4.14.15 完善“第三方平台业务域名”，添加枚举：ModifyWxaJumpDomain_Action #2767 #2789
 
 ----------------------------------------------------------------*/
 
@@ -115,7 +121,15 @@ namespace Senparc.Weixin.Open
         /// <summary>
         /// 创建试用小程序成功/失败的事件推送
         /// </summary>
-        notify_third_fastregisterbetaapp
+        notify_third_fastregisterbetaapp,
+        /// <summary>
+        /// 小程序管理员人脸核身完成事件
+        /// </summary>
+        notify_icpfiling_verify_result,
+        /// <summary>
+        /// 当备案审核被驳回或通过时会推送该事件
+        /// </summary>
+        notify_apply_icpfiling_result
     }
 
     /// <summary>
@@ -310,7 +324,30 @@ namespace Senparc.Weixin.Open
     /// </summary>
     public enum PrincipalType
     {
-        企业 = 1
+        个人 = 0,
+        企业 = 1,
+        媒体 = 2,
+        政府 = 3,
+        其他组织 = 4
+    }
+
+    /// <summary>
+    /// 认证类型
+    /// </summary>
+    public enum CustomerType
+    {
+        未认证 = 0,
+        企业 = 1,
+        企业媒体 = 2,
+        政府 = 3,
+        非盈利组织 = 4,
+        民营非企业 = 5,
+        盈利组织 = 6,
+        社会团体 = 8,
+        事业媒体 = 9,
+        事业单位 = 11,
+        个体工商户 = 12,
+        海外企业 = 13
     }
 
     /// <summary>
@@ -362,5 +399,51 @@ namespace Senparc.Weixin.Open
         统一社会信用代码 =1,
         组织机构代码=2,
         营业执照注册号=3
+    }
+
+    /// <summary>
+    /// “设置第三方平台服务器域名”接口，action 参数枚举
+    /// </summary>
+    public enum ModifyWxaServerDomain_Action
+    {
+        /// <summary>
+        /// 	添加
+        /// </summary>
+        add,
+        /// <summary>
+        /// 删除。说明，删除不存在的域名会视为成功，返回 errcode 为0
+        /// </summary>
+        delete,
+        /// <summary>
+        /// 覆盖
+        /// </summary>
+        set,
+        /// <summary>
+        /// 获取 ，action=get时，会同时返回测试版和全网发布版的“小程序服务器域名”值。
+        /// </summary>
+        get
+    }
+
+    /// <summary>
+    /// “设置第三方平台业务域名”接口，action 参数枚举
+    /// </summary>
+    public enum ModifyWxaJumpDomain_Action
+    {
+        /// <summary>
+        /// 	添加
+        /// </summary>
+        add,
+        /// <summary>
+        /// 删除。说明，删除不存在的域名会视为成功，返回 errcode 为0
+        /// </summary>
+        delete,
+        /// <summary>
+        /// 覆盖
+        /// </summary>
+        set,
+        /// <summary>
+        /// 获取 ，action=get时，会同时返回测试版和全网发布版的“小程序服务器域名”值。
+        /// </summary>
+        get
     }
 }

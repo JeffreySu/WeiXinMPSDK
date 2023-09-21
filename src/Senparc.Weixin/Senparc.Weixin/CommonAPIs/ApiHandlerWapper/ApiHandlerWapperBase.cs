@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：ApiHandlerWapperBase.cs
     文件功能描述：提供ApiHandlerWapper的公共基础方法
@@ -54,6 +54,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20210630
     修改描述：v6.11.1 TryCommonApiBase 提供 invalidCredentialValues，可设置多种重试错误代码
+
+    修改标识：Senparc - 20220731
+    修改描述：v6.15.4 更新 TryCommonApiBase 异常抛出逻辑
 
 ----------------------------------------------------------------*/
 using System;
@@ -232,8 +235,8 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                 {
                     ex.AccessTokenOrAppId = accessTokenOrAppId;
 
-                    //如果要求抛出异常，并且传入的是 AccessToken（AppId 为 null），那么已经没有必要重试，直接抛出异常
-                    if (Config.ThrownWhenJsonResultFaild && appId == null)
+                    //如果要求抛出异常，/*并且传入的是 AccessToken（AppId 为 null），*/那么已经没有必要重试，直接抛出异常
+                    if (Config.ThrownWhenJsonResultFaild/* && appId == null*/)
                     {
                         throw;//抛出异常
                     }

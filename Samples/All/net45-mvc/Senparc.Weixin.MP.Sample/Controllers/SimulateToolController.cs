@@ -283,7 +283,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            ViewData["Token"] = WeixinController.Token;
+            ViewData["Token"] = Request.IsLocal ? WeixinController.Token : "<请输入您自己的 URL 和 Token>";
             return View();
         }
 

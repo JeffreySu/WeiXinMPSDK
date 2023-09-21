@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
 
     文件名：WeixinRegister.cs
     文件功能描述：Senparc.Weixin 快捷注册流程（包括Thread、TraceLog等）
@@ -59,6 +59,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20220224
     修改描述：完善 UseSenparcWeixin() 方法，为 null 值的 senparcWeixinSetting 自动获取值
+
+    修改标识：Senparc - 20230614
+    修改描述：v6.15.10 UseSenparcWeixin() 方法添加 autoCreateApi 参数，用于设置是自动生成微信接口的 API，默认为关闭
 
 ----------------------------------------------------------------*/
 
@@ -169,9 +172,6 @@ namespace Senparc.Weixin
             WeixinTrace.SendCustomLog("微信扩展缓存注册完成", exCacheLog);
 
             /* 扩展缓存注册结束 */
-
-            //注册 NeuChar
-            Senparc.NeuChar.Register.AddNeuChar();
 
             return registerService;
         }

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：CustomMessageHandler_Events.cs
     文件功能描述：自定义MessageHandler
@@ -75,6 +75,8 @@ QQ群：377815480
 3、回复关键字：
 
 【open】   进入第三方开放平台（Senparc.Weixin.Open）测试
+
+【超长】  测试超长文本自动分批发送
 
 【tm】     测试异步模板消息
 

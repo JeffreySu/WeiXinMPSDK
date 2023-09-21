@@ -1,4 +1,15 @@
-﻿using Senparc.NeuChar;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2023 Senparc
+    
+    文件名：DefaultWxOpenMessageContext.cs
+    文件功能描述：小程序上下文消息的默认实现
+    
+    
+    创建标识：Senparc - 20230905
+
+----------------------------------------------------------------*/
+
+using Senparc.NeuChar;
 using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Exceptions;
@@ -58,6 +69,27 @@ namespace Senparc.Weixin.WxOpen.MessageContexts
                         case "WXA_NICKNAME_AUDIT": //名称审核结果
                             requestMessage = new RequestMessageEvent_NicknameAudit();
                             break;
+                        case "WXA_ILLEGAL_RECORD": //小程序违规记录事件
+                            requestMessage = new RequestMessageEvent_IllegalRecord();
+                            break;
+                        case "WXA_APPEAL_RECORD": //小程序申诉记录推送
+                            requestMessage = new RequestMessageEvent_AppealRecord();
+                            break;
+                        case "WXA_PRIVACY_APPLY": //隐私权限审核结果推送
+                            requestMessage = new RequestMessageEvent_PrivacyApply();
+                            break;
+                        case "WXA_MEDIA_CHECK"://内容安全回调：wxa_media_check 推送结果
+                            requestMessage = new RequestMessageEvent_MediaCheck();
+                            break;
+                        case "TRADE_MANAGE_ORDER_SETTLEMENT"://订单将要结算或已经结算
+                            requestMessage = new RequestMessageEvent_TradeManageOrderSettlement();
+                            break;
+                        case "TRADE_MANAGE_REMIND_ACCESS_API": //提醒接入发货信息管理服务API
+                            requestMessage = new RequestMessageEvent_TradeManageRemindAccessApi();
+                            break;
+                        case "TRADE_MANAGE_REMIND_SHIPPING"://提醒需要上传发货信息
+                            requestMessage = new RequestMessageEvent_TradeManageRemindShipping();
+                            break;
                         default://其他意外类型（也可以选择抛出异常）
                             requestMessage = new RequestMessageEventBase();
                             break;
@@ -82,7 +114,6 @@ namespace Senparc.Weixin.WxOpen.MessageContexts
                 case ResponseMsgType.Transfer_Customer_Service:
                     responseMessage = new ResponseMessageTransfer_Customer_Service();
                     break;
-
                 case ResponseMsgType.NoResponse:
                     responseMessage = new ResponseMessageNoResponse();
                     break;

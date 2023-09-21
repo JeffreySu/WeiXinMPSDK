@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2022 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2022 Senparc
+    Copyright (C) 2023 Senparc
     
     文件名：JSSDKHelper.cs
     文件功能描述：JSSDK生成签名的方法等
@@ -55,6 +55,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20181226
     修改描述：v16.6.2 修改 DateTime 为 DateTimeOffset
 
+    修改标识：Senparc - 20230628
+    修改描述：v16.18.14 JSSDKHelper.GetNoncestr() 弃用 MD5 加密方法
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -81,7 +84,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// <returns></returns>
         public static string GetNoncestr()
         {
-            return EncryptHelper.GetMD5(Guid.NewGuid().ToString(), "UTF-8");
+            return Guid.NewGuid().ToString().Replace("-", "");
         }
 
         /// <summary>

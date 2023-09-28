@@ -82,7 +82,19 @@ namespace Senparc.Weixin.WxOpen
         /// <summary>
         /// 运单轨迹更新事件
         /// </summary>
-        add_express_path
+        add_express_path,
+        /// <summary>
+        /// 提醒接入发货信息管理服务API事件
+        /// </summary>
+        trade_manage_remind_access_api,
+        /// <summary>
+        /// 提醒需要上传发货信息事件
+        /// </summary>
+        trade_manage_remind_shipping,
+        /// <summary>
+        /// 订单将要结算或已经结算事件
+        /// </summary>
+        trade_manage_order_settlement
     }
 
     ///// <summary>

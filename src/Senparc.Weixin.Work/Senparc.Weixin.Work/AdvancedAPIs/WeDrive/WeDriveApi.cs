@@ -20,7 +20,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     Copyright (C) 2023 Senparc
     
     文件名：WeiSpaceApi
-    文件功能描述：企业微信微盘接口
+    文件功能描述：企业微信微盘相关接口
     
     
     创建标识：chinanhb - 20230831

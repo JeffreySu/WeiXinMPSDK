@@ -15,6 +15,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.WeDrive.WeDriveJson
         /// <summary>
         /// 文件列表
         /// </summary>
-        public FileList file_list { get; set;; }
+        public FileList file_list { get; set; }
     }
 }

@@ -136,6 +136,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="msgData"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("微信已于2023 年 9 月 20 日收回下发统一消息接口，详情见：https://developers.weixin.qq.com/community/develop/doc/000ae8d6348af08e7030bc2546bc01")]
         public static WxJsonResult UniformSend(string accessTokenOrAppId, UniformSendData msgData, int timeOut = Config.TIME_OUT)
         {
             //文档：https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/uniform-message/uniformMessage.send.html
@@ -298,6 +299,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="msgData"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("微信已于2023 年 9 月 20 日收回下发统一消息接口，详情见：https://developers.weixin.qq.com/community/develop/doc/000ae8d6348af08e7030bc2546bc01")]
         public static async Task<WxJsonResult> UniformSendAsync(string accessTokenOrAppId, UniformSendData msgData, int timeOut = Config.TIME_OUT)
         {
             //文档：https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/uniform-message/uniformMessage.send.html

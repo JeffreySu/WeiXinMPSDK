@@ -22,40 +22,15 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 ## 🔔 公告
 
-> 🔒 [微信支付 V3 模块（V1.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3)已上线！[Nuget](https://www.nuget.org/packages/Senparc.Weixin.TenPayV3)<br>
+> 🔒 [微信支付 V3 模块（V1.0）](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3)已上线！[Nuget](https://www.nuget.org/packages/Senparc.Weixin.TenPayV3)<br>
 > 🎠 全面支持长文本自动分片发送，更多：[《顺应 AIGC 应用，自动“续航”回复超长文本消息》](https://www.cnblogs.com/szw/p/weixin-large-text-response.html)<br/>
 > ⚡ Sample 已支持 .NET 7.0（向下兼容），[点击这里查看](/Samples/All/net7-mvc)！<br/>
 
 <!-- _1. 为了将 Demo 和源代码隔离，并让大家更方便地找到 Demo，现已将 Senparc.Weixin.MP.Sample 等文件夹转移到 [/Samples/](/Samples/) 文件夹下。_<br> -->
 <!-- _2. `Senparc.Weixin.Plugins`计划已经启动，详情 [点击这里](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Plugins)。_ -->
 
-## 如何使用文档
 
-::: warning 前提条件
-文档需要 [Node.js](https://nodejs.org/en/) >= 8.6
-:::
-
-**相关阅读：** 可使用NVM管理Node版本，下载[NVM](https://github.com/coreybutler/nvm-windows/releases)。
-
-1. 通过Node安装yarn
-
-   ``` bash
-   npm install -g yarn
-   ```
-
-2. 安装项目依赖运行(项目源码根目录运行)
-
-   ``` bash
-   yarn install
-   ```
-
-3. 运行文档项目
-
-   ``` bash
-   yarn docs:dev
-   ```
-
-## 🌟 Start：分模块独立文档
+## 🌟 Start：分模块独立说明文档 + Sample 代码示例
 
 模块 | 地址
 ----|----
@@ -65,23 +40,26 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 微信支付 V3（推荐） | https://sdk.weixin.senparc.com/Docs/TenPayV3/
 微信支付 V2（不推荐） | https://sdk.weixin.senparc.com/Docs/TenPayV2/
 
-> 说明：所有模块的配置、注册、接口调用方法均一致，只要学会其中一个模块开发，就可以举一反三，以下以公众号为例。
+> 说明：<br>
+> 1、[/docs](/docs/) 目录中提供了更完整的开发说明文档，可使用以下方式在本机运行，[点击查看](/docs/)。 <br>
+> 2、上述分模块示例中，配置、注册、接口调用方法均一致，只要学会其中一个模块开发，就可以举一反三。以下的 Hello World 示例也以公众号为例，可以延伸到所有其他模块。
 
+	
 ## 🚀 Hello World ：用 3 句代码开启你的微信开发之旅！
 
 > 说明：<br>
-> 下述源码位于 [`/Samples/MP/`](/Samples/MP/) 文件夹，以微信公众号为例。学会公众号就可以举一反三使用其他模块，基本用法一致（小程序、企业微信、微信支付等）。<br>
-如需查看其他模块或集成示例，可以查看位于 [`/Samples/`](/Samples/) 文件夹下的其他独立 Sample，或 [`/Samples/All/`](/Samples/All/) 文件夹下的集成 Sample（进阶）。
+> 1、下述源码位于 [`/Samples/MP/`](/Samples/MP/) 文件夹，以微信公众号为例。学会公众号就可以举一反三使用其他模块，基本用法一致（小程序、企业微信、微信支付等）。<br>
+> 2、如需查看其他模块或集成示例，可以查看位于 [`/Samples/`](/Samples/) 文件夹下的其他独立 Sample，或 [`/Samples/All/`](/Samples/All/) 文件夹下的集成 Sample（进阶）。
 
 
 ### 启动代码（只需 2 句代码）：
-<strong>在 Program.cs 的 builder.Build() 上方添加配置：</strong>
+1、 <strong>在 Program.cs 的 builder.Build() 上方添加配置：</strong>
 ``` C#
 builder.Services.AddSenparcWeixinServices(builder.Configuration);
 ```
 > 对应于 Startup.cs 的 ConfigureServices() 方法内。
 
-<strong>在 Program.cs 的 builder.Build() 下方启用配置：</strong>
+2、 <strong>在 Program.cs 的 builder.Build() 下方启用配置：</strong>
 ``` C#
 var registerService = app.UseSenparcWeixin(app.Environment, null, null, register => { },
     (register, weixinSetting) =>
@@ -182,6 +160,7 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 
 此外，您还可以使用 `Controller（或 WebApi）` 方式可以对整个消息处理步骤进行更加细致的控制（或在 .NET Framework 中使用），[点击这里查看](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MessageHandler%E7%AE%80%E5%8C%96%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B)。
 
+至此，您已经掌握了开发微信各平台所需要的基本技能，更多资源请继续往下看：
 
 <img src="https://sdk.weixin.senparc.com/images/SenparcRobotsnapshoot.jpg" width="300" align="right">
 
@@ -395,14 +374,14 @@ Web 版：<a href="https://www.cnblogs.com/szw/p/WeChatSampleBuilder-V2.html#Web
 
 * 技术交流QQ群：
 
-> 5群（公众号）：377815480<br>
+>1群（公众号）：300313885<br>
 > 14群（视频课程学员群）：588231256<br>
 > 10群（分布式缓存群）：246860933<br>
 > 12群（微信小程序）：108830388<br>
 > 16群（开放平台）：860626938<br>
 > *`以下群已满：`*<br>
-> `1群：300313885（已满），2群：293958349（已满），3群：342319110（已满）`<br>
-> `4群：372212092（已满），6群：425898825（已满）`<br>
+> `2群：293958349（已满），3群：342319110（已满）`<br>
+> `4群：372212092（已满）， 5群：377815480（已满），6群：425898825（已满）`<br>
 > `7群：482942254（已满），8群：106230270（已满），9群：539061281（已满）`<br>
 > `11群：553198593（已满），13群：183424136（开放平台，已满），15群：289181996（已满）`
 

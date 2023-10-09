@@ -41,35 +41,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 微信支付 V2（不推荐） | https://sdk.weixin.senparc.com/Docs/TenPayV2/
 
 > 说明：<br>
-> 1、[/docs](/docs/) 目录中提供了更完整的开发说明文档，可使用以下方式在本机运行：
-
-<details>
-<summary>展开</summary>
-	
-> 前提条件：运行文档需要 [Node.js](https://nodejs.org/en/) >= 8.6
-
-
-**相关阅读：** 可使用NVM管理Node版本，下载[NVM](https://github.com/coreybutler/nvm-windows/releases)。
-
-1. 通过Node安装yarn
-
-   ``` bash
-   npm install -g yarn
-   ```
-
-2. 安装项目依赖运行(项目源码根目录运行)
-
-   ``` bash
-   yarn install
-   ```
-
-3. 运行文档项目
-
-   ``` bash
-   yarn docs:dev
-   ```
-</details>
-
+> 1、[/docs](/docs/) 目录中提供了更完整的开发说明文档，可使用以下方式在本机运行，[点击查看](/docs/)。 <br>
 > 2、上述分模块示例中，配置、注册、接口调用方法均一致，只要学会其中一个模块开发，就可以举一反三。以下的 Hello World 示例也以公众号为例，可以延伸到所有其他模块。
 
 	

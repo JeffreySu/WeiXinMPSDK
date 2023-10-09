@@ -27,6 +27,31 @@ If you like and hope us to continue to optimize this project, please give us a S
 > ⚡ Sample has already supported for .NET 6.0, [Click Here](Samples/net6-mvc) !<br/>
 > 🍦 [file.api.weixin.qq.com Domain name officially disabled(2020.9.15)](https://developers.weixin.qq.com/community/develop/doc/0002245dcdc8c06f36fa6a47d56400), please update to the latest version! <br />
 
+## How to use documentation
+
+::: warning precondition
+Requirement [Node.js](https://nodejs.org/en/) >= 8.6
+:::
+
+**Readings：** The Node version can be managed using NVM, Download[NVM](https://github.com/coreybutler/nvm-windows/releases)。
+
+1. Install yarn using Node
+
+   ``` bash
+   npm install -g yarn
+   ```
+
+2. Installation project dependent run (project source root run)
+
+   ``` bash
+   yarn install
+   ```
+
+3. Run document project
+
+   ``` bash
+   yarn docs:dev
+   ```
 
 ## Start：Separate document by module
 

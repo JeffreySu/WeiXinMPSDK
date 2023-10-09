@@ -37,14 +37,13 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 **相关阅读：** 可使用NVM管理Node版本，下载[NVM](https://github.com/coreybutler/nvm-windows/releases)。
 
-
 1. 通过Node安装yarn
 
    ``` bash
    npm install -g yarn
    ```
 
-2. 安装项目依赖运行
+2. 安装项目依赖运行(项目源码根目录运行)
 
    ``` bash
    yarn install
@@ -55,8 +54,6 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
    ``` bash
    yarn docs:dev
    ```
-
-   
 
 ## 🌟 Start：分模块独立文档
 

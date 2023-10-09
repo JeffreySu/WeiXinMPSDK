@@ -29,11 +29,30 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 <!-- _1. 为了将 Demo 和源代码隔离，并让大家更方便地找到 Demo，现已将 Senparc.Weixin.MP.Sample 等文件夹转移到 [/Samples/](/Samples/) 文件夹下。_<br> -->
 <!-- _2. `Senparc.Weixin.Plugins`计划已经启动，详情 [点击这里](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Plugins)。_ -->
 
-## 如何使用文档
 
-::: warning 前提条件
-文档需要 [Node.js](https://nodejs.org/en/) >= 8.6
-:::
+## 🌟 Start：分模块独立说明文档 + Sample 代码示例
+
+模块 | 地址
+----|----
+公众号 | https://sdk.weixin.senparc.com/Docs/MP/
+小程序 | https://sdk.weixin.senparc.com/Docs/WxOpen/
+企业微信 | https://sdk.weixin.senparc.com/Docs/Work/
+微信支付 V3（推荐） | https://sdk.weixin.senparc.com/Docs/TenPayV3/
+微信支付 V2（不推荐） | https://sdk.weixin.senparc.com/Docs/TenPayV2/
+
+> 说明：所有模块的配置、注册、接口调用方法均一致，只要学会其中一个模块开发，就可以举一反三，以下以公众号为例。
+
+## 
+
+
+## 📑 完整开发文档
+
+[/docs](/docs/) 目录中提供了更完整的开发说明文档，可使用以下方式在本机运行：
+<details>
+<summary>展开</summary>
+	
+> 前提条件：运行文档需要 [Node.js](https://nodejs.org/en/) >= 8.6
+
 
 **相关阅读：** 可使用NVM管理Node版本，下载[NVM](https://github.com/coreybutler/nvm-windows/releases)。
 
@@ -54,19 +73,8 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
    ``` bash
    yarn docs:dev
    ```
-
-## 🌟 Start：分模块独立文档
-
-模块 | 地址
-----|----
-公众号 | https://sdk.weixin.senparc.com/Docs/MP/
-小程序 | https://sdk.weixin.senparc.com/Docs/WxOpen/
-企业微信 | https://sdk.weixin.senparc.com/Docs/Work/
-微信支付 V3（推荐） | https://sdk.weixin.senparc.com/Docs/TenPayV3/
-微信支付 V2（不推荐） | https://sdk.weixin.senparc.com/Docs/TenPayV2/
-
-> 说明：所有模块的配置、注册、接口调用方法均一致，只要学会其中一个模块开发，就可以举一反三，以下以公众号为例。
-
+</details>
+	
 ## 🚀 Hello World ：用 3 句代码开启你的微信开发之旅！
 
 > 说明：<br>

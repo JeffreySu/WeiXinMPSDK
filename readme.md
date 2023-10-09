@@ -160,6 +160,7 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 
 此外，您还可以使用 `Controller（或 WebApi）` 方式可以对整个消息处理步骤进行更加细致的控制（或在 .NET Framework 中使用），[点击这里查看](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MessageHandler%E7%AE%80%E5%8C%96%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B)。
 
+至此，您已经掌握了开发微信各平台所需要的基本技能，更多资源请继续往下看：
 
 <img src="https://sdk.weixin.senparc.com/images/SenparcRobotsnapshoot.jpg" width="300" align="right">
 

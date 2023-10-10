@@ -49,6 +49,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：chinanhb - 20230529
     修改描述：添加运单轨迹更新推送 添加OnEvent_AddExpressPath()方法
 
+
+    修改标识：mc7246 - 20230831
+    修改描述：添加小程序发货信息管理服务事件推送 添加OnEvent_TradeManageRemindAccessApi()、OnEvent_TradeManageOrderSettlement()、OnEvent_TradeManageRemindShipping()方法
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;
@@ -114,6 +118,15 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.add_express_path:
                     responseMessage=OnEvent_AddExpressPath(RequestMessage as RequestMessageEvent_AddExpressPath); 
                     break;
+                case Event.trade_manage_order_settlement:
+                    responseMessage = OnEvent_TradeManageOrderSettlement(RequestMessage as RequestMessageEvent_TradeManageOrderSettlement);
+                    break;
+                case Event.trade_manage_remind_access_api:
+                    responseMessage = OnEvent_TradeManageRemindAccessApi(RequestMessage as RequestMessageEvent_TradeManageRemindAccessApi);
+                    break;
+                case Event.trade_manage_remind_shipping:
+                    responseMessage = OnEvent_TradeManageRemindShipping(RequestMessage as RequestMessageEvent_TradeManageRemindShipping);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -121,6 +134,33 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         }
 
         #region Event 下属分类
+        /// <summary>
+        /// 订单将要结算或已经结算事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_TradeManageOrderSettlement(RequestMessageEvent_TradeManageOrderSettlement requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 提醒接入发货信息管理服务API事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_TradeManageRemindAccessApi(RequestMessageEvent_TradeManageRemindAccessApi requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 提醒需要上传发货信息事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_TradeManageRemindShipping(RequestMessageEvent_TradeManageRemindShipping requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
         /// <summary>
         /// 运单轨迹更新推送
         /// </summary>
@@ -312,6 +352,15 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.add_express_path:
                     responseMessage =await OnEvent_AddExpressPathAsync(requestMessage as RequestMessageEvent_AddExpressPath);
                     break;
+                case Event.trade_manage_order_settlement:
+                    responseMessage = await OnEvent_TradeManageOrderSettlementAsync(RequestMessage as RequestMessageEvent_TradeManageOrderSettlement);
+                    break;
+                case Event.trade_manage_remind_access_api:
+                    responseMessage = await OnEvent_TradeManageRemindAccessApiAsync(RequestMessage as RequestMessageEvent_TradeManageRemindAccessApi);
+                    break;
+                case Event.trade_manage_remind_shipping:
+                    responseMessage = await OnEvent_TradeManageRemindShippingAsync(RequestMessage as RequestMessageEvent_TradeManageRemindShipping);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -319,6 +368,33 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         }
 
         #region Event 下属分类
+        /// <summary>
+        /// 【异步方法】订单将要结算或已经结算事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_TradeManageOrderSettlementAsync(RequestMessageEvent_TradeManageOrderSettlement requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_TradeManageOrderSettlement(requestMessage)).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】提醒接入发货信息管理服务API事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_TradeManageRemindAccessApiAsync(RequestMessageEvent_TradeManageRemindAccessApi requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_TradeManageRemindAccessApi(requestMessage)).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】提醒需要上传发货信息事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_TradeManageRemindShippingAsync(RequestMessageEvent_TradeManageRemindShipping requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_TradeManageRemindShipping(requestMessage)).ConfigureAwait(false);
+        }
         /// <summary>
         /// 【异步方法】运单轨迹更新推送
         /// </summary>

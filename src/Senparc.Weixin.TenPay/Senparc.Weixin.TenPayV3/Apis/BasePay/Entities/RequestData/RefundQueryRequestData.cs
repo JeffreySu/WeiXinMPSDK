@@ -27,10 +27,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20230421
 
+    修改标识：Senparc - 20230905
+    修改描述：v0.7.11 RefundQueryRequestData.sub_mchid 属性添加 [JsonIgnore] 标签 #2905
     
 ----------------------------------------------------------------*/
 
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace Senparc.Weixin.TenPayV3.Apis.BasePay
 {
@@ -71,6 +73,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// 子商户的商户号，由微信支付生成并下发。
         /// 示例值：1900000109
         /// </summary>
+        [JsonIgnore]
         public string sub_mchid { get; set; }
         #endregion
 

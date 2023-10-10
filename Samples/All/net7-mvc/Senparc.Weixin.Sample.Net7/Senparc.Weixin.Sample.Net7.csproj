@@ -2,15 +2,15 @@
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
-		<Version>6.6.5</Version>
+		<Version>6.7.2</Version>
 		<UserSecretsId>35e58786-0820-4cde-b1ff-f4c6198d00f7</UserSecretsId>
 		<PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Senparc.CO2NET.WebApi" Version="1.4.2" />
-		<PackageReference Include="Senparc.NeuChar.App" Version="1.3.1.1" />
-		<PackageReference Include="Senparc.NeuChar.AspNet" Version="1.3.2" />
+		<PackageReference Include="Senparc.NeuChar.App" Version="1.3.2" />
+		<PackageReference Include="Senparc.NeuChar.AspNet" Version="1.3.2.1" />
 
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.0" />

@@ -1,4 +1,4 @@
-﻿/*----------------------------------------------------------------
+/*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
 
     文件名：Enums.cs
@@ -49,6 +49,8 @@
     修改标识：Senparc - 20230321
     修改描述：v3.15.17 添加“邮箱获取 userid”接口，增加 Email_Type 枚举
     
+    修改标识：Senparc - 20230914
+    修改描述：v3.16.4 企业微信三方代开发处理事件: 修复 Async 方法循环调用的 Bug，添加 ThirdPartyInfo 枚举值
 
 ----------------------------------------------------------------*/
 
@@ -198,7 +200,7 @@ namespace Senparc.Weixin.Work
         OPEN_APPROVAL_CHANGE
         #endregion
     }
-    
+
     public enum TencentGender
     {
         /// <summary>
@@ -259,16 +261,20 @@ namespace Senparc.Weixin.Work
         /// <summary>
         /// 重置永久授权码通知
         /// </summary>
-        RESET_PERMANENT_CODE
+        RESET_PERMANENT_CODE,
+        /// <summary>
+        /// 开启订单
+        /// </summary>
+        OPEN_ORDER,
     }
-    
+
     public enum ExternalAttributeType
     {
         Text,
         Web,
         Miniprogram
     }
-    
+
     public enum GroupChatJoinScene
     {
         /// <summary>

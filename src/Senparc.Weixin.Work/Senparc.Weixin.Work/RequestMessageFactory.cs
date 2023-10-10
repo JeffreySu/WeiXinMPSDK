@@ -1,4 +1,4 @@
-﻿/*----------------------------------------------------------------
+/*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
   
     文件名：RequestMessageFactory.cs
@@ -22,6 +22,8 @@
     修改标识：Senparc - 20210324
     修改描述：v3.8.202 解决且有微信消息时间返回为 null 的问题
 
+    修改标识：Senparc - 20230914
+    修改描述：v3.16.4 企业微信三方代开发处理事件: 修复 Async 方法循环调用的 Bug
 ----------------------------------------------------------------*/
 
 using System;
@@ -100,6 +102,9 @@ namespace Senparc.Weixin.Work
                             break;
                         case ThirdPartyInfo.CHANGE_CONTACT://通讯录变更通知
                             requestMessage = new RequestMessageInfo_Change_Contact();
+                            break;
+                        case ThirdPartyInfo.RESET_PERMANENT_CODE:
+                            requestMessage = new RequestMessageInfo_Reset_Permanent_Code();
                             break;
                         case ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT:
                             switch (doc.Root.Element("ChangeType").Value.ToUpper())

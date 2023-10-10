@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20211002
     修改描述：v0.3.500.4-preview4.3 TenPaySignHelper.CreateSign() 支持 Linux 和 Windows 环境
     
+    修改标识：Senparc - 20231010
+    修改描述：v1.1.0 TenPaySignHelper.GetJsApiUiPackage() 方法添加 senparcWeixinSettingForTenpayV3 参数
+    
 ----------------------------------------------------------------*/
 
 
@@ -179,12 +182,12 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="appId"></param>
         /// <param name="prepayId"></param>
         /// <returns></returns>
-        public static JsApiUiPackage GetJsApiUiPackage(string appId, string prepayId)
+        public static JsApiUiPackage GetJsApiUiPackage(string appId, string prepayId, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null)
         {
             var timeStamp = TenPayV3Util.GetTimestamp();
             var nonceStr = TenPayV3Util.GetNoncestr();
             var prepayIdPackage = prepayId.Contains("prepay_id=") ? prepayId : string.Format("prepay_id={0}", prepayId);
-            var sign = TenPaySignHelper.CreatePaySign(timeStamp, nonceStr, prepayIdPackage);
+            var sign = TenPaySignHelper.CreatePaySign(timeStamp, nonceStr, prepayIdPackage, senparcWeixinSettingForTenpayV3);
 
             JsApiUiPackage jsApiUiPackage = new(appId, timeStamp, nonceStr, prepayIdPackage, sign);
             return jsApiUiPackage;

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.16.2.2</Version>
+    <Version>3.16.4</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -203,7 +203,8 @@
 		v3.15.21 添加获取子部门ID列表方法,包含同步及异步（PR #2858）
 		v3.15.22 v3.15.22 JSSDKHelper.GetNoncestr() 弃用 MD5 加密方法
 		v3.16.0 MessageHandler 和客服接口支持长文本自动切割后连续发送
-</PackageReleaseNotes>
+		v3.16.4 企业微信三方代开发处理事件: 修复 Async 方法循环调用的 Bug
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>
   </PropertyGroup>
@@ -251,7 +252,7 @@
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="2.3.1.1" />
+    <PackageReference Include="Senparc.NeuChar" Version="2.3.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net7.csproj" />

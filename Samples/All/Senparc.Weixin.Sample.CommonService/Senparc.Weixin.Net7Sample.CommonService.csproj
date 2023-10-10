@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <PackageReference Include="Senparc.NeuChar" Version="2.3.1.1" />
+	  <PackageReference Include="Senparc.NeuChar" Version="2.3.2" />
 	  <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
 	  <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
 	  <PackageReference Include="System.Diagnostics.FileVersionInfo" Version="4.3.0" />

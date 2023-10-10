@@ -36,32 +36,32 @@ features:
 
 ## Document catalogue
 
-| Document catalogue                                                              | Description                        |
-| ------------------------------------------------------------------------------- | ---------------------------------- |
-| [/en/guide/](/en/guide/)                                                          | **Guide**                          |
-| [/en/guide/mp/](/en/guide/mp/install.md)                                        | **MP Document**                    |
-| [&emsp;/en/guide/mp/jssdk/](/en/guide/mp/jssdk.md)                              | &emsp;JSSDK                        |
-| [&emsp;/en/guide/mp/oauth2.0/](/en/guide/mp/oauth2.0.md)                        | &emsp;OAuth 2.0                    |
-| [&emsp;/en/guide/mp/menu/](/en/guide/mp/menu.md)                                | &emsp;Menu Setting                 |
-| [/en/guide/wxopen/](/en/guide/wxopen/install.md)                                | **WxOpen Document**                |
-| [&emsp;/en/guide/request-service/](/en/guide/wxopen/request-service.md)         | &emsp;MiniProgram Request Service  |
-| [&emsp;/en/guide/login/](/en/guide/wxopen/login.md)                             | &emsp;Login                        |
-| [&emsp;/en/guide/get-phone-number/](/en/guide/wxopen/get-phone-number.md)       | &emsp;GetPhoneNumber               |
-| [/en/guide/work/](/en/guide/work/install.md)                                    | **Work Document**                  |
-| [&emsp;/en/guide/work/jssdk-general/](/en/guide/work/jssdk-general.md)          | &emsp;JSSDK (General)              |
-| [&emsp;/en/guide/work/jssdk-agent-config/](/en/guide/work/jssdk-agent-config.md)| &emsp;JSSDK(agentConfig)           |
-| [&emsp;/en/guide/work/oauth2.0/](/en/guide/work/oauth2.0.md)                    | &emsp;OAuth 2.0                    |
-| [&emsp;/en/guide/work/menu/](/en/guide/work/menu.md)                            | &emsp;Menu Setting                 |
-| [/en/guide/tenpayv3/](/en/guide/tenpayv3/install.md)                            | **TenPayV3 Document**              |
-| [&emsp;/en/guide/tenpayv3/jssdk/](/en/guide/tenpayv3/jssdk.md)                  | &emsp;JSAPI                        |
-| [&emsp;/en/guide/tenpayv3/callback/](/en/guide/tenpayv3/callback.md)            | &emsp;PayNotify                    |
-| [&emsp;/en/guide/tenpayv3/nativepay/](/en/guide/tenpayv3/nativepay.md)          | &emsp;Native Pay                   |
-| [&emsp;/en/guide/tenpayv3/refund/](/en/guide/tenpayv3/refund.md)                | &emsp;Refund                       |
-| [/en/guide/tenpayv2/](/en/guide/tenpayv2/install.md)                            | **TenPayV2 Document**              |
-| [&emsp;/en/guide/tenpayv2/jssdk/](/en/guide/tenpayv2/jssdk.md)                  | &emsp;JSAPI                        |
-| [&emsp;/en/guide/tenpayv2/callback/](/en/guide/tenpayv2/callback.md)            | &emsp;PayNotify                    |
-| [&emsp;/en/guide/tenpayv2/nativepay/](/en/guide/tenpayv2/nativepay.md)          | &emsp;Native Pay                   |
-| [&emsp;/en/guide/tenpayv2/refund/](/en/guide/tenpayv2/refund.md)                | &emsp;Refund                       |
+| Document catalogue                                                                        | Description                        |
+| ----------------------------------------------------------------------------------------- | ---------------------------------- |
+| [/docs/en/guide/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/)                                                        | **Guide**                          |
+| [/docs/en/guide/mp/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/mp/install.md)                                        | **MP Document**                    |
+| [&emsp;/docs/en/guide/mp/jssdk/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/mp/jssdk.md)                              | &emsp;JSSDK                        |
+| [&emsp;/docs/en/guide/mp/oauth2.0/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/mp/oauth2.0.md)                        | &emsp;OAuth 2.0                    |
+| [&emsp;/docs/en/guide/mp/menu/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/mp/menu.md)                                | &emsp;Menu Setting                 |
+| [/docs/en/guide/wxopen/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/wxopen/install.md)                                | **WxOpen Document**                |
+| [&emsp;/docs/en/guide/request-service/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/wxopen/request-service.md)         | &emsp;MiniProgram Request Service  |
+| [&emsp;/docs/en/guide/login/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/wxopen/login.md)                             | &emsp;Login                        |
+| [&emsp;/docs/en/guide/get-phone-number/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/wxopen/get-phone-number.md)       | &emsp;GetPhoneNumber               |
+| [/docs/en/guide/work/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/work/install.md)                                    | **Work Document**                  |
+| [&emsp;/docs/en/guide/work/jssdk-general/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/work/jssdk-general.md)          | &emsp;JSSDK (General)              |
+| [&emsp;/docs/en/guide/work/jssdk-agent-config/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/work/jssdk-agent-config.md)| &emsp;JSSDK(agentConfig)           |
+| [&emsp;/docs/en/guide/work/oauth2.0/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/work/oauth2.0.md)                    | &emsp;OAuth 2.0                    |
+| [&emsp;/docs/en/guide/work/menu/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/work/menu.md)                            | &emsp;Menu Setting                 |
+| [/docs/en/guide/tenpayv3/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv3/install.md)                            | **TenPayV3 Document**              |
+| [&emsp;/docs/en/guide/tenpayv3/jssdk/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv3/jssdk.md)                  | &emsp;JSAPI                        |
+| [&emsp;/docs/en/guide/tenpayv3/callback/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv3/callback.md)            | &emsp;PayNotify                    |
+| [&emsp;/docs/en/guide/tenpayv3/nativepay/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv3/nativepay.md)          | &emsp;Native Pay                   |
+| [&emsp;/docs/en/guide/tenpayv3/refund/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv3/refund.md)                | &emsp;Refund                       |
+| [/docs/en/guide/tenpayv2/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv2/install.md)                            | **TenPayV2 Document**              |
+| [&emsp;/docs/en/guide/tenpayv2/jssdk/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv2/jssdk.md)                  | &emsp;JSAPI                        |
+| [&emsp;/docs/en/guide/tenpayv2/callback/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv2/callback.md)            | &emsp;PayNotify                    |
+| [&emsp;/docs/en/guide/tenpayv2/nativepay/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv2/nativepay.md)          | &emsp;Native Pay                   |
+| [&emsp;/docs/en/guide/tenpayv2/refund/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv2/refund.md)                | &emsp;Refund                       |
 
 ::: slot footer
 Apache License Version 2.0 | Copyright © 2006-present [JeffreySu/WeiXinMPSDK](https://github.com/JeffreySu/WeiXinMPSDK)

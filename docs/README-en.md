@@ -34,47 +34,34 @@ features:
    yarn docs:dev
    ```
 
-<style>
-table{
-    display: table;
-    min-width: 100%;
-}
-table th:first-of-type {
-    width: 60%;
-}
-table th:nth-of-type(2) {
-    width: 40%;
-}
-</style>
-
 ## Document catalogue
 
-| Document catalogue                                                              | Description                        |
-| ------------------------------------------------------------------------------- | ---------------------------------- |
-| [zh/guide/](zh/guide/)                                                          | **Guide**                          |
-| [zh/guide/mp/](zh/guide/mp/install.html)                                        | **MP Document**                    |
-| [&emsp;zh/guide/mp/jssdk/](zh/guide/mp/jssdk.html)                              | &emsp;JSSDK                        |
-| [&emsp;zh/guide/mp/oauth2.0/](zh/guide/mp/oauth2.0.html)                        | &emsp;OAuth 2.0                    |
-| [&emsp;zh/guide/mp/menu/](zh/guide/mp/menu.html)                                | &emsp;Menu Setting                 |
-| [zh/guide/wxopen/](zh/guide/wxopen/install.html)                                | **WxOpen Document**                |
-| [&emsp;zh/guide/request-service/](zh/guide/wxopen/request-service.html)         | &emsp;MiniProgram Request Service  |
-| [&emsp;zh/guide/login/](zh/guide/wxopen/login.html)                             | &emsp;Login                        |
-| [&emsp;zh/guide/get-phone-number/](zh/guide/wxopen/get-phone-number.html)       | &emsp;GetPhoneNumber               |
-| [zh/guide/work/](zh/guide/work/install.html)                                    | **Work Document**                  |
-| [&emsp;zh/guide/work/jssdk-general/](zh/guide/work/jssdk-general.html)          | &emsp;JSSDK (General)              |
-| [&emsp;zh/guide/work/jssdk-agent-config/](zh/guide/work/jssdk-agent-config.html)| &emsp;JSSDK(agentConfig)           |
-| [&emsp;zh/guide/work/oauth2.0/](zh/guide/work/oauth2.0.html)                    | &emsp;OAuth 2.0                    |
-| [&emsp;zh/guide/work/menu/](zh/guide/work/menu.html)                            | &emsp;Menu Setting                 |
-| [zh/guide/tenpayv3/](zh/guide/tenpayv3/install.html)                            | **TenPayV3 Document**              |
-| [&emsp;zh/guide/tenpayv3/jssdk/](zh/guide/tenpayv3/jssdk.html)                  | &emsp;JSAPI                        |
-| [&emsp;zh/guide/tenpayv3/callback/](zh/guide/tenpayv3/callback.html)            | &emsp;PayNotify                    |
-| [&emsp;zh/guide/tenpayv3/nativepay/](zh/guide/tenpayv3/nativepay.html)          | &emsp;Native Pay                   |
-| [&emsp;zh/guide/tenpayv3/refund/](zh/guide/tenpayv3/refund.html)                | &emsp;Refund                       |
-| [zh/guide/tenpayv2/](zh/guide/tenpayv2/install.html)                            | **TenPayV2 Document**              |
-| [&emsp;zh/guide/tenpayv2/jssdk/](zh/guide/tenpayv2/jssdk.html)                  | &emsp;JSAPI                        |
-| [&emsp;zh/guide/tenpayv2/callback/](zh/guide/tenpayv2/callback.html)            | &emsp;PayNotify                    |
-| [&emsp;zh/guide/tenpayv2/nativepay/](zh/guide/tenpayv2/nativepay.html)          | &emsp;Native Pay                   |
-| [&emsp;zh/guide/tenpayv2/refund/](zh/guide/tenpayv2/refund.html)                | &emsp;Refund                       |
+| Document catalogue                                                                        | Description                        |
+| ----------------------------------------------------------------------------------------- | ---------------------------------- |
+| [/docs/en/guide/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/)                                                        | **Guide**                          |
+| [/docs/en/guide/mp/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/mp/install.md)                                        | **MP Document**                    |
+| [&emsp;/docs/en/guide/mp/jssdk/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/mp/jssdk.md)                              | &emsp;JSSDK                        |
+| [&emsp;/docs/en/guide/mp/oauth2.0/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/mp/oauth2.0.md)                        | &emsp;OAuth 2.0                    |
+| [&emsp;/docs/en/guide/mp/menu/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/mp/menu.md)                                | &emsp;Menu Setting                 |
+| [/docs/en/guide/wxopen/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/wxopen/install.md)                                | **WxOpen Document**                |
+| [&emsp;/docs/en/guide/request-service/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/wxopen/request-service.md)         | &emsp;MiniProgram Request Service  |
+| [&emsp;/docs/en/guide/login/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/wxopen/login.md)                             | &emsp;Login                        |
+| [&emsp;/docs/en/guide/get-phone-number/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/wxopen/get-phone-number.md)       | &emsp;GetPhoneNumber               |
+| [/docs/en/guide/work/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/work/install.md)                                    | **Work Document**                  |
+| [&emsp;/docs/en/guide/work/jssdk-general/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/work/jssdk-general.md)          | &emsp;JSSDK (General)              |
+| [&emsp;/docs/en/guide/work/jssdk-agent-config/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/work/jssdk-agent-config.md)| &emsp;JSSDK(agentConfig)           |
+| [&emsp;/docs/en/guide/work/oauth2.0/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/work/oauth2.0.md)                    | &emsp;OAuth 2.0                    |
+| [&emsp;/docs/en/guide/work/menu/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/work/menu.md)                            | &emsp;Menu Setting                 |
+| [/docs/en/guide/tenpayv3/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv3/install.md)                            | **TenPayV3 Document**              |
+| [&emsp;/docs/en/guide/tenpayv3/jssdk/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv3/jssdk.md)                  | &emsp;JSAPI                        |
+| [&emsp;/docs/en/guide/tenpayv3/callback/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv3/callback.md)            | &emsp;PayNotify                    |
+| [&emsp;/docs/en/guide/tenpayv3/nativepay/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv3/nativepay.md)          | &emsp;Native Pay                   |
+| [&emsp;/docs/en/guide/tenpayv3/refund/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv3/refund.md)                | &emsp;Refund                       |
+| [/docs/en/guide/tenpayv2/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv2/install.md)                            | **TenPayV2 Document**              |
+| [&emsp;/docs/en/guide/tenpayv2/jssdk/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv2/jssdk.md)                  | &emsp;JSAPI                        |
+| [&emsp;/docs/en/guide/tenpayv2/callback/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv2/callback.md)            | &emsp;PayNotify                    |
+| [&emsp;/docs/en/guide/tenpayv2/nativepay/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv2/nativepay.md)          | &emsp;Native Pay                   |
+| [&emsp;/docs/en/guide/tenpayv2/refund/](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/docs/en/guide/tenpayv2/refund.md)                | &emsp;Refund                       |
 
 ::: slot footer
 Apache License Version 2.0 | Copyright © 2006-present [JeffreySu/WeiXinMPSDK](https://github.com/JeffreySu/WeiXinMPSDK)

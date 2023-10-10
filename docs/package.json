@@ -11,7 +11,7 @@
     "vuepress": "^1.9.9"
   },
   "scripts": {
-    "docs:dev": "vuepress dev docs --host localhost --open true",
-    "docs:build": "vuepress build docs"
+    "docs:dev": "vuepress dev --host localhost --open true",
+    "docs:build": "vuepress build"
   }
 }

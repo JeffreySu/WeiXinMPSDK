@@ -124,8 +124,20 @@ namespace Senparc.Weixin.Work
                                 case "DEL_FOLLOW_USER":
                                     requestMessage = new RequestMessageEvent_Change_ExternalContact_Del_FollowUser();
                                     break;
+                                case "TRANSFER_FAIL":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Transfer_Fail();
+                                    break;
                                 case "MSG_AUDIT_APPROVED":
                                     requestMessage = new RequestMessageEvent_Change_ExternalContact_MsgAudit();
+                                    break;
+                                case "CREATE":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Create();
+                                    break;
+                                case "UPDATE":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Update();
+                                    break;
+                                case "DISMISS":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Dismiss();
                                     break;
                                 default:
                                     requestMessage = new RequestMessageEvent_Change_ExternalContact_Base();
@@ -139,12 +151,12 @@ namespace Senparc.Weixin.Work
                 }
                 catch (ArgumentException ex)
                 {
-                    throw new WeixinException(string.Format("RequestMessage转换出错！可能是MsgType和InfoType都不存在！，XML：{0}", doc.ToString()), ex);
+                    throw new WeixinException(string.Format("RequestMessage转换异常！InfoType类型存在的情况下无法处理！，XML：{0}", doc.ToString()), ex);
                 }
             }
             else
             {
-                throw new WeixinException(string.Format("RequestMessage转换出错！可能是MsgType和InfoType都不存在！，XML：{0}", doc.ToString()));
+                throw new WeixinException(string.Format("RequestMessage转换出错！MsgType和InfoType都不存在！，XML：{0}", doc.ToString()));
             }
 
             return requestMessage;

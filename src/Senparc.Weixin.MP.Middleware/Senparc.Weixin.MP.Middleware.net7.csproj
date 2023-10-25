@@ -75,7 +75,7 @@
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar.AspNet" Version="1.3.2.1" />
+    <PackageReference Include="Senparc.NeuChar.AspNet" Version="1.3.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net7.csproj" />

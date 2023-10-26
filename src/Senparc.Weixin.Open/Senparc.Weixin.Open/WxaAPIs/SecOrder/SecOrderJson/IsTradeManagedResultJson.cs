@@ -21,37 +21,26 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
     
-    文件名：SubmitAuditPageInfo.cs
-    文件功能描述：小程序页面返回结果
+    文件名：IsTradeManagedResultJson.cs
+    文件功能描述：查询小程序是否已开通发货信息管理服务
     
     
-    创建标识：Senparc - 20170726
-    
+    创建标识：Yaofeng - 20231026
 
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Entities;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Senparc.Weixin.Open.WxaAPIs.Code
+namespace Senparc.Weixin.Open.WxaAPIs.SecOrder
 {
     /// <summary>
-    /// 预览信息（小程序页面截图和操作录屏）
+    /// 查询小程序是否已开通发货信息管理服务
     /// </summary>
-    public class SubmitAuditPreviewInfo
+    public class IsTradeManagedResultJson : WxJsonResult
     {
         /// <summary>
-        /// 录屏mediaid列表，可以通过提审素材上传接口获得
+        /// 是否已开通小程序发货信息管理服务
         /// </summary>
-        public string[] video_id_list { get; set; }
-
-        /// <summary>
-        /// 截屏mediaid列表，可以通过提审素材上传接口获得
-        /// </summary>
-        public string[] pic_id_list { get; set; }
+        public bool is_trade_managed { get; set; }
     }
 }

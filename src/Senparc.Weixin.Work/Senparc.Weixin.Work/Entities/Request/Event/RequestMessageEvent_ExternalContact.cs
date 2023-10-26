@@ -105,7 +105,7 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
     public class RequestMessageEvent_Change_ExternalContact_Del : RequestMessageEvent_Change_ExternalContact_Base
     {
         public override ExternalContactChangeType ChangeType => ExternalContactChangeType.del_external_contact;
-     
+
         /// <summary>
         /// 企业服务人员的UserID
         /// </summary>
@@ -125,11 +125,85 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
     }
 
     /// <summary>
+    /// 客户接替失败事件
+    /// </summary>
+    public class RequestMessageEvent_Change_ExternalContact_Transfer_Fail : RequestMessageEvent_Change_ExternalContact_Base
+    {
+        public override ExternalContactChangeType ChangeType => ExternalContactChangeType.transfer_fail;
+
+        /// <summary>
+        /// 接替失败的原因, customer_refused-客户拒绝， customer_limit_exceed-接替成员的客户数达到上限
+        /// </summary>
+        public string FailReason { get; set; }
+        /// <summary>
+        /// 企业服务人员的UserID
+        /// </summary>
+        public string UserID { get; set; }
+        /// <summary>
+        /// 外部联系人的userid
+        /// </summary>
+        public string ExternalUserID { get; set; }
+    }
+
+    /// <summary>
     /// 客户同意进行聊天内容存档(灰度)
     /// </summary>
     public class RequestMessageEvent_Change_ExternalContact_MsgAudit : RequestMessageEvent_Change_ExternalContact_Add
     {
         public override ExternalContactChangeType ChangeType => ExternalContactChangeType.msg_audit_approved;
+    }
+
+    /// <summary>
+    /// 客户群创建事件
+    /// </summary>
+    public class RequestMessageEvent_Change_ExternalContact_Create : RequestMessageEvent_Change_ExternalContact_Base
+    {
+        public override ExternalContactChangeType ChangeType => ExternalContactChangeType.create;
+    }
+
+    /// <summary>
+    /// 客户群变更事件
+    /// </summary>
+    public class RequestMessageEvent_Change_ExternalContact_Update : RequestMessageEvent_Change_ExternalContact_Base
+    {
+        public override ExternalContactChangeType ChangeType => ExternalContactChangeType.update;
+
+        /// <summary>
+        /// 变更详情。目前有以下几种：
+        /// add_member : 成员入群
+        /// del_member : 成员退群
+        /// change_owner : 群主变更
+        /// change_name : 群名变更
+        /// change_notice : 群公告变更
+        /// </summary>
+        public string UpdateDetail { get; set; }
+
+        /// <summary>
+        /// 当是成员入群时有值。表示成员的入群方式
+        /// 0 - 由成员邀请入群（包括直接邀请入群和通过邀请链接入群）
+        /// 3 - 通过扫描群二维码入群
+        /// </summary>
+        public string JoinScene { get; set; }
+
+        /// <summary>
+        /// 当是成员退群时有值。表示成员的退群方式
+        /// 0 - 自己退群
+        /// 1 - 群主/群管理员移出
+        /// </summary>
+        public string QuitScene { get; set; }
+
+        /// <summary>
+        /// 当是成员入群或退群时有值。表示成员变更数量
+        /// </summary>
+        public int MemChangeCnt { get; set; }
+    }
+
+    /// <summary>
+    /// 客户群解散事件
+    /// </summary>
+    public class RequestMessageEvent_Change_ExternalContact_Dismiss : RequestMessageEvent_Change_ExternalContact_Base
+    {
+        public override ExternalContactChangeType ChangeType => ExternalContactChangeType.dismiss;
     }
 
 
@@ -161,6 +235,22 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
         /// <summary>
         /// 客户同意进行聊天内容存档事件回调(此功能仍在灰度)
         /// </summary>
-        msg_audit_approved
+        msg_audit_approved,
+        /// <summary>
+        /// 客户接替失败事件
+        /// </summary>
+        transfer_fail,
+        /// <summary>
+        /// 客户群创建事件
+        /// </summary>
+        create,
+        /// <summary>
+        /// 客户群变更事件
+        /// </summary>
+        update,
+        /// <summary>
+        /// 客户群解散事件
+        /// </summary>
+        dismiss,
     }
 }

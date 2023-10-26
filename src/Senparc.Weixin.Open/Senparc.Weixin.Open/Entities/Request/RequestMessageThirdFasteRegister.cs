@@ -13,6 +13,10 @@
 
     修改标识：Senparc - 20190530
     修改描述：v4.5.4.1 GetAuditStatusResultJson 改名为 GetAuditResultJson，保持全局命名唯一性
+
+    修改标识：Senparc - 20231026
+    修改描述：v4.16.0 处理三方推送消息枚举
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Open

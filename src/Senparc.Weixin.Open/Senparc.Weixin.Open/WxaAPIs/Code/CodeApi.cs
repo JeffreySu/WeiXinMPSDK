@@ -59,6 +59,7 @@ using System.IO;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Open.WxaAPIs.Code;
 
 namespace Senparc.Weixin.Open.WxaAPIs
 {

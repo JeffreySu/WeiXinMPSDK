@@ -104,12 +104,16 @@ namespace Senparc.Weixin.CommonAPIs
                 ErrorJsonResultException ex = null;
                 if (errorResult.errcode != ReturnCode.请求成功)
                 {
+                    var hints = errorResult.Hints?.ToJson();
+                    if (!string.IsNullOrWhiteSpace(hints))
+                        hints = $"Hints：{hints}";
+
                     //发生错误，记录异常
                     ex = new ErrorJsonResultException(
-                          string.Format("微信 POST 请求发生错误！错误代码：{0}；说明：{1}；Hints：{2}",
+                          string.Format("微信 POST 请求发生错误！错误代码：{0}；说明：{1}；{2}",
                                         (int)errorResult.errcode,
                                         errorResult.errmsg,
-                                        errorResult.Hints?.ToJson()),
+                                        hints),
                           null, errorResult, apiUrl);
                 }
 

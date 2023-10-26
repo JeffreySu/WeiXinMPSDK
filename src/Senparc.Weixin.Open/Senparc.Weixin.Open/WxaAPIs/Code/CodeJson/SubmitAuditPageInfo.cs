@@ -39,7 +39,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.Open.WxaAPIs
+namespace Senparc.Weixin.Open.WxaAPIs.Code
 {
     public class SubmitAuditPageInfo
     {

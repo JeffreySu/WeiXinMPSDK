@@ -72,7 +72,7 @@
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar.AspNet" Version="1.3.2.1" />
+    <PackageReference Include="Senparc.NeuChar.AspNet" Version="1.3.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net7.csproj" />

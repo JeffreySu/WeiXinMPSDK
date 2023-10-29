@@ -54,7 +54,7 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 有个性化菜单时显示。最新的在最前。
         /// </summary>
-        public List<MenuFull_ConditionalButtonGroup> conditionalmenu { get; set; }
+        public List<ConditionalButtonGroup> conditionalmenu { get; set; }
     }
 
     public class MenuFull_ButtonGroup

@@ -39,6 +39,7 @@ namespace Senparc.Weixin.MP.Entities.Menu
     /// </summary>
     public class ConditionalButtonGroup :ButtonGroupBase, IButtonGroupBase
     {
+        public new List<MenuFull_RootButton> button { get; set; }
         public MenuMatchRule matchrule { get; set; }
         /// <summary>
         /// 菜单Id，只在获取的时候自动填充，提交“菜单创建”请求时不需要设置

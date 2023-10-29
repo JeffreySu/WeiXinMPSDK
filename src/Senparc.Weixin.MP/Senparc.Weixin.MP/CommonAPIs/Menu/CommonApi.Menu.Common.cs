@@ -435,7 +435,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 result = new GetMenuResult(buttonGroupBase)
                 {
                     menu = buttonGroup,
-                    conditionalmenu = resultFull.conditionalmenu
+                    conditionalmenu = new List<ConditionalButtonGroup>()
                 };
 
                 //设置个性化菜单列表

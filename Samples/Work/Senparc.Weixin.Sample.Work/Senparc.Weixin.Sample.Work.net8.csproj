@@ -12,7 +12,7 @@
 	<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
 	<ItemGroup Condition=" '$(Configuration)' != 'Release' ">
 		<PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
-		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.0-rc.2.23480.2" />
 		<!--<EmbeddedResource Include="..\..\Shared\Senparc.Weixin.Sample.Shared\wwwroot\**\*">
 			<Link>wwwroot\%(RecursiveDir)/%(FileName)%(Extension)</Link>
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -26,7 +26,7 @@
 	<!--引用 Nuget 包-->
 	<ItemGroup>
 	  <PackageReference Include="Senparc.Weixin.AspNet" Version="1.0.5-beta1" />
-	  <PackageReference Include="Senparc.Weixin.Work" Version="3.16.4" />
+	  <PackageReference Include="Senparc.Weixin.Work" Version="3.17.0" />
 	  <PackageReference Include="Senparc.Weixin.Work.Middleware" Version="1.0.6-beta1" />
 	</ItemGroup>
 

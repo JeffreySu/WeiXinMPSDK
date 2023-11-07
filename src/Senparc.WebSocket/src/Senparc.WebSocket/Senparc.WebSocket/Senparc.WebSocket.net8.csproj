@@ -81,6 +81,10 @@
     <OutputPath>..\..\..\..\BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\..\..\BuildOutPut\netcoreapp3.1\Senparc.WebSocket.xml</DocumentationFile>
   </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0|AnyCPU'">
+		<OutputPath>..\..\..\..\BuildOutPut\</OutputPath>
+		<DocumentationFile>..\..\..\..\BuildOutPut\net8.0\Senparc.WebSocket.xml</DocumentationFile>
+	</PropertyGroup>
   <ItemGroup>
     <None Include="..\..\..\..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>

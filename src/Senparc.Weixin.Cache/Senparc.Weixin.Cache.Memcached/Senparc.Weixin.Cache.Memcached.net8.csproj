@@ -137,13 +137,12 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net462' ">
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0-rc.2.23479.6" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="MamcachedCacheLock.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0-rc.2.23479.6" />
     <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="4.1.4" />
   </ItemGroup>
   <ItemGroup>

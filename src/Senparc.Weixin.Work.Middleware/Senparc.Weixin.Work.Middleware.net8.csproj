@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net8.0</TargetFrameworks>
     <Version>1.0.6-beta1</Version>
     <AssemblyName>Senparc.Weixin.Work.Middleware</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work.Middleware</RootNamespace>
@@ -57,13 +57,9 @@
     <OutputPath>..\BuildOutPut\</OutputPath>
     <DocumentationFile>..\BuildOutPut\netcoreapp3.1\Senparc.Weixin.Work.Middleware.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0|AnyCPU'">
     <OutputPath>..\BuildOutPut\</OutputPath>
-    <DocumentationFile>..\BuildOutPut\net6.0\Senparc.Weixin.Work.Middleware.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0|AnyCPU'">
-    <OutputPath>..\BuildOutPut\</OutputPath>
-    <DocumentationFile>..\BuildOutPut\net7.0\Senparc.Weixin.Work.Middleware.xml</DocumentationFile>
+    <DocumentationFile>..\BuildOutPut\net8.0\Senparc.Weixin.Work.Middleware.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />

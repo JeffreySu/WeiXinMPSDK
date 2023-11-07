@@ -1,0 +1,406 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
+    <Version>6.16.6</Version>
+    <LangVersion>10.0</LangVersion>
+    <AssemblyName>Senparc.Weixin</AssemblyName>
+    <RootNamespace>Senparc.Weixin</RootNamespace>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <Description>
+			微信 SDK - Senparc.Weixin SDK 基础模块
+
+			Senparc.Weixin SDK 开源项目：
+			https://github.com/JeffreySu/WeiXinMPSDK
+		</Description>
+    <Copyright>Senparc Copyright © 2004~2023</Copyright>
+    <PackageTags>微信,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,Cache,Redis</PackageTags>
+    <Authors>Jeffrey Su</Authors>
+    <Owners>Senparc</Owners>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
+    <Title>Senparc.Weixin.dll</Title>
+    <Summary>微信公众号SDK for C#</Summary>
+    <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
+    <PackageIcon>icon.jpg</PackageIcon>
+    <PackageReleaseNotes>
+			v1.0.0
+			重构代码，从原来的Senparc.Weixin.MP.dll中分离基类代码
+
+			v1.4.0
+			重构代码，完全兼容公众账号及企业号。
+
+			v1.5.0
+			添加统一的消息加密接口
+
+			v1.6.0
+			添加消息去重功能
+
+			v1.6.1
+			完善消息去重功能
+
+			v2.0.0
+			重构代码，加入AppStore接口
+
+			v3.0.0
+			.NET框架升级到4.0
+
+			v3.3.4
+			区分企业号与公众号的返回码
+			post表单处理修改
+
+			v3.3.6
+			修改HttpUtility方法
+
+			v3.3.7 添加 验证服务器证书回调自动验证功能
+
+			v3.3.8 稳定版本
+
+			v3.3.9 优化PostModel基类属性，稳定版本
+
+			v4.1.0 添加异步代码，支持.NET 4.5
+
+			v4.2.1 完善异步方法，添加JSON生成过程中null对象的过滤机制。
+
+			v4.2.3 完善底层代码
+
+			v4.3.2 增加统一的Container和Bag管理器
+
+			v4.4.1 重构，增加Debug跟踪功能
+
+			v4.5 添加分布式缓存接口
+			v4.5.6 优化缓存策略
+			v4.5.12 优化缓存策略结构
+			v4.5.14 优化重构
+			v4.5.17 优化列队及缓存方案
+			v4.5.19 优化Http通讯方法
+			v4.5.20 添加消息接口IResponseMessageNoResponse
+			v4.5.22 添加BaseContainerBag.Name
+
+			v4.6.0
+			优化EntityHelper等方法
+
+			v4.7.3
+			重构缓存及Container相关
+
+			v4.7.4 解决Container无法注册的问题
+
+			v4.7.5
+			添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
+
+			v4.7.7
+			重构缓存键命名空间规则，添加Config.DefaultCacheNamespace
+
+			v4.8.0
+			修正在ResponseMessage都null的情况下，没有对_textResponseMessage做判断就直接返回空字符串的问题
+
+			v4.9.0 重构缓存，添加ObjectCacheStrategy
+			v4.9.1 重写WxJsonResult.ToString()方法，输出带格式的内容。
+			v4.9.2 Senparc.Weixin v4.9.2 添加FileHelper
+			v4.9.3 添加小程序返回码添加小程序返回码
+			v4.9.5 添加Sex枚举
+			v4.9.6 修改错别字Browser-&gt;Browser，请注意全局替换更新
+
+			v4.9.7
+			1、WeixinTrace使用同步锁，取代原先的本地锁
+			2、修改日志储存路径，新路径为/App_Data/WeixinTraceLog/SenparcWeixinTrace-yyyyMMdd.log
+			3、完善异常日志记录
+			v4.9.8 将SendLog方法改名为SendApiLog
+			v4.9.9
+			1、优化WeixinTrace
+			2、统一MessageHandlerException、UnknownRequestMsgTypeException的构造函数调用（将第一个构造函数的base改为this）；
+			3、修改UnknownRequestMsgTypeException的基类为MessageHandlerException
+			4、添加【ReturnCode.template_id】不正确枚举
+			5、修改ErrorJsonResultException日志记录格式
+			v4.9.11 添加SuccessResponseMessageBase类型响应信息基类
+
+			v4.9.14
+			为AsUrlData方法添加null判断
+			v4.9.15 添加AES加密、解密算法
+
+			v4.10.0 添加TemplateMessageBase作为所有模板消息数据实体基类
+			Senparc.Weixin v4.10.1 添加SerializerHelper.GetObject方法
+			v4.10.3 BaseContainer添加RemoveFromCache方法
+			v4.10.4 优化FileHelper.GetFileStream方法
+
+			v4.11.0 重构分布式锁
+			v4.11.1 添加【ReturnCode.appsecret不正确】枚举类型（invalid appsecret，40125）
+			v4.11.2 ：
+			修改SideInWeixinBrowser判断逻辑
+			v4.11.3 ：
+			日志中添加对线程的记录
+			v4.11.4 ：
+			修改EncryptHelper.GetSha1(string encypStr)方法算法
+			v4.11.5：修复WeixinJsonConventer.Serialize中的错误。
+			v4.11.6：修改注释，整理文件
+			v4.11.7 请求证书都改为 X509Certificate2 类型
+			v4.11.8 （MessageHandler V3.2）修复 TextResponseMessage 不输出加密信息的问题
+			v4.11.9 修改Download方法
+			v4.11.10 恢复.net core版本中的EncryptHelper.GetSha1()方法可用
+			v4.11.11 添加MessageHandlerExtensions
+
+			v4.12.0 优化最新 .NET Core 模块
+			v4.12.1 修复因为netstandard1.6条件编译符不正确造成的部分代码短路
+			v4.12.2 修复HttpUtility.UrlEncode .net core方法错误
+			v4.12.3 修复HttpUtility.UrlEncode .net 4.5方法错误
+
+			v4.12.1 修复因为netstandard1.6条件编译符不正确造成的部分代码短路
+			添加SenparcWeixinSetting配置类
+			v4.12.2 修复HttpUtility.UrlEncode .net core方法错误
+			v4.12.3 修复HttpUtility.UrlEncode .net 4.5方法错误
+			v4.12.4 MessageHandler基类默认开启消息去重，不再需要手动设置（messageHandler.OmitRepeatedMessage = true）
+			v4.12.5 提供对企业微信的支持：添加WorkJsonResult（企业微信返回消息基类）、ReturnCode_Work（枚举）
+
+			v4.12.5 提供对企业微信的支持：添加WorkJsonResult（企业微信返回消息基类）、ReturnCode_Work（枚举）
+			v4.12.6 添加ASCIISort比较类，用于ASCII字典排序
+
+			v4.13.0
+			1、IJsonResult 接口添加 ErrorCodeValue 属性
+			2、添加MutipleCacheTestHelper类（多种缓存测试帮助类）
+			3、添加ReflectionHelper类（反射帮助类）
+			4、完善本地缓存策略插入key
+			v4.13.1 优化ApiHandlerWapperBase.TryCommonApiBaseAsync()方法
+			v4.13.2 添加RequestMessageTextExtension的大小写是否敏感设置
+			v4.13.3 为RequestUtility.HttpGet()方法添加Accept、UserAgent、KeepAlive设置
+			v4.13.4 修改企业微信APPId判断标准错误（使用新规则）
+
+			v4.13.5
+			1、完善AppId未注册提示
+			2、修复ApiHandlerWapperBase.TryCommonApiBase()方法自动刷新AccessToken的问题
+			3、提供统一的EntityHelper
+			4、ReturnCode添加：没有留言权限 = 88000
+
+			v4.14.0
+			1、修复RequestMessageTextExtension.GetResponseMessage()方法判断问题
+			2、支持.NET Core 2.0
+			v4.14.3 重构MD5生成方法，并提供小写MD5方法
+			v4.14.4 常规更新
+
+			v4.15.0
+			1、添加 WeixinNullReferenceException 异常类型
+			2、添加 UrlUtility（Url工具类），生成 OAuth 用的额 CallbackUrl 参数
+			v4.15.1 优化 DateTimeHelper 计算方式
+
+			v4.16.0 添加 Senparc.Weixin.Config.UseSandBoxPay 属性，使用微信支付接口时自动判断是否调用沙箱
+			v4.16.1 （.NET Core）添加CoreWebProxy.cs
+			v4.16.3 在 NetStandard 2.0中恢复 WeixinTrace 的日志功能
+			v4.16.4 在 2017年9月26日企业号长度变化，对应修改IsAppId()方法逻辑
+			v4.16.5 尝试解决微信{utf8"编码字符串带来的.net core runtime 对 content-type的解析错误
+			v4.16.6 提供NETCOREAPP2_0编译
+			v4.16.7 继续解决.net core 2.0下utf8和utf-8的问题处理
+			v4.16.8 优化 .net core 2.0 RequestUtility异步方法
+			v4.16.9 添加 ObjectExtensions，补充扩展方法
+			v4.16.10 优化.net core环境下的WeixinTrace日志输出路径
+
+			v4.17.0-beta1 重构HttpUtility，重新支持 .NET 4.0
+			v4.17.0-beta3 重新支持 .NET 3.5
+			v4.17.0-beta4 优化
+			v4.17.1 优化WeixinTrace
+			v4.17.2 丰富SenparcWeixinSetting参数
+			v4.17.3 添加RequestUtility.HttpResponseGet()方法，提供外部测试通道
+
+			v4.18.0 RequestUtility的Post和Get方法开始支持模拟Ajax请求
+			v4.18.1 修改Get.Download()方法
+			v4.18.2 新建SenparcHttpResponse，重构重构RequestUtility.HttpPost()方法
+			v4.18.3 v4.18.2-beta发布正式版
+			v4.18.4 修正当.net core 2.0中对请求的流不支持Seek 时的判断
+			v4.18.5 添加Config.ApiMpHost属性，可以设置API域名
+			v4.18.6 重新设置企业微信默认域名
+			v4.18.7 调整HttpUtility.Get.Download(string url, string filePathName)，改为输入完整文件路径+文件名
+			v4.18.8 优化CommonJsonSend中的方法，并完善Post数据的日志记录
+			v4.18.9 优化MD5获取方法：EncryptHelper.GetMD5()
+			v4.18.10 添加 EncryptHelper.GetHmacSha256() 方法，为“小游戏”签名提供支持
+			v4.18.11 添加 WeixinObsoleteException，用于标记接口或方法过期异常
+			v4.18.13
+			1、添加 Config.ApiMpFileHost 公众号文件下载域名
+			2、修改 HttpUtility.Get.Download() 方法，根据 Content-Disposition 中的文件名储存文件
+			v4.18.14 优化 HttpUtility.RequestUtility.HttpPost() 方法，优化文件流上传
+
+			v4.19.0 支持异步 MessageHandler
+
+			v4.20.0 停止对 .net core 1.1 生成的独立版本
+			v4.20.1 提供 RegisterServices 进行快捷注册
+			v4.20.2
+			1、添加IRequestMessageTextOrEvent，作为所有文本（RequestMessageText）或事件（RequestMessageEvent）接口
+			2、添加IRequestMessageEvent作为所有事件（RequestMessageEvent接口）
+			v4.20.3 为 .NET Core 优化 UrlUtility.GenerateOAuthCallbackUrl() 方法中的端口获取过程
+			v4.20.4 增加对小程序 web-view 内打开页面的判断方法 BrowserUtility.SideInWeixinMiniProgram()
+
+			v4.21.0-rc1 支持 .NET Core 2.1.2
+			v4.21.2-rc1 完善 .net core 注册流程
+			v4.21.3-rc1 为 .net core 2.1 改进条件编译
+			v4.21.4-rc1 完善 .net core 环境下的文件上传机制，解决文件占用问题
+			v4.21.5-rc1 修改 TenPayV3Util.DecodeRefundReqInfo() 方法，解决重复 base64 解码的问题
+			v4.21.6-rc1 添加 RequestUtility.GetRequestMemoryStream() 方法
+
+			v4.22.0-rc1 将 JsonSetting 继承 JsonSerializerSettings，使用 Newtonsoft.Json 进行序列化
+			v4.22.1-rc1
+			1、丰富 SenparcWeixinSetting 参数（Component_Token、Component_EncodingAESKey）
+			2、添加 RequestExtension
+
+			v4.22.1 发布支持 .net core 2.1 的正式版
+			v4.22.2 完善 RequestUtility.HttpPost_Common_NetCore() 字符串信息提交过程
+
+			v5.0.0 引入 Senparc.CO2NET
+			v5.0.2-preview1 支持 CO2NET v0.1.2
+			v5.0.3.1-perview
+			v5.0.6.1 支持 CO2NET v0.1.6.1 解决 XXE 漏洞
+			v5.0.7 支持 CO2NET v0.1.7，为 WeixinRegister.UseSenparcWeixin() 方法提供自动注册扩展缓存的能力
+			v5.0.8
+			1、SenparcWeixinSetting 构造函数提供 isDebug 参数
+			2、优化扩展缓存自动注册过程
+			v5.0.8.4 优化 WeixinRegister.UseSenparcWeixin() 提供 autoScanExtensionCacheStrategies 参数，可设置是否全局扫描扩展缓存（扫描会增加系统启动时间）
+			v5.0.9
+			1、支持 CO2NET v0.1.9，扩展缓存扫描方式重构
+			2、重构 SenparcWeixinSetting 参数，添加公众号信息集中管理功能
+			3、重构账号注册过程
+			v5.0.10 支持 CO2NET v0.1.10，将 SenparcWeixinSetting 中的 Redis 和 Memcached 配置参数调整到 CO2NET 的 SenparcSetting 中
+			v5.0.11 支持 CO2NET v0.1.11
+			v5.1.0 支持 CO2NET v0.2.0，重构Container代码
+			v5.1.2 Config.SenparcWeixinSetting 提供默认实例
+			v5.1.3
+			1、支持 CO2NET v0.2.3
+			2、优化 UrlUtility.GenerateOAuthCallbackUrl() 方法
+			v5.1.4 支持 CO2NET v0.2.4
+			v5.1.6 支持 CO2NET v0.2.6
+			v5.1.7 优化 SenparcWeixinSetting，分离不同模块接口
+			v5.1.8 支持 CO2NET v0.2.8
+
+			v6.0.0 支持 NeuChar 标准，分离 MessageHandlers 和 WeixinContext
+			v6.0.1 支持 CO2NET v0.2.10
+			v6.0.2 优化 NeuChar 标准
+			v6.0.4 UrlUtility.GenerateOAuthCallbackUrl() 方法，更好支持反向代理
+			v6.1.0 支持 Senparc.NeuChar v0.1.2，BaseContainer.GetFirstOrDefaultAppId() 方法添加 PlatformType 属性
+			v6.1.1 还原 v6.0.4 的修改
+			v6.1.2 支持 Senparc.NeuChar v0.1.4
+			v6.1.3 支持 Senparc.NeuChar v0.2.1
+			v6.1.4 支持 Senparc.CO2NET v0.2.14，Senparc.NeuChar v0.2.5
+			v6.1.5 Senparc.NeuChar v0.2.7
+			v6.1.7 支持 Senparc.NeuChar v0.2.9.1
+			v6.1.8 Senparc.NeuChar v0.2.11，升级 MessageHandler
+			v6.1.10 改进 TryCommonApiBase 方法
+			v6.2.0 升级 Senparc.NeuChar，支持 APM
+			v6.2.1 支持 Senparc.NeuChar v0.4.4
+			v6.3.0
+			1、使用 .NETStandard2.0 统一支持 .NET Core，放弃对 .NET Core 1.x 的单独适配
+			2、完善子账号 SubMchId 相关参数
+			v6.3.4 添加快速创建小程序接口
+			v6.3.6 支持在子程序环境下获取 OAuth 回调地址
+			v6.3.9 支持最新版本 Senparc.NeuChar
+			v6.3.10 支持最新版本 Senparc.NeuChar
+			v6.3.11 优化 BaseContainer
+			v6.4.0
+			1、支持异步 Container
+			2、停止对 .NET 3.5 和 .NET 4.0 的支持
+			v6.4.2 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
+			v6.4.4 .NET Core 添加多证书注册功能
+			v6.4.8 添加 Config.ThrownWhenJsonResultFaild 属性，用于设置当 JsonResult 不为“成功”状态时，是否抛出异常，默认为 true
+			v6.4.9 增加 ReturnCode 枚举： 创建标签 错误返回信息
+			v6.4.10 增加 ReturnCode 枚举：开放平台-小程序的普通链接二维码接口
+			v6.4.11 引用最新版本 CO2NET
+			v6.4.12 引用最新版本 CO2NET
+			v6.4.13 引用最新版本 CO2NET
+			v6.4.14 引用最新版本 CO2NET
+			v6.5.0
+			1、引用新版本 NeuChar，支持分布式消息上下文（MessageContext）
+			2、提供带符号的 nuget 包（.snupkg)
+			v6.6.0 使用最新版本 Neuchar、CO2NET，支持 .NET Core 3.0
+			v6.6.101 提供 .Net Core 3.0 独立版本
+			v6.6.102
+			1、添加 UseSenparcWeixin() 新方法
+			2、提供 SenparcWeixinSetting[key] 快捷索引器，对 Items 内容进行索引
+			3、提供 SenparcWeixinSettingItem 快速创建构造函数
+			v6.6.104 引用新版本 NeuChar，优化 MessageHandler 同步方法兼容策略
+			v6.6.104.1 优化 ApiHandlerWapperBase.TryCommonApiBaseAsync() 方法，统一使用 accessToken 参数进行容错重试
+			v6.7.303 BaseContainerCacheStrategy.UpdateContainerBag() 方法自动更新 CacheTime 值
+			v6.7.401 配合 Open v6.7.401，添加 ReturnCode 枚举类型
+			v6.7.500 修改 ErrorJsonResultException 属性
+			v6.7.502
+			1、添加 40164 错误编码
+			2、新增企业微信状态码转换失败判断
+			v6.8.200 RegisterFuncCollection 改为 ConcurrentDictionary 类型
+			v6.8.400
+			1、引用新版本 NeuChar 及 CO2NET，解决可能导致崩溃的缓存问题
+			2、修复 CommonJsonSend.PostFailAction 公共请求失败处理抛错问题
+			v6.11.1 TryCommonApiBase 提供 invalidCredentialValues，可设置多种重试错误代码
+			v6.12.0 升级至微信支付 V3（真）
+			v6.12.500 提供 UserHelper
+			v6.14.5 添加试用小程序接口及事件
+			v6.15 最低 .NET Framework 版本升级至 4.6.2
+			v6.15.2 更新 ReturnCode 枚举，添加“半屏小程序管理”代码
+			v6.15.3 使用最新 CO2NET，处理微信服务器无法识别中文文件名的问题。
+			v6.15.4
+			1、更新 TryCommonApiBase 异常抛出逻辑
+			2、添加 JsonResultHelper
+			3、更新 ReturnCode 枚举，OpenApi 中的错误代码
+			v6.15.5 添加 WeixinTrace.SendApiLog(string, Stream) 重写方法
+			v6.15.8 CommonJsonSend.Send() 方法提供 contentType 参数
+			v6.15.8.6 AddCertHttpClient.AddCertHttpClient() 方法添加对 certPath 为 null 的判断
+</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>..\..\BuildOutPut</OutputPath>
+    <DefineConstants>TRACE;RELEASE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\..\BuildOutPut</OutputPath>
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+    <DocumentationFile>..\..\BuildOutPut\Senparc.Weixin.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net462|AnyCPU'">
+    <OutputPath>..\..\BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\BuildOutPut\net462\Senparc.Weixin.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <OutputPath>..\..\BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\BuildOutPut\netstandard2.0\Senparc.Weixin.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
+    <OutputPath>..\..\BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\icon.jpg" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Cache\ContainerCacheStrategy\ContainerItemCollection.cs" />
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+    <Compile Remove="Tencent\Sample.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Tencent\Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Senparc.CO2NET" Version="2.2.1" />
+    <PackageReference Include="Senparc.NeuChar" Version="2.3.3" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net462'">
+    <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.0" />
+    <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
+    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
+  </ItemGroup>
+</Project>

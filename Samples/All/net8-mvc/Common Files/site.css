@@ -1,0 +1,119 @@
+﻿html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    position: relative;
+    margin-bottom: 60px;
+}
+
+.sdk-doc {
+    position: relative
+}
+
+    .sdk-doc p {
+        text-indent: 2em;
+    }
+
+    .sdk-doc h5:before {
+        content: "▶ ";
+    }
+
+    .sdk-doc h5 {
+        margin-top: 10px 0px;
+    }
+
+#top-title {
+
+}
+
+.carousel p {
+    text-indent: 0em;
+}
+
+.home-img {
+    width: 96%;
+}
+
+.tab-pane {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-bottom: 2px solid #ddd;
+    border-radius: 0px 0px 5px 5px;
+    border-top: none;
+    box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 5%);
+}
+
+#main-doc h3 {
+    padding: 5px;
+    color: #fff;
+    margin-top: 30px;
+    background: linear-gradient(to right, #026da7 0%,#8ff9b7 30%, #ffffff 40%);
+}
+
+figure.file {
+    background: #eee;
+    padding: 5px;
+    border-left: 2px solid #026da7;
+}
+
+    figure.file cite {
+        font-weight: 900;
+    }
+
+blockquote.blockquote {
+    border-left: 2px solid #026da7;
+    padding: 10px 16px;
+    background: #e6f0f5;
+}
+
+figure.file blockquote.blockquote {
+    border-left: none;
+    background: none;
+    padding-left: 0px;
+}
+
+    figure.file blockquote.blockquote p {
+        text-indent: 0em;
+        font-size: 1rem;
+    }
+
+.bd-main {
+    grid-area: intro;
+}
+
+#leftMenu {
+    grid-area: toc;
+    position: sticky;
+    top: 5rem;
+    right: 0;
+    z-index: 2;
+    height: calc(100vh - 7rem);
+    overflow-y: auto;
+}
+
+.target-fix {
+    position: relative;
+    top: -5em;
+    display: block;
+    height: 0;
+}
+
+pre {
+    border-radius: 4px;
+    border: 1px solid #555;
+    padding: 10px 15px;
+    background: #026da7;
+    color: #fff;
+}

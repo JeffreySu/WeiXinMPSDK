@@ -1,0 +1,97 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Version>1.1.0-beta1</Version>
+    <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
+    <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
+    <LangVersion>10.0</LangVersion>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <Description>
+			微信 SDK - 微信支付 V3 模块
+
+			Senparc.Weixin SDK 开源项目：
+			https://github.com/JeffreySu/WeiXinMPSDK
+		</Description>
+    <Copyright>Senparc Copyright © 2004~2023</Copyright>
+    <PackageTags>微信,微信支付,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,分布式,小程序,JSSDK,微信支付,摇一摇周边</PackageTags>
+    <Authors>Jeffrey Su</Authors>
+    <Owners>Senparc</Owners>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
+    <Title>Senparc.Weixin.TenPayV3.dll</Title>
+    <Summary>微信支付 V3 SDK for C#</Summary>
+    <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
+    <PackageIcon>icon.jpg</PackageIcon>
+    <PackageReleaseNotes>
+		v0.1.0 创世
+		v0.3.500.2 重构加密方法
+		v0.3.500.3 修正合单支付的 URL 路径错误
+		v0.3.500.4 完成商家券接口、委托营销接口、消费卡接口、支付有礼接口
+		v0.5.1 修复PayV3营销工具商户券API
+		v0.5.6 使用 Senparc.Weixin.Config.TenPayV3Host 提供可配置的 API 域名
+		v0.5.7 升级微信支付请求的方法，支持多种加密方式
+		v0.6.1 修复 CloseOrderAsync() 参数问题
+		v0.6.2.2 修复 TenPayHttpClient 赋值问题
+		v0.6.3 添加“发起商家转账API”
+		v0.6.5 重构 BasePayApis.GetPayApiUrl() 方法
+		v0.6.8.2 MarketingApis.ModifyBusifavorStockInformationAsync 方法单独提取参数 stock_id
+		v0.6.8.3 MarketingApis.ModifyBusifavorStockBudgetAsync 方法单独提取参数 stock_id
+		v0.6.8.4 修改 week_day 类型为 int[]
+		v0.6.8.7 优化 TenPayApiResultCode 获取逻辑，修复 TryGetCode() 方法中当匹配不到预设错误信息时，返回 null 的问题
+		v0.6.8.8 修复 RefundQueryAsync() URL 问题
+		v0.6.8.13 修复验签时 204（NoContent）情况下的异常
+		v0.6.8.14 修复 PayScoreApis.QueryServiceOrderAsync() 重复代码
+		v0.6.8.15 修复 PayScoreApis.QueryServiceOrderAsync() 参数判断逻辑
+		v0.7.0 BasePay 支持服务商模式
+		v0.7.1 修复 TradeBillQueryRequestData 默认参数问题
+		v0.7.3 新增微信支付 V3 服务商的“经营能力”“资金应用”相关接口
+		v0.7.5 TenPayV3Util.GetNoncestr() 弃用 MD5 加密方法
+		v0.7.10.4 基础支付参数缺失处理 、JsonIgnore的问题处理
+		v0.7.11
+		v1.0.0-beta1
+		1、TenPayV3 RefundQueryRequestData.sub_mchid 属性添加 [JsonIgnore] 标签 #2905
+		2、添加小程序发货信息管理服务消息事件 PR#2908
+		3、TenPayV3分账 字段内部加密 PR#2909
+		v1.1.0 TenPaySignHelper.GetJsApiUiPackage() 方法添加 senparcWeixinSettingForTenpayV3 参数
+	</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>..\..\BuildOutPut</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\..\BuildOutPut</OutputPath>
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+    <DocumentationFile>..\..\BuildOutPut\Senparc.Weixin.TenPayV3.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
+    <OutputPath>..\..\BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.Open.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Apis\Marketing\Entities\MarketingApis.Busifavor.cs" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.2.1" />
+    <PackageReference Include="Senparc.CO2NET.AspNet" Version="1.1.5.9" />
+    <PackageReference Include="System.Security.Cryptography.Cng" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net7.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
+  </ItemGroup>
+</Project>

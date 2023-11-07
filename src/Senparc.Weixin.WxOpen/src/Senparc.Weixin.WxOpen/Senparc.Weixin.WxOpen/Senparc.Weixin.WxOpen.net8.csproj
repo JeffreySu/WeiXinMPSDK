@@ -1,0 +1,230 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Version>3.16.4</Version>
+    <LangVersion>9.0</LangVersion>
+    <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
+    <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <Description>
+			微信 SDK - 微信小程序 模块
+
+			Senparc.Weixin SDK 开源项目：
+			https://github.com/JeffreySu/WeiXinMPSDK
+		</Description>
+    <Copyright>Senparc Copyright © 2004~2023</Copyright>
+    <PackageTags>微信,weixin,小程序,wxopen,MiniProgram,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式</PackageTags>
+    <Authors>Jeffrey Su</Authors>
+    <Owners>Senparc</Owners>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
+    <Title>Senparc.Weixin.WxOpen.dll</Title>
+    <Summary>微信公众号SDK for C#</Summary>
+    <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
+    <PackageIcon>icon.jpg</PackageIcon>
+    <PackageReleaseNotes>
+			v0.1.0 添加基础解决方案，包括模板消息API
+
+			v0.1.0 添加基础库，已包含模板消息API
+			v0.2.0
+			1、添加WxOpenMessageHandler
+			2、添加SuccessResponseMessage类型响应信息
+			v0.3.0 根据MP的架构重构框架
+
+			v1.0.0
+			2017年1月9日，随小程序正式发布
+
+			v1.1.0 添加CreateWxQRCode重写方法，直接保存文件
+			添加SessionContainer，SessionHelper，EncryptHelper
+
+			v1.2.0 添加消息解密方法
+			fix bug：修改模板消息接口URL
+
+			v1.2.1 fix bug：修改模板消息接口URL
+
+			v1.3.0 支持.NET Core
+
+			v1.4.0 完成接口开放平台-代码管理及小程序码获取
+
+			v1.4.1
+			1、增加GetWxaCodeUnlimit接口
+			2、为Tencent命名空间添加Senparc.Weixin.WxOpen前缀
+			3、添加JsCode2JsonResult.unionid
+
+			v1.5.0
+			1、支持.NET Core 2.0
+
+			v1.6.0
+			1、添加获取用户手机号方法（同时提供了Demo）
+
+			v1.7.0-beta1 提供.NET 4.0支持
+			v1.7.1 发布正式版；修复WxAppApi.GetWxaCodeUnlimit()方法参数错误的问题
+			v1.7.2 支持Senparc.Weixin v4.18.5 可自定义API域名
+			v1.7.3 修复ModifyDomainApi.ModifyDomain()方法判断问题
+			v1.7.4 完善模板消息发送参数
+
+			v1.8.0 支持小程序
+			1、添加 WxAppApi.CheckSession() 接口，检验SessionKey
+			2、添加 DataCubeApi，包含所有“数据”接口
+			v1.8.1 新增附近的小程序API
+			v1.8.2 从 Open 中迁移模板消息过来，在 Senparc.Weixin.WxOpen.AdvancedAPIs.TemplateApi下
+
+			v1.9.0
+			1、停止对 .net core 1.1 生成的独立版本
+			2、待分配 WxAppApi.GetWxaCode()、GetWxaCodeUnlimit() 接口，添加获取小程序二维码时的颜色参数。
+			v1.9.1 提供 RegisterServices 进行快捷注册
+			v1.9.2 更新 WxAppApi.GetWxaCodeUnlimit() 参数引用
+
+			v1.10.0-rc1 支持 .NET Core 2.1.0-rc1-final
+
+			v1.10.5 发布支持 .net core 2.1 的正式版
+
+			v2.0.0 引入 Senparc.CO2NET，支持 Senparc.Weixin v5.0
+			V2.0.3 SessionBag 添加 UnionId 属性
+			v2.0.6.1 支持 CO2NET v0.1.6.1 解决 XXE 漏洞
+			v2.0.9 支持 CO2NET v0.1.9
+			v2.0.10 支持 Senparc.Weixin v5.0.10
+			v2.0.11 支持 Senparc.Weixin v5.0.11
+			v2.0.11.1 添加 小程序码的接口缺少 is_hyaline 参数
+			v2.0.11.2 修正 TemplateApi.Add() 方法返回类型
+			v2.1.0 支持 Senparc.Weixin v5.1.0，重构 Container，提供新的缓存过期策略
+			v2.1.1 fix bug 小程序“数据分析”接口 日趋势 字段类型
+			v2.1.2 优化接口，支持 CO2NET v0.2.4
+			v2.2.0 实现 SenparcWeixinSetting 自动注册
+			v2.3.0 单独设立小程序客服接口（AdvancedAPIs.CustomApi），支持所有小程序客服消息类型
+			v2.4.0 添加校验文字及图片是否含有违法内容的接口
+			v2.4.1 fixbug：TemplateApi.LibraryGet() 方法修正 API 地址
+
+			v3.0.0 支持 NeuChar 标准
+			v3.0.1 支持 Senparc.Weixin v6.0.1
+			v3.1.0 支持 Senparc.NeuChar v0.0.5
+			v3.1.4 支持 Senparc.NeuChar v0.1.2；新增小程序专属的WxOpenApiHandlerWapper
+			v3.1.6 支持 Senparc.NeuChar v0.1.4
+			v3.1.7 支持 Senparc.NeuChar v0.2.1
+			v3.1.9 支持 Senparc.Weixin 6.1.4
+			v3.1.10 Senparc.NeuChar v0.2.7
+			v3.1.12 支持 Senparc.NeuChar v0.2.9.1
+			v3.1.13 提供 MessageHandler 的 NeuChar 对接能力
+			v3.1.14 Senparc.NeuChar v0.2.11，升级 MessageHandler
+			v3.1.15.1 优化小程序 ResponseMessageText 的默认函数
+			v3.1.16 MessageHandler 构造函数，提供 PostModel 默认值
+			v3.2.0 使用 Senparc.CO2NET.APM
+			v3.2.1 支持 Senparc.NeuChar v0.4.4
+			v3.2.2 优化 APM 和 MessageHandler 消息解密过程
+			v3.3.0 支持最新基础库，使用 .NETStandard2.0 统一支持 .NET Core，放弃对 .NET Core 1.x 的单独适配
+			v3.3.4 该场景 id 访问 uv	添加访问分析接口的 access_source_visit_uv 属性（该场景 id 访问 uv）
+			v3.3.9 支持最新版本 Senparc.Weixin
+			v3.4.0
+			1、支持异步 Container
+			2、停止对 .NET 3.5 和 .NET 4.0 的支持
+			3、SessionBag 默认有效期由 2 天调整为 5 天，并提供外部设置参数
+			v3.4.5
+			1、JsCode2Json 返回结果增加 unionid
+			2、优化小程序 MessageHandler，可返回进入客服的响应消息
+			v3.4.8 修复附近的小程序添加地点
+			v3.4.9 添加开放平台小程序的普通链接二维码接口
+			v3.5.0 SessionContainer 添加 AddDecodedUserInfo() 方法，SessionBag 提供 DecodedUserInfo 属性
+			v3.5.1 优化 Container，修复在未注册的情况下直接尝试注册时可能造成线程死锁的情况
+			v3.5.2 引用最新版本 CO2NET
+			v3.5.3 引用最新版本 CO2NET 和 Senparc.Weixin
+			v3.5.4 修正 UniformSendData 参数
+			v3.5.5 引用最新版本 CO2NET 和 Senparc.Weixin
+			v3.6.0
+			1、消息上下文支持分布式缓存，支持最新版本 Senparc.Weixin
+			2、提供带符号的 nuget 包（.snupkg)
+			v3.7.0 使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
+			v3.7.101 提供 .Net Core 3.0 独立版本
+			v3.7.102
+			1、小程序审核事件移动到 WxOpen
+			2、订阅消息接口
+			v3.7.102.1 修复订阅消息参数问题
+			v3.7.102.2 修复 GetWeAnalysisAppidUserPortraitResultJson 参数类型错误
+			v3.7.104 引用新版本 NeuChar，优化 MessageHandler 同步方法兼容策略
+			v3.7.104.2 添加小程序搜索接口
+			v3.8.401 添加小程序UpdateIndex()、DatabaseAggregate()接口
+			v3.8.501 fix bug：支付后获取用户 Unionid 接口没有传入 openId
+			v3.8.502.1 小程序实现订阅消息模板的管理
+			v3.8.511
+			1、小程序 WxOpenMessageHandler 增加 OnImageRequestAsync 和 OnTextRequestAsync
+			2、调整 MessageHandler 异步方法执行代码
+			v3.8.512 添加解密到实例信息方法
+			v3.10.101 新增 WxOpen 专属 AccessTokenContainer，解决没有提供 name 参数的情况下，Register 过程和公众号注册信息发生冲突的问题
+			v3.10.102 修正 UniformSendData.Mp_Template_Msg.Miniprogram  参数 pagepath -&gt; page
+		v3.10.103 修正 WxOpenApiHandlerWapper 正确引用 AccessTokenContainer
+		v3.10.104 添加 WxAppApi.GenerateScheme() 接口
+		v3.10.401 升级 MessageApi.SendSubscribe() 方法参数
+		v3.11.100 修改完善“附近的小程序”接口
+		v3.13.500-preview4.1 添加“Short Link”接口
+		v3.14 添加 ExpressApi 接口
+		v3.14.2 添加“小程序违规和申诉管理”消息事件
+		v3.14.3 添加 UrlLinkApi.Generate() 接口
+		v3.14.4 添加 BusinessApi.GetUserPhoneNumber() 接口
+		v3.14.5 修改“下发小程序和公众号统一的服务消息”接口参数，提升兼容性
+		v3.14.10.1 修复 WxAppApi.GetWxaCodeUnlimitAsync() 接口参数错误
+		v3.15.2 添加小程序隐私接口
+		v3.15.3 添加商户客户参数（BusinessId）
+		v3.15.4 添加小程序客服管理接口
+		v3.15.6 添加“异步校验图片/音频是否含有违法违规内容”接口
+		v3.15.7
+		1、添加 OnEvent_MediaCheckRequest() 方法：内容安全回调 - wxa_media_check 推送结果
+		2、修复 RequestMsgType.Event 返回值没有正确赋值的问题
+		v3.15.10 EncryptHelper.DecodeEncryptedData() 方法添加 keySize 参数
+		v3.15.12 添加小程序类目审核结果事件推送
+		v3.15.13 添加“文本内容安全识别”接口 PR #2786
+		v3.15.15 添加物流服务相关接口和事件推送 PR #2834
+		v3.15.15.1 获取小程序服务GenerateScheme模型增加env_version字段 PR #2861
+		v3.16.0 客服接口支持长文本自动切割后连续发送
+	    v3.16.4 微信已于2023 年 9 月 20 日收回下发统一消息接口，标注过时 PR #2921
+	</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>..\..\..\..\BuildOutPut</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\..\..\..\..\..\BuildOutPut</OutputPath>
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+    <DocumentationFile>..\..\..\..\..\..\BuildOutPut\Senparc.Weixin.WxOpen.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <OutputPath>..\..\..\..\BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\..\..\BuildOutPut\netstandard2.0\Senparc.Weixin.WxOpen.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
+    <OutputPath>..\..\..\..\BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.WxOpen.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net462' ">
+    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Senparc.NeuChar" Version="2.3.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net7.csproj" />
+    <ProjectReference Include="..\..\..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net7.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
+  </ItemGroup>
+</Project>

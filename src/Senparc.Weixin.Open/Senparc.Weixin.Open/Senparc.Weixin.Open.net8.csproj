@@ -1,0 +1,278 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Version>4.16.0</Version>
+    <AssemblyName>Senparc.Weixin.Open</AssemblyName>
+    <RootNamespace>Senparc.Weixin.Open</RootNamespace>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <Description>
+			微信 SDK - 开放平台 模块
+
+			Senparc.Weixin SDK 开源项目：
+			https://github.com/JeffreySu/WeiXinMPSDK
+		</Description>
+    <Copyright>Senparc Copyright © 2004~2023</Copyright>
+    <PackageTags>微信,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,开放平台,Open</PackageTags>
+    <Authors>Jeffrey Su</Authors>
+    <Owners>Senparc</Owners>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
+    <Title>Senparc.Weixin.Open.dll</Title>
+    <Summary>微信公众号SDK for C#</Summary>
+    <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
+    <PackageIcon>icon.jpg</PackageIcon>
+    <PackageReleaseNotes>
+			v0.2.4 支持所有公众号第三方平台API
+
+			v0.2.6 调整命名空间及类的命名方式
+
+			v1.3.1 完善一系列API
+
+			v1.3.2 添加部分Container及Bag
+
+			v1.4.1 重构Container
+
+			v1.4.4 fix bug 稳定版
+
+			v1.4.11 fix bug 稳定版
+
+			v1.5.1 重构
+
+			v1.6.3
+			重构
+			整理Container
+
+			v2.1.0
+			为借口添加异步方法
+			完善接口
+
+			v2.1.2
+			添加EntityHelper，优化
+
+			v2.2.0
+			重构缓存策略
+			重构Container
+			整合分布锁
+
+			v2.2.1
+			添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
+
+			v2.3.0 优化接口
+			v2.3.1 配合Senparc.Weixin v4.9升级
+			v2.3.1 为GetAuthorizerInfoResult方法添加authorizerBag.AuthorizationInfo更新
+			v2.3.4
+			优化 优化TryGetAuthorizerAccessToken方法，避免authorization_info.authorizer_access_token值为空
+			添加 AuthorizerContainer.GetAuthorizationInfoAsync()异步方法
+			v2.3.5 OAuthAccessTokenResult添加序列化特性
+			v2.3.6 添加SuccessResponseMessage类型响应信息，ResponseMsgType添加SuccessResponse枚举
+			v2.3.7 修复：ApiConfirmAuth的URL中带空格
+			v2.3.8：
+			将ComponentContainer.GetComponentVerifyTicketFunc和GetAuthorizerRefreshTokenFunc改为属性
+
+			v2.4.0 支持 .NET Core
+			v2.4.1 BusinessInfo添加open_scan属性（是否开通微信扫商品功能）
+
+			v2.5.0 添加小程序接口
+
+			v2.6.0 为GetAuthorizerRefreshTokenFunc及AuthorizerTokenRefreshedFunc添加componentAppId参数，用以支持：在同一个应用中开设多个开放平台，并差别化对待同一个公众号
+			v2.6.1 添加接口：开放平台-小程序-成员管理
+			v2.6.2 添加接口：开放平台-微信开放平台账号管理
+			v2.6.3 完善接口：开放平台-微信开放平台账号管理
+			v2.6.4 完成接口开放平台-代码管理及小程序码获取
+
+			v2.6.5
+			1、修正：修改服务器地址接口ModifyDomainApi.ModifyDomain()的URL参数错误
+			2、为Tencent命名空间添加Senparc.Weixin.Open前缀
+
+
+			v2.7.0 支持 .NET Core 2.0
+			v2.7.1 修复几处小程序接口问题
+			v2.7.2 添加小程序“code 换取 session_key”（微信登录）接口
+			v2.7.3 添加小程序“小程序模板设置”接口
+			v2.7.4 常规优化
+			v2.7.5
+			1、修复小程序可见状态
+			2、修复bug
+
+			v2.8.0-beta1 重新支持.NET 3.5/4.0
+			v2.8.1 支持Senparc.Weixin v4.18.5 可自定义API域名
+			v2.8.2 新增：小程序代码模版库管理
+			v2.8.3 修复 AuthorizerBag 使用外部缓存不会自动更新的问题
+			v2.8.4 GetAuthorizerInfoResult 添加 principal_name 属性（公众号的主体名称）
+			v2.8.5 原小程序模板消息接口迁移至小程序（Senparc.Weixin.WxOpen）模块，Open中的方法已标记为过期。
+			v2.8.6 完善 FuncscopeCategory 枚举
+
+			v2.9.0 停止对 .net core 1.1 生成的独立版本
+			v2.9.1 提供 RegisterServices 进行快捷注册
+			v2.9.2 修复 TryUpdateAuthorizationInfo 中缓存跟新的问题
+			v2.9.2.1 修改 ComponentApi.ApiAuthorizerToken() 方法注释
+
+			v2.10.0-rc1 支持 .NET Core 2.1.0-rc1-final
+
+			v2.10.5 发布支持 .net core 2.1 的正式版
+
+			v3.0.0 引入 Senparc.CO2NET，支持 Senparc.Weixin v5.0
+			v3.0.6.1 支持 CO3NET v0.1.6.1 解决 XXE 漏洞
+			v3.0.9 Container 的 Register() 的微信参数自动添加到 Config.SenparcWeixinSetting.Items 下
+			v3.0.10 支持 Senparc.Weixin v5.0.10
+			v3.0.11 支持 Senparc.Weixin v5.0.11
+			v3.1.0 支持 Senparc.Weixin v5.1.0，重构 Container，提供新的缓存过期策略
+			v3.1.2 修正 CodeApi.GetLatestAuditStatusAsync 请求方法错误（应该为GET）
+			v3.2.0 添加接口：复用公众号主体快速注册小程序
+			v3.3.0
+			1、添加接口：修改功能介绍 AccountAPIs.ModifySignature()
+			2、修复代码
+			v3.4.0 增加第三方平台授权接口的授权类型字段
+			v3.4.1 支持 CO2NET v0.2.4
+			v3.5.0 实现 SenparcWeixinSetting 自动注册
+
+			v4.0.0 支持 NeuChar 标准
+			v4.0.1 支持 Senparc.Weixin v6.0.1
+			v4.1.0 支持 Senparc.NeuChar v0.0.5
+			v4.1.2 修复：添加类目接口参数结构不正确
+			v4.1.3 支持 Senparc.NeuChar v0.0.6.10，解决 InfoType.component_verify_ticket 枚举等只读属性识别问题
+			v4.1.6 支持 Senparc.NeuChar v0.1.2
+			v4.1.8 支持 Senparc.NeuChar v0.1.4
+			v4.1.9 支持 Senparc.NeuChar v0.2.1
+			v4.1.10 支持 Senparc.Weixin 6.1.4
+			v4.1.11 Senparc.NeuChar v0.2.7
+			v4.1.13 Senparc.NeuChar v0.2.11，升级 MessageHandler
+			v4.1.15 优化 MessageHandler 构造函数，提供 PostModel 默认值
+			v4.2.0 使用 Senparc.CO2NET.APM
+			v4.2.1 支持 Senparc.NeuChar v0.4.4
+			v4.2.2 添加 GetAuthorizerInfoResult 中的 MiniProgramInfo 属性
+			v4.3.0 支持最新基础库，使用 .NETStandard2.0 统一支持 .NET Core，放弃对 .NET Core 1.x 的单独适配
+			v4.3.1 修正 MiniProgramInfo 中的 categories 属性类型
+			v4.4.0 添加快速创建小程序接口
+			v4.4.5 支持最新版本 Senparc.Weixin
+			v4.5.0
+			1、支持异步 Container
+			2、停止对 .NET 3.5 和 .NET 4.0 的支持
+			v4.5.1 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
+			v4.5.2 添加 CodeApi 接口：
+			1) 查询当前设置的最低基础库版本及各版本用户占比
+			2) 设置最低基础库版本
+			3) 小程序分阶段发布
+			4) 小程序版本回退
+			v4.5.6 增加小程序名称审核事件，修复小程序添加类目接口参数错误
+			v4.5.7 修复帐号类型参数错误
+			v4.5.8 优化 Container，修复在未注册的情况下直接尝试注册时可能造成线程死锁的情况
+			v4.5.9 完善同步方法的 xxContainer.Register() 对异步方法的调用，避免可能的线程锁死问题
+			v4.5.10 优化 xxContainer.Register() 方法
+			v4.5.11 引用最新版本 CO2NET 和 Senparc.Weixin
+			v4.6.0
+			1、消息上下文支持分布式缓存，支持最新版本 Senparc.Weixin
+			2、提供带符号的 nuget 包（.snupkg)
+			v4.7.0 使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
+			v4.7.101
+			1、提供 .Net Core 3.0 独立版本
+			2、添加“开放平台-代码管理-加急审核”接口：CodeApi.QueryQuota()、CodeApi.SpeedupAudit()
+			v4.7.102 扫码关注组件，小程序支付后获取unionid
+			v4.7.102.1
+			1、修改 TryUpdateAuthorizationInfo() 相关方法，避免可能发生的 null 对象错误
+			2、修改 GetAuditStatus() 方法 auditid 参数类型（int -&gt; long)
+			v4.7.104 引用新版本 NeuChar，优化 MessageHandler 同步方法兼容策略
+			v4.7.401 第三方小程序，提交审核接口更新
+			v4.7.502.2 解决授权信息出现重复记录的问题
+			v4.7.502.3 代小程序开发 添加撤回审核接口
+			v4.8.102 添加接口“代小程序实现业务 - 设置业务域名”（SetWebViewDomainApi）
+			v4.8.201 服务号订阅通知相关接口 &amp; 补充小程序[获取小程序账号的类目]接口
+		v4.8.400
+		1、代小程序实现业务-提交审核接口添加UGC参数
+		2、修正截屏附件字段类型
+		v4.10.3 统一使用 Senparc.Weixin.CommonAPIs.CommonJsonSend 方法
+		v4.11.500 用户信息调整：不再返回用户性别及地区信息
+		v4.12 新增快速创建个人小程序接口
+		v4.13 实现“小程序用户隐私指引接口”
+		v4.13.1 配置小程序用户隐私保护指引接口增加privacy_ver参数
+		v4.13.2 添加“小程序违规和申诉管理”接口及消息事件
+		v4.13.3 修复获取小程序违规记录返回信息
+		v4.13.4 完善“公众号权限集”
+		v4.13.9 添加试用小程序接口及事件
+		v4.14.2 添加小程序隐私接口
+		v4.14.3 补充小程序/公众号获取基本信息字段
+		v4.14.4 添加半屏小程序管理接口
+		v4.14.6 添加“查询小程序版本信息”接口
+		v4.14.8 增加搜索状态接口
+		v4.14.9 完善第三方平台API-待商家管理小程序-小程序域名管理所有接口：
+		增加：
+		快速配置小程序服务器域名
+		获取业务域名校验文件
+		快速配置小程序业务域名
+		获取发布后生效服务器域名列表
+		获取发布后生效业务域名列表
+		获取DNS预解析域名
+		设置DNS预解析域名
+		修改：
+		设置其他的两个 API 为 Obsolete
+		v4.14.10 “小程序版本回退”接口更新返回参数内容
+		v4.14.14 添加接口：设置第三方平台服务器域名 #2759
+		v4.14.15 完善“第三方平台业务域名” #2767 #2789
+		v4.14.16 添加“订单页 path 信息”相关接口 PR #2783
+		v4.14.17 添加“上传提审素材”相关接口 PR #2817
+		v4.14.25
+		1、解决问题：接收微信授权事件推送"快速创建个人小程序" 缺少字段 #2870
+		2、解决问题：设置第三方平台服务器域名调用url参数错误 #2882
+		3、解决问题：设置DNS预解析域名data参数错误
+
+		v4.15.0 发布“第三方服务商小程序备案”接口
+		v4.16.0
+		1、处理三方推送消息枚举
+		2、添加“小程序发货信息管理服务”
+	</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>..\..\BuildOutPut</OutputPath>
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\..\BuildOutPut</OutputPath>
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+    <DocumentationFile>..\..\BuildOutPut\Senparc.Weixin.Open.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net462|AnyCPU'">
+    <OutputPath>..\..\BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\BuildOutPut\net462\Senparc.Weixin.Open.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <OutputPath>..\..\BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\BuildOutPut\netstandard2.0\Senparc.Weixin.Open.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
+    <OutputPath>..\..\BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.Open.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net462' ">
+    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Senparc.NeuChar" Version="2.3.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net7.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
+  </ItemGroup>
+</Project>

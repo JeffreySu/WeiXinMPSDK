@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Version>6.7.2</Version>
+		<UserSecretsId>35e58786-0820-4cde-b1ff-f4c6198d00f7</UserSecretsId>
+		<PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Senparc.CO2NET.WebApi" Version="1.4.2" />
+		<PackageReference Include="Senparc.NeuChar.App" Version="1.3.3" />
+		<PackageReference Include="Senparc.NeuChar.AspNet" Version="1.3.3" />
+
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.0" />
+		<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+		<PackageReference Include="System.IO.Compression.ZipFile" Version="4.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\..\src\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.net7.csproj" />
+		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.CsRedis\Senparc.Weixin.Cache.CsRedis.net7.csproj" />
+		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.net7.csproj" />
+		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.net7.csproj" />
+		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.MP.Middleware\Senparc.Weixin.MP.Middleware.net7.csproj" />
+		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.net7.csproj" />
+		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net7.csproj" />
+		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.net7.csproj" />
+		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.TenPayV3\Senparc.Weixin.TenPayV3.net7.csproj" />
+		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay.net7.csproj" />
+		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.Work.Middleware\Senparc.Weixin.Work.Middleware.net7.csproj" />
+		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.net7.csproj" />
+		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.WxOpen.Middleware\Senparc.Weixin.WxOpen.Middleware.net7.csproj" />
+		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net7.csproj" />
+		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net7.csproj" />
+		<ProjectReference Include="..\..\Senparc.Weixin.Sample.CommonService\Senparc.Weixin.Net7Sample.CommonService.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="App_Data\Document\Config.xml">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</None>
+		<None Update="App_Data\Document\readme.md">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="App_Data\QrCode\readme.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="App_Data\cert\" />
+	  <Folder Include="App_Data\NeuChar\" />
+	  <Folder Include="wwwroot\" />
+	</ItemGroup>
+
+	<ProjectExtensions>
+		<VisualStudio>
+			<UserProperties appsettings_1json__JsonSchema="" />
+		</VisualStudio>
+	</ProjectExtensions>
+
+	<Import Project="..\..\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems" Label="Shared" />
+
+</Project>

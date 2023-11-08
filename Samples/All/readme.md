@@ -6,7 +6,8 @@
 
 | 文件夹 | 说明 |
 |--------|--------|
-|   net7-mvc      |   【推荐】.NET 7.0 示例，可用于直接部署（由于 .NET 7.0 刚发布不久，2023 年 2 月之前暂不建议用于生产环境！）
+|   net8-mvc      |   【推荐】.NET 8.0 示例，可用于直接部署（由于 .NET 8.0 正式版将于 2023 年 11 月 14-16 日 Ignite 大会发布）
+|   net7-mvc      |   【推荐】.NET 7.0 示例，可用于直接部署
 |   net6-mvc      |   【推荐】.NET 6.0 示例，可用于直接部署
 |   console             |   命令行注册过程演示 Demo（接口调可参考 Web 项目）
 |   net45-mvc           |   【停止更新】ASP.NET 4.5 MVC 示例，可用于直接部署，此项目中包含了 CommonServices 项目，供其他各 Sample 公用
@@ -22,7 +23,7 @@
 
 ## 帮你选择
 
-> 如果你希望学习并使用最新的 .NET 6.0（或7.0） 框架，并且已经安装了 VS2022（v16.9 以上），并且希望调试 .NET 6.0 及以上版本，那么请打开：net6-mvc/Senparc.Weixin.Sample.Net6.sln （或 net7-mvc/Senparc.Weixin.Sample.Net7.sln）解决方案
+> 如果你希望学习并使用最新的 .NET 6.0（或8.0） 框架，并且已经安装了 VS2022（v16.9 以上），并且希望调试 .NET 6.0 及以上版本，那么请打开：net6-mvc/Senparc.Weixin.Sample.Net6.sln （或 net8-mvc/Senparc.Weixin.Sample.Net8.sln）解决方案
 
 > 如果你希望将 Senparc.Weixin SDK 用于命令行或桌面应用，那么请打开：console/Senparc.Weixin.MP.Sample.Consoles.vs2019.sln 解决方案
 

@@ -1,0 +1,62 @@
+﻿@model Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthUserInfo
+@using Senparc.Weixin.Helpers
+@*DPBMARK_FILE MP*@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>OAuth2.0授权测试授权成功</title>
+</head>
+<body>
+    <h2>OAuth2.0授权测试授权成功！</h2>
+    @if (ViewData.ContainsKey("ByBase"))
+    {
+        <p><strong>您看到的这个页面来自于snsapi_base授权，因为您已关注本微信，所以才能查询到详细用户信息，否则只能进行常规的授权。</strong></p>
+    }
+    else
+    {
+        <p><strong>您看到的这个页面来自于snsapi_userinfo授权，可以直接获取到用户详细信息。</strong></p>
+    }
+    <p>下面是通过授权得到的您的部分个人信息：</p>
+    <p>openid:@Model.openid</p>
+    <p>nickname:@Model.nickname</p>
+    <p>country:@Model.country</p>
+    <p>province:@Model.province</p>
+    <p>city:@Model.city</p>
+    <p>sex:@Model.sex</p>
+    @if (Model.unionid != null)
+    {
+        <p>unionid:@Model.unionid</p>
+    }
+    <p>
+        头像：<br />
+        <img src="@Model.headimgurl" />
+        <br />
+        默认（某些情况下直接调用可能看不到，需要抓取）
+    </p>
+
+    <p>
+        <img src="@Model?.GetHeadImageUrl(UserHelper.HeadImageSize.x46)" /><br />
+        46x46
+    </p>
+    <p>
+        <img src="@Model?.GetHeadImageUrl(UserHelper.HeadImageSize.x64)" /><br />
+        64x64
+    </p>
+    <p>
+        <img src="@Model?.GetHeadImageUrl(UserHelper.HeadImageSize.x96)" /><br />
+        96x96
+    </p>
+    <p>
+        <img src="@Model?.GetHeadImageUrl(UserHelper.HeadImageSize.x132)" /><br />
+        132x132
+    </p>
+    <p>
+        <img src="@Model?.GetHeadImageUrl(UserHelper.HeadImageSize.x0)" /><br />
+        640x640
+    </p>
+</body>
+</html>

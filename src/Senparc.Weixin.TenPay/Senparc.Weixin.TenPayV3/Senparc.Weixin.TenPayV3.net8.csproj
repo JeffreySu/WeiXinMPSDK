@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>1.1.0-beta1</Version>
+    <Version>1.2.0-rc.2</Version>
     <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
     <LangVersion>10.0</LangVersion>
@@ -53,7 +53,7 @@
 		2、添加小程序发货信息管理服务消息事件 PR#2908
 		3、TenPayV3分账 字段内部加密 PR#2909
 		v1.1.0 TenPaySignHelper.GetJsApiUiPackage() 方法添加 senparcWeixinSettingForTenpayV3 参数
-	</PackageReleaseNotes>
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

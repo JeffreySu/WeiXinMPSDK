@@ -34,7 +34,7 @@
 		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.WxOpen.Middleware\Senparc.Weixin.WxOpen.Middleware.net8.csproj" />
 		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net8.csproj" />
 		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net8.csproj" />
-		<ProjectReference Include="..\..\Senparc.Weixin.Sample.CommonService\Senparc.Weixin.Net7Sample.CommonService.csproj" />
+		<ProjectReference Include="..\..\Senparc.Weixin.Sample.CommonService\Senparc.Weixin.Net8Sample.CommonService.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -54,12 +54,6 @@
 	  <Folder Include="App_Data\NeuChar\" />
 	  <Folder Include="wwwroot\" />
 	</ItemGroup>
-
-	<ProjectExtensions>
-		<VisualStudio>
-			<UserProperties appsettings_1json__JsonSchema="" />
-		</VisualStudio>
-	</ProjectExtensions>
 
 	<Import Project="..\..\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems" Label="Shared" />
 

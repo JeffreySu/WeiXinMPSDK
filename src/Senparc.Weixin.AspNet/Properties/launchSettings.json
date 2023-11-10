@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Senparc.Weixin.AspNet.net7": {
+    "Senparc.Weixin.AspNet.net8": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

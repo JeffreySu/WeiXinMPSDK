@@ -15,13 +15,13 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Senparc.Weixin.Sample.Net7": {
+    "Senparc.Weixin.Sample.Net8": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:5021;http://localhost:5020"
+      "applicationUrl": "https://localhost:5081;http://localhost:5080"
     }
   }
 }

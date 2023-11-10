@@ -67,7 +67,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 模板消息接口
     /// </summary>
-    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, true)]
     public static class TemplateApi
     {
         /// <summary>
@@ -180,29 +180,30 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="template_id_short">模板库中模板的编号，有“TM**”和“OPENTMTM**”等形式</param>
+        /// <param name="keyword_name_list">选用的类目模板的关键词,按顺序传入,如果为空，或者关键词不在模板库中，会返回40246错误码</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static AddtemplateJsonResult Addtemplate(string accessTokenOrAppId, string template_id_short, int timeOut = Config.TIME_OUT)
+        public static AddtemplateJsonResult AddTemplate(string accessTokenOrAppId, string template_id_short, string[] keyword_name_list, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/template/api_add_template?access_token={0}";
                 var msgData = new
                 {
-                    template_id_short = template_id_short
-
+                    template_id_short = template_id_short,
+                    keyword_name_list = keyword_name_list
                 };
                 return CommonJsonSend.Send<AddtemplateJsonResult>(accessToken, urlFormat, msgData, CommonJsonSendType.POST, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 获取模板列表
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-
         public static GetPrivateTemplateJsonResult GetPrivateTemplate(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -364,7 +365,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="template_id_short">模板库中模板的编号，有“TM**”和“OPENTMTM**”等形式</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<AddtemplateJsonResult> AddtemplateAsync(string accessTokenOrAppId, string template_id_short, int timeOut = Config.TIME_OUT)
+        public static async Task<AddtemplateJsonResult> AddTemplateAsync(string accessTokenOrAppId, string template_id_short, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -378,6 +379,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
+
         /// <summary>
         ///【异步办法】 获取模板列表
         /// </summary>

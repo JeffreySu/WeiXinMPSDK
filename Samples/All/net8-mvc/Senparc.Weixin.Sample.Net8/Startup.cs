@@ -137,7 +137,7 @@ namespace Senparc.Weixin.Sample.Net6
             app.UseRouting();
 
             // 启动 CO2NET 全局注册，必须！
-            // 关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.net7/Startup.cs
+            // 关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.net8/Startup.cs
             var registerService = app.UseSenparcGlobal(env, senparcSetting.Value, globalRegister =>
                 {
                     #region CO2NET 全局配置

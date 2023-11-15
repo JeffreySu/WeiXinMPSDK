@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>2.14.0-rc.2</Version>
+    <Version>2.14.0</Version>
     <AssemblyName>Senparc.Weixin.Cache.Memcached</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Memcached</RootNamespace>
     <Description>
@@ -137,13 +137,13 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net462' ">
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0-rc.2.23479.6" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="MamcachedCacheLock.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="4.2.0-rc.2" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="4.2.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net8.csproj" />

@@ -113,8 +113,8 @@
                                 <th>当前站点运行版本</th>
                                 <th>.NET 4.6.2</th>
                                 @*<th>.NET Standard<br />2.0 / 2.1</th>*@
-                                <th>.NET Core<br />2.x / 3.x</th>
-                                <th>.NET<br />6.0 / 7.0</th>
+                                @* <th>.NET Core<br />2.x / 3.x</th> *@
+                                <th>.NET 8.0（向下兼容）</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -148,7 +148,7 @@
                                     </td>
                                     <td><img title=".NET 4.6.2" alt=".NET 4.6.2" src="https://img.shields.io/badge/4.6.2-@(YesOrNo(value.SupportNet45)).svg" /></td>
                                     @*<td><img title=".NET Standard 2.0 / 2.1" alt=".NET Standard 2.0 / 2.1" src="https://img.shields.io/badge/standard2.1-@(YesOrNo(value.SupportStandard21)).svg" /></td>*@
-                                    <td><img title=".NET Core 2.x / 3.x" alt=".NET Core 2.x / 3.x" src="https://img.shields.io/badge/netcore3.1-@(YesOrNo(value.SupportNetCore31)).svg" /></td>
+                                    @* <td><img title=".NET Core 2.x / 3.x" alt=".NET Core 2.x / 3.x" src="https://img.shields.io/badge/netcore3.1-@(YesOrNo(value.SupportNetCore31)).svg" /></td> *@
                                     <td><img title=".NET 6.0 / 8.0" alt=".NET 6.0 / 8.0" src="https://img.shields.io/badge/net8.0-@(YesOrNo(value.SupportNet6)).svg" /></td>
                                 </tr>
                             }

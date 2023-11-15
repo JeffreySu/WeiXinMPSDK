@@ -12,7 +12,7 @@
 	<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
 	<ItemGroup Condition=" '$(Configuration)' != 'Release' ">
 		<PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
-		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.0-rc.2.23480.2" />
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.0" />
 		<!--<EmbeddedResource Include="..\..\Shared\Senparc.Weixin.Sample.Shared\wwwroot\**\*">
 			<Link>wwwroot\%(RecursiveDir)/%(FileName)%(Extension)</Link>
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -29,7 +29,7 @@
 		<PackageReference Include="Senparc.Weixin.MP" Version="16.20.0-rc.2" />
 		<PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.13.0-rc.2" />
 		<PackageReference Include="Senparc.Weixin.TenpayV3" Version="1.2.0-rc.2" />
-		<PackageReference Include="System.Drawing.Common" Version="8.0.0-rc.2.23479.14" />
+		<PackageReference Include="System.Drawing.Common" Version="8.0.0" />
 		<PackageReference Include="ZXing.Net" Version="0.16.9" />
 	</ItemGroup>
 

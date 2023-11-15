@@ -8,11 +8,11 @@
 		<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
 		<GenerateEmbeddedFilesManifest Condition=" '$(Configuration)' != 'Release' ">true</GenerateEmbeddedFilesManifest>
 	</PropertyGroup>
-	
-		<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
+
+	<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
 	<ItemGroup Condition=" '$(Configuration)' != 'Release' ">
 		<PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
-		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.0-rc.2.23480.2" />
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.0" />
 		<!--<EmbeddedResource Include="..\..\Shared\Senparc.Weixin.Sample.Shared\wwwroot\**\*">
 			<Link>wwwroot\%(RecursiveDir)/%(FileName)%(Extension)</Link>
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -24,10 +24,10 @@
 
 	<!--引用 Nuget 包-->
 	<ItemGroup>
-	  <PackageReference Include="Senparc.Weixin.AspNet" Version="1.1.0-rc.2" />
-	  <PackageReference Include="Senparc.Weixin.MP" Version="16.20.0-rc.2" />
-	  <PackageReference Include="Senparc.Weixin.MP.Middleware" Version="1.1.0-rc.2" />
-	  <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.13.0-rc.2" />
+		<PackageReference Include="Senparc.Weixin.AspNet" Version="1.1.0-rc.2" />
+		<PackageReference Include="Senparc.Weixin.MP" Version="16.20.1-rc.2" />
+		<PackageReference Include="Senparc.Weixin.MP.Middleware" Version="1.1.0-rc.2" />
+		<PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.13.0-rc.2" />
 	</ItemGroup>
 
 	<!--直接引用源码-->

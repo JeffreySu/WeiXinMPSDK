@@ -21,6 +21,9 @@
 
     修改标识：Senparc - 20210324
     修改描述：v3.14.6 添加：审批申请状态变化回调通知： "SYS_APPROVAL_CHANGE"
+
+    修改标识：XiaoPoTian - 20231119
+    修改描述：v3.18.1 添加“企业客户标签变更事件回调通知”（CHANGE_EXTERNAL_Tag）
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;
@@ -186,6 +189,26 @@ namespace Senparc.Weixin.Work.MessageContexts
                                     break;
                                 case "DISMISS":
                                     requestMessage = new RequestMessageEvent_Change_External_Chat_Dismiss();
+                                    break;
+                                default://其他意外类型（也可以选择抛出异常）
+                                    requestMessage = new RequestMessageEventBase();
+                                    break;
+                            }
+                            break;
+                        case "CHANGE_EXTERNAL_TAG"://企业客户标签变更事件推送
+                            switch (doc.Root.Element("ChangeType").Value.ToUpper())
+                            {
+                                case "CREATE":
+                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Create(doc.Root.Element("TagType").Value);
+                                    break;
+                                case "UPDATE":
+                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Update(doc.Root.Element("TagType").Value);
+                                    break;
+                                case "DELETE":
+                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Delete(doc.Root.Element("TagType").Value);
+                                    break;
+                                case "SHUFFLE":
+                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Shuffle();
                                     break;
                                 default://其他意外类型（也可以选择抛出异常）
                                     requestMessage = new RequestMessageEventBase();

@@ -32,7 +32,9 @@ namespace Senparc.Weixin.Work.Entities
         /// 标签或标签组所属的规则组id，只回调给“客户联系”应用
         /// </summary>
         public string StrategyId { get; set; }
-
+        /// <summary>
+        /// 具体事件类型
+        /// </summary>
         public virtual ExternalTagChangeType ChangeType { get { return ExternalTagChangeType.create; } }
     }
 
@@ -45,6 +47,10 @@ namespace Senparc.Weixin.Work.Entities
         /// 变更类型
         /// </summary>
         public ExternalTagChangeTagType TagType { get; set; }
+        /// <summary>
+        /// TagType类型初始化
+        /// </summary>
+        /// <param name="TagTypeStr"></param>
         public RequestMessageEvent_Change_External_Tag_Create(string TagTypeStr)
         {
             TagType = (ExternalTagChangeTagType)Enum.Parse(typeof(ExternalTagChangeTagType), TagTypeStr, true);
@@ -60,10 +66,17 @@ namespace Senparc.Weixin.Work.Entities
         /// 变更类型
         /// </summary>
         public ExternalTagChangeTagType TagType { get; set; }
+        // <summary>
+        /// TagType类型初始化
+        /// </summary>
+        /// <param name="TagTypeStr"></param>
         public RequestMessageEvent_Change_External_Tag_Update(string TagTypeStr)
         {
             TagType = (ExternalTagChangeTagType)Enum.Parse(typeof(ExternalTagChangeTagType), TagTypeStr, true);
         }
+        /// <summary>
+        /// 重写具体事件类型
+        /// </summary>
         public override ExternalTagChangeType ChangeType => ExternalTagChangeType.update;
 
     }
@@ -77,10 +90,17 @@ namespace Senparc.Weixin.Work.Entities
         /// 变更类型
         /// </summary>
         public ExternalTagChangeTagType TagType { get; set; }
+        // <summary>
+        /// TagType类型初始化
+        /// </summary>
+        /// <param name="TagTypeStr"></param>
         public RequestMessageEvent_Change_External_Tag_Delete(string TagTypeStr)
         {
             TagType = (ExternalTagChangeTagType)Enum.Parse(typeof(ExternalTagChangeTagType), TagTypeStr, true);
         }
+        /// <summary>
+        /// 重写具体事件类型
+        /// </summary>
         public override ExternalTagChangeType ChangeType => ExternalTagChangeType.delete;
     }
 
@@ -89,11 +109,16 @@ namespace Senparc.Weixin.Work.Entities
     /// </summary>
     public class RequestMessageEvent_Change_External_Tag_Shuffle : RequestMessageEvent_Change_External_Tag_Base
     {
+        /// <summary>
+        /// 重写具体事件类型
+        /// </summary>
         public override ExternalTagChangeType ChangeType => ExternalTagChangeType.shuffle;
     }
 
 
-
+    /// <summary>
+    /// 具体的事件类型
+    /// </summary>
     public enum ExternalTagChangeType
     {
         /// <summary>

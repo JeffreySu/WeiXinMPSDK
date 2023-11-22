@@ -185,7 +185,7 @@ namespace Senparc.Weixin.Work.MessageContexts
                                     requestMessage = new RequestMessageEvent_Change_External_Chat_Create();
                                     break;
                                 case "UPDATE":
-                                    requestMessage = new RequestMessageEvent_Change_External_Chat_Update(doc.Root.Element("UpdateDetail").Value);
+                                    requestMessage = new RequestMessageEvent_Change_External_Chat_Update(doc.Root.Element("MemChangeList"));
                                     break;
                                 case "DISMISS":
                                     requestMessage = new RequestMessageEvent_Change_External_Chat_Dismiss();
@@ -199,13 +199,13 @@ namespace Senparc.Weixin.Work.MessageContexts
                             switch (doc.Root.Element("ChangeType").Value.ToUpper())
                             {
                                 case "CREATE":
-                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Create(doc.Root.Element("TagType").Value);
+                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Create();
                                     break;
                                 case "UPDATE":
-                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Update(doc.Root.Element("TagType").Value);
+                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Update();
                                     break;
                                 case "DELETE":
-                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Delete(doc.Root.Element("TagType").Value);
+                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Delete();
                                     break;
                                 case "SHUFFLE":
                                     requestMessage = new RequestMessageEvent_Change_External_Tag_Shuffle();

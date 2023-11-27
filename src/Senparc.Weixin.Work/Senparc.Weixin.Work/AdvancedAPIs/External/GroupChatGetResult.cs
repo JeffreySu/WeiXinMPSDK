@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：lishewen - 20200318
 
+    修改标识：XiaoPoTian - 20231122
+    修改描述：v3.18.1 添加“当前群成员版本号。可以配合客户群变更事件减少主动调用本接口的次数”（member_version）
+
 
 ----------------------------------------------------------------*/
 
@@ -77,6 +80,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External
         ///     群公告
         /// </summary>
         public string notice { get; set; }
+
+        /// <summary>
+        /// 当前群成员版本号。可以配合客户群变更事件减少主动调用本接口的次数
+        /// </summary>
+        public string member_version {  get; set; }
 
         /// <summary>
         ///     群成员列表

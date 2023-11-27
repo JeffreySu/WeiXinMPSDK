@@ -52,6 +52,9 @@
     修改标识：Senparc - 20230914
     修改描述：v3.16.4 企业微信三方代开发处理事件: 修复 Async 方法循环调用的 Bug，添加 ThirdPartyInfo 枚举值
 
+    修改标识：XiaoPoTian - 20231119
+    修改描述：v3.18.1 添加枚举“企业客户标签变更事件”（CHANGE_EXTERNAL_Tag）
+
 ----------------------------------------------------------------*/
 
 using static System.Net.WebRequestMethods;
@@ -179,6 +182,10 @@ namespace Senparc.Weixin.Work
         /// 客户群变更事件
         /// </summary>
         CHANGE_EXTERNAL_CHAT,
+        /// <summary>
+        /// 企业客户标签变更事件
+        /// </summary>
+        CHANGE_EXTERNAL_TAG,
         /// <summary>
         /// 直播回调事件
         /// </summary>

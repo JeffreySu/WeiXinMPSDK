@@ -13,9 +13,16 @@
     修改标识：WangDrama - 20210630
     修改描述：v3.9.600 添加群直播回调事件
 
+    修改标识：XiaoPoTian - 20231122
+    修改描述：v3.18.1 添加客户群变更事件(MemChangeList,LastMemVer,CurMemVer)
+
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Extensions;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace Senparc.Weixin.Work.Entities
 {
@@ -32,21 +39,24 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         /// 群ID
         /// </summary>
-        public string ChatId  { get; set; }
+        public string ChatId { get; set; }
 
         public virtual ExternalChatChangeType ChangeType { get { return ExternalChatChangeType.create; } }
     }
 
-    public class RequestMessageEvent_Change_External_Chat_Create: RequestMessageEvent_Change_External_Chat_Base
+    public class RequestMessageEvent_Change_External_Chat_Create : RequestMessageEvent_Change_External_Chat_Base
     {
 
     }
 
     public class RequestMessageEvent_Change_External_Chat_Update : RequestMessageEvent_Change_External_Chat_Base
     {
-        public RequestMessageEvent_Change_External_Chat_Update(string UpdateDetailStr)
+        public RequestMessageEvent_Change_External_Chat_Update(XElement memChangeListElement)
         {
-            UpdateDetail = (ExternalChatUpdateDetailType)Enum.Parse(typeof(ExternalChatUpdateDetailType), UpdateDetailStr, true);
+            if(memChangeListElement != null)
+            {
+                MemberChangeList = memChangeListElement.Elements().Select(u => u.Value).ToArray();
+            }
         }
         public override ExternalChatChangeType ChangeType => ExternalChatChangeType.update;
         /// <summary>
@@ -67,18 +77,32 @@ namespace Senparc.Weixin.Work.Entities
         /// 当是成员入群或退群时有值。表示成员变更数量
         /// </summary>
         public int MemChangeCnt { get; set; }
+        /// <summary>
+        /// 当是成员入群或退群时有值。变更的成员列表
+        /// </summary>
+        public string[] MemberChangeList { get; set; }
+        /// <summary>
+        /// 当是成员入群或退群时有值。 变更前的群成员版本号
+        /// </summary>
+        public string LastMemVer { get; set; }
+        /// <summary>
+        /// 当是成员入群或退群时有值。变更后的群成员版本号
+        /// </summary>
+        public string CurMemVer { get; set; }
 
     }
     public class RequestMessageEvent_Change_External_Chat_Dismiss : RequestMessageEvent_Change_External_Chat_Base
     {
         public override ExternalChatChangeType ChangeType => ExternalChatChangeType.dismiss;
     }
+
     public enum ExternalChatChangeType
     {
         create,
         update,
         dismiss
     }
+
 
     public enum ExternalChatUpdateDetailType
     {

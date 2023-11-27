@@ -19,6 +19,9 @@
     修改标识：Senparc - 20231026
     修改描述：v3.17.0 成员对外联系 > 客户消息通知处理
 
+    修改标识：XiaopPoTian - 20231121
+    修改描述：v3.18.1 删除企业客户事件 > 新加Source,删除客户的操作来源
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work.Entities.Request.Event
@@ -117,6 +120,11 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
         /// 外部联系人的userid
         /// </summary>
         public string ExternalUserID { get; set; }
+        /// <summary>
+        /// 删除客户的操作来源，DELETE_BY_TRANSFER表示此客户是因在职继承自动被转接成员删除
+        /// 
+        /// </summary>
+        public string Source { get; set; }
     }
 
     /// <summary>

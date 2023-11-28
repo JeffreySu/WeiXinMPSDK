@@ -1,16 +1,29 @@
-﻿using System.Collections.Generic;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2023 Senparc
+
+    文件名：ApprovalCreateTemplateRequest.cs
+    文件功能描述：创建审批模板 请求
+
+
+    创建标识：Senparc - 20230224
+
+    修改标识：Senparc - 20231128
+    修改描述：修复：template_names 命名更正为：template_name
+
+----------------------------------------------------------------*/
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.OA.OAJson
 {
     /// <summary>
-    /// 
+    /// 创建审批模板 请求
     /// </summary>
     public class ApprovalCreateTemplateRequest
     {
         /// <summary>
         /// 
         /// </summary>
-        public List<ApprovalCreateTemplateRequest_TextAndLang> template_names { get; set; }
+        public List<ApprovalCreateTemplateRequest_TextAndLang> template_name { get; set; }
 
         /// <summary>
         /// 

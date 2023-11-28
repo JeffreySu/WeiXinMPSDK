@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.18.0</Version>
+    <Version>3.18.1</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -205,7 +205,10 @@
 		v3.16.0 MessageHandler 和客服接口支持长文本自动切割后连续发送
 		v3.16.4 企业微信三方代开发处理事件: 修复 Async 方法循环调用的 Bug
 		v3.17.0 成员对外联系 &gt; 客户消息通知处理
-</PackageReleaseNotes>
+		v3.18.1
+		1、Work v3.18.1 新加企业微信企业客户标签回调事件（PR #2948）
+		2、修复：ApprovalCreateTemplateRequest.template_names 命名更正为：template_name（Issue #2949）
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>
   </PropertyGroup>

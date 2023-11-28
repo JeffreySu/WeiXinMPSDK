@@ -132,5 +132,53 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
 
         }
 
+
+        /// <summary>
+        /// 创建成员
+        /// </summary>
+        [TestMethod]
+        public async Task RequestMessageEvent_Change_External_Chat_Update()
+        {
+            //官方提供
+            var xml = @"<xml>
+<ToUserName><![CDATA[wwea4ccebadeefd11a]]></ToUserName>
+<FromUserName><![CDATA[sys]]></FromUserName>
+<CreateTime>1700642907</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[change_external_chat]]></Event>
+<ChatId><![CDATA[wree9uDgAAfxkLu5-lEbsmQBjsb7V8Cg]]></ChatId>
+<ChangeType><![CDATA[update]]></ChangeType>
+<UpdateDetail><![CDATA[change_name]]></UpdateDetail>
+<JoinScene>0</JoinScene>
+<MemChangeCnt>2</MemChangeCnt>
+<LastMemVer><![CDATA[6ebe7c3f89cb839ec2e1720f04eae2e0]]></LastMemVer>
+<CurMemVer><![CDATA[15722766561cf8bce92480a3d1457654]]></CurMemVer>
+</xml>";
+
+            var postModel = new PostModel()
+            {
+                Msg_Signature = "22cb38c34ae9ba4bdec938405b931ad3ece7e19e",
+                Timestamp = "1644320363",
+                Nonce = "1645172247",
+
+                Token = "",
+                EncodingAESKey = "",
+                CorpId = ""
+            };
+
+            var messageHandler = new CustomMessageHandlers(XDocument.Parse(xml), postModel, 10);
+
+            await Console.Out.WriteLineAsync(messageHandler.RequestMessage.ToJson(true));
+
+            await messageHandler.ExecuteAsync(new System.Threading.CancellationToken());
+            var responseMessage = messageHandler.ResponseDocument;
+
+            Assert.IsNotNull(messageHandler.RequestMessage);
+            Assert.AreEqual(RequestMsgType.Event, messageHandler.RequestMessage.MsgType);
+            Assert.IsInstanceOfType(messageHandler.RequestMessage, typeof(RequestMessageEvent_Change_External_Chat_Update));
+
+            var requestMessage = messageHandler.RequestMessage as RequestMessageEvent_Change_External_Chat_Update;
+            Console.WriteLine(requestMessage.MemberChangeList.ToJson(true));
+        }
     }
 }

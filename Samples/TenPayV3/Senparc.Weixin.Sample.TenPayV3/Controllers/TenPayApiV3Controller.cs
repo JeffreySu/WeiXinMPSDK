@@ -15,36 +15,25 @@
 /* 注意：TenpayApiV3Controller 为真正微信支付 API V3 的示例 */
 
 //DPBMARK_FILE TenPay
-using Microsoft.AspNetCore.Http;
+using System.Collections.Concurrent;
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.CO2NET.Utilities;
-using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Sample.TenPayV3.Controllers;
+using Senparc.Weixin.MP.AdvancedAPIs;
+//DPBMARK MP
+using Senparc.Weixin.Sample.TenPayV3.Filters;
 using Senparc.Weixin.Sample.TenPayV3.Models;
-using Senparc.Weixin.TenPayV3;
+using Senparc.Weixin.Sample.TenPayV3.Utilities;
 using Senparc.Weixin.TenPayV3.Apis;
 using Senparc.Weixin.TenPayV3.Apis.BasePay;
 using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
 using Senparc.Weixin.TenPayV3.Apis.Entities;
 using Senparc.Weixin.TenPayV3.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
-using System;
-using System.Collections.Concurrent;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-//DPBMARK MP
-using Senparc.Weixin.MP;
-using Senparc.Weixin.Sample.TenPayV3.Filters;
-using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.CO2NET.HttpUtility;
-using Senparc.Weixin.Sample.TenPayV3.Utilities;
-using ZXing;
 //DPBMARK_END
 
 namespace Senparc.Weixin.Sample.TenPayV3.Controllers

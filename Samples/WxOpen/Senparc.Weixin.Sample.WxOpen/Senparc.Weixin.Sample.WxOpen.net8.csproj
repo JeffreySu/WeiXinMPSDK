@@ -25,10 +25,10 @@
 
 	<!--引用 Nuget 包-->
 	<ItemGroup>
-		<PackageReference Include="Senparc.Weixin.AspNet" Version="1.1.0-rc.2" />
-		<PackageReference Include="Senparc.Weixin.TenPayV3" Version="1.2.0-rc.2" />
-		<PackageReference Include="Senparc.Weixin.WxOpen" Version="3.17.1-rc.2" />
-		<PackageReference Include="Senparc.Weixin.WxOpen.Middleware" Version="1.1.0-rc.2" />
+		<PackageReference Include="Senparc.Weixin.AspNet" Version="1.1.0" />
+		<PackageReference Include="Senparc.Weixin.TenPayV3" Version="1.2.0" />
+		<PackageReference Include="Senparc.Weixin.WxOpen" Version="3.17.1" />
+		<PackageReference Include="Senparc.Weixin.WxOpen.Middleware" Version="1.1.0" />
 	</ItemGroup>
 
 	<!--直接引用源码-->

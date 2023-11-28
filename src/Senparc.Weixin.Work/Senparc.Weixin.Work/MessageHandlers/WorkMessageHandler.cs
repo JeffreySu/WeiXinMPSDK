@@ -67,7 +67,7 @@
     修改描述：v3.16.4 企业微信三方代开发处理事件: 修复 Async 方法循环调用的 Bug
 
     修改标识：XiaoPoTian - 20231119
-    修改描述：3.18.1 添加 RequestMessageEvent_Change_External_Tag_Base 事件中 ChangeType 的判断
+    修改描述：v3.18.1 添加 RequestMessageEvent_Change_External_Tag_Base 事件中 ChangeType 的判断
 ----------------------------------------------------------------*/
 
 using System;

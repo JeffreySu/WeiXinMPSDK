@@ -167,6 +167,9 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
             };
 
             var messageHandler = new CustomMessageHandlers(XDocument.Parse(xml), postModel, 10);
+
+            await Console.Out.WriteLineAsync(messageHandler.RequestMessage.ToJson(true));
+
             await messageHandler.ExecuteAsync(new System.Threading.CancellationToken());
             var responseMessage = messageHandler.ResponseDocument;
 

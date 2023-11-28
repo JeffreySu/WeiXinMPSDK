@@ -196,16 +196,19 @@ namespace Senparc.Weixin.Work.MessageContexts
                             }
                             break;
                         case "CHANGE_EXTERNAL_TAG"://企业客户标签变更事件推送
+                            //创建标签时，此项为tag，创建标签组时，此项为tag_group
+                            //文档：https://developer.work.weixin.qq.com/document/path/92130#%E4%BC%81%E4%B8%9A%E5%AE%A2%E6%88%B7%E6%A0%87%E7%AD%BE%E5%88%9B%E5%BB%BA%E4%BA%8B%E4%BB%B6
+                            var tagType = doc.Root.Element("TagType").Value;
                             switch (doc.Root.Element("ChangeType").Value.ToUpper())
                             {
                                 case "CREATE":
-                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Create();
+                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Create(tagType);
                                     break;
                                 case "UPDATE":
-                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Update();
+                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Update(tagType);
                                     break;
                                 case "DELETE":
-                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Delete();
+                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Delete(tagType);
                                     break;
                                 case "SHUFFLE":
                                     requestMessage = new RequestMessageEvent_Change_External_Tag_Shuffle();

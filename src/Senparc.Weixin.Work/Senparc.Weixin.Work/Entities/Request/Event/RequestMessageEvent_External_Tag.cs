@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2023 XiaoPoTian
+    Copyright (C) 2023 Senparc
     
     文件名：RequestMessageEvent_Change_External_Tag_Base.cs
     文件功能描述：企业客户标签或标签组事件
@@ -50,10 +50,10 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         /// TagType类型初始化
         /// </summary>
-        /// <param name="TagTypeStr"></param>
-        public RequestMessageEvent_Change_External_Tag_Create(string TagTypeStr)
+        /// <param name="tagTypeStr"></param>
+        public RequestMessageEvent_Change_External_Tag_Create(string tagTypeStr)
         {
-            TagType = (ExternalTagChangeTagType)Enum.Parse(typeof(ExternalTagChangeTagType), TagTypeStr, true);
+            TagType = (ExternalTagChangeTagType)Enum.Parse(typeof(ExternalTagChangeTagType), tagTypeStr, true);
         }
     }
 
@@ -70,9 +70,9 @@ namespace Senparc.Weixin.Work.Entities
         /// TagType类型初始化
         /// </summary>
         /// <param name="TagTypeStr"></param>
-        public RequestMessageEvent_Change_External_Tag_Update(string TagTypeStr)
+        public RequestMessageEvent_Change_External_Tag_Update(string tagTypeStr)
         {
-            TagType = (ExternalTagChangeTagType)Enum.Parse(typeof(ExternalTagChangeTagType), TagTypeStr, true);
+            TagType = (ExternalTagChangeTagType)Enum.Parse(typeof(ExternalTagChangeTagType), tagTypeStr, true);
         }
         /// <summary>
         /// 重写具体事件类型
@@ -94,9 +94,9 @@ namespace Senparc.Weixin.Work.Entities
         /// TagType类型初始化
         /// </summary>
         /// <param name="TagTypeStr"></param>
-        public RequestMessageEvent_Change_External_Tag_Delete(string TagTypeStr)
+        public RequestMessageEvent_Change_External_Tag_Delete(string tagTypeStr)
         {
-            TagType = (ExternalTagChangeTagType)Enum.Parse(typeof(ExternalTagChangeTagType), TagTypeStr, true);
+            TagType = (ExternalTagChangeTagType)Enum.Parse(typeof(ExternalTagChangeTagType), tagTypeStr, true);
         }
         /// <summary>
         /// 重写具体事件类型

@@ -52,10 +52,10 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetWxaSearchStatusResultJson GetWxaSearchStatus(string accessToken, int timeOut = Config.TIME_OUT)
+        public static GetWxaSearchStatusJsonResult GetWxaSearchStatus(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/getwxasearchstatus?access_token={0}", accessToken.AsUrlData());
-            return CommonJsonSend.Send<GetWxaSearchStatusResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
+            return CommonJsonSend.Send<GetWxaSearchStatusJsonResult>(null, url, null, CommonJsonSendType.GET, timeOut);
         }
 
         /// <summary>
@@ -82,10 +82,10 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<GetWxaSearchStatusResultJson> GetWxaSearchStatusAsync(string accessToken, int timeOut = Config.TIME_OUT)
+        public static async Task<GetWxaSearchStatusJsonResult> GetWxaSearchStatusAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/getwxasearchstatus?access_token={0}", accessToken.AsUrlData());
-            return await CommonJsonSend.SendAsync<GetWxaSearchStatusResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
+            return await CommonJsonSend.SendAsync<GetWxaSearchStatusJsonResult>(null, url, null, CommonJsonSendType.GET, timeOut);
         }
 
         /// <summary>

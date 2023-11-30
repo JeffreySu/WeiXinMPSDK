@@ -189,7 +189,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = OnEvent_Subscribe_Msg_SentRequest(RequestMessage as RequestMessageEvent_Subscribe_Msg_Sent);
                     break;
 
-
                 #region 卡券回调
 
                 case Event.giftcard_pay_done:
@@ -237,6 +236,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 //    responseMessage = OnEvent_WeAppAuditFailRequest(RequestMessage as RequestMessageEvent_WeAppAuditFail);
                 //    break;
                 #endregion
+
                 #region 微信电子发票
                 case Event.user_authorize_invoice:
                     responseMessage = OnEvent_User_Authorize_Invoice(RequestMessage as RequestMessageEvent_User_Authorize_Invoice);
@@ -245,6 +245,19 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = OnEvent_Submit_Invoice_Title(RequestMessage as RequestMessageEvent_Submit_Invoice_Title);
                     break;
                 #endregion
+
+                #region 小程序虚拟支付
+                case Event.xpay_goods_deliver_notify:
+                    responseMessage = OnEvent_XPay_Goods_Deliver_Notify(RequestMessage as RequestMessageEvent_XPay_Goods_Deliver_Notify);
+                    break;
+                case Event.xpay_coin_pay_notify:
+                    responseMessage = OnEvent_XPay_Coin_Pay_Notify(RequestMessage as RequestMessageEvent_XPay_Coin_Pay_Notify);
+                    break;
+                case Event.xpay_refund_notify:
+                    responseMessage = OnEvent_XPay_Refund_Notify(RequestMessage as RequestMessageEvent_XPay_Refund_Notify);
+                    break;
+                #endregion
+
                 default:
                     throw new Exceptions.UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -766,6 +779,21 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="requestMessage"></param>
         /// <returns></returns>
         public virtual IResponseMessageBase OnEvent_Subscribe_Msg_SentRequest(RequestMessageEvent_Subscribe_Msg_Sent requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        #endregion
+
+        #region 小程序虚拟支付
+        public virtual IResponseMessageBase OnEvent_XPay_Goods_Deliver_Notify(RequestMessageEvent_XPay_Goods_Deliver_Notify requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        public virtual IResponseMessageBase OnEvent_XPay_Coin_Pay_Notify(RequestMessageEvent_XPay_Coin_Pay_Notify requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        public virtual IResponseMessageBase OnEvent_XPay_Refund_Notify(RequestMessageEvent_XPay_Refund_Notify requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

@@ -1,4 +1,15 @@
-﻿namespace Senparc.Weixin.MP.Entities
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2023 Senparc
+    
+    文件名：RequestMessageEvent_XPay_Refund_Notify.cs
+    文件功能描述：小程序虚拟支付 - 退款推送
+    
+    
+    创建标识：Senparc - 20231130
+
+----------------------------------------------------------------*/
+
+namespace Senparc.Weixin.MP.Entities
 {
     public class RequestMessageEvent_XPay_Refund_Notify : RequestMessageEventBase, IRequestMessageEventBase
     {

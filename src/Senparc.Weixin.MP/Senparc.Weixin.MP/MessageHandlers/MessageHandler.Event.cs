@@ -36,6 +36,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：lishewen - 20210809
     修改描述：v16.14.2 添加 OnEvent_Submit_Invoice_Title() 方法
 
+    修改标识：Senparc - 20231130
+    修改描述：v16.20.2 添加“小程序虚拟支付”相关事件
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;

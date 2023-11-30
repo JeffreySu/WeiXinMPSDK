@@ -1,5 +1,19 @@
-﻿namespace Senparc.Weixin.MP.Entities
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2023 Senparc
+    
+    文件名：RequestMessageEvent_XPay_Coin_Pay_Notify.cs
+    文件功能描述：小程序虚拟支付 - 代币支付推送
+    
+    
+    创建标识：Senparc - 20231130
+
+----------------------------------------------------------------*/
+
+namespace Senparc.Weixin.MP.Entities
 {
+    /// <summary>
+    /// 代币支付推送
+    /// </summary>
     public class RequestMessageEvent_XPay_Coin_Pay_Notify : RequestMessageEventBase, IRequestMessageEventBase
     {
         public override Event Event

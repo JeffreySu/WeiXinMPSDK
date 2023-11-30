@@ -33,6 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：lishewen - 20210809
     修改描述：v16.14.2 添加 OnEvent_Submit_Invoice_TitleAsync() 方法
 
+    修改标识：Senparc - 20231130
+    修改描述：v16.20.2 添加“小程序虚拟支付”相关事件
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;
@@ -779,14 +782,32 @@ namespace Senparc.Weixin.MP.MessageHandlers
         #endregion
 
         #region 小程序虚拟支付
+
+        /// <summary>
+        /// 小程序虚拟支付 - 道具发货推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_XPay_Goods_Deliver_NotifyAsync(RequestMessageEvent_XPay_Goods_Deliver_Notify requestMessage)
         {
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_XPay_Goods_Deliver_Notify(requestMessage)).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// 小程序虚拟支付 - 代币支付推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_XPay_Coin_Pay_NotifyAsync(RequestMessageEvent_XPay_Coin_Pay_Notify requestMessage)
         {
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_XPay_Coin_Pay_Notify(requestMessage)).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// 小程序虚拟支付 - 退款推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_XPay_Refund_NotifyAsync(RequestMessageEvent_XPay_Refund_Notify requestMessage)
         {
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_XPay_Refund_Notify(requestMessage)).ConfigureAwait(false);

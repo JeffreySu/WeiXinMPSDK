@@ -36,7 +36,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sec
     /// <summary>
     /// 小程序认证上传补充材料
     /// </summary>
-    public class UploadAuthMaterialResultJson : WxJsonResult
+    public class UploadAuthMaterialJsonResult : WxJsonResult
     {
         /// <summary>
         /// 类型

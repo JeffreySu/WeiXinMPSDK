@@ -56,14 +56,14 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="auth_data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxaAuthResultJson WxaAuth(string accessToken, AuthData auth_data, int timeOut = Config.TIME_OUT)
+        public static WxaAuthJsonResult WxaAuth(string accessToken, AuthData auth_data, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/sec/wxaauth?access_token={0}", accessToken.AsUrlData());
             var data = new
             {
                 auth_data
             };
-            return CommonJsonSend.Send<WxaAuthResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<WxaAuthJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -74,14 +74,14 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="taskid"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static QueryAuthResultJson QueryAuth(string accessToken, string taskid, int timeOut = Config.TIME_OUT)
+        public static QueryAuthJsonResult QueryAuth(string accessToken, string taskid, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/sec/queryauth?access_token={0}", accessToken.AsUrlData());
             var data = new
             {
                 taskid
             };
-            return CommonJsonSend.Send<QueryAuthResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<QueryAuthJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -92,12 +92,12 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="file">图片（image）: 不超过2M，支持PNG\JPEG\JPG\GIF格式</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static UploadAuthMaterialResultJson UploadAuthMaterial(string accessToken, string file, int timeOut = Config.TIME_OUT)
+        public static UploadAuthMaterialJsonResult UploadAuthMaterial(string accessToken, string file, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/sec/uploadauthmaterial?access_token={0}", accessToken.AsUrlData());
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = file;
-            return Post.PostFileGetJson<UploadAuthMaterialResultJson>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
+            return Post.PostFileGetJson<UploadAuthMaterialJsonResult>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
         }
 
         /// <summary>
@@ -108,14 +108,14 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="auth_data">认证数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static ReauthResultJson Reauth(string accessToken, AuthData auth_data, int timeOut = Config.TIME_OUT)
+        public static ReauthJsonResult Reauth(string accessToken, AuthData auth_data, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/sec/reauth?access_token={0}", accessToken.AsUrlData());
             var data = new
             {
                 auth_data
             };
-            return CommonJsonSend.Send<ReauthResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<ReauthJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -125,10 +125,10 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static AuthIdentityTreeResultJson AuthIdentityTree(string accessToken,  int timeOut = Config.TIME_OUT)
+        public static AuthIdentityTreeJsonResult AuthIdentityTree(string accessToken,  int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/sec/authidentitytree?access_token={0}", accessToken.AsUrlData());
-            return CommonJsonSend.Send<AuthIdentityTreeResultJson>(null, url, null, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<AuthIdentityTreeJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut);
         }
         #endregion
 
@@ -141,14 +141,14 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="auth_data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<WxaAuthResultJson> WxaAuthAsync(string accessToken, AuthData auth_data, int timeOut = Config.TIME_OUT)
+        public static async Task<WxaAuthJsonResult> WxaAuthAsync(string accessToken, AuthData auth_data, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/sec/wxaauth?access_token={0}", accessToken.AsUrlData());
             var data = new
             {
                 auth_data
             };
-            return await CommonJsonSend.SendAsync<WxaAuthResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<WxaAuthJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -159,14 +159,14 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="taskid"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<QueryAuthResultJson> QueryAuthAsync(string accessToken, string taskid, int timeOut = Config.TIME_OUT)
+        public static async Task<QueryAuthJsonResult> QueryAuthAsync(string accessToken, string taskid, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/sec/queryauth?access_token={0}", accessToken.AsUrlData());
             var data = new
             {
                 taskid
             };
-            return await CommonJsonSend.SendAsync<QueryAuthResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<QueryAuthJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -177,12 +177,12 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="file">图片（image）: 不超过2M，支持PNG\JPEG\JPG\GIF格式</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<UploadAuthMaterialResultJson> UploadAuthMaterialAsync(string accessToken, string file, int timeOut = Config.TIME_OUT)
+        public static async Task<UploadAuthMaterialJsonResult> UploadAuthMaterialAsync(string accessToken, string file, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/sec/uploadauthmaterial?access_token={0}", accessToken.AsUrlData());
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = file;
-            return await Post.PostFileGetJsonAsync<UploadAuthMaterialResultJson>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
+            return await Post.PostFileGetJsonAsync<UploadAuthMaterialJsonResult>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
         }
 
         /// <summary>
@@ -193,14 +193,14 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="auth_data">认证数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<ReauthResultJson> ReauthAsync(string accessToken, AuthData auth_data, int timeOut = Config.TIME_OUT)
+        public static async Task<ReauthJsonResult> ReauthAsync(string accessToken, AuthData auth_data, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/sec/reauth?access_token={0}", accessToken.AsUrlData());
             var data = new
             {
                 auth_data
             };
-            return await CommonJsonSend.SendAsync<ReauthResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<ReauthJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -210,10 +210,10 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<AuthIdentityTreeResultJson> AuthIdentityTreeAsync(string accessToken, int timeOut = Config.TIME_OUT)
+        public static async Task<AuthIdentityTreeJsonResult> AuthIdentityTreeAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/sec/authidentitytree?access_token={0}", accessToken.AsUrlData());
-            return await CommonJsonSend.SendAsync<AuthIdentityTreeResultJson>(null, url, null, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<AuthIdentityTreeJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut);
         }
         #endregion
     }

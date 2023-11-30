@@ -21,37 +21,46 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
     
-    文件名：UploadShippingInfo.cs
-    文件功能描述：发货信息录入接口
+    文件名：AuthIdentityTreeResultJson.cs
+    文件功能描述：查询个人认证身份选项列表
     
     
-    创建标识：Yaofeng - 20231026
+    创建标识：Yaofeng - 20231130
 
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
 using System.Collections.Generic;
 
-namespace Senparc.Weixin.Open.WxaAPIs.SecOrder
+namespace Senparc.Weixin.Open.WxaAPIs.Sec
 {
     /// <summary>
-    /// 查询订单列表
+    /// 查询个人认证身份选项列表
     /// </summary>
-    public class GetOrderListResultJson : WxJsonResult
+    public class AuthIdentityTreeJsonResult : WxJsonResult
     {
         /// <summary>
         /// 
         /// </summary>
-        public string last_index { get; set; }
+        public List<AuthIdentityTreeNode> identity_tree_list { get; set; }
+    }
+
+    public class AuthIdentityTreeNode
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public string name { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public bool has_more { get; set; }
+        public int node_id { get; set; }
 
         /// <summary>
-        /// 支付单信息
+        /// 
         /// </summary>
-        public List<Order> order_list { get; set; }
+        public List<AuthIdentityTreeNode> node_list { get; set; }
     }
+
 }

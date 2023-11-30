@@ -36,7 +36,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sec
     /// <summary>
     /// 小程序认证进度查询
     /// </summary>
-    public class QueryAuthResultJson : WxJsonResult
+    public class QueryAuthJsonResult : WxJsonResult
     {
         /// <summary>
         /// 当前任务流程的状态码：

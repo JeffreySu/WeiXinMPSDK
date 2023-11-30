@@ -21,31 +21,26 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
     
-    文件名：WxaAuthResultJson.cs
-    文件功能描述：小程序认证
+    文件名：UploadShippingInfo.cs
+    文件功能描述：发货信息录入接口
     
     
-    创建标识：Yaofeng - 20231130
+    创建标识：Yaofeng - 20231026
 
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.Open.WxaAPIs.Sec
+namespace Senparc.Weixin.Open.WxaAPIs.SecOrder
 {
     /// <summary>
-    /// 小程序认证
+    /// 查询订单发货状态
     /// </summary>
-    public class WxaAuthResultJson : WxJsonResult
+    public class GetOrderJsonResult : WxJsonResult
     {
         /// <summary>
-        /// 认证任务id
+        /// 支付单信息
         /// </summary>
-        public string taskid { get; set; }
-
-        /// <summary>
-        /// 小程序管理员授权链接
-        /// </summary>
-        public string auth_url { get; set; }
+        public Order order { get; set; }
     }
 }

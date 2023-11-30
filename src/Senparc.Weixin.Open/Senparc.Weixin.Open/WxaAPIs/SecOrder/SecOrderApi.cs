@@ -85,7 +85,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="merchant_trade_no">商户系统内部订单号，只能是数字、大小写字母`_-*`且在同一个商户号下唯一</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetOrderResultJson GetOrder(string accessToken, string transaction_id = "", string merchant_id = "", string sub_merchant_id = "", string merchant_trade_no = "", int timeOut = Config.TIME_OUT)
+        public static GetOrderJsonResult GetOrder(string accessToken, string transaction_id = "", string merchant_id = "", string sub_merchant_id = "", string merchant_trade_no = "", int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/sec/order/get_order?access_token={0}", accessToken.AsUrlData());
             var data = new
@@ -95,7 +95,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 sub_merchant_id,
                 merchant_trade_no,
             };
-            return CommonJsonSend.Send<GetOrderResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<GetOrderJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="page_size">翻页时使用，返回列表的长度，默认为100。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetOrderListResultJson GetOrderList(string accessToken, PayTimeRange pay_time_range = null, int? order_state = null, string openid = "", string last_index = "", int? page_size = null, int timeOut = Config.TIME_OUT)
+        public static GetOrderListJsonResult GetOrderList(string accessToken, PayTimeRange pay_time_range = null, int? order_state = null, string openid = "", string last_index = "", int? page_size = null, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/sec/order/get_order_list?access_token={0}", accessToken.AsUrlData());
             var data = new
@@ -121,7 +121,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 last_index,
                 page_size,
             };
-            return CommonJsonSend.Send<GetOrderListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<GetOrderListJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -176,14 +176,14 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="path">商户自定义跳转路径。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static IsTradeManagedResultJson IsTradeManaged(string accessToken, string appid, int timeOut = Config.TIME_OUT)
+        public static IsTradeManagedJsonResult IsTradeManaged(string accessToken, string appid, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/sec/order/is_trade_managed?access_token={0}", accessToken.AsUrlData());
             var data = new
             {
                 appid
             };
-            return CommonJsonSend.Send<IsTradeManagedResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<IsTradeManagedJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
         #endregion
 
@@ -225,7 +225,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="merchant_trade_no">商户系统内部订单号，只能是数字、大小写字母`_-*`且在同一个商户号下唯一</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<GetOrderResultJson> GetOrderAsync(string accessToken, string transaction_id = "", string merchant_id = "", string sub_merchant_id = "", string merchant_trade_no = "", int timeOut = Config.TIME_OUT)
+        public static async Task<GetOrderJsonResult> GetOrderAsync(string accessToken, string transaction_id = "", string merchant_id = "", string sub_merchant_id = "", string merchant_trade_no = "", int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/sec/order/get_order?access_token={0}", accessToken.AsUrlData());
             var data = new
@@ -235,7 +235,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 sub_merchant_id,
                 merchant_trade_no,
             };
-            return await CommonJsonSend.SendAsync<GetOrderResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<GetOrderJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -250,7 +250,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="page_size">翻页时使用，返回列表的长度，默认为100。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<GetOrderListResultJson> GetOrderListAsync(string accessToken, PayTimeRange pay_time_range = null, int? order_state = null, string openid = "", string last_index = "", int? page_size = null, int timeOut = Config.TIME_OUT)
+        public static async Task<GetOrderListJsonResult> GetOrderListAsync(string accessToken, PayTimeRange pay_time_range = null, int? order_state = null, string openid = "", string last_index = "", int? page_size = null, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/sec/order/get_order_list?access_token={0}", accessToken.AsUrlData());
             var data = new
@@ -261,7 +261,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 last_index,
                 page_size,
             };
-            return await CommonJsonSend.SendAsync<GetOrderListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<GetOrderListJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -316,14 +316,14 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="path">商户自定义跳转路径。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<IsTradeManagedResultJson> IsTradeManagedAsync(string accessToken, string appid, int timeOut = Config.TIME_OUT)
+        public static async Task<IsTradeManagedJsonResult> IsTradeManagedAsync(string accessToken, string appid, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/sec/order/is_trade_managed?access_token={0}", accessToken.AsUrlData());
             var data = new
             {
                 appid
             };
-            return await CommonJsonSend.SendAsync<IsTradeManagedResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<IsTradeManagedJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
         #endregion
     }

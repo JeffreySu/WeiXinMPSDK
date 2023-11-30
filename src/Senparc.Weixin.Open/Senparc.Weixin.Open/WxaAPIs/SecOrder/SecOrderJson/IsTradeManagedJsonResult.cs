@@ -21,46 +21,26 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
     
-    文件名：AuthIdentityTreeResultJson.cs
-    文件功能描述：查询个人认证身份选项列表
+    文件名：IsTradeManagedResultJson.cs
+    文件功能描述：查询小程序是否已开通发货信息管理服务
     
     
-    创建标识：Yaofeng - 20231130
+    创建标识：Yaofeng - 20231026
 
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
-using System.Collections.Generic;
 
-namespace Senparc.Weixin.Open.WxaAPIs.Sec
+namespace Senparc.Weixin.Open.WxaAPIs.SecOrder
 {
     /// <summary>
-    /// 查询个人认证身份选项列表
+    /// 查询小程序是否已开通发货信息管理服务
     /// </summary>
-    public class AuthIdentityTreeResultJson : WxJsonResult
+    public class IsTradeManagedJsonResult : WxJsonResult
     {
         /// <summary>
-        /// 
+        /// 是否已开通小程序发货信息管理服务
         /// </summary>
-        public List<AuthIdentityTreeNode> identity_tree_list { get; set; }
+        public bool is_trade_managed { get; set; }
     }
-
-    public class AuthIdentityTreeNode
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public string name { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public int node_id { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public List<AuthIdentityTreeNode> node_list { get; set; }
-    }
-
 }

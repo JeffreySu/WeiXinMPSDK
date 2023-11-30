@@ -53,7 +53,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [Obsolete("请使用DomainApi.SetWebViewDomain")]
-        public static SetWebViewDomainResultJson SetWebViewDomain(string accessToken, SetWebViewDomainAction action,
+        public static SetWebViewDomainJsonResult SetWebViewDomain(string accessToken, SetWebViewDomainAction action,
             List<string> webviewdomain,
             int timeOut = Config.TIME_OUT)
         {
@@ -77,7 +77,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 };
             }
 
-            return CommonJsonSend.Send<SetWebViewDomainResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<SetWebViewDomainJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         #endregion
@@ -94,7 +94,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [Obsolete("请使用DomainApi.SetWebViewDomainAsync")]
-        public static async Task<SetWebViewDomainResultJson> SetWebViewDomainAsync(string accessToken, SetWebViewDomainAction action,
+        public static async Task<SetWebViewDomainJsonResult> SetWebViewDomainAsync(string accessToken, SetWebViewDomainAction action,
             List<string> webviewdomain,
             int timeOut = Config.TIME_OUT)
         {
@@ -118,7 +118,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 };
             }
 
-            return await CommonJsonSend.SendAsync<SetWebViewDomainResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            return await CommonJsonSend.SendAsync<SetWebViewDomainJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
         #endregion
     }

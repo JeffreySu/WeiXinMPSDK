@@ -21,26 +21,31 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
     
-    文件名：IsTradeManagedResultJson.cs
-    文件功能描述：查询小程序是否已开通发货信息管理服务
+    文件名：ReauthResultJson.cs
+    文件功能描述：小程序认证重新提审
     
     
-    创建标识：Yaofeng - 20231026
+    创建标识：Yaofeng - 20231130
 
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.Open.WxaAPIs.SecOrder
+namespace Senparc.Weixin.Open.WxaAPIs.Sec
 {
     /// <summary>
-    /// 查询小程序是否已开通发货信息管理服务
+    /// 小程序认证重新提审
     /// </summary>
-    public class IsTradeManagedResultJson : WxJsonResult
+    public class ReauthJsonResult : WxJsonResult
     {
         /// <summary>
-        /// 是否已开通小程序发货信息管理服务
+        /// 认证任务id
         /// </summary>
-        public bool is_trade_managed { get; set; }
+        public string taskid { get; set; }
+
+        /// <summary>
+        /// 小程序管理员授权链接
+        /// </summary>
+        public string auth_url { get; set; }
     }
 }

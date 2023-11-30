@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -20,32 +20,31 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
-    
-    文件名：ReauthResultJson.cs
-    文件功能描述：小程序认证重新提审
-    
-    
-    创建标识：Yaofeng - 20231130
 
+    文件名：ModifyDomainResultJson.cs
+    文件功能描述：修改域名接口返回类型
+
+
+    创建标识：Yaofeng - 20201224
+    
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Senparc.Weixin.Open.WxaAPIs.Sec
+namespace Senparc.Weixin.Open.WxaAPIs.SetWebViewDomain
 {
     /// <summary>
-    /// 小程序认证重新提审
+    /// 修改业务域名接口返回类型
     /// </summary>
-    public class ReauthResultJson : WxJsonResult
+    public class SetWebViewDomainJsonResult : WxJsonResult
     {
-        /// <summary>
-        /// 认证任务id
-        /// </summary>
-        public string taskid { get; set; }
+        //以下字段仅在get时返回
 
-        /// <summary>
-        /// 小程序管理员授权链接
-        /// </summary>
-        public string auth_url { get; set; }
+        public List<string> webviewdomain { get; set; }
     }
 }

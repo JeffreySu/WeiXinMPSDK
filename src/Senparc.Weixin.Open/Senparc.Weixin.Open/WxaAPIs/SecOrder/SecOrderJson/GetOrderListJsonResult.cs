@@ -20,27 +20,38 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
-
-    文件名：GetWxaSearchStatusJson.cs
-    文件功能描述：获取搜索状态返回类型
-
-
-    创建标识：Yaofeng - 20220805
     
+    文件名：UploadShippingInfo.cs
+    文件功能描述：发货信息录入接口
+    
+    
+    创建标识：Yaofeng - 20231026
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
+using System.Collections.Generic;
 
-namespace Senparc.Weixin.Open.WxaAPIs.SearchStatus
+namespace Senparc.Weixin.Open.WxaAPIs.SecOrder
 {
     /// <summary>
-    /// 获取搜索状态返回类型
+    /// 查询订单列表
     /// </summary>
-    public class GetWxaSearchStatusResultJson : WxJsonResult
+    public class GetOrderListJsonResult : WxJsonResult
     {
         /// <summary>
-        /// 1 表示不可搜索，0 表示可搜索
+        /// 
         /// </summary>
-        public int status { get; set; }
+        public string last_index { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool has_more { get; set; }
+
+        /// <summary>
+        /// 支付单信息
+        /// </summary>
+        public List<Order> order_list { get; set; }
     }
 }

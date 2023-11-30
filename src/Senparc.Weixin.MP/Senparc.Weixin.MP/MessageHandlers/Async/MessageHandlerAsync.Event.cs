@@ -234,12 +234,24 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     break;
 
                 #endregion
+
                 #region 微信电子发票
                 case Event.user_authorize_invoice:
                     responseMessage = await OnEvent_User_Authorize_InvoiceAsync(RequestMessage as RequestMessageEvent_User_Authorize_Invoice).ConfigureAwait(false);
                     break;
                 #endregion
 
+                #region 小程序虚拟支付
+                case Event.xpay_goods_deliver_notify:
+                    responseMessage = await OnEvent_XPay_Goods_Deliver_NotifyAsync(RequestMessage as RequestMessageEvent_XPay_Goods_Deliver_Notify);
+                    break;
+                case Event.xpay_coin_pay_notify:
+                    responseMessage = await OnEvent_XPay_Coin_Pay_NotifyAsync(RequestMessage as RequestMessageEvent_XPay_Coin_Pay_Notify);
+                    break;
+                case Event.xpay_refund_notify:
+                    responseMessage = await OnEvent_XPay_Refund_NotifyAsync(RequestMessage as RequestMessageEvent_XPay_Refund_Notify);
+                    break;
+                #endregion
 
                 default:
                     throw new Exceptions.UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -735,6 +747,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_Submit_Invoice_Title(requestMessage)).ConfigureAwait(false);
         }
         #endregion
+
         #region 订阅通知
         /// <summary>
         /// 用户管理订阅通知
@@ -762,6 +775,21 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public virtual async Task<IResponseMessageBase> OnEvent_Subscribe_Msg_SentRequestAsync(RequestMessageEvent_Subscribe_Msg_Sent requestMessage)
         {
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_Subscribe_Msg_SentRequest(requestMessage));
+        }
+        #endregion
+
+        #region 小程序虚拟支付
+        public virtual async Task<IResponseMessageBase> OnEvent_XPay_Goods_Deliver_NotifyAsync(RequestMessageEvent_XPay_Goods_Deliver_Notify requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_XPay_Goods_Deliver_Notify(requestMessage)).ConfigureAwait(false);
+        }
+        public virtual async Task<IResponseMessageBase> OnEvent_XPay_Coin_Pay_NotifyAsync(RequestMessageEvent_XPay_Coin_Pay_Notify requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_XPay_Coin_Pay_Notify(requestMessage)).ConfigureAwait(false);
+        }
+        public virtual async Task<IResponseMessageBase> OnEvent_XPay_Refund_NotifyAsync(RequestMessageEvent_XPay_Refund_Notify requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_XPay_Refund_Notify(requestMessage)).ConfigureAwait(false);
         }
         #endregion
 

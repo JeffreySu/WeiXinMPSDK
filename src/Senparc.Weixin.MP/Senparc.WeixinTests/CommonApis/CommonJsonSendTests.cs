@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.CommonAPIs;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,23 @@ namespace Senparc.WeixinTests.vs2017.CommonApis
             {
                 Assert.IsTrue(true);
             }
-            Assert.IsTrue(false);
+            else
+            {
+                Assert.IsTrue(false);
+            }
+
+            string json = "{\"is_menu_open\":1,\"selfmenu_info\":{\"button\":[{\"type\":\"click\",\"name\":\"今日歌曲\",\"key\":\"V1001_TODAY_MUSIC\"},{\"name\":\"菜单\",\"sub_button\":{\"list\":[{\"type\":\"view\",\"name\":\"搜索\",\"url\":\"http:\\/\\/www.soso.com\\/\"},{\"type\":\"click\",\"name\":\"赞一下我们\",\"key\":\"V1001_GOOD\"}]}}]}}";
+            try
+            {
+                var test = Newtonsoft.Json.JsonConvert.DeserializeObject<SelfMenuConfigResult>(json);
+                Console.WriteLine(test);
+                Assert.IsTrue(true);
+            }
+            catch (Exception)
+            {
+                Assert.IsTrue(false);
+                throw;
+            }
         }
     }
 }

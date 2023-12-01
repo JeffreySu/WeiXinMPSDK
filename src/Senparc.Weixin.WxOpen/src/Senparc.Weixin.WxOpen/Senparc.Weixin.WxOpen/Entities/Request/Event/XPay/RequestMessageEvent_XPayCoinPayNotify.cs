@@ -1,6 +1,6 @@
-﻿namespace Senparc.Weixin.MP.Entities
+﻿namespace Senparc.Weixin.WxOpen.Entities
 {
-    public class RequestMessageEvent_XPay_Goods_Deliver_Notify : RequestMessageEventBase, IRequestMessageEventBase
+    public class RequestMessageEvent_XPayCoinPayNotify : RequestMessageEventBase, IRequestMessageEventBase
     {
         public override Event Event
         {
@@ -30,40 +30,14 @@
         /// <summary>
         /// 道具参数信息
         /// </summary>
-        public GoodsInfo GoodsInfo { get; set; }
-    }
-
-    /// <summary>
-    /// 微信支付信息 非微信支付渠道可能没有
-    /// </summary>
-    public class WeChatPayInfo
-    {
-        /// <summary>
-        /// 微信支付商户单号
-        /// </summary>
-        public string MchOrderNo { get; set; }
-
-        /// <summary>
-        /// 交易单号（微信支付订单号）
-        /// </summary>
-        public string TransactionId { get; set; }
-
-        /// <summary>
-        /// 用户支付时间，Linux秒级时间戳
-        /// </summary>
-        public long PaidTime { get; set; }
+        public CoinInfo CoinInfo { get; set; }
     }
 
     /// <summary>
     /// 道具参数信息
     /// </summary>
-    public class GoodsInfo
+    public class CoinInfo
     {
-        /// <summary>
-        /// 道具ID
-        /// </summary>
-        public string ProductId { get; set; }
-
         /// <summary>
         /// 数量
         /// </summary>

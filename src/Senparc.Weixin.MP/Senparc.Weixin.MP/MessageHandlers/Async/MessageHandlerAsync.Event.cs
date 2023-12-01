@@ -241,18 +241,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     break;
                 #endregion
 
-                #region 小程序虚拟支付
-                case Event.xpay_goods_deliver_notify:
-                    responseMessage = await OnEvent_XPay_Goods_Deliver_NotifyAsync(RequestMessage as RequestMessageEvent_XPay_Goods_Deliver_Notify);
-                    break;
-                case Event.xpay_coin_pay_notify:
-                    responseMessage = await OnEvent_XPay_Coin_Pay_NotifyAsync(RequestMessage as RequestMessageEvent_XPay_Coin_Pay_Notify);
-                    break;
-                case Event.xpay_refund_notify:
-                    responseMessage = await OnEvent_XPay_Refund_NotifyAsync(RequestMessage as RequestMessageEvent_XPay_Refund_Notify);
-                    break;
-                #endregion
-
                 default:
                     throw new Exceptions.UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -775,21 +763,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public virtual async Task<IResponseMessageBase> OnEvent_Subscribe_Msg_SentRequestAsync(RequestMessageEvent_Subscribe_Msg_Sent requestMessage)
         {
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_Subscribe_Msg_SentRequest(requestMessage));
-        }
-        #endregion
-
-        #region 小程序虚拟支付
-        public virtual async Task<IResponseMessageBase> OnEvent_XPay_Goods_Deliver_NotifyAsync(RequestMessageEvent_XPay_Goods_Deliver_Notify requestMessage)
-        {
-            return await DefaultAsyncMethod(requestMessage, () => OnEvent_XPay_Goods_Deliver_Notify(requestMessage)).ConfigureAwait(false);
-        }
-        public virtual async Task<IResponseMessageBase> OnEvent_XPay_Coin_Pay_NotifyAsync(RequestMessageEvent_XPay_Coin_Pay_Notify requestMessage)
-        {
-            return await DefaultAsyncMethod(requestMessage, () => OnEvent_XPay_Coin_Pay_Notify(requestMessage)).ConfigureAwait(false);
-        }
-        public virtual async Task<IResponseMessageBase> OnEvent_XPay_Refund_NotifyAsync(RequestMessageEvent_XPay_Refund_Notify requestMessage)
-        {
-            return await DefaultAsyncMethod(requestMessage, () => OnEvent_XPay_Refund_Notify(requestMessage)).ConfigureAwait(false);
         }
         #endregion
 

@@ -1,6 +1,6 @@
-﻿namespace Senparc.Weixin.MP.Entities
+﻿namespace Senparc.Weixin.WxOpen.Entities
 {
-    public class RequestMessageEvent_XPay_Refund_Notify : RequestMessageEventBase, IRequestMessageEventBase
+    public class RequestMessageEvent_XPayRefundNotify : RequestMessageEventBase, IRequestMessageEventBase
     {
         public override Event Event
         {

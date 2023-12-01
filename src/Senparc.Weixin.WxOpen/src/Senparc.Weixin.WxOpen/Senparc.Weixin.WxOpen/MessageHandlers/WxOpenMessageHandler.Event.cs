@@ -116,7 +116,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     responseMessage = OnEvent_WxaCategoryAuditRequest(RequestMessage as RequestMessageEvent_WxaCategoryAudit);
                     break;
                 case Event.add_express_path:
-                    responseMessage=OnEvent_AddExpressPath(RequestMessage as RequestMessageEvent_AddExpressPath); 
+                    responseMessage = OnEvent_AddExpressPath(RequestMessage as RequestMessageEvent_AddExpressPath);
                     break;
                 case Event.trade_manage_order_settlement:
                     responseMessage = OnEvent_TradeManageOrderSettlement(RequestMessage as RequestMessageEvent_TradeManageOrderSettlement);
@@ -127,6 +127,19 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.trade_manage_remind_shipping:
                     responseMessage = OnEvent_TradeManageRemindShipping(RequestMessage as RequestMessageEvent_TradeManageRemindShipping);
                     break;
+
+                #region 小程序虚拟支付
+                case Event.xpay_goods_deliver_notify:
+                    responseMessage = OnEvent_XPayGoodsDeliverNotify(RequestMessage as RequestMessageEvent_XPayGoodsDeliverNotify);
+                    break;
+                case Event.xpay_coin_pay_notify:
+                    responseMessage = OnEvent_XPayCoinPayNotify(RequestMessage as RequestMessageEvent_XPayCoinPayNotify);
+                    break;
+                case Event.xpay_refund_notify:
+                    responseMessage = OnEvent_XPayRefundNotify(RequestMessage as RequestMessageEvent_XPayRefundNotify);
+                    break;
+                #endregion
+
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -297,6 +310,23 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
+
+
+        #region 小程序虚拟支付
+        public virtual IResponseMessageBase OnEvent_XPayGoodsDeliverNotify(RequestMessageEvent_XPayGoodsDeliverNotify requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        public virtual IResponseMessageBase OnEvent_XPayCoinPayNotify(RequestMessageEvent_XPayCoinPayNotify requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        public virtual IResponseMessageBase OnEvent_XPayRefundNotify(RequestMessageEvent_XPayRefundNotify requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        #endregion
+
         #endregion
 
         #endregion
@@ -350,7 +380,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     responseMessage = await OnEvent_MediaCheckRequestAsync(RequestMessage as RequestMessageEvent_MediaCheck);
                     break;
                 case Event.add_express_path:
-                    responseMessage =await OnEvent_AddExpressPathAsync(requestMessage as RequestMessageEvent_AddExpressPath);
+                    responseMessage = await OnEvent_AddExpressPathAsync(requestMessage as RequestMessageEvent_AddExpressPath);
                     break;
                 case Event.trade_manage_order_settlement:
                     responseMessage = await OnEvent_TradeManageOrderSettlementAsync(RequestMessage as RequestMessageEvent_TradeManageOrderSettlement);
@@ -361,6 +391,19 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.trade_manage_remind_shipping:
                     responseMessage = await OnEvent_TradeManageRemindShippingAsync(RequestMessage as RequestMessageEvent_TradeManageRemindShipping);
                     break;
+
+                #region 小程序虚拟支付
+                case Event.xpay_goods_deliver_notify:
+                    responseMessage = await OnEvent_XPayGoodsDeliverNotifyAsync(RequestMessage as RequestMessageEvent_XPayGoodsDeliverNotify);
+                    break;
+                case Event.xpay_coin_pay_notify:
+                    responseMessage = await OnEvent_XPayCoinPayNotifyAsync(RequestMessage as RequestMessageEvent_XPayCoinPayNotify);
+                    break;
+                case Event.xpay_refund_notify:
+                    responseMessage = await OnEvent_XPayRefundNotifyAsync(RequestMessage as RequestMessageEvent_XPayRefundNotify);
+                    break;
+                #endregion
+
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -402,7 +445,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_AddExpressPathAsync(RequestMessageEvent_AddExpressPath requestMessage)
         {
-            return await DefaultAsyncMethod(requestMessage, ()=>OnEvent_AddExpressPath(requestMessage)).ConfigureAwait(false);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_AddExpressPath(requestMessage)).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】小程序类目审核结果事件推送
@@ -530,6 +573,21 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         {
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_MediaCheckRequest(requestMessage)).ConfigureAwait(false);
         }
+
+        #region 小程序虚拟支付
+        public virtual async Task<IResponseMessageBase> OnEvent_XPayGoodsDeliverNotifyAsync(RequestMessageEvent_XPayGoodsDeliverNotify requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_XPayGoodsDeliverNotify(requestMessage)).ConfigureAwait(false);
+        }
+        public virtual async Task<IResponseMessageBase> OnEvent_XPayCoinPayNotifyAsync(RequestMessageEvent_XPayCoinPayNotify requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_XPayCoinPayNotify(requestMessage)).ConfigureAwait(false);
+        }
+        public virtual async Task<IResponseMessageBase> OnEvent_XPayRefundNotifyAsync(RequestMessageEvent_XPayRefundNotify requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_XPayRefundNotify(requestMessage)).ConfigureAwait(false);
+        }
+        #endregion
 
         #endregion
 

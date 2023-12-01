@@ -428,23 +428,6 @@ namespace Senparc.Weixin.MP
         /// </summary>
         subscribe_msg_sent_event,
         #endregion
-
-        #region 小程序虚拟支付
-        /// <summary>
-        /// 道具发货推送
-        /// </summary>
-        xpay_goods_deliver_notify,
-
-        /// <summary>
-        /// 代币支付推送
-        /// </summary>
-        xpay_coin_pay_notify,
-
-        /// <summary>
-        /// 退款推送
-        /// </summary>
-        xpay_refund_notify,
-        #endregion
     }
 
 

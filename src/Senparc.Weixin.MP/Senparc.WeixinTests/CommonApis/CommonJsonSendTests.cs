@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.MP.CommonAPIs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,6 +33,19 @@ namespace Senparc.WeixinTests.vs2017.CommonApis
             Console.WriteLine(result2);
 
             Senparc.Weixin.Config.ThrownWhenJsonResultFaild = true;//还原
+        }
+
+        [TestMethod]
+        public void GetCurrentSelfMenuInfoTest()
+        {
+            var result = CommonApi.GetCurrentSelfMenuInfo("75_eGhUgdbNzwM8IcroXssnKN4sP9QSWPcMJUJe5Ka3UTTisGP_UorAZYLb1UCZyQtdsp798EwLdbURX-cfdbacKB-IuDJ_QHMnjTHYANlch3h8_YRAw_oyfZ4mwf8LODdACAUXM");
+
+            Console.WriteLine(result);
+            if (result.ErrorCodeValue == 0)
+            {
+                Assert.IsTrue(true);
+            }
+            Assert.IsTrue(false);
         }
     }
 }

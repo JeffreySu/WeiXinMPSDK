@@ -84,7 +84,9 @@ namespace Senparc.Weixin.MP
         
 
         public List<MenuFull_RootButton> sub_button { get; set; }
+
     }
+
     #endregion
 
     #region Conditional（个性化菜单）相关
@@ -93,6 +95,38 @@ namespace Senparc.Weixin.MP
         public List<MenuFull_RootButton> button { get; set; }
     }
 
+    public class SelfMenuFull_ButtonGroup
+    {
+        public List<SelfMenuFull_RootButton> button { get; set; }
+    }
+    public class SelfMenuFull_RootButton
+    {
+        public string type { get; set; }
+        public string key { get; set; }
+        public string name { get; set; }
+        public string url { get; set; }
+
+        public NewsInfo news_info { get; set; }
+
+        #region 小程序
+
+        public string appid { get; set; }
+        public string pagepath { get; set; }
+
+        #endregion
+
+        public string media_id { get; set; }
+
+        public string article_id { get; set; }
+
+
+        public Sub_Button sub_button { get; set; }
+
+    }
+    public class Sub_Button
+    {
+        public List<MenuFull_RootButton> list { get; set; }
+    }
     /// <summary>
     /// 自定义菜单配置
     /// </summary>
@@ -106,7 +140,7 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 菜单信息
         /// </summary>
-        public MenuFull_ButtonGroup selfmenu_info { get; set; }
+        public SelfMenuFull_ButtonGroup selfmenu_info { get; set; }
 
     }
 

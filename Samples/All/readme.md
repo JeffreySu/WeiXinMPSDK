@@ -6,9 +6,9 @@
 
 | 文件夹 | 说明 |
 |--------|--------|
-|   net8-mvc      |   【推荐】.NET 8.0 示例，可用于直接部署（由于 .NET 8.0 正式版将于 2023 年 11 月 14-16 日 Ignite 大会发布）
-|   net7-mvc      |   【推荐】.NET 7.0 示例，可用于直接部署
-|   net6-mvc      |   【推荐】.NET 6.0 示例，可用于直接部署
+|   net8-mvc      |   【推荐】.NET 8.0 示例，可用于直接部署
+|   net7-mvc      |   .NET 7.0 示例，可用于直接部署
+|   net6-mvc      |   .NET 6.0 示例，可用于直接部署
 |   console             |   命令行注册过程演示 Demo（接口调可参考 Web 项目）
 |   net45-mvc           |   【停止更新】ASP.NET 4.5 MVC 示例，可用于直接部署，此项目中包含了 CommonServices 项目，供其他各 Sample 公用
 |   Senparc.Weixin.Sample.CommonService      |   所有 Sample 中共享的公共代码库（仅为 Sample 服务，和 SDK 源码无关）

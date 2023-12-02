@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.17.1</Version>
+    <Version>3.17.2</Version>
     <LangVersion>9.0</LangVersion>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
@@ -176,6 +176,7 @@
 		v3.16.0 客服接口支持长文本自动切割后连续发送
 		v3.16.4 微信已于2023 年 9 月 20 日收回下发统一消息接口，标注过时 PR #2921
 		v3.17.1 添加 CodeApi.RevertCodeRelease() 方法的 appVersion 参数
+		v3.17.2 添加“小程序虚拟支付”功能 PR #2961 / Issue #2951
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

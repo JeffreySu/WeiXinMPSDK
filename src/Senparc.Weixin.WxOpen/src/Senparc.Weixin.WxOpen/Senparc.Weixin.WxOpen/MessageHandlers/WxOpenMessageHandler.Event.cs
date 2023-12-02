@@ -53,6 +53,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：mc7246 - 20230831
     修改描述：添加小程序发货信息管理服务事件推送 添加OnEvent_TradeManageRemindAccessApi()、OnEvent_TradeManageOrderSettlement()、OnEvent_TradeManageRemindShipping()方法
 
+    修改标识：Senparc - 20231130
+    修改描述：v3.17.2 添加“小程序虚拟支付”相关事件
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;

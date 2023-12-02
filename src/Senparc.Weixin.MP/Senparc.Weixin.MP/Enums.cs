@@ -102,9 +102,6 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：lishewen - 20210809
     修改描述：v16.14.2 添加 Event.submit_invoice_title
 
-    修改标识：Senparc - 20231130
-    修改描述：v16.20.2 Event 添加“小程序虚拟支付”相关枚举
-
 ----------------------------------------------------------------*/
 
 using System;

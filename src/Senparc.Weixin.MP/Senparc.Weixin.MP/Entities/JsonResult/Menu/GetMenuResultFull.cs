@@ -33,6 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：JaneConan - 20230417
     修改描述：v16.18.10.7 修复自定义菜单实体问题
 
+    修改标识：Senparc - 20231202
+    修改描述：v16.20.2 fix bug: self menu onfig result. PR #2963 / Issue #2804
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;

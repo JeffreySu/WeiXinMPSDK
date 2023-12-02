@@ -36,6 +36,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：chinanhb - 20230529
     修改描述：运单轨迹更新事件推送，增加 Event.add_express_path 枚举值
 
+    修改标识：Senparc - 20231202
+    修改描述：v3.17.2 Event 添加“小程序虚拟支付”相关枚举
+
 ----------------------------------------------------------------*/
 
 using System.ComponentModel;
@@ -94,7 +97,25 @@ namespace Senparc.Weixin.WxOpen
         /// <summary>
         /// 订单将要结算或已经结算事件
         /// </summary>
-        trade_manage_order_settlement
+        trade_manage_order_settlement,
+
+
+        #region 小程序虚拟支付
+        /// <summary>
+        /// 道具发货推送
+        /// </summary>
+        xpay_goods_deliver_notify,
+
+        /// <summary>
+        /// 代币支付推送
+        /// </summary>
+        xpay_coin_pay_notify,
+
+        /// <summary>
+        /// 退款推送
+        /// </summary>
+        xpay_refund_notify,
+        #endregion
     }
 
     ///// <summary>

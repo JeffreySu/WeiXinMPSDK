@@ -150,5 +150,37 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             Assert.IsNotNull(result);
             Assert.AreEqual("ok", result.errmsg);
         }
+
+
+        [TestMethod]
+        public void GetCurrentSelfMenuInfoTest()
+        {
+            var appIdOrFackAccessToken = base._senparcWeixinSetting.WeixinAppId;// "75_eGhUgdbNzwM8IcroXssnKN4sP9QSWPcMJUJe5Ka3UTTisGP_UorAZYLb1UCZyQtdsp798EwLdbURX-cfdbacKB-IuDJ_QHMnjTHYANlch3h8_YRAw_oyfZ4mwf8LODdACAUXM";//错误的AccessToken
+
+            var result = CommonApi.GetCurrentSelfMenuInfo(appIdOrFackAccessToken);
+
+            Console.WriteLine(result);
+            if (result.ErrorCodeValue == 0)
+            {
+                Assert.IsTrue(true);
+            }
+            else
+            {
+                Assert.IsTrue(false);
+            }
+
+            string json = "{\"is_menu_open\":1,\"selfmenu_info\":{\"button\":[{\"type\":\"click\",\"name\":\"今日歌曲\",\"key\":\"V1001_TODAY_MUSIC\"},{\"name\":\"菜单\",\"sub_button\":{\"list\":[{\"type\":\"view\",\"name\":\"搜索\",\"url\":\"http:\\/\\/www.soso.com\\/\"},{\"type\":\"click\",\"name\":\"赞一下我们\",\"key\":\"V1001_GOOD\"}]}}]}}";
+            try
+            {
+                var test = Newtonsoft.Json.JsonConvert.DeserializeObject<SelfMenuConfigResult>(json);
+                Console.WriteLine(test);
+                Assert.IsTrue(true);
+            }
+            catch (Exception)
+            {
+                Assert.IsTrue(false);
+                throw;
+            }
+        }
     }
 }

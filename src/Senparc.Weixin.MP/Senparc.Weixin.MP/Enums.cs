@@ -335,7 +335,7 @@ namespace Senparc.Weixin.MP
         /// 点击菜单跳转小程序的事件推送
         /// </summary>
         view_miniprogram,
-        
+
         #region 微信认证事件推送
         /// <summary>
         /// 资质认证成功（此时立即获得接口权限）
@@ -408,7 +408,7 @@ namespace Senparc.Weixin.MP
         /// </summary>
         submit_invoice_title,
         #endregion
-        
+
         #region 订阅通知
         /// <summary>
         /// 用户操作订阅通知弹窗 场景：用户在图文等场景内订阅通知的操作
@@ -423,7 +423,7 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 发送订阅通知  场景：调用 bizsend 接口发送通知
         /// </summary>
-        subscribe_msg_sent_event
+        subscribe_msg_sent_event,
         #endregion
     }
 

@@ -21,37 +21,31 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
     
-    文件名：UploadShippingInfo.cs
-    文件功能描述：发货信息录入接口
+    文件名：UploadAuthMaterialResultJson.cs
+    文件功能描述：小程序认证上传补充材料
     
     
-    创建标识：Yaofeng - 20231026
+    创建标识：Yaofeng - 20231130
 
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
-using System.Collections.Generic;
 
-namespace Senparc.Weixin.Open.WxaAPIs.SecOrder
+namespace Senparc.Weixin.Open.WxaAPIs.Sec
 {
     /// <summary>
-    /// 查询订单列表
+    /// 小程序认证上传补充材料
     /// </summary>
-    public class GetOrderListResultJson : WxJsonResult
+    public class UploadAuthMaterialJsonResult : WxJsonResult
     {
         /// <summary>
-        /// 
+        /// 类型
         /// </summary>
-        public string last_index { get; set; }
+        public string type { get; set; }
 
         /// <summary>
-        /// 
+        /// 媒体id
         /// </summary>
-        public bool has_more { get; set; }
-
-        /// <summary>
-        /// 支付单信息
-        /// </summary>
-        public List<Order> order_list { get; set; }
+        public string mediaid { get; set; }
     }
 }

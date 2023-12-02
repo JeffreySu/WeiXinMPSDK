@@ -20,27 +20,27 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
-    
-    文件名：IsTradeManagedResultJson.cs
-    文件功能描述：查询小程序是否已开通发货信息管理服务
-    
-    
-    创建标识：Yaofeng - 20231026
 
+    文件名：GetWxaSearchStatusJson.cs
+    文件功能描述：获取搜索状态返回类型
+
+
+    创建标识：Yaofeng - 20220805
+    
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.Open.WxaAPIs.SecOrder
+namespace Senparc.Weixin.Open.WxaAPIs.SearchStatus
 {
     /// <summary>
-    /// 查询小程序是否已开通发货信息管理服务
+    /// 获取搜索状态返回类型
     /// </summary>
-    public class IsTradeManagedResultJson : WxJsonResult
+    public class GetWxaSearchStatusJsonResult : WxJsonResult
     {
         /// <summary>
-        /// 是否已开通小程序发货信息管理服务
+        /// 1 表示不可搜索，0 表示可搜索
         /// </summary>
-        public bool is_trade_managed { get; set; }
+        public int status { get; set; }
     }
 }

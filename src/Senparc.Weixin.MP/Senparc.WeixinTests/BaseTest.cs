@@ -26,9 +26,9 @@ namespace Senparc.WeixinTests
     /// </summary>
     public class BaseTest
     {
-        protected static IServiceProvider _serviceProvider;
-        protected static SenparcSetting _senparcSetting;
-        protected static SenparcWeixinSetting _senparcWeixinSetting;
+        protected IServiceProvider _serviceProvider;
+        protected SenparcSetting _senparcSetting;
+        protected SenparcWeixinSetting _senparcWeixinSetting;
 
         public BaseTest()
         {
@@ -85,7 +85,7 @@ namespace Senparc.WeixinTests
         /// <summary>
         /// 注册 IServiceCollection 和 MemoryCache
         /// </summary>
-        public static void RegisterServiceCollection()
+        public void RegisterServiceCollection()
         {
             var serviceCollection = new ServiceCollection();
             var configBuilder = new ConfigurationBuilder();

@@ -234,12 +234,12 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     break;
 
                 #endregion
+
                 #region 微信电子发票
                 case Event.user_authorize_invoice:
                     responseMessage = await OnEvent_User_Authorize_InvoiceAsync(RequestMessage as RequestMessageEvent_User_Authorize_Invoice).ConfigureAwait(false);
                     break;
                 #endregion
-
 
                 default:
                     throw new Exceptions.UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -735,6 +735,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_Submit_Invoice_Title(requestMessage)).ConfigureAwait(false);
         }
         #endregion
+
         #region 订阅通知
         /// <summary>
         /// 用户管理订阅通知

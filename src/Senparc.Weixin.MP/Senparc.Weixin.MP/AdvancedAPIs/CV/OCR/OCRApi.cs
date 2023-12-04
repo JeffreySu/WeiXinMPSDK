@@ -54,8 +54,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format(Config.ApiMpHost + "/cv/ocr/idcard?img_url={0}&access_token={1}", System.Web.HttpUtility.UrlEncode(img_url), accessToken);
-                return CommonJsonSend.Send<IdCardJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut: timeOut);
+                var url = string.Format(Config.ApiMpHost + "/cv/ocr/idcard?img_url={0}&access_token={1}", System.Web.HttpUtility.UrlEncode(img_url), accessToken);
+                return CommonJsonSend.Send<IdCardJsonResult>(null, url, new { }, CommonJsonSendType.POST, timeOut: timeOut, contentType: "application/json");
             }, accessTokenOrAppId);
         }
 
@@ -71,7 +71,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string url = string.Format(Config.ApiMpHost + "/cv/ocr/bankcard?img_url={0}&access_token={1}", System.Web.HttpUtility.UrlEncode(img_url), accessToken);
-                return CommonJsonSend.Send<BankCardJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut: timeOut);
+                return CommonJsonSend.Send<BankCardJsonResult>(null, url, new { }, CommonJsonSendType.POST, timeOut: timeOut, contentType: "application/json");
             }, accessTokenOrAppId);
         }
 
@@ -87,7 +87,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string url = string.Format(Config.ApiMpHost + "/cv/ocr/driving?img_url={0}&access_token={1}", System.Web.HttpUtility.UrlEncode(img_url), accessToken);
-                return CommonJsonSend.Send<DrivingJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut: timeOut);
+                return CommonJsonSend.Send<DrivingJsonResult>(null, url, new { }, CommonJsonSendType.POST, timeOut: timeOut, contentType: "application/json");
             }, accessTokenOrAppId);
         }
 
@@ -103,7 +103,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string url = string.Format(Config.ApiMpHost + "/cv/ocr/bizlicense?img_url={0}&access_token={1}", System.Web.HttpUtility.UrlEncode(img_url), accessToken);
-                return CommonJsonSend.Send<BizLicenseJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut: timeOut);
+                return CommonJsonSend.Send<BizLicenseJsonResult>(null, url, new { }, CommonJsonSendType.POST, timeOut: timeOut, contentType: "application/json");
             }, accessTokenOrAppId);
         }
 
@@ -119,7 +119,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string url = string.Format(Config.ApiMpHost + "/cv/ocr/comm?img_url={0}&access_token={1}", System.Web.HttpUtility.UrlEncode(img_url), accessToken);
-                return CommonJsonSend.Send<CommJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut: timeOut);
+                return CommonJsonSend.Send<CommJsonResult>(null, url, new { }, CommonJsonSendType.POST, timeOut: timeOut, contentType: "application/json");
             }, accessTokenOrAppId);
         }
 
@@ -135,7 +135,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string url = string.Format(Config.ApiMpHost + "/cv/ocr/platenum?img_url={0}&access_token={1}", System.Web.HttpUtility.UrlEncode(img_url), accessToken);
-                return CommonJsonSend.Send<PlateNumJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut: timeOut);
+                return CommonJsonSend.Send<PlateNumJsonResult>(null, url, new { }, CommonJsonSendType.POST, timeOut: timeOut, contentType: "application/json");
             }, accessTokenOrAppId);
         }
 
@@ -151,7 +151,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string url = string.Format(Config.ApiMpHost + "/cv/ocr/menu?img_url={0}&access_token={1}", System.Web.HttpUtility.UrlEncode(img_url), accessToken);
-                return CommonJsonSend.Send<MenuJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut: timeOut);
+                return CommonJsonSend.Send<MenuJsonResult>(null, url, new { }, CommonJsonSendType.POST, timeOut: timeOut, contentType: "application/json");
             }, accessTokenOrAppId);
         }
         #endregion
@@ -169,7 +169,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string url = string.Format(Config.ApiMpHost + "/cv/ocr/idcard?img_url={0}&access_token={1}", System.Web.HttpUtility.UrlEncode(img_url), accessToken);
-                return await CommonJsonSend.SendAsync<IdCardJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<IdCardJsonResult>(null, url, new { }, CommonJsonSendType.POST, timeOut: timeOut, contentType: "application/json");
             }, accessTokenOrAppId);
         }
 
@@ -185,7 +185,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string url = string.Format(Config.ApiMpHost + "/cv/ocr/bankcard?img_url={0}&access_token={1}", System.Web.HttpUtility.UrlEncode(img_url), accessToken);
-                return await CommonJsonSend.SendAsync<BankCardJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<BankCardJsonResult>(null, url, new { }, CommonJsonSendType.POST, timeOut: timeOut, contentType: "application/json");
             }, accessTokenOrAppId);
         }
 
@@ -201,7 +201,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string url = string.Format(Config.ApiMpHost + "/cv/ocr/driving?img_url={0}&access_token={1}", System.Web.HttpUtility.UrlEncode(img_url), accessToken);
-                return await CommonJsonSend.SendAsync<DrivingJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<DrivingJsonResult>(null, url, new { }, CommonJsonSendType.POST, timeOut: timeOut, contentType: "application/json");
             }, accessTokenOrAppId);
         }
 
@@ -217,7 +217,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string url = string.Format(Config.ApiMpHost + "/cv/ocr/bizlicense?img_url={0}&access_token={1}", System.Web.HttpUtility.UrlEncode(img_url), accessToken);
-                return await CommonJsonSend.SendAsync<BizLicenseJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<BizLicenseJsonResult>(null, url, new { }, CommonJsonSendType.POST, timeOut: timeOut, contentType: "application/json");
             }, accessTokenOrAppId);
         }
 
@@ -233,7 +233,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string url = string.Format(Config.ApiMpHost + "/cv/ocr/comm?img_url={0}&access_token={1}", System.Web.HttpUtility.UrlEncode(img_url), accessToken);
-                return await CommonJsonSend.SendAsync<CommJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<CommJsonResult>(null, url, new { }, CommonJsonSendType.POST, timeOut: timeOut, contentType: "application/json");
             }, accessTokenOrAppId);
         }
 
@@ -249,7 +249,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string url = string.Format(Config.ApiMpHost + "/cv/ocr/platenum?img_url={0}&access_token={1}", System.Web.HttpUtility.UrlEncode(img_url), accessToken);
-                return await CommonJsonSend.SendAsync<PlateNumJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<PlateNumJsonResult>(null, url, new { }, CommonJsonSendType.POST, timeOut: timeOut, contentType: "application/json");
             }, accessTokenOrAppId);
         }
 
@@ -265,7 +265,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string url = string.Format(Config.ApiMpHost + "/cv/ocr/menu?img_url={0}&access_token={1}", System.Web.HttpUtility.UrlEncode(img_url), accessToken);
-                return await CommonJsonSend.SendAsync<MenuJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<MenuJsonResult>(null, url, new { }, CommonJsonSendType.POST, timeOut: timeOut, contentType: "application/json");
             }, accessTokenOrAppId);
         }
         #endregion

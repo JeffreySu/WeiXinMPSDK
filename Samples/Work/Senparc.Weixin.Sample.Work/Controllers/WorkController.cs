@@ -107,7 +107,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
                 messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
-                messageHandler.Execute();//执行微信处理过程（关键）
+                await messageHandler.ExecuteAsync(new CancellationToken());//执行微信处理过程（关键）
 
                 messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
 
@@ -140,7 +140,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
         /// <param name="postModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult MiniPost(PostModel postModel)
+        public async Task<ActionResult> MiniPost(PostModel postModel)
         {
             var maxRecordCount = 10;
 
@@ -151,7 +151,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
             var messageHandler = new WorkCustomMessageHandler(Request.GetRequestMemoryStream(), postModel, maxRecordCount);
             //执行微信处理过程
-            messageHandler.Execute();
+            await messageHandler.ExecuteAsync(new CancellationToken());
             //自动返回加密后结果
             return new FixWeixinBugWeixinResult(messageHandler);
         }

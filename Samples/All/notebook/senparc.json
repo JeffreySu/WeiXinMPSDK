@@ -1,0 +1,21 @@
+﻿{
+  //CO2NET 设置
+  "SenparcSetting": {
+    //以下为 CO2NET 的 SenparcSetting 全局配置，请勿修改 key，勿删除任何项
+
+    "IsDebug": false,
+    "DefaultCacheNamespace": "WeChatCache",
+
+    //分布式缓存
+    "Cache_Redis_Configuration": "127.0.0.1,password=[password],connectTimeout=1000,connectRetry=2,syncTimeout=10000,defaultDatabase=3", //密码及其他配置
+    "SenparcUnionAgentKey": "WeChat" //SenparcUnionAgentKey
+  },
+  "SenparcWeixinSetting": {
+    "Token": "[Token]",
+    "EncodingAESKey": "[EncodingAESKey]",
+    "WeixinAppId": "[WeixinAppId]",
+    "WeixinAppSecret": "[WeixinAppSecret]",
+    "WxOpenAppId": "[WxOpenAppId]",
+    "WxOpenAppSecret": "[WxOpenAppSecret]"
+  }
+}

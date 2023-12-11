@@ -598,7 +598,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <summary>
         /// 查询单笔退款接口
         /// </summary>
-        /// <param name="out_refund_no">商户系统内部的退款单号，商户系统内部唯一，只能是数字、大小写字母_-|*@ ，同一退款单号多次请求只退一笔。示例值：1217752501201407033233368018</param>
+        /// <param name="data">请求数据</param>
         /// <param name="timeOut">超时时间，单位为ms</param>
         /// <returns></returns>
         public async Task<RefundReturnJson> RefundQueryAsync(RefundQueryRequestData data, int timeOut = Config.TIME_OUT)

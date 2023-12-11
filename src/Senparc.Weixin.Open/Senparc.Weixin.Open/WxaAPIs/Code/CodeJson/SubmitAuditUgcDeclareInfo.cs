@@ -29,7 +29,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.Open.WxaAPIs
+namespace Senparc.Weixin.Open.WxaAPIs.Code
 {
     /// <summary>
     /// 用户生成内容场景（UGC）信息安全声明

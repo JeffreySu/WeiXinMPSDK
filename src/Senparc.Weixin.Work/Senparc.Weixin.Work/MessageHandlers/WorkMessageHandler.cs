@@ -1,4 +1,4 @@
-﻿/*----------------------------------------------------------------
+/*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
     
     文件名：WorkMessageHandler.cs
@@ -62,6 +62,12 @@
     
     修改标识：ccccccmd - 20220227
     修改描述：v3.14.10 添加异步方法
+
+    修改标识：Senparc - 20230914
+    修改描述：v3.16.4 企业微信三方代开发处理事件: 修复 Async 方法循环调用的 Bug
+
+    修改标识：XiaoPoTian - 20231119
+    修改描述：v3.18.1 添加 RequestMessageEvent_Change_External_Tag_Base 事件中 ChangeType 的判断
 ----------------------------------------------------------------*/
 
 using System;
@@ -248,7 +254,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
             {
                 requestDocument = postDataDocument;//TODO:深拷贝
             }
-            
+
             RequestMessage = RequestMessageFactory.GetRequestEntity<TMC>(new TMC(), doc: requestDocument);
 
             return requestDocument;
@@ -793,6 +799,53 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
+        #region 企业客户标签事件
+        /// <summary>
+        /// 企业客户标签事件-创建
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalTagCreateRequest(
+            RequestMessageEvent_Change_External_Tag_Create requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+
+        /// <summary>
+        /// 企业客户标签事件-变更
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalTagUpdateRequest(
+            RequestMessageEvent_Change_External_Tag_Update requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 企业客户标签事件-删除
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalTagDeleteRequest(
+            RequestMessageEvent_Change_External_Tag_Delete requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 企业客户标签事件-重排
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalTagShuffleRequest(
+            RequestMessageEvent_Change_External_Tag_Shuffle requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        #endregion
+
         public virtual IWorkResponseMessageBase OnEvent_Living_Status_ChangeRequest(
             RequestMessageEvent_Living_Status_Change_Base requestMessage)
         {
@@ -889,7 +942,13 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return ThirdPartyEventSuccessResult;
         }
 
+        [Obsolete("请使用修复拼写之后的方法:OnThirdPartyEvent_Register_Corp", true)]
         protected virtual string OnThirdPartyEvent_REGISTER_CORP(RequestMessager_Register_Corp thirdPartyInfo)
+        {
+            return OnThirdPartyEvent_Register_Corp(thirdPartyInfo);
+        }
+
+        protected virtual string OnThirdPartyEvent_Register_Corp(RequestMessager_Register_Corp thirdPartyInfo)
         {
             return ThirdPartyEventSuccessResult;
         }
@@ -910,6 +969,11 @@ namespace Senparc.Weixin.Work.MessageHandlers
         }
 
         protected virtual string OnThirdPartyEvent_Suite_Ticket(RequestMessageInfo_Suite_Ticket thirdPartyInfo)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        protected virtual string OnThirdPartEvent_ResetPermanentCode(RequestMessageInfo_Reset_Permanent_Code requestMessage)
         {
             return ThirdPartyEventSuccessResult;
         }

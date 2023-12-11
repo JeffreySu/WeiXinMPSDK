@@ -37,7 +37,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.Open.WxaAPIs
+namespace Senparc.Weixin.Open.WxaAPIs.Code
 {
     /// <summary>
     /// 预览信息（小程序页面截图和操作录屏）

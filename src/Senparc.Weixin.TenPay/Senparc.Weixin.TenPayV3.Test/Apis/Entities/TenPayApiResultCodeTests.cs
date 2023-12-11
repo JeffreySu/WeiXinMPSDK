@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.TenPayV3.Test.net7.Apis.Entities
+namespace Senparc.Weixin.TenPayV3.Test.Apis.Entities
 {
     [TestClass]
     public class TenPayApiResultCodeTests

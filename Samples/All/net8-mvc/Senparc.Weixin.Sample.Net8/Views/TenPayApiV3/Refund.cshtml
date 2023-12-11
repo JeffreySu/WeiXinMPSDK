@@ -1,0 +1,20 @@
+﻿@*DPBMARK_FILE TenPay*@
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>退款结果页面</title>
+</head>
+<body>
+    <h2>@ViewData["Message"]</h2>
+
+    <p>&nbsp;</p>
+    <p><a href="javascript:location.reload();">刷新状态</a>  |  @Html.ActionLink("返回支付首页", "ProductList")</p>
+</body>
+</html>

@@ -21,6 +21,9 @@
 
     修改标识：Senparc - 20210324
     修改描述：v3.14.6 添加：审批申请状态变化回调通知： "SYS_APPROVAL_CHANGE"
+
+    修改标识：XiaoPoTian - 20231119
+    修改描述：v3.18.1 添加“企业客户标签变更事件回调通知”（CHANGE_EXTERNAL_Tag）
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;
@@ -182,10 +185,33 @@ namespace Senparc.Weixin.Work.MessageContexts
                                     requestMessage = new RequestMessageEvent_Change_External_Chat_Create();
                                     break;
                                 case "UPDATE":
-                                    requestMessage = new RequestMessageEvent_Change_External_Chat_Update(doc.Root.Element("UpdateDetail").Value);
+                                    requestMessage = new RequestMessageEvent_Change_External_Chat_Update(doc.Root.Element("MemChangeList"));
                                     break;
                                 case "DISMISS":
                                     requestMessage = new RequestMessageEvent_Change_External_Chat_Dismiss();
+                                    break;
+                                default://其他意外类型（也可以选择抛出异常）
+                                    requestMessage = new RequestMessageEventBase();
+                                    break;
+                            }
+                            break;
+                        case "CHANGE_EXTERNAL_TAG"://企业客户标签变更事件推送
+                            //创建标签时，此项为tag，创建标签组时，此项为tag_group
+                            //文档：https://developer.work.weixin.qq.com/document/path/92130#%E4%BC%81%E4%B8%9A%E5%AE%A2%E6%88%B7%E6%A0%87%E7%AD%BE%E5%88%9B%E5%BB%BA%E4%BA%8B%E4%BB%B6
+                            var tagType = doc.Root.Element("TagType").Value;
+                            switch (doc.Root.Element("ChangeType").Value.ToUpper())
+                            {
+                                case "CREATE":
+                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Create(tagType);
+                                    break;
+                                case "UPDATE":
+                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Update(tagType);
+                                    break;
+                                case "DELETE":
+                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Delete(tagType);
+                                    break;
+                                case "SHUFFLE":
+                                    requestMessage = new RequestMessageEvent_Change_External_Tag_Shuffle();
                                     break;
                                 default://其他意外类型（也可以选择抛出异常）
                                     requestMessage = new RequestMessageEventBase();

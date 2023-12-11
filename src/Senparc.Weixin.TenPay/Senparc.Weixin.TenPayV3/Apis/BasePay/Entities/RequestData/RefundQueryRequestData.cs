@@ -73,7 +73,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// 子商户的商户号，由微信支付生成并下发。
         /// 示例值：1900000109
         /// </summary>
-        [JsonIgnore]
         public string sub_mchid { get; set; }
         #endregion
 

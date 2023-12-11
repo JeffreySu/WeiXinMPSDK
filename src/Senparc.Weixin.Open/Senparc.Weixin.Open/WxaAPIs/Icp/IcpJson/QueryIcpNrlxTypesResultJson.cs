@@ -1,4 +1,15 @@
-﻿using Senparc.Weixin.Entities;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2023 Senparc
+    
+    文件名：QueryIcpNrlxTypesResultJson.cs
+    文件功能描述：获取前置审批项类型结果 接口返回消息
+    
+    
+    创建标识：Senparc - 20230905
+
+----------------------------------------------------------------*/
+
+using Senparc.Weixin.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

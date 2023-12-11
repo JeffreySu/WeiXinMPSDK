@@ -108,6 +108,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20220731
     修改描述：v6.15.8.2 更新 ReturnCode 枚举，添加 ModifyWxaServerDomain  中的错误代码
 
+    修改标识：Senparc - 20230905
+    修改描述：v6.16.5 完善“第三方服务商小程序备案”接口，添加 ReturnCode 枚举
+
 ----------------------------------------------------------------*/
 
 

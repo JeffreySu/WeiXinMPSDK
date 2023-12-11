@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.16.3</Version>
+    <Version>3.16.4</Version>
     <LangVersion>9.0</LangVersion>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
@@ -174,7 +174,8 @@
 		v3.15.15 添加物流服务相关接口和事件推送 PR #2834
 		v3.15.15.1 获取小程序服务GenerateScheme模型增加env_version字段 PR #2861
 		v3.16.0 客服接口支持长文本自动切割后连续发送
-</PackageReleaseNotes>
+	    v3.16.4 微信已于2023 年 9 月 20 日收回下发统一消息接口，标注过时 PR #2921
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -217,7 +218,7 @@
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="2.3.2" />
+    <PackageReference Include="Senparc.NeuChar" Version="2.3.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net7.csproj" />

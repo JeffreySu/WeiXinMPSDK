@@ -32,15 +32,12 @@ packages/
 /src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.WxOpen.Tests/Config
 /src/Senparc.Weixin.Work/Senparc.Weixin.Work.Test/Config
 
-/Samples/All/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/App_Data/NeuChar/NeuCharRoot.config
-/Samples/All/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/App_Data/NeuChar/NeuCharRoot.bak.*
-/Samples/All/net45-mvc/Senparc.Weixin.MP.Sample/App_Data/NeuChar/*
-/Samples/All/netcore3.1-mvc/Senparc.Weixin.Sample.NetCore3/Properties/PublishProfiles/FolderProfile.pubxml
+**/NeuChar/*
+**/PublishProfiles/FolderProfile.pubxml
 
 /src/ProjectFileManager
-/Samples/All/net6-mvc/Senparc.Weixin.Sample.Net6/App_Data/WeChat_OfficialAccount
 /src/BuildOutPut
-/Samples/All/net6-mvc/TestResults
+**/TestResults
 /src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3.Test/appsettings.Test.json
 /src/ProjectFileManager2
 /src/Senparc.Weixin.MP/Senparc.WeixinTests/appsettings.Test.json
@@ -48,8 +45,8 @@ packages/
 /Samples/All/net6-mvc/nuget.exe
 /src/Senparc.Weixin.MP/Senparc.Weixin.MP.Test/Config/test.config
 /Samples/TenPayV3/Senparc.Weixin.Sample.TenPayV3/.config/
-/Samples/All/net7-mvc/Senparc.Weixin.Sample.Net7/Properties/PublishProfiles
-/Samples/All/net7-mvc/Senparc.Weixin.Sample.Net7/App_Data/cert
+**/Properties/PublishProfiles
+**/App_Data/cert
 *.DS_Store
 /Samples/WxOpen/Senparc.Weixin.Sample.WxOpen/Properties/PublishProfiles/FolderProfile1.pubxml
 /src/Senparc.Weixin.Cache/Senparc.Weixin.Cache.CsRedis/Senparc - Backup.Weixin.Cache.CsRedis.net7.csproj
@@ -60,5 +57,8 @@ packages/
 /src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPay/Senparc - Backup.Weixin.TenPay.net7.csproj
 /src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3/Senparc - Backup.Weixin.TenPayV3.net7.csproj
 Thumbs.db
-/Samples/All/net7-mvc/Senparc.Weixin.Sample.Net7/App_Data/NeuChar
-/Samples/All/net7-mvc/Senparc.Weixin.Sample.Net7/App_Data/WeChat_OfficialAccount/
+**/App_Data/NeuChar
+**/App_Data/WeChat_OfficialAccount/
+node_modules
+yarn.lock
+

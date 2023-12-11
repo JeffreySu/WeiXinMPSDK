@@ -42,6 +42,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20230110
     修改描述：v6.15.8 CommonJsonSend.Send() 方法提供 contentType 参数
 
+    修改标识：Senparc - 20231026
+    修改描述：v6.16.6 优化 postFailAction 中的异常记录
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -104,11 +107,18 @@ namespace Senparc.Weixin.CommonAPIs
                 ErrorJsonResultException ex = null;
                 if (errorResult.errcode != ReturnCode.请求成功)
                 {
+                    var hints = errorResult.Hints?.ToJson();
+                    if (!string.IsNullOrWhiteSpace(hints))
+                    {
+                        hints = $"Hints：{hints}";
+                    }
+
                     //发生错误，记录异常
                     ex = new ErrorJsonResultException(
-                          string.Format("微信 POST 请求发生错误！错误代码：{0}，说明：{1}",
+                          string.Format("微信 POST 请求发生错误！错误代码：{0}；说明：{1}；{2}",
                                         (int)errorResult.errcode,
-                                        errorResult.errmsg),
+                                        errorResult.errmsg,
+                                        hints),
                           null, errorResult, apiUrl);
                 }
 

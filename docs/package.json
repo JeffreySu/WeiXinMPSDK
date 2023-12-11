@@ -1,0 +1,17 @@
+{
+  "name": "WeiXinMPSDK",
+  "version": "1.0.0",
+  "description": "WeiXinMPSDK",
+  "main": "index.js",
+  "repository": "https://github.com/JeffreySu/WeiXinMPSDK.git",
+  "author": "Senparc",
+  "license": "Apache License Version 2.0",
+  "devDependencies": {
+    "@vuepress/plugin-back-to-top": "^1.9.9",
+    "vuepress": "^1.9.9"
+  },
+  "scripts": {
+    "docs:dev": "vuepress dev --host localhost --open true",
+    "docs:build": "vuepress build"
+  }
+}

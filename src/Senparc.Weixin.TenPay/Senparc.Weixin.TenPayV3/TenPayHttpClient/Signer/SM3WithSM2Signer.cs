@@ -7,7 +7,7 @@ namespace Client.TenPayHttpClient.Signer
     {
         public string GetAlgorithm()
         {
-            return "SM3-SM2";
+            return "SM2-WITH-SM3";
         }
 
         public string Sign(string message, string privateKey = null)

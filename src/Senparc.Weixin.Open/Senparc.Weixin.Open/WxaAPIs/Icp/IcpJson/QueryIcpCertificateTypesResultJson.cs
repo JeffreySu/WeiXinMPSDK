@@ -1,4 +1,15 @@
-﻿using Senparc.Weixin.Entities;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2023 Senparc
+    
+    文件名：QueryIcpCertificateTypesResultJson.cs
+    文件功能描述：获取证件类型 接口返回消息
+    
+    
+    创建标识：Senparc - 20230905
+
+----------------------------------------------------------------*/
+
+using Senparc.Weixin.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

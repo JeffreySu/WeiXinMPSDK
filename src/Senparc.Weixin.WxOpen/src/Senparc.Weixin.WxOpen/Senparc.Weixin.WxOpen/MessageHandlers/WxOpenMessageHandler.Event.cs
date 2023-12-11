@@ -380,6 +380,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.wxa_media_check:
                     responseMessage = await OnEvent_MediaCheckRequestAsync(RequestMessage as RequestMessageEvent_MediaCheck);
                     break;
+                case Event.wxa_category_audit:
+                    responseMessage = await OnEvent_WxaCategoryAuditRequestAsync(RequestMessage as RequestMessageEvent_WxaCategoryAudit)
+                    break;
                 case Event.add_express_path:
                     responseMessage =await OnEvent_AddExpressPathAsync(requestMessage as RequestMessageEvent_AddExpressPath);
                     break;

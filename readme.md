@@ -569,11 +569,11 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 
 ## 👩‍🏫 如何使用 .NET Core 开发
 
-> 当前分支包含了 .NET Framework 3.5 / 4.0 / 4.5 / 4.6.2 及 .NET Core 2.0 + 2.1 / .NET 5.0 + 6.0 的全版本代码（已经不更新的版本请查看 [release](https://github.com/JeffreySu/WeiXinMPSDK/releases) 快照）。<br>
+> 当前分支包含了 .NET Framework 4.6.2+ 及 .NET 6.0/7.0/8.0 的全版本代码（已经不更新的版本请查看 [release](https://github.com/JeffreySu/WeiXinMPSDK/releases) 快照）。<br>
 > 其中 .NET Framework 的 Demo 位于 `/src/Samples/All/net45-mvc` 目录下，<br>
 > 【推荐】.NET 8.0（向下兼容 .NET 5.0、6.0、7.0 及 .NET Core 3.1 等更低版本） 的 Demo 位于 `/Samples/All/net8-mvc` 目录下。<br><br>
 > 注意：<br>
-> 1. 以上 Sample 中，`net7-mvc` 中的 Sample 直接引用了每个模块的源码，使用 `Release` 编译后可生成兼容不同版本的 Senaprc.Weixin SDK 库。<br>
+> 1. 以上 Sample 中，`net8-mvc` 中的 Sample 直接引用了每个模块的源码，使用 `Release` 编译后可生成兼容不同版本的 Senaprc.Weixin SDK 库。<br>
 > 2. 您也可以使用 .NET 6.0（向下兼容 .NET 5.0 及 .NET Core 3.1 等更低版本） 的 Demo 位于 `/Samples/All/net6-mvc` 目录下。
 
 ## ↕️ 使用Nuget安装到项目中

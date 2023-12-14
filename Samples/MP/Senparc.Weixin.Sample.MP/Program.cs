@@ -1,5 +1,3 @@
-using Senparc.Weixin.MP.MessageHandlers.Middleware;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

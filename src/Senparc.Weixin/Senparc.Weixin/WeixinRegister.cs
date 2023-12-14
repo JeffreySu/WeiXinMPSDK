@@ -69,12 +69,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 #endif
+using Microsoft.Extensions.Configuration;
 using Senparc.CO2NET;
+using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin
 {
@@ -176,6 +179,23 @@ namespace Senparc.Weixin
             return registerService;
         }
 
+        public static IRegisterService UseSenparcWeixin(this IConfigurationRoot app,
+            SenparcSetting senparcSetting, SenparcWeixinSetting senparcWeixinSetting,
+            Action<IRegisterService/*, SenparcSetting*/> globalRegisterConfigure,
+            Action<IRegisterService, SenparcWeixinSetting> weixinRegisterConfigure,
+             //CO2NET 全局设置
+             bool autoScanExtensionCacheStrategies = false,
+             Func<List<IDomainExtensionCacheStrategy>> extensionCacheStrategiesFunc = null
+            )
+        {
+            //注册 CO2NET 全局
+            var register = app.UseSenparcGlobal(senparcSetting, globalRegisterConfigure, autoScanExtensionCacheStrategies, extensionCacheStrategiesFunc);
+
+            //注册微信
+            register.UseSenparcWeixin(senparcWeixinSetting, weixinRegisterConfigure, app.ApplicationServices);
+
+            return register;
+        }
 
         #region v6.6.102+ 新方法
 

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>16.20.3</Version>
+    <Version>16.20.4</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -528,8 +528,8 @@
 		v16.19.0 MessageHandler 和客服接口支持长文本自动切割后连续发送
 		v16.20.1 添加 TemplateApi.AddTemplate() 参数
 		v16.20.2 fix bug: self menu onfig result. PR #2963 / Issue #2804
-		v16.20.3 添加 OCR 接口 / PR #2967 
-	</PackageReleaseNotes>
+		v16.20.3 添加 OCR 接口 / PR #2967
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -585,7 +585,7 @@
     <!--<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />-->
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.APM" Version="1.4.0" />
+    <PackageReference Include="Senparc.CO2NET.APM" Version="1.4.1" />
     <PackageReference Include="Senparc.NeuChar" Version="2.4.0" />
     <PackageReference Include="Senparc.NeuChar.App" Version="1.4.0" />
   </ItemGroup>

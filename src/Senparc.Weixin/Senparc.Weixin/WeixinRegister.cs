@@ -179,6 +179,22 @@ namespace Senparc.Weixin
             return registerService;
         }
 
+#if !NET462
+
+        /// <summary>
+        /// 开始 Senparc.Weixin SDK 初始化参数流程
+        /// </summary>
+        /// <param name="app">configuration source</param>
+        /// <param name="senparcSetting">SenparcSetting 对象</param>
+        /// <param name="senparcWeixinSetting">SenparcWeixinSetting 对象</param>
+        /// <param name="globalRegisterConfigure">RegisterService 设置</param>
+        /// <param name="weixinRegisterConfigure">SenparcWeixinSetting RegisterService 设置</param>
+        /// <param name="autoScanExtensionCacheStrategies">是否自动扫描全局的扩展缓存（会增加系统启动时间）</param>
+        /// <param name="extensionCacheStrategiesFunc"><para>需要手动注册的扩展缓存策略</para>
+        /// <para>（LocalContainerCacheStrategy、RedisContainerCacheStrategy、MemcacheContainerCacheStrategy已经自动注册），</para>
+        /// <para>如果设置为 null（注意：不适委托返回 null，是整个委托参数为 null），则自动使用反射扫描所有可能存在的扩展缓存策略</para></param>
+        /// <returns></returns>
+        /// <returns></returns>
         public static IRegisterService UseSenparcWeixin(this IConfigurationRoot app,
             SenparcSetting senparcSetting, SenparcWeixinSetting senparcWeixinSetting,
             Action<IRegisterService/*, SenparcSetting*/> globalRegisterConfigure,
@@ -191,11 +207,9 @@ namespace Senparc.Weixin
             //注册 CO2NET 全局
             var register = app.UseSenparcGlobal(senparcSetting, globalRegisterConfigure, autoScanExtensionCacheStrategies, extensionCacheStrategiesFunc);
 
-            //注册微信
-            register.UseSenparcWeixin(senparcWeixinSetting, weixinRegisterConfigure, app.ApplicationServices);
-
-            return register;
+            return WeixinRegister.UseSenparcWeixin(register.registerService, senparcWeixinSetting, senparcSetting);
         }
+#endif
 
         #region v6.6.102+ 新方法
 

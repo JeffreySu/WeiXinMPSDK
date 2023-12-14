@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Senparc.CO2NET.WebApi" Version="1.5.0" />
+		<PackageReference Include="Senparc.CO2NET.WebApi" Version="1.5.1" />
 		<PackageReference Include="Senparc.NeuChar.App" Version="1.4.0" />
 		<PackageReference Include="Senparc.NeuChar.AspNet" Version="1.4.0" />
 

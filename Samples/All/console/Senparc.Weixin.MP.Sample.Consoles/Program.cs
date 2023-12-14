@@ -27,7 +27,86 @@ Detail: https://github.com/Senparc/Senparc.CO2NET/blob/master/LICENSE
 
     创建标识：Senparc - 20190108
 
+    修改标识：Senparc - 20221214
+    修改描述：升级至 .NET 8.0
+
 ----------------------------------------------------------------*/
+
+using System;
+using Microsoft.AspNetCore.Builder.Internal;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Senparc.CO2NET;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.RegisterServices;
+using Senparc.Weixin.Sample.CommonService.CustomMessageHandler;
+
+
+var builder = new ConfigurationBuilder();
+builder.AddJsonFile("appsettings.json", false, false);
+Console.WriteLine("完成 appsettings.json 添加");
+
+var config = builder.Build();
+Console.WriteLine("完成 ServiceCollection 和 ConfigurationBuilder 初始化");
+
+//更多绑定操作参见：https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2
+var senparcSetting = new SenparcSetting();
+var senparcWeixinSetting = new SenparcWeixinSetting();
+config.GetSection("SenparcSetting").Bind(senparcSetting);
+config.GetSection("SenparcWeixinSetting").Bind(senparcWeixinSetting);
+
+var services = new ServiceCollection();
+services.AddMemoryCache();//使用本地缓存必须添加
+
+
+#region 添加微信配置（一行代码）
+
+//Senparc.Weixin 注册（必须）
+services.AddSenparcWeixinServices(config);
+
+#endregion
+
+var app = builder.Build();
+
+#region 启用微信配置（一句代码）
+
+//手动获取配置信息可使用以下方法
+//var senparcWeixinSetting = app.Services.GetService<IOptions<SenparcWeixinSetting>>()!.Value;
+
+app.UseSenparcWeixin();
+
+//启用微信配置（必须）
+var registerService = app.UseSenparcWeixin(app.Environment,
+    null /* 不为 null 则覆盖 appsettings  中的 SenpacSetting 配置*/,
+    null /* 不为 null 则覆盖 appsettings  中的 SenpacWeixinSetting 配置*/,
+    register => { /* CO2NET 全局配置 */ },
+    (register, weixinSetting) =>
+    {
+        //注册公众号信息（可以执行多次，注册多个公众号）
+        register.RegisterMpAccount(weixinSetting, "【盛派网络小助手】公众号");
+    });
+
+#region 使用 MessageHadler 中间件，用于取代创建独立的 Controller
+
+//MessageHandler 中间件介绍：https://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html
+//使用公众号的 MessageHandler 中间件（不再需要创建 Controller）
+app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
+{
+    //获取默认微信配置
+    var weixinSetting = Senparc.Weixin.Config.SenparcWeixinSetting;
+
+    //[必须] 设置微信配置
+    options.AccountSettingFunc = context => weixinSetting;
+
+    //[可选] 设置最大文本长度回复限制（超长后会调用客服接口分批次回复）
+    options.TextResponseLimitOptions = new TextResponseLimitOptions(2048, weixinSetting.WeixinAppId);
+});
+
+#endregion
+
+#endregion
+
+
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -93,7 +172,7 @@ namespace Senparc.Weixin.MP.Sample.Consoles
                                                         .UseSenparcGlobal();
 
             Console.WriteLine("完成 RegisterService.Start().UseSenparcGlobal()  启动设置");
-            Console.WriteLine($"设定程序目录为：{Senparc.CO2NET.Config.RootDictionaryPath}");
+            Console.WriteLine($"设定程序目录为：{Senparc.CO2NET.Config.RootDirectoryPath}");
 
             #region CO2NET 全局配置
 

@@ -51,7 +51,7 @@ namespace Senparc.Weixin.MP.Test.Agents
 <EventKey><![CDATA[OneClick]]></EventKey>
 </xml>";
 
-            var xml = MessageAgent.RequestXml(null, BaseTest._serviceProvider, url, token, requestXml);
+            var xml = MessageAgent.RequestXml(null, _serviceProvider, url, token, requestXml);
             var responseMessage = ResponseMessageBase.CreateFromResponseXml(xml, MpMessageEntityEnlightener.Instance);
             Assert.IsNotNull(responseMessage);
             Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageText));
@@ -66,16 +66,16 @@ namespace Senparc.Weixin.MP.Test.Agents
         {
             var url = "https://sdk.weixin.senparc.com/weixin";
             var token = "weixin";
-            var result = MessageAgent.CheckUrlAndToken(BaseTest._serviceProvider, url, token);
+            var result = MessageAgent.CheckUrlAndToken(_serviceProvider, url, token);
             Assert.IsTrue(result);
 
             token = "wrong_token";
-            result = MessageAgent.CheckUrlAndToken(BaseTest._serviceProvider, url, token);
+            result = MessageAgent.CheckUrlAndToken(_serviceProvider, url, token);
             Assert.IsFalse(false);
 
             url = "wrong_url";
             token = "weixin";
-            result = MessageAgent.CheckUrlAndToken(BaseTest._serviceProvider, url, token);
+            result = MessageAgent.CheckUrlAndToken(_serviceProvider, url, token);
             Assert.IsFalse(false);
         }
     }

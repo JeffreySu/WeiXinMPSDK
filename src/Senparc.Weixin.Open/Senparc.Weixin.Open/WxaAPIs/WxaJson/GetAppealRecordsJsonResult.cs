@@ -46,7 +46,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <summary>
         /// 申诉记录列表
         /// </summary>
-        List<MaterialInfo> records { get; set; }
+        public List<MaterialInfo> records { get; set; }
     }
 
     public class MaterialInfo

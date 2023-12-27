@@ -92,11 +92,23 @@ namespace Senparc.Weixin.Open
                     case RequestInfoType.notify_third_fasteregister:
                         requestMessage = new RequestMessageThirdFasteRegister();
                         break;
+                    case RequestInfoType.notify_third_fastverifybetaapp:
+                        requestMessage = new RequestMessageFastVerifyBetaApp();
+                        break;
+                    case RequestInfoType.notify_third_fastregisterbetaapp:
+                        requestMessage = new RequestMessageFastRegisterBetaAppApp();
+                        break;
                     case RequestInfoType.notify_icpfiling_verify_result:
                             requestMessage = new RequestMessageIcpFilingVerify();
                         break;
                     case RequestInfoType.notify_apply_icpfiling_result:
                             requestMessage = new RequestMessageIcpFilingApply();
+                        break;
+                    case RequestInfoType.notify_3rd_wxa_auth:
+                        requestMessage = new RequestMessage3rdWxaAuth();
+                        break;
+                    case RequestInfoType.notify_3rd_wxa_wxverify:
+                        requestMessage = new RequestMessage3rdWxaWxVerify();
                         break;
                     default:
                         throw new UnknownRequestMsgTypeException(string.Format("InfoType：{0} 在RequestMessageFactory中没有对应的处理程序！", infoType), new ArgumentOutOfRangeException());//为了能够对类型变动最大程度容错（如微信目前还可以对公众账号suscribe等未知类型，但API没有开放），建议在使用的时候catch这个异常

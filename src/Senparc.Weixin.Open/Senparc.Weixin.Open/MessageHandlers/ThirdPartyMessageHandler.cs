@@ -183,6 +183,12 @@ namespace Senparc.Weixin.Open.MessageHandlers
                             ResponseMessageText = On3rdWxaAuthRequest(requestMessage);
                         }
                         break;
+                    case RequestInfoType.notify_3rd_wxa_wxverify:
+                        {
+                            var requestMessage = RequestMessage as RequestMessage3rdWxaWxVerify;
+                            ResponseMessageText = On3rdWxaWxVerifyRequest(requestMessage);
+                        }
+                        break;
                     default:
                         throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
                 }
@@ -204,6 +210,11 @@ namespace Senparc.Weixin.Open.MessageHandlers
 
         public virtual void OnExecuted()
         {
+        }
+
+        public virtual string On3rdWxaWxVerifyRequest(RequestMessage3rdWxaWxVerify requestMessage)
+        {
+            return "success";
         }
 
 
@@ -270,6 +281,8 @@ namespace Senparc.Weixin.Open.MessageHandlers
             return "success";
         }
 
+
+        [Obsolete("此事件请在小程序SDK处理")]
         public virtual string OnNicknameAuditRequest(RequestMessageNicknameAudit requestMessage)
         {
             return "success";

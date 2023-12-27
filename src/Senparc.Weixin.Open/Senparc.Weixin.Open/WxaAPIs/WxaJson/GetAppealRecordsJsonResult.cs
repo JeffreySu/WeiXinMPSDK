@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：mc7246 - 20211209
 
+    修改标识：Senparc - 20220224
+    修改描述：v4.17.4 修复获取小程序申诉记录返回结果
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;

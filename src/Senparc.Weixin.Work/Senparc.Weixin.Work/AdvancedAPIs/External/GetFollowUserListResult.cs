@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2023 Senparc
+    Copyright (C) 2024 Senparc
     
     文件名：GetFollowUserListResult.cs
     文件功能描述：获取配置了客户联系功能的成员列表 返回结果

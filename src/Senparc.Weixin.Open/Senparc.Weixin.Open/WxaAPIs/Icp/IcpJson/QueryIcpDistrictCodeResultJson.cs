@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2023 Senparc
+    Copyright (C) 2024 Senparc
     
     文件名：QueryIcpDistrictCodeResultJson.cs
     文件功能描述：获取区域信息 接口返回消息

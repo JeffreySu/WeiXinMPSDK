@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2023 Senparc
+    Copyright (C) 2024 Senparc
 
     文件名：WebSocketRouteHandler.cs
     文件功能描述：WebSocketRouteHandler，处理WebSocket请求

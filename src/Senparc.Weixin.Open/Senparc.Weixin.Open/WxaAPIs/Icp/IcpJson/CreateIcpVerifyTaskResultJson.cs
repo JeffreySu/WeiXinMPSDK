@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2023 Senparc
+    Copyright (C) 2024 Senparc
     
     文件名：CreateIcpVerifyTaskResultJson.cs
     文件功能描述：发起小程序管理员人脸核身结果 接口返回消息

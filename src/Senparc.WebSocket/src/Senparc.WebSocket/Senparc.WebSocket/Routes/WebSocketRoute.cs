@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2023 Senparc
+    Copyright (C) 2024 Senparc
 
     文件名：WebSocketRoute.cs
     文件功能描述：WebSocket的Route类（主要为了重写GetVirtualPath，

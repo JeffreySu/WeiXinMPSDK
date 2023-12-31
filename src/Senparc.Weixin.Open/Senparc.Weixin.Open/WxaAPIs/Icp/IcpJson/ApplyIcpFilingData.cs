@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2023 Senparc
+    Copyright (C) 2024 Senparc
     
     文件名：ApplyIcpFilingData.cs
     文件功能描述：申请小程序备案 接口返回消息

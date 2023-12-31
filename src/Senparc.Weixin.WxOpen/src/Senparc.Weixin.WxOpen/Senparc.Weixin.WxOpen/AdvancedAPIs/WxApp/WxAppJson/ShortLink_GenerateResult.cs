@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2023 Senparc
+    Copyright (C) 2024 Senparc
     
     文件名：Short ShortLink_GenerateResult.cs
     文件功能描述：Short Link 生成结果

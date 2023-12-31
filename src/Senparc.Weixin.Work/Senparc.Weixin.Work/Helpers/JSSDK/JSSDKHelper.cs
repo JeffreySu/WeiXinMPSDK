@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2023 Senparc
+    Copyright (C) 2024 Senparc
     
     文件名：JSSDKHelper.cs
     文件功能描述：JSSDK生成签名的方法等

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2023 Senparc
+    Copyright (C) 2024 Senparc
     
     文件名：CustomMessageHandlerAsync.cs
     文件功能描述：自定义MessageHandler（异步方法）

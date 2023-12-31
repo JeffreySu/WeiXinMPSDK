@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2023 Senparc
+    Copyright (C) 2024 Senparc
     
     文件名：QueryIcpVerifyTaskResultJson.cs
     文件功能描述：查询人脸核身任务状态结果 接口返回消息

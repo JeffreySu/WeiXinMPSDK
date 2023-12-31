@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2023 Senparc
+    Copyright (C) 2024 Senparc
     
     文件名：IRequestMessageEventKey.cs
     文件功能描述：具有EventKey属性的RequestMessage接口

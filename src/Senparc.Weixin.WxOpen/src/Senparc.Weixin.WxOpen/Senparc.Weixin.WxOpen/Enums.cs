@@ -98,7 +98,14 @@ namespace Senparc.Weixin.WxOpen
         /// 订单将要结算或已经结算事件
         /// </summary>
         trade_manage_order_settlement,
-
+        /// <summary>
+        /// 小程序微信认证支付成功事件
+        /// </summary>
+        wx_verify_pay_succ,
+        /// <summary>
+        /// 小程序微信认证派单事件
+        /// </summary>
+        wx_verify_dispatch,
 
         #region 小程序虚拟支付
         /// <summary>

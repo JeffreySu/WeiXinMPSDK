@@ -21,48 +21,43 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2023 Senparc
     
-    文件名：RequestMessageEvent_WxaCategoryAudit.cs
-    文件功能描述：事件之小程序审核成功
+    文件名：RequestMessageEvent_AddExpressPath.cs
+    文件功能描述：运单轨迹更新事件
     
     
-    创建标识：Senparc - 20230119
+    创建标识：chinanhb - 20230529
     
 ----------------------------------------------------------------*/
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.Entities
 {
-    /// <summary>
-    /// 事件之小程序类目审核成功
-    /// </summary>
-    public class RequestMessageEvent_WxaCategoryAudit : RequestMessageEventBase, IRequestMessageEventBase
+    public class RequestMessageEvent_WxVerifyDispatch : RequestMessageEventBase,IRequestMessageEventBase
     {
         /// <summary>
         /// 事件类型
         /// </summary>
         public override Event Event
         {
-            get { return Event.wxa_category_audit; }
+            get { return Event.wx_verify_dispatch; }
         }
+        /// <summary>
+        /// 微信认证审核机构
+        /// </summary>
+        public string Provider { get; set; }
 
         /// <summary>
-        /// 一级类目id
+        /// 微信认证审核机构联系方式
         /// </summary>
-        public string first { get; set; }
+        public string Contact { get; set; }
 
         /// <summary>
-        /// 二级类目id
+        /// 微信认证派单时间
         /// </summary>
-        public string second { get; set; }
-
-        /// <summary>
-        /// 审核结果 2.驳回，3通过
-        /// </summary>
-        public int ret { get; set; }
-
-        /// <summary>
-        /// 审核失败的驳回原因
-        /// </summary>
-        public string reason { get; set; }
-
+        public long DispatchTime { get; set; }
     }
 }

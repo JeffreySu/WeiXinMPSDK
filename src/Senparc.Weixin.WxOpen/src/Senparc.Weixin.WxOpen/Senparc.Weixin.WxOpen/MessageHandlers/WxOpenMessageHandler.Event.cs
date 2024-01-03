@@ -130,6 +130,12 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.trade_manage_remind_shipping:
                     responseMessage = OnEvent_TradeManageRemindShipping(RequestMessage as RequestMessageEvent_TradeManageRemindShipping);
                     break;
+                case Event.wx_verify_pay_succ:
+                    responseMessage = OnEvent_WxVerifyPaySuccRequest(RequestMessage as RequestMessageEvent_WxVerifyPaySucc);
+                    break;
+                case Event.wx_verify_dispatch:
+                    responseMessage = OnEvent_WxVerifyDispatchRequest(RequestMessage as RequestMessageEvent_WxVerifyDispatch);
+                    break;
 
                 #region 小程序虚拟支付
                 case Event.xpay_goods_deliver_notify:
@@ -150,6 +156,25 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         }
 
         #region Event 下属分类
+
+        /// <summary>
+        /// 微信认证支付成功事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_WxVerifyPaySuccRequest(RequestMessageEvent_WxVerifyPaySucc requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 微信认证派单事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_WxVerifyDispatchRequest(RequestMessageEvent_WxVerifyDispatch requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
         /// <summary>
         /// 订单将要结算或已经结算事件推送
         /// </summary>
@@ -395,6 +420,12 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.trade_manage_remind_shipping:
                     responseMessage = await OnEvent_TradeManageRemindShippingAsync(RequestMessage as RequestMessageEvent_TradeManageRemindShipping);
                     break;
+                case Event.wx_verify_pay_succ:
+                    responseMessage = await OnEvent_WxVerifyPaySuccRequestAsync(RequestMessage as RequestMessageEvent_WxVerifyPaySucc);
+                    break;
+                case Event.wx_verify_dispatch:
+                    responseMessage = await OnEvent_WxVerifyDispatchRequestAsync(RequestMessage as RequestMessageEvent_WxVerifyDispatch);
+                    break;
 
                 #region 小程序虚拟支付
                 case Event.xpay_goods_deliver_notify:
@@ -415,6 +446,25 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         }
 
         #region Event 下属分类
+        /// <summary>
+        /// 【异步方法】微信认证支付成功事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_WxVerifyPaySuccRequestAsync(RequestMessageEvent_WxVerifyPaySucc requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_WxVerifyPaySuccRequest(requestMessage)).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】微信认证派单事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_WxVerifyDispatchRequestAsync(RequestMessageEvent_WxVerifyDispatch requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_WxVerifyDispatchRequest(requestMessage)).ConfigureAwait(false);
+        }
+
         /// <summary>
         /// 【异步方法】订单将要结算或已经结算事件推送
         /// </summary>

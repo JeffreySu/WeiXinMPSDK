@@ -81,6 +81,12 @@ namespace Senparc.Weixin.WxOpen.MessageContexts
                         case "WXA_MEDIA_CHECK"://内容安全回调：wxa_media_check 推送结果
                             requestMessage = new RequestMessageEvent_MediaCheck();
                             break;
+                        case "WXA_CATEGORY_AUDIT": //小程序类目审核事件
+                            requestMessage = new RequestMessageEvent_WxaCategoryAudit();
+                            break;
+                        case "ADD_EXPRESS_PATH": //运单轨迹推送事件
+                            requestMessage = new RequestMessageEvent_AddExpressPath();
+                            break;
                         case "TRADE_MANAGE_ORDER_SETTLEMENT"://订单将要结算或已经结算
                             requestMessage = new RequestMessageEvent_TradeManageOrderSettlement();
                             break;
@@ -89,6 +95,12 @@ namespace Senparc.Weixin.WxOpen.MessageContexts
                             break;
                         case "TRADE_MANAGE_REMIND_SHIPPING"://提醒需要上传发货信息
                             requestMessage = new RequestMessageEvent_TradeManageRemindShipping();
+                            break;
+                        case "WX_VERIFY_PAY_SUCC": //微信认证支付成功通知
+                            requestMessage = new RequestMessageEvent_WxVerifyPaySucc();
+                            break;
+                        case "WX_VERIFY_DISPATCH": //微信认证派单事件
+                            requestMessage = new RequestMessageEvent_WxVerifyDispatch();
                             break;
                         default://其他意外类型（也可以选择抛出异常）
                             requestMessage = new RequestMessageEventBase();

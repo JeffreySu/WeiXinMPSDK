@@ -133,7 +133,11 @@ namespace Senparc.Weixin.Open
         /// <summary>
         /// 微信认证推送事件
         /// </summary>
-        notify_3rd_wxa_auth
+        notify_3rd_wxa_auth,
+        /// <summary>
+        /// 小程序认证年审和过期能力限制提醒推送事件
+        /// </summary>
+        notify_3rd_wxa_wxverify
 
     }
 

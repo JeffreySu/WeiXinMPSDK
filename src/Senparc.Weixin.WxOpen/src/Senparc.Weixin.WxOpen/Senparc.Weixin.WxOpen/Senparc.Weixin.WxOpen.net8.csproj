@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.17.4</Version>
+    <Version>3.17.5</Version>
     <LangVersion>9.0</LangVersion>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
@@ -178,7 +178,8 @@
 		v3.17.1 添加 CodeApi.RevertCodeRelease() 方法的 appVersion 参数
 		v3.17.2 添加“小程序虚拟支付”功能 PR #2961 / Issue #2951
 		v3.17.3 添加小程序分类审核异步通知事件 / PR #2969
-</PackageReleaseNotes>
+		v3.17.5 新增小程序认证年审事件接口 / PR #2979
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

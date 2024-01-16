@@ -80,6 +80,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.MASSSENDJOBFINISH://群发消息成功
                     responseMessage = await OnEvent_MassSendJobFinishRequestAsync(RequestMessage as RequestMessageEvent_MassSendJobFinish).ConfigureAwait(false);
                     break;
+                case Event.PUBLISHJOBFINISH://事件推送发布结果
+                    responseMessage = await OnEvent_PublishJobFinishRequestAsync(RequestMessage as RequestMessageEvent_PublishJobFinish).ConfigureAwait(false);
+                    break;
                 case Event.TEMPLATESENDJOBFINISH://推送模板消息成功
                     responseMessage = await OnEvent_TemplateSendJobFinishRequestAsync(RequestMessage as RequestMessageEvent_TemplateSendJobFinish).ConfigureAwait(false);
                     break;
@@ -320,7 +323,15 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_MassSendJobFinishRequest(requestMessage)).ConfigureAwait(false);
         }
-
+                
+        /// <summary>
+        /// 发布任务推送结果
+        /// </summary>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_PublishJobFinishRequestAsync(RequestMessageEvent_PublishJobFinish requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_PublishJobFinishRequest(requestMessage)).ConfigureAwait(false);
+        }
 
         /// <summary>
         /// 【异步方法】发送模板消息返回结果

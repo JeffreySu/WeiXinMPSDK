@@ -177,6 +177,11 @@ namespace Senparc.Weixin.MP
         MASSSENDJOBFINISH,
 
         /// <summary>
+        /// 发布任务结果
+        /// </summary>
+        PUBLISHJOBFINISH,
+
+        /// <summary>
         /// 模板信息发送完成
         /// </summary>
         TEMPLATESENDJOBFINISH,

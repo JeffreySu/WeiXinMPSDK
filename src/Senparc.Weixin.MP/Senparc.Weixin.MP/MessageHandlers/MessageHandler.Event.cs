@@ -82,6 +82,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.MASSSENDJOBFINISH://群发消息成功
                     responseMessage = OnEvent_MassSendJobFinishRequest(RequestMessage as RequestMessageEvent_MassSendJobFinish);
                     break;
+                case Event.PUBLISHJOBFINISH://事件推送发布结果
+                    responseMessage = OnEvent_PublishJobFinishRequest(RequestMessage as RequestMessageEvent_PublishJobFinish);
+                    break;
                 case Event.TEMPLATESENDJOBFINISH://推送模板消息成功
                     responseMessage = OnEvent_TemplateSendJobFinishRequest(RequestMessage as RequestMessageEvent_TemplateSendJobFinish);
                     break;
@@ -316,6 +319,15 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <returns></returns>
         public virtual IResponseMessageBase OnEvent_MassSendJobFinishRequest(RequestMessageEvent_MassSendJobFinish requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        
+        /// <summary>
+        /// 发布任务推送结果
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_PublishJobFinishRequest(RequestMessageEvent_PublishJobFinish requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

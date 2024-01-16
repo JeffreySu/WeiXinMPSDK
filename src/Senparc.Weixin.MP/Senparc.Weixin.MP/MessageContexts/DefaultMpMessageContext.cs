@@ -111,6 +111,9 @@ namespace Senparc.Weixin.MP.MessageContexts
                         case "MASSSENDJOBFINISH":
                             requestMessage = new RequestMessageEvent_MassSendJobFinish();
                             break;
+                        case "PUBLISHJOBFINISH":
+                            requestMessage = new RequestMessageEvent_PublishJobFinish();
+                            break;
                         case "TEMPLATESENDJOBFINISH"://模板信息
                             requestMessage = new RequestMessageEvent_TemplateSendJobFinish();
                             break;

@@ -312,6 +312,132 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.XPay
             var url = string.Format(Config.ApiMpHost + "/xpay/create_funds_bill?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
             return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
+
+        /// <summary>
+        /// 查询广告金充值记录
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="pay_sig"></param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static QueryFundsBillJsonResult QueryFundsBill(string accessToken, string pay_sig, QueryFundsBillRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/xpay/query_funds_bill?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+            return CommonJsonSend.Send<QueryFundsBillJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 查询广告金回收记录
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="pay_sig"></param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static QueryRecoverBillJsonResult QueryRecoverBill(string accessToken, string pay_sig, QueryRecoverBillRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/xpay/query_recover_bill?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+            return CommonJsonSend.Send<QueryRecoverBillJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 获取投诉列表
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="pay_sig"></param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetComplaintListJsonResult GetComplaintList(string accessToken, string pay_sig, GetComplaintListRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/xpay/get_complaint_list?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+            return CommonJsonSend.Send<GetComplaintListJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 获取投诉详情
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="pay_sig"></param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetComplaintDetailJsonResult GetComplaintDetail(string accessToken, string pay_sig, GetComplaintDetailRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/xpay/get_complaint_detail?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+            return CommonJsonSend.Send<GetComplaintDetailJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 获取协商历史
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="pay_sig"></param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetNegotiationHistoryJsonResult GetNegotiationHistory(string accessToken, string pay_sig, GetNegotiationHistoryRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/xpay/get_negotiation_history?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+            return CommonJsonSend.Send<GetNegotiationHistoryJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 回复用户
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="pay_sig"></param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult ResponseComplaint(string accessToken, string pay_sig, ResponseComplaintRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/xpay/response_complaint?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 完成投诉处理
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="pay_sig"></param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult CompleteComplaint(string accessToken, string pay_sig, CompleteComplaintRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/xpay/complete_complaint?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 上传媒体文件（如图片，凭证等）
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="pay_sig"></param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static UploadVpFileJsonResult UploadVpFile(string accessToken, string pay_sig, UploadVpFileRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/xpay/upload_vp_file?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+            return CommonJsonSend.Send<UploadVpFileJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 获取微信支付反馈投诉图片的签名头部
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="pay_sig"></param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetUploadFileSignJsonResult GetUploadFileSign(string accessToken, string pay_sig, GetUploadFileSignRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/xpay/get_upload_file_sign?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+            return CommonJsonSend.Send<GetUploadFileSignJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
         #endregion
 
         #region 异步方法
@@ -582,6 +708,132 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.XPay
         {
             var url = string.Format(Config.ApiMpHost + "/xpay/create_funds_bill?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
             return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 查询广告金充值记录
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="pay_sig"></param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<QueryFundsBillJsonResult> QueryFundsBillAsync(string accessToken, string pay_sig, QueryFundsBillRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/xpay/query_funds_bill?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+            return await CommonJsonSend.SendAsync<QueryFundsBillJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 查询广告金回收记录
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="pay_sig"></param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<QueryRecoverBillJsonResult> QueryRecoverBillAsync(string accessToken, string pay_sig, QueryRecoverBillRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/xpay/query_recover_bill?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+            return await CommonJsonSend.SendAsync<QueryRecoverBillJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 获取投诉列表
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="pay_sig"></param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetComplaintListJsonResult> GetComplaintListAsync(string accessToken, string pay_sig, GetComplaintListRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/xpay/get_complaint_list?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+            return await CommonJsonSend.SendAsync<GetComplaintListJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 获取投诉详情
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="pay_sig"></param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetComplaintDetailJsonResult> GetComplaintDetailAsync(string accessToken, string pay_sig, GetComplaintDetailRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/xpay/get_complaint_detail?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+            return await CommonJsonSend.SendAsync<GetComplaintDetailJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 获取协商历史
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="pay_sig"></param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetNegotiationHistoryJsonResult> GetNegotiationHistoryAsync(string accessToken, string pay_sig, GetNegotiationHistoryRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/xpay/get_negotiation_history?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+            return await CommonJsonSend.SendAsync<GetNegotiationHistoryJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 回复用户
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="pay_sig"></param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> ResponseComplaintAsync(string accessToken, string pay_sig, ResponseComplaintRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/xpay/response_complaint?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 完成投诉处理
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="pay_sig"></param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> CompleteComplaintAsync(string accessToken, string pay_sig, CompleteComplaintRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/xpay/complete_complaint?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 上传媒体文件（如图片，凭证等）
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="pay_sig"></param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<UploadVpFileJsonResult> UploadVpFileAsync(string accessToken, string pay_sig, UploadVpFileRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/xpay/upload_vp_file?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+            return await CommonJsonSend.SendAsync<UploadVpFileJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 获取微信支付反馈投诉图片的签名头部
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="pay_sig"></param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetUploadFileSignJsonResult> GetUploadFileSignAsync(string accessToken, string pay_sig, GetUploadFileSignRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/xpay/get_upload_file_sign?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+            return await CommonJsonSend.SendAsync<GetUploadFileSignJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
         #endregion
     }

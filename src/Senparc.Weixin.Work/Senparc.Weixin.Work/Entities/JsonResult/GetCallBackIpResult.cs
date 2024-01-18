@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2023 Senparc
+    Copyright (C) 2024 Senparc
     
     文件名：GetCallBackIpResult.cs
     文件功能描述：获取微信服务器的ip段的JSON返回格式

@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------
-    Copyright (C) 2023 Senparc
+    Copyright (C) 2024 Senparc
     
     文件名：RequestMessageInfo_Reset_Permanent_Code.cs
     文件功能描述：推广二维码注册企业微信完成通知

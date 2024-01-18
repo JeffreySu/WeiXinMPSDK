@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2023 Senparc
+    Copyright (C) 2024 Senparc
     
     文件名：SingleScancodeWaitmsgButton.cs
     文件功能描述：调起扫一扫工具，然后弹出“消息接收中”提示框

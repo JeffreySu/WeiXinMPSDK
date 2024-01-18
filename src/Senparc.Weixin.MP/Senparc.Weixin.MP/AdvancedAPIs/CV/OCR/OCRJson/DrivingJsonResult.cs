@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2023 Senparc
+    Copyright (C) 2024 Senparc
     
     文件名：DrivingJsonResult.cs
     文件功能描述：OCR 行驶证识别返回结果

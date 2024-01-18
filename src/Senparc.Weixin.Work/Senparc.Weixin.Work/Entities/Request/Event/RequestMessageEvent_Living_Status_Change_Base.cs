@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2023 Senparc
+    Copyright (C) 2024 Senparc
     
     文件名：RequestMessageEvent_Living_Status_Change_Base.cs
     文件功能描述：直播回调事件

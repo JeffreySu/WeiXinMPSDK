@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2023 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2024 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2023 Senparc
+    Copyright (C) 2024 Senparc
     
     文件名：MessageHandlerAsync.Event.cs
     文件功能描述：微信请求【异步方法】的集中处理方法：Event相关
@@ -79,6 +79,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     break;
                 case Event.MASSSENDJOBFINISH://群发消息成功
                     responseMessage = await OnEvent_MassSendJobFinishRequestAsync(RequestMessage as RequestMessageEvent_MassSendJobFinish).ConfigureAwait(false);
+                    break;
+                case Event.PUBLISHJOBFINISH://事件推送发布结果
+                    responseMessage = await OnEvent_PublishJobFinishRequestAsync(RequestMessage as RequestMessageEvent_PublishJobFinish).ConfigureAwait(false);
                     break;
                 case Event.TEMPLATESENDJOBFINISH://推送模板消息成功
                     responseMessage = await OnEvent_TemplateSendJobFinishRequestAsync(RequestMessage as RequestMessageEvent_TemplateSendJobFinish).ConfigureAwait(false);
@@ -320,7 +323,15 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_MassSendJobFinishRequest(requestMessage)).ConfigureAwait(false);
         }
-
+                
+        /// <summary>
+        /// 发布任务推送结果
+        /// </summary>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_PublishJobFinishRequestAsync(RequestMessageEvent_PublishJobFinish requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_PublishJobFinishRequest(requestMessage)).ConfigureAwait(false);
+        }
 
         /// <summary>
         /// 【异步方法】发送模板消息返回结果

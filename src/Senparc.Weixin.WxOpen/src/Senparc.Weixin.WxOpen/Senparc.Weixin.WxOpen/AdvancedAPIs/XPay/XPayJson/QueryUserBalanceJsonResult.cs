@@ -45,6 +45,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.XPay
         /// <summary>
         /// 代币总余额，包括有价和赠送部分
         /// </summary>
-        public int first_save_flag { get; set; }
+        public bool first_save_flag { get; set; }
     }
 }

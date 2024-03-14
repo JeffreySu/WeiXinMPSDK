@@ -676,9 +676,13 @@ Implemented Functions
 | Developer-Senparc.SDK | This branch is only used for internal testing of the Senparc team and can be ignored.  
   
   
-## 🍟 Acknowledgments  
+## 🍟 Thanks To Contributors  
   
 Thanks to the developers who contributed to this project. You have not only improved this project, but also made a contribution to the Chinese open source community. Thank you! The list can be found [here](https://github.com/JeffreySu/WeiXinMPSDK/blob/master/Contributors.md).  
+
+<a href="https://github.com/JeffreySu/WeiXinMPSDK/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=JeffreySu/WeiXinMPSDK&max=200" />
+</a>
   
 ## 💰 Donations  
   

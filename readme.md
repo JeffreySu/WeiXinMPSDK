@@ -702,6 +702,10 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 
 感谢为此项目做出贡献的开发者，你们不光完善了这个项目，也为中国开源事业出了一份力，感谢你们！名单[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/blob/master/Contributors.md)查看。
 
+<a href="https://github.com/JeffreySu/WeiXinMPSDK/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=JeffreySu/WeiXinMPSDK&max=200" />
+</a>
+
 ## 💰 捐助
 
 如果这个项目对您有用，我们欢迎各方任何形式的捐助，也包括参与到项目代码更新或意见反馈中来。谢谢！

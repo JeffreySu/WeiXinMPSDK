@@ -62,3 +62,4 @@ Thumbs.db
 node_modules
 yarn.lock
 
+/Samples/Work/Senparc.Weixin.Sample.Work/App_Data/WeChat_Work

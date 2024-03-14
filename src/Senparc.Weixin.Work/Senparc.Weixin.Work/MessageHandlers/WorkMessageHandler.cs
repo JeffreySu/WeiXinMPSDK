@@ -68,6 +68,9 @@
 
     修改标识：XiaoPoTian - 20231119
     修改描述：v3.18.1 添加 RequestMessageEvent_Change_External_Tag_Base 事件中 ChangeType 的判断
+    
+    修改标识：IcedMango - 20240229
+    修改描述：添加: 企业微信会话存档-产生会话回调事件
 ----------------------------------------------------------------*/
 
 using System;
@@ -883,6 +886,16 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
         #endregion
+        
+        /// <summary>
+        /// 企业微信会话存档-产生会话回调事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_MsgAuditNotifyRequest(RequestMessageEvent_MsgAuditNotify requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
 
         #endregion //Event 下属分类
         #endregion

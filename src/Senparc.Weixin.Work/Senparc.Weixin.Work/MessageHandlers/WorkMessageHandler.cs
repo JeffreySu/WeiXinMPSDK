@@ -71,6 +71,9 @@
     
     修改标识：IcedMango - 20240229
     修改描述：添加: 企业微信会话存档-产生会话回调事件
+
+    修改标识：LofyLiu - 20240315
+    修改描述：添加: 模板卡片点击回调事件
 ----------------------------------------------------------------*/
 
 using System;
@@ -893,6 +896,16 @@ namespace Senparc.Weixin.Work.MessageHandlers
         /// <param name="requestMessage"></param>
         /// <returns></returns>
         public virtual IWorkResponseMessageBase OnEvent_MsgAuditNotifyRequest(RequestMessageEvent_MsgAuditNotify requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 模板卡片点击回调事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_TemplateCardEventClickRequest(RequestMessageEvent_TemplateCardClick requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

@@ -16,6 +16,8 @@
     修改标识：IcedMango - 20240229
     修改描述：添加: 企业微信会话存档-产生会话回调事件
 
+    修改标识：LofyLiu - 20240315
+    修改描述：添加: 模板卡片点击回调事件
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Context;
@@ -391,6 +393,10 @@ namespace Senparc.Weixin.Work.MessageHandlers
                         OnEvent_MsgAuditNotifyRequestAsync(
                             RequestMessage as RequestMessageEvent_MsgAuditNotify);
                     break;
+                case  Event.TEMPLATE_CARD_CLICK://模板卡片点击回调事件
+                    responseMessage = await 
+                        OnEvent_TemplateCardEventClickRequestAsync(
+                            RequestMessage as RequestMessageEvent_TemplateCardClick);
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -810,6 +816,15 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return await Task.Run(() => OnEvent_MsgAuditNotifyRequest(requestMessage)).ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// 模板卡片点击回调事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_TemplateCardEventClickRequestAsync(RequestMessageEvent_TemplateCardClick requestMessage)
+        {
+            return await Task.Run(() => OnEvent_TemplateCardEventClickRequest(requestMessage)).ConfigureAwait(false);
+        }
         #endregion //Event 下属分类
 
         #endregion

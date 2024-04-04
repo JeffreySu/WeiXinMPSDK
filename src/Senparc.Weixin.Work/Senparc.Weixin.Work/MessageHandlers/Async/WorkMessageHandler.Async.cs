@@ -397,6 +397,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     responseMessage = await 
                         OnEvent_TemplateCardEventClickRequestAsync(
                             RequestMessage as RequestMessageEvent_TemplateCardClick);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }

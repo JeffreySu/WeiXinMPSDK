@@ -58,6 +58,8 @@
     修改标识：IcedMango - 20240229
     修改描述：添加枚举“企业微信会话存档-产生会话回调事件”（MSGAUDIT_NOTIFY）
 
+    修改标识：LofyLiu - 20240315
+    修改描述：添加枚举“模板卡片点击回调事件”
 ----------------------------------------------------------------*/
 
 using static System.Net.WebRequestMethods;
@@ -213,7 +215,12 @@ namespace Senparc.Weixin.Work
         /// <summary>
         /// 会话存档-产生会话回调事件
         /// </summary>
-        MSGAUDIT_NOTIFY
+        MSGAUDIT_NOTIFY,
+
+        /// <summary>
+        /// 模板卡片点击回调事件
+        /// </summary>
+        TEMPLATE_CARD_CLICK
     }
 
     public enum TencentGender

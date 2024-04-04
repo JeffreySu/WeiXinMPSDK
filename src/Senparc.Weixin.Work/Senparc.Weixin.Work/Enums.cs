@@ -220,7 +220,7 @@ namespace Senparc.Weixin.Work
         /// <summary>
         /// 模板卡片点击回调事件
         /// </summary>
-        TEMPLATE_CARD_CLICK
+        TEMPLATE_CARD_CLICK,
     }
 
     public enum TencentGender

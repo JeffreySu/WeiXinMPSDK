@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Qubit.Weixin.Work.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     public class RequestMessageEvent_TemplateCardClick : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
     {

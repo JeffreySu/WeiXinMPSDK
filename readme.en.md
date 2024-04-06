@@ -40,6 +40,8 @@ If you like this project and want us to continue improving it, please give us a 
   
 ## 🔔 Announcement  
   
+> <img src="https://github.com/JeffreySu/WeiXinMPSDK/assets/2281927/743f3019-c96b-4b61-acdb-d1834947d5d0" width="400" /><br />
+At the 2024 Microsoft MVP Global Summit, I had the privilege of interviewing Scott Hanselman and discussed a range of topics related to AI. We will continue our conversation on April 13, 2024, during the "Senparc 3.14 Technology Open Day" event, where we will delve deeper into the impact of AI and Agents on the future of the software industry and open-source software. Everyone is welcome to follow along! [Watch the video](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%BE%AE%E8%BD%AF-MVP-%E5%85%A8%E7%90%83%E5%B3%B0%E4%BC%9A%E9%87%87%E8%AE%BF-Scott-Hanselman)<br/>
 > ⚡ Sample now supports .NET 8.0 (backward compatible), [click here to view](/Samples/All/net8-mvc)!<br/>  
 > 🔒 [Wechat Pay V3 module (V1.0)](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3) is now online! [Nuget](https://www.nuget.org/packages/Senparc.Weixin.TenPayV3)<br>  
 > 🎠 Fully support automatic segmentation and sending of long text messages, more: [《Auto Reply Long Text Messages to Adapt to AIGC Applications》](https://www.cnblogs.com/szw/p/weixin-large-text-response.html)<br/>  

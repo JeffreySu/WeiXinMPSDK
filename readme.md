@@ -41,6 +41,8 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 ## 🔔 公告
 
+> <img src="https://github.com/JeffreySu/WeiXinMPSDK/assets/2281927/743f3019-c96b-4b61-acdb-d1834947d5d0" width="400" /><br />
+在 2024 微软 MVP 全球峰会上有幸采访到 Scott Hanselman，并交流了一部分有关 AI 的话题，我们将会在 2024 年 4 月 13 日的“盛派 3.14 技术开放日”活动上再次进行对话，深入交流关于 AI 和 Agent 对未来软件行业以及开源软件的影响，欢迎大家关注！[查看视频](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%BE%AE%E8%BD%AF-MVP-%E5%85%A8%E7%90%83%E5%B3%B0%E4%BC%9A%E9%87%87%E8%AE%BF-Scott-Hanselman)<br/>
 > ⚡ Sample 已支持 .NET 8.0（向下兼容），[点击这里查看](/Samples/All/net8-mvc)！<br/>
 > 🔒 [微信支付 V3 模块（V1.0）](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3)已上线！[Nuget](https://www.nuget.org/packages/Senparc.Weixin.TenPayV3)<br>
 > 🎠 全面支持长文本自动分片发送，更多：[《顺应 AIGC 应用，自动“续航”回复超长文本消息》](https://www.cnblogs.com/szw/p/weixin-large-text-response.html)<br/>

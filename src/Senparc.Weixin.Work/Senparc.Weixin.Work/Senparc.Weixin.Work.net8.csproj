@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.20.0</Version>
+    <Version>3.21.1</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -210,7 +210,7 @@
 		2、修复：ApprovalCreateTemplateRequest.template_names 命名更正为：template_name（Issue #2949）
 		v3.19.0 企业微信中间件增加:会话存档-产生会话回调事件回调 （PR #2993）
 		v3.20.0 模板卡片点击回调事件（PR #2997）
-	</PackageReleaseNotes>
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>
   </PropertyGroup>

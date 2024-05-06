@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>2.14.1</Version>
+    <Version>2.15.1</Version>
     <AssemblyName>Senparc.Weixin.Cache.Memcached</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Memcached</RootNamespace>
     <Description>
@@ -143,7 +143,7 @@
     <Compile Remove="MamcachedCacheLock.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="4.2.1" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="4.2.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net8.csproj" />

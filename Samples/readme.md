@@ -12,6 +12,8 @@
 | ┣ [All/console](/Samples/All/console)			|命令行 Console Demo（.NET Core）| Nuget 包
 | ┣ [All/net45-mvc](/Samples/All/net45-mvc)						|可以直接发布使用的 Demo（.NET Framework 4.5 + ASP.NET MVC）|  Nuget 包
 | ┣ [All/net6-mvc](/Samples/All/net6-mvc)			|可以直接发布使用的 Demo（.NET 6.0），兼容 .NET 5.0 和 .NET Core | <strong>源码<strong>
+| ┣ [All/net7-mvc](/Samples/All/net7-mvc)			|可以直接发布使用的 Demo（.NET 7.0），兼容 .NET 5.0、6.0 和 .NET Core	 | <strong>源码<strong>
+| ┣ [All/net8-mvc](/Samples/All/net8-mvc)			|可以直接发布使用的 Demo（.NET 8.0），兼容 .NET 5.0、6.0、7.0 和 .NET Core	 | <strong>源码（最新）<strong>
 | ┗ [All/Senparc.Weixin.<br>Sample.CommonService](/Samples/All/Senparc.Weixin.Sample.CommonService)			| 所有 `All` 文件夹下的 Sample 公用的类库和逻辑代码 |
 |[MP](/Samples/MP/)          |   公众号 | Nuget 包
 |[TenPayV2](/Samples/TenPayV2/)    |   微信支付 V1 和 V2  | Nuget 包

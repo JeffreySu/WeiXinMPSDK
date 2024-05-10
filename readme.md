@@ -354,7 +354,7 @@ Senparc.Weixin SDK 所有的模块的用法都保持了高度的一致，包括�
 | ┣ [All/net45-mvc](/Samples/All/net45-mvc)						|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET MVC）|  Nuget 包
 | ┣ [All/net6-mvc](/Samples/All/net6-mvc)			|可以直接发布使用的 Demo（.NET 6.0），兼容 .NET 5.0 和 .NET Core | <strong>源码<strong>
 | ┣ [All/net7-mvc](/Samples/All/net7-mvc)			|可以直接发布使用的 Demo（.NET 7.0），兼容 .NET 5.0、6.0 和 .NET Core | <strong>源码<strong>
-| ┗ [All/net8-mvc](/Samples/All/net8-mvc)			|可以直接发布使用的 Demo（.NET 8.0），兼容 .NET 5.0、6.0、7.0 和 .NET Core | <strong>源码<strong>
+| ┗ [All/net8-mvc](/Samples/All/net8-mvc)			|可以直接发布使用的 Demo（.NET 8.0），兼容 .NET 5.0、6.0、7.0 和 .NET Core | <strong>源码（最新）<strong>
 
 [进入 Samples 文件夹](/Samples/)
 

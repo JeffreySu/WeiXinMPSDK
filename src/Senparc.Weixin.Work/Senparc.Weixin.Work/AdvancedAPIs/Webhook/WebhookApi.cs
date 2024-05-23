@@ -37,6 +37,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
     public static class WebhookApi
     {
         private static string _urlFormat = Config.ApiWorkHost + "/cgi-bin/webhook/send?key={0}";
+
         #region 同步方法
         /// <summary>
         /// 群机器人发送文本信息方法

@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31521.260
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{E72ACEC5-2011-41C7-9A48-34F073D1AEE2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Libraries", "01 Libraries", "{E72ACEC5-2011-41C7-9A48-34F073D1AEE2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples.net8", "Samples.net8", "{35139CB3-610E-4922-98AD-08A5D12BFC35}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 Samples.net8", "03 Samples.net8", "{35139CB3-610E-4922-98AD-08A5D12BFC35}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FC72CA5A-5DE9-4902-A5AA-00344FA68B37}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{DCF86D54-CF96-4C69-9385-7AA62B399104}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Tests", "02 Tests", "{FC72CA5A-5DE9-4902-A5AA-00344FA68B37}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cache", "Cache", "{FDC9A3F1-A2EC-4E44-9093-BE0EE1C17093}"
 EndProject
@@ -76,13 +74,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.TenPayV3.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.MP.net8", "..\..\MP\Senparc.Weixin.Sample.MP\Senparc.Weixin.Sample.MP.net8.csproj", "{81A078A9-97D1-446D-88ED-87F4BB484D91}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "不同模块 Samples", "不同模块 Samples", "{34CFB1D8-6025-4E93-A67F-D94DD3B9198F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.2 不同微信模块 Samples", "3.2 不同微信模块 Samples", "{34CFB1D8-6025-4E93-A67F-D94DD3B9198F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "完整 Sample（进阶）", "完整 Sample（进阶）", "{1B168C93-E3E3-4939-8EDC-19CE4E041874}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.1 完整 Sample（进阶）", "3.1 完整 Sample（进阶）", "{1B168C93-E3E3-4939-8EDC-19CE4E041874}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Senparc.Weixin.Sample.Shared", "..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.shproj", "{9FE36012-8B32-488E-96AD-BA7CEDAEEAB8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common Files", "Common Files", "{20CDE085-A7B1-447E-8875-981D8C3DF535}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 Common Files", "04 Common Files", "{20CDE085-A7B1-447E-8875-981D8C3DF535}"
 	ProjectSection(SolutionItems) = preProject
 		Common Files\site.css = Common Files\site.css
 	EndProjectSection
@@ -96,6 +94,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.TenPayV3.net8", "..\..\TenPayV3\Senparc.Weixin.Sample.TenPayV3\Senparc.Weixin.Sample.TenPayV3.net8.csproj", "{D70B89B9-27BC-45DD-A908-4282F101B409}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Senparc.Weixin.Sample.Shared", "..\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.shproj", "{81A03BCD-B887-4A40-8867-FF6B8D61CFC3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.3 人工智能（AI）", "3.3 人工智能（AI）", "{AB1460AF-4BE8-4CC2-AF3B-3473B5A41778}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Samples with AI\readme.md = ..\..\..\Samples with AI\readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -691,6 +694,7 @@ Global
 		{94C58964-01E0-4AA0-AF98-5851208D9755} = {34CFB1D8-6025-4E93-A67F-D94DD3B9198F}
 		{D70B89B9-27BC-45DD-A908-4282F101B409} = {34CFB1D8-6025-4E93-A67F-D94DD3B9198F}
 		{81A03BCD-B887-4A40-8867-FF6B8D61CFC3} = {1B168C93-E3E3-4939-8EDC-19CE4E041874}
+		{AB1460AF-4BE8-4CC2-AF3B-3473B5A41778} = {35139CB3-610E-4922-98AD-08A5D12BFC35}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC7AD3EC-AB37-497E-925B-DCD5129FE6D3}

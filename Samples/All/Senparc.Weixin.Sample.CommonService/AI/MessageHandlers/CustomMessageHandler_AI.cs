@@ -38,7 +38,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        private async Task<IResponseMessageBase> StartAIChatAsync(RequestMessageText requestMessage)
+        private async Task<IResponseMessageBase> StartAIChatAsync()
         {
             var currentMessageContext = await base.GetCurrentMessageContext();
 

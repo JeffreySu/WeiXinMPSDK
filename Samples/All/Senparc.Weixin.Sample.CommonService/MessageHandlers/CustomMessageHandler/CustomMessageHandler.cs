@@ -191,7 +191,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                 /* 关键字不区分大小写，按照顺序匹配成功后将不再运行下面的逻辑 */
 
                 //启动 AI 对话
-                .Keyword("AI", () => this.StartAIChatAsync(requestMessage).Result)
+                .Keyword("AI", () => this.StartAIChatAsync().Result)
 
                 //测试浏览器约束
                 .Keyword("约束", () =>

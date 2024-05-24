@@ -3,11 +3,26 @@
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<Version>6.9.0</Version>
+		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>35e58786-0820-4cde-b1ff-f4c6198d00f7</UserSecretsId>
 		<PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="App_Data\cert\**" />
+	  <Content Remove="App_Data\cert\**" />
+	  <EmbeddedResource Remove="App_Data\cert\**" />
+	  <None Remove="App_Data\cert\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Program.cs.old" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+		<PackageReference Include="Senparc.AI.Agents" Version="0.1.1-beta1" />
+		<PackageReference Include="Senparc.AI.Kernel" Version="0.16.1.2-beta1" />
 		<PackageReference Include="Senparc.CO2NET.WebApi" Version="1.5.2.1" />
 		<PackageReference Include="Senparc.NeuChar.App" Version="1.4.1" />
 		<PackageReference Include="Senparc.NeuChar.AspNet" Version="1.4.1" />
@@ -47,12 +62,28 @@
 		<None Update="App_Data\QrCode\readme.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Web.config">
+			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+		</None>
+		<None Update="appsettings.json">
+			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+		</None>
+		<None Update="appsettings.Development.json">
+			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+		</None>
+		<None Update="App_Data\**\*">
+			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)' == 'Release'">
+		<!-- 忽略 Web.config 文件，仅在发布时 -->
+		
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="App_Data\cert\" />
-	  <Folder Include="App_Data\NeuChar\" />
-	  <Folder Include="wwwroot\" />
+		<Folder Include="App_Data\NeuChar\" />
+		<Folder Include="wwwroot\" />
 	</ItemGroup>
 
 	<Import Project="..\..\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems" Label="Shared" />

@@ -68,6 +68,13 @@ namespace Senparc.Weixin.AspNet.RegisterServices
         /// <returns></returns>
         public static IServiceCollection AddSenparcWeixinServices(this IServiceCollection serviceCollection, IConfiguration configuration, IHostEnvironment env, bool autoCreateApi = false)
         {
+            //// 加载 appsettings.json
+            //configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            //      .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+
+            //// 加载环境变量
+            //configuration.AddEnvironmentVariables();
+
 
             serviceCollection.Configure<SenparcWeixinSetting>(configuration.GetSection("SenparcWeixinSetting"));
 

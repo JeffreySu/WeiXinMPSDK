@@ -20,7 +20,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.AI.MessageHandlers
     {
         public ChatStatus Status { get; set; }
 
-        public IWantToRun IWantToRun { get; set; }
+        public string History { get; set; }
     }
 
     /// <summary>
@@ -28,6 +28,10 @@ namespace Senparc.Weixin.MP.Sample.CommonService.AI.MessageHandlers
     /// </summary>
     public enum ChatStatus
     {
+        /// <summary>
+        /// 默认状态（可能是转换失败）
+        /// </summary>
+        None,
         /// <summary>
         /// 聊天中
         /// </summary>

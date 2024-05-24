@@ -28,7 +28,9 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
         {
             //演示：MessageContext.StorageData
 
-            var currentMessageContext = await base.GetUnsafeMessageContext();//为了在分布式缓存下提高读写效率，使用此方法，如果需要获取实时数据，应该使用 base.GetCurrentMessageContext()
+            //var currentMessageContext = await base.GetUnsafeMessageContext();//为了在分布式缓存下提高读写效率，使用此方法，如果需要获取实时数据，应该使用 base.GetCurrentMessageContext()
+            var currentMessageContext = await base.GetCurrentMessageContext();
+
             if (currentMessageContext.StorageData == null)
             {
                 currentMessageContext.StorageData = 0;
@@ -41,7 +43,8 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
         {
             //演示：MessageContext.StorageData
 
-            var currentMessageContext = await base.GetUnsafeMessageContext();//为了在分布式缓存下提高读写效率，使用此方法，如果需要获取实时数据，应该使用 base.GetCurrentMessageContext()
+            //var currentMessageContext = await base.GetUnsafeMessageContext();//为了在分布式缓存下提高读写效率，使用此方法，如果需要获取实时数据，应该使用 base.GetCurrentMessageContext()
+            var currentMessageContext = await base.GetCurrentMessageContext();
 
             if (currentMessageContext.StorageData is int data)
             {

@@ -8,6 +8,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using NuGet.Protocol;
+using Senparc.AI.Kernel;
 using Senparc.CO2NET;
 using Senparc.CO2NET.AspNet;
 using Senparc.CO2NET.Cache;
@@ -84,6 +85,7 @@ namespace Senparc.Weixin.Sample.Net6
 
             services.AddSenparcWeixinServices(Configuration, Env)//Senparc.Weixin 注册（必须）
                     .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>() //Senparc.WebSocket 注册（按需）  -- DPBMARK WebSocket DPBMARK_END
+                    .AddSenparcAI(Configuration) //注册 Senparc.AI，提供 AI 能力（可选）
                     ;
 
             //启用 WebApi（可选）
@@ -444,6 +446,12 @@ namespace Senparc.Weixin.Sample.Net6
 
             #endregion
 
+
+            #region AI
+
+            registerService.UseSenparcAI();//启用 AI（可选）
+
+            #endregion
 
             app.UseAuthorization();//需要在注册微信 SDK 之后执行
 

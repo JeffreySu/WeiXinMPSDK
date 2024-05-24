@@ -36,7 +36,7 @@ AI 功能将整合在 [/Samples/All/net8-mvc](../Samples/All/net8-mvc/Senparc.We
 
 其中 `StartAIChatAsync()` 用于激活当前用户对话山下文的 AI 对话状态
 
-> [查看代码](https://github.com/JeffreySu/WeiXinMPSDK/blob/f28a5995b3e5f01b3be384b5c7462324ec6f0886/Samples/All/Senparc.Weixin.Sample.CommonService/AI/MessageHandlers/CustomMessageHandler_AI.cs#L41-L41)
+> [查看代码](https://github.com/JeffreySu/WeiXinMPSDK/blob/d721b118b036b6f37d2cf4e932fb954653eba667/Samples/All/Senparc.Weixin.Sample.CommonService/AI/MessageHandlers/CustomMessageHandler_AI.cs#L70-L70)
 
 
 3. 为了能够让系统优先判断当前是否在 AI 状态，需要在上述代码执行前，加入尝试 AI 对话的代码，如：
@@ -53,7 +53,7 @@ if (aiResponseMessage != null)
 
 其中 `AIChatAsync()` 方法用于提供尝试向 AI 发送对话消息的业务逻辑（如果不在对话状态则返回 null，程序继续执行常规代码）
 
-> [查看代码](https://github.com/JeffreySu/WeiXinMPSDK/blob/f28a5995b3e5f01b3be384b5c7462324ec6f0886/Samples/All/Senparc.Weixin.Sample.CommonService/AI/MessageHandlers/CustomMessageHandler_AI.cs#L41-L41)
+> [查看代码](https://github.com/JeffreySu/WeiXinMPSDK/blob/d721b118b036b6f37d2cf4e932fb954653eba667/Samples/All/Senparc.Weixin.Sample.CommonService/AI/MessageHandlers/CustomMessageHandler_AI.cs#L43-L43)
 
 4. 配置 AI 参数，请参考 `Senparc.AI 【开发过程】第一步：配置账号`，在 appsettings.json 文件中追加 ”SenparcAiSetting“ 节点（[查看](https://github.com/Senparc/Senparc.AI/blob/main/README.md#%E7%AC%AC%E4%B8%80%E6%AD%A5%E9%85%8D%E7%BD%AE%E8%B4%A6%E5%8F%B7)）（注意：通常只需设置其中一种平台的配置）
 

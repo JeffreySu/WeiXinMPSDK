@@ -77,7 +77,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
             }
 
             ChatStore chatStore;
-            
+
             try
             {
                 chatStore = chatJson.GetObject<ChatStore>();
@@ -96,17 +96,19 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                 if (requestMessage is RequestMessageText requestMessageText)
                 {
                     string prompt;
+                    bool storeHistory = true;
 
                     if (requestMessageText.Content.Equals("E", StringComparison.OrdinalIgnoreCase))
                     {
                         prompt = $"我即将结束对话，请发送一段文字和我告别，并提醒我：输入“AI”可以再次启动对话。";
+                        storeHistory = false;
 
                         //消除状态记录
                         await UpdateMessageContext(currentMessageContext, null);
                     }
                     else if (requestMessageText.Content.Equals("P", StringComparison.OrdinalIgnoreCase))
                     {
-                        prompt = $"我即将临时暂停对话，请发送一段文字和我告别，并提醒我：输入“AI”可以再次启动对话。请记住，下次启动会话时，发送再次欢迎我回来的信息。";
+                        prompt = $"我即将临时暂停对话，当下次启动会话时，发送再次欢迎我回来的信息。本次请发送一段文字和我告别，并提醒我：输入“AI”可以再次启动对话。";
 
                         // 修改状态记录
                         chatStore.Status = ChatStatus.Paused;
@@ -168,10 +170,12 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
 
                     #endregion
 
-
                     //保存历史记录
-                    chatStore.History = iWantToRun.StoredAiArguments.Context["history"]?.ToString();
-                    await UpdateMessageContext(currentMessageContext, chatStore);
+                    if (storeHistory)
+                    {
+                        chatStore.History = iWantToRun.StoredAiArguments.Context["history"]?.ToString();
+                        await UpdateMessageContext(currentMessageContext, chatStore);
+                    }
 
                     //组织返回消息
                     var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
@@ -198,7 +202,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
 
         private async Task UpdateMessageContext(CustomMessageContext currentMessageContext, ChatStore chatStore)
         {
-            currentMessageContext.StorageData = chatStore==null?null : chatStore.ToJson();
+            currentMessageContext.StorageData = chatStore == null ? null : chatStore.ToJson();
             await GlobalMessageContext.UpdateMessageContextAsync(currentMessageContext);//储存到缓存
         }
     }

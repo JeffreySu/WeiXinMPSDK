@@ -52,7 +52,7 @@
 		<ProjectReference Include="..\..\Senparc.Weixin.Sample.CommonService\Senparc.Weixin.Net8Sample.CommonService.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
+	<ItemGroup Condition="'$(Configuration)' == 'Release'">
 		<None Update="App_Data\Document\Config.xml">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</None>
@@ -74,11 +74,6 @@
 		<None Update="App_Data\**\*">
 			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
 		</None>
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(Configuration)' == 'Release'">
-		<!-- 忽略 Web.config 文件，仅在发布时 -->
-		
 	</ItemGroup>
 
 	<ItemGroup>

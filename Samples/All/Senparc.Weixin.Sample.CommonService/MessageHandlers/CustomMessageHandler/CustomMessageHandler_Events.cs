@@ -147,6 +147,11 @@ QQ群：377815480
 
             switch (requestMessage.EventKey)
             {
+                case "AI":
+                    {
+                        reponseMessage =  this.StartAIChatAsync().Result;
+                    }
+                    break;
                 case "OneClick":
                     {
                         //这个过程实际已经在OnTextOrEventRequest中命中“OneClick”关键字，并完成回复，这里不会执行到。

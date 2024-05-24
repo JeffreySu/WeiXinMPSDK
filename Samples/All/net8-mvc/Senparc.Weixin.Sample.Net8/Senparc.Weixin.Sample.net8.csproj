@@ -3,11 +3,21 @@
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<Version>6.9.0</Version>
+		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>35e58786-0820-4cde-b1ff-f4c6198d00f7</UserSecretsId>
 		<PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Remove="Program.cs.old" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="Program.cs.old" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
 		<PackageReference Include="Senparc.CO2NET.WebApi" Version="1.5.2.1" />
 		<PackageReference Include="Senparc.NeuChar.App" Version="1.4.1" />
 		<PackageReference Include="Senparc.NeuChar.AspNet" Version="1.4.1" />
@@ -50,9 +60,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="App_Data\cert\" />
-	  <Folder Include="App_Data\NeuChar\" />
-	  <Folder Include="wwwroot\" />
+		<Folder Include="App_Data\cert\" />
+		<Folder Include="App_Data\NeuChar\" />
+		<Folder Include="wwwroot\" />
 	</ItemGroup>
 
 	<Import Project="..\..\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems" Label="Shared" />

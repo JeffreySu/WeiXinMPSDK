@@ -375,6 +375,9 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                     defaultResponseMessage.Content = sb.ToString();
                     return defaultResponseMessage;
                 })
+                .Keyword("AI",async () => { 
+                
+                })
 
 
                 //选择菜单，关键字：101（微信服务器端最终格式：id="s:101",content="满意"）

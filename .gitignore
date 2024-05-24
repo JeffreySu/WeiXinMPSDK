@@ -63,3 +63,4 @@ node_modules
 yarn.lock
 
 /Samples/Work/Senparc.Weixin.Sample.Work/App_Data/WeChat_Work
+/Samples/All/net8-mvc/Senparc.Weixin.Sample.Net8/appsettings.Development.json

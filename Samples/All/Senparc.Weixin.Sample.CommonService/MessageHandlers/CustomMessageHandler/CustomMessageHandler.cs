@@ -467,8 +467,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                     var currentMessageContext = await base.GetCurrentMessageContext();
                     if (currentMessageContext.RequestMessages.Count > 1)
                     {
-                        result.AppendFormat("您此前还发送了如下消息（{0}/{1}）：\r\n", currentMessageContext.RequestMessages.Count,
-                            currentMessageContext.StorageData);
+                        result.AppendFormat("您此前还发送了如下消息（{0}）：\r\n", currentMessageContext.RequestMessages.Count);
                         for (int i = currentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
                         {
                             var historyMessage = currentMessageContext.RequestMessages[i];

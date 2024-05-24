@@ -52,7 +52,7 @@
 		<ProjectReference Include="..\..\Senparc.Weixin.Sample.CommonService\Senparc.Weixin.Net8Sample.CommonService.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
+	<ItemGroup Condition="'$(Configuration)' == 'Release'">
 		<None Update="App_Data\Document\Config.xml">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</None>
@@ -61,6 +61,18 @@
 		</None>
 		<None Update="App_Data\QrCode\readme.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Web.config">
+			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+		</None>
+		<None Update="appsettings.json">
+			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+		</None>
+		<None Update="appsettings.Development.json">
+			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+		</None>
+		<None Update="App_Data\**\*">
+			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
 		</None>
 	</ItemGroup>
 

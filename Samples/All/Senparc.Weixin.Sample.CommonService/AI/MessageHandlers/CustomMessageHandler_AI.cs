@@ -38,6 +38,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
 
 输入“p”暂停，可以暂时保留记忆
 输入“e”退出，彻底删除记忆
+输入“img 文字”生成图片，例如：img 一只猫
 
 [结果由 AI 生成，仅供参考]";
 

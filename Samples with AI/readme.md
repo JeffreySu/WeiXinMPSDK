@@ -30,7 +30,7 @@ AI 功能将整合在 [/Samples/All/net8-mvc](../Samples/All/net8-mvc/Senparc.We
 1. 使用常规步骤开发微信公众号
 2. 在 `OnTextRequestAsync` 事件中，加入对进入 AI 对话状态的激活关键字（从节约 AI 用量和用户体验，以及公众号实际功能考虑，建议不要始终保持 AI 对话），如：
 
-```
+``` C#
 .Keyword("AI", () => this.StartAIChatAsync().Result)
 ```
 
@@ -43,7 +43,7 @@ AI 功能将整合在 [/Samples/All/net8-mvc](../Samples/All/net8-mvc/Senparc.We
 
 3. 为了能够让系统优先判断当前是否在 AI 状态，需要在上述代码执行前，加入尝试 AI 对话的代码，如：
 
-```
+``` C#
 var aiResponseMessage = await this.AIChatAsync(requestMessage);
 if (aiResponseMessage != null)
 {
@@ -61,13 +61,13 @@ if (aiResponseMessage != null)
 
 5. 引用 Senparc.AI.Kernel 包，并在启动代码中激活 Senparc.AI：
 
-```
+``` C#
 services.AddSenparcAI(Configuration) // 注册 AI
 ```
 
 > [查看代码](https://github.com/JeffreySu/WeiXinMPSDK/blob/f28a5995b3e5f01b3be384b5c7462324ec6f0886/Samples/All/net8-mvc/Senparc.Weixin.Sample.Net8/Startup.cs#L88-L88)
 
-```
+``` C#
 registerService.UseSenparcAI();// 启用 AI
 ```
 
@@ -78,7 +78,7 @@ registerService.UseSenparcAI();// 启用 AI
 
 图片示例默认使用 Dall·E3 模型，通过配置 `appsettings.json` 节点中的 `Items`-`AzureDalle3` 中的模型参数进行配置进行自动绑定：
 
-```
+``` json
 "Items": {
   "AzureDalle3": {
     "AiPlatform": "AzureOpenAI",
@@ -96,7 +96,7 @@ registerService.UseSenparcAI();// 启用 AI
 
 在程序中，可以通过索引方式找到 `AzureDalle3` 的配置：
 
-```
+``` C#
 var dalleSetting = ((SenparcAiSetting)Senparc.AI.Config.SenparcAiSetting)["AzureDallE3"];
 ```
 

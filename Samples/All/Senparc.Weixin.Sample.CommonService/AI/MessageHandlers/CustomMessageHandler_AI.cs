@@ -13,7 +13,6 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SemanticKernel.TextToImage;
 using Senparc.AI;
 using Senparc.AI.Entities;
@@ -26,7 +25,6 @@ using Senparc.CO2NET.Trace;
 using Senparc.NeuChar.Entities;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Sample.CommonService.AI.MessageHandlers;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
 {
@@ -77,7 +75,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
         /// 进行 AI 对话
         /// </summary>
         /// <param name="requestMessage"></param>
-        /// <returns></returns>
+        /// <returns>如果返回 null，则表明 AI 未介入，继续执行传统方法</returns>
         private async Task<IResponseMessageBase> AIChatAsync(RequestMessageBase requestMessage)
         {
             var currentMessageContext = await base.GetCurrentMessageContext();
@@ -106,6 +104,8 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
             {
                 if (requestMessage is RequestMessageText requestMessageText)
                 {
+                    //文字类型消息
+
                     string prompt;
                     bool storeHistory = true;
 
@@ -146,29 +146,31 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                     }
 
                     //组织返回消息
-                    var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
-
                     #region 请求 AI 模型进入文字聊天及图片生成的经典模式（这里结合起来演示）
 
-                    Match match = Regex.Match(prompt, GEN_IMAGE_PATTERN);
-                    if (match.Success)
+                    //使用消息队列处理
+                    var smq = new SenparcMessageQueue();
+                    smq.Add($"GenImg-{requestMessage.FromUserName}-{SystemTime.NowTicks}", async () =>
                     {
-                        //生成图片
-                        var history = chatStore.History;
-                        await GenerateImage(requestMessageText, match.Groups[1].Value,history: history);
+                        Match match = Regex.Match(prompt, GEN_IMAGE_PATTERN);
+                        if (match.Success)
+                        {
+                            //生成图片
+                            var history = chatStore.History;
+                            await GenerateImage(match.Groups[1].Value, history);
+                        }
+                        else
+                        {
+                            //文字问答
+                            await TextChat(prompt, chatStore, storeHistory, currentMessageContext);
+                        }
+                    });
 
-                        var noResponse = base.CreateResponseMessage<ResponseMessageNoResponse>();
-                        return noResponse;
-                    }
-                    else
-                    {
-                        //文字问答
-                        var result = await TextChat(prompt, chatStore, storeHistory, currentMessageContext);
-                        responseMessage.Content = result;
-                    }
+                    //直接返回空响应，等待客服接口发送消息
+                    var noResponse = base.CreateResponseMessage<ResponseMessageNoResponse>();
+                    return noResponse;
+
                     #endregion
-
-                    return responseMessage;
                 }
                 else
                 {
@@ -219,6 +221,8 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
         /// <returns></returns>
         private async Task<string> GetGenerateImgagePrompt(string imgPrompt, string history)
         {
+            SenparcTrace.SendCustomLog("GetGenerateImgagePrompt", $"{(imgPrompt, history).ToJson(true)}");
+
             //把对话上下文也给到，此处是一个能力演示，这是可选的。通常可以直接使用 Prompt 生成图片。
             var newImgPrompt = $@"请根据下方的 [对话历史] 以及 [最新命令]，理解意图，并生成一条可以提供给 DallE3 模型使用的图片生成 Prompt。
 [对话历史]
@@ -232,7 +236,7 @@ Prompt：";
             //模型请求参数
             var parameter = new PromptConfigParameter()
             {
-                MaxTokens = 300,
+                MaxTokens = 3000,
                 Temperature = 0.7,
                 TopP = 0.5,
             };
@@ -246,13 +250,15 @@ Prompt：";
             var request = iWantTo.CreateRequest(newImgPrompt);
             var result = await iWantTo.RunAsync(request);
 
-            //使用消息队列异步发送消息，不等待
-            var smq = new SenparcMessageQueue();
-            smq.Add($"SendTextMessage-{OpenId}-{SystemTime.NowTicks}", async () =>
-            {
-                //发送提示消息，不等待
-                await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, "根据我们的对话内容，已经为你优化图片生成 Prompt：" + imgPrompt);
-            });
+            SenparcTrace.SendCustomLog("AI 优化图像生成 Prompt", newImgPrompt);
+
+            ////使用消息队列异步发送消息，不等待
+            //var smq = new SenparcMessageQueue();
+            //smq.Add($"SendTextMessage-{OpenId}-{SystemTime.NowTicks}", async () =>
+            //{
+            //    //发送提示消息，不等待
+            //    await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, "根据我们的对话内容，已经为你优化图片生成 Prompt：" + result.OutputString);
+            //});
 
             return result.OutputString;
         }
@@ -263,77 +269,70 @@ Prompt：";
         /// <param name="requestMessage">请求消息</param>
         /// <param name="imgPrompt">生成图片的 Prompt</param>
         /// <returns></returns>
-        private async Task GenerateImage(RequestMessageText requestMessage, string imgPrompt, string history = null)
+        private async Task GenerateImage(string imgPrompt, string history)
         {
             //先发一条回复，提醒用户等待（为避免公众号响应时间超时），不等待
-            _ = Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, "图片生成中，通常需要 1 分钟左，请稍等！");
+            _ = Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, "图片生成中，通常需要 1 分钟左右，请稍等！");
 
             if (!history.IsNullOrEmpty())
             {
                 imgPrompt = await GetGenerateImgagePrompt(imgPrompt, history);
             }
 
-            //使用消息队列处理
-            var smq = new SenparcMessageQueue();
-            smq.Add($"GenImg-{requestMessage.FromUserName}-{SystemTime.NowTicks}", async () =>
+            try
             {
-                try
-                {
+                //指定 AzureDallE3 模型，同样需要在 appsettings.json 文件中配置
+                var dalleSetting = ((SenparcAiSetting)Senparc.AI.Config.SenparcAiSetting)["AzureDallE3"];
+                var aiHandler = new SemanticAiHandler(dalleSetting);
 
-                    //指定 AzureDallE3 模型，同样需要在 appsettings.json 文件中配置
-                    var dalleSetting = ((SenparcAiSetting)Senparc.AI.Config.SenparcAiSetting)["AzureDallE3"];
-                    var aiHandler = new SemanticAiHandler(dalleSetting);
-
-                    var iWantTo = aiHandler.IWantTo()
-                                .ConfigModel(ConfigModel.TextToImage, "Jeffrey")
-                                .BuildKernel();
+                var iWantTo = aiHandler.IWantTo(dalleSetting)
+                            .ConfigModel(ConfigModel.TextToImage, "Jeffrey")
+                            .BuildKernel();
 
 #pragma warning disable SKEXP0001 // 类型仅用于评估，在将来的更新中可能会被更改或删除。取消此诊断以继续。
 
-                    var dallE = iWantTo.GetRequiredService<ITextToImageService>();
+                var dallE = iWantTo.GetRequiredService<ITextToImageService>();
 
-                    var imageUrl = await dallE.GenerateImageAsync(imgPrompt, 1024, 1024);
+                var imageUrl = await dallE.GenerateImageAsync(imgPrompt, 1024, 1024);
 
-                    var tempFileDir = Senparc.CO2NET.Utilities.ServerUtility.ContentRootMapPath("~/App_Data/TempGenImg");
-                    Senparc.CO2NET.Helpers.FileHelper.TryCreateDirectory(tempFileDir);
+                var tempFileDir = Senparc.CO2NET.Utilities.ServerUtility.ContentRootMapPath("~/App_Data/TempGenImg");
+                Senparc.CO2NET.Helpers.FileHelper.TryCreateDirectory(tempFileDir);
 
-                    var tempFilePath = Path.Combine(tempFileDir, $"Senparc.AI.Dalle-{SystemTime.NowTicks}.jpg");
+                var tempFilePath = Path.Combine(tempFileDir, $"Senparc.AI.Dalle-{SystemTime.NowTicks}.jpg");
 
-                    using (var fs = new FileStream(tempFilePath, FileMode.OpenOrCreate))
-                    {
-                        await Senparc.CO2NET.HttpUtility.Get.DownloadAsync(ServiceProvider, imageUrl, fs);
-                        await fs.FlushAsync();
-                        await Console.Out.WriteLineAsync("图片已保存：" + tempFilePath);
-                    }
+                using (var fs = new FileStream(tempFilePath, FileMode.OpenOrCreate))
+                {
+                    await Senparc.CO2NET.HttpUtility.Get.DownloadAsync(ServiceProvider, imageUrl, fs);
+                    await fs.FlushAsync();
+                    await Console.Out.WriteLineAsync("图片已保存：" + tempFilePath);
+                }
 
-                    //及时给一个提示，不等待
-                    _ = Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, "已生成，正在保存，请稍后！");
-                    //上传图片
-                    var uploadResult = await Senparc.Weixin.MP.AdvancedAPIs.MediaApi.UploadTemporaryMediaAsync(appId, MP.UploadMediaFileType.image, tempFilePath, 100 * 1000);
-                    //把图片发送到客户端
-                    await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendImageAsync(appId, OpenId, uploadResult.media_id);
+                //及时给一个提示，不等待
+                _ = Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, "已生成，正在保存，请稍后！");
+                //上传图片
+                var uploadResult = await Senparc.Weixin.MP.AdvancedAPIs.MediaApi.UploadTemporaryMediaAsync(appId, MP.UploadMediaFileType.image, tempFilePath, 100 * 1000);
+                //把图片发送到客户端
+                await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendImageAsync(appId, OpenId, uploadResult.media_id);
 
-                    //重新获取最新的上下文，把这次结果添加到上下文中（实际使用过程中建议加同步锁）
-                    var currentMessageContext = await base.GetCurrentMessageContext();
-                    if (currentMessageContext.StorageData is string chatJson)
-                    {
-                        ChatStore chatStore = chatJson.GetObject<ChatStore>();
+                //重新获取最新的上下文，把这次结果添加到上下文中（实际使用过程中建议加同步锁）
+                var currentMessageContext = await base.GetCurrentMessageContext();
+                if (currentMessageContext.StorageData is string chatJson)
+                {
+                    ChatStore chatStore = chatJson.GetObject<ChatStore>();
 
-                        var chatItem = GetHistoryItem($"按要求生成图片：" + imgPrompt, "任务已完成。");
+                    var chatItem = GetHistoryItem($"按要求生成图片：" + imgPrompt, "任务已完成。");
 
-                        chatStore.History += chatItem;
-                        await UpdateMessageContext(currentMessageContext, chatStore);
-                    }
+                    chatStore.History += chatItem;
+                    await UpdateMessageContext(currentMessageContext, chatStore);
+                }
 
 #pragma warning restore SKEXP0001 // 类型仅用于评估，在将来的更新中可能会被更改或删除。取消此诊断以继续。
 
-                }
-                catch (Exception ex)
-                {
-                    SenparcTrace.BaseExceptionLog(ex);
-                }
-            });
-
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.BaseExceptionLog(ex);
+            }
         }
 
         /// <summary>
@@ -344,7 +343,7 @@ Prompt：";
         /// <param name="storeHistory"></param>
         /// <param name="currentMessageContext"></param>
         /// <returns></returns>
-        private async Task<string> TextChat(string prompt, ChatStore chatStore, bool storeHistory, CustomMessageContext currentMessageContext)
+        private async Task TextChat(string prompt, ChatStore chatStore, bool storeHistory, CustomMessageContext currentMessageContext)
         {
             /* 模型配置
              * 注意：需要在 appsettings.json 中的 <SenparcAiSetting> 节点配置 AI 模型参数，否则无法使用 AI 能力
@@ -385,7 +384,7 @@ Prompt：";
                 await UpdateMessageContext(currentMessageContext, chatStore);
             }
 
-            return result.OutputString;
+            await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, result.OutputString);
         }
     }
 }

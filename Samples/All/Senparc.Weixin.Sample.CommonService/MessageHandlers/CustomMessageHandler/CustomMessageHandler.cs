@@ -522,6 +522,8 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
         /// <returns></returns>
         public override async Task<IResponseMessageBase> OnImageRequestAsync(RequestMessageImage requestMessage)
         {
+            
+
             //一隔一返回News或Image格式
             if (base.GlobalMessageContext.GetMessageContext(requestMessage).RequestMessages.Count() % 2 == 0)
             {

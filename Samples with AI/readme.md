@@ -10,7 +10,7 @@
 
 1. [X] 微信公众号 Chat 机器人（文字） - 已于 2024 年 5 月 25 日上线
 2. [X] 微信公众号 Chat 机器人（图片） - 已于 2024 年 5 月 25 日上线
-3. [ ] 微信公众号 Chat 机器人（多模态混合） - 已于 2024 年 5 月 25 日部分上线
+3. [X] 微信公众号 Chat 机器人（多模态混合） - 已于 2024 年 5 月 25 日部分上线
 4. [ ] 微信公众号带搜索功能的 Chat 机器人
 5. [ ] 企业微信集成 Agent（智能体）机器人
 6. [ ] 使用 RAG 构建知识库问答
@@ -104,4 +104,4 @@ var dalleSetting = ((SenparcAiSetting)Senparc.AI.Config.SenparcAiSetting)["Azure
 
 > [查看代码](https://github.com/JeffreySu/WeiXinMPSDK/blob/6a1593fce4e9c77ae0b04069c5e34f1234f726a3/Samples/All/Senparc.Weixin.Sample.CommonService/AI/MessageHandlers/CustomMessageHandler_AI.cs) `GenerateImageAsync()` 方法
 
-> 此示例延续 [微信公众号 Chat 机器人（文字）](#微信公众号-Chat-机器人-文字-)，需要用户进入到对话状态后，输入 `img 创作内容` 字符串激活图片创作流程。示例代码中默认载入了文字对话的历史记录，因此创作内容可以根据对话内容进行综合调整，提升作品的准确度。
+> 此示例延续 [微信公众号 Chat 机器人（文字）](#%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7-chat-%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%96%87%E5%AD%97)，需要用户进入到对话状态后，输入 `img 创作内容` 字符串激活图片创作流程。示例代码中默认载入了文字对话的历史记录，因此创作内容可以根据对话内容进行综合调整，提升作品的准确度。

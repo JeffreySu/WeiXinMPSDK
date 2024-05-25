@@ -9,8 +9,8 @@
 内容将涵盖：
 
 1. [X] 微信公众号 Chat 机器人（文字） - 已于 2024 年 5 月 25 日上线
-2. [ ] 微信公众号 Chat 机器人（图片）
-3. [ ] 微信公众号 Chat 机器人（多模态混合）
+2. [X] 微信公众号 Chat 机器人（图片） - 已于 2024 年 5 月 25 日上线
+3. [ ] 微信公众号 Chat 机器人（多模态混合） - 已于 2024 年 5 月 25 日部分上线
 4. [ ] 微信公众号带搜索功能的 Chat 机器人
 5. [ ] 企业微信集成 Agent（智能体）机器人
 6. [ ] 使用 RAG 构建知识库问答
@@ -23,7 +23,9 @@ AI 功能将整合在 [/Samples/All/net8-mvc](../Samples/All/net8-mvc/Senparc.We
 
 更多说明将在对应功能上线后在本文档中补充。
 
-## 【微信公众号 Chat 机器人（文字）】开发说明
+## 开发说明
+
+### 微信公众号 Chat 机器人（文字）
 
 1. 使用常规步骤开发微信公众号
 2. 在 `OnTextRequestAsync` 事件中，加入对进入 AI 对话状态的激活关键字（从节约 AI 用量和用户体验，以及公众号实际功能考虑，建议不要始终保持 AI 对话），如：
@@ -71,3 +73,35 @@ registerService.UseSenparcAI();// 启用 AI
 
 > [查看代码](https://github.com/JeffreySu/WeiXinMPSDK/blob/f28a5995b3e5f01b3be384b5c7462324ec6f0886/Samples/All/net8-mvc/Senparc.Weixin.Sample.Net8/Startup.cs#L452-L452)
 
+
+### 微信公众号 Chat 机器人（图片）
+
+图片示例默认使用 Dall·E3 模型，通过配置 `appsettings.json` 节点中的 `Items`-`AzureDalle3` 中的模型参数进行配置进行自动绑定：
+
+```
+"Items": {
+  "AzureDalle3": {
+    "AiPlatform": "AzureOpenAI",
+    "AzureOpenAIKeys": {
+      "ApiKey": "<My AzureOpenAI Keys>",
+      "AzureEndpoint": "<My AzureOpenAI DallE3 Endpoint>",
+      "AzureOpenAIApiVersion": "2022-12-01",
+      "ModelName": {
+        "TextToImage": "dall-e-3"
+      }
+    }
+  }
+}
+```
+
+在程序中，可以通过索引方式找到 `AzureDalle3` 的配置：
+
+```
+var dalleSetting = ((SenparcAiSetting)Senparc.AI.Config.SenparcAiSetting)["AzureDallE3"];
+```
+
+其他模型初始化方法和聊天模式近似，这里不再赘述。
+
+> [查看代码](https://github.com/JeffreySu/WeiXinMPSDK/blob/6a1593fce4e9c77ae0b04069c5e34f1234f726a3/Samples/All/Senparc.Weixin.Sample.CommonService/AI/MessageHandlers/CustomMessageHandler_AI.cs) `GenerateImageAsync()` 方法
+
+> 此示例延续 [微信公众号 Chat 机器人（文字）](#微信公众号-Chat-机器人-文字-)，需要用户进入到对话状态后，输入 `img 创作内容` 字符串激活图片创作流程。示例代码中默认载入了文字对话的历史记录，因此创作内容可以根据对话内容进行综合调整，提升作品的准确度。

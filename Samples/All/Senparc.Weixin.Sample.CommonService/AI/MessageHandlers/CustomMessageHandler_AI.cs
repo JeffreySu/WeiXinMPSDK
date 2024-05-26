@@ -38,7 +38,8 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
 
 输入“p”暂停，可以暂时保留记忆
 输入“e”退出，彻底删除记忆
-输入“img 文字”生成图片，例如：img 一只猫
+输入“m”可以进入多模态对话模式（根据语义自动生成文字+图片）
+输入“img 文字”可以强制生成图片，例如：img 一只猫
 
 [结果由 AI 生成，仅供参考]";
 
@@ -109,11 +110,13 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
 
                     string prompt;
                     bool storeHistory = true;
+                    bool judgeMultimodel = true;
 
                     if (requestMessageText.Content.Equals("E", StringComparison.OrdinalIgnoreCase))
                     {
                         prompt = $"我即将结束对话，请发送一段文字和我告别，并提醒我：输入“AI”可以再次启动对话。";
                         storeHistory = false;
+                        judgeMultimodel = false;
 
                         //消除状态记录
                         await UpdateMessageContextAsync(currentMessageContext, null);
@@ -125,6 +128,8 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                         // 修改状态记录
                         chatStore.Status = ChatStatus.Paused;
                         await UpdateMessageContextAsync(currentMessageContext, chatStore);
+
+                        judgeMultimodel = false;
                     }
                     else if (chatStore.Status == ChatStatus.Paused)
                     {
@@ -144,6 +149,29 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                     else
                     {
                         prompt = requestMessageText.Content;
+                        judgeMultimodel = true;
+                    }
+
+                    if (chatStore.Status == ChatStatus.Chat)
+                    {
+                        if (requestMessageText.Content.Equals("M", StringComparison.OrdinalIgnoreCase))
+                        {
+                            //切换到多模态对话
+                            chatStore.MultimodelType = MultimodelType.SimpleChat;
+                            await UpdateMessageContextAsync(currentMessageContext, chatStore);
+
+                            var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
+                            responseMessage.Content = "已切换到多模态对话模式！AI 将从您的对话中自动理解是否需要生成图片";
+                            return responseMessage;
+                        }
+                        else if(judgeMultimodel)
+                        {
+                            var isNeedGenerateImage = await JudgeMultimodel(requestMessageText, chatStore, currentMessageContext);
+                            if (isNeedGenerateImage)
+                            {
+                                prompt = "img " + prompt;//添加 img 前缀
+                            }
+                        }
                     }
 
                     //组织返回消息
@@ -151,7 +179,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
 
                     //使用消息队列处理
                     var smq = new SenparcMessageQueue();
-                    smq.Add($"GenImg-{requestMessage.FromUserName}-{SystemTime.NowTicks}", async () =>
+                    smq.Add($"ChatGenerate-{requestMessage.FromUserName}-{SystemTime.NowTicks}", async () =>
                     {
                         Match match = Regex.Match(prompt, GEN_IMAGE_PATTERN);
                         if (match.Success)
@@ -252,14 +280,6 @@ Prompt：";
             var result = await iWantTo.RunAsync(request);
 
             SenparcTrace.SendCustomLog("AI 优化图像生成 Prompt", newImgPrompt);
-
-            ////使用消息队列异步发送消息，不等待
-            //var smq = new SenparcMessageQueue();
-            //smq.Add($"SendTextMessage-{OpenId}-{SystemTime.NowTicks}", async () =>
-            //{
-            //    //发送提示消息，不等待
-            //    await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, "根据我们的对话内容，已经为你优化图片生成 Prompt：" + result.OutputString);
-            //});
 
             return result.OutputString;
         }
@@ -386,6 +406,57 @@ Prompt：";
             }
 
             await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, result.OutputString);
+        }
+
+        public async Task<bool> JudgeMultimodel(RequestMessageText requestMessageText, ChatStore chatStore, CustomMessageContext currentMessageContext)
+        {
+            if (chatStore.MultimodelType == MultimodelType.ChatAndImage)
+            {
+                var judgePrompt = @$"请判断[对话]中的内容，是否具有需要生成或制作图片的意图，如果有，则在[结论]中输出1，否则输出0。
+
+举例：
+
+[对话]
+请帮我生成一张猫的图片
+
+[结论]
+1
+
+[对话]
+这是一幅山水画
+
+[结论]
+0
+
+[对话]
+{requestMessageText.Content}
+
+[结论]
+";
+                //模型请求参数
+                var parameter = new PromptConfigParameter()
+                {
+                    MaxTokens = 200,
+                    Temperature = 0.7,
+                    TopP = 0.5,
+                };
+
+                var setting = (SenparcAiSetting)Senparc.AI.Config.SenparcAiSetting;
+                var aiHandler = new SemanticAiHandler(setting);
+                var iWantTo = aiHandler.IWantTo()
+                            .ConfigModel(ConfigModel.TextCompletion, "Jeffrey")
+                            .BuildKernel()
+                            .SetPromptConfigParameter(parameter);
+                var request = iWantTo.CreateRequest(judgePrompt);
+                var result = await iWantTo.RunAsync(request);
+
+                if (int.TryParse(result.OutputString.Trim().Trim('\n'), out int resultNum) && resultNum == 1)
+                {
+                    return true;
+                    //prompt = "img " + prompt;//添加 img 前缀
+                }
+            }
+            return false;
         }
     }
 }

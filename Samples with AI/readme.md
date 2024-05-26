@@ -1,8 +1,10 @@
-﻿# Senparc.Weixin.Samples powered by AI
+# Senparc.Weixin.Samples powered by AI
 
 ## 说明
 
 当前文档用于说明 Senparc.Weixin SDK 结合 AI 的各项能力。
+
+AI 能力来自于 [Senparc.AI](https://github.com/Senparc/Senparc.AI)，并深度集成了 [Semantic Kernel](https://github.com/microsoft/semantic-kernel)、[AutoGen](https://github.com/microsoft/autogen) 等模块，同时进行了扩展，开箱即用，极易上手。
 
 当前项目正在构建完善中，预计在 2024 年 7 月 1 日左右正式上线。
 
@@ -10,7 +12,7 @@
 
 1. [X] 微信公众号 Chat 机器人（文字） - 已于 2024 年 5 月 25 日上线
 2. [X] 微信公众号 Chat 机器人（图片） - 已于 2024 年 5 月 25 日上线
-3. [X] 微信公众号 Chat 机器人（多模态混合） - 已于 2024 年 5 月 25 日部分上线
+3. [X] 微信公众号 Chat 机器人（多模态混合） - 已于 2024 年 5 月 25 日上线
 4. [ ] 微信公众号带搜索功能的 Chat 机器人
 5. [ ] 企业微信集成 Agent（智能体）机器人
 6. [ ] 使用 RAG 构建知识库问答

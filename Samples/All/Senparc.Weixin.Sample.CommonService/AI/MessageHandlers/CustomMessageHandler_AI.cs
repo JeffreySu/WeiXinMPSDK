@@ -157,16 +157,18 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                         if (requestMessageText.Content.Equals("M", StringComparison.OrdinalIgnoreCase))
                         {
                             //切换到多模态对话
-                            chatStore.MultimodelType = MultimodelType.SimpleChat;
+                            chatStore.MultimodelType = MultimodelType.ChatAndImage;
                             await UpdateMessageContextAsync(currentMessageContext, chatStore);
 
                             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
                             responseMessage.Content = "已切换到多模态对话模式！AI 将从您的对话中自动理解是否需要生成图片";
                             return responseMessage;
                         }
-                        else if(judgeMultimodel)
+                        else if (judgeMultimodel && chatStore.MultimodelType == MultimodelType.ChatAndImage)
                         {
                             var isNeedGenerateImage = await JudgeMultimodel(requestMessageText, chatStore, currentMessageContext);
+                            SenparcTrace.SendCustomLog("JudgeMultimodel", $"判断是需要绘图：{judgeMultimodel}，原始 prompt：{prompt}");
+
                             if (isNeedGenerateImage)
                             {
                                 prompt = "img " + prompt;//添加 img 前缀

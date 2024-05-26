@@ -1,4 +1,4 @@
-﻿# Senparc.Weixin.Samples powered by AI
+# Senparc.Weixin.Samples powered by AI
 
 ## 说明
 

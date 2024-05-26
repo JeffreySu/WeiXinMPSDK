@@ -20,7 +20,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.AI.MessageHandlers
     {
         public ChatStatus Status { get; set; }
 
+        public MultimodelType MultimodelType { get; set; }
         public string History { get; set; }
+
+        public ChatStore()
+        {
+            Status = ChatStatus.None;
+            MultimodelType = MultimodelType.None;
+        }
     }
 
     /// <summary>
@@ -40,5 +47,15 @@ namespace Senparc.Weixin.MP.Sample.CommonService.AI.MessageHandlers
         /// 暂停
         /// </summary>
         Paused
+    }
+
+    /// <summary>
+    /// 多模态综合对话状态
+    /// </summary>
+    public enum MultimodelType
+    {
+        None,
+        SimpleChat,
+        ChatAndImage
     }
 }

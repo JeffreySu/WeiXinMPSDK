@@ -1,5 +1,7 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using Org.BouncyCastle.Crypto.Digests;
+using Org.BouncyCastle.Utilities.Encoders;
+using System;
+using System.Text;
 
 namespace Client.TenPayHttpClient.Signer
 {
@@ -25,12 +27,20 @@ namespace Client.TenPayHttpClient.Signer
             //}
             #endregion
 
-            using (var rsa = System.Security.Cryptography.RSA.Create())
-            {
-                rsa.ImportPkcs8PrivateKey(keyData, out _);
-                byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
-                return Convert.ToBase64String(rsa.SignData(data, 0, data.Length, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
-            }
+            //using (var rsa = System.Security.Cryptography.RSA.Create())
+            //{
+            //    rsa.ImportPkcs8PrivateKey(keyData, out _);
+            //    byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
+            //    return Convert.ToBase64String(rsa.SignData(data, 0, data.Length, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
+            //}
+
+
+            byte[] msg = Encoding.Default.GetBytes(privateKey);
+            byte[] md = new byte[32];
+            SM3Digest sm3 = new SM3Digest();
+            sm3.BlockUpdate(msg, 0, msg.Length);
+            sm3.DoFinal(md, 0);
+            return new UTF8Encoding().GetString(Hex.Encode(md));
         }
     }
 }

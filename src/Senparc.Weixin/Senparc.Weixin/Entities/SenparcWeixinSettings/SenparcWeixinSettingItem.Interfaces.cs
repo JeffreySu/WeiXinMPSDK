@@ -229,6 +229,11 @@ namespace Senparc.Weixin.Entities
         /// 小程序微信支付WxOpenTenpayNotify
         /// </summary>
         string TenPayV3_WxOpenTenpayNotify { get; set; }
+
+        /// <summary>
+        /// 设置HTTP头Authrization的认证类型
+        /// </summary>
+        string AuthrizationType { get; set; }
     }
 
     /// <summary>

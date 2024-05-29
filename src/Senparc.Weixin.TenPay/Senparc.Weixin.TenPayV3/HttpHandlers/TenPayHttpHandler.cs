@@ -86,7 +86,7 @@ namespace Senparc.Weixin.TenPayV3
             CancellationToken cancellationToken)
         {
             var auth = await BuildAuthAsync(request);
-            string value = $"WECHATPAY2-SHA256-RSA2048 {auth}";
+            string value = $"WECHATPAY2-SM2-WITH-SM3 {auth}";
             request.Headers.Add("Authorization", value);
 
             return await base.SendAsync(request, cancellationToken);

@@ -111,6 +111,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                     string prompt;
                     bool storeHistory = true;
                     bool judgeMultimodel = true;
+                    var oldChatStatus = chatStore.Status;
 
                     if (requestMessageText.Content.Equals("E", StringComparison.OrdinalIgnoreCase))
                     {
@@ -152,7 +153,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                         judgeMultimodel = true;
                     }
 
-                    if (chatStore.Status == ChatStatus.Chat)
+                    if (chatStore.Status == oldChatStatus)
                     {
                         if (requestMessageText.Content.Equals("M", StringComparison.OrdinalIgnoreCase))
                         {

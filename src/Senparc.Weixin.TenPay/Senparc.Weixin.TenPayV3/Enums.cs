@@ -64,13 +64,4 @@ namespace Senparc.Weixin.TenPayV3
         RSA,
         SM
     }
-
-    /// <summary>
-    /// 认证类型
-    /// </summary>
-    public enum AuthrizationType
-    {
-        WECHATPAY2_SM2_WITH_SM3,
-        WECHATPAY2_SHA256_RSA2048
-    }
 }

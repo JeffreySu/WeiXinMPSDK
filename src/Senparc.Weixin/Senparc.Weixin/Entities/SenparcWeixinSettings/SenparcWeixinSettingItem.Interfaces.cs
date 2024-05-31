@@ -231,9 +231,9 @@ namespace Senparc.Weixin.Entities
         string TenPayV3_WxOpenTenpayNotify { get; set; }
 
         /// <summary>
-        /// 设置HTTP头Authrization的认证类型
+        /// 设置HTTP头Authrization的加密认证类型
         /// </summary>
-        string AuthrizationType { get; set; }
+        string EncryptionType { get; set; }
     }
 
     /// <summary>

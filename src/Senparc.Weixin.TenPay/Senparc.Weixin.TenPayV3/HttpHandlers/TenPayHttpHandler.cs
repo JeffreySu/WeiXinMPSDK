@@ -35,17 +35,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.TenPayV3.Helpers;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.TenPayV3.Helpers;
 
 namespace Senparc.Weixin.TenPayV3
 {
@@ -89,14 +85,12 @@ namespace Senparc.Weixin.TenPayV3
         {
             var auth = await BuildAuthAsync(request);
 
-            var authorizationValue = _tenpayV3Setting.EncryptionType == CertType.SM.ToString()
-                ? "WECHATPAY2-SM2-WITH-SM3"
-                : "";
-            if (string.IsNullOrEmpty(_tenpayV3Setting.EncryptionType) || _tenpayV3Setting.EncryptionType.Equals("#{EncryptionType}#"))
-            {
-                _tenpayV3Setting.EncryptionType = "WECHATPAY2-SM2-WITH-SM3";
-            }
-            string value = $"{_tenpayV3Setting.EncryptionType} {auth}";
+            var authorizationValue =
+                _tenpayV3Setting.EncryptionType == CertType.SM.ToString()
+                    ? "WECHATPAY2-SM2-WITH-SM3"
+                    : "WECHATPAY2-SHA256-RSA2048";
+
+            string value = $"{authorizationValue} {auth}";
             request.Headers.Add("Authorization", value);
 
             return await base.SendAsync(request, cancellationToken);

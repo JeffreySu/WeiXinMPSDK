@@ -88,7 +88,7 @@ namespace Senparc.Weixin.TenPayV3
             CancellationToken cancellationToken)
         {
             var auth = await BuildAuthAsync(request);
-            if (string.IsNullOrEmpty(_tenpayV3Setting.EncryptionType))
+            if (string.IsNullOrEmpty(_tenpayV3Setting.EncryptionType) || _tenpayV3Setting.EncryptionType.Equals("#{EncryptionType}#"))
             {
                 _tenpayV3Setting.EncryptionType = "WECHATPAY2-SM2-WITH-SM3";
             }

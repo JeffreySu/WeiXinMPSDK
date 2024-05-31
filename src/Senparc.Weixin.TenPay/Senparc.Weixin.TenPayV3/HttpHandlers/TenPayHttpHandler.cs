@@ -30,6 +30,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20210822
     修改描述：重构使用ISenparcWeixinSettingForTenpayV3初始化实例
 
+    修改标识：MartyZane - 20240530
+    修改描述：TenPayV3Setting里面增加AuthrizationType属性，用于设置认证类型，选项有WECHATPAY2-SHA256-RSA2048、WECHATPAY2-SM2-WITH-SM3，默认为WECHATPAY2-SM2-WITH-SM3
     
 ----------------------------------------------------------------*/
 
@@ -86,7 +88,11 @@ namespace Senparc.Weixin.TenPayV3
             CancellationToken cancellationToken)
         {
             var auth = await BuildAuthAsync(request);
-            string value = $"WECHATPAY2-SM2-WITH-SM3 {auth}";
+            if (string.IsNullOrEmpty(_tenpayV3Setting.EncryptionType) || _tenpayV3Setting.EncryptionType.Equals("#{EncryptionType}#"))
+            {
+                _tenpayV3Setting.EncryptionType = "WECHATPAY2-SM2-WITH-SM3";
+            }
+            string value = $"{_tenpayV3Setting.EncryptionType} {auth}";
             request.Headers.Add("Authorization", value);
 
             return await base.SendAsync(request, cancellationToken);

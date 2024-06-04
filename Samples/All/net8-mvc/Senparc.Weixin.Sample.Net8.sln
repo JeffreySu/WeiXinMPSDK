@@ -100,6 +100,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.3 人工智能（AI）", 
 		..\..\..\Samples with AI\readme.md = ..\..\..\Samples with AI\readme.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.All", "..\..\..\src\Senparc.Weixin.All\Senparc.Weixin.All.csproj", "{F1AAA30B-2829-4410-8A96-F21B88B066B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -650,6 +652,24 @@ Global
 		{D70B89B9-27BC-45DD-A908-4282F101B409}.Test|x64.Build.0 = Debug|Any CPU
 		{D70B89B9-27BC-45DD-A908-4282F101B409}.Test|x86.ActiveCfg = Debug|Any CPU
 		{D70B89B9-27BC-45DD-A908-4282F101B409}.Test|x86.Build.0 = Debug|Any CPU
+		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Debug|x64.Build.0 = Debug|Any CPU
+		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Debug|x86.Build.0 = Debug|Any CPU
+		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Release|x64.ActiveCfg = Release|Any CPU
+		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Release|x64.Build.0 = Release|Any CPU
+		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Release|x86.ActiveCfg = Release|Any CPU
+		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Release|x86.Build.0 = Release|Any CPU
+		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Test|Any CPU.Build.0 = Debug|Any CPU
+		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Test|x64.ActiveCfg = Debug|Any CPU
+		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Test|x64.Build.0 = Debug|Any CPU
+		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Test|x86.ActiveCfg = Debug|Any CPU
+		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Test|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -695,6 +715,7 @@ Global
 		{D70B89B9-27BC-45DD-A908-4282F101B409} = {34CFB1D8-6025-4E93-A67F-D94DD3B9198F}
 		{81A03BCD-B887-4A40-8867-FF6B8D61CFC3} = {1B168C93-E3E3-4939-8EDC-19CE4E041874}
 		{AB1460AF-4BE8-4CC2-AF3B-3473B5A41778} = {35139CB3-610E-4922-98AD-08A5D12BFC35}
+		{F1AAA30B-2829-4410-8A96-F21B88B066B0} = {20CDE085-A7B1-447E-8875-981D8C3DF535}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC7AD3EC-AB37-497E-925B-DCD5129FE6D3}

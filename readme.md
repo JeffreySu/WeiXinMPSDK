@@ -66,7 +66,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 > 1、上述分模块示例中，同时包含了文档及可以立即运行的代码模板（只需要配置微信参数，无需修改任何代码）。
 > 1、示例中的配置、注册、接口调用方法均一致，只要学会其中一个模块开发，就可以举一反三。以下的 Hello World 示例也以公众号为例，可以延伸到所有其他模块。<br>
 > 2、[/docs](/docs/) 目录中提供了更完整的开发说明文档，供进阶开发使用，[点击查看](/docs/)。 <br>
-> 3、对应于微信不同平台，Senparc.Weixin SDK 已经将各模块解耦并独立发布，为了简化引用，您也可以直接引用 [Senparc.Weixin.All](https://www.nuget.org/packages/Senparc.Weixin.All)，自动引用所有模块）。
+> 3、对应于微信不同平台，Senparc.Weixin SDK 已经将各模块解耦并独立发布，为了简化引用，您也可以直接引用 [Senparc.Weixin.All](https://www.nuget.org/packages/Senparc.Weixin.All)，自动引用所有模块。
 	
 ## 🚀 Hello World ：用 3 句代码开启你的微信开发之旅！
 

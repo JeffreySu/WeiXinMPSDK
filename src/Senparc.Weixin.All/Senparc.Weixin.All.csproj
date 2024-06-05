@@ -4,7 +4,7 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<Version>2024.6.6-preview</Version>
+		<Version>2024.6.6</Version>
 		<LangVersion>10.0</LangVersion>
 		<AssemblyName>Senparc.Weixin.All</AssemblyName>
 		<RootNamespace>Senparc.Weixin.All</RootNamespace>

@@ -69,8 +69,9 @@ Wechat Pay V2 (not recommended) | https://sdk.weixin.senparc.com/Docs/TenPayV2/
 ## 🚀 Hello World: Start your Wechat development journey with 3 lines of code!  
   
 > Note:<br>  
-> 1. The following source code is located in the [`/Samples/MP/`](/Samples/MP/) folder, using Wechat Official Account as an example. Once you learn how to develop for Official Account, you can apply the same knowledge to other modules (Mini Program, Enterprise Wechat, Wechat Pay, etc.).  
-> 2. To view other module or integration examples, you can check the independent samples in the [`/Samples/`](/Samples/) folder or the integration samples in the [`/Samples/All/`](/Samples/All/) folder (for advanced users).  
+> 1. The following source code is located in the [`/Samples/MP/`](/Samples/MP/) folder, using Wechat Official Account as an example. Once you learn how to develop for Official Account, you can apply the same knowledge to other modules (Mini Program, Enterprise Wechat, Wechat Pay, etc.).  <br>
+> 2. To view other module or integration examples, you can check the independent samples in the [`/Samples/`](/Samples/) folder or the integration samples in the [`/Samples/All/`](/Samples/All/) folder (for advanced users).  <br>
+> 3. For different WeChat platforms, the Senparc.Weixin SDK has decoupled and independently released each module. To simplify referencing, you can directly reference [Senparc.Weixin.All](https://www.nuget.org/packages/Senparc.Weixin.All), which will automatically reference all modules.
   
   
 ### Startup code (just 2 lines of code):  

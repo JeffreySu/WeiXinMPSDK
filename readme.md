@@ -2,10 +2,12 @@
 
 Senparc.Weixin —— 微信 .NET SDK 
 =================
+
 [![Build status](https://mysenparc.visualstudio.com/Senparc%20SDK/_apis/build/status/Weixin%20SDK/Senparc.Weixin%20Dev-%E5%86%85%E9%83%A8-%E8%87%AA%E5%8A%A8-.Net6)](https://mysenparc.visualstudio.com/Senparc%20SDK/_build/latest?definitionId=36)
 [![NuGet](https://img.shields.io/nuget/dt/Senparc.Weixin.svg)](https://www.nuget.org/packages/Senparc.Weixin)
 [![GitHub commit activity the past week, 4 weeks, year](https://img.shields.io/github/commit-activity/4w/JeffreySu/WeiXinMPSDK.svg)](https://github.com/JeffreySu/WeiXinMPSDK/commits/master)
 ![Static Badge](https://img.shields.io/badge/.NET-8.0-blue)
+[![Senparc.Weixin.All](https://img.shields.io/nuget/vpre/Senparc.Weixin.All?label=Senparc.Weixin.All)](https://www.nuget.org/packages/Senparc.Weixin.All/)
 [![license](https://img.shields.io/github/license/JeffreySu/WeiXinMPSDK.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
 [![Senparc.Weixin](https://img.shields.io/nuget/vpre/Senparc.Weixin?label=Senparc.Weixin)](https://www.nuget.org/packages/Senparc.Weixin/)
@@ -228,7 +230,7 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 | 10| Redis 分布式缓存                                     |Senparc.Weixin.Cache.<br>Redis.dll               | [![Cache.Redis][7.1]][7.2]<br>[![Redis][nuget-img-redis]][nuget-url-redis] |           ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
 | 11| Memcached <br> 分布式缓存                            |Senparc.Weixin.Cache.<br>Memcached.dll           | [![Cache.Memcached][8.1]][8.2]<br>[![MC][nuget-img-mc]][nuget-url-mc] |         ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
 | 12| [WebSocket <br>（独立项目）](https://github.com/JeffreySu/Senparc.WebSocket)    |Senparc.WebSocket.dll |  [![Senparc.WebSocket][10.1]][10.2]<br>[![WebSocket][nuget-img-ws]][nuget-url-ws]  |          ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
-
+| 13| All In One 集成库       |Senparc.Weixin.All.dll                               | [![Senparc.Weixin.All][14.1]][14.2]<br>[![Senparc.Weixin.All][nuget-img-base]][nuget-url-base]  |         ![.NET 4.5][net46N]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8] 
 
 #### 图例
 | ![.NET 4.6][net46Y] | ![.NET Standard 2.x][core20Y] | ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
@@ -238,7 +240,8 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 > 提示：<br>
 > 1. 自 2019 年 5 月 1 日起，.NET Framework 3.5 及 4.0 停止更新，最后一个 .NET Framework 3.5 + 4.0 稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.6.15)。<br>
 > 2. 自 2022 年 4 月 3 日起，.NET Framework 4.5 升级为 4.6.2，最后一个 .NET Framework 4.5 的稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.17.9)。<br>
-> 3. 如果您还在使用 .NET Framework，建议您在 2027 年 1 月 12 日之间，将 .NET Framework 应用升级至 .NET Framework 4.8+，彼时官方将停止对 .NET Framework 4.6.2 的支持（[查看](https://learn.microsoft.com/en-us/lifecycle/products/microsoft-net-framework)）。
+> 3. 如果您还在使用 .NET Framework，建议您在 2027 年 1 月 12 日之间，将 .NET Framework 应用升级至 .NET Framework 4.8+，彼时官方将停止对 .NET Framework 4.6.2 的支持（[查看](https://learn.microsoft.com/en-us/lifecycle/products/microsoft-net-framework)）。<br>
+> 4. 使用 `Senparc.Weixin.All` 集成库可一次性自动引用所有模块。
 	
 	
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
@@ -267,6 +270,8 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 [12.2]: https://www.nuget.org/packages/Senparc.Weixin.TenPay
 [13.1]: https://img.shields.io/nuget/v/Senparc.Weixin.TenPayV3.svg?style=flat
 [13.2]: https://www.nuget.org/packages/Senparc.Weixin.TenPayV3
+[14.1]: https://img.shields.io/nuget/v/Senparc.Weixin.All.svg?style=flat
+[14.2]: https://www.nuget.org/packages/Senparc.Weixin.All
 
 [net46Y]: https://img.shields.io/badge/.NET%20Framework%204.6+-Y-brightgreen.svg
 [net46N]: https://img.shields.io/badge/.NET%20Framework%204.6+-N-lightgrey.svg

@@ -6,6 +6,7 @@ Senparc.Weixin —— WeChat .NET SDK
 [![NuGet](https://img.shields.io/nuget/dt/Senparc.Weixin.svg)](https://www.nuget.org/packages/Senparc.Weixin)
 [![GitHub commit activity the past week, 4 weeks, year](https://img.shields.io/github/commit-activity/4w/JeffreySu/WeiXinMPSDK.svg)](https://github.com/JeffreySu/WeiXinMPSDK/commits/master)
 ![Static Badge](https://img.shields.io/badge/.NET-8.0-blue)
+[![Senparc.Weixin.All](https://img.shields.io/nuget/vpre/Senparc.Weixin.All?label=Senparc.Weixin.All)](https://www.nuget.org/packages/Senparc.Weixin.All/)
 [![license](https://img.shields.io/github/license/JeffreySu/WeiXinMPSDK.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
 [![Senparc.Weixin](https://img.shields.io/nuget/vpre/Senparc.Weixin?label=Senparc.Weixin)](https://www.nuget.org/packages/Senparc.Weixin/)
@@ -219,8 +220,8 @@ This repository contains the source code for multiple versions including .NET Fr
 > Tip:<br>  
 > 1. Starting from May 1, 2019, .NET Framework 3.5 and 4.0 will no longer receive updates. The last stable version of .NET Framework 3.5 + 4.0 can be found [here](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.6.15).<br>  
 > 2. Starting from April 3, 2022, .NET Framework 4.5 has been upgraded to 4.6.2. The last stable version of .NET Framework 4.5 can be found [here](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.17.9).<br>  
-> 3. If you are still using .NET Framework, it is recommended to upgrade your application to .NET Framework 4.8+ by January 12, 2027, as official support for .NET Framework 4.6.2 will end by then ([source](https://learn.microsoft.com/en-us/lifecycle/products/microsoft-net-framework)).
-
+> 3. If you are still using .NET Framework, it is recommended to upgrade your application to .NET Framework 4.8+ by January 12, 2027, as official support for .NET Framework 4.6.2 will end by then ([source](https://learn.microsoft.com/en-us/lifecycle/products/microsoft-net-framework)).<br>
+> 4. Use the 'Senparc.Weixin.All' integration library to automatically reference all libraries at once.
 
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
 [1.2]: https://www.nuget.org/packages/Senparc.Weixin

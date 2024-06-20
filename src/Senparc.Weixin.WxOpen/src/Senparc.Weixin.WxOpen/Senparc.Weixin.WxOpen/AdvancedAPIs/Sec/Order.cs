@@ -205,6 +205,27 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sec
 
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 查询小程序是否已完成交易结算管理确认
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="appid"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static IsTradeManagementConfirmationCompletedJsonResult IsTradeManagementConfirmationCompleted(string accessTokenOrAppId, string appid, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/sec/order/is_trade_management_confirmation_completed?access_token={0}";
+                var postBody = new
+                {
+                    appid
+                };
+                return CommonJsonSend.Send<IsTradeManagementConfirmationCompletedJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
         #endregion
 
         #region 异步方法
@@ -356,6 +377,27 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sec
                     appid
                 };
                 return await CommonJsonSend.SendAsync<IsTradeManagedJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】查询小程序是否已完成交易结算管理确认
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="appid"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<IsTradeManagementConfirmationCompletedJsonResult> IsTradeManagementConfirmationCompletedAsync(string accessTokenOrAppId, string appid, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/sec/order/is_trade_management_confirmation_completed?access_token={0}";
+                var postBody = new
+                {
+                    appid
+                };
+                return await CommonJsonSend.SendAsync<IsTradeManagementConfirmationCompletedJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }

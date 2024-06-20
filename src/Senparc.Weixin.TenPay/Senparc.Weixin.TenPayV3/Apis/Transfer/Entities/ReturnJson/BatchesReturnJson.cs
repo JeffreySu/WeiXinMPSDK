@@ -57,6 +57,14 @@ namespace Senparc.Weixin.TenPayV3.Apis.Transfer
         /// <para>示例值：2015-05-20T13:29:35.120+08:00</para>
         /// </summary>
         public DateTime create_time { get; set; }
+        /// <summary>
+        /// 批次状态
+        /// <para>ACCEPTED:已受理。批次已受理成功，若发起批量转账的30分钟后，转账批次单仍处于该状态，可能原因是商户账户余额不足等。商户可查询账户资金流水，若该笔转账批次单的扣款已经发生，则表示批次已经进入转账中，请再次查单确认</para>
+        /// <para>PROCESSING:转账中。已开始处理批次内的转账明细单</para>
+        /// <para>FINISHED:已完成。批次内的所有转账明细单都已处理完成</para>
+        /// <para>CLOSED:已关闭。可查询具体的批次关闭原因确认</para>
+        /// </summary>
+        public string batch_status { get; set; }
     }
 
 }

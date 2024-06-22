@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>1.3.2</Version>
+    <Version>1.4.0</Version>
     <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
     <LangVersion>10.0</LangVersion>
@@ -54,7 +54,8 @@
 		3、TenPayV3分账 字段内部加密 PR#2909
 		v1.1.0 TenPaySignHelper.GetJsApiUiPackage() 方法添加 senparcWeixinSettingForTenpayV3 参数
 		v1.2.1.1 解决微信支付分、完成订单参数可为空的问题 Issue #2989
-</PackageReleaseNotes>
+		v1.4.0 添加：微信支付-发起商家转账入参添加转账场景ID、通知地址；返回结果添加批次状态 / PR #3030
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

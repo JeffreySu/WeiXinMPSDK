@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20220629
 
+    修改标识：Guili95 - 20240623
+    修改描述：v1.4.0 添加：微信支付-发起商家转账入参添加转账场景ID、通知地址；返回结果添加批次状态
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.TenPayV3.Apis.Entities;

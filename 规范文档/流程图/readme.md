@@ -6,4 +6,6 @@
 
 默认情况下此功能为打开状态。
 
-更多信息请查看[《Senparc.Weixin SDK 微信平台开发教程（二十四）：顺应 GenAI 应用，自动“续航”回复超长文本消息》](https://www.cnblogs.com/szw/p/weixin-large-text-response.html)
+消息处理流程图请见 [超长文本回复流程.vsdx](超长文本回复流程.vsdx)。
+
+更多信息请查看：[《Senparc.Weixin SDK 微信平台开发教程（二十四）：顺应 GenAI 应用，自动“续航”回复超长文本消息》](https://www.cnblogs.com/szw/p/weixin-large-text-response.html)

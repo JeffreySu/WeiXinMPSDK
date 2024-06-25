@@ -17,19 +17,13 @@ var app = builder.Build();
 
 #region 启用微信配置（一句代码）
 
-//手动获取配置信息可使用以下方法
-//var senparcWeixinSetting = app.Services.GetService<IOptions<SenparcWeixinSetting>>()!.Value;
-
 //启用微信配置（必须）
 var registerService = app.UseSenparcWeixin(app.Environment,
     null /* 不为 null 则覆盖 appsettings  中的 SenpacSetting 配置*/,
     null /* 不为 null 则覆盖 appsettings  中的 SenpacWeixinSetting 配置*/,
     register => { /* CO2NET 全局配置 */ },
-    (register, weixinSetting) =>
-{
-    //注册公众号信息（可以执行多次，注册多个公众号）
-    register.RegisterMpAccount(weixinSetting, "【盛派网络小助手】公众号");
-});
+    (register, weixinSetting) => {/* 注册公众号或其他平台信息（可以执行多次，注册多个公众号）*/},
+    true);
 
 #region 使用 MessageHadler 中间件，用于取代创建独立的 Controller
 

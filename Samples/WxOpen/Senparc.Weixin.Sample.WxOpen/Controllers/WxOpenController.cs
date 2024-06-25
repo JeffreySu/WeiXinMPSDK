@@ -424,7 +424,7 @@ sessionKey: {(await SessionContainer.CheckRegisteredAsync(sessionId)
                 //{"touser":"oeaTy0DgoGq-lyqvTauWVjbIVuP0","weapp_template_msg":null,"mp_template_msg":{"appid":"wx669ef95216eef885","template_id":null,"url":"https://dev.senparc.com","miniprogram":{"appid":"wx12b4f63276b14d4c","pagepath":"websocket/websocket"},"data":{"first":{"value":"小程序和公众号统一的服务消息","color":"#173177"},"keyword1":{"value":"2022/1/20 23:22:12","color":"#173177"},"keyword2":{"value":"dev.senparc.com","color":"#173177"},"keyword3":{"value":"小程序接口测试","color":"#173177"},"keyword4":{"value":"正常","color":"#173177"},"keyword5":{"value":"测试“小程序和公众号统一的服务消息”接口，服务正常","color":"#173177"},"remark":{"value":"您的 OpenId：oeaTy0DgoGq-lyqvTauWVjbIVuP0","color":"#173177"},"TemplateId":"ur6TqESOo-32FEUk4qJxeWZZVt4KEOPjqbAFDGWw6gg","Url":"https://dev.senparc.com","TemplateName":"系统异常告警通知"}}}
 
 
-                #region 公众号模板消息信息       -- DPBMARK MP
+                #region 公众号模板消息信息
 
                 //可选参数（需要和公众号模板消息匹配）：
                 templateData = templateData = new

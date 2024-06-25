@@ -38,7 +38,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//DPBMARK MP
+
 using Senparc.Weixin.MP;
 using Senparc.Weixin.Sample.Net6.Filters;
 using Senparc.Weixin.MP.AdvancedAPIs;
@@ -105,7 +105,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             var state = string.Format("{0}|{1}", productId, hc);
             string url = null;
 
-            url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);//   -- DPBMARK MP DPBMARK_END
+            url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);//
 
             if (url.IsNullOrEmpty())
             {
@@ -219,7 +219,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
 
         #endregion
 
-        //DPBMARK MP
+        
         #region OAuth授权
         public ActionResult OAuthCallback(string code, string state, string returnUrl)
         {

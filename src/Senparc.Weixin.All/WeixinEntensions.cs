@@ -14,6 +14,9 @@ using Senparc.Weixin.TenPay;
 using Senparc.Weixin.TenPayV3;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
+using Microsoft.AspNetCore.Builder;
+using Senparc.CO2NET.Cache;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 
 namespace Senparc.Weixin.All
@@ -48,6 +51,27 @@ namespace Senparc.Weixin.All
             }
 
             registerService.UseSenparcWeixin(senparcWeixinSetting, registerConfigure);
+
+            return registerService;
+        }
+
+        public static IRegisterService UseSenparcWeixin(this IApplicationBuilder app,
+            Microsoft.Extensions.Hosting.IHostEnvironment/*IHostingEnvironment*/ env,
+            SenparcSetting senparcSetting, SenparcWeixinSetting senparcWeixinSetting,
+            Action<IRegisterService/*, SenparcSetting*/> globalRegisterConfigure,
+            Action<IRegisterService, SenparcWeixinSetting> weixinRegisterConfigure,
+            bool autoRegisterAllPlatforms,
+
+             //CO2NET 全局设置
+             bool autoScanExtensionCacheStrategies = false,
+             Func<List<IDomainExtensionCacheStrategy>> extensionCacheStrategiesFunc = null
+            )
+        {
+            //进行全局注册
+            var registerService = app.UseSenparcWeixin(env, senparcSetting, senparcWeixinSetting, globalRegisterConfigure, weixinRegisterConfigure, autoRegisterAllPlatforms, autoScanExtensionCacheStrategies);
+
+            //进行自动注册
+            registerService.UseSenparcWeixin(senparcWeixinSetting, weixinRegisterConfigure, autoRegisterAllPlatforms);
 
             return registerService;
         }

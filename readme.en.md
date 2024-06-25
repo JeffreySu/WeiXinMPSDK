@@ -295,7 +295,7 @@ This repository contains the source code for multiple versions including .NET Fr
 * Support for distributed caching and caching strategy extension (default support: local cache, Redis, Memcached, can be freely extended), no need to worry about the type of cache used during development, can be freely switched in the configuration file or during runtime.  
   
 > 1. The official APIs are perfectly integrated, and all upgrades will try to ensure backward compatibility unless otherwise specified. So you can safely use or directly upgrade (overwrite) the latest DLLs. It is recommended to use [NuGet](https://www.nuget.org/) for updates.<br>  
-> 2. You can also modify and compile the code yourself. Open the [Senparc.Weixin.Sample.Net6.sln](/Samples/All/net6-mvc/) or [Senparc.Weixin.Sample.Net8.sln](/Samples/All/net8-mvc/) solution to see all the source code. When the compilation mode is `Release`, a local NuGet package will be automatically generated (default generated in the `/src/BuildOutPut/` folder).  
+> 2. You can also modify and compile the code yourself. Open the [Senparc.Weixin.Sample.Net8.sln](/Samples/All/net8-mvc/) solution to see all the source code. When the compilation mode is `Release`, a local NuGet package will be automatically generated (default generated in the `/src/BuildOutPut/` folder).  
   
 ## 💾 Explanation of Source Code Project Folders (under the src folder)  
   
@@ -587,7 +587,7 @@ The Nuget installation methods for each module: [Installing the SDK into the pro
   
 ### 2) Deploy to any server via FTP  
   
-Install an FTP service (FileZilla Server is recommended) on the Web server, and directly upload the compiled code from the local machine (the corresponding code in the [Samples](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Samples) is [Senparc.Weixin.Sample.Net7](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net7-mvc), [Senparc.Weixin.Sample.Net6](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net6-mvc), or [Senparc.Weixin.Sample.NetCore3](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.1-mvc)). After compilation, you can use it directly without modifying the code. If you use Azure App Service or other cloud services, FTP is usually enabled as well.  
+Install an FTP service (FileZilla Server is recommended) on the Web server, and directly upload the compiled code from the local machine (the corresponding code in the [Samples](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Samples) is [Senparc.Weixin.Sample.Net8](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net8-mvc). After compilation, you can use it directly without modifying the code. If you use Azure App Service or other cloud services, FTP is usually enabled as well.  
   
   
 <!--  

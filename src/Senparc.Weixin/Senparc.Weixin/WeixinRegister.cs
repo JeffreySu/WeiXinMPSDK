@@ -176,6 +176,8 @@ namespace Senparc.Weixin
 
             /* 扩展缓存注册结束 */
 
+            /* 自动注册所有平台开始 */
+
             return registerService;
         }
 

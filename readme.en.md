@@ -2,6 +2,7 @@
 
 Senparc.Weixin —— WeChat .NET SDK 
 =================
+
 [![Build status](https://mysenparc.visualstudio.com/Senparc%20SDK/_apis/build/status/Weixin%20SDK/Senparc.Weixin%20Dev-%E5%86%85%E9%83%A8-%E8%87%AA%E5%8A%A8-.Net6)](https://mysenparc.visualstudio.com/Senparc%20SDK/_build/latest?definitionId=36)
 [![NuGet](https://img.shields.io/nuget/dt/Senparc.Weixin.svg)](https://www.nuget.org/packages/Senparc.Weixin)
 [![GitHub commit activity the past week, 4 weeks, year](https://img.shields.io/github/commit-activity/4w/JeffreySu/WeiXinMPSDK.svg)](https://github.com/JeffreySu/WeiXinMPSDK/commits/master)
@@ -25,6 +26,8 @@ Senparc.Weixin —— WeChat .NET SDK
 [![Senparc.Weixin.Cache.CsRedis](https://img.shields.io/nuget/vpre/Senparc.Weixin.Cache.CsRedis?label=Senparc.Weixin.Cache.CsRedis)](https://www.nuget.org/packages/Senparc.Weixin.Cache.CsRedis/)
 [![Senparc.Weixin.Cache.Memcached](https://img.shields.io/nuget/vpre/Senparc.Weixin.Cache.Memcached?label=Senparc.Weixin.Cache.Memcached)](https://www.nuget.org/packages/Senparc.Weixin.Cache.Memcached/)
 [![Senparc.WebSocket](https://img.shields.io/nuget/vpre/Senparc.WebSocket?label=Senparc.WebSocket)](https://www.nuget.org/packages/Senparc.WebSocket/)
+
+
 
 
 [[中文]](readme.md)
@@ -336,8 +339,6 @@ From the following samples, you can learn about the configuration and usage of e
 |[All](/Samples/All/)         |   A mixed scenario demonstration that includes all functions of WeChat Official Accounts, Mini Programs, WeChat Pay, Enterprise Accounts, etc., recommended for projects that integrate multiple platforms or require deep development (advanced) |   
 | ┣ [All/console](/Samples/All/console)			|Command Line Console Demo (.NET Core)| NuGet Package  
 | ┣ [All/net45-mvc](/Samples/All/net45-mvc)						|Demo that can be directly published and used (.NET Framework 4.5 + ASP.NET MVC)|  NuGet Package  
-| ┣ [All/net6-mvc](/Samples/All/net6-mvc)			|Demo that can be directly published and used (.NET 6.0), compatible with .NET 5.0 and .NET Core | <strong>Source Code<strong>  
-| ┣ [All/net7-mvc](/Samples/All/net7-mvc)			|Demo that can be directly published and used (.NET 7.0), compatible with .NET 5.0, 6.0, and .NET Core | <strong>Source Code<strong>  
 | ┗ [All/net8-mvc](/Samples/All/net8-mvc)			|Demo that can be directly published and used (.NET 8.0), compatible with .NET 5.0, 6.0, 7.0, and .NET Core | <strong>Source Code<strong>  
   
 [Enter Samples Folder](/Samples/)  
@@ -572,9 +573,7 @@ Starting from v0.4.0, MessageHandler adds support for user session context to so
 > The current branch includes the full version of .NET Framework 4.6.2+ and .NET 6.0/7.0/8.0 code (snapshot of versions that are no longer updated can be found in [release](https://github.com/JeffreySu/WeiXinMPSDK/releases)).<br>  
 > The Demo for .NET Framework is located in the `/src/Samples/All/net45-mvc` directory, and<br>  
 > 【Recommended】The Demo for .NET 8.0 (compatible with .NET 5.0, 6.0, 7.0, and .NET Core 3.1 and lower versions) is located in the `/Samples/All/net8-mvc` directory.<br><br>  
-> Note:<br>  
-> 1. In the above Samples, the `net8-mvc` Sample directly references the source code of each module, and can generate a Senaprc.Weixin SDK library compatible with different versions after being compiled with `Release`. <br>  
-> 2. You can also use the Demo for .NET 6.0 (compatible with .NET 5.0 and .NET Core 3.1 and lower versions) located in the `/Samples/All/net6-mvc` directory if you want.  
+> Note: In the above Samples, the `net8-mvc` Sample directly references the source code of each module, and can generate a Senaprc.Weixin SDK library compatible with different versions after being compiled with `Release`.
   
 ## ↕️ Install via Nuget to the project  
   

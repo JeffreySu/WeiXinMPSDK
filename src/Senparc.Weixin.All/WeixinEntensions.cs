@@ -98,6 +98,7 @@ namespace Senparc.Weixin.All
                 useSenparcWeixin: false/* 下方手动执行 */);
 
             //进行自动注册
+            senparcWeixinSetting ??= Senparc.Weixin.Config.SenparcWeixinSetting;
             registerService.UseSenparcWeixin(senparcWeixinSetting, weixinRegisterConfigure, autoRegisterAllPlatforms);
 
             return registerService;

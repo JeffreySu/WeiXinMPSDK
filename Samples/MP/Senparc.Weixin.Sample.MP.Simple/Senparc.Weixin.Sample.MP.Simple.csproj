@@ -20,7 +20,7 @@
 
 	<!--引用 Nuget 包-->
 	<ItemGroup>
-		<PackageReference Include="Senparc.Weixin.All" Version="2024.6.30" />
+		<PackageReference Include="Senparc.Weixin.All" Version="2024.6.30.2" />
 	</ItemGroup>
 
 	<!--直接引用源码-->

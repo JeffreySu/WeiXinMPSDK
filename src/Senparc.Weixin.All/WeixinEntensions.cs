@@ -58,9 +58,13 @@ namespace Senparc.Weixin.All
         /// <param name="autoRegisterAllPlatforms">是否从 appsettings.json 中自动注册所有平台（Open 平台除外）</param>
         /// <returns></returns>
         public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, Action<IRegisterService, SenparcWeixinSetting> registerConfigure
-          , bool autoRegisterAllPlatforms
+          , bool autoRegisterAllPlatforms, IServiceProvider serviceProvider
           )
         {
+            registerService.UseSenparcWeixin(senparcWeixinSetting, registerConfigure, serviceProvider);
+
+            senparcWeixinSetting ??= Senparc.Weixin.Config.SenparcWeixinSetting;
+
             if (autoRegisterAllPlatforms)
             {
                 //自动注册所有板块
@@ -75,8 +79,6 @@ namespace Senparc.Weixin.All
                     }
                 }
             }
-
-            registerService.UseSenparcWeixin(senparcWeixinSetting, registerConfigure);
 
             return registerService;
         }
@@ -98,8 +100,8 @@ namespace Senparc.Weixin.All
                 useSenparcWeixin: false/* 下方手动执行 */);
 
             //进行自动注册
-            senparcWeixinSetting ??= Senparc.Weixin.Config.SenparcWeixinSetting;
-            registerService.UseSenparcWeixin(senparcWeixinSetting, weixinRegisterConfigure, autoRegisterAllPlatforms);
+            //senparcWeixinSetting ??= Senparc.Weixin.Config.SenparcWeixinSetting;
+            registerService.UseSenparcWeixin(senparcWeixinSetting, weixinRegisterConfigure, autoRegisterAllPlatforms, app.ApplicationServices);
 
             return registerService;
         }

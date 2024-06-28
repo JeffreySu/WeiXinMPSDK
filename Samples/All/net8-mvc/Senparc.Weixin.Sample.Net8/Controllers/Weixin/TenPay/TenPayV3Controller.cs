@@ -30,7 +30,7 @@ using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Sample.Net6.Models;
+using Senparc.Weixin.Sample.Net8.Models;
 using Senparc.Weixin.TenPay.V3;
 using System;
 using System.IO;
@@ -48,7 +48,7 @@ using TenPayOldV3 = Senparc.Weixin.TenPay.V3.TenPayV3;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.Sample.CommonService.TemplateMessage;
-using Senparc.Weixin.Sample.Net6.Filters;
+using Senparc.Weixin.Sample.Net8.Filters;
 //DPBMARK_END
 
 

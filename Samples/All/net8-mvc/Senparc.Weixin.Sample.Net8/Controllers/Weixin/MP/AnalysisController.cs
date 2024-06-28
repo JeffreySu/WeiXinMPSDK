@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.Analysis;
 using Senparc.Weixin.MP.Containers;
-using Senparc.Weixin.Sample.Net6.Models.VD;
+using Senparc.Weixin.Sample.Net8.Models.VD;
 using System;
 
 namespace Senparc.Weixin.Sample.Net8.Controllers

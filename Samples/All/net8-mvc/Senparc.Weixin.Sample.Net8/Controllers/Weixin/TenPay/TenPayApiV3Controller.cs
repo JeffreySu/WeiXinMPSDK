@@ -22,8 +22,8 @@ using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Sample.Net6.Controllers;
-using Senparc.Weixin.Sample.Net6.Models;
+using Senparc.Weixin.Sample.Net8.Controllers;
+using Senparc.Weixin.Sample.Net8.Models;
 using Senparc.Weixin.TenPayV3;
 using Senparc.Weixin.TenPayV3.Apis;
 using Senparc.Weixin.TenPayV3.Apis.BasePay;
@@ -40,14 +40,14 @@ using System.Threading.Tasks;
 
 
 using Senparc.Weixin.MP;
-using Senparc.Weixin.Sample.Net6.Filters;
+using Senparc.Weixin.Sample.Net8.Filters;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.Sample.CommonService.TemplateMessage;
 using Senparc.Weixin.Sample.CommonService.Utilities;
 using Senparc.CO2NET.HttpUtility;
 //DPBMARK_END
 
-namespace Senparc.Weixin.Sample.Net6.Controllers
+namespace Senparc.Weixin.Sample.Net8.Controllers
 {
     public class TenPayApiV3Controller : BaseController
     {

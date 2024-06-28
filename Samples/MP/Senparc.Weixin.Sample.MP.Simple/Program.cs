@@ -1,3 +1,6 @@
+using System.Text;
+using Senparc.Weixin.MP.AdvancedAPIs.MerChant;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -43,6 +46,23 @@ app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageH
 });
 
 #endregion
+
+#endregion
+
+#region 高级接口调用示例
+
+app.MapGroup("/").MapGet("/TryApi", async () =>
+{
+    //演示获取已关注用户的 OpenId（分批获取的第一批）
+
+    var weixinSetting = Senparc.Weixin.Config.SenparcWeixinSetting.MpSetting;
+    var result = new StringBuilder();
+    var users = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(weixinSetting.WeixinAppId, null);
+
+    Console.WriteLine($"展示前 {users.count} 个 OpenId");
+
+    return users.data.openid;
+});
 
 #endregion
 

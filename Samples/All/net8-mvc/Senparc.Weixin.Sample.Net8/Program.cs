@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Senparc.CO2NET;
 
-namespace Senparc.Weixin.Sample.Net6
+namespace Senparc.Weixin.Sample.Net8
 {
     public class Program
     {

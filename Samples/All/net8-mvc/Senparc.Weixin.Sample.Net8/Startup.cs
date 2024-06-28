@@ -31,7 +31,7 @@ using Senparc.Weixin.Sample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.Sample.CommonService.MessageHandlers.WebSocket;
 using Senparc.Weixin.Sample.CommonService.WorkMessageHandlers;
 using Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler;
-using Senparc.Weixin.Sample.Net6.WebSocket.Hubs;
+using Senparc.Weixin.Sample.Net8.WebSocket.Hubs;
 using Senparc.Weixin.TenPay;
 using Senparc.Weixin.TenPayV3;
 using Senparc.Weixin.Work;
@@ -42,7 +42,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace Senparc.Weixin.Sample.Net6
+namespace Senparc.Weixin.Sample.Net8
 {
     public class Startup
     {

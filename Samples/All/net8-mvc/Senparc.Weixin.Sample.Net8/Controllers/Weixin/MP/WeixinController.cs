@@ -31,7 +31,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.Sample.Net6.Controllers
+namespace Senparc.Weixin.Sample.Net8.Controllers
 {
     using Senparc.CO2NET.AspNet.HttpUtility;
     using Senparc.CO2NET.Cache;

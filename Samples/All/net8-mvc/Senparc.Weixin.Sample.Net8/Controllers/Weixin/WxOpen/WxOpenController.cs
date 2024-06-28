@@ -40,7 +40,7 @@ using Senparc.Weixin.WxOpen.AdvancedAPIs.Template;
 using Senparc.Weixin.AspNet.MvcExtension;
 using System.Threading;
 
-namespace Senparc.Weixin.Sample.Net6.Controllers.WxOpen
+namespace Senparc.Weixin.Sample.Net8.Controllers.WxOpen
 {
     /// <summary>
     /// 微信小程序Controller

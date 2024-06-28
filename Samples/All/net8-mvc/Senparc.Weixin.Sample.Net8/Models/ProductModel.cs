@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Senparc.Weixin.Sample.Net6.Models
+namespace Senparc.Weixin.Sample.Net8.Models
 {
     /// <summary>
     /// 商品实体类

@@ -22,7 +22,7 @@ using Senparc.Weixin.Sample.Net6.Models;
 using Senparc.Weixin.Sample.Net6.Models.VD;
 using System.Reflection;
 
-namespace Senparc.Weixin.Sample.Net6.Controllers
+namespace Senparc.Weixin.Sample.Net8.Controllers
 {
     public class HomeController : BaseController
     {

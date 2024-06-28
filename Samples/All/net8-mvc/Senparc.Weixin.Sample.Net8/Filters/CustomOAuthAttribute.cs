@@ -3,7 +3,7 @@
 using Microsoft.AspNetCore.Http;
 using Senparc.Weixin.MP.MvcExtension;
 
-namespace Senparc.Weixin.Sample.Net6.Filters
+namespace Senparc.Weixin.Sample.Net8.Filters
 {
     /// <summary>
     /// OAuth自动验证，可以加在Action或整个Controller上

@@ -6,7 +6,7 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Sample.Net6.Controllers;
 
-namespace Senparc.Weixin.Sample.Net6.Models.VD
+namespace Senparc.Weixin.Sample.Net8.Models.VD
 {
     public class Analysis_IndexVD
     {

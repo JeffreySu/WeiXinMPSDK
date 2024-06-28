@@ -42,7 +42,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace Senparc.Weixin.Sample.Net6
+namespace Senparc.Weixin.Sample.Net8
 {
     public class Startup
     {

@@ -52,7 +52,7 @@ using Senparc.Weixin.Sample.Net6.Filters;
 //DPBMARK_END
 
 
-namespace Senparc.Weixin.Sample.Net6.Controllers
+namespace Senparc.Weixin.Sample.Net8.Controllers
 {
     /* 
      * 友情提示：微信支付正式上线之前，请进行沙箱测试！ 

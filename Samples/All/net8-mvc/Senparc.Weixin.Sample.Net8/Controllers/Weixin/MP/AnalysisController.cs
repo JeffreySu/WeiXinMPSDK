@@ -6,7 +6,7 @@ using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.Sample.Net6.Models.VD;
 using System;
 
-namespace Senparc.Weixin.Sample.Net6.Controllers
+namespace Senparc.Weixin.Sample.Net8.Controllers
 {
     public enum AnalysisType
     {

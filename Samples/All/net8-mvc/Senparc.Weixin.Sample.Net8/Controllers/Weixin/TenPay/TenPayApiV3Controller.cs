@@ -47,7 +47,7 @@ using Senparc.Weixin.Sample.CommonService.Utilities;
 using Senparc.CO2NET.HttpUtility;
 //DPBMARK_END
 
-namespace Senparc.Weixin.Sample.Net6.Controllers
+namespace Senparc.Weixin.Sample.Net8.Controllers
 {
     public class TenPayApiV3Controller : BaseController
     {

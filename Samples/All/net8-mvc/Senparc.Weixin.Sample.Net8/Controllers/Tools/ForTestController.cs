@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.AspNet.HttpUtility;
 using Senparc.CO2NET.HttpUtility;
 
-namespace Senparc.Weixin.Sample.Net6.Controllers
+namespace Senparc.Weixin.Sample.Net8.Controllers
 {
     /// <summary>
     /// 提供给 Senparc.WeixinTests/Utilities/HttpUtility/PostTests.cs使用

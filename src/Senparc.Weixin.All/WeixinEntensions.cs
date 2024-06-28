@@ -94,7 +94,7 @@ namespace Senparc.Weixin.All
             )
         {
             //进行全局注册
-            var registerService = Senparc.Weixin.AspNet.WeixinRegister.UseSenparcWeixin(app, env, senparcSetting, senparcWeixinSetting, globalRegisterConfigure, weixinRegisterConfigure, autoRegisterAllPlatforms, extensionCacheStrategiesFunc,
+            var registerService = Senparc.Weixin.AspNet.WeixinRegister.UseSenparcWeixin(app, env, senparcSetting, senparcWeixinSetting, globalRegisterConfigure, weixinRegisterConfigure, autoScanExtensionCacheStrategies, extensionCacheStrategiesFunc,
                 useSenparcWeixin: false/* 下方手动执行 */);
 
             //进行自动注册

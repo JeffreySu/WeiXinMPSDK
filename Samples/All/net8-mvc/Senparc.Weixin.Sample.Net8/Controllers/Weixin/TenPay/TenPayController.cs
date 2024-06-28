@@ -27,7 +27,7 @@ using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Helpers;
 //DPBMARK_END
 
-namespace Senparc.Weixin.Sample.Net6.Controllers
+namespace Senparc.Weixin.Sample.Net8.Controllers
 {
     /// <summary>
     /// 根据官方的Webforms Demo改写，所以可以看到直接result +=)之类的用法，实际项目中不提倡这么做。

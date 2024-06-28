@@ -33,6 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20230614
     修改描述：v6.15.10 UseSenparcWeixin() 方法添加 autoCreateApi 参数，用于设置是自动生成微信接口的 API，默认为关闭
 
+    修改标识：Senparc - 20240629
+    修改描述：v1.2.3 UseSenparcWeixin() 方法添加 useSenparcWeixin 参数，用于指定是否自动执行 register.UseSenparcWeixin() 方法
+
 ----------------------------------------------------------------*/
 
 
@@ -65,6 +68,7 @@ namespace Senparc.Weixin.AspNet
         /// <param name="weixinRegisterConfigure">Senparc.Weixin 注册委托</param>
         /// <param name="autoScanExtensionCacheStrategies">是否启用自动扩展缓存扫描</param>
         /// <param name="extensionCacheStrategiesFunc">扩展内存委托</param>
+        /// <param name="useSenparcWeixin">是否自动执行 register.UseSenparcWeixin() 方法</param>
         /// <returns></returns>
         public static IRegisterService UseSenparcWeixin(this IApplicationBuilder app,
             Microsoft.Extensions.Hosting.IHostEnvironment/*IHostingEnvironment*/ env,
@@ -73,14 +77,18 @@ namespace Senparc.Weixin.AspNet
             Action<IRegisterService, SenparcWeixinSetting> weixinRegisterConfigure,
              //CO2NET 全局设置
              bool autoScanExtensionCacheStrategies = false,
-             Func<List<IDomainExtensionCacheStrategy>> extensionCacheStrategiesFunc = null
+             Func<List<IDomainExtensionCacheStrategy>> extensionCacheStrategiesFunc = null,
+             bool useSenparcWeixin = true
             )
         {
             //注册 CO2NET 全局
             var register = app.UseSenparcGlobal(env, senparcSetting, globalRegisterConfigure, autoScanExtensionCacheStrategies, extensionCacheStrategiesFunc);
 
-            //注册微信
-            register.UseSenparcWeixin(senparcWeixinSetting, weixinRegisterConfigure, app.ApplicationServices);
+            if (useSenparcWeixin)
+            {
+                //注册微信
+                register.UseSenparcWeixin(senparcWeixinSetting, weixinRegisterConfigure, app.ApplicationServices);
+            }
 
             return register;
         }

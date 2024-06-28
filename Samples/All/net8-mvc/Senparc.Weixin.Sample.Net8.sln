@@ -100,7 +100,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.3 人工智能（AI）", 
 		..\..\..\Samples with AI\readme.md = ..\..\..\Samples with AI\readme.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.All", "..\..\..\src\Senparc.Weixin.All\Senparc.Weixin.All.csproj", "{F1AAA30B-2829-4410-8A96-F21B88B066B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.All", "..\..\..\src\Senparc.Weixin.All\Senparc.Weixin.All.csproj", "{F1AAA30B-2829-4410-8A96-F21B88B066B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "公众号", "公众号", "{37E0EA13-96E7-423E-8C53-CE136C439B54}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.MP.Simple", "..\..\MP\Senparc.Weixin.Sample.MP.Simple\Senparc.Weixin.Sample.MP.Simple.csproj", "{C4370924-9D72-4859-93C0-AA619BFC583B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -670,6 +674,24 @@ Global
 		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Test|x64.Build.0 = Debug|Any CPU
 		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Test|x86.ActiveCfg = Debug|Any CPU
 		{F1AAA30B-2829-4410-8A96-F21B88B066B0}.Test|x86.Build.0 = Debug|Any CPU
+		{C4370924-9D72-4859-93C0-AA619BFC583B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4370924-9D72-4859-93C0-AA619BFC583B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4370924-9D72-4859-93C0-AA619BFC583B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C4370924-9D72-4859-93C0-AA619BFC583B}.Debug|x64.Build.0 = Debug|Any CPU
+		{C4370924-9D72-4859-93C0-AA619BFC583B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C4370924-9D72-4859-93C0-AA619BFC583B}.Debug|x86.Build.0 = Debug|Any CPU
+		{C4370924-9D72-4859-93C0-AA619BFC583B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4370924-9D72-4859-93C0-AA619BFC583B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4370924-9D72-4859-93C0-AA619BFC583B}.Release|x64.ActiveCfg = Release|Any CPU
+		{C4370924-9D72-4859-93C0-AA619BFC583B}.Release|x64.Build.0 = Release|Any CPU
+		{C4370924-9D72-4859-93C0-AA619BFC583B}.Release|x86.ActiveCfg = Release|Any CPU
+		{C4370924-9D72-4859-93C0-AA619BFC583B}.Release|x86.Build.0 = Release|Any CPU
+		{C4370924-9D72-4859-93C0-AA619BFC583B}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4370924-9D72-4859-93C0-AA619BFC583B}.Test|Any CPU.Build.0 = Debug|Any CPU
+		{C4370924-9D72-4859-93C0-AA619BFC583B}.Test|x64.ActiveCfg = Debug|Any CPU
+		{C4370924-9D72-4859-93C0-AA619BFC583B}.Test|x64.Build.0 = Debug|Any CPU
+		{C4370924-9D72-4859-93C0-AA619BFC583B}.Test|x86.ActiveCfg = Debug|Any CPU
+		{C4370924-9D72-4859-93C0-AA619BFC583B}.Test|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -705,7 +727,7 @@ Global
 		{F2B9B8FC-0D7A-4BC5-855B-D91799B311FF} = {FC72CA5A-5DE9-4902-A5AA-00344FA68B37}
 		{C40691EE-ECCC-4BE0-B2D3-005066B4D7D5} = {334B3098-A802-4698-A145-BC6B902F31DE}
 		{757A2C42-8B3F-4F7F-B948-7453A80267C8} = {F2B9B8FC-0D7A-4BC5-855B-D91799B311FF}
-		{81A078A9-97D1-446D-88ED-87F4BB484D91} = {34CFB1D8-6025-4E93-A67F-D94DD3B9198F}
+		{81A078A9-97D1-446D-88ED-87F4BB484D91} = {37E0EA13-96E7-423E-8C53-CE136C439B54}
 		{34CFB1D8-6025-4E93-A67F-D94DD3B9198F} = {35139CB3-610E-4922-98AD-08A5D12BFC35}
 		{1B168C93-E3E3-4939-8EDC-19CE4E041874} = {35139CB3-610E-4922-98AD-08A5D12BFC35}
 		{9FE36012-8B32-488E-96AD-BA7CEDAEEAB8} = {34CFB1D8-6025-4E93-A67F-D94DD3B9198F}
@@ -716,6 +738,8 @@ Global
 		{81A03BCD-B887-4A40-8867-FF6B8D61CFC3} = {1B168C93-E3E3-4939-8EDC-19CE4E041874}
 		{AB1460AF-4BE8-4CC2-AF3B-3473B5A41778} = {35139CB3-610E-4922-98AD-08A5D12BFC35}
 		{F1AAA30B-2829-4410-8A96-F21B88B066B0} = {20CDE085-A7B1-447E-8875-981D8C3DF535}
+		{37E0EA13-96E7-423E-8C53-CE136C439B54} = {34CFB1D8-6025-4E93-A67F-D94DD3B9198F}
+		{C4370924-9D72-4859-93C0-AA619BFC583B} = {37E0EA13-96E7-423E-8C53-CE136C439B54}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC7AD3EC-AB37-497E-925B-DCD5129FE6D3}
@@ -726,6 +750,7 @@ Global
 		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{81a078a9-97d1-446d-88ed-87f4bb484d91}*SharedItemsImports = 5
 		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{94c58964-01e0-4aa0-af98-5851208d9755}*SharedItemsImports = 5
 		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{9fe36012-8b32-488e-96ad-ba7cedaeeab8}*SharedItemsImports = 13
+		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{c4370924-9d72-4859-93c0-aa619bfc583b}*SharedItemsImports = 5
 		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{d70b89b9-27bc-45dd-a908-4282f101b409}*SharedItemsImports = 5
 		..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{defd229c-0482-4924-8746-73d21b9dab02}*SharedItemsImports = 5
 		..\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems*{eb4fcb9f-9670-4b03-9e9e-724aff737fd4}*SharedItemsImports = 5

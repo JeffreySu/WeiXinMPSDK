@@ -1,22 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2024 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2024 Senparc
+  
+    文件名：WeixinEntensions.cs
+    文件功能描述：微信完整包的扩展方法
+    
+    
+    创建标识：Senparc - 20240625
+
+    修改标识：Senparc - 20240630
+    修改描述：v2024.6.30 完善 UseSenparcWeixin() 方法
+
+----------------------------------------------------------------*/
+
+using Microsoft.AspNetCore.Builder;
+using Senparc.CO2NET;
+using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin;
 using Senparc.Weixin.MP;
-using Senparc.Weixin.WxOpen;
-using Senparc.Weixin.Work;
-using Senparc.Weixin.Open;
 using Senparc.Weixin.TenPay;
 using Senparc.Weixin.TenPayV3;
-using Senparc.CO2NET;
-using Senparc.CO2NET.Extensions;
-using Microsoft.AspNetCore.Builder;
-using Senparc.CO2NET.Cache;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Senparc.Weixin.Work;
+using Senparc.Weixin.WxOpen;
 
 
 namespace Senparc.Weixin.All
@@ -68,7 +94,8 @@ namespace Senparc.Weixin.All
             )
         {
             //进行全局注册
-            var registerService = app.UseSenparcWeixin(env, senparcSetting, senparcWeixinSetting, globalRegisterConfigure, weixinRegisterConfigure, autoRegisterAllPlatforms, autoScanExtensionCacheStrategies);
+            var registerService = Senparc.Weixin.AspNet.WeixinRegister.UseSenparcWeixin(app, env, senparcSetting, senparcWeixinSetting, globalRegisterConfigure, weixinRegisterConfigure, autoRegisterAllPlatforms, extensionCacheStrategiesFunc,
+                useSenparcWeixin: false/* 下方手动执行 */);
 
             //进行自动注册
             registerService.UseSenparcWeixin(senparcWeixinSetting, weixinRegisterConfigure, autoRegisterAllPlatforms);

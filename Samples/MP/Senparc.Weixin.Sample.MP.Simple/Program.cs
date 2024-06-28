@@ -1,3 +1,5 @@
+using Senparc.Weixin.MP.AdvancedAPIs.MerChant;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -43,6 +45,12 @@ app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageH
 });
 
 #endregion
+
+#endregion
+
+#region 高级接口调用示例
+
+app.MapGroup("/").MapGet("/jac", () => int.MaxValue);
 
 #endregion
 

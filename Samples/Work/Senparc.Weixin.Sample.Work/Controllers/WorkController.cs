@@ -31,7 +31,7 @@ using Senparc.Weixin.Sample.Work.MessageHandlers;
 using Senparc.Weixin.Work;
 using Senparc.Weixin.Work.Entities;
 
-namespace Senparc.Weixin.Sample.Net6.Controllers
+namespace Senparc.Weixin.Sample.Net8.Controllers
 {
     /// <summary>
     /// 企业号对接测试

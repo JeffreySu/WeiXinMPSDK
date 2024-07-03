@@ -21,13 +21,13 @@ using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.TenPay.V2;
 
-//DPBMARK MP
+
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Helpers;
 //DPBMARK_END
 
-namespace Senparc.Weixin.Sample.Net6.Controllers
+namespace Senparc.Weixin.Sample.Net8.Controllers
 {
     /// <summary>
     /// 根据官方的Webforms Demo改写，所以可以看到直接result +=)之类的用法，实际项目中不提倡这么做。
@@ -477,7 +477,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             return View();
         }
 
-        //DPBMARK MP
+        
         public ActionResult SharedAddress()
         {
             var accessToken = AccessTokenContainer.TryGetAccessToken(TenPayInfo.AppId, "49b71198b776e18521659a32a97501a6");

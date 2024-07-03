@@ -38,7 +38,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.Sample.Net6.Controllers
+namespace Senparc.Weixin.Sample.Net8.Controllers
 {
     /// <summary>
     /// 企业号对接测试

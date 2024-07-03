@@ -9,7 +9,7 @@ using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 using System;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.Sample.Net6.Controllers
+namespace Senparc.Weixin.Sample.Net8.Controllers
 {
     public class AsyncMethodsController : BaseController
     {

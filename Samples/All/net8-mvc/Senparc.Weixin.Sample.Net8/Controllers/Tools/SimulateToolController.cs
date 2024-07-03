@@ -37,7 +37,7 @@ using Senparc.CO2NET.Cache;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 
-namespace Senparc.Weixin.Sample.Net6.Controllers
+namespace Senparc.Weixin.Sample.Net8.Controllers
 {
     /// <summary>
     /// 消息模拟器

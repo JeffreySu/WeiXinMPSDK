@@ -24,7 +24,7 @@ using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.AdvancedAPIs;
-//DPBMARK MP
+
 using Senparc.Weixin.Sample.TenPayV3.Filters;
 using Senparc.Weixin.Sample.TenPayV3.Models;
 using Senparc.Weixin.Sample.TenPayV3.Utilities;
@@ -94,7 +94,7 @@ namespace Senparc.Weixin.Sample.TenPayV3.Controllers
             var state = string.Format("{0}|{1}", productId, hc);
             string url = null;
 
-            url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);//   -- DPBMARK MP DPBMARK_END
+            url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);//
 
             if (url.IsNullOrEmpty())
             {
@@ -208,7 +208,7 @@ namespace Senparc.Weixin.Sample.TenPayV3.Controllers
 
         #endregion
 
-        //DPBMARK MP
+        
         #region OAuth授权
         public ActionResult OAuthCallback(string code, string state, string returnUrl)
         {

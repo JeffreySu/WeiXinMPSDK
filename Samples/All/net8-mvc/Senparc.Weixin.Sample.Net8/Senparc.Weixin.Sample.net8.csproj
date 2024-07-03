@@ -2,17 +2,17 @@
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
-		<Version>6.9.0</Version>
+		<Version>6.11.0</Version>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>35e58786-0820-4cde-b1ff-f4c6198d00f7</UserSecretsId>
 		<PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="App_Data\cert\**" />
-	  <Content Remove="App_Data\cert\**" />
-	  <EmbeddedResource Remove="App_Data\cert\**" />
-	  <None Remove="App_Data\cert\**" />
+		<Compile Remove="App_Data\cert\**" />
+		<Content Remove="App_Data\cert\**" />
+		<EmbeddedResource Remove="App_Data\cert\**" />
+		<None Remove="App_Data\cert\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -34,21 +34,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\..\src\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.net8.csproj" />
-		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.CsRedis\Senparc.Weixin.Cache.CsRedis.net8.csproj" />
-		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.net8.csproj" />
-		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.net8.csproj" />
-		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.MP.Middleware\Senparc.Weixin.MP.Middleware.net8.csproj" />
-		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.net8.csproj" />
-		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net8.csproj" />
-		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.net8.csproj" />
-		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.TenPayV3\Senparc.Weixin.TenPayV3.net8.csproj" />
-		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay.net8.csproj" />
-		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.Work.Middleware\Senparc.Weixin.Work.Middleware.net8.csproj" />
-		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.net8.csproj" />
-		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.WxOpen.Middleware\Senparc.Weixin.WxOpen.Middleware.net8.csproj" />
-		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net8.csproj" />
-		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net8.csproj" />
+		<!-- 添加所有模块引用 -->
+		<ProjectReference Include="..\..\..\..\src\Senparc.Weixin.All\Senparc.Weixin.All.csproj" />
+
 		<ProjectReference Include="..\..\Senparc.Weixin.Sample.CommonService\Senparc.Weixin.Net8Sample.CommonService.csproj" />
 	</ItemGroup>
 

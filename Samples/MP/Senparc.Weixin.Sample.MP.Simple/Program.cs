@@ -36,7 +36,7 @@ var registerService = app.UseSenparcWeixin(app.Environment,
 app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
 {
     //获取默认微信配置
-    var weixinSetting = Senparc.Weixin.Config.SenparcWeixinSetting;
+    var weixinSetting = Senparc.Weixin.Config.SenparcWeixinSetting.Items["OpenVip"];
 
     //[必须] 设置微信配置
     options.AccountSettingFunc = context => weixinSetting;
@@ -56,7 +56,6 @@ app.MapGroup("/").MapGet("/TryApi", async () =>
     //演示获取已关注用户的 OpenId（分批获取的第一批）
 
     var weixinSetting = Senparc.Weixin.Config.SenparcWeixinSetting.MpSetting;
-    var result = new StringBuilder();
     var users = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(weixinSetting.WeixinAppId, null);
 
     Console.WriteLine($"展示前 {users.count} 个 OpenId");

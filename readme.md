@@ -43,11 +43,13 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 ## 🔔 公告
 
+> [!TIP]
 > 🔥 AI 聊天机器人微信集成 Sample 已上线！[查看](/Samples%20with%20AI)<br>
 > 🎬 <img src="https://github.com/JeffreySu/WeiXinMPSDK/assets/2281927/ed01231d-6c18-455d-9385-46e421662697" width="400" /> <br>
 `Scott Hansleman 关于 AI 话题的专访（2024 年盛派 3.14 开放日活动）` [查看视频](https://www.bilibili.com/video/BV1NE421K78D/)<br/>
 <!-- > 📺 <img src="https://github.com/JeffreySu/WeiXinMPSDK/assets/2281927/743f3019-c96b-4b61-acdb-d1834947d5d0" width="400" /><br />
 在 2024 微软 MVP 全球峰会上有幸采访到 Scott Hanselman，并交流了一部分有关 AI 的话题，我们将会在 2024 年 4 月 13 日的“盛派 3.14 技术开放日”活动上再次进行对话，深入交流关于 AI 和 Agent 对未来软件行业以及开源软件的影响，欢迎大家关注！[查看视频](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%BE%AE%E8%BD%AF-MVP-%E5%85%A8%E7%90%83%E5%B3%B0%E4%BC%9A%E9%87%87%E8%AE%BF-Scott-Hanselman)<br/>-->
+> [!NOTE]
 > ⚡ Sample 已支持 .NET 8.0（向下兼容），[点击这里查看](/Samples/All/net8-mvc)！<br/>
 > 🔒 [微信支付 V3 模块（V1.0）](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3)已上线！[Nuget](https://www.nuget.org/packages/Senparc.Weixin.TenPayV3)<br>
 > 🎠 全面支持长文本自动分片发送，更多：[《顺应 AIGC 应用，自动“续航”回复超长文本消息》](https://www.cnblogs.com/szw/p/weixin-large-text-response.html)<br/>
@@ -66,15 +68,15 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 微信支付 V3（推荐） | https://sdk.weixin.senparc.com/Docs/TenPayV3/
 微信支付 V2（不推荐） | https://sdk.weixin.senparc.com/Docs/TenPayV2/
 
-> 说明：<br>
+> [!NOTE]
 > 1、上述分模块示例中，同时包含了文档及可以立即运行的代码模板（只需要配置微信参数，无需修改任何代码）。
-> 1、示例中的配置、注册、接口调用方法均一致，只要学会其中一个模块开发，就可以举一反三。以下的 Hello World 示例也以公众号为例，可以延伸到所有其他模块。<br>
-> 2、[/docs](/docs/) 目录中提供了更完整的开发说明文档，供进阶开发使用，[点击查看](/docs/)。 <br>
-> 3、对应于微信不同平台，Senparc.Weixin SDK 已经将各模块解耦并独立发布，为了简化引用，您也可以直接引用 [Senparc.Weixin.All](https://www.nuget.org/packages/Senparc.Weixin.All)，自动引用所有模块。
+> 2、示例中的配置、注册、接口调用方法均一致，只要学会其中一个模块开发，就可以举一反三。以下的 Hello World 示例也以公众号为例，可以延伸到所有其他模块。<br>
+> 3、[/docs](/docs/) 目录中提供了更完整的开发说明文档，供进阶开发使用，[点击查看](/docs/)。 <br>
+> 4、对应于微信不同平台，Senparc.Weixin SDK 已经将各模块解耦并独立发布，为了简化引用，您也可以直接引用 [Senparc.Weixin.All](https://www.nuget.org/packages/Senparc.Weixin.All)，自动引用所有模块。
 	
 ## 🚀 Hello World ：用 3 句代码开启你的微信开发之旅！
 
-> 说明：<br>
+> [!NOTE]
 > 1、下述源码位于 [`/Samples/MP/`](/Samples/MP/) 文件夹，以微信公众号为例。学会公众号就可以举一反三使用其他模块，基本用法一致（小程序、企业微信、微信支付等）。<br>
 > 2、如需查看其他模块或集成示例，可以查看位于 [`/Samples/`](/Samples/) 文件夹下的其他独立 Sample，或 [`/Samples/All/`](/Samples/All/) 文件夹下的集成 Sample（进阶）。
 
@@ -102,7 +104,7 @@ var registerService = app.UseSenparcWeixin(app.Environment, null, null, register
 ``` C#
 await CustomApi.SendTextAsync("AppId", "OpenId", "Hello World!");
 ```
-> 提示：<br>
+> [!NOTE]
 > 1. Senparc.Weixin SDK 将全生命周期自动托管 AccessToken，因此开发过程只需提供 AppId，无需操心 AccessToken 过期等问题。<br>
 > 2. AppId 等注册信息可从 `Senparc.Weixin.Config.SenparcWeixinSetting` 中自动获取，相关参数在 `appsettings.json` 中配置。
 > 3. 以上方法也支持同步方法：Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText() 。
@@ -239,7 +241,7 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 |--|--|--|
 | .NET Framework 4.6.2+      |  .NET Standard 2.0 / 2.1  |   .NET 8.0，向下兼容 .NET 5.0-7.0
 
-> 提示：<br>
+> [!WARNING]
 > 1. 自 2019 年 5 月 1 日起，.NET Framework 3.5 及 4.0 停止更新，最后一个 .NET Framework 3.5 + 4.0 稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.6.15)。<br>
 > 2. 自 2022 年 4 月 3 日起，.NET Framework 4.5 升级为 4.6.2，最后一个 .NET Framework 4.5 的稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.17.9)。<br>
 > 3. 如果您还在使用 .NET Framework，建议您在 2027 年 1 月 12 日之间，将 .NET Framework 应用升级至 .NET Framework 4.8+，彼时官方将停止对 .NET Framework 4.6.2 的支持（[查看](https://learn.microsoft.com/en-us/lifecycle/products/microsoft-net-framework)）。<br>
@@ -744,4 +746,5 @@ and limitations under the License.
 ```
 Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
+> [!TIP]
 > 100% 开源，支持商用。

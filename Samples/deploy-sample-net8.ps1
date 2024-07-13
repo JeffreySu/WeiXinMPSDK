@@ -1,4 +1,4 @@
-# deploy.ps1  
+# deploy-sample-net8.ps1  
 param (  
     [string]$sourcePath,  
     [string]$destinationPath,  
@@ -18,7 +18,7 @@ function Copy-Files {
     )  
   
     # 使用SCP命令上传文件  
-    $scpCommand = "scp -i $privateKey -r $source $username@$server:$destination"  
+    $scpCommand = "scp -i `${privateKey} -r `${source} `${username}@`${server}:${destination}"  
     Invoke-Expression $scpCommand  
 }  
   

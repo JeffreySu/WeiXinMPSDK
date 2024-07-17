@@ -86,7 +86,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 ``` C#
 builder.Services.AddSenparcWeixinServices(builder.Configuration);
 ```
-> 对应于 Startup.cs 的 ConfigureServices() 方法内。
+> 如果您使用的是旧格式的 Startup.cs 文件，上述代码对应于 Startup.cs 的 ConfigureServices() 方法内。
 
 2、 <strong>在 Program.cs 的 builder.Build() 下方启用配置：</strong>
 ``` C#

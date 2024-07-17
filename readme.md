@@ -113,7 +113,7 @@ await CustomApi.SendTextAsync("AppId", "OpenId", "Hello World!");
 > [!TIP]
 > 1. Senparc.Weixin SDK 将全生命周期自动托管 AccessToken，因此开发过程只需提供 AppId，无需操心 AccessToken 过期等问题。<br>
 > 2. AppId 等注册信息可从 `Senparc.Weixin.Config.SenparcWeixinSetting` 中自动获取，相关参数在 `appsettings.json` 中配置。<br>
-> 3. 以上方法也支持同步方法：Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText() 。<br>
+> 3. 以上方法也支持同步方法：`Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText()`。<br>
 > 4. 所有接口命名空间均参照官方 API 路径规则定义，且参数命名方式尽量与文档保持一致（特别是返回参数），以方便开发者在源码中快速查找定位、提升测试效率、降低 bug 发生的可能性。
 
 > [!TIP]

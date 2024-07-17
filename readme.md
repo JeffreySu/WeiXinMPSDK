@@ -69,7 +69,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 微信支付 V2（不推荐） | https://sdk.weixin.senparc.com/Docs/TenPayV2/
 
 > [!NOTE]
-> 1、上述分模块示例中，同时包含了文档及可以立即运行的代码模板（只需要配置微信参数，无需修改任何代码）。
+> 1、上述分模块示例中，同时包含了文档及可以立即运行的代码模板（只需要配置微信参数，无需修改任何代码）。<br>
 > 2、示例中的配置、注册、接口调用方法均一致，只要学会其中一个模块开发，就可以举一反三。以下的 Hello World 示例也以公众号为例，可以延伸到所有其他模块。<br>
 > 3、[/docs](/docs/) 目录中提供了更完整的开发说明文档，供进阶开发使用，[点击查看](/docs/)。 <br>
 > 4、对应于微信不同平台，Senparc.Weixin SDK 已经将各模块解耦并独立发布，为了简化引用，您也可以直接引用 [Senparc.Weixin.All](https://www.nuget.org/packages/Senparc.Weixin.All)，自动引用所有模块。
@@ -77,7 +77,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 ## 🚀 Hello World ：用 3 句代码开启你的微信开发之旅！
 
 > [!NOTE]
-> 1、下述源码位于 [`/Samples/MP/`](/Samples/MP/) 文件夹，以微信公众号为例。学会公众号就可以举一反三使用其他模块，基本用法一致（小程序、企业微信、微信支付等）。<br>
+> 1、下述源码位于 [`/Samples/MP/Senparc.Weixin.Sample.MP`](/Samples/MP/Senparc.Weixin.Sample.MP) 文件夹，以微信公众号为例。学会公众号就可以举一反三使用其他模块，基本用法一致（小程序、企业微信、微信支付等）。<br>
 > 2、如需查看其他模块或集成示例，可以查看位于 [`/Samples/`](/Samples/) 文件夹下的其他独立 Sample，或 [`/Samples/All/`](/Samples/All/) 文件夹下的集成 Sample（进阶）。
 
 
@@ -86,7 +86,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 ``` C#
 builder.Services.AddSenparcWeixinServices(builder.Configuration);
 ```
-> 对应于 Startup.cs 的 ConfigureServices() 方法内。
+> 如果您使用的是旧格式的 Startup.cs 文件，上述代码对应于 Startup.cs 的 ConfigureServices() 方法内。
 
 2、 <strong>在 Program.cs 的 builder.Build() 下方启用配置：</strong>
 ``` C#
@@ -97,20 +97,27 @@ var registerService = app.UseSenparcWeixin(app.Environment, null, null, register
     register.RegisterMpAccount(weixinSetting, "【盛派网络小助手】公众号");
 });
 ```
-> 对应于 Startup.cs 的 Configure() 方法内。
+> - 如果您使用的是旧格式的 Startup.cs 文件，上述代码对应于 Startup.cs 的 Configure() 方法内。
+> - 如果您希望系统自动注册所有配置好的账号，只需上述方法最后追加一个 `autoRegisterAllPlatforms: true` 的设置即可（需要引用 `Senparc.Weixin.All` 包）：
+> ```C#
+> var registerService = app.UseSenparcWeixin(app.Environment, null, null, register => { },
+>     (register, weixinSetting) => { /* 无需手动注册 */ },
+>     autoRegisterAllPlatforms: true /* 自动注册所有平台 */
+> );
 
 ### 调用高级接口（只需 1 句代码）：
 可在程序任意位置调用接口（以客服接口为例）：
 ``` C#
 await CustomApi.SendTextAsync("AppId", "OpenId", "Hello World!");
 ```
-> [!NOTE]
+> [!TIP]
 > 1. Senparc.Weixin SDK 将全生命周期自动托管 AccessToken，因此开发过程只需提供 AppId，无需操心 AccessToken 过期等问题。<br>
-> 2. AppId 等注册信息可从 `Senparc.Weixin.Config.SenparcWeixinSetting` 中自动获取，相关参数在 `appsettings.json` 中配置。
-> 3. 以上方法也支持同步方法：Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText() 。
+> 2. AppId 等注册信息可从 `Senparc.Weixin.Config.SenparcWeixinSetting` 中自动获取，相关参数在 `appsettings.json` 中配置。<br>
+> 3. 以上方法也支持同步方法：`Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText()`。<br>
 > 4. 所有接口命名空间均参照官方 API 路径规则定义，且参数命名方式尽量与文档保持一致（特别是返回参数），以方便开发者在源码中快速查找定位、提升测试效率、降低 bug 发生的可能性。
 
-至此，您已经可以举一反三调用所有微信模块的接口啦！更多技能请继续往下看。
+> [!TIP]
+> 至此，您已经可以举一反三调用所有微信模块的接口啦！更多技能请继续往下看。
 
 ### 如何使用公众号消息对话能力？
 公众号默认提供了对话窗口，可以发送文字、图片、语音等不同类型的信息和程序互动。

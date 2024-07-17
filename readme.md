@@ -77,7 +77,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 ## 🚀 Hello World ：用 3 句代码开启你的微信开发之旅！
 
 > [!NOTE]
-> 1、下述源码位于 [`/Samples/MP/`](/Samples/MP/) 文件夹，以微信公众号为例。学会公众号就可以举一反三使用其他模块，基本用法一致（小程序、企业微信、微信支付等）。<br>
+> 1、下述源码位于 [`/Samples/MP/Senparc.Weixin.Sample.MP`](/Samples/MP/Senparc.Weixin.Sample.MP) 文件夹，以微信公众号为例。学会公众号就可以举一反三使用其他模块，基本用法一致（小程序、企业微信、微信支付等）。<br>
 > 2、如需查看其他模块或集成示例，可以查看位于 [`/Samples/`](/Samples/) 文件夹下的其他独立 Sample，或 [`/Samples/All/`](/Samples/All/) 文件夹下的集成 Sample（进阶）。
 
 
@@ -97,7 +97,13 @@ var registerService = app.UseSenparcWeixin(app.Environment, null, null, register
     register.RegisterMpAccount(weixinSetting, "【盛派网络小助手】公众号");
 });
 ```
-> 对应于 Startup.cs 的 Configure() 方法内。
+> - 如果您使用的是旧格式的 Startup.cs 文件，上述代码对应于 Startup.cs 的 Configure() 方法内。
+> - 如果您希望系统自动注册所有配置好的账号，只需上述方法最后追加一个 `autoRegisterAllPlatforms: true` 的设置即可（需要引用 `Senparc.Weixin.All` 包）：
+> ```C#
+> var registerService = app.UseSenparcWeixin(app.Environment, null, null, register => { },
+>     (register, weixinSetting) => { /* 无需手动注册 */ },
+>     autoRegisterAllPlatforms: true /* 自动注册所有平台 */
+> );
 
 ### 调用高级接口（只需 1 句代码）：
 可在程序任意位置调用接口（以客服接口为例）：

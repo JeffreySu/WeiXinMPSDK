@@ -38,8 +38,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.IO;
 using System.Net.Http;
+using System.Reflection.Emit;
 using System.Threading;
 using System.Threading.Tasks;
+using Org.BouncyCastle.Crypto.Parameters;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
 
@@ -122,7 +124,21 @@ namespace Senparc.Weixin.TenPayV3
             //return $"mchid=\"{merchantId}\",nonce_str=\"{nonce}\",timestamp=\"{timestamp}\",serial_no=\"{serialNo}\",signature=\"{signature}\"";
 
             //TODO:此处重构使用ISenparcWeixinSettingForTenpayV3
-            string signature = TenPaySignHelper.CreateSign(message, _tenpayV3Setting.TenPayV3_PrivateKey);
+            string signature = string.Empty;
+            if(_tenpayV3Setting.EncryptionType == CertType.SM.ToString())
+            {
+                byte[] keyData = Convert.FromBase64String(_tenpayV3Setting.TenPayV3_PrivateKey);
+
+                ECPrivateKeyParameters eCPrivateKeyParameters = SMPemHelper.LoadPrivateKeyToParameters(keyData);
+
+                byte[] signBytes = GmHelper.SignSm3WithSm2(eCPrivateKeyParameters, message);
+
+                signature = Convert.ToBase64String(signBytes);
+            }
+            else
+            {
+                signature = TenPaySignHelper.CreateSign(message, _tenpayV3Setting.TenPayV3_PrivateKey);
+            }
 
             return $"mchid=\"{_tenpayV3Setting.TenPayV3_MchId}\",nonce_str=\"{nonce}\",timestamp=\"{timestamp}\",serial_no=\"{_tenpayV3Setting.TenPayV3_SerialNumber}\",signature=\"{signature}\"";
         }

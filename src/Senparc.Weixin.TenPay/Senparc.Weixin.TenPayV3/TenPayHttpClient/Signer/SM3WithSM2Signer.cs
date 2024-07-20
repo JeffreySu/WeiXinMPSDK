@@ -31,11 +31,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
-using Org.BouncyCastle.Crypto.Digests;
-using Org.BouncyCastle.Utilities.Encoders;
+using Org.BouncyCastle.Crypto.Parameters;
+using Senparc.Weixin.TenPayV3.Helpers;
 using System;
-using System.Net.Sockets;
-using System.Text;
 
 namespace Client.TenPayHttpClient.Signer
 {
@@ -53,13 +51,12 @@ namespace Client.TenPayHttpClient.Signer
         public string Sign(string message, string privateKey = null)
         {
             byte[] keyData = Convert.FromBase64String(privateKey);
-            //加密
-            SM3Digest sm3 = new SM3Digest();
-            sm3.BlockUpdate(keyData, 0, keyData.Length);
-            byte[] md = new byte[sm3.GetDigestSize()];
-            sm3.DoFinal(md, 0);
-            string PasswdDigest = new UTF8Encoding().GetString(Hex.Encode(md));
-            return PasswdDigest;
+
+            ECPrivateKeyParameters eCPrivateKeyParameters = SMPemHelper.LoadPrivateKeyToParameters(keyData);
+
+            byte[] signBytes = GmHelper.SignSm3WithSm2(eCPrivateKeyParameters, message);
+
+            return Convert.ToBase64String(signBytes);
         }
     }
 }

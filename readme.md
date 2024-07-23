@@ -25,6 +25,7 @@ Senparc.Weixin —— 微信 .NET SDK
 [![Senparc.Weixin.Cache.Redis](https://img.shields.io/nuget/vpre/Senparc.Weixin.Cache.Redis?label=Senparc.Weixin.Cache.Redis)](https://www.nuget.org/packages/Senparc.Weixin.Cache.Redis/)
 [![Senparc.Weixin.Cache.CsRedis](https://img.shields.io/nuget/vpre/Senparc.Weixin.Cache.CsRedis?label=Senparc.Weixin.Cache.CsRedis)](https://www.nuget.org/packages/Senparc.Weixin.Cache.CsRedis/)
 [![Senparc.Weixin.Cache.Memcached](https://img.shields.io/nuget/vpre/Senparc.Weixin.Cache.Memcached?label=Senparc.Weixin.Cache.Memcached)](https://www.nuget.org/packages/Senparc.Weixin.Cache.Memcached/)
+[![Senparc.Weixin.Cache.Dapr](https://img.shields.io/nuget/vpre/Senparc.Weixin.Cache.Dapr?label=Senparc.Weixin.Cache.Dapr)](https://www.nuget.org/packages/Senparc.Weixin.Cache.Dapr/)
 [![Senparc.WebSocket](https://img.shields.io/nuget/vpre/Senparc.WebSocket?label=Senparc.WebSocket)](https://www.nuget.org/packages/Senparc.WebSocket/)
 
 

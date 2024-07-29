@@ -58,6 +58,20 @@ namespace Senparc.Weixin.AspNet.RegisterServices
     public static class RegisterServiceExtension
     {
 #if !NET462
+
+        /// <summary>
+        /// 注册 IServiceCollection，并返回 RegisterService，开始注册流程
+        /// </summary>
+        /// <param name="serviceCollection">IServiceCollection</param>
+        /// <param name="configuration">IConfiguration</param>
+        /// <param name="env">IHostingEnvironment</param>
+        /// <param name="autoCreateApi">是否自动创建 API</param>
+        /// <returns></returns>
+        public static IServiceCollection AddSenparcWeixin(this IServiceCollection serviceCollection, IConfiguration configuration, IHostEnvironment env, bool autoCreateApi = false)
+        {
+            return AddSenparcWeixin(serviceCollection, configuration, env, autoCreateApi);
+        }
+
         /// <summary>
         /// 注册 IServiceCollection，并返回 RegisterService，开始注册流程
         /// </summary>

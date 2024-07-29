@@ -83,7 +83,7 @@ namespace Senparc.Weixin.Sample.Net8
              * https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs
              */
 
-            services.AddSenparcWeixinServices(Configuration, Env)//Senparc.Weixin 注册（必须）
+            services.AddSenparcWeixin(Configuration, Env)//Senparc.Weixin 注册（必须）
                     .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>() //Senparc.WebSocket 注册（按需）
                     .AddSenparcAI(Configuration) //注册 Senparc.AI，提供 AI 能力（可选）
                     ;

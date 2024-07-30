@@ -58,7 +58,6 @@ namespace Senparc.Weixin.AspNet.RegisterServices
     public static class RegisterServiceExtension
     {
 #if !NET462
-
         /// <summary>
         /// 注册 IServiceCollection，并返回 RegisterService，开始注册流程
         /// </summary>

@@ -9,7 +9,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddMemoryCache();
 
 //Senparc.Weixin 注册（必须）
-builder.Services.AddSenparcWeixinServices(builder.Configuration);
+builder.Services.AddSenparcWeixin(builder.Configuration);
 
 #endregion
 

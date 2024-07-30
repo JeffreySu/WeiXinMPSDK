@@ -14,7 +14,7 @@
         说明：
         <ol>
             <li><code>builder.Services.AddMemoryCache()</code> Senparc.Weixin 支持本机缓存、Redis、Memcached 等多种缓存策略，默认使用本机缓存，此时需要激活本地缓存。</li>
-            <li><code>builder.Services.AddSenparcWeixinServices(builder.Configuration)</code> 用于完成 Senparc.Weixin 的注册。</li>
+            <li><code>builder.Services.AddSenparcWeixin(builder.Configuration)</code> 用于完成 Senparc.Weixin 的注册。</li>
             <li><code>app.UseSenparcWeixin()</code> 方法用于配置和启用 Senparc.Weixin。</li>
         </ol>
     </p>

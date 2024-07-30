@@ -290,7 +290,7 @@ namespace Senparc.Weixin.Sample.Net8
                             //注册最新微信支付版本（V3）（可注册多个）
                             .RegisterTenpayV3(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
                             /* 特别注意：
-                             * 在 services.AddSenparcWeixinServices() 代码中，已经自动为当前的 
+                             * 在 services.AddSenparcWeixin() 代码中，已经自动为当前的 
                              * senparcWeixinSetting  对应的TenpayV3 配置进行了 Cert 证书配置，
                              * 如果此处注册的微信支付信息和默认 senparcWeixinSetting 信息不同，
                              * 请在 ConfigureServices() 方法中使用 services.AddCertHttpClient() 

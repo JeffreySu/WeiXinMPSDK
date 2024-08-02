@@ -329,7 +329,15 @@ namespace Senparc.Weixin.Entities
         /// </summary>
         public virtual string TenPayV3_WxOpenTenpayNotify { get; set; }
 
+        /// <summary>
+        /// 设置HTTP头Authrization的加密认证类型
+        /// </summary>
+        public virtual string EncryptionType { get; set; }
 
+        /// <summary>
+        /// 设置HTTP头Authrization的认证类型
+        /// </summary>
+        public virtual string AuthrizationType { get; set; }
         #endregion
 
         #endregion

@@ -54,7 +54,12 @@
 
     修改标识：XiaoPoTian - 20231119
     修改描述：v3.18.1 添加枚举“企业客户标签变更事件”（CHANGE_EXTERNAL_Tag）
+    
+    修改标识：IcedMango - 20240229
+    修改描述：添加枚举“企业微信会话存档-产生会话回调事件”（MSGAUDIT_NOTIFY）
 
+    修改标识：LofyLiu - 20240315
+    修改描述：添加枚举“模板卡片点击回调事件”
 ----------------------------------------------------------------*/
 
 using static System.Net.WebRequestMethods;
@@ -204,8 +209,18 @@ namespace Senparc.Weixin.Work
         /// 自建应用审批状态变化通知回调
         /// <para><see href="https://developer.work.weixin.qq.com/document/path/97175"/></para>
         /// </summary>
-        OPEN_APPROVAL_CHANGE
+        OPEN_APPROVAL_CHANGE,
         #endregion
+        
+        /// <summary>
+        /// 会话存档-产生会话回调事件
+        /// </summary>
+        MSGAUDIT_NOTIFY,
+
+        /// <summary>
+        /// 模板卡片点击回调事件
+        /// </summary>
+        TEMPLATE_CARD_CLICK,
     }
 
     public enum TencentGender

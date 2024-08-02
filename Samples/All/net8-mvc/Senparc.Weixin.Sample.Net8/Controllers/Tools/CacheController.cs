@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.Sample.Net6.Controllers
+namespace Senparc.Weixin.Sample.Net8.Controllers
 {
     [Serializable]
     internal class TestContainerBag1 : BaseContainerBag
@@ -64,11 +64,11 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             switch (id)
             {
                 
-                case 1://DPBMARK Redis
+                case 1:
                     sb.Append("使用Redis（StackExchange.Redis）<br>");
                     CacheStrategyFactory.RegisterObjectCacheStrategy(() => Senparc.CO2NET.Cache.Redis.RedisObjectCacheStrategy.Instance);
                     break;//DPBMARK_END
-                case 2://DPBMARK Redis
+                case 2:
                     sb.Append("使用Redis（CsRedis）<br>");
                     CacheStrategyFactory.RegisterObjectCacheStrategy(() => Senparc.CO2NET.Cache.CsRedis.RedisObjectCacheStrategy.Instance);
                     break;//DPBMARK_END
@@ -126,10 +126,10 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
                 IContainerCacheStrategy containerCacheStrategy;
                 switch (id)
                 {
-                    case 1://DPBMARK Redis
+                    case 1:
                         containerCacheStrategy = Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy.Instance;
                         break;//DPBMARK_END
-                    case 2://DPBMARK Redis
+                    case 2:
                         containerCacheStrategy = Senparc.Weixin.Cache.CsRedis.RedisContainerCacheStrategy.Instance;
                         break;//DPBMARK_END
                     case -1:

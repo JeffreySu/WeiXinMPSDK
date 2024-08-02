@@ -30,7 +30,7 @@ using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Sample.Net6.Models;
+using Senparc.Weixin.Sample.Net8.Models;
 using Senparc.Weixin.TenPay.V3;
 using System;
 using System.IO;
@@ -44,15 +44,15 @@ using ZXing;
 using ZXing.Common;
 using TenPayOldV3 = Senparc.Weixin.TenPay.V3.TenPayV3;
 
-//DPBMARK MP
+
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.Sample.CommonService.TemplateMessage;
-using Senparc.Weixin.Sample.Net6.Filters;
+using Senparc.Weixin.Sample.Net8.Filters;
 //DPBMARK_END
 
 
-namespace Senparc.Weixin.Sample.Net6.Controllers
+namespace Senparc.Weixin.Sample.Net8.Controllers
 {
     /* 
      * 友情提示：微信支付正式上线之前，请进行沙箱测试！ 
@@ -110,7 +110,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             var state = string.Format("{0}|{1}", productId, hc);
             string url = null;
 
-            url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);//   -- DPBMARK MP DPBMARK_END
+            url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);//
 
             if (url.IsNullOrEmpty())
             {
@@ -124,7 +124,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
             return View();
         }
 
-        //DPBMARK MP
+        
         #region JsApi支付
 
         public ActionResult OAuthCallback(string code, string state, string returnUrl)
@@ -1045,7 +1045,7 @@ namespace Senparc.Weixin.Sample.Net6.Controllers
 
         #endregion
 
-        //DPBMARK MP
+        
         #region H5支付
 
         /// <summary>

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using ZXing;
 using ZXing.Common;
 
-namespace Senparc.Weixin.Sample.Net6.Controllers
+namespace Senparc.Weixin.Sample.Net8.Controllers
 {
     /// <summary>
     /// 二维码批量下载

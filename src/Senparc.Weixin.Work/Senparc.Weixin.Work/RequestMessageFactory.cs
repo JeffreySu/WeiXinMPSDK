@@ -27,6 +27,9 @@
 
     修改标识：Senparc - 20231026
     修改描述：v3.17.0 成员对外联系 > 客户消息通知处理
+    
+   修改标识：IcedMango - 20240229
+   修改描述：添加: 企业微信会话存档-产生会话回调事件（MSGAUDIT_NOTIFY）
 
 ----------------------------------------------------------------*/
 
@@ -133,6 +136,9 @@ namespace Senparc.Weixin.Work
                                     break;
                                 case "MSG_AUDIT_APPROVED":
                                     requestMessage = new RequestMessageEvent_Change_ExternalContact_MsgAudit();
+                                    break;
+                                case "MSGAUDIT_NOTIFY":
+                                    requestMessage = new RequestMessageEvent_MsgAuditNotify();
                                     break;
                                 case "CREATE":
                                     requestMessage = new RequestMessageEvent_Change_ExternalContact_Create();

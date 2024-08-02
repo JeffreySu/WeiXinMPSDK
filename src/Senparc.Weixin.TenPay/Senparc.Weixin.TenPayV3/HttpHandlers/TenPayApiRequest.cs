@@ -86,7 +86,9 @@ namespace Senparc.Weixin.TenPayV3
 
             // 外部
             if (_setHeaderAction != null)
+            {
                 _setHeaderAction(client);
+            }
         }
 
         /// <summary>

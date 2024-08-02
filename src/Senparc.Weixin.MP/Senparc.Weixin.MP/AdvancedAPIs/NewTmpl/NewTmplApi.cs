@@ -172,7 +172,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.NewTmpl
         /// <param name="templateId">所需下发的订阅模板id</param>
         /// <param name="data">模板内容，格式形如 { "key1": { "value": any }, "key2": { "value": any } }</param>
         /// <param name="page">跳转网页时填写</param>
-        /// <param name="miniProgram">	跳转小程序时填写</param>
+        /// <param name="miniProgram">跳转小程序时填写</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         public static WxJsonResult BizSend(string accessTokenOrAppId, string toUser, string templateId,
@@ -205,7 +205,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.NewTmpl
         /// <param name="templateId">所需下发的订阅模板id</param>
         /// <param name="data">模板内容，格式形如 { "key1": { "value": any }, "key2": { "value": any } }</param>
         /// <param name="page">跳转网页时填写</param>
-        /// <param name="miniProgram">	跳转小程序时填写</param>
+        /// <param name="miniProgram">跳转小程序时填写</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         public static async Task<WxJsonResult> BizSendAsync(string accessTokenOrAppId, string toUser, string templateId,

@@ -66,8 +66,16 @@ namespace Senparc.Weixin.AspNet.RegisterServices
         /// <param name="env">IHostingEnvironment</param>
         /// <param name="autoCreateApi">是否自动创建 API</param>
         /// <returns></returns>
-        public static IServiceCollection AddSenparcWeixinServices(this IServiceCollection serviceCollection, IConfiguration configuration, IHostEnvironment env, bool autoCreateApi = false)
+        public static IServiceCollection AddSenparcWeixin(this IServiceCollection serviceCollection, IConfiguration configuration, IHostEnvironment env, bool autoCreateApi = false)
         {
+
+            //// 加载 appsettings.json
+            //configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            //      .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+
+            //// 加载环境变量
+            //configuration.AddEnvironmentVariables();
+
 
             serviceCollection.Configure<SenparcWeixinSetting>(configuration.GetSection("SenparcWeixinSetting"));
 
@@ -146,6 +154,19 @@ namespace Senparc.Weixin.AspNet.RegisterServices
   }
   */
             #endregion
+        }
+
+        /// <summary>
+        /// 注册 IServiceCollection，并返回 RegisterService，开始注册流程
+        /// </summary>
+        /// <param name="serviceCollection">IServiceCollection</param>
+        /// <param name="configuration">IConfiguration</param>
+        /// <param name="env">IHostingEnvironment</param>
+        /// <param name="autoCreateApi">是否自动创建 API</param>
+        /// <returns></returns>
+        public static IServiceCollection AddSenparcWeixinServices(this IServiceCollection serviceCollection, IConfiguration configuration, IHostEnvironment env, bool autoCreateApi = false)
+        {
+            return AddSenparcWeixin(serviceCollection, configuration, env, autoCreateApi);
         }
 
 

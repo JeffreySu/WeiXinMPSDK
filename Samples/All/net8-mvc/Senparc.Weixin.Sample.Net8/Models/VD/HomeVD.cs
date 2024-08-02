@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.Sample.Net6.Models.VD
+namespace Senparc.Weixin.Sample.Net8.Models.VD
 {
     public class Home_IndexVD
     {

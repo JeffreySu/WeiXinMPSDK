@@ -57,5 +57,10 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.XPay
         /// 广告金发放原因， 0:广告激励，1:通用赠送
         /// </summary>
         public int fund_type { get; set; }
+
+        /// <summary>
+        /// 广告金发放ID
+        /// </summary>
+        public string fund_id { get; set; }
     }
 }

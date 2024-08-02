@@ -11,7 +11,7 @@ Senparc.Weixin SDK 项目贡献者
 
 贡献者名单
 -----------
-> 更新时间：2022年8月4日<br>
+> 更新时间：2024 年 4 月 12 日<br>
 > 排名不分先后 <br>
 >	1	.	2881099 	<br>
 >	2	.	183328251	<br>
@@ -382,4 +382,55 @@ Senparc.Weixin SDK 项目贡献者
 >	367	.	kb虎小子    <br>
 >	368	.	上善若水    <br>
 >	369	.	卖卤鸽的    <br>
+>	370	.	JaneConan    <br>
+>	371	.	Guili95    <br>
+>	372	.	IcedMango    <br>
+>	373	.	bocblca    <br>
+>	374	.	NiuHongBo    <br>
+>	375	.	harry7988    <br>
+>	376	.	dukecheng    <br>
+>	377	.	TonWin618    <br>
+>	378	.	qideqian    <br>
+>	379	.	xiaopotian1990    <br>
+>	380	.	funvh    <br>
+>	381	.	zhu-xb    <br>
+>	382	.	MrSummerFang    <br>
+>	383	.	bbkingz    <br>
+>	384	.	LonLin8    <br>
+>	385	.	One0627   <br>
+>	386	.	ssjun    <br>
+>	387	.	jacoat    <br>
+>	388	.	tiansfather    <br>
+>	389	.	bonnlee2016    <br>
+>	390	.	wahahage    <br>
+>	391	.	bl93014    <br>
+>	392	.	programmer-zheng    <br>
+>	393	.	WanderingGrass    <br>
+>	394	.	Dengchenlu    <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

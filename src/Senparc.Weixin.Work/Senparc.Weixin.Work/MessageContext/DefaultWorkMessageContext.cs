@@ -24,6 +24,12 @@
 
     修改标识：XiaoPoTian - 20231119
     修改描述：v3.18.1 添加“企业客户标签变更事件回调通知”（CHANGE_EXTERNAL_Tag）
+    
+    修改标识：IcedMango - 20240229
+    修改描述：添加: 企业微信会话存档-产生会话回调事件（MSGAUDIT_NOTIFY）
+
+    修改标识：LofyLiu - 20240315
+    修改描述：添加: 模板卡片回调事件
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;
@@ -226,6 +232,14 @@ namespace Senparc.Weixin.Work.MessageContexts
                             break;
                         case "OPEN_APPROVAL_CHANGE":
                             requestMessage = new RequestMessageEvent_OpenApprovalChange();
+                            break;
+                        // 企业微信会话存档-产生会话回调事件(msgaudit_notify)
+                        // 文档: https://developer.work.weixin.qq.com/document/path/95039
+                        case "MSGAUDIT_NOTIFY":
+                            requestMessage = new RequestMessageEvent_MsgAuditNotify();
+                            break;
+                        case "TEMPLATE_CARD_EVENT": //模板卡片回调事件
+                            requestMessage = new RequestMessageEvent_TemplateCardClick();
                             break;
                         default://其他意外类型（也可以选择抛出异常）
                             requestMessage = new RequestMessageEventBase();

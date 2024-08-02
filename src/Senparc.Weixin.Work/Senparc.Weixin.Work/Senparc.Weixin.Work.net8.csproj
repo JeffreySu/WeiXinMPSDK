@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.18.2</Version>
+    <Version>3.22.1</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -12,14 +12,14 @@
 			Senparc.Weixin SDK 开源项目：
 			https://github.com/JeffreySu/WeiXinMPSDK
 		</Description>
-    <Copyright>Senparc Copyright © 2004~2023</Copyright>
+    <Copyright>Senparc Copyright © 2004~2024</Copyright>
     <PackageTags>微信,weixin,公众号,企业微信,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,企业号</PackageTags>
     <Authors>Jeffrey Su</Authors>
     <Owners>Senparc</Owners>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
     <Title>Senparc.Weixin.Work.dll</Title>
-    <Summary>微信公众号SDK for C#</Summary>
+    <Summary>微信 SDK for .NET / C#</Summary>
     <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
     <PackageIcon>icon.jpg</PackageIcon>
     <PackageReleaseNotes>
@@ -208,6 +208,8 @@
 		v3.18.1
 		1、Work v3.18.1 新加企业微信企业客户标签回调事件（PR #2948）
 		2、修复：ApprovalCreateTemplateRequest.template_names 命名更正为：template_name（Issue #2949）
+		v3.19.0 企业微信中间件增加:会话存档-产生会话回调事件回调 （PR #2993）
+		v3.20.0 模板卡片点击回调事件（PR #2997）
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>
@@ -256,7 +258,7 @@
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="2.4.0" />
+    <PackageReference Include="Senparc.NeuChar" Version="2.4.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net8.csproj" />

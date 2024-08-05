@@ -23,22 +23,16 @@
     <PackageIcon>icon.jpg</PackageIcon>
     <PackageReleaseNotes>
 			v4.9
-			丰富了JSON通讯的消息返回类型
+			1、丰富了JSON通讯的消息返回类型
+			2、修复MessageAgent状态记录的一个bug
+			3、修复二维码事件bug
+			4、24小时推送限制改为48小时
 
-			修复MessageAgent状态记录的一个bug
+			v4.10 添加媒体文件上传、下载接口
 
-			修复二维码事件bug
+			v4.11 添加AccessTokenContainer管理容器
 
-			24小时推送限制改为48小时
-
-			v4.10
-			添加媒体文件上传、下载接口
-
-			v4.11
-			添加AccessTokenContainer管理容器
-
-			v.4.12
-			添加更多AccessTokenContainer下的方法
+			v.4.12 添加更多AccessTokenContainer下的方法
 
 			v4.13.0 添加高级接口中的语种选择
 

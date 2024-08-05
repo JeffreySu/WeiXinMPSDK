@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20210819
     修改描述：重构使用TenPaySignHelper类验证签名
 
+    修改标识：Senparc - 20240802
+    修改描述：v1.4.2 完善 SM 相关方法
+
 ----------------------------------------------------------------*/
 
 using Microsoft.AspNetCore.Http;
@@ -90,9 +93,15 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="associated_data">附加数据包 可空</param>
         /// <returns></returns>
         // TODO: 本方法持续测试
-        private async Task<T> AesGcmDecryptGetObjectAsync<T>(string aes_key = null, string nonce = null, string associated_data = null) where T : ReturnJsonBase, new()
+        [Obsolete($"请使用 {nameof(DecryptGetObjectAsync)} 方法")]
+        public async Task<T> AesGcmDecryptGetObjectAsync<T>(string aes_key = null, string nonce = null, string associated_data = null) where T : ReturnJsonBase, new()
         {
-            aes_key ??= _tenpayV3Setting.TenPayV3_APIv3Key;
+            return await AesGcmDecryptGetObjectAsync<T>(nonce: nonce, associated_data: associated_data);
+        }
+
+        private async Task<T> AesGcmDecryptGetObjectAsync<T>(string nonce = null, string associated_data = null) where T : ReturnJsonBase, new()
+        {
+            var aes_key = _tenpayV3Setting.TenPayV3_APIv3Key;
             nonce ??= NotifyRequest.resource.nonce;
             associated_data ??= NotifyRequest.resource.associated_data;
 
@@ -120,10 +129,10 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="nonce">加密的随机串 可空</param>
         /// <param name="associated_data">附加数据包 可空</param>
         /// <returns></returns>
-        // TODO: 本方法持续测试
-        private async Task<T> Sm4GcmDecryptGetObjectAsync<T>(string aes_key = null, string nonce = null, string associated_data = null) where T : ReturnJsonBase, new()
+            // TODO: 本方法持续测试
+        private async Task<T> Sm4GcmDecryptGetObjectAsync<T>(string nonce = null, string associated_data = null) where T : ReturnJsonBase, new()
         {
-            aes_key ??= _tenpayV3Setting.TenPayV3_APIv3Key;
+            var aes_key = _tenpayV3Setting.TenPayV3_APIv3Key;
             nonce ??= NotifyRequest.resource.nonce;
             associated_data ??= NotifyRequest.resource.associated_data;
 
@@ -152,15 +161,15 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="associated_data">附加数据包 可空</param>
         /// <returns></returns>
         // TODO: 本方法持续测试
-        public async Task<T> DecryptGetObjectAsync<T>(string aes_key = null, string nonce = null, string associated_data = null) where T : ReturnJsonBase, new()
+        public async Task<T> DecryptGetObjectAsync<T>(/*string aes_key = null, */string nonce = null, string associated_data = null) where T : ReturnJsonBase, new()
         {
-            if(_tenpayV3Setting.EncryptionType == CertType.RSA.ToString())
+            if (_tenpayV3Setting.EncryptionType == CertType.RSA.ToString())
             {
-                return await AesGcmDecryptGetObjectAsync<T>(aes_key, nonce, associated_data);
+                return await AesGcmDecryptGetObjectAsync<T>(nonce, associated_data);
             }
             else
             {
-                return await Sm4GcmDecryptGetObjectAsync<T>(aes_key, nonce, associated_data);
+                return await Sm4GcmDecryptGetObjectAsync<T>(nonce, associated_data);
             }
         }
     }

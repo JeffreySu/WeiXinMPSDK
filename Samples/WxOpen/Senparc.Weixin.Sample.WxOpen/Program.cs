@@ -9,7 +9,7 @@ builder.Services.AddMemoryCache();
 #region 添加微信配置（一行代码）
 
 //Senparc.Weixin 注册（必须）
-builder.Services.AddSenparcWeixinServices(builder.Configuration);
+builder.Services.AddSenparcWeixin(builder.Configuration);
 
 #endregion
 

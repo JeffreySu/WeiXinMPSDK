@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-        <Version>16.21.4</Version>
-        <AssemblyName>Senparc.Weixin.MP</AssemblyName>
-        <RootNamespace>Senparc.Weixin.MP</RootNamespace>
-        <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
-        <Description>
+  <PropertyGroup>
+    <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Version>16.22.1</Version>
+    <AssemblyName>Senparc.Weixin.MP</AssemblyName>
+    <RootNamespace>Senparc.Weixin.MP</RootNamespace>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <Description>
 			微信 SDK - 微信公众号 模块
 
 			Senparc.Weixin SDK 开源项目：

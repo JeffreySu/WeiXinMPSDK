@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <Version>2024.6.31</Version>
-        <LangVersion>10.0</LangVersion>
-        <AssemblyName>Senparc.Weixin.All</AssemblyName>
-        <RootNamespace>Senparc.Weixin.All</RootNamespace>
-        <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
-        <Description>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Version>2024.8.1.1-beta1</Version>
+    <LangVersion>10.0</LangVersion>
+    <AssemblyName>Senparc.Weixin.All</AssemblyName>
+    <RootNamespace>Senparc.Weixin.All</RootNamespace>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <Description>
 			微信 SDK - Senparc.Weixin SDK 集成模块
 
 			此模块将自动引用所有 Senparc.Weixin SDK 系列的工具包，包括：
@@ -69,7 +69,8 @@
         <ProjectReference Include="..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.CsRedis\Senparc.Weixin.Cache.CsRedis.net8.csproj" />
         <ProjectReference Include="..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.net8.csproj" />
         <ProjectReference Include="..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.net8.csproj" />
-        <ProjectReference Include="..\Senparc.Weixin.MP.Middleware\Senparc.Weixin.MP.Middleware.net8.csproj" />
+		<ProjectReference Include="..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Dapr\Senparc.Weixin.Cache.Dapr.net8.csproj" />
+		<ProjectReference Include="..\Senparc.Weixin.MP.Middleware\Senparc.Weixin.MP.Middleware.net8.csproj" />
         <ProjectReference Include="..\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.net8.csproj" />
         <ProjectReference Include="..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net8.csproj" />
         <ProjectReference Include="..\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.net8.csproj" />

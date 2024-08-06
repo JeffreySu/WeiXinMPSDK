@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net8.0</TargetFrameworks>
-        <Version>7.14.5</Version>
-        <AssemblyName>Senparc.Weixin.MP.MvcExtension</AssemblyName>
-        <RootNamespace>Senparc.Weixin.MP.MvcExtension</RootNamespace>
-        <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
-        <Description>
+  <PropertyGroup>
+    <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net8.0</TargetFrameworks>
+    <Version>7.15.1</Version>
+    <AssemblyName>Senparc.Weixin.MP.MvcExtension</AssemblyName>
+    <RootNamespace>Senparc.Weixin.MP.MvcExtension</RootNamespace>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <Description>
 			微信 SDK - Senparc.Weixin.MP.MvcExtension 模块
 
 			Senparc.Weixin SDK 开源项目：
@@ -92,7 +92,6 @@
 			1、提供 .Net Core 3.0 独立版本
 			2、修改 .NET Core 3.0 条件编译下 Request.EnableRewind() 方法为 Request.EnableBuffering()
 			v7.11.5 删除 FixWeixinBugWeixinResult、WeixinResult 类，迁移到 Senparc.Weixin.AspNet 库中
-            [2024-08-06] v7.14.4 更新基础库，包括 Senparc.CO2NET 相关库、Senparc.AI
             [2024-08-06] v7.14.5 更新基础库，包括 Senparc.CO2NET 相关库、Senparc.AI
 </PackageReleaseNotes>
         <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>

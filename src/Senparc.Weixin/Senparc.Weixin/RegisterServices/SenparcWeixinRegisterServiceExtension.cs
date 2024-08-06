@@ -67,7 +67,7 @@ namespace Senparc.Weixin.RegisterServices
         /// <param name="serviceCollection">IServiceCollection</param>
         /// <param name="configuration">IConfiguration</param>
         /// <returns></returns>
-        public static IServiceCollection AddSenparcWeixinServices(this IServiceCollection serviceCollection, IConfiguration configuration, Action addCertHttpClient = null)
+        public static IServiceCollection AddSenparcWeixin(this IServiceCollection serviceCollection, IConfiguration configuration, Action addCertHttpClient = null)
         {
             serviceCollection.Configure<SenparcWeixinSetting>(configuration.GetSection("SenparcWeixinSetting"));
 
@@ -143,6 +143,17 @@ namespace Senparc.Weixin.RegisterServices
   }
   */
             #endregion
+        }
+
+        /// <summary>
+        /// 注册 IServiceCollection，并返回 RegisterService，开始注册流程
+        /// </summary>
+        /// <param name="serviceCollection">IServiceCollection</param>
+        /// <param name="configuration">IConfiguration</param>
+        /// <returns></returns>
+        public static IServiceCollection AddSenparcWeixinServices(this IServiceCollection serviceCollection, IConfiguration configuration, Action addCertHttpClient = null)
+        {
+            return AddSenparcWeixin(serviceCollection, configuration, addCertHttpClient);
         }
 
 

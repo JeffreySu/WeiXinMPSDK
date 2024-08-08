@@ -110,6 +110,12 @@ namespace Senparc.Weixin.Open
                     case RequestInfoType.notify_3rd_wxa_wxverify:
                         requestMessage = new RequestMessage3rdWxaWxVerify();
                         break;
+                    case RequestInfoType.order_path_apply_result_notify:
+                        requestMessage = new RequestMessageOrderPathApplyResultNotify();
+                        break;
+                    case RequestInfoType.order_path_audit_result_notify:
+                        requestMessage = new RequestMessageOrderPathAuditResultNotify();
+                        break;
                     default:
                         throw new UnknownRequestMsgTypeException(string.Format("InfoType：{0} 在RequestMessageFactory中没有对应的处理程序！", infoType), new ArgumentOutOfRangeException());//为了能够对类型变动最大程度容错（如微信目前还可以对公众账号suscribe等未知类型，但API没有开放），建议在使用的时候catch这个异常
                 }

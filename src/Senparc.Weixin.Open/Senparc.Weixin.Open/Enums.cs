@@ -137,7 +137,16 @@ namespace Senparc.Weixin.Open
         /// <summary>
         /// 小程序认证年审和过期能力限制提醒推送事件
         /// </summary>
-        notify_3rd_wxa_wxverify
+        notify_3rd_wxa_wxverify,
+
+        /// <summary>
+        /// 小程序订单页设置申请通知
+        /// </summary>
+        order_path_apply_result_notify,
+        /// <summary>
+        /// 小程序订单页设置审核结果通知
+        /// </summary>
+        order_path_audit_result_notify
 
     }
 

@@ -172,8 +172,8 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// 查询小程序是否已开通发货信息管理服务
         /// https://developers.weixin.qq.com/miniprogram/dev/platform-capabilities/business-capabilities/order-shipping/order-shipping.html#%E4%B8%83%E3%80%81%E6%9F%A5%E8%AF%A2%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%90%A6%E5%B7%B2%E5%BC%80%E9%80%9A%E5%8F%91%E8%B4%A7%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1
         /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="path">商户自定义跳转路径。</param>
+        /// <param name="accessToken">接口调用凭证</param>
+        /// <param name="appid">待查询小程序的 appid</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         public static IsTradeManagedJsonResult IsTradeManaged(string accessToken, string appid, int timeOut = Config.TIME_OUT)
@@ -184,6 +184,24 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 appid
             };
             return CommonJsonSend.Send<IsTradeManagedJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 查询小程序是否已完成交易结算管理确认
+        /// https://developers.weixin.qq.com/miniprogram/dev/platform-capabilities/business-capabilities/order-shipping/order-shipping.html#%E5%85%AB%E3%80%81%E6%9F%A5%E8%AF%A2%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%90%A6%E5%B7%B2%E5%AE%8C%E6%88%90%E4%BA%A4%E6%98%93%E7%BB%93%E7%AE%97%E7%AE%A1%E7%90%86%E7%A1%AE%E8%AE%A4
+        /// </summary>
+        /// <param name="accessToken">接口调用凭证</param>
+        /// <param name="appid">待查询小程序的 appid</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static IsTradeManagementConfirmationCompletedJsonResult IsTradeManagementConfirmationCompleted(string accessToken, string appid, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/sec/order/is_trade_management_confirmation_completed?access_token={0}", accessToken.AsUrlData());
+            var data = new
+            {
+                appid
+            };
+            return CommonJsonSend.Send<IsTradeManagementConfirmationCompletedJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
         #endregion
 
@@ -312,8 +330,8 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// 查询小程序是否已开通发货信息管理服务
         /// https://developers.weixin.qq.com/miniprogram/dev/platform-capabilities/business-capabilities/order-shipping/order-shipping.html#%E4%B8%83%E3%80%81%E6%9F%A5%E8%AF%A2%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%90%A6%E5%B7%B2%E5%BC%80%E9%80%9A%E5%8F%91%E8%B4%A7%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1
         /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="path">商户自定义跳转路径。</param>
+        /// <param name="accessToken">接口调用凭证</param>
+        /// <param name="appid">待查询小程序的 appid</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         public static async Task<IsTradeManagedJsonResult> IsTradeManagedAsync(string accessToken, string appid, int timeOut = Config.TIME_OUT)
@@ -324,6 +342,24 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 appid
             };
             return await CommonJsonSend.SendAsync<IsTradeManagedJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 查询小程序是否已完成交易结算管理确认
+        /// https://developers.weixin.qq.com/miniprogram/dev/platform-capabilities/business-capabilities/order-shipping/order-shipping.html#%E5%85%AB%E3%80%81%E6%9F%A5%E8%AF%A2%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%90%A6%E5%B7%B2%E5%AE%8C%E6%88%90%E4%BA%A4%E6%98%93%E7%BB%93%E7%AE%97%E7%AE%A1%E7%90%86%E7%A1%AE%E8%AE%A4
+        /// </summary>
+        /// <param name="accessToken">接口调用凭证</param>
+        /// <param name="appid">待查询小程序的 appid</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<IsTradeManagementConfirmationCompletedJsonResult> IsTradeManagementConfirmationCompletedAsync(string accessToken, string appid, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/sec/order/is_trade_management_confirmation_completed?access_token={0}", accessToken.AsUrlData());
+            var data = new
+            {
+                appid
+            };
+            return await CommonJsonSend.SendAsync<IsTradeManagementConfirmationCompletedJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
         #endregion
     }

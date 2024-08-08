@@ -189,6 +189,18 @@ namespace Senparc.Weixin.Open.MessageHandlers
                             ResponseMessageText = On3rdWxaWxVerifyRequest(requestMessage);
                         }
                         break;
+                    case RequestInfoType.order_path_apply_result_notify:
+                        {
+                            var requestMessage = RequestMessage as RequestMessageOrderPathApplyResultNotify;
+                            ResponseMessageText = OnOrderPathApplyResultNorifyRequest(requestMessage);
+                        }
+                        break;
+                    case RequestInfoType.order_path_audit_result_notify:
+                        {
+                            var requestMessage = RequestMessage as RequestMessageOrderPathAuditResultNotify;
+                            ResponseMessageText = OnOrderPathAuditResultNotifyRequest(requestMessage);
+                        }
+                        break;
                     default:
                         throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
                 }
@@ -210,6 +222,26 @@ namespace Senparc.Weixin.Open.MessageHandlers
 
         public virtual void OnExecuted()
         {
+        }
+
+        /// <summary>
+        /// 小程序订单页设置申请结果通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual string OnOrderPathApplyResultNorifyRequest(RequestMessageOrderPathApplyResultNotify requestMessage)
+        {
+            return "success";
+        }
+
+        /// <summary>
+        /// 小程序订单页设置申请审核结果通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual string OnOrderPathAuditResultNotifyRequest(RequestMessageOrderPathAuditResultNotify requestMessage)
+        {
+            return "success";
         }
 
         public virtual string On3rdWxaWxVerifyRequest(RequestMessage3rdWxaWxVerify requestMessage)

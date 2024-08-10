@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>4.19.1</Version>
-    <AssemblyName>Senparc.Weixin.Open</AssemblyName>
-    <RootNamespace>Senparc.Weixin.Open</RootNamespace>
-    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
-    <Description>
+    <PropertyGroup>
+        <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
+        <Version>4.20.0.0</Version>
+        <AssemblyName>Senparc.Weixin.Open</AssemblyName>
+        <RootNamespace>Senparc.Weixin.Open</RootNamespace>
+        <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+        <Description>
 			微信 SDK - 开放平台 模块
 
 			Senparc.Weixin SDK 开源项目：
@@ -225,6 +225,7 @@
 			v4.17.4 修复获取小程序申诉记录返回结果 / PR #2974
 			v4.17.5 修复微信认证事件通知 PR / #2979
             [2024-08-06] v4.18.4 更新基础库，包括 Senparc.CO2NET 相关库、Senparc.AI
+            [2024-08-11] v4.20.0.0 1、添加查询小程序是否已完成交易结算管理确认 2、添加第三方小程序订单页设置结果及审核结果事件通知 #3055 感谢 @mc7246
 </PackageReleaseNotes>
         <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     </PropertyGroup>

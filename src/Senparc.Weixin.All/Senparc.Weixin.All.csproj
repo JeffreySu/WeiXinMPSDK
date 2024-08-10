@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>2024.8.1.1-beta1</Version>
+    <Version>2024.8.11</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.All</AssemblyName>
     <RootNamespace>Senparc.Weixin.All</RootNamespace>
@@ -43,8 +43,9 @@
 			v2024.6.25 更新最新 MP、WxOpen
 			v2024.6.26 更新全自动注册方法 UseSenparcWeixin()
 			v2024.6.30 完善 UseSenparcWeixin() 方法
-            [2024-08-06] v2024.6.31 更新基础库，包括 Senparc.CO2NET 相关库、Senparc.AI
-</PackageReleaseNotes>
+			[2024-08-06] v2024.6.31 更新基础库，包括 Senparc.CO2NET 相关库、Senparc.AI
+			[2024-08-11] v2024.8.11 升级 Senparc.Weixin.Open
+		</PackageReleaseNotes>
         <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

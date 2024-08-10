@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20210819
     修改描述：重构使用TenPaySignHelper类验证签名
 
+    修改标识：Senparc - 20240802
+    修改描述：v1.4.2 完善 SM 相关方法
+
 ----------------------------------------------------------------*/
 
 using Microsoft.AspNetCore.Http;
@@ -90,9 +93,15 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="associated_data">附加数据包 可空</param>
         /// <returns></returns>
         // TODO: 本方法持续测试
+        [Obsolete($"请使用 {nameof(DecryptGetObjectAsync)} 方法")]
         public async Task<T> AesGcmDecryptGetObjectAsync<T>(string aes_key = null, string nonce = null, string associated_data = null) where T : ReturnJsonBase, new()
         {
-            aes_key ??= _tenpayV3Setting.TenPayV3_APIv3Key;
+            return await AesGcmDecryptGetObjectAsync<T>(nonce: nonce, associated_data: associated_data);
+        }
+
+        private async Task<T> AesGcmDecryptGetObjectAsync<T>(string nonce = null, string associated_data = null) where T : ReturnJsonBase, new()
+        {
+            var aes_key = _tenpayV3Setting.TenPayV3_APIv3Key;
             nonce ??= NotifyRequest.resource.nonce;
             associated_data ??= NotifyRequest.resource.associated_data;
 
@@ -110,6 +119,58 @@ namespace Senparc.Weixin.TenPayV3
             result.ResultCode = new TenPayApiResultCode($"{_httpContext.Response.StatusCode} / {_httpContext.Request.Method}", "", "", "", result.VerifySignSuccess == true);
 
             return result;
+        }
+
+        /// <summary>
+        /// 将返回的结果中的ciphertext进行SM4/GCM/NoPadding解反序列化为实体
+        /// 签名规则见微信官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_1_5.shtml
+        /// </summary>
+        /// <param name="aes_key">这里需要传入apiv3秘钥进行SM4/GCM/NoPadding解密 可空</param>
+        /// <param name="nonce">加密的随机串 可空</param>
+        /// <param name="associated_data">附加数据包 可空</param>
+        /// <returns></returns>
+            // TODO: 本方法持续测试
+        private async Task<T> Sm4GcmDecryptGetObjectAsync<T>(string nonce = null, string associated_data = null) where T : ReturnJsonBase, new()
+        {
+            var aes_key = _tenpayV3Setting.TenPayV3_APIv3Key;
+            nonce ??= NotifyRequest.resource.nonce;
+            associated_data ??= NotifyRequest.resource.associated_data;
+
+            var decrypted_string = GmHelper.Sm4DecryptGCM(aes_key, nonce, associated_data, NotifyRequest.resource.ciphertext);
+
+            T result = decrypted_string.GetObject<T>();
+
+            //验证请求签名
+            var wechatpayTimestamp = _httpContext.Request.Headers?["Wechatpay-Timestamp"];
+            var wechatpayNonce = _httpContext.Request.Headers?["Wechatpay-Nonce"];
+            var wechatpaySignature = _httpContext.Request.Headers?["Wechatpay-Signature"];
+            var wechatpaySerial = _httpContext.Request.Headers?["Wechatpay-Serial"];
+
+            result.VerifySignSuccess = await TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, Body, wechatpaySerial, this._tenpayV3Setting);
+            result.ResultCode = new TenPayApiResultCode($"{_httpContext.Response.StatusCode} / {_httpContext.Request.Method}", "", "", "", result.VerifySignSuccess == true);
+
+            return result;
+        }
+
+        /// <summary>
+        /// 将返回的结果中的ciphertext进行解密反序列化为实体
+        /// 签名规则见微信官方文档 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_1_5.shtml
+        /// </summary>
+        /// <param name="aes_key">这里需要传入apiv3秘钥进行解密 可空</param>
+        /// <param name="nonce">加密的随机串 可空</param>
+        /// <param name="associated_data">附加数据包 可空</param>
+        /// <returns></returns>
+        // TODO: 本方法持续测试
+        public async Task<T> DecryptGetObjectAsync<T>(/*string aes_key = null, */string nonce = null, string associated_data = null) where T : ReturnJsonBase, new()
+        {
+            if (_tenpayV3Setting.EncryptionType == CertType.RSA.ToString())
+            {
+                return await AesGcmDecryptGetObjectAsync<T>(nonce, associated_data);
+            }
+            else
+            {
+                return await Sm4GcmDecryptGetObjectAsync<T>(nonce, associated_data);
+            }
         }
     }
 }

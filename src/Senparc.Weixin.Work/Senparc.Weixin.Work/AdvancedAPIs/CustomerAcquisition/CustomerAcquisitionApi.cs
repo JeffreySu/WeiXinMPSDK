@@ -166,7 +166,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = string.Format(
-                    Config.ApiWorkHost + "/cgi-bin/externalcontact/customer_acquisition/create_link?access_token={0}",
+                    Config.ApiWorkHost + "/cgi-bin/externalcontact/customer_acquisition/delete_link?access_token={0}",
                     accessToken.AsUrlData());
 
                 var param = new
@@ -322,7 +322,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition
                 {
                     var url = string.Format(
                         Config.ApiWorkHost +
-                        "/cgi-bin/externalcontact/customer_acquisition/create_link?access_token={0}",
+                        "/cgi-bin/externalcontact/customer_acquisition/delete_link?access_token={0}",
                         accessToken.AsUrlData());
 
                     var param = new

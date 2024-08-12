@@ -1,4 +1,4 @@
-﻿#region Apache License Version 2.0
+#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
 Copyright 2024 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
@@ -20,43 +20,44 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2024 Senparc
- 
-    文件名：SM3WithSM2Signer.cs
 
-    
-    创建标识：MartyZane - 20240530
+    文件名：ModifyCustomerAcquisitionLinkRequest.cs
+    文件功能描述：编辑获客链接参数
 
-    修改标识：MartyZane - 20240530
-    修改描述：验证国密算法SM3WithSM2，修改返回标识为SM2-WITH-SM3
+    创建标识：IcedMango - 20240809
 
 ----------------------------------------------------------------*/
 
-using Org.BouncyCastle.Crypto.Parameters;
-using Senparc.Weixin.TenPayV3.Helpers;
-using System;
-
-namespace Client.TenPayHttpClient.Signer
+namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition.CustomerAcquisitionJson
 {
-    public class SM3WithSM2Signer : ISigner
+    /// <summary>
+    ///     编辑获客链接
+    /// </summary>
+    public class ModifyCustomerAcquisitionLinkRequest
     {
         /// <summary>
-        /// 返回同微信中Http请求头的Authrization的认证类型
+        ///     获客链接名称
         /// </summary>
-        /// <returns></returns>
-        public string GetAlgorithm()
-        {
-            return "SM2-WITH-SM3";
-        }
+        public string link_id { get; set; }
+        
+        /// <summary>
+        ///     获客链接名称
+        /// </summary>
+        public string link_name { get; set; }
 
-        public string Sign(string message, string privateKey = null)
-        {
-            byte[] keyData = Convert.FromBase64String(privateKey);
+        /// <summary>
+        ///     获客链接使用范围
+        /// </summary>
+        public CustomerAcquisitionRange range { get; set; }
 
-            ECPrivateKeyParameters eCPrivateKeyParameters = SMPemHelper.LoadPrivateKeyToParameters(keyData);
+        /// <summary>
+        ///     是否无需验证，默认为true
+        /// </summary>
+        public bool? skip_verify { get; set; }
 
-            byte[] signBytes = GmHelper.SignSm3WithSm2(eCPrivateKeyParameters, message);
-
-            return Convert.ToBase64String(signBytes);
-        }
+        /// <summary>
+        ///     获客链接_优先分配类型
+        /// </summary>
+        public CustomerAcquisitionPriority AcquisitionPriority { get; set; }
     }
 }

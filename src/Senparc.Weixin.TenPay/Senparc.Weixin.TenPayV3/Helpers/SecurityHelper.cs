@@ -44,23 +44,31 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// </summary>
         /// <param name="encryptCertificate"></param>
         /// <param name="apiV3Key"></param>
+        /// <param name="encryptionType"></param>
         /// <returns></returns>
-        public static string GetPublicKey(Encrypt_Certificate encryptCertificate, string apiV3Key)
+        public static string GetPublicKey(Encrypt_Certificate encryptCertificate, string apiV3Key, string encryptionType)
         {
-            var buff = Convert.FromBase64String(encryptCertificate.ciphertext);
-            var secret = Encoding.UTF8.GetBytes(apiV3Key);
-            var nonce = Encoding.UTF8.GetBytes(encryptCertificate.nonce);
-            var associatedData = Encoding.UTF8.GetBytes("certificate");
+            if (encryptionType == CertType.RSA.ToString())
+            {
+                var buff = Convert.FromBase64String(encryptCertificate.ciphertext);
+                var secret = Encoding.UTF8.GetBytes(apiV3Key);
+                var nonce = Encoding.UTF8.GetBytes(encryptCertificate.nonce);
+                var associatedData = Encoding.UTF8.GetBytes("certificate");
 
-            // 算法 AEAD_AES_256_GCM，C# 环境使用 BouncyCastle.Crypto.dll 类库实现
-            var cipher = new GcmBlockCipher(new AesEngine());
-            var aead = new AeadParameters(new KeyParameter(secret), 128, nonce, associatedData);
-            cipher.Init(false, aead);
+                // 算法 AEAD_AES_256_GCM，C# 环境使用 BouncyCastle.Crypto.dll 类库实现
+                var cipher = new GcmBlockCipher(new AesEngine());
+                var aead = new AeadParameters(new KeyParameter(secret), 128, nonce, associatedData);
+                cipher.Init(false, aead);
 
-            var data = new byte[cipher.GetOutputSize(buff.Length)];
-            var num = cipher.ProcessBytes(buff, 0, buff.Length, data, 0);
-            cipher.DoFinal(data, num);
-            return Encoding.UTF8.GetString(data);
+                var data = new byte[cipher.GetOutputSize(buff.Length)];
+                var num = cipher.ProcessBytes(buff, 0, buff.Length, data, 0);
+                cipher.DoFinal(data, num);
+                return Encoding.UTF8.GetString(data);
+            }
+            else
+            {
+                return GmHelper.Sm4DecryptGCM(apiV3Key, encryptCertificate.nonce, "certificate", encryptCertificate.ciphertext);
+            }
         }
 
         /// <summary>
@@ -68,14 +76,22 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// </summary>
         /// <param name="text"></param>
         /// <param name="publicKey"></param>
-        /// <param name="padding"></param>
+        /// <param name="encryptionType"></param>
         /// <returns></returns>
-        public static string Encrypt(string text, string publicKey, RSAEncryptionPadding padding)
+        public static string Encrypt(string text, string publicKey, string encryptionType)
         {
-            var x509 = new X509Certificate2(Encoding.UTF8.GetBytes(publicKey));
-            var rsa = x509.GetRSAPublicKey();
-            var buff = rsa.Encrypt(Encoding.UTF8.GetBytes(text), padding);
-            return Convert.ToBase64String(buff);
+            if (encryptionType == CertType.RSA.ToString())
+            {
+                var x509 = new X509Certificate2(Encoding.UTF8.GetBytes(publicKey));
+                var rsa = x509.GetRSAPublicKey();
+                var buff = rsa.Encrypt(Encoding.UTF8.GetBytes(text), RSAEncryptionPadding.OaepSHA1);
+                return Convert.ToBase64String(buff);
+            }
+            else
+            {
+                ECPublicKeyParameters eCPublicKeyParameters = SMPemHelper.LoadPublicKeyToParameters(Encoding.UTF8.GetBytes(publicKey));
+                return GmHelper.Sm2Encrypt(eCPublicKeyParameters, text);
+            }
         }
 
         /// <summary>
@@ -83,8 +99,8 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// </summary>
         /// <param name="request"></param>
         /// <param name="publicKey"></param>
-        /// <param name="padding"></param>
-        public static void FieldEncrypt(object request, string publicKey, RSAEncryptionPadding padding)
+        /// <param name="encryptionType"></param>
+        public static void FieldEncrypt(object request, string publicKey, string encryptionType)
         {
             var pis = request.GetType().GetProperties();
             foreach (var pi in pis)
@@ -95,14 +111,14 @@ namespace Senparc.Weixin.TenPayV3.Helpers
 
                 if (!(pi.PropertyType.IsValueType || pi.PropertyType.Name.StartsWith("String") || typeof(IEnumerable).IsAssignableFrom(pi.PropertyType)))
                 {
-                    FieldEncrypt(value, publicKey, padding);
+                    FieldEncrypt(value, publicKey, encryptionType);
                     continue;
                 }
 
                 if ((pi.GetCustomAttributes(typeof(FieldEncryptAttribute), true)?.Count() ?? 0) <= 0)
                     continue;
 
-                var encryptValue = Encrypt(value.ToString(), publicKey, padding);
+                var encryptValue = Encrypt(value.ToString(), publicKey, encryptionType);
                 pi.SetValue(request, encryptValue);
             }
         }
@@ -112,16 +128,17 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// </summary>
         /// <param name="request"></param>
         /// <param name="apiV3Key"></param>
+        /// <param name="encryptionType"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public static void FieldEncrypt(object request, CertificatesResultJson certificate, string apiV3Key)
+        public static void FieldEncrypt(object request, CertificatesResultJson certificate, string apiV3Key, string encryptionType)
         {
             if (!(certificate?.ResultCode?.Success ?? false))
                 throw new Exception(certificate?.ResultCode?.ErrorMessage ?? "basePayApis.CertificatesAsync 获取证书失败");
 
-            var publicKey = GetPublicKey(certificate.data?.FirstOrDefault()?.encrypt_certificate, apiV3Key);
+            var publicKey = GetPublicKey(certificate.data?.FirstOrDefault()?.encrypt_certificate, apiV3Key, encryptionType);
             if (!string.IsNullOrWhiteSpace(publicKey))
-                FieldEncrypt(request, publicKey, RSAEncryptionPadding.OaepSHA1);
+                FieldEncrypt(request, publicKey, encryptionType);
         }
 
         /// <summary>
@@ -129,14 +146,15 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// </summary>
         /// <param name="request"></param>
         /// <param name="apiV3Key"></param>
+        /// <param name="encryptionType"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public static async Task FieldEncryptAsync(object request, string apiV3Key)
+        public static async Task FieldEncryptAsync(object request, string apiV3Key, string encryptionType)
         {
             // name 敏感信息加密
             var basePayApis = new BasePayApis();
             var certificate = await basePayApis.CertificatesAsync();
-            FieldEncrypt(request, certificate, apiV3Key);
+            FieldEncrypt(request, certificate, apiV3Key, encryptionType);
         }
     }
 }

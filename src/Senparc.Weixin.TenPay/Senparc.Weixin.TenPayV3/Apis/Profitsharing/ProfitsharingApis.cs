@@ -111,10 +111,12 @@ namespace Senparc.Weixin.TenPayV3.Apis
 
             // name加密
             var basePayApis = new BasePayApis();
-            var certificateResponse = await basePayApis.CertificatesAsync();
+
+            string algorithmType = _tenpayV3Setting.EncryptionType == CertType.SM.ToString() ? "SM2" : "RSA";
+            var certificateResponse = await basePayApis.CertificatesAsync(algorithmType);
             foreach (var each in data.receivers)
             {
-                SecurityHelper.FieldEncrypt(each, certificateResponse, _tenpayV3Setting.TenPayV3_APIv3Key);
+                SecurityHelper.FieldEncrypt(each, certificateResponse, _tenpayV3Setting.TenPayV3_APIv3Key, _tenpayV3Setting.EncryptionType);
             }
 
             var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/{1}profitsharing/orders", data.brand_mchid);
@@ -314,8 +316,9 @@ namespace Senparc.Weixin.TenPayV3.Apis
 
             // name加密
             var basePayApis = new BasePayApis();
-            var certificateResponse = await basePayApis.CertificatesAsync();
-            SecurityHelper.FieldEncrypt(data, certificateResponse, _tenpayV3Setting.TenPayV3_APIv3Key);
+            string algorithmType = _tenpayV3Setting.EncryptionType == CertType.SM.ToString() ? "SM2" : "RSA";
+            var certificateResponse = await basePayApis.CertificatesAsync(algorithmType);
+            SecurityHelper.FieldEncrypt(data, certificateResponse, _tenpayV3Setting.TenPayV3_APIv3Key, _tenpayV3Setting.EncryptionType);
 
             var url = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/{1}profitsharing/receivers/add", data.brand_mchid);
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting, httpClient =>

@@ -96,7 +96,7 @@ namespace Senparc.Weixin.TenPayV3.TenPayHttpClient
             var url = ReturnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/pay/transactions/jsapi");
 
             HttpClient hc = null;//注入
-            TenPayHttpClient tenPayApiRequest = new(_httpClient, _tenpayV3Setting);
+            TenPayHttpClient tenPayApiRequest = new(_httpClient, _tenpayV3Setting, _tenpayV3Setting.EncryptionType == CertType.SM.ToString() ? CertType.SM : CertType.RSA);
             return await tenPayApiRequest.SendAsync<JsApiReturnJson>(url, data, timeOut);
         }
     }

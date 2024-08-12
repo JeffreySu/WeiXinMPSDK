@@ -25,16 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：Redis 容器缓存策略。
 
 
-    创建标识：Senparc - 20160308
-
-    修改标识：Senparc - 20160808
-    修改描述：v0.2.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
-    
-    修改标识：Senparc - 20160812
-    修改描述：v0.2.1  解决Container无法注册的问题
-
-    修改标识：Senparc - 20170205
-    修改描述：v0.2.0 重构分布式锁
+    创建标识：Senparc - 20240731
 
 ----------------------------------------------------------------*/
 

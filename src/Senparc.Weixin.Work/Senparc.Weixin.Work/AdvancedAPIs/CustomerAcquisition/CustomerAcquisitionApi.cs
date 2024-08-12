@@ -50,7 +50,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition
         /// <param name="cursor">用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.GetCustomerAcquisitionLinkList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.GetLinkList", true)]
         public static GetCustomerAcquisitionLinkListResult GetLinkList(string accessTokenOrAppKey,
             int limit = 100, string cursor = "", int timeOut = Config.TIME_OUT)
         {
@@ -79,7 +79,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition
         /// <param name="link_id">获客链接id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.GetCustomerAcquisitionLinkList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.GetLinkDetail", true)]
         public static GetCustomerAcquisitionLinkDetailResult GetLinkDetail(string accessTokenOrAppKey,
             string link_id = "", int timeOut = Config.TIME_OUT)
         {
@@ -108,7 +108,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition
         /// <param name="link_id">获客链接id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.GetCustomerAcquisitionLinkList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.CreateLink", true)]
         public static CreateCustomerAcquisitionLinkResult CreateLink(string accessTokenOrAppKey,
             CreateCustomerAcquisitionLinkRequest param, int timeOut = Config.TIME_OUT)
         {
@@ -134,7 +134,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition
         /// <param name="link_id">获客链接id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.GetCustomerAcquisitionLinkList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.ModifyLink", true)]
         public static CreateCustomerAcquisitionLinkResult ModifyLink(string accessTokenOrAppKey,
             ModifyCustomerAcquisitionLinkRequest param, int timeOut = Config.TIME_OUT)
         {
@@ -159,7 +159,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition
         /// <param name="link_id">获客链接id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.GetCustomerAcquisitionLinkList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.DeleteLink", true)]
         public static WorkJsonResult DeleteLink(string accessTokenOrAppKey, string link_id,
             int timeOut = Config.TIME_OUT)
         {
@@ -192,7 +192,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition
         /// <param name="cursor">用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.GetCustomerAcquisitionLinkList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.GetLinkListAsync", true)]
         public static async Task<GetCustomerAcquisitionLinkListResult> GetLinkListAsync(string accessTokenOrAppKey,
             int limit = 100, string cursor = "", int timeOut = Config.TIME_OUT)
         {
@@ -221,7 +221,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition
         /// <param name="link_id">获客链接id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.GetCustomerAcquisitionLinkList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.GetLinkDetailAsync", true)]
         public static async Task<GetCustomerAcquisitionLinkDetailResult> GetLinkDetailAsync(string accessTokenOrAppKey,
             string link_id = "", int timeOut = Config.TIME_OUT)
         {
@@ -253,7 +253,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition
         /// <param name="link_id">获客链接id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.GetCustomerAcquisitionLinkList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.CreateLinkAsync", true)]
         public static async Task<CreateCustomerAcquisitionLinkResult> CreateLinkAsync(string accessTokenOrAppKey,
             CreateCustomerAcquisitionLinkRequest param, int timeOut = Config.TIME_OUT)
         {
@@ -284,7 +284,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition
         /// <param name="link_id">获客链接id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.GetCustomerAcquisitionLinkList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.ModifyLinkAsync", true)]
         public static async Task<CreateCustomerAcquisitionLinkResult> ModifyLinkAsync(string accessTokenOrAppKey,
             ModifyCustomerAcquisitionLinkRequest param, int timeOut = Config.TIME_OUT)
         {
@@ -314,7 +314,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition
         /// <param name="link_id">获客链接id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.GetCustomerAcquisitionLinkList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "CustomerAcquisitionApi.DeleteLinkAsync", true)]
         public static async Task<WorkJsonResult> DeleteLinkAsync(string accessTokenOrAppKey, string link_id,
             int timeOut = Config.TIME_OUT)
         {

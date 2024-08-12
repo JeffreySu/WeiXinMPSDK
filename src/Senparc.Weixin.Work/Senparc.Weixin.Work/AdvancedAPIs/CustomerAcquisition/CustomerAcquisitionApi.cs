@@ -38,6 +38,9 @@ using Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition.CustomerAcquisitionJs
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition
 {
+    /// <summary>
+    /// 获客链接管理Api
+    /// </summary>
     public class CustomerAcquisitionApi
     {
         #region 同步方法

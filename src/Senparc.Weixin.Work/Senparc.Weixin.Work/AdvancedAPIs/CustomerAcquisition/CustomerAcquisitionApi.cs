@@ -118,7 +118,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition
                     Config.ApiWorkHost + "/cgi-bin/externalcontact/customer_acquisition/create_link?access_token={0}",
                     accessToken.AsUrlData());
 
-                if (param.skip_verify == null) param.skip_verify = false;
+                if (param.skip_verify == null) param.skip_verify = true;
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<CreateCustomerAcquisitionLinkResult>(accessToken,
                     url,
@@ -144,7 +144,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition
                     Config.ApiWorkHost + "/cgi-bin/externalcontact/customer_acquisition/create_link?access_token={0}",
                     accessToken.AsUrlData());
 
-                if (param.skip_verify == null) param.skip_verify = false;
+                if (param.skip_verify == null) param.skip_verify = true;
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<CreateCustomerAcquisitionLinkResult>(accessToken,
                     url,
@@ -264,7 +264,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition
                         "/cgi-bin/externalcontact/customer_acquisition/create_link?access_token={0}",
                         accessToken.AsUrlData());
 
-                    if (param.skip_verify == null) param.skip_verify = false;
+                    if (param.skip_verify == null) param.skip_verify = true;
 
                     return await Senparc.Weixin.CommonAPIs.CommonJsonSend
                         .SendAsync<CreateCustomerAcquisitionLinkResult>(
@@ -295,7 +295,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition
                         "/cgi-bin/externalcontact/customer_acquisition/create_link?access_token={0}",
                         accessToken.AsUrlData());
 
-                    if (param.skip_verify == null) param.skip_verify = false;
+                    if (param.skip_verify == null) param.skip_verify = true;
 
                     return await Senparc.Weixin.CommonAPIs.CommonJsonSend
                         .SendAsync<CreateCustomerAcquisitionLinkResult>(

@@ -189,6 +189,15 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = await OnEvent_Subscribe_Msg_SentRequestAsync(RequestMessage as RequestMessageEvent_Subscribe_Msg_Sent).ConfigureAwait(false);
                     break;
 
+                case Event.user_info_modified:
+                    responseMessage = await OnEvent_UserInfoModifiedRequesAsync(RequestMessage as RequestMessageEvent_UserInfoModified).ConfigureAwait(false);
+                    break;
+                case Event.user_authorization_revoke:
+                    responseMessage = await OnEvent_UserAuthorizationRevokeRequestAsync(RequestMessage as RequestMessageEvent_UserAuthorizationRevoke).ConfigureAwait(false);
+                    break;
+                case Event.user_authorization_cancellation:
+                    responseMessage = await OnEvent_UserAuthorizationCancellationRequestAsync(RequestMessage as RequestMessageEvent_UserAuthorizationCancellation).ConfigureAwait(false);
+                    break;
 
                 #region 微信认证事件推送
 
@@ -256,6 +265,34 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         #region Event下属分类，接收事件方法
+
+        /// <summary>
+        /// 【异步方法】Event事件类型请求之用户资料变更
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_UserInfoModifiedRequesAsync(RequestMessageEvent_UserInfoModified requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_UserInfoModifiedRequest(requestMessage)).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】Event事件类型请求之用户撤回
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_UserAuthorizationRevokeRequestAsync(RequestMessageEvent_UserAuthorizationRevoke requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_UserAuthorizationRevokeRequest(requestMessage)).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】Event事件类型请求之用户完成注销
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_UserAuthorizationCancellationRequestAsync(RequestMessageEvent_UserAuthorizationCancellation requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_UserAuthorizationCancellationRequest(requestMessage)).ConfigureAwait(false);
+        }
 
         /// <summary>
         /// 【异步方法】Event事件类型请求之ENTER

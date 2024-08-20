@@ -192,6 +192,16 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = OnEvent_Subscribe_Msg_SentRequest(RequestMessage as RequestMessageEvent_Subscribe_Msg_Sent);
                     break;
 
+                case Event.user_info_modified:
+                    responseMessage = OnEvent_UserInfoModifiedRequest(RequestMessage as RequestMessageEvent_UserInfoModified);
+                    break;
+                case Event.user_authorization_revoke:
+                    responseMessage = OnEvent_UserAuthorizationRevokeRequest(RequestMessage as RequestMessageEvent_UserAuthorizationRevoke);
+                    break;
+                case Event.user_authorization_cancellation:
+                    responseMessage = OnEvent_UserAuthorizationCancellationRequest(RequestMessage as RequestMessageEvent_UserAuthorizationCancellation);
+                    break;
+
                 #region 卡券回调
 
                 case Event.giftcard_pay_done:
@@ -256,6 +266,34 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         #region Event下属分类，接收事件方法
+
+        /// <summary>
+        /// Event事件类型请求之用户资料变更
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_UserInfoModifiedRequest(RequestMessageEvent_UserInfoModified requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// Event事件类型请求之用户撤回
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_UserAuthorizationRevokeRequest(RequestMessageEvent_UserAuthorizationRevoke requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// Event事件类型请求之用户完成注销
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_UserAuthorizationCancellationRequest(RequestMessageEvent_UserAuthorizationCancellation requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
 
         /// <summary>
         /// Event事件类型请求之ENTER

@@ -107,6 +107,19 @@ namespace Senparc.Weixin.WxOpen
         /// </summary>
         wx_verify_dispatch,
 
+        /// <summary>
+        /// 用户资料变更
+        /// </summary>
+        user_info_modified,
+        /// <summary>
+        /// 用户撤回
+        /// </summary>
+        user_authorization_revoke,
+        /// <summary>
+        /// 用户完成注销
+        /// </summary>
+        user_authorization_cancellation,
+
         #region 小程序虚拟支付
         /// <summary>
         /// 道具发货推送

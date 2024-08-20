@@ -430,6 +430,19 @@ namespace Senparc.Weixin.MP
         /// </summary>
         subscribe_msg_sent_event,
         #endregion
+
+        /// <summary>
+        /// 用户资料变更
+        /// </summary>
+        user_info_modified,
+        /// <summary>
+        /// 用户撤回
+        /// </summary>
+        user_authorization_revoke,
+        /// <summary>
+        /// 用户完成注销
+        /// </summary>
+        user_authorization_cancellation,
     }
 
 

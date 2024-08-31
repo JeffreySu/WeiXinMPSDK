@@ -145,6 +145,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.user_authorization_cancellation:
                     responseMessage = OnEvent_UserAuthorizationCancellationRequest(RequestMessage as RequestMessageEvent_UserAuthorizationCancellation);
                     break;
+                case Event.charge_service_quota_notify:
+                    responseMessage = OnEvent_ChargeServiceQuotaNotifyRequest(RequestMessage as RequestMessageEvent_ChargeServiceQuotaNotify);
+                    break;
 
                 #region 小程序虚拟支付
                 case Event.xpay_goods_deliver_notify:
@@ -165,6 +168,16 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         }
 
         #region Event 下属分类
+        /// <summary>
+        /// 付费管理订单用量告警事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_ChargeServiceQuotaNotifyRequest(RequestMessageEvent_ChargeServiceQuotaNotify requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
         /// <summary>
         /// 授权用户信息变更事件
         /// </summary>
@@ -471,6 +484,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.user_authorization_cancellation:
                     responseMessage = await OnEvent_UserAuthorizationCancellationRequestAsync(RequestMessage as RequestMessageEvent_UserAuthorizationCancellation);
                     break;
+                case Event.charge_service_quota_notify:
+                    responseMessage = await OnEvent_ChargeServiceQuotaNotifyRequestAsync(RequestMessage as RequestMessageEvent_ChargeServiceQuotaNotify);
+                    break;
 
                 #region 小程序虚拟支付
                 case Event.xpay_goods_deliver_notify:
@@ -491,6 +507,16 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         }
 
         #region Event 下属分类
+        /// <summary>
+        /// 【异步方法】付费管理订单用量告警事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_ChargeServiceQuotaNotifyRequestAsync(RequestMessageEvent_ChargeServiceQuotaNotify requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_ChargeServiceQuotaNotifyRequest(requestMessage)).ConfigureAwait(false);
+        }
+
         /// <summary>
         /// 【异步方法】授权用户信息变更事件
         /// </summary>

@@ -136,6 +136,18 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.wx_verify_dispatch:
                     responseMessage = OnEvent_WxVerifyDispatchRequest(RequestMessage as RequestMessageEvent_WxVerifyDispatch);
                     break;
+                case Event.user_info_modified:
+                    responseMessage = OnEvent_UserInfoModifiedRequest(RequestMessage as RequestMessageEvent_UserInfoModified);
+                    break;
+                case Event.user_authorization_revoke:
+                    responseMessage = OnEvent_UserAuthorizationRevokeRequest(RequestMessage as RequestMessageEvent_UserAuthorizationRevoke);
+                    break;
+                case Event.user_authorization_cancellation:
+                    responseMessage = OnEvent_UserAuthorizationCancellationRequest(RequestMessage as RequestMessageEvent_UserAuthorizationCancellation);
+                    break;
+                case Event.charge_service_quota_notify:
+                    responseMessage = OnEvent_ChargeServiceQuotaNotifyRequest(RequestMessage as RequestMessageEvent_ChargeServiceQuotaNotify);
+                    break;
 
                 #region 小程序虚拟支付
                 case Event.xpay_goods_deliver_notify:
@@ -156,6 +168,43 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         }
 
         #region Event 下属分类
+        /// <summary>
+        /// 付费管理订单用量告警事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_ChargeServiceQuotaNotifyRequest(RequestMessageEvent_ChargeServiceQuotaNotify requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 授权用户信息变更事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_UserAuthorizationRevokeRequest(RequestMessageEvent_UserAuthorizationRevoke requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 授权用户信息变更事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_UserAuthorizationCancellationRequest(RequestMessageEvent_UserAuthorizationCancellation requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 授权用户信息变更事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_UserInfoModifiedRequest(RequestMessageEvent_UserInfoModified requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
 
         /// <summary>
         /// 微信认证支付成功事件
@@ -426,6 +475,18 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.wx_verify_dispatch:
                     responseMessage = await OnEvent_WxVerifyDispatchRequestAsync(RequestMessage as RequestMessageEvent_WxVerifyDispatch);
                     break;
+                case Event.user_info_modified:
+                    responseMessage = await OnEvent_UserInfoModifiedRequestAsync(RequestMessage as RequestMessageEvent_UserInfoModified);
+                    break;
+                case Event.user_authorization_revoke:
+                    responseMessage = await OnEvent_UserAuthorizationRevokeRequestAsync(RequestMessage as RequestMessageEvent_UserAuthorizationRevoke);
+                    break;
+                case Event.user_authorization_cancellation:
+                    responseMessage = await OnEvent_UserAuthorizationCancellationRequestAsync(RequestMessage as RequestMessageEvent_UserAuthorizationCancellation);
+                    break;
+                case Event.charge_service_quota_notify:
+                    responseMessage = await OnEvent_ChargeServiceQuotaNotifyRequestAsync(RequestMessage as RequestMessageEvent_ChargeServiceQuotaNotify);
+                    break;
 
                 #region 小程序虚拟支付
                 case Event.xpay_goods_deliver_notify:
@@ -446,6 +507,43 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         }
 
         #region Event 下属分类
+        /// <summary>
+        /// 【异步方法】付费管理订单用量告警事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_ChargeServiceQuotaNotifyRequestAsync(RequestMessageEvent_ChargeServiceQuotaNotify requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_ChargeServiceQuotaNotifyRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】授权用户信息变更事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_UserAuthorizationRevokeRequestAsync(RequestMessageEvent_UserAuthorizationRevoke requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_UserAuthorizationRevokeRequest(requestMessage)).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】授权用户信息变更事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_UserAuthorizationCancellationRequestAsync(RequestMessageEvent_UserAuthorizationCancellation requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_UserAuthorizationCancellationRequest(requestMessage)).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】授权用户信息变更事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_UserInfoModifiedRequestAsync(RequestMessageEvent_UserInfoModified requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_UserInfoModifiedRequest(requestMessage)).ConfigureAwait(false);
+        }
         /// <summary>
         /// 【异步方法】微信认证支付成功事件
         /// </summary>

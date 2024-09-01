@@ -119,6 +119,11 @@ namespace Senparc.Weixin.WxOpen
         /// 用户完成注销
         /// </summary>
         user_authorization_cancellation,
+        /// <summary>
+        /// 付费管理订单用量告警事件
+        /// </summary>
+        charge_service_quota_notify,
+
 
         #region 小程序虚拟支付
         /// <summary>

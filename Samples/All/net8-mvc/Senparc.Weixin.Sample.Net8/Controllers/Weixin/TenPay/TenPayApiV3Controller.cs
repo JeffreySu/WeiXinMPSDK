@@ -338,10 +338,10 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
             {
                 //获取微信服务器异步发送的支付通知信息
                 var resHandler = new TenPayNotifyHandler(HttpContext);
-                var orderReturnJson = await resHandler.AesGcmDecryptGetObjectAsync<OrderReturnJson>();
+                var orderReturnJson = await resHandler.DecryptGetObjectAsync<OrderReturnJson>();
 
                 //记录日志
-                Senparc.Weixin.WeixinTrace.SendCustomLog("PayNotifyUrl 接收到消息", orderReturnJson.ToJson(true));
+                Senparc.Weixin.WeixinTrace.SendCustomLog("PayNotifyUrl 接收到消息（ApiV3）", orderReturnJson.ToJson(true));
 
                 //演示记录 transaction_id，实际开发中需要记录到数据库，以便退款和后续跟踪
                 TradeNumberToTransactionId[orderReturnJson.out_trade_no] = orderReturnJson.transaction_id;
@@ -389,13 +389,13 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
 
                 #region 记录日志（也可以记录到数据库审计日志中）
 
-                var logDir = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/TenPayNotify/{0}", SystemTime.Now.ToString("yyyyMMdd")));
+                var logDir = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/TenPayNotify/ApiV3{0}", SystemTime.Now.ToString("yyyyMMdd")));
                 if (!Directory.Exists(logDir))
                 {
                     Directory.CreateDirectory(logDir);
                 }
 
-                var logPath = Path.Combine(logDir, string.Format("{0}-{1}-{2}.txt", SystemTime.Now.ToString("yyyyMMdd"), SystemTime.Now.ToString("HHmmss"), Guid.NewGuid().ToString("n").Substring(0, 8)));
+                var logPath = Path.Combine(logDir, string.Format("ApiV3-{0}-{1}-{2}.txt", SystemTime.Now.ToString("yyyyMMdd"), SystemTime.Now.ToString("HHmmss"), Guid.NewGuid().ToString("n").Substring(0, 8)));
 
                 using (var fileStream = System.IO.File.OpenWrite(logPath))
                 {

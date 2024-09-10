@@ -64,7 +64,8 @@ namespace Senparc.Weixin.Open.WxaAPIs
         public static CreateIcpVerifyTaskResultJson CreateIcpVerifyTask(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/icp/create_icp_verifytask?access_token={0}", accessToken.AsUrlData());
-            return CommonJsonSend.Send<CreateIcpVerifyTaskResultJson>(null, url, null, CommonJsonSendType.POST, timeOut);
+            var data = new { };
+            return CommonJsonSend.Send<CreateIcpVerifyTaskResultJson>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting(true));
         }
 
         /// <summary>
@@ -248,7 +249,8 @@ namespace Senparc.Weixin.Open.WxaAPIs
         public static async Task<CreateIcpVerifyTaskResultJson> CreateIcpVerifyTaskAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/icp/create_icp_verifytask?access_token={0}", accessToken.AsUrlData());
-            return await CommonJsonSend.SendAsync<CreateIcpVerifyTaskResultJson>(null, url, null, CommonJsonSendType.POST, timeOut);
+            var data = new { };
+            return await CommonJsonSend.SendAsync<CreateIcpVerifyTaskResultJson>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting(true));
         }
 
         /// <summary>

@@ -6,7 +6,7 @@
 
 AI 能力来自于 [Senparc.AI](https://github.com/Senparc/Senparc.AI)，并深度集成了 [Semantic Kernel](https://github.com/microsoft/semantic-kernel)、[AutoGen](https://github.com/microsoft/autogen) 等模块，同时进行了扩展，开箱即用，极易上手。
 
-当前项目正在构建完善中，预计在 2024 年 7 月 1 日左右正式上线。
+基础功能已正式上线，当前项目正在持续更新中，欢迎大家一起参与贡献代码或想法 💡
 
 内容将涵盖：
 

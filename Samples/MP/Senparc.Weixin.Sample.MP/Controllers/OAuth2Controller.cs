@@ -8,7 +8,6 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
-//DPBMARK_FILE MP
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.Exceptions;

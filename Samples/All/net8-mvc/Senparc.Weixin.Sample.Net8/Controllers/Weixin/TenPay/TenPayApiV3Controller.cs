@@ -14,7 +14,6 @@
 
 /* 注意：TenPayApiV3Controller 为真正微信支付 API V3 的示例 */
 
-//DPBMARK_FILE TenPay
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Extensions;
@@ -37,14 +36,13 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-
 using Senparc.Weixin.MP;
 using Senparc.Weixin.Sample.Net8.Filters;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.Sample.CommonService.TemplateMessage;
 using Senparc.Weixin.Sample.CommonService.Utilities;
 using Senparc.CO2NET.HttpUtility;
+using Senparc.CO2NET.Trace;
 //DPBMARK_END
 
 namespace Senparc.Weixin.Sample.Net8.Controllers
@@ -219,7 +217,7 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
 
         #endregion
 
-        
+
         #region OAuth授权
         public ActionResult OAuthCallback(string code, string state, string returnUrl)
         {
@@ -296,7 +294,6 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
                 var price = product == null ? 100 : (int)(product.Price * 100);//单位：分
                 var notifyUrl = TenPayV3Info.TenPayV3Notify.Replace("/TenpayV3/", "/TenPayApiV3/").Replace("http://", "https://");
 
-               
 
                 //请求信息
                 TransactionsRequestData jsApiRequestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name + " - 微信支付 V3", sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1), false), null, notifyUrl, null, new() { currency = "CNY", total = price }, new(openId), null, null, null);
@@ -307,6 +304,7 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
 
                 if (result.VerifySignSuccess != true)
                 {
+                    SenparcTrace.SendCustomLog("basePayApis2.JsApiAsync 接口出错", $" JsApiReturnJson 返回结果：{result.ToJson(true)}");
                     throw new WeixinException("获取 prepay_id 结果校验出错！");
                 }
 

@@ -1,5 +1,4 @@
-﻿//DPBMARK_FILE MP
-using Senparc.Weixin.MP.CommonAPIs;
+﻿using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Helpers;
 using System;
 using System.Collections.Generic;

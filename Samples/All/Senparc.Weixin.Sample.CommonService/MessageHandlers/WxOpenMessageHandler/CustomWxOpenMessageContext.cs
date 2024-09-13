@@ -8,7 +8,6 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
-//DPBMARK_FILE MiniProgram
 using System;
 using System.Collections.Generic;
 using System.Linq;

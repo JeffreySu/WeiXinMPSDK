@@ -14,7 +14,6 @@
 
 /* 注意：TenPayApiV3Controller 为真正微信支付 API V3 的示例 */
 
-//DPBMARK_FILE TenPay
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Extensions;

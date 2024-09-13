@@ -1,6 +1,4 @@
-﻿//DPBMARK_FILE Redis
-//DPBMARK_FILE Memcached
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Cache;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Containers;

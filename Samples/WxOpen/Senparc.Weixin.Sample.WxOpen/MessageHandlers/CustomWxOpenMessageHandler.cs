@@ -12,7 +12,6 @@
 
 ----------------------------------------------------------------*/
 
-//DPBMARK_FILE MiniProgram
 using Senparc.CO2NET.Utilities;
 using Senparc.NeuChar.Entities;
 using Senparc.Weixin.WxOpen.Entities;

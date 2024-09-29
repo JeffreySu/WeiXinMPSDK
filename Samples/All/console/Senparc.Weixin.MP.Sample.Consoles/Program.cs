@@ -35,6 +35,7 @@ Detail: https://github.com/Senparc/Senparc.CO2NET/blob/master/LICENSE
 using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin;
@@ -42,9 +43,11 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.RegisterServices;
 
-
 var builder = new ConfigurationBuilder();
-builder.AddJsonFile("appsettings.json", false, false);
+var environment = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? "Production";
+
+builder.AddJsonFile("appsettings.json", false, true);
+builder.AddJsonFile($"appsettings.{environment}.json", false, true);
 Console.WriteLine("完成 appsettings.json 添加");
 
 var config = builder.Build();

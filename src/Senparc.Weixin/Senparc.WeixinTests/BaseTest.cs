@@ -22,6 +22,8 @@ namespace Senparc.WeixinTests
         protected SenparcSetting _senparcSetting;
         protected SenparcWeixinSetting _senparcWeixinSetting;
 
+        protected IConfiguration _config;
+
         public BaseTest()
         {
             RegisterStart();
@@ -32,13 +34,24 @@ namespace Senparc.WeixinTests
         /// </summary>
         protected void RegisterStart()
         {
+            var builder = new ConfigurationBuilder();
+            //var environment = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? "Production";
+
+            builder.AddJsonFile("appsettings.json", false, true);
+            builder.AddJsonFile($"appsettings.Test.json", false, true);
+            Console.WriteLine("完成 appsettings.json 添加");
+
+            _config = builder.Build();
+            Console.WriteLine("完成 ServiceCollection 和 ConfigurationBuilder 初始化");
+
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//支持 GB2312
 
             //注册开始
             RegisterService register;
 
             //注册 CON2ET 全局
-            var senparcSetting = new SenparcSetting() { IsDebug = true };
+            var senparcSetting = _config.GetSection("SenparcSetting").Get<SenparcSetting>();
+            var senparcWeixinSetting = _config.GetSection("SenparcWeixinSetting").Get<SenparcWeixinSetting>();
 
             var mockEnv = new Mock<IHostEnvironment>();
 
@@ -59,7 +72,7 @@ namespace Senparc.WeixinTests
             register.UseSenparcGlobal(false);
 
             //注册微信
-            var senparcWeixinSetting = new SenparcWeixinSetting(true);
+            Senparc.Weixin.All.WeixinEntensions.use
             register.UseSenparcWeixin(senparcWeixinSetting, senparcSetting);
             register.ChangeDefaultCacheNamespace("Senparc.Weixin Test Cache");
         }

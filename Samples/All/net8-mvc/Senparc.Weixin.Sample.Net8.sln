@@ -50,7 +50,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Work.Test.ne
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.MP.Test.net8", "..\..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP.Test\Senparc.Weixin.MP.Test.net8.csproj", "{B1165EE3-2DBB-474B-AFCA-ECAB096DAAAC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.WeixinTests.net8", "..\..\..\src\Senparc.Weixin.MP\Senparc.WeixinTests\Senparc.WeixinTests.net8.csproj", "{A514FE17-476F-4D10-B28E-A7597CB93F9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.WeixinTests.net8", "..\..\..\src\Senparc.Weixin\Senparc.WeixinTests\Senparc.WeixinTests.net8.csproj", "{A514FE17-476F-4D10-B28E-A7597CB93F9A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNet", "AspNet", "{6DDD51DD-6029-4F4B-994A-4CD3231BC5B7}"
 EndProject

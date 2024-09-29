@@ -47,47 +47,47 @@ namespace Senparc.Weixin.Work.Test.CommonApis
     [TestClass]
     public partial class CommonApiTest : BaseTest
     {
-        private dynamic _appConfig;
-        protected dynamic AppConfig
-        {
-            get
-            {
-                if (_appConfig == null)
-                {
-                    var filePath = "../../../Config/test.config";
-                    if (File.Exists(filePath))
-                    {
-                        var stream = new FileStream(filePath, FileMode.Open);
-                        var doc = XDocument.Load(stream);
-                        stream.Dispose();
+        //private dynamic _appConfig;
+        //protected dynamic AppConfig
+        //{
+        //    get
+        //    {
+        //        if (_appConfig == null)
+        //        {
+        //            var filePath = "../../../Config/test.config";
+        //            if (File.Exists(filePath))
+        //            {
+        //                var stream = new FileStream(filePath, FileMode.Open);
+        //                var doc = XDocument.Load(stream);
+        //                stream.Dispose();
 
-                        _appConfig = new
-                        {
-                            CorpId = doc.Root.Element("CorpId").Value,
-                            CorpSecret = doc.Root.Element("CorpSecret").Value,
-                        };
-                    }
-                    else
-                    {
-                        _appConfig = new
-                        {
-                            CorpId = "YourAppId", //换成你的信息
-                            CorpSecret = "YourSecret",//换成你的信息
-                        };
-                    }
-                }
-                return _appConfig;
-            }
-        }
+        //                _appConfig = new
+        //                {
+        //                    CorpId = doc.Root.Element("CorpId").Value,
+        //                    CorpSecret = doc.Root.Element("CorpSecret").Value,
+        //                };
+        //            }
+        //            else
+        //            {
+        //                _appConfig = new
+        //                {
+        //                    CorpId = "YourAppId", //换成你的信息
+        //                    CorpSecret = "YourSecret",//换成你的信息
+        //                };
+        //            }
+        //        }
+        //        return _appConfig;
+        //    }
+        //}
 
         protected string _corpId
         {
-            get { return AppConfig.CorpId; }
+            get { return base._senparcWeixinSetting.WorkSetting.WeixinCorpId; }
         }
 
         protected string _corpSecret
         {
-            get { return AppConfig.CorpSecret; }
+            get { return base._senparcWeixinSetting.WorkSetting.WeixinCorpSecret; }
         }
 
 
@@ -129,8 +129,9 @@ namespace Senparc.Weixin.Work.Test.CommonApis
             }
             catch (ErrorJsonResultException ex)
             {
+                //Assert.AreEqual(0, ex.JsonResult.errcode);
                 //实际返回的信息（错误信息）
-                Assert.AreEqual(ex.JsonResult.errcode, ReturnCode_Work.不合法的corpid);
+                Assert.AreEqual((int)ex.JsonResult.errcode, (int)ReturnCode_Work.不合法的corpid);
             }
         }
 

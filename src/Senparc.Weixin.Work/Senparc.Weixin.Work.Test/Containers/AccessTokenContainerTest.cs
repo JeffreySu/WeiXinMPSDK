@@ -39,7 +39,7 @@ namespace Senparc.Weixin.Work.Test.CommonAPIs
         public void ContainerTest()
         {
             //注册
-            AccessTokenContainer.Register(base._corpId, base._corpSecret);
+            //AccessTokenContainer.Register(base._corpId, base._corpSecret);
 
             //获取Token完整结果（包括当前过期秒数）
             var tokenResult = AccessTokenContainer.GetTokenResult(base._corpId,base._corpSecret);

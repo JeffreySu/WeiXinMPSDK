@@ -89,8 +89,10 @@ var registerService = app.UseSenparcWeixin(
 
 var weixinSetting = Senparc.Weixin.Config.SenparcWeixinSetting;
 
+Console.WriteLine("## weixinSetting");
 Console.WriteLine(weixinSetting.ToJson(true, new Newtonsoft.Json.JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore }));
 Console.WriteLine();
-//Console.WriteLine(weixinSetting.Items["【盛派网络小助手】公众号"].ToJson(true));
+Console.WriteLine("## 【盛派网络小助手】公众号");
+Console.WriteLine(weixinSetting.Items["【盛派网络小助手】公众号"].ToJson(true));
 
 Console.ReadLine();

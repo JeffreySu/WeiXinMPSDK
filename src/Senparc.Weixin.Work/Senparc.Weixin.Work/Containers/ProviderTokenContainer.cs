@@ -130,18 +130,6 @@ namespace Senparc.Weixin.Work.Containers
     {
         private const string UN_REGISTER_ALERT = "此CorpId尚未注册，ProviderTokenContainer.Register完成注册（全局执行一次即可）！";
 
-
-        /// <summary>
-        /// 获取全局唯一Key
-        /// </summary>
-        /// <param name="corpId"></param>
-        /// <param name="corpSecret"></param>
-        private static string BuildingKey(string corpId, string corpSecret)
-        {
-            return corpId + corpSecret;
-        }
-
-
         #region 同步方法
 
         /// <summary>
@@ -170,7 +158,7 @@ namespace Senparc.Weixin.Work.Containers
         /// <returns></returns>
         public static string TryGetToken(string corpId, string corpSecret, bool getNewToken = false)
         {
-            if (!CheckRegistered(BuildingKey(corpId, corpSecret)) || getNewToken)
+            if (!CheckRegistered(AccessTokenContainer.BuildingKey(corpId, corpSecret)) || getNewToken)
             {
                 Register(corpId, corpSecret);
             }
@@ -198,12 +186,12 @@ namespace Senparc.Weixin.Work.Containers
         /// <returns></returns>
         public static ProviderTokenResult GetTokenResult(string corpId, string corpSecret, bool getNewToken = false)
         {
-            if (!CheckRegistered(BuildingKey(corpId, corpSecret)))
+            if (!CheckRegistered(AccessTokenContainer.BuildingKey(corpId, corpSecret)))
             {
                 throw new WeixinWorkException(UN_REGISTER_ALERT);
             }
 
-            var providerTokenBag = TryGetItem(BuildingKey(corpId, corpSecret));
+            var providerTokenBag = TryGetItem(AccessTokenContainer.BuildingKey(corpId, corpSecret));
             lock (providerTokenBag.Lock)
             {
                 if (getNewToken || providerTokenBag.ExpireTime <= SystemTime.Now)
@@ -239,7 +227,7 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别。当 name 不为 null 和 空值时，本次注册内容将会被记录到 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name] 中，方便取用。</param>
         public static async Task RegisterAsync(string corpId, string corpSecret, string name = null)
         {
-            var shortKey = BuildingKey(corpId, corpSecret);
+            var shortKey = AccessTokenContainer.BuildingKey(corpId, corpSecret);
             RegisterFuncCollection[shortKey] = async () =>
             {
                 //using (FlushCache.CreateInstance())
@@ -252,7 +240,7 @@ namespace Senparc.Weixin.Work.Containers
                     ExpireTime = DateTimeOffset.MinValue,
                     ProviderTokenResult = new ProviderTokenResult()
                 };
-                await UpdateAsync(BuildingKey(corpId, corpSecret), bag, null).ConfigureAwait(false);
+                await UpdateAsync(AccessTokenContainer.BuildingKey(corpId, corpSecret), bag, null).ConfigureAwait(false);
                 return bag;
                 //}
             };
@@ -274,7 +262,7 @@ namespace Senparc.Weixin.Work.Containers
         /// <returns></returns>
         public static async Task<string> TryGetTokenAsync(string corpId, string corpSecret, bool getNewToken = false)
         {
-            if (!await CheckRegisteredAsync(BuildingKey(corpId, corpSecret)).ConfigureAwait(false) || getNewToken)
+            if (!await CheckRegisteredAsync(AccessTokenContainer.BuildingKey(corpId, corpSecret)).ConfigureAwait(false) || getNewToken)
             {
                 await RegisterAsync(corpId, corpSecret).ConfigureAwait(false);
             }
@@ -303,12 +291,12 @@ namespace Senparc.Weixin.Work.Containers
         /// <returns></returns>
         public static async Task<ProviderTokenResult> GetTokenResultAsync(string corpId, string corpSecret, bool getNewToken = false)
         {
-            if (!await CheckRegisteredAsync(BuildingKey(corpId, corpSecret)).ConfigureAwait(false))
+            if (!await CheckRegisteredAsync(AccessTokenContainer.BuildingKey(corpId, corpSecret)).ConfigureAwait(false))
             {
                 throw new WeixinWorkException(UN_REGISTER_ALERT);
             }
 
-            var providerTokenBag = await TryGetItemAsync(BuildingKey(corpId, corpSecret)).ConfigureAwait(false);
+            var providerTokenBag = await TryGetItemAsync(AccessTokenContainer.BuildingKey(corpId, corpSecret)).ConfigureAwait(false);
             //lock (providerTokenBag.Lock)
             {
                 if (getNewToken || providerTokenBag.ExpireTime <= DateTimeOffset.Now)

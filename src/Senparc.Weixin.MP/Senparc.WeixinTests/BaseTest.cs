@@ -1,21 +1,13 @@
-﻿#if NETCOREAPP2_0_OR_GREATER || NET6_0_OR_GREATER
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-#endif
 using Moq;
 using Senparc.CO2NET;
-using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin;
-using Senparc.Weixin.Cache;
-using Senparc.Weixin.Cache.Memcached;
-using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.RegisterServices;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -40,9 +32,7 @@ namespace Senparc.WeixinTests
         /// </summary>
         protected void RegisterStart()
         {
-#if NETCOREAPP2_0_OR_GREATER || NET6_0_OR_GREATER
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//支持 GB2312
-#endif
 
             //注册开始
             RegisterService register;
@@ -50,19 +40,12 @@ namespace Senparc.WeixinTests
             //注册 CON2ET 全局
             var senparcSetting = new SenparcSetting() { IsDebug = true };
 
-#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
-#if NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
             var mockEnv = new Mock<IHostEnvironment>();
-#else
-            var mockEnv = new Mock<IHostingEnvironment>();
-#endif
+
             mockEnv.Setup(z => z.ContentRootPath).Returns(() => UnitTestHelper.RootPath);
             register = Senparc.CO2NET.AspNet.RegisterServices.RegisterService.Start(mockEnv.Object, senparcSetting);
 
             RegisterServiceCollection();
-#else
-            register = RegisterService.Start(senparcSetting);
-#endif
 
             //Func<List<IDomainExtensionCacheStrategy>> func = () =>
             //{
@@ -81,7 +64,6 @@ namespace Senparc.WeixinTests
             register.ChangeDefaultCacheNamespace("Senparc.Weixin Test Cache");
         }
 
-#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
         /// <summary>
         /// 注册 IServiceCollection 和 MemoryCache
         /// </summary>
@@ -124,7 +106,6 @@ namespace Senparc.WeixinTests
 
             _serviceProvider = serviceCollection.BuildServiceProvider();
         }
-#endif
 
         /// <summary>
         /// 获取到达项目根目录的相对路径
@@ -132,11 +113,7 @@ namespace Senparc.WeixinTests
         /// <returns></returns>
         protected string GetParentRootRelativePath()
         {
-#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
             return @"..\..\..\";
-#else
-            return @"..\..\";
-#endif
         }
     }
 }

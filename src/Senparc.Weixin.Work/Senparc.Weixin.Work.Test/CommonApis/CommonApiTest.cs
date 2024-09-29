@@ -25,21 +25,18 @@ using System.IO;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Cache;
-using Senparc.Weixin.Cache.Redis;
+using Senparc.Weixin.Cache.CsRedis;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Containers;
-using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.Cache;
 using Moq;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.CO2NET;
 using Senparc.Weixin.Entities;
 using Senparc.WeixinTests;
-
-#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
 using Microsoft.AspNetCore.Hosting;
-#endif
+using Senparc.CO2NET.Cache.CsRedis;
 
 
 namespace Senparc.Weixin.Work.Test.CommonApis
@@ -57,20 +54,12 @@ namespace Senparc.Weixin.Work.Test.CommonApis
             {
                 if (_appConfig == null)
                 {
-#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
                     var filePath = "../../../Config/test.config";
-#else
-                    var filePath = "../../Config/test.config";
-#endif
                     if (File.Exists(filePath))
                     {
-#if NETSTANDARD2_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER || NET6_0_OR_GREATER
                         var stream = new FileStream(filePath, FileMode.Open);
                         var doc = XDocument.Load(stream);
                         stream.Dispose();
-#else
-                        var doc = XDocument.Load(filePath);
-#endif
 
                         _appConfig = new
                         {
@@ -108,12 +97,11 @@ namespace Senparc.Weixin.Work.Test.CommonApis
         {
             if (_userRedis)
             {
-                var redisConfiguration = "localhost:6379,defaultDatabase=2";
-                RedisManager.ConfigurationOption = redisConfiguration;
+                var redisConfiguration = "10.37.129.2:6379,defaultDatabase=2";
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
-                Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
+                Senparc.CO2NET.Cache.CsRedis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
 
-                Senparc.Weixin.Cache.Redis.Register.ActivityDomainCache();//进行领域缓存注册
+                Senparc.Weixin.Cache.CsRedis.Register.ActivityDomainCache();//进行领域缓存注册
             }
 
 

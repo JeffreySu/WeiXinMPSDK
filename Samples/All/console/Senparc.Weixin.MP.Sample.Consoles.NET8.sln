@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{DCF86D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.MP.Sample.Consoles", "Senparc.Weixin.MP.Sample.Consoles\Senparc.Weixin.MP.Sample.Consoles.csproj", "{1E843726-DB24-464D-A6A9-5607B197D807}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Net8SampleForConsole.CommonService", "Y:\Senparc 项目\WeiXinMPSDK\Samples\All\Senparc.Weixin.Sample.CommonService\Senparc.Weixin.Net8SampleForConsole.CommonService.csproj", "{E646F86A-065D-4991-9E96-6E1346E904B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Net8SampleForConsole.CommonService", "..\Senparc.Weixin.Sample.CommonService\Senparc.Weixin.Net8SampleForConsole.CommonService.csproj", "{CF37F455-9DA8-401D-AE7F-E96CDC912984}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,31 +42,31 @@ Global
 		{1E843726-DB24-464D-A6A9-5607B197D807}.Test|x64.Build.0 = Debug|Any CPU
 		{1E843726-DB24-464D-A6A9-5607B197D807}.Test|x86.ActiveCfg = Debug|Any CPU
 		{1E843726-DB24-464D-A6A9-5607B197D807}.Test|x86.Build.0 = Debug|Any CPU
-		{E646F86A-065D-4991-9E96-6E1346E904B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E646F86A-065D-4991-9E96-6E1346E904B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E646F86A-065D-4991-9E96-6E1346E904B1}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{E646F86A-065D-4991-9E96-6E1346E904B1}.Debug|x64.Build.0 = Debug|Any CPU
-		{E646F86A-065D-4991-9E96-6E1346E904B1}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E646F86A-065D-4991-9E96-6E1346E904B1}.Debug|x86.Build.0 = Debug|Any CPU
-		{E646F86A-065D-4991-9E96-6E1346E904B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E646F86A-065D-4991-9E96-6E1346E904B1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E646F86A-065D-4991-9E96-6E1346E904B1}.Release|x64.ActiveCfg = Release|Any CPU
-		{E646F86A-065D-4991-9E96-6E1346E904B1}.Release|x64.Build.0 = Release|Any CPU
-		{E646F86A-065D-4991-9E96-6E1346E904B1}.Release|x86.ActiveCfg = Release|Any CPU
-		{E646F86A-065D-4991-9E96-6E1346E904B1}.Release|x86.Build.0 = Release|Any CPU
-		{E646F86A-065D-4991-9E96-6E1346E904B1}.Test|Any CPU.ActiveCfg = Debug|Any CPU
-		{E646F86A-065D-4991-9E96-6E1346E904B1}.Test|Any CPU.Build.0 = Debug|Any CPU
-		{E646F86A-065D-4991-9E96-6E1346E904B1}.Test|x64.ActiveCfg = Debug|Any CPU
-		{E646F86A-065D-4991-9E96-6E1346E904B1}.Test|x64.Build.0 = Debug|Any CPU
-		{E646F86A-065D-4991-9E96-6E1346E904B1}.Test|x86.ActiveCfg = Debug|Any CPU
-		{E646F86A-065D-4991-9E96-6E1346E904B1}.Test|x86.Build.0 = Debug|Any CPU
+		{CF37F455-9DA8-401D-AE7F-E96CDC912984}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF37F455-9DA8-401D-AE7F-E96CDC912984}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF37F455-9DA8-401D-AE7F-E96CDC912984}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CF37F455-9DA8-401D-AE7F-E96CDC912984}.Debug|x64.Build.0 = Debug|Any CPU
+		{CF37F455-9DA8-401D-AE7F-E96CDC912984}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CF37F455-9DA8-401D-AE7F-E96CDC912984}.Debug|x86.Build.0 = Debug|Any CPU
+		{CF37F455-9DA8-401D-AE7F-E96CDC912984}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF37F455-9DA8-401D-AE7F-E96CDC912984}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF37F455-9DA8-401D-AE7F-E96CDC912984}.Release|x64.ActiveCfg = Release|Any CPU
+		{CF37F455-9DA8-401D-AE7F-E96CDC912984}.Release|x64.Build.0 = Release|Any CPU
+		{CF37F455-9DA8-401D-AE7F-E96CDC912984}.Release|x86.ActiveCfg = Release|Any CPU
+		{CF37F455-9DA8-401D-AE7F-E96CDC912984}.Release|x86.Build.0 = Release|Any CPU
+		{CF37F455-9DA8-401D-AE7F-E96CDC912984}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF37F455-9DA8-401D-AE7F-E96CDC912984}.Test|Any CPU.Build.0 = Debug|Any CPU
+		{CF37F455-9DA8-401D-AE7F-E96CDC912984}.Test|x64.ActiveCfg = Debug|Any CPU
+		{CF37F455-9DA8-401D-AE7F-E96CDC912984}.Test|x64.Build.0 = Debug|Any CPU
+		{CF37F455-9DA8-401D-AE7F-E96CDC912984}.Test|x86.ActiveCfg = Debug|Any CPU
+		{CF37F455-9DA8-401D-AE7F-E96CDC912984}.Test|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1E843726-DB24-464D-A6A9-5607B197D807} = {35139CB3-610E-4922-98AD-08A5D12BFC35}
-		{E646F86A-065D-4991-9E96-6E1346E904B1} = {35139CB3-610E-4922-98AD-08A5D12BFC35}
+		{CF37F455-9DA8-401D-AE7F-E96CDC912984} = {35139CB3-610E-4922-98AD-08A5D12BFC35}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC7AD3EC-AB37-497E-925B-DCD5129FE6D3}

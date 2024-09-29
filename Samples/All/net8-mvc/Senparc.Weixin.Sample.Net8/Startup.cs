@@ -1,18 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using NuGet.Protocol;
 using Senparc.AI.Kernel;
 using Senparc.CO2NET;
 using Senparc.CO2NET.AspNet;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Memcached;
+using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Utilities;
 using Senparc.CO2NET.WebApi.WebApiEngines;
@@ -38,8 +32,6 @@ using Senparc.Weixin.Work;
 using Senparc.Weixin.Work.MessageHandlers.Middleware;
 using Senparc.Weixin.WxOpen;
 using Senparc.Weixin.WxOpen.MessageHandlers.Middleware;
-using System;
-using System.IO;
 using System.Text;
 
 namespace Senparc.Weixin.Sample.Net8
@@ -291,7 +283,7 @@ namespace Senparc.Weixin.Sample.Net8
                             .RegisterTenpayV3(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
                             /* 特别注意：
                              * 在 services.AddSenparcWeixin() 代码中，已经自动为当前的 
-                             * senparcWeixinSetting  对应的TenpayV3 配置进行了 Cert 证书配置，
+                             * senparcWeixinSetting  对应的 TenpayV3 配置进行了 Cert 证书配置，
                              * 如果此处注册的微信支付信息和默认 senparcWeixinSetting 信息不同，
                              * 请在 ConfigureServices() 方法中使用 services.AddCertHttpClient() 
                              * 添加对应证书。
@@ -362,7 +354,7 @@ namespace Senparc.Weixin.Sample.Net8
                                     using (StreamWriter sw = new StreamWriter(file, true))
                                     {
                                         //这里存了整个对象，实际上只存RefreshToken也可以，有了RefreshToken就能刷新到最新的AccessToken
-                                        sw.Write(refreshResult.ToJson());
+                                        sw.Write((refreshResult as object).ToJson());
                                         sw.Flush();
                                     }
                                 }, "【盛派网络】开放平台")
@@ -497,7 +489,7 @@ namespace Senparc.Weixin.Sample.Net8
             };
         }
 
-        
+
         /// <summary>
         /// 判断当前配置是否满足使用 Redis（根据是否已经修改了默认配置字符串判断）
         /// </summary>
@@ -509,9 +501,7 @@ namespace Senparc.Weixin.Sample.Net8
             var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) && redisConfigurationStr != "#{Cache_Redis_Configuration}#"/*默认值，不启用*/;
             return useRedis;
         }
-        
 
-        
         /// <summary>
         /// 初步判断当前配置是否满足使用 Memcached（根据是否已经修改了默认配置字符串判断）
         /// </summary>
@@ -523,7 +513,7 @@ namespace Senparc.Weixin.Sample.Net8
             var useMemcached = !string.IsNullOrEmpty(memcachedConfigurationStr) && memcachedConfigurationStr != "#{Cache_Memcached_Configuration}#";
             return useMemcached;
         }
-        
+
 
     }
 }

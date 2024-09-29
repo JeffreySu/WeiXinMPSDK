@@ -19,6 +19,7 @@ namespace Client.TenPayHttpClient.Signer.Tests
             var privateKey = "";
             var sign = sM3WithSM2Signer.Sign(message, privateKey);
             var exceptResult = "1ab21d8355cfa17f8e61194831e81a8f22bec8c728fefb747ed035eb5082aa2b";
+
             Assert.AreEqual(exceptResult, sign);
         }
     }

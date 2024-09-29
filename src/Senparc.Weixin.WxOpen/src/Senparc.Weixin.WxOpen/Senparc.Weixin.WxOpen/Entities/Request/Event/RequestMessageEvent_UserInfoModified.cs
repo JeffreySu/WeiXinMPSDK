@@ -21,51 +21,49 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2024 Senparc
     
-    文件名：ListJsonResult.cs
-    文件功能描述：“获取私有的模板列表”接口：List 结果
-    
-    
-    创建标识：ccccccmd - 20210302
-
+    文件名：RequestMessageEvent_UserInfoModified.cs
+    文件功能描述：事件之授权用户信息变更
+    https://developers.weixin.qq.com/miniprogram/dev/framework/security.html#%E6%8E%88%E6%9D%83%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E5%8F%98%E6%9B%B4
+        
 ----------------------------------------------------------------*/
 
-using System.Collections.Generic;
-using Senparc.Weixin.Entities;
-
-namespace Senparc.Weixin.MP.AdvancedAPIs.NewTmpl.NewTmplJson
+namespace Senparc.Weixin.WxOpen.Entities
 {
     /// <summary>
-    /// “获取私有的模板列表”接口：GetTemplateList 结果
+    /// 事件之授权用户信息变更
     /// </summary>
-    public class GetTemplateListJsonResult : WxJsonResult
+    public class RequestMessageEvent_UserInfoModified : RequestMessageEventBase, IRequestMessageEventBase
     {
         /// <summary>
-        /// 帐号下的模板列表
+        /// 事件类型
         /// </summary>
-        public List<GetTemplateListJsonResult_data> data { get; set; }
-    }
+        public override Event Event
+        {
+            get { return Event.user_info_modified; }
+        }
 
-    public class GetTemplateListJsonResult_data
-    {
         /// <summary>
-        /// 模板id，发送小程序模板消息时所需
+        /// 授权用户OpenID
         /// </summary>
-        public string priTmplId { get; set; }
+        public string OpenID { get; set; }
+
         /// <summary>
-        /// 模板标题
+        /// 小程序的AppID
         /// </summary>
-        public string title { get; set; }
+        public string AppID { get; set; }
         /// <summary>
-        /// 模板内容
+        /// 用户撤回的授权信息，1:车牌号,2:地址,3:发票信息,4:蓝牙,5:麦克风,6:昵称和头像,7:摄像头,8:手机号,12:微信运动步数,13:位置信息,14:选中的图片或视频,15:选中的文件,16:邮箱地址,18:选择的位置信息,19:昵称输入键盘中选择的微信昵称,20:获取用户头像组件中选择的微信头像
         /// </summary>
-        public string content { get; set; }
+        public string RevokeInfo { get; set; }
+
         /// <summary>
-        /// 模板内容示例
+        /// 插件场景用户撤回，插件的AppID
         /// </summary>
-        public string example { get; set; }
+        public string PluginID { get; set; }
+
         /// <summary>
-        /// 模版类型，2 为一次性订阅，3 为长期订阅
+        /// 插件场景用户撤回，撤回用户的OpenPID
         /// </summary>
-        public int type { get; set; }
+        public string OpenPID { get; set; }
     }
 }

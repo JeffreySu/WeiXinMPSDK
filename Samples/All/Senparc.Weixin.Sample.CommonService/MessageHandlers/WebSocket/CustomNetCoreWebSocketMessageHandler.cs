@@ -1,5 +1,4 @@
-﻿//DPBMARK_FILE WebSocket
-#if !NET462
+﻿#if !NET462
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -23,7 +23,6 @@
   3. 更多使用演示请参考 Senparc.Weixin.Sample.All 同名文件。
  */
 
-//DPBMARK_FILE MP
 using Microsoft.AspNetCore.Mvc;
 
 namespace Senparc.Weixin.Sample.MP.Controllers

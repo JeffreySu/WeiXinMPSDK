@@ -20,32 +20,43 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2024 Senparc
-
-    文件名：ApplyPrivacyInterfaceJsonResult.cs
-    文件功能描述：申请隐私接口 返回值
-
-
-    创建标识：mc7246 - 20220504
-
+    
+    文件名：RequestMessageEvent_UserAuthorizationCancellation.cs
+    文件功能描述：事件之授权用户信息变更
+    https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/authorization_change.html
+    
 ----------------------------------------------------------------*/
 
-using Senparc.Weixin.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Senparc.NeuChar.Entities;
 
-namespace Senparc.Weixin.Open.WxaAPIs
+namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
-    /// 申请隐私接口 返回值
+    /// 事件之授权用户信息变更
     /// </summary>
-    public class ApplyPrivacyInterfaceJsonResult : WxJsonResult
+    public class RequestMessageEvent_UserAuthorizationCancellation : RequestMessageEventBase, IRequestMessageEventBase
     {
         /// <summary>
-        /// 
+        /// 事件类型
         /// </summary>
-        public uint audit_id { get; set; }
+        public override Event Event
+        {
+            get { return Event.user_authorization_revoke; }
+        }
+
+        /// <summary>
+        /// 授权用户OpenID
+        /// </summary>
+        public string OpenID { get; set; }
+
+        /// <summary>
+        /// 公众号的AppID
+        /// </summary>
+        public string AppID { get; set; }
+
+        /// <summary>
+        /// 用户撤回的H5授权信息，201:地址,202:发票信息,203:卡券信息,204:麦克风,205:昵称和头像,206:位置信息,207:选中的图片或视频
+        /// </summary>
+        public string RevokeInfo { get; set; }
     }
 }

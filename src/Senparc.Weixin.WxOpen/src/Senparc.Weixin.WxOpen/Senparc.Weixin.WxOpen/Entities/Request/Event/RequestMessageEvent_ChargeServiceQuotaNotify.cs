@@ -20,32 +20,56 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2024 Senparc
-
-    文件名：ApplyPrivacyInterfaceJsonResult.cs
-    文件功能描述：申请隐私接口 返回值
-
-
-    创建标识：mc7246 - 20220504
-
+    
+    文件名：RequestMessageEvent_ChargeServiceQuotaNotify.cs
+    文件功能描述：付费管理订单用量告警事件
+    
+    
+    创建标识：mc7246 - 20240831
+    
 ----------------------------------------------------------------*/
-
-using Senparc.Weixin.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.Open.WxaAPIs
+namespace Senparc.Weixin.WxOpen.Entities
 {
-    /// <summary>
-    /// 申请隐私接口 返回值
-    /// </summary>
-    public class ApplyPrivacyInterfaceJsonResult : WxJsonResult
+    public class RequestMessageEvent_ChargeServiceQuotaNotify : RequestMessageEventBase,IRequestMessageEventBase
     {
         /// <summary>
-        /// 
+        /// 事件类型
         /// </summary>
-        public uint audit_id { get; set; }
+        public override Event Event
+        {
+            get { return Event.charge_service_quota_notify; }
+        }
+
+        /// <summary>
+        /// 固定值 3
+        /// </summary>
+        public int event_type { get; set; }
+
+        /// <summary>
+        /// 购买的商品的SPU_ID
+        /// </summary>
+        public long spu_id { get; set; }
+
+        /// <summary>
+        /// 购买的商品的SPU_NAME
+        /// </summary>
+        public string spu_name { get; set; }
+
+        /// <summary>
+        /// 所购 SPU 当前总的用量
+        /// </summary>
+        public int total_quota { get; set; }
+
+        /// <summary>
+        /// 所购 SPU 当前总已使用的用量
+        /// </summary>
+        public int total_used_quota { get; set; }        
+
     }
 }

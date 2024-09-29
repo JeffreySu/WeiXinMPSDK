@@ -65,3 +65,5 @@ yarn.lock
 /Samples/Work/Senparc.Weixin.Sample.Work/App_Data/WeChat_Work
 /Samples/All/net8-mvc/Senparc.Weixin.Sample.Net8/appsettings.Development.json
 /Samples/MP/Senparc.Weixin.Sample.MP.Simple/appsettings.Development.json
+/src/Senparc.Weixin.MP/Senparc.Weixin.MP.Test/AdvancedAPIs/Media/*.jpg
+/src/Senparc.Weixin.MP/Senparc.Weixin.MP.Test/*.jpg

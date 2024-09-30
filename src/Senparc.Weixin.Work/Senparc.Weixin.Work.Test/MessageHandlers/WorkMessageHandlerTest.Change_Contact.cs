@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -21,7 +22,7 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
         /// 创建成员
         /// </summary>
         [TestMethod]
-        public void RequestMessageEvent_Change_Contact_User_Create()
+        public async Task RequestMessageEvent_Change_Contact_User_Create()
         {
             //官方提供
             var xml = @"<xml>
@@ -78,7 +79,7 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
             };
 
             var messageHandler = new CustomMessageHandlers(XDocument.Parse(xml), postModel, 10);
-            messageHandler.Execute();
+            await messageHandler.ExecuteAsync(new CancellationToken());
             var responseMessage = messageHandler.ResponseDocument;
 
             Assert.IsNotNull(messageHandler.RequestMessage);

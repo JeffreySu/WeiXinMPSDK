@@ -18,27 +18,19 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.Test.CommonApis;
+using Senparc.Weixin.Work.Test.net6.MessageHandlers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.NeuChar;
-using Senparc.NeuChar.Context;
-using Senparc.Weixin.Work.Entities;
-using Senparc.Weixin.Work.Helpers;
-using Senparc.Weixin.Work.MessageHandlers;
-using Senparc.Weixin.Work.Test.net6.MessageHandlers;
-using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.Work.Test.MessageHandlers
 {
     [TestClass]
-    public partial class WorkMessageHandlersTest:BaseTest
+    public partial class WorkMessageHandlersTest : CommonApiTest
     {
         private string testXml = @"<xml><ToUserName><![CDATA[wx7618c0a6d9358622]]></ToUserName>
 <Encrypt><![CDATA[h3z+AK9zKP4dYs8j1FmthAILbJghEmdo2Y1U9Pdghzann6H2KJOpepaDT1zcp09/1/e/6ta48aUXebkHlu0rhzk4GW+cvVUHzbEiQVFlIvD+q4T/NLIm8E8BM+gO+DHslM7aXmYjvgMw6AYiBx80D+nZKNyJD3I8lRT3aHCq/hez0c+HTAnZyuCi5TfUAw0c6jWSfAq61VesRw4lhV925vJUOBXT/zOw760CEsYXSr2IAr/n4aPfDgRs2Ww2h/HPiVOQ2Ms1f/BOtFiKVWMqZCxbmJ7cyPHH7+uOSAS6DtXiQAdwpEZwHz+A5QTsmK6V0C6Ifgr7zrStb7ygM7kmcrAJctPhCfG7WlfrWrFNLdtx9Q2F7d6/soinswdoYF8g56s8UWguOVkM7UFGr8H2QqrUJm5S5iFP/XNcBwvPWYA=]]></Encrypt>
@@ -76,7 +68,7 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
         }
 
         [TestMethod]
-        public void TextTest2()
+        public async Task TextTest2()
         {
             var postModel = new PostModel()
             {
@@ -86,7 +78,7 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
 
                 Token = "3J5JTpb4j8Yfk",
                 EncodingAESKey = "XtJUgDlFYncPP3z4V7W6Jv4ietcIFveUn6LP1KzOBNf",
-                CorpId = ""
+                CorpId = base._corpId
             };
             var messageHandler = new CustomMessageHandlers(XDocument.Parse(testFileXml), postModel, 10);
             Assert.IsNotNull(messageHandler.RequestDocument);
@@ -94,7 +86,7 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
             Assert.IsNotNull(messageHandler.EncryptPostData);
             Assert.IsTrue(messageHandler.AgentId == 2);
 
-            messageHandler.Execute();
+            await messageHandler.ExecuteAsync(new CancellationToken());
 
             Assert.IsNotNull(messageHandler.ResponseDocument);
             Assert.IsNotNull(messageHandler.ResponseMessage);

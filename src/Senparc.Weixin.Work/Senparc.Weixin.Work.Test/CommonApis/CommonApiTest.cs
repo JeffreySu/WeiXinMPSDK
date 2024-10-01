@@ -37,6 +37,7 @@ using Senparc.Weixin.Entities;
 using Senparc.WeixinTests;
 using Microsoft.AspNetCore.Hosting;
 using Senparc.CO2NET.Cache.CsRedis;
+using Senparc.CO2NET.Extensions;
 
 
 namespace Senparc.Weixin.Work.Test.CommonApis
@@ -143,6 +144,7 @@ namespace Senparc.Weixin.Work.Test.CommonApis
             var result = CommonApi.GetCallBackIp(accessToken);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
+            Console.WriteLine(result.ToJson(true));
         }
     }
 }

@@ -41,17 +41,17 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
         private string testXml2 = @"<xml><ToUserName><![CDATA[tj99bf85a7c6525277]]></ToUserName><Encrypt><![CDATA[mOYGyroKLkpIDLNn6DAPjdZbRsQlkUggk+LnYY2S/7O/nRxxu3hDsJLiod29NVMYpwVNHMqTnZALXmycI6c7+wWxway/T/91okclPXn+EB/u4vss5FKntesFMxtGPRxt1aChMN9yNJNRhom05UD4c3B3lSicS10LE3MwWenb9t3CzbovlwM7T9jq1PFOA/0HyGZtwIoNdPjc0xaPe09oMvRtn69vu7whudjq2oI27jmEvXAfrWxN29oYTb+dPmBgXx/y4Hs2nWctuiCS7l9jN/dgzKTfPP056k7AKp49XIe2PHJZsmq/jhKLh+7aVRjGcWQepgshtbRwNtolPsT3AoblAa/be7d3igl/EbfguPTK/mAANEb73grwQxfNVH/MJr4sQrTKn/DHjbP9GyoKrr6qFxpDiziZB7LD/kvUqSw=]]></Encrypt><AgentID><![CDATA[]]></AgentID></xml>";
 
         [TestMethod]
-        public void TextTest()
+        public async Task TextTest()
         {
             var postModel = new PostModel()
             {
-                Msg_Signature = "Fill Your Setting",
-                Timestamp = "Fill Your Setting",
-                Nonce = "Fill Your Setting",
+                Msg_Signature = "118b034be74c917464f833cd32fc3f74958b2c93",
+                Timestamp = "1505643268",
+                Nonce = "1504921331",
 
-                Token = "Fill Your Setting",
-                EncodingAESKey = "Fill Your Setting",
-                CorpId = "Fill Your Setting"
+                Token = "3J5JTpb4j8Yfk",
+                EncodingAESKey = "XtJUgDlFYncPP3z4V7W6Jv4ietcIFveUn6LP1KzOBNf",
+                CorpId = base._corpId
             };
             var messageHandler = new CustomMessageHandlers(XDocument.Parse(testXml), postModel, 10);
             Assert.IsNotNull(messageHandler.RequestDocument);
@@ -59,7 +59,7 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
             Assert.IsNotNull(messageHandler.EncryptPostData);
             Assert.IsTrue(messageHandler.AgentId == 2);
 
-            messageHandler.Execute();
+            await messageHandler.ExecuteAsync(new CancellationToken());
 
             Assert.IsNotNull(messageHandler.ResponseDocument);
             Assert.IsNotNull(messageHandler.ResponseMessage);

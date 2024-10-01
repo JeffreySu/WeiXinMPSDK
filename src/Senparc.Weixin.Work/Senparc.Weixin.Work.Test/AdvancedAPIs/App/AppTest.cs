@@ -18,18 +18,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 
-using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Work.AdvancedAPIs;
 using Senparc.Weixin.Work.AdvancedAPIs.App;
-using Senparc.Weixin.Work.AdvancedAPIs.MailList;
-using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Containers;
 using Senparc.Weixin.Work.Test.CommonApis;
+using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Work.Test.AdvancedAPIs
 {
@@ -39,6 +34,8 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
     [TestClass]
     public partial class AppTest : CommonApiTest
     {
+        const int AGENT_ID = 1000009;
+
         [TestMethod]
         public void GetAppInfoTest()
         {
@@ -46,70 +43,50 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
                 //使用AppKey测试
                 //常规AccessToken测试
                 var appKey = AccessTokenContainer.BuildingKey(_corpId, base._corpSecret);
-                var result = AppApi.GetAppInfo(appKey, 2);
+                var result = AppApi.GetAppInfo(appKey, AGENT_ID);
 
                 Assert.IsNotNull(result.agentid);
-                Assert.AreEqual(result.agentid, "2");
+                Assert.AreEqual(result.agentid, AGENT_ID.ToString());
                 Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result));
             }
 
             {
                 //常规AccessToken测试
                 var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
-                var result = AppApi.GetAppInfo(accessToken, 2);
+                var result = AppApi.GetAppInfo(accessToken, AGENT_ID);
 
                 Assert.IsNotNull(result.agentid);
-                Assert.AreEqual(result.agentid, "2");
+                Assert.AreEqual(result.agentid, AGENT_ID.ToString());
                 Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result));
             }
         }
 
         [TestMethod]
-        public void GetAppInfoAsyncTest()
+        public async Task GetAppInfoAsyncTest()
         {
-            var finishedCount = 0;
-
             {
-                Task.Factory.StartNew(async () =>
-                {
-                    //使用AppKey测试
-                    //常规AccessToken测试
-                    var appKey = AccessTokenContainer.BuildingKey(_corpId, base._corpSecret);
-                    var result = await AppApi.GetAppInfoAsync(appKey, 2);
+                //使用AppKey测试
+                //常规AccessToken测试
+                var appKey = AccessTokenContainer.BuildingKey(_corpId, base._corpSecret);
+                var result = await AppApi.GetAppInfoAsync(appKey, AGENT_ID);
 
-                    Assert.IsNotNull(result.agentid);
-                    Assert.AreEqual(result.agentid, "2");
+                Assert.IsNotNull(result.agentid);
+                Assert.AreEqual(result.agentid, AGENT_ID.ToString());
 
-                    Console.WriteLine("1.Ticket:" + SystemTime.Now.Ticks);
-                    Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result));
-                    finishedCount++;
-                });
-
-                while (finishedCount < 1)
-                {
-
-                }
+                Console.WriteLine("1.Ticket:" + SystemTime.Now.Ticks);
+                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result));
             }
 
             {
-                Task.Factory.StartNew(async () =>
-                {
-                    //常规AccessToken测试
-                    var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
-                    var result = await AppApi.GetAppInfoAsync(accessToken, 2);
+                //常规AccessToken测试
+                var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
+                var result = await AppApi.GetAppInfoAsync(accessToken, AGENT_ID);
 
-                    Assert.IsNotNull(result.agentid);
-                    Assert.AreEqual(result.agentid, "2");
+                Assert.IsNotNull(result.agentid);
+                Assert.AreEqual(result.agentid, AGENT_ID.ToString());
 
-                    Console.WriteLine("2.Ticket:" + SystemTime.Now.Ticks);
-                    Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result));
-                    finishedCount++;
-                });
-
-                while (finishedCount < 2)
-                {
-
-                }
+                Console.WriteLine("2.Ticket:" + SystemTime.Now.Ticks);
+                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result));
             }
         }
 
@@ -120,15 +97,15 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
 
             SetAppPostData date = new SetAppPostData()
             {
-                agentid = "2",//"100" + SystemTime.Now.ToString("yyMMddHHMM"),
+                agentid = AGENT_ID.ToString(),//"100" + SystemTime.Now.ToString("yyMMddHHMM"),
                 report_location_flag = "1",
                 //logo_mediaid = "1muvdK7W8cjLfNqj0hWP89-CEhZNOVsktCE1JHSTSNpzTf7cGOXyDin_ozluwNZqi",
-                name = "单元测试添加" + SystemTime.Now.ToString("yyMMddHHMM"),
-                description = "test",
-                redirect_domain = "https://sdk.weixin.senparc.com",
+                name = "微信 SDK 单元测试添加" + SystemTime.Now.ToString("yyyyMMdd HH:mm"),
+                description = "微信 SDK 单元测试",
+                redirect_domain = "sdk.weixin.senparc.com",
                 //isreportenter = 0,
                 isreportuser = 1,
-                home_url = "weixin.senparc.com"
+                home_url = "https://weixin.senparc.com",
             };
 
             var result = AppApi.SetApp(accessToken, date);

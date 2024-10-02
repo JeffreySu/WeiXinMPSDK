@@ -30,7 +30,7 @@ namespace Senparc.Weixin.Work.Test.CommonApis
 {
     public partial class CommonApiTest
     {
-        private int _agentId = 7;
+        private int _agentId = 1000009;
 
         [TestMethod]
         public async Task CreateMenuTest()
@@ -88,11 +88,14 @@ namespace Senparc.Weixin.Work.Test.CommonApis
 
             Assert.IsNotNull(result);
             Assert.AreEqual("ok", result.errmsg);
+
+            GetMenuTest();
+
+            DeleteMenuTest();
         }
 
 
-        [TestMethod]
-        public void GetMenuTest()
+        private void GetMenuTest()
         {
             //return;//已经通过测试
             var accessToken = AccessTokenContainer.GetToken(_corpId, _corpSecret);
@@ -104,8 +107,7 @@ namespace Senparc.Weixin.Work.Test.CommonApis
             Assert.IsTrue(result.menu.button.Count > 0);
         }
 
-        [TestMethod]
-        public void DeleteMenuTest()
+        private void DeleteMenuTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId, _corpSecret);
 

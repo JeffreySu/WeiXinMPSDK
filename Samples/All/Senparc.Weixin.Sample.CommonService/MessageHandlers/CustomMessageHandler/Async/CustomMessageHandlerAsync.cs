@@ -8,7 +8,6 @@
     创建标识：Senparc - 20191003
 ----------------------------------------------------------------*/
 
-//DPBMARK_FILE MP
 using System.Threading;
 using System.Threading.Tasks;
 

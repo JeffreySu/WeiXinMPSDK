@@ -134,19 +134,6 @@ namespace Senparc.Weixin.Work.Containers
     {
         private const string UN_REGISTER_ALERT = "此AppId尚未注册，JsApiTicketContainer.Register完成注册（全局执行一次即可）！";
 
-        /// <summary>
-        /// 注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
-        /// </summary>
-        /// <param name="appId"></param>
-        /// <param name="appSecret"></param>
-        /// <param name="name">标记JsApiTicket名称（如微信公众号名称），帮助管理员识别。当 name 不为 null 和 空值时，本次注册内容将会被记录到 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name] 中，方便取用。</param>
-        /// <param name="isAgentConfig">是否为“应用jsapi_ticket”，如果是某个特定应用，则输入 true（用于计算 agentConfig 的签名），否则为 false。参考：<see href="https://developer.work.weixin.qq.com/document/path/90506#14924"/></param>
-        /// 此接口无异步方法
-        private static string BuildingKey(string corpId, string corpSecret, bool isAgentConfig)
-        {
-            return corpId + corpSecret + (isAgentConfig?"_AgentConfig":"");
-        }
-
         #region 同步方法
 
         /// <summary>
@@ -176,7 +163,7 @@ namespace Senparc.Weixin.Work.Containers
         /// <returns></returns>
         public static string TryGetTicket(string appId, string appSecret, bool isAgentConfig, bool getNewTicket = false)
         {
-            if (!CheckRegistered(BuildingKey(appId, appSecret,isAgentConfig)) || getNewTicket)
+            if (!CheckRegistered(AccessTokenContainer.BuildingKey(appId, appSecret,isAgentConfig)) || getNewTicket)
             {
                 Register(appId, appSecret);
             }
@@ -203,7 +190,7 @@ namespace Senparc.Weixin.Work.Containers
         /// <returns></returns>
         public static JsApiTicketResult GetTicketResult(string appId, string appSecret, bool isAgentConfig, bool getNewTicket = false)
         {
-            var appKey = BuildingKey(appId, appSecret,isAgentConfig);
+            var appKey = AccessTokenContainer.BuildingKey(appId, appSecret,isAgentConfig);
             if (!CheckRegistered(appKey))
             {
                 throw new WeixinWorkException(UN_REGISTER_ALERT);
@@ -253,7 +240,7 @@ namespace Senparc.Weixin.Work.Containers
             foreach (var isAgentConfig in isAgentConfigArr)
             {
                 //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
-                var appKey = BuildingKey(corpId, corpSecret, isAgentConfig);
+                var appKey = AccessTokenContainer.BuildingKey(corpId, corpSecret, isAgentConfig);
                 RegisterFuncCollection[appKey] = async () =>
                 {
                     //using (FlushCache.CreateInstance())
@@ -289,7 +276,7 @@ namespace Senparc.Weixin.Work.Containers
         /// <returns></returns>
         public static async Task<string> TryGetTicketAsync(string appId, string appSecret, bool isAgentConfig, bool getNewTicket = false)
         {
-            if (!await CheckRegisteredAsync(BuildingKey(appId, appSecret,isAgentConfig)).ConfigureAwait(false) || getNewTicket)
+            if (!await CheckRegisteredAsync(AccessTokenContainer.BuildingKey(appId, appSecret,isAgentConfig)).ConfigureAwait(false) || getNewTicket)
             {
                 await RegisterAsync(appId, appSecret).ConfigureAwait(false);
             }
@@ -316,7 +303,7 @@ namespace Senparc.Weixin.Work.Containers
         /// <returns></returns>
         public static async Task<JsApiTicketResult> GetTicketResultAsync(string appId, string appSecret, bool isAgentConfig, bool getNewTicket = false)
         {
-            var shortKey = BuildingKey(appId, appSecret, isAgentConfig);
+            var shortKey = AccessTokenContainer.BuildingKey(appId, appSecret, isAgentConfig);
             if (!await CheckRegisteredAsync(shortKey).ConfigureAwait(false))
             {
                 Senparc.Weixin.WeixinTrace.BaseExceptionLog(new Exception($"{UN_REGISTER_ALERT} AppId：{appId}"));

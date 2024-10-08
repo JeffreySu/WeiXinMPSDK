@@ -14,7 +14,7 @@ namespace Senparc.Weixin.TenPayV3.TenPayHttpClient
         /// <summary>
         /// 获取签名对象
         /// </summary>
-        /// <param name="signerType"></param>
+        /// <param name="certType"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static ISigner GetSigner(CertType certType)
@@ -33,7 +33,7 @@ namespace Senparc.Weixin.TenPayV3.TenPayHttpClient
         /// <summary>
         /// 获取验签对象
         /// </summary>
-        /// <param name="signerType"></param>
+        /// <param name="certType"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static IVerifier GetVerifier(CertType certType)

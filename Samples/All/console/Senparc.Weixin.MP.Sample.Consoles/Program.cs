@@ -35,6 +35,7 @@ Detail: https://github.com/Senparc/Senparc.CO2NET/blob/master/LICENSE
 using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin;
@@ -42,19 +43,19 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.RegisterServices;
 
-
 var builder = new ConfigurationBuilder();
-builder.AddJsonFile("appsettings.json", false, false);
+var environment = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? "Production";
+
+builder.AddJsonFile("appsettings.json", false, true);
+builder.AddJsonFile($"appsettings.{environment}.json", false, true);
 Console.WriteLine("完成 appsettings.json 添加");
 
 var config = builder.Build();
 Console.WriteLine("完成 ServiceCollection 和 ConfigurationBuilder 初始化");
 
-//更多绑定操作参见：https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2
-var senparcSetting = new SenparcSetting();
-var senparcWeixinSetting = new SenparcWeixinSetting();
-config.GetSection("SenparcSetting").Bind(senparcSetting);
-config.GetSection("SenparcWeixinSetting").Bind(senparcWeixinSetting);
+//更多绑定操作参见：https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-8.0
+var senparcSetting = config.GetSection("SenparcSetting").Get<SenparcSetting>();
+var senparcWeixinSetting = config.GetSection("SenparcWeixinSetting").Get< SenparcWeixinSetting>();
 
 var services = new ServiceCollection();
 services.AddMemoryCache();//使用本地缓存必须添加
@@ -76,8 +77,8 @@ var app = builder.Build();
 
 //启用微信配置（必须）
 var registerService = app.UseSenparcWeixin(
-    null /* 不为 null 则覆盖 appsettings  中的 SenpacSetting 配置*/,
-    null /* 不为 null 则覆盖 appsettings  中的 SenpacWeixinSetting 配置*/,
+    senparcSetting /* 不为 null 则覆盖 appsettings  中的 SenpacSetting 配置*/,
+    senparcWeixinSetting /* 不为 null 则覆盖 appsettings  中的 SenpacWeixinSetting 配置*/,
     register => { /* CO2NET 全局配置 */ },
     (register, weixinSetting) =>
     {
@@ -91,4 +92,10 @@ var registerService = app.UseSenparcWeixin(
 
 var weixinSetting = Senparc.Weixin.Config.SenparcWeixinSetting;
 
+Console.WriteLine("## weixinSetting");
+Console.WriteLine(weixinSetting.ToJson(true, new Newtonsoft.Json.JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore }));
+Console.WriteLine();
+Console.WriteLine("## 【盛派网络小助手】公众号");
 Console.WriteLine(weixinSetting.Items["【盛派网络小助手】公众号"].ToJson(true));
+
+Console.ReadLine();

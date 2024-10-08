@@ -1,5 +1,4 @@
-﻿//DPBMARK_FILE MP
-
+﻿
 using Microsoft.AspNetCore.Http;
 using Senparc.Weixin.MP.MvcExtension;
 

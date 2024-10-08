@@ -15,7 +15,6 @@
 
 ----------------------------------------------------------------*/
 
-//DPBMARK_FILE MP
 using Senparc.NeuChar.Entities;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;

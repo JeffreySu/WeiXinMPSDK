@@ -3,7 +3,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>2024.9.11</Version>
+    <Version>2024.10.8</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.All</AssemblyName>
     <RootNamespace>Senparc.Weixin.All</RootNamespace>
@@ -47,6 +47,7 @@
 		[2024-08-12] v2024.8.12 升级 Senparc.Weixin.Work
 		[2024-09-02] v2024.9.2 WxOpen 支持小程序付费能力的用量告警事件
 		[2024-09-10] v2024.9.10 更新基础库，包括缓存、APM、CO2NET 核心模块等全面升级
+		[2024-10-08] v2024.10.8 更新基础库，简化 .NET 版本支持
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

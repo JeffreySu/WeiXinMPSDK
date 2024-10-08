@@ -102,6 +102,18 @@ namespace Senparc.Weixin.WxOpen.MessageContexts
                         case "WX_VERIFY_DISPATCH": //微信认证派单事件
                             requestMessage = new RequestMessageEvent_WxVerifyDispatch();
                             break;
+                        case "USER_INFO_MODIFIED": //用户资料变更
+                            requestMessage = new RequestMessageEvent_UserInfoModified();
+                            break;
+                        case "USER_AUTHORIZATION_REVOKE": //用户撤回
+                            requestMessage = new RequestMessageEvent_UserAuthorizationRevoke();
+                            break;
+                        case "USER_AUTHORIZATION_CANCELLATION": //用户完成注销
+                            requestMessage = new RequestMessageEvent_UserAuthorizationCancellation();
+                            break;
+                        case "CHARGE_SERVICE_QUOTA_NOTIFY": //付费管理订单用量告警事件
+                            requestMessage = new RequestMessageEvent_ChargeServiceQuotaNotify();
+                            break;
                         default://其他意外类型（也可以选择抛出异常）
                             requestMessage = new RequestMessageEventBase();
                             break;

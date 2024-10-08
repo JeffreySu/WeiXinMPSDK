@@ -25,9 +25,9 @@
 
 	<!--引用 Nuget 包-->
 	<ItemGroup>
-	  <PackageReference Include="Senparc.Weixin.AspNet" Version="1.3.1" />
-	  <PackageReference Include="Senparc.Weixin.Work" Version="3.22.1" />
-	  <PackageReference Include="Senparc.Weixin.Work.Middleware" Version="1.3.1" />
+	  <PackageReference Include="Senparc.Weixin.AspNet" Version="1.3.3" />
+	  <PackageReference Include="Senparc.Weixin.Work" Version="3.23.1" />
+	  <PackageReference Include="Senparc.Weixin.Work.Middleware" Version="1.3.3" />
 	</ItemGroup>
 
 	<!--直接引用源码-->

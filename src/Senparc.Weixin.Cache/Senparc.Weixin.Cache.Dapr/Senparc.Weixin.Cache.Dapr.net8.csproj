@@ -56,7 +56,7 @@
     <None Include="..\..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.Cache.Dapr" Version="0.1.2" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Dapr" Version="0.1.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net8.csproj" />

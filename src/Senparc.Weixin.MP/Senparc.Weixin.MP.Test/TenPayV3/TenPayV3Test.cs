@@ -54,7 +54,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         public void UnifiedorderTest()
         {
             //这是已经过期的旧方法，新方法请参考相同方法名的重写方法
-            var result = TenPayV3.Unifiedorder(data);
+            var result = Senparc.Weixin.TenPay.V3.TenPayV3.Unifiedorder(data);
             Console.Write(result);
             Assert.IsNotNull(result);
         }
@@ -70,7 +70,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             var nonceStr = TenPayV3Util.GetNoncestr();
             var dataInfo = new TenPayV3GetSignKeyRequestData(base._mchId, nonceStr, base._tenPayKey);
-            var result = TenPayV3.GetSignKey(dataInfo);
+            var result = Senparc.Weixin.TenPay.V3.TenPayV3.GetSignKey(dataInfo);
 
             Console.WriteLine(result.ResultXml);
             Assert.IsTrue(result.IsReturnCodeSuccess());
@@ -112,7 +112,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 nonceStr, deviceInfo, body, detail, null, outTradeNo, totalFee.ToString(), "CNY", "127.0.0.1",
                 null, null);
 
-            var result = TenPayV3.MicroPay(dataInfo);
+            var result = Senparc.Weixin.TenPay.V3.TenPayV3.MicroPay(dataInfo);
 
             Console.WriteLine(result.ResultXml);
             Assert.IsTrue(result.IsReturnCodeSuccess());
@@ -124,7 +124,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         private void OrderQueryTest(string sandBoxKey, string nonceStr,string transactionId,string outTradeNo)
         {
             var dataInfo = new TenPayV3OrderQueryRequestData(base._appId, base._mchId, transactionId, nonceStr, outTradeNo, sandBoxKey);
-            var result = TenPayV3.OrderQuery(dataInfo);
+            var result = Senparc.Weixin.TenPay.V3. TenPayV3.OrderQuery(dataInfo);
 
 
             Console.WriteLine(result.ResultXml);
@@ -140,7 +140,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 SystemTime.Now.ToString("yyyyMMdd"), "ALL", sandBoxKey);
 
 
-            var result = TenPayV3.DownloadBill(dataInfo);
+            var result = Senparc.Weixin.TenPay.V3.TenPayV3.DownloadBill(dataInfo);
 
             Assert.IsTrue(!string.IsNullOrEmpty(result));
 

@@ -93,7 +93,7 @@ namespace Senparc.Weixin
         /// <param name="senparcWeixinSetting">微信全局设置参数，必填</param>
         /// <param name="senparcSetting">用于提供 SenparcSetting.Cache_Redis_Configuration 和 Cache_Memcached_Configuration 两个参数，如果不使用这两种分布式缓存可传入null</param>
         /// <returns></returns>
-        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, SenparcSetting senparcSetting = null)
+        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, SenparcSetting senparcSetting = null, Action<IRegisterService, SenparcWeixinSetting> weixinRegisterConfigure=null)
         {
             senparcWeixinSetting = senparcWeixinSetting ?? new SenparcWeixinSetting();
             senparcSetting = (senparcSetting ?? CO2NET.Config.SenparcSetting) ?? new SenparcSetting();
@@ -177,6 +177,7 @@ namespace Senparc.Weixin
             /* 扩展缓存注册结束 */
 
             /* 自动注册所有平台开始 */
+            weixinRegisterConfigure?.Invoke(registerService, senparcWeixinSetting);
 
             return registerService;
         }
@@ -209,7 +210,7 @@ namespace Senparc.Weixin
             //注册 CO2NET 全局
             var register = app.UseSenparcGlobal(senparcSetting, globalRegisterConfigure, autoScanExtensionCacheStrategies, extensionCacheStrategiesFunc);
 
-            return WeixinRegister.UseSenparcWeixin(register.registerService, senparcWeixinSetting, senparcSetting);
+            return WeixinRegister.UseSenparcWeixin(register.registerService, senparcWeixinSetting, senparcSetting, weixinRegisterConfigure);
         }
 #endif
 

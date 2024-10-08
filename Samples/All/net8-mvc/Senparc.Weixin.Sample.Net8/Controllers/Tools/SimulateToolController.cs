@@ -12,7 +12,6 @@
     修改描述：优化消息模拟功能 
 ----------------------------------------------------------------*/
 
-//DPBMARK_FILE MP
 using System;
 using System.Collections.Generic;
 using System.IO;

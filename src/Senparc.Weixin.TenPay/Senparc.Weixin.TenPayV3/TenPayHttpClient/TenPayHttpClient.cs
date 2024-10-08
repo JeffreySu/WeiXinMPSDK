@@ -60,17 +60,17 @@ namespace Senparc.Weixin.TenPayV3.TenPayHttpClient
     {
         private readonly SenparcHttpClient _httpClient;
         private ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting;
-        private readonly CertType _certType;
+        //private CertType CertType => _tenpayV3Setting.EncryptionType == "SM" ? CertType.SM : CertType.RSA;
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="senparcWeixinSettingForTenpayV3"></param>
-        public BasePayApis2(SenparcHttpClient httpClient, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null, CertType certType = CertType.RSA)
+        public BasePayApis2(SenparcHttpClient httpClient, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null/*, CertType certType = CertType.RSA*/)
         {
             this._httpClient = httpClient;
             _tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
-            this._certType = certType;
+            //this._certType = certType;
         }
 
         /// <summary>
@@ -95,8 +95,8 @@ namespace Senparc.Weixin.TenPayV3.TenPayHttpClient
         {
             var url = ReturnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/pay/transactions/jsapi");
 
-            HttpClient hc = null;//注入
-            TenPayHttpClient tenPayApiRequest = new(_httpClient, _tenpayV3Setting, _tenpayV3Setting.EncryptionType == CertType.SM.ToString() ? CertType.SM : CertType.RSA);
+            //HttpClient hc = null;//注入
+            TenPayHttpClient tenPayApiRequest = new(_httpClient, _tenpayV3Setting);
             return await tenPayApiRequest.SendAsync<JsApiReturnJson>(url, data, timeOut);
         }
     }
@@ -108,16 +108,17 @@ namespace Senparc.Weixin.TenPayV3.TenPayHttpClient
         private readonly HttpClient _client;
         private readonly ISigner _signer;
         private readonly IVerifier _verifier;
+        private CertType CertType => _tenpayV3Setting.EncryptionType == "SM" ? CertType.SM : CertType.RSA;
 
-        public TenPayHttpClient(SenparcHttpClient httpClient, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null, CertType certType = CertType.RSA)
+        public TenPayHttpClient(SenparcHttpClient httpClient, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null)
         {
             this._httpClient = httpClient;
             this._client = this._httpClient.Client;
             _tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
 
             //从工厂获得签名和验签的方法类
-            _signer = TenPayCertFactory.GetSigner(certType);
-            _verifier = TenPayCertFactory.GetVerifier(certType);
+            _signer = TenPayCertFactory.GetSigner(CertType);
+            _verifier = TenPayCertFactory.GetVerifier(CertType);
 
             #region 配置UA
 

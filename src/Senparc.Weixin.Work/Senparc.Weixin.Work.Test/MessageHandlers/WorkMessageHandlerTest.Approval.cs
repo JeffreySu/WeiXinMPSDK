@@ -332,7 +332,7 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
 
             Assert.IsNotNull(requestMessage.ApprovalInfo);
             Assert.AreEqual("thirdNoxxx", requestMessage.ApprovalInfo.ThirdNo);
-            Assert.AreEqual((uint)1234567111, requestMessage.ApprovalInfo.OpenTemplateId);
+            Assert.AreEqual("1234567111", requestMessage.ApprovalInfo.OpenTemplateId);
             Assert.AreEqual("产品部", requestMessage.ApprovalInfo.ApplyUserParty);
 
 

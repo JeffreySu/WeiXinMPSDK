@@ -1,8 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.TenPay.V3;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Senparc.Weixin.TenPay.Test.vs2017.V3
 {
@@ -35,7 +33,7 @@ namespace Senparc.Weixin.TenPay.Test.vs2017.V3
         public void GetXmlValuesTest1()
         {
             var data = new TenPayV3UnifiedorderRequestData("", "", "test", "test123123", 1, "", "", TenPayV3Type.JSAPI, "", "", "1111");
-            TenPayV3.Unifiedorder(data);
+            Senparc.Weixin.TenPay.V3.TenPayV3.Unifiedorder(data);
         }
     }
 }

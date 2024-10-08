@@ -156,9 +156,9 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="corpId">corpId</param>
         /// <param name="corpSecret">corpSecret</param>
         /// 此接口无异步方法
-        public static string BuildingKey(string corpId, string corpSecret)
+        public static string BuildingKey(string corpId, string corpSecret, bool isAgentConfig=false)
         {
-            return string.Format("{0}@{1}", corpId, corpSecret);
+            return $"{corpId}@{corpSecret}{(isAgentConfig?$"@@AgentConfig" :null)}";
         }
 
         /// <summary>

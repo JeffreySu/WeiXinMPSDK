@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
-    <Version>0.1.0-beta1</Version>
+    <Version>0.1.2-beta1</Version>
     <AssemblyName>Senparc.Weixin.Cache.Dapr</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Dapr</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -56,7 +56,7 @@
     <None Include="..\..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.Cache.Dapr" Version="0.1.0" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Dapr" Version="0.1.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net8.csproj" />

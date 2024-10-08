@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Memcached;
-using Senparc.CO2NET.Cache.Redis;
+using Senparc.CO2NET.Cache.CsRedis;
 using Senparc.Weixin;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Memcached;
-using Senparc.Weixin.Cache.Redis;
 
 namespace Senparc.WeixinTests
 {

@@ -1,4 +1,38 @@
-﻿using Org.BouncyCastle.Crypto.Engines;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2024 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2024 Senparc
+ 
+    文件名：SecurityHelper.cs
+    文件功能描述：安全帮助类，提供加密解密方法及微信支付要求的安全方法
+    
+    创建标识：Senparc - 20210822
+
+    修改标识：Senparc - 20241020
+    修改描述：v1.6.5 修改 SM 证书判断逻辑，向下兼容未升级 appsettings.json 的系统 #3084 感谢 @WXJDLM
+
+----------------------------------------------------------------*/
+
+
+using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.Crypto.Modes;
 using Org.BouncyCastle.Crypto.Parameters;
 using Senparc.CO2NET.Helpers;
@@ -16,6 +50,9 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Helpers
 {
+    /// <summary>
+    /// 安全帮助类
+    /// </summary>
     public class SecurityHelper
     {
         /// <summary>
@@ -48,7 +85,11 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <returns></returns>
         public static string GetPublicKey(Encrypt_Certificate encryptCertificate, string apiV3Key, string encryptionType)
         {
-            if (encryptionType == CertType.RSA.ToString())
+            if (encryptionType == CertType.SM.ToString())
+            {
+                return GmHelper.Sm4DecryptGCM(apiV3Key, encryptCertificate.nonce, "certificate", encryptCertificate.ciphertext);
+            }
+            else
             {
                 var buff = Convert.FromBase64String(encryptCertificate.ciphertext);
                 var secret = Encoding.UTF8.GetBytes(apiV3Key);
@@ -65,10 +106,6 @@ namespace Senparc.Weixin.TenPayV3.Helpers
                 cipher.DoFinal(data, num);
                 return Encoding.UTF8.GetString(data);
             }
-            else
-            {
-                return GmHelper.Sm4DecryptGCM(apiV3Key, encryptCertificate.nonce, "certificate", encryptCertificate.ciphertext);
-            }
         }
 
         /// <summary>
@@ -80,17 +117,17 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <returns></returns>
         public static string Encrypt(string text, string publicKey, string encryptionType)
         {
-            if (encryptionType == CertType.RSA.ToString())
+            if (encryptionType == CertType.SM.ToString())
+            {
+                ECPublicKeyParameters eCPublicKeyParameters = SMPemHelper.LoadPublicKeyToParameters(Encoding.UTF8.GetBytes(publicKey));
+                return GmHelper.Sm2Encrypt(eCPublicKeyParameters, text);
+            }
+            else
             {
                 var x509 = new X509Certificate2(Encoding.UTF8.GetBytes(publicKey));
                 var rsa = x509.GetRSAPublicKey();
                 var buff = rsa.Encrypt(Encoding.UTF8.GetBytes(text), RSAEncryptionPadding.OaepSHA1);
                 return Convert.ToBase64String(buff);
-            }
-            else
-            {
-                ECPublicKeyParameters eCPublicKeyParameters = SMPemHelper.LoadPublicKeyToParameters(Encoding.UTF8.GetBytes(publicKey));
-                return GmHelper.Sm2Encrypt(eCPublicKeyParameters, text);
             }
         }
 

@@ -32,6 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20240802
     修改描述：v1.4.2 完善 SM 相关方法
 
+    修改标识：Senparc - 20241020
+    修改描述：v1.6.5 修改 SM 证书判断逻辑，向下兼容未升级 appsettings.json 的系统 #3084 感谢 @WXJDLM
+
 ----------------------------------------------------------------*/
 
 using Microsoft.AspNetCore.Http;
@@ -163,13 +166,13 @@ namespace Senparc.Weixin.TenPayV3
         // TODO: 本方法持续测试
         public async Task<T> DecryptGetObjectAsync<T>(/*string aes_key = null, */string nonce = null, string associated_data = null) where T : ReturnJsonBase, new()
         {
-            if (_tenpayV3Setting.EncryptionType == CertType.RSA.ToString())
+            if (_tenpayV3Setting.EncryptionType == CertType.SM.ToString())
             {
-                return await AesGcmDecryptGetObjectAsync<T>(nonce, associated_data);
+                return await Sm4GcmDecryptGetObjectAsync<T>(nonce, associated_data);
             }
             else
             {
-                return await Sm4GcmDecryptGetObjectAsync<T>(nonce, associated_data);
+                return await AesGcmDecryptGetObjectAsync<T>(nonce, associated_data);
             }
         }
     }

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.21.1</Version>
+    <Version>3.21.2</Version>
     <LangVersion>9.0</LangVersion>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
@@ -184,7 +184,8 @@
 		[2024-08-06] v3.19.2 更新基础库，包括 Senparc.CO2NET 相关库、Senparc.AI
 		[2024-09-02] v3.20.2 WxOpen 支持小程序付费能力的用量告警事件
 		[2024-10-08] v3.21.0 WxOpen 添加“查询购买资源包的用量情况”接口 #3078
-</PackageReleaseNotes>
+		[2024-10-20] v3.21.2 修正 first_save_flag 类型错误，应为 int; 同时增加 FirstSaveFlag 属性, 用于 bool 类型判断是否首次充值 #2986 感谢 @WanderingGrass
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

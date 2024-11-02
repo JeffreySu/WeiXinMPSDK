@@ -579,7 +579,7 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
             try
             {
                 var resHandler = new TenPayNotifyHandler(HttpContext);
-                var refundNotifyJson = await resHandler.AesGcmDecryptGetObjectAsync<RefundNotifyJson>();
+                var refundNotifyJson = await resHandler.DecryptGetObjectAsync<RefundNotifyJson>();
 
                 WeixinTrace.SendCustomLog("跟踪RefundNotifyUrl信息", refundNotifyJson.ToJson());
 

@@ -45,6 +45,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：mc7246 - 20210930
     修改描述：v4.11.500 添加第三方代码提审资料上传接口
 
+    修改标识：JaneConan - 20241103
+    修改描述：v4.20.6 fix wxa ap is get qr code async Issue #3089, PR #3090
+
 ----------------------------------------------------------------*/
 
 

@@ -324,7 +324,7 @@ namespace Senparc.Weixin.Sample.TenPayV3.Controllers
             {
                 //获取微信服务器异步发送的支付通知信息
                 var resHandler = new TenPayNotifyHandler(HttpContext);
-                var orderReturnJson = await resHandler.AesGcmDecryptGetObjectAsync<OrderReturnJson>();
+                var orderReturnJson = await resHandler.DecryptGetObjectAsync<OrderReturnJson>();
 
                 //记录日志
                 Senparc.Weixin.WeixinTrace.SendCustomLog("PayNotifyUrl 接收到消息", orderReturnJson.ToJson(true));
@@ -552,7 +552,7 @@ namespace Senparc.Weixin.Sample.TenPayV3.Controllers
             try
             {
                 var resHandler = new TenPayNotifyHandler(HttpContext);
-                var refundNotifyJson = await resHandler.AesGcmDecryptGetObjectAsync<RefundNotifyJson>();
+                var refundNotifyJson = await resHandler.DecryptGetObjectAsync<RefundNotifyJson>();
 
                 WeixinTrace.SendCustomLog("跟踪RefundNotifyUrl信息", refundNotifyJson.ToJson());
 

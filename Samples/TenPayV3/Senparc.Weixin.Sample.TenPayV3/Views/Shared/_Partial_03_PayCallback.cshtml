@@ -22,7 +22,7 @@ public async Task&lt;IActionResult&gt; PayNotifyUrl()
     {
         //获取微信服务器异步发送的支付通知信息
         var resHandler = new TenPayNotifyHandler(HttpContext);
-        var orderReturnJson = await resHandler.AesGcmDecryptGetObjectAsync&lt;OrderReturnJson&gt;();
+        var orderReturnJson = await resHandler.DecryptGetObjectAsync&lt;OrderReturnJson&gt;();
 
         //获取支付状态
         string trade_state = orderReturnJson.trade_state;

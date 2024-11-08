@@ -65,7 +65,7 @@ public async Task&lt;IActionResult&gt; RefundNotifyUrl()
     try
     {
         var resHandler = new TenPayNotifyHandler(HttpContext);
-        var refundNotifyJson = await resHandler.AesGcmDecryptGetObjectAsync&lt;RefundNotifyJson&gt;();
+        var refundNotifyJson = await resHandler.DecryptGetObjectAsync&lt;RefundNotifyJson&gt;();
 
         WeixinTrace.SendCustomLog(&quot;跟踪RefundNotifyUrl信息&quot;, refundNotifyJson.ToJson());
 

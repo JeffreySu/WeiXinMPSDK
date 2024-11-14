@@ -238,8 +238,11 @@ namespace Senparc.Weixin.Work.MessageContexts
                         case "MSGAUDIT_NOTIFY":
                             requestMessage = new RequestMessageEvent_MsgAuditNotify();
                             break;
-                        case "TEMPLATE_CARD_EVENT": //模板卡片回调事件
-                            requestMessage = new RequestMessageEvent_TemplateCardClick();
+                        case "TEMPLATE_CARD_EVENT": // 模板卡片事件推送
+                            requestMessage = new RequestMessageEvent_TemplateCardEvent();
+                            break;  
+                        case "TEMPLATE_CARD_MENU_EVENT": // 通用模板卡片右上角菜单事件
+                            requestMessage = new RequestMessageEvent_TemplateCardMenuEvent();
                             break;
                         default://其他意外类型（也可以选择抛出异常）
                             requestMessage = new RequestMessageEventBase();

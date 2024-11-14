@@ -74,6 +74,9 @@
 
     修改标识：LofyLiu - 20240315
     修改描述：添加: 模板卡片点击回调事件
+    
+    修改标识: IcedMango - 20241114
+    修改描述: 添加: 通用模板卡片右上角菜单事件推送; 修复不正确的通用模板卡片事件推送类型
 ----------------------------------------------------------------*/
 
 using System;
@@ -901,11 +904,21 @@ namespace Senparc.Weixin.Work.MessageHandlers
         }
 
         /// <summary>
-        /// 模板卡片点击回调事件
+        ///     模板卡片事件推送
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public virtual IWorkResponseMessageBase OnEvent_TemplateCardEventClickRequest(RequestMessageEvent_TemplateCardClick requestMessage)
+        public virtual IWorkResponseMessageBase OnEvent_TemplateCardEventRequest(RequestMessageEvent_TemplateCardEvent requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        
+        /// <summary>
+        ///     通用模板卡片右上角菜单事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_TemplateCardMenuEventRequest(RequestMessageEvent_TemplateCardMenuEvent requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

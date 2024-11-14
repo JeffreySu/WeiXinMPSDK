@@ -60,6 +60,9 @@
 
     修改标识：LofyLiu - 20240315
     修改描述：添加枚举“模板卡片点击回调事件”
+    
+    修改标识: IcedMango - 20241114
+    修改描述: 添加: 通用模板卡片右上角菜单事件推送; 修复不正确的通用模板卡片事件推送类型
 ----------------------------------------------------------------*/
 
 using static System.Net.WebRequestMethods;
@@ -218,9 +221,14 @@ namespace Senparc.Weixin.Work
         MSGAUDIT_NOTIFY,
 
         /// <summary>
-        /// 模板卡片点击回调事件
+        /// 模板卡片事件推送
         /// </summary>
-        TEMPLATE_CARD_CLICK,
+        TEMPLATE_CARD_EVENT,
+        
+        /// <summary>
+        /// 通用模板卡片右上角菜单事件
+        /// </summary>
+        TEMPLATE_CARD_MENU_EVENT,
     }
 
     public enum TencentGender

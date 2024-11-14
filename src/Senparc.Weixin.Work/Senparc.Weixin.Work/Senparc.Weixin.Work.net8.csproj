@@ -257,10 +257,6 @@
 		<Reference Include="System.Xml" />
 		<Reference Include="System.Xml.Linq" />
 	</ItemGroup>
-	<ItemGroup Condition=" '$(TargetFramework)' != 'net462' ">
-		<PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
-		<PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
-	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Senparc.NeuChar" Version="2.4.3" />
 	</ItemGroup>

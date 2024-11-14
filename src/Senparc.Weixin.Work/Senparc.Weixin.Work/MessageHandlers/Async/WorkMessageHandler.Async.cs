@@ -1,23 +1,26 @@
 /*----------------------------------------------------------------
     Copyright (C) 2024 Senparc
-    
+
     文件名：WorkMessageHandler.cs
     文件功能描述：企业号请求的集中处理方法
-    
-    
+
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：ccccccmd - 20220227
     修改描述：v3.14.10 添加异步方法
-    
+
     修改标识：Senparc - 20230914
     修改描述：v3.16.4 企业微信三方代开发处理事件: 修复 Async 方法循环调用的 Bug
-    
+
     修改标识：IcedMango - 20240229
     修改描述：添加: 企业微信会话存档-产生会话回调事件
 
     修改标识：LofyLiu - 20240315
     修改描述：添加: 模板卡片点击回调事件
+    
+    修改标识: IcedMango - 20241114
+    修改描述: 添加: 通用模板卡片右上角菜单事件推送; 修复不正确的通用模板卡片事件推送类型
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Context;
@@ -38,7 +41,6 @@ namespace Senparc.Weixin.Work.MessageHandlers
     {
         public override async Task BuildResponseMessageAsync(CancellationToken cancellationToken)
         {
-
             switch (RequestMessage.MsgType)
             {
                 case RequestMsgType.Unknown: //第三方回调
@@ -53,15 +55,16 @@ namespace Senparc.Weixin.Work.MessageHandlers
                         throw new WeixinException("没有找到合适的消息类型。");
                     }
                 }
-                break;
+                    break;
                 //以下是普通信息
                 case RequestMsgType.Text:
                 {
                     var requestMessage = RequestMessage as RequestMessageText;
+
                     ResponseMessage = await OnTextOrEventRequestAsync(requestMessage) ??
                                       await OnTextRequestAsync(requestMessage);
                 }
-                break;
+                    break;
                 case RequestMsgType.Location:
                     ResponseMessage = await OnLocationRequestAsync(RequestMessage as RequestMessageLocation);
                     break;
@@ -83,10 +86,11 @@ namespace Senparc.Weixin.Work.MessageHandlers
                 case RequestMsgType.Event:
                 {
                     var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
+
                     ResponseMessage = await OnTextOrEventRequestAsync(requestMessageText) ??
                                       await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase);
                 }
-                break;
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
             }
@@ -182,6 +186,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
         {
             var strongRequestMessage = RequestMessage as IRequestMessageEventBase;
             IWorkResponseMessageBase responseMessage = null;
+
             switch (strongRequestMessage.Event)
             {
                 case Event.CLICK: //菜单点击
@@ -192,7 +197,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     break;
                 case Event.PIC_PHOTO_OR_ALBUM: //弹出拍照或者相册发图
                     responseMessage = await OnEvent_PicPhotoOrAlbumRequestAsync(
-                            RequestMessage as RequestMessageEvent_Pic_Photo_Or_Album);
+                        RequestMessage as RequestMessageEvent_Pic_Photo_Or_Album);
                     break;
                 case Event.SCANCODE_PUSH: //扫码推事件
                     responseMessage =
@@ -236,6 +241,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     break;
                 case Event.change_contact:
                     var ccRequestMessage = RequestMessage as IRequestMessageEvent_Change_Contact_Base;
+
                     switch (ccRequestMessage.ChangeType)
                     {
                         case ContactChangeType.create_user:
@@ -281,6 +287,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
                 //外部联系人事件相关
                 case Event.CHANGE_EXTERNAL_CONTACT:
                     var cecRequestMessage = RequestMessage as IRequestMessageEvent_Change_ExternalContact_Base;
+
                     switch (cecRequestMessage.ChangeType)
                     {
                         case ExternalContactChangeType.add_external_contact:
@@ -319,6 +326,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     break;
                 case Event.CHANGE_EXTERNAL_CHAT: //客户群变更事件
                     var cechat = RequestMessage as RequestMessageEvent_Change_External_Chat_Base;
+
                     switch (cechat.ChangeType)
                     {
                         case ExternalChatChangeType.create:
@@ -344,6 +352,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     break;
                 case Event.CHANGE_EXTERNAL_TAG: //企业客户标签变更事件
                     var tag = RequestMessage as RequestMessageEvent_Change_External_Tag_Base;
+
                     switch (tag.ChangeType)
                     {
                         case ExternalTagChangeType.create:
@@ -387,16 +396,21 @@ namespace Senparc.Weixin.Work.MessageHandlers
                         OnEvent_Open_Approval_Change_Status_ChangeRequestAsync(
                             RequestMessage as RequestMessageEvent_OpenApprovalChange);
                     break;
-                
+
                 case Event.MSGAUDIT_NOTIFY: //企业微信会话存档-产生会话回调事件
                     responseMessage = await
                         OnEvent_MsgAuditNotifyRequestAsync(
                             RequestMessage as RequestMessageEvent_MsgAuditNotify);
                     break;
-                case  Event.TEMPLATE_CARD_CLICK://模板卡片点击回调事件
-                    responseMessage = await 
-                        OnEvent_TemplateCardEventClickRequestAsync(
-                            RequestMessage as RequestMessageEvent_TemplateCardClick);
+                case Event.TEMPLATE_CARD_EVENT: // 企业微信-模板卡片事件推送
+                    responseMessage = await
+                        OnEvent_TemplateCardEventRequestAsync(
+                            RequestMessage as RequestMessageEvent_TemplateCardEvent);
+                    break;
+                case Event.TEMPLATE_CARD_MENU_EVENT: // 通用模板卡片右上角菜单事件推送
+                    responseMessage = await
+                        OnEvent_TemplateCardMenuEventRequestAsync(
+                            RequestMessage as RequestMessageEvent_TemplateCardMenuEvent);
                     break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -718,6 +732,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
         }
 
         #region 企业客户标签事件
+
         /// <summary>
         /// 企业客户标签-创建
         /// </summary>
@@ -762,6 +777,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
         {
             return await Task.Run(() => OnEvent_ChangeExternalTagShuffleRequest(requestMessage)).ConfigureAwait(false);
         }
+
         #endregion
 
         public virtual async Task<IWorkResponseMessageBase> OnEvent_Living_Status_ChangeRequestAsync(
@@ -769,12 +785,14 @@ namespace Senparc.Weixin.Work.MessageHandlers
         {
             return await Task.Run(() => OnEvent_Living_Status_ChangeRequest(requestMessage)).ConfigureAwait(false);
         }
+
         /// <summary>
         /// 修改设置工作台自定义开关事件推送
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public virtual async Task<IWorkResponseMessageBase> OnEvent_SwitchWorkbenchModel(RequestMessageEvent_Switch_WorkBench_Mode requestMessage)
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_SwitchWorkbenchModel(
+            RequestMessageEvent_Switch_WorkBench_Mode requestMessage)
         {
             return await Task.Run(() => OnEvent_SwitchWorkBenchMode(requestMessage)).ConfigureAwait(false);
         }
@@ -806,26 +824,40 @@ namespace Senparc.Weixin.Work.MessageHandlers
         }
 
         #endregion
-        
+
         /// <summary>
         /// 企业微信会话存档-产生会话回调事件
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public virtual async Task<IWorkResponseMessageBase> OnEvent_MsgAuditNotifyRequestAsync(RequestMessageEvent_MsgAuditNotify requestMessage)
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_MsgAuditNotifyRequestAsync(
+            RequestMessageEvent_MsgAuditNotify requestMessage)
         {
             return await Task.Run(() => OnEvent_MsgAuditNotifyRequest(requestMessage)).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// 模板卡片点击回调事件
+        ///     企业微信-模板卡片事件推送
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public virtual async Task<IWorkResponseMessageBase> OnEvent_TemplateCardEventClickRequestAsync(RequestMessageEvent_TemplateCardClick requestMessage)
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_TemplateCardEventRequestAsync(
+            RequestMessageEvent_TemplateCardEvent requestMessage)
         {
-            return await Task.Run(() => OnEvent_TemplateCardEventClickRequest(requestMessage)).ConfigureAwait(false);
+            return await Task.Run(() => OnEvent_TemplateCardEventRequest(requestMessage)).ConfigureAwait(false);
         }
+
+        /// <summary>
+        ///     通用模板卡片右上角菜单事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_TemplateCardMenuEventRequestAsync(
+            RequestMessageEvent_TemplateCardMenuEvent requestMessage)
+        {
+            return await Task.Run(() => OnEvent_TemplateCardMenuEventRequest(requestMessage)).ConfigureAwait(false);
+        }
+
         #endregion //Event 下属分类
 
         #endregion
@@ -849,10 +881,12 @@ namespace Senparc.Weixin.Work.MessageHandlers
                 case ThirdPartyInfo.REGISTER_CORP:
                     return OnThirdPartyEvent_Register_CorpAsync((RequestMessager_Register_Corp)thirdPartyInfo);
                 case ThirdPartyInfo.RESET_PERMANENT_CODE:
-                    return OnThirdPartEvent_Reset_Permanent_CodeAsync((RequestMessageInfo_Reset_Permanent_Code)thirdPartyInfo);
+                    return OnThirdPartEvent_Reset_Permanent_CodeAsync(
+                        (RequestMessageInfo_Reset_Permanent_Code)thirdPartyInfo);
                 case ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT:
                 {
                     var cecRequestMessage = RequestMessage as IRequestMessageEvent_Change_ExternalContact_Base;
+
                     switch (cecRequestMessage.ChangeType)
                     {
                         case ExternalContactChangeType.add_external_contact:
@@ -926,7 +960,8 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return await Task.Run(() => OnThirdPartyEvent_Suite_Ticket(thirdPartyInfo)).ConfigureAwait(false);
         }
 
-        protected virtual async Task<string> OnThirdPartEvent_Reset_Permanent_CodeAsync(RequestMessageInfo_Reset_Permanent_Code thirdPartyInfo)
+        protected virtual async Task<string> OnThirdPartEvent_Reset_Permanent_CodeAsync(
+            RequestMessageInfo_Reset_Permanent_Code thirdPartyInfo)
         {
             return await Task.Run(() => OnThirdPartEvent_ResetPermanentCode(thirdPartyInfo)).ConfigureAwait(false);
         }

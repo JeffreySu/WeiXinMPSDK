@@ -6,7 +6,10 @@
     
     
     创建标识：Senparc - 20210118
-    
+
+    修改标识：Senparc - 20241114
+    修改描述：v3.22.0 添加 NCF UrlScheme 接口 #3093 感谢 @mojinxun
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;
@@ -56,6 +59,37 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 获取 NFC 的小程序 scheme
+        /// <para>该接口用于获取用于 NFC 的小程序 scheme 码，适用于 NFC 拉起小程序的业务场景。目前仅针对国内非个人主体的小程序开放，详见 NFC 标签打开小程序</para>
+        /// <para>详见<see langword="获取 NFC 的小程序 scheme" cref="https://developers.weixin.qq.com/miniprogram/dev/OpenApiDoc/qrcode-link/url-scheme/generateNFCScheme.html"/></para>
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/OpenApiDoc/qrcode-link/url-scheme/generateNFCScheme.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="jumpWxa">（必填）跳转到的目标小程序信息。</param>
+        /// <param name="isExpire">（非必填）生成的scheme码类型，到期失效：true，永久有效：false。</param>
+        /// <param name="expireTime">（非必填）到期失效的scheme码的失效时间，为Unix时间戳。生成的到期失效scheme码在该时间前有效。生成到期失效的scheme时必填。</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GenerateNFCSchemeJsonResult GenerateNFCScheme(string accessTokenOrAppId, GenerateNFCSchemeJumpWxa jumpWxa = null, string model_id = "",
+            string sn = null, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/generatenfcscheme?access_token={0}";
+
+                var data = new
+                {
+                    jump_wxa = jumpWxa,
+                    model_id = model_id,
+                    sn = sn
+                };
+
+                return CommonJsonSend.Send<GenerateNFCSchemeJsonResult>(accessToken, urlFormat, data, timeOut: timeOut,
+                     jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting(true));
+            }, accessTokenOrAppId);
+        }
+
         #endregion
 
         #region 异步方法
@@ -88,6 +122,37 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
 
                 return CommonJsonSend.Send<GenerateSchemeJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, 
                     jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting(true));
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 获取 NFC 的小程序 scheme
+        /// <para>该接口用于获取用于 NFC 的小程序 scheme 码，适用于 NFC 拉起小程序的业务场景。目前仅针对国内非个人主体的小程序开放，详见 NFC 标签打开小程序</para>
+        /// <para>详见<see langword="获取 NFC 的小程序 scheme" cref="https://developers.weixin.qq.com/miniprogram/dev/OpenApiDoc/qrcode-link/url-scheme/generateNFCScheme.html"/></para>
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/OpenApiDoc/qrcode-link/url-scheme/generateNFCScheme.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="jumpWxa">（必填）跳转到的目标小程序信息。</param>
+        /// <param name="isExpire">（非必填）生成的scheme码类型，到期失效：true，永久有效：false。</param>
+        /// <param name="expireTime">（非必填）到期失效的scheme码的失效时间，为Unix时间戳。生成的到期失效scheme码在该时间前有效。生成到期失效的scheme时必填。</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GenerateNFCSchemeJsonResult> GenerateNFCSchemeAsync(string accessTokenOrAppId, GenerateNFCSchemeJumpWxa jumpWxa = null, string model_id = "",
+            string sn = null, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/generatenfcscheme?access_token={0}";
+
+                var data = new
+                {
+                    jump_wxa = jumpWxa,
+                    model_id = model_id,
+                    sn = sn
+                };
+
+                return CommonJsonSend.Send<GenerateNFCSchemeJsonResult>(accessToken, urlFormat, data, timeOut: timeOut,
+                     jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting(true));
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
         #endregion

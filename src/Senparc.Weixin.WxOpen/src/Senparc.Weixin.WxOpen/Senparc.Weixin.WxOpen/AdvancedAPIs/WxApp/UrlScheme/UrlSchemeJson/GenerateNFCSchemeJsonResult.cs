@@ -1,9 +1,15 @@
-﻿using Senparc.Weixin.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2024 Senparc
+    
+    文件名：GenerateNFCSchemeJsonResult.cs
+    文件功能描述：GenerateNFCScheme() 接口返回参数
+    
+    
+    创建标识：Senparc - 20241114
+
+----------------------------------------------------------------*/
+
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.UrlScheme
 {

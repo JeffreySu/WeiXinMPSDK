@@ -24,13 +24,16 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件名：GenerateNFCSchemeJumpWxa.cs
     文件功能描述：GenerateNFCScheme() 接口中的 jumpWxa 参数
 
-----------------------------------------------------------------*/
+    创建标识：Senparc - 20241114
+
+----------------------------------------------------------------*/\
+
 
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.UrlScheme
 {
     /// <summary>
-    /// 
+    /// GenerateNFCScheme() 接口中的 jumpWxa 参数
     /// </summary>
     public class GenerateNFCSchemeJumpWxa
     {

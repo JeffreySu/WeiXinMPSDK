@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>4.20.6</Version>
+    <Version>4.21.7</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -227,7 +227,7 @@
 		[2024-08-11] v4.20.0.0 1、添加查询小程序是否已完成交易结算管理确认 2、添加第三方小程序订单页设置结果及审核结果事件通知 #3055 感谢 @mc7246
 		[2024-09-10] v4.20.2 icp verifytask 接口 data 不能为 null 的问题处理 #3067 感谢 @mojinxun
 		[2024-11-03] v4.20.6 fix wxa ap is get qr code async Issue #3089, PR #3090 感谢 @JaneConan
-	</PackageReleaseNotes>
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

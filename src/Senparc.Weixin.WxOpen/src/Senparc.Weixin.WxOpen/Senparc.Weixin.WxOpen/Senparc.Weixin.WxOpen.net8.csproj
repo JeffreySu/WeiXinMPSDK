@@ -1,28 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-		<Version>3.22.0</Version>
-		<LangVersion>9.0</LangVersion>
-		<AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
-		<RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
-		<GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
-		<Description>
+  <PropertyGroup>
+    <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Version>3.23.1</Version>
+    <LangVersion>9.0</LangVersion>
+    <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
+    <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <Description>
 			微信 SDK - 微信小程序 模块
 
 			Senparc.Weixin SDK 开源项目：
 			https://github.com/JeffreySu/WeiXinMPSDK
 		</Description>
-		<Copyright>Senparc Copyright © 2004~2024</Copyright>
-		<PackageTags>微信,weixin,小程序,wxopen,MiniProgram,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式</PackageTags>
-		<Authors>Jeffrey Su</Authors>
-		<Owners>Senparc</Owners>
-		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-		<ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
-		<Title>Senparc.Weixin.WxOpen.dll</Title>
-		<Summary>微信 SDK for .NET / C#</Summary>
-		<PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
-		<PackageIcon>icon.jpg</PackageIcon>
-		<PackageReleaseNotes>
+    <Copyright>Senparc Copyright © 2004~2024</Copyright>
+    <PackageTags>微信,weixin,小程序,wxopen,MiniProgram,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式</PackageTags>
+    <Authors>Jeffrey Su</Authors>
+    <Owners>Senparc</Owners>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
+    <Title>Senparc.Weixin.WxOpen.dll</Title>
+    <Summary>微信 SDK for .NET / C#</Summary>
+    <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
+    <PackageIcon>icon.jpg</PackageIcon>
+    <PackageReleaseNotes>
 			v0.1.0 添加基础解决方案，包括模板消息API
 
 			v0.1.0 添加基础库，已包含模板消息API
@@ -186,52 +186,52 @@
 			[2024-10-08] v3.21.0 WxOpen 添加“查询购买资源包的用量情况”接口 #3078
 			[2024-10-20] v3.21.2 修正 first_save_flag 类型错误，应为 int; 同时增加 FirstSaveFlag 属性, 用于 bool 类型判断是否首次充值 #2986 感谢 @WanderingGrass
 			[2024-11-14] v3.22.0 添加 NCF UrlScheme 接口 #3093 感谢 @mojinxun
-		</PackageReleaseNotes>
-		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-		<OutputPath>..\..\..\..\BuildOutPut</OutputPath>
-		<DefineConstants>TRACE</DefineConstants>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-		<OutputPath>..\..\..\..\..\..\BuildOutPut</OutputPath>
-		<DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
-		<DocumentationFile>..\..\..\..\..\..\BuildOutPut\Senparc.Weixin.WxOpen.XML</DocumentationFile>
-		<Optimize>true</Optimize>
-		<DebugType>pdbonly</DebugType>
-		<ErrorReport>prompt</ErrorReport>
-		<CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-		<OutputPath>..\..\..\..\BuildOutPut\</OutputPath>
-		<DocumentationFile>..\..\..\..\BuildOutPut\netstandard2.0\Senparc.Weixin.WxOpen.xml</DocumentationFile>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
-		<OutputPath>..\..\..\..\BuildOutPut\</OutputPath>
-		<DocumentationFile>..\..\..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.WxOpen.xml</DocumentationFile>
-	</PropertyGroup>
-	<ItemGroup>
-		<None Include="..\..\..\..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
-	</ItemGroup>
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
-		<Reference Include="System.Core" />
-		<Reference Include="System.Data" />
-		<Reference Include="System.Data.DataSetExtensions" />
-		<Reference Include="System.Net.Http" />
-		<Reference Include="System.Runtime.Serialization" />
-		<Reference Include="System.Web" />
-		<Reference Include="System.Web.Extensions" />
-		<Reference Include="System.Xml" />
-		<Reference Include="System.Xml.Linq" />
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="Senparc.NeuChar" Version="2.4.3" />
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net8.csproj" />
-		<ProjectReference Include="..\..\..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net8.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
-	</ItemGroup>
+</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>..\..\..\..\BuildOutPut</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\..\..\..\..\..\BuildOutPut</OutputPath>
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+    <DocumentationFile>..\..\..\..\..\..\BuildOutPut\Senparc.Weixin.WxOpen.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <OutputPath>..\..\..\..\BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\..\..\BuildOutPut\netstandard2.0\Senparc.Weixin.WxOpen.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
+    <OutputPath>..\..\..\..\BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.WxOpen.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Senparc.NeuChar" Version="2.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net8.csproj" />
+    <ProjectReference Include="..\..\..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net8.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
+  </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>2.19.4</Version>
+    <Version>2.20.5</Version>
     <AssemblyName>Senparc.Weixin.Cache.Redis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Redis</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -133,7 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <!--<PackageReference Include="BinaryFormatter" Version="2.1.4" />-->
-    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="4.2.6" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="5.0.1-beta1" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
     <!--<PackageReference Include="StackExchange.Redis" Version="1.2.6" />-->

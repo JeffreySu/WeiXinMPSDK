@@ -225,7 +225,7 @@
 		<Reference Include="System.Xml.Linq" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Senparc.NeuChar" Version="2.4.3" />
+		<PackageReference Include="Senparc.NeuChar" Version="2.5.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net8.csproj" />

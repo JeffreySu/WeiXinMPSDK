@@ -143,7 +143,7 @@
     <Compile Remove="MamcachedCacheLock.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="4.3.0" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="5.0.0-beta1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net8.csproj" />

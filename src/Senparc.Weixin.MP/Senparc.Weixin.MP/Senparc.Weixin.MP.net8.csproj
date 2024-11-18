@@ -576,9 +576,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.APM" Version="1.4.6" />
-    <PackageReference Include="Senparc.NeuChar" Version="2.4.3" />
-    <PackageReference Include="Senparc.NeuChar.App" Version="1.4.3" />
+    <PackageReference Include="Senparc.CO2NET.APM" Version="2.0.0-beta1" />
+    <PackageReference Include="Senparc.NeuChar" Version="2.5.0" />
+    <PackageReference Include="Senparc.NeuChar.App" Version="1.5.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net8.csproj" />

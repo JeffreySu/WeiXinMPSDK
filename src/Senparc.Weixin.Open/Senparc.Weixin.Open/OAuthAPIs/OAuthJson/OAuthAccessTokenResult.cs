@@ -44,5 +44,9 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         /// 用户授权的作用域，使用逗号（,）分隔
         /// </summary>
         public string scope { get; set; }
+        /// <summary>
+        /// 是否为快照页模式虚拟账号，只有当用户是快照页模式虚拟账号是返回，值为1
+        /// </summary>
+        public int? is_snapshotuser { get; set; }
     }
 }

@@ -327,7 +327,7 @@ namespace Senparc.Weixin.Entities
         public virtual string TenPayV3_APIv3Key { get; set; }
 
 
-        private string _tenPayV3_PubKey;
+        private string _tenPayV3_WeixinPubKey;
         /// <summary>
         /// 微信支付（V3）公钥证书（替换平台证书）
         /// </summary>
@@ -335,12 +335,11 @@ namespace Senparc.Weixin.Entities
         {
             get
             {
-                return TenPayHelper.TryGetPublicKeyFromFile(ref _tenPayV3_PubKey);
+                return TenPayHelper.TryGetPublicKeyFromFile(ref _tenPayV3_WeixinPubKey);
             }
             set
             {
-
-                _tenPayV3_PrivateKey = value;
+                _tenPayV3_WeixinPubKey = value;
             }
         }
 
@@ -358,10 +357,7 @@ namespace Senparc.Weixin.Entities
             {
                 return !string.IsNullOrWhiteSpace(TenPayV3_WeixinPubKey) && !string.IsNullOrWhiteSpace(TenPayV3_WeixinPubKeySerialNo);
             }
-            set
-            {
-                throw new Exception($"自动获取，无法生成");
-            }
+            set { }
 
         }
         #endregion

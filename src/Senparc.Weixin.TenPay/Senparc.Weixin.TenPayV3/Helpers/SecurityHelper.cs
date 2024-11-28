@@ -35,6 +35,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.Crypto.Modes;
 using Org.BouncyCastle.Crypto.Parameters;
+using Org.BouncyCastle.Security;
 using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.TenPayV3.Apis;
 using Senparc.Weixin.TenPayV3.Apis.BasePay;
@@ -47,6 +48,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Senparc.Weixin.TenPayV3.Helpers
 {
@@ -73,6 +75,112 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         {
             var unwrapKey = Regex.Replace(originalPublicKey, @"(\s|([\-]+[^\-]+[\-]+))+", "");
             return unwrapKey;
+        }
+
+        /// <summary>
+        /// 加密敏感信息，传入明文和从微信支付获取到的敏感信息加密公钥，事先使用OpenSSL转换cert.pem文件输出为der文件
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="publicKey"></param>
+        /// <param name="encryptionType"></param>
+        /// <param name="isWeixinPubKey">是否是微信支付公钥</param>
+        /// <returns></returns>
+        public static string Encrypt(string text, string publicKey, string encryptionType, bool isWeixinPubKey = false)
+        {
+            #region 基于微信支付公钥
+            if (isWeixinPubKey)
+            {
+                var publicKeyParam = (RsaKeyParameters)PublicKeyFactory.CreateKey(Convert.FromBase64String(publicKey));
+                var publicKeyXml = string.Format("<RSAKeyValue><Modulus>{0}</Modulus><Exponent>{1}</Exponent></RSAKeyValue>",
+                    Convert.ToBase64String(publicKeyParam.Modulus.ToByteArrayUnsigned()),
+                    Convert.ToBase64String(publicKeyParam.Exponent.ToByteArrayUnsigned()));
+
+                var rsa = new RSACryptoServiceProvider();
+                RSAFromXmlString(rsa, publicKeyXml);
+                var buff = rsa.Encrypt(Encoding.UTF8.GetBytes(text), RSAEncryptionPadding.OaepSHA1);
+                return Convert.ToBase64String(buff);
+            }
+            #endregion
+
+
+            if (encryptionType == CertType.SM.ToString())
+            {
+                ECPublicKeyParameters eCPublicKeyParameters = SMPemHelper.LoadPublicKeyToParameters(Encoding.UTF8.GetBytes(publicKey));
+                return GmHelper.Sm2Encrypt(eCPublicKeyParameters, text);
+            }
+            else
+            {
+                var x509 = new X509Certificate2(Encoding.UTF8.GetBytes(publicKey));
+                var rsa = x509.GetRSAPublicKey();
+                var buff = rsa.Encrypt(Encoding.UTF8.GetBytes(text), RSAEncryptionPadding.OaepSHA1);
+                return Convert.ToBase64String(buff);
+            }
+        }
+
+        /// <summary>
+        /// 字段加密
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="publicKey"></param>
+        /// <param name="encryptionType"></param>
+        /// <param name="isWeixinPubKey">是否是微信支付公钥</param>
+        public static void FieldEncrypt(object request, string publicKey, string encryptionType, bool isWeixinPubKey = false)
+        {
+            var pis = request.GetType().GetProperties();
+            foreach (var pi in pis)
+            {
+                var value = pi.GetValue(request);
+                if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
+                    continue;
+
+                if (!(pi.PropertyType.IsValueType || pi.PropertyType.Name.StartsWith("String") || typeof(IEnumerable).IsAssignableFrom(pi.PropertyType)))
+                {
+                    FieldEncrypt(value, publicKey, encryptionType, isWeixinPubKey);
+                    continue;
+                }
+
+                if ((pi.GetCustomAttributes(typeof(FieldEncryptAttribute), true)?.Count() ?? 0) <= 0)
+                    continue;
+
+                var encryptValue = Encrypt(value.ToString(), publicKey, encryptionType, isWeixinPubKey);
+                pi.SetValue(request, encryptValue);
+            }
+        }
+
+        /// <summary>
+        /// 字段加密
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="apiV3Key"></param>
+        /// <param name="encryptionType"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        [Obsolete("放弃使用")]
+        public static async Task FieldEncryptAsync(object request, string apiV3Key, string encryptionType)
+        {
+            // name 敏感信息加密
+            var basePayApis = new BasePayApis();
+            var certificate = await basePayApis.CertificatesAsync();
+            FieldEncrypt(request, certificate, apiV3Key, encryptionType);
+        }
+
+        /// <summary>
+        /// 字段加密
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="apiV3Key"></param>
+        /// <param name="encryptionType"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        [Obsolete("放弃使用")]
+        public static void FieldEncrypt(object request, CertificatesResultJson certificate, string apiV3Key, string encryptionType)
+        {
+            if (!(certificate?.ResultCode?.Success ?? false))
+                throw new Exception(certificate?.ResultCode?.ErrorMessage ?? "basePayApis.CertificatesAsync 获取证书失败");
+
+            var publicKey = GetPublicKey(certificate.data?.FirstOrDefault()?.encrypt_certificate, apiV3Key, encryptionType);
+            if (!string.IsNullOrWhiteSpace(publicKey))
+                FieldEncrypt(request, publicKey, encryptionType);
         }
 
         /// <summary>
@@ -108,90 +216,69 @@ namespace Senparc.Weixin.TenPayV3.Helpers
             }
         }
 
-        /// <summary>
-        /// 加密敏感信息，传入明文和从微信支付获取到的敏感信息加密公钥，事先使用OpenSSL转换cert.pem文件输出为der文件
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="publicKey"></param>
-        /// <param name="encryptionType"></param>
-        /// <returns></returns>
-        public static string Encrypt(string text, string publicKey, string encryptionType)
+        #region Private Method
+        public static void RSAFromXmlString(RSA rsa, string xmlString)
         {
-            if (encryptionType == CertType.SM.ToString())
+            var parameters = new RSAParameters();
+            var xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(xmlString);
+
+            if (xmlDoc.DocumentElement.Name.Equals("RSAKeyValue"))
             {
-                ECPublicKeyParameters eCPublicKeyParameters = SMPemHelper.LoadPublicKeyToParameters(Encoding.UTF8.GetBytes(publicKey));
-                return GmHelper.Sm2Encrypt(eCPublicKeyParameters, text);
+                foreach (XmlNode node in xmlDoc.DocumentElement.ChildNodes)
+                {
+                    switch (node.Name)
+                    {
+                        case "Modulus":
+                            parameters.Modulus = (string.IsNullOrEmpty(node.InnerText)
+                                ? null
+                                : Convert.FromBase64String(node.InnerText));
+                            break;
+                        case "Exponent":
+                            parameters.Exponent = (string.IsNullOrEmpty(node.InnerText)
+                                ? null
+                                : Convert.FromBase64String(node.InnerText));
+                            break;
+                        case "P":
+                            parameters.P = (string.IsNullOrEmpty(node.InnerText)
+                                ? null
+                                : Convert.FromBase64String(node.InnerText));
+                            break;
+                        case "Q":
+                            parameters.Q = (string.IsNullOrEmpty(node.InnerText)
+                                ? null
+                                : Convert.FromBase64String(node.InnerText));
+                            break;
+                        case "DP":
+                            parameters.DP = (string.IsNullOrEmpty(node.InnerText)
+                                ? null
+                                : Convert.FromBase64String(node.InnerText));
+                            break;
+                        case "DQ":
+                            parameters.DQ = (string.IsNullOrEmpty(node.InnerText)
+                                ? null
+                                : Convert.FromBase64String(node.InnerText));
+                            break;
+                        case "InverseQ":
+                            parameters.InverseQ = (string.IsNullOrEmpty(node.InnerText)
+                                ? null
+                                : Convert.FromBase64String(node.InnerText));
+                            break;
+                        case "D":
+                            parameters.D = (string.IsNullOrEmpty(node.InnerText)
+                                ? null
+                                : Convert.FromBase64String(node.InnerText));
+                            break;
+                    }
+                }
             }
             else
             {
-                var x509 = new X509Certificate2(Encoding.UTF8.GetBytes(publicKey));
-                var rsa = x509.GetRSAPublicKey();
-                var buff = rsa.Encrypt(Encoding.UTF8.GetBytes(text), RSAEncryptionPadding.OaepSHA1);
-                return Convert.ToBase64String(buff);
+                throw new Exception("Invalid XML RSA key.");
             }
+
+            rsa.ImportParameters(parameters);
         }
-
-        /// <summary>
-        /// 字段加密
-        /// </summary>
-        /// <param name="request"></param>
-        /// <param name="publicKey"></param>
-        /// <param name="encryptionType"></param>
-        public static void FieldEncrypt(object request, string publicKey, string encryptionType)
-        {
-            var pis = request.GetType().GetProperties();
-            foreach (var pi in pis)
-            {
-                var value = pi.GetValue(request);
-                if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
-                    continue;
-
-                if (!(pi.PropertyType.IsValueType || pi.PropertyType.Name.StartsWith("String") || typeof(IEnumerable).IsAssignableFrom(pi.PropertyType)))
-                {
-                    FieldEncrypt(value, publicKey, encryptionType);
-                    continue;
-                }
-
-                if ((pi.GetCustomAttributes(typeof(FieldEncryptAttribute), true)?.Count() ?? 0) <= 0)
-                    continue;
-
-                var encryptValue = Encrypt(value.ToString(), publicKey, encryptionType);
-                pi.SetValue(request, encryptValue);
-            }
-        }
-
-        /// <summary>
-        /// 字段加密
-        /// </summary>
-        /// <param name="request"></param>
-        /// <param name="apiV3Key"></param>
-        /// <param name="encryptionType"></param>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
-        public static void FieldEncrypt(object request, CertificatesResultJson certificate, string apiV3Key, string encryptionType)
-        {
-            if (!(certificate?.ResultCode?.Success ?? false))
-                throw new Exception(certificate?.ResultCode?.ErrorMessage ?? "basePayApis.CertificatesAsync 获取证书失败");
-
-            var publicKey = GetPublicKey(certificate.data?.FirstOrDefault()?.encrypt_certificate, apiV3Key, encryptionType);
-            if (!string.IsNullOrWhiteSpace(publicKey))
-                FieldEncrypt(request, publicKey, encryptionType);
-        }
-
-        /// <summary>
-        /// 字段加密
-        /// </summary>
-        /// <param name="request"></param>
-        /// <param name="apiV3Key"></param>
-        /// <param name="encryptionType"></param>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
-        public static async Task FieldEncryptAsync(object request, string apiV3Key, string encryptionType)
-        {
-            // name 敏感信息加密
-            var basePayApis = new BasePayApis();
-            var certificate = await basePayApis.CertificatesAsync();
-            FieldEncrypt(request, certificate, apiV3Key, encryptionType);
-        }
+        #endregion
     }
 }

@@ -37,6 +37,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 
 using Org.BouncyCastle.Crypto.Parameters;
+using Org.BouncyCastle.Security;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using System;
@@ -127,18 +128,44 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="wechatpayNonce">HTTP头中的应答随机串</param>
         /// <param name="wechatpaySignatureBase64">HTTP头中的应答签名（Base64）</param>
         /// <param name="content">应答报文主体</param>
-        /// <param name="pubKey">平台公钥（必须是Unwrap的公钥）</param>
+        /// <param name="pubKey">平台公钥/微信支付公钥（必须是Unwrap的公钥）</param>
+        /// <param name="isWeixinPubKey">是否是微信支付公钥</param>
         /// <returns></returns>
-        public static bool VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignatureBase64, string content, string pubKey)
+        public static bool VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignatureBase64, string content, string pubKey, bool isWeixinPubKey = false)
         {
             //验签名串
-            string contentForSign = $"{wechatpayTimestamp}\n{wechatpayNonce}\n{content}\n";
+            var contentForSign = $"{wechatpayTimestamp}\n{wechatpayNonce}\n{content}\n";
 
-            if(Senparc.Weixin.Config.SenparcWeixinSetting.EncryptionType == CertType.SM.ToString())
+            if (isWeixinPubKey)
+            {
+                var publicKeyParam = (RsaKeyParameters)PublicKeyFactory.CreateKey(Convert.FromBase64String(pubKey));
+                var publicKeyXml = string.Format("<RSAKeyValue><Modulus>{0}</Modulus><Exponent>{1}</Exponent></RSAKeyValue>",
+                    Convert.ToBase64String(publicKeyParam.Modulus.ToByteArrayUnsigned()),
+                    Convert.ToBase64String(publicKeyParam.Exponent.ToByteArrayUnsigned()));
+
+                var rsa = new RSACryptoServiceProvider();
+                SecurityHelper.RSAFromXmlString(rsa, publicKeyXml);
+
+                //RSAPKCS1SignatureDeformatter 对象
+                RSAPKCS1SignatureDeformatter df = new RSAPKCS1SignatureDeformatter(rsa);
+                //指定 SHA256
+                df.SetHashAlgorithm("SHA256");
+                //SHA256Managed 方法已弃用，使用 SHA256.Create() 生成 SHA256 对象
+                var sha256 = SHA256.Create();
+                //应答签名
+                byte[] signature = Convert.FromBase64String(wechatpaySignatureBase64);
+                //对比签名
+                byte[] compareByte = sha256.ComputeHash(Encoding.UTF8.GetBytes(contentForSign));
+                //验证签名
+                var result = df.VerifySignature(compareByte, signature);
+                return result;
+            }
+
+
+            if (Senparc.Weixin.Config.SenparcWeixinSetting.EncryptionType == CertType.SM.ToString())
             {
                 byte[] pubKeyBytes = Convert.FromBase64String(pubKey);
                 ECPublicKeyParameters eCPublicKeyParameters = SMPemHelper.LoadPublicKeyToParameters(pubKeyBytes);
-
                 return GmHelper.VerifySm3WithSm2(eCPublicKeyParameters, contentForSign, wechatpaySignatureBase64);
             }
             else
@@ -184,7 +211,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers
 
             var tenpayV3InfoKey = TenPayHelper.GetRegisterKey(senparcWeixinSettingForTenpayV3.TenPayV3_MchId, senparcWeixinSettingForTenpayV3.TenPayV3_SubMchId);
             var pubKey = await TenPayV3InfoCollection.Data[tenpayV3InfoKey].GetPublicKeyAsync(serialNumber, senparcWeixinSettingForTenpayV3);
-            return VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content, pubKey);
+            return VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content, pubKey, senparcWeixinSettingForTenpayV3.TenPayV3_WeixinPubKeyEnable);
         }
 
         /// <summary>

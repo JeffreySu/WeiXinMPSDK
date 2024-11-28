@@ -216,7 +216,6 @@ namespace Senparc.Weixin.TenPayV3.Helpers
             }
         }
 
-        #region Private Method
         public static void RSAFromXmlString(RSA rsa, string xmlString)
         {
             var parameters = new RSAParameters();
@@ -279,6 +278,5 @@ namespace Senparc.Weixin.TenPayV3.Helpers
 
             rsa.ImportParameters(parameters);
         }
-        #endregion
     }
 }

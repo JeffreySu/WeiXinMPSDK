@@ -590,7 +590,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString().AsUrlData());
                var fileDictionary = new Dictionary<string, string>();
                fileDictionary["media"] = file;
-               return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<UploadTemporaryMediaResult>(CommonDI.CommonSP, url, null, fileDictionary, null, null, null, false, timeOut: timeOut).ConfigureAwait(false);
+               return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<UploadTemporaryMediaResult>(CommonDI.CommonSP, url, null, fileDictionary, timeOut: timeOut).ConfigureAwait(false);
 
            }, accessTokenOrAppId).ConfigureAwait(false);
         }

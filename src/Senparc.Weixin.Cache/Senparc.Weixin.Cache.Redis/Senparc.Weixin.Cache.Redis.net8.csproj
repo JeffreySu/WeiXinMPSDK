@@ -133,7 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <!--<PackageReference Include="BinaryFormatter" Version="2.1.4" />-->
-    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="5.0.1-beta1" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="5.1.1-beta1" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
     <!--<PackageReference Include="StackExchange.Redis" Version="1.2.6" />-->

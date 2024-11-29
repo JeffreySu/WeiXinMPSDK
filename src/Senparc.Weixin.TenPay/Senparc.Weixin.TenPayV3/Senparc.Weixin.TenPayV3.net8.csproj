@@ -90,7 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BouncyCastle.Cryptography" Version="2.4.0" />
-    <PackageReference Include="Senparc.CO2NET.AspNet" Version="2.0.0-beta1" />
+    <PackageReference Include="Senparc.CO2NET.AspNet" Version="2.0.1-beta1" />
     <PackageReference Include="System.Security.Cryptography.Cng" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>

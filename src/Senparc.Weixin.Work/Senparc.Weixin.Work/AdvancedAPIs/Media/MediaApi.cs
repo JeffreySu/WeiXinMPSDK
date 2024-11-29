@@ -71,10 +71,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString());
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = media;
-                return CO2NET.HttpUtility.Post.PostFileGetJson<UploadTemporaryResultJson>(CommonDI.CommonSP, url, null, fileDictionary, null, null, null, false, timeOut: timeOut);
+                return CO2NET.HttpUtility.Post.PostFileGetJson<UploadTemporaryResultJson>(CommonDI.CommonSP, url, null, fileDictionary, timeOut: timeOut);
             }, accessTokenOrAppKey);
-
-
         }
 
         /// <summary>
@@ -96,9 +94,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return new WorkJsonResult() { errcode = ReturnCode_Work.请求成功, errmsg = "ok" };
             }, accessTokenOrAppKey);
-
-
-
         }
         /// <summary>
         /// 获取临时媒体文件并保存到指定目录中
@@ -171,8 +166,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return CommonJsonSend.Send<UploadForeverResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
-
-
         }
 
         /// <summary>
@@ -191,10 +184,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/material/add_material?agentid={1}&type={2}&access_token={0}", accessToken.AsUrlData(), agentId, type);
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = media;
-                return Post.PostFileGetJson<UploadForeverResultJson>(CommonDI.CommonSP, url, null, fileDictionary, null, null, null, false, null, timeOut: timeOut);
+                return Post.PostFileGetJson<UploadForeverResultJson>(CommonDI.CommonSP, url, null, fileDictionary, null, null, null, timeOut: timeOut);
             }, accessTokenOrAppKey);
-
-
         }
 
         /// <summary>
@@ -215,8 +206,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return CommonJsonSend.Send<GetForeverMpNewsResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
-
-
         }
 
         /// <summary>
@@ -259,8 +248,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
-
-
         }
 
         /// <summary>
@@ -291,8 +278,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return CommonJsonSend.Send<UploadForeverResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
-
-
         }
 
         /// <summary>
@@ -310,8 +295,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return CommonJsonSend.Send<GetCountResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
-
-
         }
 
         /// <summary>
@@ -341,9 +324,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return CommonJsonSend.Send<BatchGetMaterialResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
-
-
         }
+
         /// <summary>
         /// 上传图文消息内的图片
         /// <para>上传的图片限制：大小不超过2MB，支持JPG,PNG格式，每天上传的图片不能超过100张</para>
@@ -365,8 +347,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return Post.PostFileGetJson<UploadimgMediaResult>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppKey);
-
-
         }
 
         #endregion
@@ -388,10 +368,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString());
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = media;
-                return await Post.PostFileGetJsonAsync<UploadTemporaryResultJson>(CommonDI.CommonSP, url, null, fileDictionary, null, null, null, false, null, timeOut: timeOut).ConfigureAwait(false);
+                return await Post.PostFileGetJsonAsync<UploadTemporaryResultJson>(CommonDI.CommonSP, url, null, fileDictionary, timeOut: timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
-
-
         }
 
         /// <summary>
@@ -410,8 +388,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 await CO2NET.HttpUtility.Get.DownloadAsync(CommonDI.CommonSP, url, stream).ConfigureAwait(false);//todo 异常处理
                 return new WorkJsonResult() { errcode = ReturnCode_Work.请求成功, errmsg = "ok" };
             }, accessTokenOrAppKey).ConfigureAwait(false);
-
-
         }
 
         /// <summary>
@@ -440,8 +416,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UploadForeverResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
-
-
         }
 
         /// <summary>
@@ -460,10 +434,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/material/add_material?agentid={1}&type={2}&access_token={0}", accessToken.AsUrlData(), agentId, type);
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = media;
-                return await Post.PostFileGetJsonAsync<UploadForeverResultJson>(CommonDI.CommonSP, url, null, fileDictionary, null, null, null, false, null, timeOut: timeOut).ConfigureAwait(false);
+                return await Post.PostFileGetJsonAsync<UploadForeverResultJson>(CommonDI.CommonSP, url, null, fileDictionary, timeOut: timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
-
-
         }
 
         /// <summary>
@@ -484,7 +456,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetForeverMpNewsResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
-
         }
 
         /// <summary>
@@ -508,8 +479,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return new WorkJsonResult() { errcode = ReturnCode_Work.请求成功, errmsg = "ok" };
             }, accessTokenOrAppKey).ConfigureAwait(false);
-
-
         }
 
         /// <summary>
@@ -530,8 +499,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
-
-
         }
 
         /// <summary>
@@ -562,8 +529,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UploadForeverResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
-
-
         }
 
         /// <summary>
@@ -581,8 +546,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCountResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
-
-
         }
 
         /// <summary>
@@ -612,8 +575,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<BatchGetMaterialResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
-
-
         }
 
         /// <summary>
@@ -631,13 +592,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/uploadimg?access_token={0}",
              accessToken.AsUrlData());
 
-
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = imgFile;
                 return await Post.PostFileGetJsonAsync<UploadimgMediaResult>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
-
-
         }
         #endregion
     }

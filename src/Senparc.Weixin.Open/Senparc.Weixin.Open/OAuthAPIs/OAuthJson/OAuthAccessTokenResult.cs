@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20161216
     修改描述：v2.3.5 添加序列化特性
+
+    修改标识：Senparc - 20241129
+    修改描述：v4.21.8 返回值添加参数 is_snapshotuser 和 unionid
     
 ----------------------------------------------------------------*/
 
@@ -44,5 +47,13 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         /// 用户授权的作用域，使用逗号（,）分隔
         /// </summary>
         public string scope { get; set; }
+        /// <summary>
+        /// 用户统一标识（针对一个微信开放平台账号下的应用，同一用户的 unionid 是唯一的），只有当scope为"snsapi_userinfo"时返回
+        /// </summary>
+        public string unionid { get; set; }
+        /// <summary>
+        /// 是否为快照页模式虚拟账号，只有当用户是快照页模式虚拟账号是返回，值为1
+        /// </summary>
+        public int? is_snapshotuser { get; set; }
     }
 }

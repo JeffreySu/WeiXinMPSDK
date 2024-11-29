@@ -62,6 +62,9 @@ namespace Senparc.Weixin.TenPayV3
     public enum CertType
     {
         RSA,
-        SM
+        SM,
+
+        PUBKEY_RSA,
+        PUBKEY_SM
     }
 }

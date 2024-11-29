@@ -118,7 +118,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<CertificatesResultJson> CertificatesAsync(string algorithmType = "RSA", int timeOut = Config.TIME_OUT)
         {
-            var url = BasePayApis.GetPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/certificates?algorithm_type=" + algorithmType);
+            var url = GetPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/certificates?algorithm_type=" + algorithmType);
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             //var responseMessge = await tenPayApiRequest.GetHttpResponseMessageAsync(url, null, timeOut);
             //return await responseMessge.Content.ReadAsStringAsync();
@@ -132,7 +132,15 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<PublicKeyCollection> GetPublicKeysAsync(/*int timeOut = Config.TIME_OUT*/)
         {
-            string algorithmType = _tenpayV3Setting.EncryptionType == CertType.SM.ToString() ? "SM2" : "RSA";
+            PublicKeyCollection keys = new();
+
+            if (_tenpayV3Setting.TenPayV3_TenPayPubKeyEnable)
+            {
+                keys[_tenpayV3Setting.TenPayV3_TenPayPubKeyID] = SecurityHelper.GetUnwrapCertKey(_tenpayV3Setting.TenPayV3_TenPayPubKey);
+                return keys;
+            }
+
+            var algorithmType = _tenpayV3Setting.EncryptionType == CertType.SM.ToString() ? "SM2" : "RSA";
             var certificates = await CertificatesAsync(algorithmType);
             if (!certificates.ResultCode.Success)
             {
@@ -144,12 +152,11 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 throw new TenpayApiRequestException("Certificates 获取结果为空");
             }
 
-            PublicKeyCollection keys = new();
             //var tenpayV3Setting = Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;//TODO:改成从构造函数配置
 
             foreach (var cert in certificates.data)
             {
-                if(cert.encrypt_certificate.algorithm == "AEAD_AES_256_GCM")
+                if (cert.encrypt_certificate.algorithm == "AEAD_AES_256_GCM")
                 {
                     var publicKey = SecurityHelper.AesGcmDecryptCiphertext(_tenpayV3Setting.TenPayV3_APIv3Key, cert.encrypt_certificate.nonce,
                                     cert.encrypt_certificate.associated_data, cert.encrypt_certificate.ciphertext);

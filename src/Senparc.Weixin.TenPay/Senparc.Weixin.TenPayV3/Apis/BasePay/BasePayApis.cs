@@ -134,9 +134,9 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             PublicKeyCollection keys = new();
 
-            if (_tenpayV3Setting.TenPayV3_WeixinPubKeyEnable)
+            if (_tenpayV3Setting.TenPayV3_TenPayPubKeyEnable)
             {
-                keys[_tenpayV3Setting.TenPayV3_WeixinPubKeySerialNo] = SecurityHelper.GetUnwrapCertKey(_tenpayV3Setting.TenPayV3_WeixinPubKey);
+                keys[_tenpayV3Setting.TenPayV3_TenPayPubKeyID] = SecurityHelper.GetUnwrapCertKey(_tenpayV3Setting.TenPayV3_TenPayPubKey);
                 return keys;
             }
 

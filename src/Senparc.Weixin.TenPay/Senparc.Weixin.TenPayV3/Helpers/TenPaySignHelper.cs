@@ -129,14 +129,14 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="wechatpaySignatureBase64">HTTP头中的应答签名（Base64）</param>
         /// <param name="content">应答报文主体</param>
         /// <param name="pubKey">平台公钥/微信支付公钥（必须是Unwrap的公钥）</param>
-        /// <param name="isWeixinPubKey">是否是微信支付公钥</param>
+        /// <param name="isTenPayPubKey">是否是微信支付公钥</param>
         /// <returns></returns>
-        public static bool VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignatureBase64, string content, string pubKey, bool isWeixinPubKey = false)
+        public static bool VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignatureBase64, string content, string pubKey, bool isTenPayPubKey = false)
         {
             //验签名串
             var contentForSign = $"{wechatpayTimestamp}\n{wechatpayNonce}\n{content}\n";
 
-            if (isWeixinPubKey)
+            if (isTenPayPubKey)
             {
                 var publicKeyParam = (RsaKeyParameters)PublicKeyFactory.CreateKey(Convert.FromBase64String(pubKey));
                 var publicKeyXml = string.Format("<RSAKeyValue><Modulus>{0}</Modulus><Exponent>{1}</Exponent></RSAKeyValue>",
@@ -211,7 +211,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers
 
             var tenpayV3InfoKey = TenPayHelper.GetRegisterKey(senparcWeixinSettingForTenpayV3.TenPayV3_MchId, senparcWeixinSettingForTenpayV3.TenPayV3_SubMchId);
             var pubKey = await TenPayV3InfoCollection.Data[tenpayV3InfoKey].GetPublicKeyAsync(serialNumber, senparcWeixinSettingForTenpayV3);
-            return VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content, pubKey, senparcWeixinSettingForTenpayV3.TenPayV3_WeixinPubKeyEnable);
+            return VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content, pubKey, senparcWeixinSettingForTenpayV3.TenPayV3_TenPayPubKeyEnable);
         }
 
         /// <summary>

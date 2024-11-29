@@ -226,15 +226,15 @@ namespace Senparc.Weixin.Entities
         /// <summary>
         /// 微信支付（V3）微信平台公钥（替换平台证书）
         /// </summary>
-        string TenPayV3_WeixinPubKey { get; set; }
+        string TenPayV3_TenPayPubKey { get; set; }
         /// <summary>
         /// 微信支付（V3）微信平台公钥ID（替换平台证书）
         /// </summary>
-        string TenPayV3_WeixinPubKeySerialNo { get; set; }
+        string TenPayV3_TenPayPubKeyID { get; set; }
         /// <summary>
         /// 微信支付（V3）微信平台公钥 启动
         /// </summary>
-        bool TenPayV3_WeixinPubKeyEnable { get; set; }
+        bool TenPayV3_TenPayPubKeyEnable { get; set; }
         #endregion
 
         /// <summary>

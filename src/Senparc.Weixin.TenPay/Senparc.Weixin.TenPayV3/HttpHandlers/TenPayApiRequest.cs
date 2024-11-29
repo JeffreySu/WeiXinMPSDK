@@ -243,7 +243,7 @@ namespace Senparc.Weixin.TenPayV3
                                 }
                                 else
                                 {
-                                    result.VerifySignSuccess = TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignatureBase64, content, pubKey, _tenpayV3Setting.TenPayV3_WeixinPubKeyEnable);
+                                    result.VerifySignSuccess = TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignatureBase64, content, pubKey, _tenpayV3Setting.TenPayV3_TenPayPubKeyEnable);
                                 }
                             }
                             catch (Exception ex)

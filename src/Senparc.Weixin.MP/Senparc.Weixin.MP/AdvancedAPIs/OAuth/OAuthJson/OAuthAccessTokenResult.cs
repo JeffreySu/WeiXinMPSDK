@@ -41,6 +41,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20220910
     修改说明：v16.18.6 OAuth 的 AccessToken 获取接口添加 is_snapshotuser 返回值
+
+
 ----------------------------------------------------------------*/
 
 using System;

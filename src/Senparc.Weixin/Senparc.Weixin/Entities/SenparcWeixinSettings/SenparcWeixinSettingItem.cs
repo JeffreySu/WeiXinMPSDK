@@ -131,6 +131,9 @@ namespace Senparc.Weixin.Entities
             TenPayV3_APIv3Key = setting.TenPayV3_APIv3Key;
             TenPayV3_PrivateKey = setting.TenPayV3_PrivateKey;
             TenPayV3_SerialNumber = setting.TenPayV3_SerialNumber;
+
+            TenPayV3_TenPayPubKey = setting.TenPayV3_TenPayPubKey;
+
             TenPayV3_WxOpenTenpayNotify = setting.TenPayV3_WxOpenTenpayNotify;
         }
 
@@ -321,7 +324,42 @@ namespace Senparc.Weixin.Entities
         /// <summary>
         /// APIv3 密钥。在微信支付后台设置：https://pay.weixin.qq.com/index.php/core/cert/api_cert#/
         /// </summary>
-        public string TenPayV3_APIv3Key { get; set; }
+        public virtual string TenPayV3_APIv3Key { get; set; }
+
+
+        private string _tenPayV3_WeixinPubKey;
+        /// <summary>
+        /// 微信支付（V3）公钥证书（替换平台证书）
+        /// </summary>
+        public virtual string TenPayV3_TenPayPubKey
+        {
+            get
+            {
+                return TenPayHelper.TryGetPublicKeyFromFile(ref _tenPayV3_WeixinPubKey);
+            }
+            set
+            {
+                _tenPayV3_WeixinPubKey = value;
+            }
+        }
+
+        /// <summary>
+        /// 微信支付（V3）公钥证书序列号（替换平台证书）
+        /// </summary>
+        public virtual string TenPayV3_TenPayPubKeyID { get; set; }
+
+        /// <summary>
+        /// 微信支付（V3）公钥证书 是否启用
+        /// </summary>
+        public virtual bool TenPayV3_TenPayPubKeyEnable
+        {
+            get
+            {
+                return !string.IsNullOrWhiteSpace(TenPayV3_TenPayPubKey) && !string.IsNullOrWhiteSpace(TenPayV3_TenPayPubKeyID);
+            }
+            set { }
+
+        }
         #endregion
 
         /// <summary>

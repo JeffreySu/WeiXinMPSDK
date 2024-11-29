@@ -84,5 +84,29 @@ namespace Senparc.Weixin.Helpers
             }
             return tenPayV3_PrivateKey;
         }
+
+        /// <summary>
+        /// 尝试从文件获取正确格式的私钥
+        /// </summary>
+        /// <returns></returns>
+        public static string TryGetPublicKeyFromFile(ref string tenPayV3_PubKey)
+        {
+            if (tenPayV3_PubKey != null && tenPayV3_PubKey.Length < 100 && tenPayV3_PubKey.StartsWith("~/"))
+            {
+                //虚拟路径
+                //尝试读取文件
+                var filePath = CO2NET.Utilities.ServerUtility.ContentRootMapPath(tenPayV3_PubKey);
+                if (!File.Exists(filePath))
+                {
+                    Senparc.Weixin.WeixinTrace.BaseExceptionLog(new WeixinException("TenPayV3_PubKey 证书文件不存在！" + filePath));
+                }
+
+                var fileContent = File.ReadAllText(filePath);
+                Regex regex = new Regex(@"(--([^\r\n])+--[\r\n]{0,1})|[\r\n]");
+                var publicKey = regex.Replace(fileContent, "");
+                tenPayV3_PubKey = publicKey;
+            }
+            return tenPayV3_PubKey;
+        }
     }
 }

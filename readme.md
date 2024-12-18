@@ -31,7 +31,7 @@ Senparc.Weixin —— 微信 .NET SDK
 
 [[English Version]](readme.en.md)
 
-> 📈 **Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最受欢迎的 .NET 开源项目之一。本项目已持续维护超过 11 年，助力大量系统和应用取得成功。我们将继续保持更新，并正在深度融合 AI 场景应用，示例正在逐步上线。欢迎加入我们的社区 👐**
+> 📈 **Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最受欢迎的 .NET 开源项目之一。本项目已持续维护超过 11 年，助力大量系统和应用取得成功。我们将继续保持更新，并正在深度融合 [AI](https://github.com/Senparc/Senparc.AI) 场景应用，示例正在逐步上线。欢迎加入我们的社区 👐**
 
 使用 Senparc.Weixin，您可以方便快速地开发微信全平台的应用（包括微信公众号、小程序、小游戏、企业号、开放平台、微信支付、JS-SDK、微信硬件/蓝牙，等等）。本项目的 Demo 同样适合初学者进行 .NET 编程学习。
 

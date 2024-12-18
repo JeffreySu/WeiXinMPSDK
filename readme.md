@@ -118,7 +118,7 @@ await CustomApi.SendTextAsync("AppId", "OpenId", "Hello World!");
 > 4. 所有接口命名空间均参照官方 API 路径规则定义，且参数命名方式尽量与文档保持一致（特别是返回参数），以方便开发者在源码中快速查找定位、提升测试效率、降低 bug 发生的可能性。
 
 > [!TIP]
-> 至此，您已经可以举一反三调用所有微信模块的接口啦！更多技能请继续往下看。
+> 至此，您已经可以举一反三调用所有微信模块的接口啦！解锁更多技能请继续往下看。
 
 ### 如何使用公众号消息对话能力？
 公众号默认提供了对话窗口，可以发送文字、图片、语音等不同类型的信息和程序互动。
@@ -236,7 +236,7 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 | 4| 微信支付                                             |Senparc.Weixin.TenPay.dll  |  [![TenPay][12.1]][12.2]<br>[![TenPay][nuget-img-tenpay]][nuget-url-tenpay] |       ![.NET 4.5][net46Y]  ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
 | 5| 微信支付 V3                                         |Senparc.Weixin.TenPayV3.dll  |  [![TenPayV3][13.1]][13.2]<br>[![TenPay][nuget-img-tenpayv3]][nuget-url-tenpayv3] |       ![.NET 4.5][net46N]  ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
 | 6| ASP.NET MVC 扩展<br>               |Senparc.Weixin.MP.MVC.dll                 | [![MP.MVC][3.1]][3.2]<br>[![Mvc][nuget-img-mvc]][nuget-url-mvc] |        ![.NET 4.5][net46Y] ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
-| 7| 微信企业号                                           |Senparc.Weixin.QY.dll                            | [![QY][4.1]][4.2]<br>[![QY][nuget-img-qy]][nuget-url-qy]  |      ![.NET 4.5][net46Y] ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
+| 7| 微信企业号<br>（官方已停更）                                           |Senparc.Weixin.QY.dll                            | [![QY][4.1]][4.2]<br>[![QY][nuget-img-qy]][nuget-url-qy]  |      ![.NET 4.5][net46Y] ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
 | 9| 企业微信                                             |Senparc.Weixin.Work.dll                          | [![Work][5.1]][5.2]<br>[![Work][nuget-img-work]][nuget-url-work]  |          ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
 | 9| 微信开放平台                                         |Senparc.Weixin.Open.dll                          | [![Open][6.1]][6.2]<br>[![Open][nuget-img-open]][nuget-url-open]|         ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
 | 10| Redis 分布式缓存                                     |Senparc.Weixin.Cache.<br>Redis.dll               | [![Cache.Redis][7.1]][7.2]<br>[![Redis][nuget-img-redis]][nuget-url-redis] |           ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  

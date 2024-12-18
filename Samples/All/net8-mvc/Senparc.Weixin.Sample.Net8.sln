@@ -74,9 +74,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.TenPayV3.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.MP.net8", "..\..\MP\Senparc.Weixin.Sample.MP\Senparc.Weixin.Sample.MP.net8.csproj", "{81A078A9-97D1-446D-88ED-87F4BB484D91}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.2 不同微信模块 Samples", "3.2 不同微信模块 Samples", "{34CFB1D8-6025-4E93-A67F-D94DD3B9198F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.02 不同微信模块 Samples", "03.02 不同微信模块 Samples", "{34CFB1D8-6025-4E93-A67F-D94DD3B9198F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.1 完整 Sample（进阶）", "3.1 完整 Sample（进阶）", "{1B168C93-E3E3-4939-8EDC-19CE4E041874}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.01 完整 Sample（进阶）", "03.01 完整 Sample（进阶）", "{1B168C93-E3E3-4939-8EDC-19CE4E041874}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Senparc.Weixin.Sample.Shared", "..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.shproj", "{9FE36012-8B32-488E-96AD-BA7CEDAEEAB8}"
 EndProject
@@ -95,7 +95,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.TenPa
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Senparc.Weixin.Sample.Shared", "..\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.shproj", "{81A03BCD-B887-4A40-8867-FF6B8D61CFC3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.3 人工智能（AI）", "3.3 人工智能（AI）", "{AB1460AF-4BE8-4CC2-AF3B-3473B5A41778}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.03 人工智能（AI）", "03.03 人工智能（AI）", "{AB1460AF-4BE8-4CC2-AF3B-3473B5A41778}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\..\Samples with AI\readme.md = ..\..\..\Samples with AI\readme.md
 	EndProjectSection

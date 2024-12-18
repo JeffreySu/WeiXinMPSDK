@@ -53,7 +53,7 @@ Senparc.Weixin —— 微信 .NET SDK
 > [!NOTE]
 > ⚡ Sample 已支持 .NET 8.0（向下兼容），[点击这里查看](/Samples/All/net8-mvc)！<br/>
 > 🔒 [微信支付 V3 模块（V1.0）](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3)已上线！[Nuget](https://www.nuget.org/packages/Senparc.Weixin.TenPayV3)<br>
-> 🎠 全面支持长文本自动分片发送，更多：[《顺应 AIGC 应用，自动“续航”回复超长文本消息》](https://www.cnblogs.com/szw/p/weixin-large-text-response.html)<br/>
+> 🎠 全面支持长文本自动分片发送，更多：[《顺应 GenAI 应用，自动“续航”回复超长文本消息》](https://www.cnblogs.com/szw/p/weixin-large-text-response.html)<br/>
 
 <!-- _1. 为了将 Demo 和源代码隔离，并让大家更方便地找到 Demo，现已将 Senparc.Weixin.MP.Sample 等文件夹转移到 [/Samples/](/Samples/) 文件夹下。_<br> -->
 <!-- _2. `Senparc.Weixin.Plugins`计划已经启动，详情 [点击这里](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Plugins)。_ -->

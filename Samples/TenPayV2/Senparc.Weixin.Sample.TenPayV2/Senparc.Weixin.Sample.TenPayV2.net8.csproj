@@ -7,6 +7,7 @@
 
 		<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
 		<GenerateEmbeddedFilesManifest Condition=" '$(Configuration)' != 'Release' ">true</GenerateEmbeddedFilesManifest>
+		<OutputPath Condition=" '$(Configuration)' == 'Release' ">$(SolutionDir)\..\SamplePublish\TenPayV2</OutputPath>
 	</PropertyGroup>
 	
 		<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->

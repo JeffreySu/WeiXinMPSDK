@@ -9,7 +9,7 @@
 项目  |  说明
 ---- | ----
 Senparc.Weixin.Sample.MP | 公众号主要功能的简要演示项目
-Senparc.Weixin.Sample.MP.Simple | 公众号的精简模式演示项目
+Senparc.Weixin.Sample.MP.Simple | 公众号的最精简模式演示项目
 
 > 此项目中所演示的精简模式等，都可以举一反三用在其他平台上（如小程序、企业微信、微信支付等）。
 

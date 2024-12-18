@@ -67,3 +67,4 @@ yarn.lock
 /Samples/MP/Senparc.Weixin.Sample.MP.Simple/appsettings.Development.json
 /src/Senparc.Weixin.MP/Senparc.Weixin.MP.Test/AdvancedAPIs/Media/*.jpg
 /src/Senparc.Weixin.MP/Senparc.Weixin.MP.Test/*.jpg
+/Samples/SamplePublish/TenPayV3/net8.0

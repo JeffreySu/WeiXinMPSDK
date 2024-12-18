@@ -16,6 +16,7 @@ using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Entities;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 
 namespace Senparc.Weixin.Sample.MP

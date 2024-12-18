@@ -34,7 +34,10 @@ namespace Senparc.Weixin.Sample.MP.Controllers
     using Senparc.Weixin.MP;
     using Senparc.Weixin.MP.Entities.Request;
     using Senparc.Weixin.MP.MvcExtension;
-
+    using System;
+    using System.IO;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     public partial class WeixinController : BaseController
     {

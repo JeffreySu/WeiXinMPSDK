@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.MP", "Senparc.Weixin.Sample.MP\Senparc.Weixin.Sample.MP.csproj", "{99EEB8CC-FE5E-4A1D-80C2-9A0C1FA757BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.MP", "Senparc.Weixin.Sample.MP\Senparc.Weixin.Sample.MP.net8.csproj", "{99EEB8CC-FE5E-4A1D-80C2-9A0C1FA757BD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.MP.Simple", "Senparc.Weixin.Sample.MP.Simple\Senparc.Weixin.Sample.MP.Simple.csproj", "{4A5EF3E4-3466-49C6-8A16-85EA6BD781BF}"
 EndProject

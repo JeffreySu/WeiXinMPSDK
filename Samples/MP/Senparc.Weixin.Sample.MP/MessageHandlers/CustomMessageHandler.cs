@@ -25,6 +25,11 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageContexts;
 using Senparc.Weixin.MP.MessageHandlers;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Sample.MP
 {

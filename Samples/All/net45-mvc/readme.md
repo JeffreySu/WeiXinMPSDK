@@ -14,4 +14,4 @@
 
 ## .NET Core 及所有版本 Demo
 
-返回上一级后见目录：[Senparc.Weixin.Sample.Net7.sln](../net7-mvc/) (.NET 7 版本，加载完整源码，推荐)、[Senparc.Weixin.Sample.Net6.sln](../net6-mvc/) (.NET 6 版本，加载完整源码)。
+返回上一级后见目录：[Senparc.Weixin.Sample.Net8.sln](../net8-mvc/) (.NET 8 版本，加载完整源码，推荐)。

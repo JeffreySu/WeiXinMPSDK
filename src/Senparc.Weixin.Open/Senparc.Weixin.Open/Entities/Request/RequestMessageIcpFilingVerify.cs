@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2024 Senparc
+    Copyright (C) 2025 Senparc
     
     文件名：RequestMessageUnauthorized.cs
     文件功能描述：推送取消授权通知

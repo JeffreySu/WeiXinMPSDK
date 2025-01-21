@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2024 Senparc
+    Copyright (C) 2025 Senparc
     
     文件名：RequestMessageEvent_Change_External_Tag_Base.cs
     文件功能描述：企业客户标签或标签组事件

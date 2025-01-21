@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2024 Senparc
+    Copyright (C) 2025 Senparc
     
     文件名：ListContactWayResult.cs
     文件功能描述：获取企业已配置的「联系我」列表

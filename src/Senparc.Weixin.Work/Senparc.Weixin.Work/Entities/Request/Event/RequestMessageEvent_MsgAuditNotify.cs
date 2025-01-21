@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2024 Senparc
+    Copyright (C) 2025 Senparc
     
     文件名：RequestMessageEvent_MsgAuditNotify.cs
     文件功能描述：企业微信会话存档-产生会话回调事件

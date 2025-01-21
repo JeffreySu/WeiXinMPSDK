@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2024 Senparc
+    Copyright (C) 2025 Senparc
     
     文件名：ShakeAroundResultJson.cs
     文件功能描述：摇一摇周边返回结果

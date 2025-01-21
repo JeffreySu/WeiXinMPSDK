@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2024 Senparc
+    Copyright (C) 2025 Senparc
     
     文件名：GetOpenApprovalDataJsonResult.cs
     文件功能描述：获取公费电话拨打记录返回结果

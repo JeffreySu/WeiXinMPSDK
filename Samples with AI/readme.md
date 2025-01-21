@@ -13,9 +13,9 @@ AI 能力来自于 [Senparc.AI](https://github.com/Senparc/Senparc.AI)，并深�
 1. [X] 微信公众号 Chat 机器人（文字） - 已于 2024 年 5 月 25 日上线
 2. [X] 微信公众号 Chat 机器人（图片） - 已于 2024 年 5 月 25 日上线
 3. [X] 微信公众号 Chat 机器人（多模态混合） - 已于 2024 年 5 月 26 日上线
-4. [ ] 微信公众号带搜索功能的 Chat 机器人
+4. [X] 微信公众号带搜索功能的 Chat 机器人
 5. [X] 企业微信集成 Agent（智能体）机器人 - 已在 [NCF](https://github.com/NeuCharFramework/NCF) 中的 [AgentsManager](https://github.com/NeuCharFramework/NcfPackageSources/tree/master/src/Extensions/Senparc.Xncf.AgentsManager) 模块集成
-6. [ ] 使用 RAG 构建知识库问答
+6. [X] 使用 RAG 构建知识库问答 - 已于 2025 年 1 月 2 日上线，可查看 Senparc.AI 项目
 
 > 更多示例欢迎发 issue 或群内留言！
 

@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------
-    Copyright (C) 2024 Senparc
+    Copyright (C) 2025 Senparc
     
     文件名：GetMemberIdListResult.cs
     文件功能描述：通讯录同步接口

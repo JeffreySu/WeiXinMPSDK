@@ -339,7 +339,6 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
             catch (Exception ex)
             {
                 return Json(new { success = false, msg = ex.Message });
-
             }
         }
 

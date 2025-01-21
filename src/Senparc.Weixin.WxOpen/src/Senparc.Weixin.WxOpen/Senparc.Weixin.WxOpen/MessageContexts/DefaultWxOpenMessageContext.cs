@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2024 Senparc
+    Copyright (C) 2025 Senparc
     
     文件名：DefaultWxOpenMessageContext.cs
     文件功能描述：小程序上下文消息的默认实现

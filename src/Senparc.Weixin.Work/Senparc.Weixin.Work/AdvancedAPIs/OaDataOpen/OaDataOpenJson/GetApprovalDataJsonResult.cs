@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2024 Senparc
+    Copyright (C) 2025 Senparc
     
     文件名：GetApprovalDataJsonResult.cs
     文件功能描述：获取审批数据接口返回结果

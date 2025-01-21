@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2024 Senparc
+    Copyright (C) 2025 Senparc
     
     文件名：AddContactWayRequest.cs
     文件功能描述：配置客户联系「联系我」方式 请求数据

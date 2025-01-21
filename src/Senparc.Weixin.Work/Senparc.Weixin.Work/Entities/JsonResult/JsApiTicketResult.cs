@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2024 Senparc
+    Copyright (C) 2025 Senparc
     
     文件名：JsApiTicketResult.cs
     文件功能描述：jsapi_ticket请求后的JSON返回格式

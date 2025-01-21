@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2024 Senparc
+    Copyright (C) 2025 Senparc
     
     文件名：PlateNumJsonResult.cs
     文件功能描述：OCR 车牌识别返回结果

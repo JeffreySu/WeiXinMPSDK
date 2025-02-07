@@ -16,7 +16,7 @@
 		<EmbeddedResource Include="wwwroot\**\*" />
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="Senparc.Weixin.All" Version="2024.11.29" />
+	  <PackageReference Include="Senparc.Weixin.All" Version="2025.1.21" />
 	</ItemGroup>
 	<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
 	<Import Project="..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems" Label="Shared" />

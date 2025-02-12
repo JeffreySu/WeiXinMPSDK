@@ -36,6 +36,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 
+using Org.BouncyCastle.Asn1.Ocsp;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using Senparc.Weixin.Entities;
@@ -64,26 +65,40 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         {
             privateKey ??= Senparc.Weixin.Config.SenparcWeixinSetting.TenPayV3_PrivateKey;
 
-            // NOTE： 私钥不包括私钥文件起始的-----BEGIN PRIVATE KEY-----
-            //        亦不包括结尾的-----END PRIVATE KEY-----
-            //string privateKey = "{你的私钥}";
-
-            byte[] keyData = Convert.FromBase64String(privateKey);
-
-            #region 以下方法不兼容 Linux
-            //using (CngKey cngKey = CngKey.Import(keyData, CngKeyBlobFormat.Pkcs8PrivateBlob))
-            //using (RSACng rsa = new RSACng(cngKey))
-            //{
-            //    byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
-            //    return Convert.ToBase64String(rsa.SignData(data, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
-            //}
-            #endregion
-
-            using (var rsa = System.Security.Cryptography.RSA.Create())
+            if (Senparc.Weixin.Config.SenparcWeixinSetting.EncryptionType == CertType.SM.ToString())
             {
-                rsa.ImportPkcs8PrivateKey(keyData, out _);
-                byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
-                return Convert.ToBase64String(rsa.SignData(data, 0, data.Length, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
+                byte[] keyData = Convert.FromBase64String(privateKey);
+
+                ECPrivateKeyParameters eCPrivateKeyParameters = SMPemHelper.LoadPrivateKeyToParameters(keyData);
+
+                byte[] signBytes = GmHelper.SignSm3WithSm2(eCPrivateKeyParameters, message);
+
+                return Convert.ToBase64String(signBytes);
+            }
+            else
+            {
+
+                // NOTE： 私钥不包括私钥文件起始的-----BEGIN PRIVATE KEY-----
+                //        亦不包括结尾的-----END PRIVATE KEY-----
+                //string privateKey = "{你的私钥}";
+
+                byte[] keyData = Convert.FromBase64String(privateKey);
+
+                #region 以下方法不兼容 Linux
+                //using (CngKey cngKey = CngKey.Import(keyData, CngKeyBlobFormat.Pkcs8PrivateBlob))
+                //using (RSACng rsa = new RSACng(cngKey))
+                //{
+                //    byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
+                //    return Convert.ToBase64String(rsa.SignData(data, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
+                //}
+                #endregion
+
+                using (var rsa = System.Security.Cryptography.RSA.Create())
+                {
+                    rsa.ImportPkcs8PrivateKey(keyData, out _);
+                    byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
+                    return Convert.ToBase64String(rsa.SignData(data, 0, data.Length, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
+                }
             }
         }
 

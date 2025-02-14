@@ -85,7 +85,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="encryptionType"></param>
         /// <param name="isWeixinPubKey">是否是微信支付公钥</param>
         /// <returns></returns>
-        public static string Encrypt(string text, string publicKey, string encryptionType, bool isWeixinPubKey = false)
+        public static string Encrypt(string text, string publicKey, CertType encryptionType, bool isWeixinPubKey = false)
         {
             #region 基于微信支付公钥
             if (isWeixinPubKey)
@@ -103,7 +103,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers
             #endregion
 
 
-            if (encryptionType == CertType.SM.ToString())
+            if (encryptionType == CertType.SM)
             {
                 ECPublicKeyParameters eCPublicKeyParameters = SMPemHelper.LoadPublicKeyToParameters(Encoding.UTF8.GetBytes(publicKey));
                 return GmHelper.Sm2Encrypt(eCPublicKeyParameters, text);
@@ -124,7 +124,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="publicKey"></param>
         /// <param name="encryptionType"></param>
         /// <param name="isWeixinPubKey">是否是微信支付公钥</param>
-        public static void FieldEncrypt(object request, string publicKey, string encryptionType, bool isWeixinPubKey = false)
+        public static void FieldEncrypt(object request, string publicKey, CertType encryptionType, bool isWeixinPubKey = false)
         {
             var pis = request.GetType().GetProperties();
             foreach (var pi in pis)
@@ -155,12 +155,12 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="encryptionType"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        [Obsolete("放弃使用")]
-        public static async Task FieldEncryptAsync(object request, string apiV3Key, string encryptionType)
+        [Obsolete("放弃使用", true)]
+        public static async Task FieldEncryptAsync(object request, string apiV3Key, CertType encryptionType)
         {
             // name 敏感信息加密
             var basePayApis = new BasePayApis();
-            var certificate = await basePayApis.CertificatesAsync();
+            var certificate = await basePayApis.CertificatesAsync(encryptionType);
             FieldEncrypt(request, certificate, apiV3Key, encryptionType);
         }
 
@@ -172,15 +172,17 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="encryptionType"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        [Obsolete("放弃使用")]
-        public static void FieldEncrypt(object request, CertificatesResultJson certificate, string apiV3Key, string encryptionType)
+        [Obsolete("放弃使用", true)]
+        public static void FieldEncrypt(object request, CertificatesResultJson certificate, string apiV3Key, CertType encryptionType)
         {
             if (!(certificate?.ResultCode?.Success ?? false))
                 throw new Exception(certificate?.ResultCode?.ErrorMessage ?? "basePayApis.CertificatesAsync 获取证书失败");
 
             var publicKey = GetPublicKey(certificate.data?.FirstOrDefault()?.encrypt_certificate, apiV3Key, encryptionType);
             if (!string.IsNullOrWhiteSpace(publicKey))
+            {
                 FieldEncrypt(request, publicKey, encryptionType);
+            }
         }
 
         /// <summary>
@@ -191,9 +193,9 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="apiV3Key"></param>
         /// <param name="encryptionType"></param>
         /// <returns></returns>
-        public static string GetPublicKey(Encrypt_Certificate encryptCertificate, string apiV3Key, string encryptionType)
+        public static string GetPublicKey(Encrypt_Certificate encryptCertificate, string apiV3Key, CertType encryptionType)
         {
-            if (encryptionType == CertType.SM.ToString())
+            if (encryptionType == CertType.SM)
             {
                 return GmHelper.Sm4DecryptGCM(apiV3Key, encryptCertificate.nonce, "certificate", encryptCertificate.ciphertext);
             }

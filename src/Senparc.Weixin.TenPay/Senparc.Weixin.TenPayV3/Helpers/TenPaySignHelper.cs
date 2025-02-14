@@ -61,11 +61,11 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="message">签名串</param>
         /// <param name="privateKey">签名私钥 可为空</param>
         /// <returns></returns>
-        public static string CreateSign(string message, string privateKey = null)
+        public static string CreateSign(CertType certType, string message, string privateKey = null)
         {
             privateKey ??= Senparc.Weixin.Config.SenparcWeixinSetting.TenPayV3_PrivateKey;
 
-            if (Senparc.Weixin.Config.SenparcWeixinSetting.EncryptionType == CertType.SM.ToString())
+            if (certType == CertType.SM /*Senparc.Weixin.Config.SenparcWeixinSetting.EncryptionType == CertType.SM.ToString()*/)
             {
                 byte[] keyData = Convert.FromBase64String(privateKey);
 
@@ -110,14 +110,19 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="package">格式：prepay_id={0}</param>
         /// <param name="senparcWeixinSettingForTenpayV3">可为空 为空将从Senparc.Weixin.Config获取</param>
         /// <returns></returns>
-        public static string CreatePaySign(string timeStamp, string nonceStr, string package, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null)
+        public static string CreatePaySign(string timeStamp, string nonceStr, string package, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
         {
             senparcWeixinSettingForTenpayV3 ??= Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
 
             var appId = senparcWeixinSettingForTenpayV3.TenPayV3_AppId;
             var privateKey = senparcWeixinSettingForTenpayV3.TenPayV3_PrivateKey;
 
-            return CreatePaySign(timeStamp, nonceStr, package, appId, privateKey);
+            if (!senparcWeixinSettingForTenpayV3.EncryptionType.HasValue)
+            {
+                throw new Senparc.Weixin.Exceptions.WeixinException("没有设置证书加密类型（EncryptionType）");
+            }
+
+            return CreatePaySign(timeStamp, nonceStr, package, appId, privateKey, senparcWeixinSettingForTenpayV3.EncryptionType.Value);
         }
 
         /// <summary>
@@ -128,10 +133,10 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="package">格式：prepay_id={0}</param>
         /// <param name="privateKey">商户证书私钥</param>
         /// <returns></returns>
-        public static string CreatePaySign(string timeStamp, string nonceStr, string package, string appId, string privateKey)
+        public static string CreatePaySign(string timeStamp, string nonceStr, string package, string appId, string privateKey, CertType certType)
         {
             string contentForSign = $"{appId}\n{timeStamp}\n{nonceStr}\n{package}\n";
-            return CreateSign(contentForSign, privateKey);
+            return CreateSign(certType, contentForSign, privateKey);
         }
 
         /// <summary>
@@ -146,7 +151,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="pubKey">平台公钥/微信支付公钥（必须是Unwrap的公钥）</param>
         /// <param name="isTenPayPubKey">是否是微信支付公钥</param>
         /// <returns></returns>
-        public static bool VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignatureBase64, string content, string pubKey, bool isTenPayPubKey = false)
+        public static bool VerifyTenpaySign(CertType certType, string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignatureBase64, string content, string pubKey, bool isTenPayPubKey = false)
         {
             //验签名串
             var contentForSign = $"{wechatpayTimestamp}\n{wechatpayNonce}\n{content}\n";
@@ -177,7 +182,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers
             }
 
 
-            if (Senparc.Weixin.Config.SenparcWeixinSetting.EncryptionType == CertType.SM.ToString())
+            if (certType == CertType.SM)
             {
                 byte[] pubKeyBytes = Convert.FromBase64String(pubKey);
                 ECPublicKeyParameters eCPublicKeyParameters = SMPemHelper.LoadPublicKeyToParameters(pubKeyBytes);
@@ -220,13 +225,18 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="content">应答报文主体</param>
         /// <param name="pubKey">平台公钥 可为空</param>
         /// <returns></returns>
-        public static async Task<bool> VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignature, string content, string serialNumber, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
+        public static async Task<bool> VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignature, string content, string serialNumber, bool isTenPayPubKey, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
         {
+            if (!senparcWeixinSettingForTenpayV3.EncryptionType.HasValue)
+            {
+                throw new Senparc.Weixin.Exceptions.WeixinException("没有设置证书加密类型（EncryptionType）");
+            }
+
             //string contentForSign = $"{wechatpayTimestamp}\n{wechatpayNonce}\n{content}\n";
 
             var tenpayV3InfoKey = TenPayHelper.GetRegisterKey(senparcWeixinSettingForTenpayV3.TenPayV3_MchId, senparcWeixinSettingForTenpayV3.TenPayV3_SubMchId);
             var pubKey = await TenPayV3InfoCollection.Data[tenpayV3InfoKey].GetPublicKeyAsync(serialNumber, senparcWeixinSettingForTenpayV3);
-            return VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content, pubKey, senparcWeixinSettingForTenpayV3.TenPayV3_TenPayPubKeyEnable);
+            return VerifyTenpaySign(senparcWeixinSettingForTenpayV3.EncryptionType.Value, wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content, pubKey, senparcWeixinSettingForTenpayV3.TenPayV3_TenPayPubKeyEnable);
         }
 
         /// <summary>
@@ -235,7 +245,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="appId"></param>
         /// <param name="prepayId"></param>
         /// <returns></returns>
-        public static JsApiUiPackage GetJsApiUiPackage(string appId, string prepayId, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null)
+        public static JsApiUiPackage GetJsApiUiPackage(string appId, string prepayId, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
         {
             var timeStamp = TenPayV3Util.GetTimestamp();
             var nonceStr = TenPayV3Util.GetNoncestr();

@@ -81,6 +81,10 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             _tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
 
+            if (!_tenpayV3Setting.EncryptionType.HasValue)
+            {
+                throw new Senparc.Weixin.Exceptions.WeixinException("没有设置证书加密类型（EncryptionType）");
+            }
         }
 
         //private readonly IServiceProvider _serviceProvider;
@@ -116,9 +120,9 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// </param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public async Task<CertificatesResultJson> CertificatesAsync(string algorithmType = "RSA", int timeOut = Config.TIME_OUT)
+        public async Task<CertificatesResultJson> CertificatesAsync(CertType algorithmType, int timeOut = Config.TIME_OUT)
         {
-            var url = GetPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/certificates?algorithm_type=" + algorithmType);
+            var url = GetPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/certificates?algorithm_type=" + algorithmType.ToString());
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             //var responseMessge = await tenPayApiRequest.GetHttpResponseMessageAsync(url, null, timeOut);
             //return await responseMessge.Content.ReadAsStringAsync();
@@ -140,8 +144,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 return keys;
             }
 
-            var algorithmType = _tenpayV3Setting.EncryptionType == CertType.SM.ToString() ? "SM2" : "RSA";
-            var certificates = await CertificatesAsync(algorithmType);
+            var certificates = await CertificatesAsync(_tenpayV3Setting.EncryptionType.Value);
             if (!certificates.ResultCode.Success)
             {
                 throw new TenpayApiRequestException("获取证书公钥失败：" + certificates.ResultCode.ErrorMessage);

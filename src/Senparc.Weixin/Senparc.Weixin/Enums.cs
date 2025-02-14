@@ -1559,4 +1559,17 @@ namespace Senparc.Weixin
         女 = 2
 #pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释
     }
+
+
+    /// <summary>
+    /// 支付请求签名算法类型
+    /// </summary>
+    public enum CertType
+    {
+        RSA,
+        SM,
+
+        PUBKEY_RSA,
+        PUBKEY_SM
+    }
 }

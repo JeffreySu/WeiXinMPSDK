@@ -73,6 +73,11 @@ namespace Senparc.Weixin.TenPayV3
             InnerHandler = new HttpClientHandler();
 
             _tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
+
+            if (!_tenpayV3Setting.EncryptionType.HasValue)
+            {
+                throw new Senparc.Weixin.Exceptions.WeixinException("没有设置证书加密类型（EncryptionType）");
+            }
         }
 
         /// <summary>
@@ -88,7 +93,7 @@ namespace Senparc.Weixin.TenPayV3
             var auth = await BuildAuthAsync(request);
 
             var authorizationValue =
-                _tenpayV3Setting.EncryptionType == CertType.SM.ToString()
+                _tenpayV3Setting.EncryptionType == CertType.SM
                     ? "WECHATPAY2-SM2-WITH-SM3"
                     : "WECHATPAY2-SHA256-RSA2048";
 
@@ -125,7 +130,7 @@ namespace Senparc.Weixin.TenPayV3
 
             //TODO:此处重构使用ISenparcWeixinSettingForTenpayV3
             string signature = string.Empty;
-            if(_tenpayV3Setting.EncryptionType == CertType.SM.ToString())
+            if (_tenpayV3Setting.EncryptionType == CertType.SM)
             {
                 byte[] keyData = Convert.FromBase64String(_tenpayV3Setting.TenPayV3_PrivateKey);
 
@@ -137,7 +142,7 @@ namespace Senparc.Weixin.TenPayV3
             }
             else
             {
-                signature = TenPaySignHelper.CreateSign(message, _tenpayV3Setting.TenPayV3_PrivateKey);
+                signature = TenPaySignHelper.CreateSign(_tenpayV3Setting.EncryptionType.Value, message, _tenpayV3Setting.TenPayV3_PrivateKey);
             }
 
             return $"mchid=\"{_tenpayV3Setting.TenPayV3_MchId}\",nonce_str=\"{nonce}\",timestamp=\"{timestamp}\",serial_no=\"{_tenpayV3Setting.TenPayV3_SerialNumber}\",signature=\"{signature}\"";

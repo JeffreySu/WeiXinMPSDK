@@ -115,7 +115,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             var publicKeyKv = publicKeys.FirstOrDefault();
             foreach (var each in data.receivers)
             {
-                SecurityHelper.FieldEncrypt(each, publicKeyKv.Value, _tenpayV3Setting.EncryptionType, _tenpayV3Setting.TenPayV3_TenPayPubKeyEnable);
+                SecurityHelper.FieldEncrypt(each, publicKeyKv.Value, _tenpayV3Setting.EncryptionType.Value, _tenpayV3Setting.TenPayV3_TenPayPubKeyEnable);
             }
 
             //string algorithmType = _tenpayV3Setting.EncryptionType == CertType.SM.ToString() ? "SM2" : "RSA";
@@ -324,7 +324,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             var basePayApis = new BasePayApis();
             var publicKeys = await basePayApis.GetPublicKeysAsync();
             var publicKeyKv = publicKeys.FirstOrDefault();
-            SecurityHelper.FieldEncrypt(data, publicKeyKv.Value, _tenpayV3Setting.EncryptionType, _tenpayV3Setting.TenPayV3_TenPayPubKeyEnable);
+            SecurityHelper.FieldEncrypt(data, publicKeyKv.Value, _tenpayV3Setting.EncryptionType.Value, _tenpayV3Setting.TenPayV3_TenPayPubKeyEnable);
 
             //string algorithmType = _tenpayV3Setting.EncryptionType == CertType.SM.ToString() ? "SM2" : "RSA";
             //var certificateResponse = await basePayApis.CertificatesAsync(algorithmType);

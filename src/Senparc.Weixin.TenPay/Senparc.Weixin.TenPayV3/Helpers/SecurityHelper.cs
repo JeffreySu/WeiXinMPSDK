@@ -102,7 +102,6 @@ namespace Senparc.Weixin.TenPayV3.Helpers
             }
             #endregion
 
-
             if (encryptionType == CertType.SM)
             {
                 ECPublicKeyParameters eCPublicKeyParameters = SMPemHelper.LoadPublicKeyToParameters(Encoding.UTF8.GetBytes(publicKey));

@@ -122,7 +122,9 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<CertificatesResultJson> CertificatesAsync(CertType algorithmType, int timeOut = Config.TIME_OUT)
         {
-            var url = GetPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/certificates?algorithm_type=" + algorithmType.ToString());
+            var algorithmTypeStr = algorithmType == CertType.SM ? "SM2" : algorithmType.ToString();
+
+            var url = GetPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/certificates?algorithm_type=" + algorithmTypeStr);
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             //var responseMessge = await tenPayApiRequest.GetHttpResponseMessageAsync(url, null, timeOut);
             //return await responseMessge.Content.ReadAsStringAsync();

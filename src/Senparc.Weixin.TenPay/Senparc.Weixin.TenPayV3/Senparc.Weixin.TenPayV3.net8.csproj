@@ -59,7 +59,8 @@
 		v1.6.3 更新支付接口调用过程中的 SM 和 RSA 判断方式
 		v1.6.5 修改 SM 证书判断逻辑，向下兼容未升级 appsettings.json 的系统 #3084
 		v1.7.8 兼容微信支付公钥以及平台证书 / PR #3103 感谢 @mojinxun
-</PackageReleaseNotes>
+		v2.0.0 升级 SM 支付 / PR #3114 #3115 感谢 @Guili95
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

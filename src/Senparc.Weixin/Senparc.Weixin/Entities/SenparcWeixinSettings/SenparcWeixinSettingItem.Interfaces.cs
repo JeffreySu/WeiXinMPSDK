@@ -245,7 +245,7 @@ namespace Senparc.Weixin.Entities
         /// <summary>
         /// 设置HTTP头Authrization的加密认证类型
         /// </summary>
-        string EncryptionType { get; set; }
+        CertType? EncryptionType { get; set; }
     }
 
     /// <summary>

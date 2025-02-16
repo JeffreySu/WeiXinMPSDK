@@ -393,7 +393,7 @@ Prompt：";
                                 userId: "Jeffrey",
                                 maxHistoryStore: maxHistoryCount,
                                 chatSystemMessage: systemMessage,
-                                senparcAiSetting: setting).iWantToRun;
+                                senparcAiSetting: setting);
 
             //注入历史记录（也可以把 iWantToRun 对象缓存起来，其中会自动包含 history，不需要每次读取或者保存）
             iWantToRun.StoredAiArguments.Context["history"] = chatStore.History;

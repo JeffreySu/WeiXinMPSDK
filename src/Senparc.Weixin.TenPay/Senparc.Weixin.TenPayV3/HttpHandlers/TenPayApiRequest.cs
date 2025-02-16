@@ -231,7 +231,7 @@ namespace Senparc.Weixin.TenPayV3
                             try
                             {
                                 var pubKey = await TenPayV3InfoCollection.GetAPIv3PublicKeyAsync(this._tenpayV3Setting, wechatpaySerial);
-                                if (this._tenpayV3Setting.EncryptionType == CertType.SM.ToString())
+                                if (this._tenpayV3Setting.EncryptionType == CertType.SM)
                                 {
                                     byte[] pubKeyBytes = Convert.FromBase64String(pubKey);
                                     ECPublicKeyParameters eCPublicKeyParameters = SMPemHelper.LoadPublicKeyToParameters(pubKeyBytes);
@@ -243,7 +243,7 @@ namespace Senparc.Weixin.TenPayV3
                                 }
                                 else
                                 {
-                                    result.VerifySignSuccess = TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignatureBase64, content, pubKey, _tenpayV3Setting.TenPayV3_TenPayPubKeyEnable);
+                                    result.VerifySignSuccess = TenPaySignHelper.VerifyTenpaySign(_tenpayV3Setting.EncryptionType.Value, wechatpayTimestamp, wechatpayNonce, wechatpaySignatureBase64, content, pubKey, _tenpayV3Setting.TenPayV3_TenPayPubKeyEnable);
                                 }
                             }
                             catch (Exception ex)

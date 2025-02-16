@@ -56,15 +56,4 @@ namespace Senparc.Weixin.TenPayV3
         DELETE
     }
 
-    /// <summary>
-    /// 支付请求签名算法类型
-    /// </summary>
-    public enum CertType
-    {
-        RSA,
-        SM,
-
-        PUBKEY_RSA,
-        PUBKEY_SM
-    }
 }

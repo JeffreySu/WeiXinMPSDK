@@ -1,4 +1,4 @@
-﻿@model Senparc.Weixin.Sample.TenPayV3.Models.ProductModel
+﻿@model Senparc.Weixin.Sample.Net8.Models.ProductModel
 @*DPBMARK_FILE TenPay*@
 @{
     Layout = null;
@@ -8,30 +8,149 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>商品详情</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .product-info {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .product-info h1 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            color: #e74c3c;
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+
+        .payment-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .payment-section h2 {
+            color: #2c3e50;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .payment-notice {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+
+        .payment-link {
+            display: inline-block;
+            background-color: #2ecc71;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin: 15px 0;
+            transition: background-color 0.2s ease;
+        }
+
+        .payment-link:hover {
+            background-color: #27ae60;
+        }
+
+        .qr-code-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .qr-code-container img {
+            max-width: 200px;
+            height: auto;
+            border: 1px solid #eee;
+            padding: 10px;
+            border-radius: 8px;
+            background: white;
+        }
+
+        @@media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .product-info h1 {
+                font-size: 1.5em;
+            }
+
+            .payment-section h2 {
+                font-size: 1.2em;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <h1>商品名称：@Model.Name</h1>
-        <p>单价：@Model.Price.ToString("c")</p>
+    <div class="container">
+        <div class="product-info">
+            <h1>商品名称：@Model.Name</h1>
+            <p class="price">单价：@Model.Price.ToString("c")</p>
+        </div>
+
+        <div class="payment-section">
+            <h2>支付方式一：H5 支付</h2>
+            <p class="payment-notice">注意：H5支付用于<strong>已经安装微信的手机客户端</strong>，使用微信外部浏览器网页内的支付。</p>
+            @Html.ActionLink("点击这里使用H5支付", "H5Pay", "TenPayApiV3", new { productId = Model.Id, hc = Model.GetHashCode()}, new { @class = "payment-link" })
+        </div>
+
+        <div class="payment-section">
+            <h2>支付方式二："扫一扫"Native 支付</h2>
+            <p class="payment-notice">注意：此方法适用于 PC 或外部设备显示二维码，使用微信扫码支付。</p>
+            <div class="qr-code-container">
+                <img src="@Url.Action("NativePayCode",new{productId=Model.Id,hc=Model.GetHashCode()})" alt="Native支付二维码" />
+            </div>
+        </div>
+
+        <div class="payment-section">
+            <h2>支付方式三："扫一扫"进入详情支付</h2>
+            <p class="payment-notice">使用微信"扫一扫"下方二维码，引导进入订单详情页，完成支付：</p>
+            <div class="qr-code-container">
+                <img src="@Url.Action("ProductPayCode",new{productId=Model.Id,hc=Model.GetHashCode()})" alt="详情支付二维码" />
+            </div>
+        </div>
     </div>
-    <hr />
-
-    <h2>支付方式一：H5 支付（本机外部浏览器支付）</h2>
-    <p>注意：H5支付用于<strong>已经安装微信的手机客户端</strong>，使用微信外部浏览器网页内的支付。</p>
-    <p>@Html.ActionLink("点击这里使用H5支付", "H5Pay", "TenpayApiV3", new { productId = Model.Id, hc = Model.GetHashCode()}, null)</p>
-    <hr />
-
-    <h2>支付方式二：“扫一扫”Native 支付（PC 或外部设备扫码支付）</h2>
-    <p>注意：此方法适用于 PC 或外部设备显示二维码，使用微信扫码支付。</p>
-    <img src="@Url.Action("NativePayCode",new{productId=Model.Id,hc=Model.GetHashCode()})" />
-    </p>
-    <hr />
-
-    <h2>支付方式三：“扫一扫”进入详情支付</h2>
-    <p>
-        使用微信“扫一扫”下方二维码，引导进入订单详情页，完成支付：<br />
-        <img src="@Url.Action("ProductPayCode",new{productId=Model.Id,hc=Model.GetHashCode()})" />
-    </p>
-    <hr />
 </body>
 </html>

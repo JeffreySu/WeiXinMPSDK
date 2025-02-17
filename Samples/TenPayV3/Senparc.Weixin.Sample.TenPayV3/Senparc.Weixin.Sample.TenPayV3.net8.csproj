@@ -32,6 +32,20 @@
 		<PackageReference Include="System.Drawing.Common" Version="8.0.0" />
 		<PackageReference Include="ZXing.Net" Version="0.16.9" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Content Update="Views\TenPayApiV3\JsApi.cshtml">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Update="Views\TenPayApiV3\ProductItem.cshtml">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Update="Views\TenPayApiV3\ProductList.cshtml">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	</ItemGroup>
 
 	<!--直接引用源码-->
 	<!--<ItemGroup>

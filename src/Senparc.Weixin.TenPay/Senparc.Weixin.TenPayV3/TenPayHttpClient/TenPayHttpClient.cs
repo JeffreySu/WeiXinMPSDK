@@ -253,7 +253,7 @@ namespace Senparc.Weixin.TenPayV3.TenPayHttpClient
             try
             {
                 var pubKey = await TenPayV3InfoCollection.GetAPIv3PublicKeyAsync(this._tenpayV3Setting, wechatpaySerial);
-                return _verifier.Verify(wechatpayTimestamp, wechatpayNonce, wechatpaySignatureBase64, content, pubKey);
+                return _verifier.Verify(wechatpayTimestamp, wechatpayNonce, wechatpaySignatureBase64, content, pubKey, this._tenpayV3Setting.TenPayV3_TenPayPubKeyEnable);
             }
             catch (Exception ex)
             {

@@ -7,7 +7,7 @@ namespace Senparc.Weixin.TenPayV3.TenPayHttpClient.Verifier
     public class SM3WithSM2Verifier : IVerifier
     {
 
-        public bool Verify(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignatureBase64, string content, string pubKey)
+        public bool Verify(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignatureBase64, string content, string pubKey, bool isTenPayPubKey = false)
         {
             //验签名串
             string contentForSign = $"{wechatpayTimestamp}\n{wechatpayNonce}\n{content}\n";

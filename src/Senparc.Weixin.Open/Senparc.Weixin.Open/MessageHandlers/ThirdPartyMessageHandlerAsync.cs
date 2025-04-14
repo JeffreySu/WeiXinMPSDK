@@ -35,69 +35,13 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Open.Entities.Request;
 using Senparc.Weixin.Tencent;
 using System.Threading;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.MessageHandlers;
 
 namespace Senparc.Weixin.Open.MessageHandlers
 {
-    public abstract class ThirdPartyMessageHandlerAsync
+    public abstract partial class ThirdPartyMessageHandler
     {
-        private PostModel _postModel;
-        /// <summary>
-        /// 加密（原始）的XML
-        /// </summary>
-        public XDocument EcryptRequestDocument { get; set; }
-        /// <summary>
-        /// 解密之后的XML
-        /// </summary>
-        public XDocument RequestDocument { get; set; }
-        /// <summary>
-        /// 请求消息，对应解密之之后的XML数据
-        /// </summary>
-        public IRequestMessageBase RequestMessage { get; set; }
-
-        public string ResponseMessageText { get; set; }
-
-        public bool CancelExecute { get; set; }
-
-        public ThirdPartyMessageHandlerAsync(Stream inputStream, PostModel postModel = null)
-        {
-            EcryptRequestDocument = XmlUtility.Convert(inputStream);//原始加密XML转成XDocument
-
-            Init(postModel);
-        }
-
-        public ThirdPartyMessageHandlerAsync(XDocument ecryptRequestDocument, PostModel postModel = null)
-        {
-            EcryptRequestDocument = ecryptRequestDocument;//原始加密XML转成XDocument
-
-            Init(postModel);
-        }
-
-        public XDocument Init(IEncryptPostModel postModel)
-        {
-            _postModel = postModel as PostModel ?? new PostModel();
-
-            //解密XML信息
-            var postDataStr = EcryptRequestDocument.ToString();
-
-            WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.AppId);
-            string msgXml = null;
-            var result = msgCrype.DecryptMsg(_postModel.Msg_Signature, _postModel.Timestamp, _postModel.Nonce, postDataStr, ref msgXml);
-
-            //判断result类型
-            if (result != 0)
-            {
-                //验证没有通过，取消执行
-                CancelExecute = true;
-                return null;
-            }
-
-            RequestDocument = XDocument.Parse(msgXml);//完成解密
-            RequestMessage = RequestMessageFactory.GetRequestEntity(RequestDocument);
-
-            //((RequestMessageBase)RequestMessage).FillEntityWithXml(RequestDocument);
-
-            return RequestDocument;
-        }
 
         public async Task ExecuteAsync(CancellationToken cancellationToken)
         {
@@ -217,11 +161,13 @@ namespace Senparc.Weixin.Open.MessageHandlers
 
         public virtual Task OnExecutingAsync(CancellationToken cancellationToken)
         {
+            OnExecuting();
             return Task.CompletedTask;
         }
 
         public virtual Task OnExecutedAsync(CancellationToken cancellationToken)
         {
+            OnExecuted();
             return Task.CompletedTask;
         }
 
@@ -233,7 +179,8 @@ namespace Senparc.Weixin.Open.MessageHandlers
         /// <returns></returns>
         public virtual Task<string> OnOrderPathApplyResultNotifyRequestAsync(RequestMessageOrderPathApplyResultNotify requestMessage, CancellationToken cancellationToken)
         {
-            return Task.FromResult("success");
+             var result = OnOrderPathApplyResultNorifyRequest(requestMessage);
+             return Task.FromResult(result);
         }
 
         /// <summary>
@@ -244,7 +191,8 @@ namespace Senparc.Weixin.Open.MessageHandlers
         /// <returns></returns>
         public virtual Task<string> OnOrderPathAuditResultNotifyRequestAsync(RequestMessageOrderPathAuditResultNotify requestMessage, CancellationToken cancellationToken)
         {
-            return Task.FromResult("success");
+            var result = OnOrderPathAuditResultNotifyRequest(requestMessage);
+            return Task.FromResult(result);
         }
 
         /// <summary>
@@ -255,7 +203,8 @@ namespace Senparc.Weixin.Open.MessageHandlers
         /// <returns></returns>
         public virtual Task<string> On3rdWxaWxVerifyRequestAsync(RequestMessage3rdWxaWxVerify requestMessage, CancellationToken cancellationToken)
         {
-            return Task.FromResult("success");
+            var result = On3rdWxaWxVerifyRequest(requestMessage);
+            return Task.FromResult(result);
         }
 
         /// <summary>
@@ -266,7 +215,8 @@ namespace Senparc.Weixin.Open.MessageHandlers
         /// <returns></returns>
         public virtual Task<string> On3rdWxaAuthRequestAsync(RequestMessage3rdWxaAuth requestMessage, CancellationToken cancellationToken)
         {
-            return Task.FromResult("success");
+            var result = On3rdWxaAuthRequest(requestMessage);
+            return Task.FromResult(result);
         }
 
         /// <summary>
@@ -277,7 +227,8 @@ namespace Senparc.Weixin.Open.MessageHandlers
         /// <returns></returns>
         public virtual Task<string> OnIcpFilingApplyRequestAsync(RequestMessageIcpFilingApply requestMessage, CancellationToken cancellationToken)
         {
-            return Task.FromResult("success");
+            var result = OnIcpFilingApplyRequest(requestMessage);
+            return Task.FromResult(result);
         }
 
         /// <summary>
@@ -288,7 +239,8 @@ namespace Senparc.Weixin.Open.MessageHandlers
         /// <returns></returns>
         public virtual Task<string> OnIcpFilingVerifyRequestAsync(RequestMessageIcpFilingVerify requestMessage, CancellationToken cancellationToken)
         {
-            return Task.FromResult("success");
+            var result = OnIcpFilingVerifyRequest(requestMessage);
+            return Task.FromResult(result);
         }
 
         /// <summary>
@@ -299,7 +251,8 @@ namespace Senparc.Weixin.Open.MessageHandlers
         /// <returns></returns>
         public virtual Task<string> OnComponentVerifyTicketRequestAsync(RequestMessageComponentVerifyTicket requestMessage, CancellationToken cancellationToken)
         {
-            return Task.FromResult("success");
+            var result = OnComponentVerifyTicketRequest(requestMessage);
+            return Task.FromResult(result);
         }
 
         /// <summary>
@@ -310,7 +263,8 @@ namespace Senparc.Weixin.Open.MessageHandlers
         /// <returns></returns>
         public virtual Task<string> OnUnauthorizedRequestAsync(RequestMessageUnauthorized requestMessage, CancellationToken cancellationToken)
         {
-            return Task.FromResult("success");
+            var result = OnUnauthorizedRequest(requestMessage);
+            return Task.FromResult(result);
         }
 
         /// <summary>
@@ -321,7 +275,8 @@ namespace Senparc.Weixin.Open.MessageHandlers
         /// <returns></returns>
         public virtual Task<string> OnAuthorizedRequestAsync(RequestMessageAuthorized requestMessage, CancellationToken cancellationToken)
         {
-            return Task.FromResult("success");
+            var result = OnAuthorizedRequest(requestMessage);
+            return Task.FromResult(result);
         }
 
         /// <summary>
@@ -332,7 +287,8 @@ namespace Senparc.Weixin.Open.MessageHandlers
         /// <returns></returns>
         public virtual Task<string> OnUpdateAuthorizedRequestAsync(RequestMessageUpdateAuthorized requestMessage, CancellationToken cancellationToken)
         {
-            return Task.FromResult("success");
+            var result = OnUpdateAuthorizedRequest(requestMessage);
+            return Task.FromResult(result);
         }
 
         /// <summary>
@@ -343,7 +299,8 @@ namespace Senparc.Weixin.Open.MessageHandlers
         /// <returns></returns>
         public virtual Task<string> OnThirdFastRegisterRequestAsync(RequestMessageThirdFasteRegister requestMessage, CancellationToken cancellationToken)
         {
-            return Task.FromResult("success");
+            var result = OnThirdFasteRegisterRequest(requestMessage);
+            return Task.FromResult(result);
         }
 
         /// <summary>
@@ -354,7 +311,8 @@ namespace Senparc.Weixin.Open.MessageHandlers
         /// <returns></returns>
         public virtual Task<string> OnFastVerifyBetaAppRequestAsync(RequestMessageFastVerifyBetaApp requestMessage, CancellationToken cancellationToken)
         {
-            return Task.FromResult("success");
+            var result = OnFastVerifyBetaAppRequest(requestMessage);
+            return Task.FromResult(result);
         }
 
         /// <summary>
@@ -365,7 +323,8 @@ namespace Senparc.Weixin.Open.MessageHandlers
         /// <returns></returns>
         public virtual Task<string> OnFastRegisterBetaAppRequestAsync(RequestMessageFastRegisterBetaAppApp requestMessage, CancellationToken cancellationToken)
         {
-            return Task.FromResult("success");
+            var result = OnFastRegisterBetaAppRequest(requestMessage);
+            return Task.FromResult(result);
         }
     }
 }

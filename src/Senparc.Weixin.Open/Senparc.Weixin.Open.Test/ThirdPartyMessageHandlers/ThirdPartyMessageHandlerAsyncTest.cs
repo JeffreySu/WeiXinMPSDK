@@ -9,7 +9,7 @@ using Senparc.Weixin.Open.MessageHandlers;
 
 namespace Senparc.Weixin.Open.Test.ThirdPartyMessageHandlers
 {
-    public class CustomMessageHandlerAsync : ThirdPartyMessageHandlerAsync
+    public class CustomMessageHandlerAsync : ThirdPartyMessageHandler
     {
         public CustomMessageHandlerAsync(XDocument ecryptRequestDocument, PostModel postModel = null)
             : base(ecryptRequestDocument, postModel)

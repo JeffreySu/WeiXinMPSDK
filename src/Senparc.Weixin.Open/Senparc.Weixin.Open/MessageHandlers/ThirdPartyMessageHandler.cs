@@ -24,6 +24,7 @@
 
 using System;
 using System.IO;
+using System.Threading;
 using System.Xml.Linq;
 using Senparc.CO2NET.Utilities;
 using Senparc.NeuChar;
@@ -33,7 +34,7 @@ using Senparc.Weixin.Tencent;
 
 namespace Senparc.Weixin.Open.MessageHandlers
 {
-    public abstract class ThirdPartyMessageHandler
+    public abstract partial class ThirdPartyMessageHandler
     {
         private PostModel _postModel;
         /// <summary>
@@ -93,133 +94,20 @@ namespace Senparc.Weixin.Open.MessageHandlers
 
             return RequestDocument;
         }
+#region Sync Version
 
+        [Obsolete("请使用异步方法 ExecutingAsync()")]
         public void Execute()
         {
-            if (CancelExecute)
-            {
-                return;
-            }
-
-            OnExecuting();
-
-            if (CancelExecute)
-            {
-                return;
-            }
-
-            try
-            {
-                if (RequestMessage == null)
-                {
-                    return;
-                }
-
-                switch (RequestMessage.InfoType)
-                {
-                    case RequestInfoType.component_verify_ticket:
-                        {
-                            var requestMessage = RequestMessage as RequestMessageComponentVerifyTicket;
-                            ResponseMessageText = OnComponentVerifyTicketRequest(requestMessage);
-                        }
-                        break;
-                    case RequestInfoType.unauthorized:
-                        {
-                            var requestMessage = RequestMessage as RequestMessageUnauthorized;
-                            ResponseMessageText = OnUnauthorizedRequest(requestMessage);
-                        }
-                        break;
-                    case RequestInfoType.authorized:
-                        {
-                            var requestMessage = RequestMessage as RequestMessageAuthorized;
-                            ResponseMessageText = OnAuthorizedRequest(requestMessage);
-                        }
-                        break;
-                    case RequestInfoType.updateauthorized:
-                        {
-                            var requestMessage = RequestMessage as RequestMessageUpdateAuthorized;
-                            ResponseMessageText = OnUpdateAuthorizedRequest(requestMessage);
-                        }
-                        break;
-                    case RequestInfoType.notify_third_fasteregister:
-                        {
-                            var requestMessage = RequestMessage as RequestMessageThirdFasteRegister;
-                            ResponseMessageText = OnThirdFasteRegisterRequest(requestMessage);
-                        }
-                        break;
-                    case RequestInfoType.wxa_nickname_audit:
-                        {
-                            var requestMessage = RequestMessage as RequestMessageNicknameAudit;
-                            ResponseMessageText = OnNicknameAuditRequest(requestMessage);
-                        }
-                        break;
-                    case RequestInfoType.notify_third_fastverifybetaapp:
-                        {
-                            var requestMessage = RequestMessage as RequestMessageFastVerifyBetaApp;
-                            ResponseMessageText = OnFastVerifyBetaAppRequest(requestMessage);
-                        }
-                        break;
-                    case RequestInfoType.notify_third_fastregisterbetaapp:
-                        {
-                            var requestMessage = RequestMessage as RequestMessageFastRegisterBetaAppApp;
-                            ResponseMessageText = OnFastRegisterBetaAppRequest(requestMessage);
-                        }
-                        break;
-                    case RequestInfoType.notify_icpfiling_verify_result:
-                        {
-                            var requestMessage = RequestMessage as RequestMessageIcpFilingVerify;
-                            ResponseMessageText = OnIcpFilingVerifyRequest(requestMessage);
-                        }
-                        break;
-                    case RequestInfoType.notify_apply_icpfiling_result:
-                        {
-                            var requestMessage = RequestMessage as RequestMessageIcpFilingApply;
-                            ResponseMessageText = OnIcpFilingApplyRequest(requestMessage);
-                        }
-                        break;
-                    case RequestInfoType.notify_3rd_wxa_auth:
-                        {
-                            var requestMessage = RequestMessage as RequestMessage3rdWxaAuth;
-                            ResponseMessageText = On3rdWxaAuthRequest(requestMessage);
-                        }
-                        break;
-                    case RequestInfoType.notify_3rd_wxa_wxverify:
-                        {
-                            var requestMessage = RequestMessage as RequestMessage3rdWxaWxVerify;
-                            ResponseMessageText = On3rdWxaWxVerifyRequest(requestMessage);
-                        }
-                        break;
-                    case RequestInfoType.order_path_apply_result_notify:
-                        {
-                            var requestMessage = RequestMessage as RequestMessageOrderPathApplyResultNotify;
-                            ResponseMessageText = OnOrderPathApplyResultNorifyRequest(requestMessage);
-                        }
-                        break;
-                    case RequestInfoType.order_path_audit_result_notify:
-                        {
-                            var requestMessage = RequestMessage as RequestMessageOrderPathAuditResultNotify;
-                            ResponseMessageText = OnOrderPathAuditResultNotifyRequest(requestMessage);
-                        }
-                        break;
-                    default:
-                        throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                throw new MessageHandlerException("ThirdPartyMessageHandler中Execute()过程发生错误：" + ex.Message, ex);
-            }
-            finally
-            {
-                OnExecuted();
-            }
+            ExecuteAsync(CancellationToken.None).GetAwaiter().GetResult();
         }
 
+        [Obsolete("请使用异步方法 OnExecutingAsync()")]
         public virtual void OnExecuting()
         {
         }
 
+        [Obsolete("请使用异步方法 OnExecutedAsync()")]
         public virtual void OnExecuted()
         {
         }
@@ -330,6 +218,6 @@ namespace Senparc.Weixin.Open.MessageHandlers
             return "success";
         }
 
-
+#endregion
     }
 }

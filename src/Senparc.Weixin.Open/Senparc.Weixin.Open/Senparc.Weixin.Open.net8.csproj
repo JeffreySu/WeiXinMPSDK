@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>4.21.11</Version>
+    <Version>4.22.0</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -228,7 +228,8 @@
 		[2024-09-10] v4.20.2 icp verifytask 接口 data 不能为 null 的问题处理 #3067 感谢 @mojinxun
 		[2024-11-03] v4.20.6 fix wxa ap is get qr code async Issue #3089, PR #3090 感谢 @JaneConan
 		[2024-11-29] v4.21.8 返回值添加参数 is_snapshotuser 和 unionid #3100 感谢 @ccccccmd
-</PackageReleaseNotes>
+		[2025-04-17] v4.22.0 增加异步版本的 ThirdPartyMessageHandler 方法 #3123 感谢 @xbotter
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

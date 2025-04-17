@@ -17,6 +17,7 @@
 
 using Senparc.CO2NET.Helpers;
 using Senparc.NeuChar;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen.OaDataOpenJson;
 using System;
 using System.Collections.Generic;
@@ -119,6 +120,25 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
                 };
 
                 return Weixin.CommonAPIs.CommonJsonSend.Send<GetCheckinOptionJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 添加打卡记录
+        /// 可通过接口写入打卡记录，匹配打卡规则后可在企业微信打卡明细、统计中参与展示。
+        /// https://developer.work.weixin.qq.com/document/path/99647
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WorkJsonResult AddCheckinRecord(string accessTokenOrAppKey, AddCheckinRecordRequest data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = Config.ApiWorkHost + "/cgi-bin/checkin/add_checkin_record?access_token={0}";
+
+                return Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
 
@@ -257,7 +277,25 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         }
 
         /// <summary>
-        /// 获取打卡日报数据
+        /// 【异步方法】添加打卡记录
+        /// 可通过接口写入打卡记录，匹配打卡规则后可在企业微信打卡明细、统计中参与展示。
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> AddCheckinRecordAsync(string accessTokenOrAppKey, AddCheckinRecordRequest data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = Config.ApiWorkHost + "/cgi-bin/checkin/add_checkin_record?access_token={0}";
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取打卡日报数据
         /// </summary>
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="startTime"></param>

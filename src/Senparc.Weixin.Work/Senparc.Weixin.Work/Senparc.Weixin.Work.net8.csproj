@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-		<Version>3.25.5</Version>
+		<Version>3.16.0</Version>
 		<LangVersion>10.0</LangVersion>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -215,6 +215,7 @@
 			[2024-09-29] v3.23.0 更新并同意 BuildingKey 方法，构建一致的 AppKey
 			[2024-11-14] v3.24.0 企微回调: 移除不正确的通用模板卡片事件; 增加通用模板卡片事件推送; 增加通用模板卡片右上角菜单事件推送（PR #3096）
 			[2025-02-18] v3.25.5 修复“客户标签回调函数-重排事件报错”(Issue #3116）
+			[2025-04-17] v3.26.0 添加打卡记录 #3126 感谢 mc7246
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

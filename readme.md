@@ -1,4 +1,5 @@
-<img src="https://sdk.weixin.senparc.com/images/senparc-logo-500.jpg" />
+![image](https://github.com/user-attachments/assets/3fc44e76-5c30-4b12-869e-af9eb1cf8d3f)
+<!-- <img src="https://sdk.weixin.senparc.com/images/senparc-logo-500.jpg" /> -->
 
 Senparc.Weixin —— 微信 .NET SDK 
 =================

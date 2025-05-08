@@ -178,7 +178,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
             {
                 {"priTmplId", priTmplId}
             };
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, contentType:"application/json");
         }
         #endregion
         #endregion
@@ -300,7 +300,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
             {
                 {"priTmplId", priTmplId}
             };
-            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, contentType:"application/json");
         }
         #endregion
         

@@ -51,6 +51,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：mojinxun - 20230219
     修改描述：v3.15.13 添加“文本内容安全识别”接口
 
+    修改标识：mojinxun - 20250523
+    修改描述：Feature/wxacode unlimit参数修改（PR #3133）
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;

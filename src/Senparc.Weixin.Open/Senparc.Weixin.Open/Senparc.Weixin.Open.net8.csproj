@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>4.22.0</Version>
+    <Version>4.22.1</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -229,6 +229,7 @@
 		[2024-11-03] v4.20.6 fix wxa ap is get qr code async Issue #3089, PR #3090 感谢 @JaneConan
 		[2024-11-29] v4.21.8 返回值添加参数 is_snapshotuser 和 unionid #3100 感谢 @ccccccmd
 		[2025-04-17] v4.22.0 增加异步版本的 ThirdPartyMessageHandlerAsync 类 #3123 感谢 @xbotter
+		[2025-05-23] v4.22.1 修复开放平台删除模板时提示的“missing parameter priTmplId”错误 （PR #3134） 感谢 @LEIRONGHUA
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

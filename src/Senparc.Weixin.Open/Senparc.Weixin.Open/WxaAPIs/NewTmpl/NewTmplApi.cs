@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20200731
     修改描述：v3.8.502.1 小程序订阅消息模板的管理
 
+    修改标识：LEIRONGHUA - 20250523
+    修改描述：v4.22.1 修复开放平台删除模板时提示的“missing parameter priTmplId”错误 (PR #3134)
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;
@@ -178,7 +181,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
             {
                 {"priTmplId", priTmplId}
             };
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, contentType:"application/json");
         }
         #endregion
         #endregion
@@ -300,7 +303,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
             {
                 {"priTmplId", priTmplId}
             };
-            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, contentType:"application/json");
         }
         #endregion
         

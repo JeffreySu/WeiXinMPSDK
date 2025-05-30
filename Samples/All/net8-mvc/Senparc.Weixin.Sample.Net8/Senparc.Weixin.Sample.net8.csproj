@@ -18,8 +18,8 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
-        <PackageReference Include="Senparc.AI.Agents" Version="0.5.2" />
-        <PackageReference Include="Senparc.AI.Kernel" Version="0.23.0" />
+        <PackageReference Include="Senparc.AI.Agents" Version="0.5.5" />
+        <PackageReference Include="Senparc.AI.Kernel" Version="0.23.4" />
         <PackageReference Include="Senparc.CO2NET.WebApi" Version="2.1.0.1" />
         <PackageReference Include="Senparc.NeuChar.App" Version="1.5.2" />
         <PackageReference Include="Senparc.NeuChar.AspNet" Version="1.6.2" />

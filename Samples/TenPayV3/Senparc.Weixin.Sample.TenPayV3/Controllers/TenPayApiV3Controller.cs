@@ -70,6 +70,7 @@ namespace Senparc.Weixin.Sample.TenPayV3.Controllers
         /// </summary>
         public static ConcurrentDictionary<string, string> TradeNumberToTransactionId = new ConcurrentDictionary<string, string>();
 
+        private static bool _isPublicKey = false;
 
         public TenPayApiV3Controller(SenparcHttpClient httpClient)
         {
@@ -297,7 +298,7 @@ namespace Senparc.Weixin.Sample.TenPayV3.Controllers
                 }
 
                 //获取 UI 信息包
-                var jsApiUiPackage = TenPaySignHelper.GetJsApiUiPackage(TenPayV3Info.AppId, result.prepay_id);
+                var jsApiUiPackage = TenPaySignHelper.GetJsApiUiPackage(TenPayV3Info.AppId, result.prepay_id, _tenpayV3Setting);
                 ViewData["jsApiUiPackage"] = jsApiUiPackage;
 
                 //临时记录订单信息，留给退款申请接口测试使用（分布式情况下请注意数据同步）
@@ -324,7 +325,7 @@ namespace Senparc.Weixin.Sample.TenPayV3.Controllers
             {
                 //获取微信服务器异步发送的支付通知信息
                 var resHandler = new TenPayNotifyHandler(HttpContext);
-                var orderReturnJson = await resHandler.DecryptGetObjectAsync<OrderReturnJson>();
+                var orderReturnJson = await resHandler.DecryptGetObjectAsync<OrderReturnJson>(_isPublicKey);
 
                 //记录日志
                 Senparc.Weixin.WeixinTrace.SendCustomLog("PayNotifyUrl 接收到消息", orderReturnJson.ToJson(true));
@@ -552,7 +553,7 @@ namespace Senparc.Weixin.Sample.TenPayV3.Controllers
             try
             {
                 var resHandler = new TenPayNotifyHandler(HttpContext);
-                var refundNotifyJson = await resHandler.DecryptGetObjectAsync<RefundNotifyJson>();
+                var refundNotifyJson = await resHandler.DecryptGetObjectAsync<RefundNotifyJson>(_isPublicKey);
 
                 WeixinTrace.SendCustomLog("跟踪RefundNotifyUrl信息", refundNotifyJson.ToJson());
 

@@ -54,6 +54,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：mojinxun - 20250523
     修改描述：Feature/wxacode unlimit参数修改（PR #3133）
 
+    修改标识：blackWins - 20250608
+    修改描述：完善小程序二维码的获取结果处理（PR #3141）
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;

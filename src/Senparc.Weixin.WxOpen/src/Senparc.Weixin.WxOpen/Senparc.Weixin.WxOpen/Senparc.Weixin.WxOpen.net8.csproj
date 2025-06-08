@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.23.5</Version>
+    <Version>3.23.6</Version>
     <LangVersion>9.0</LangVersion>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
@@ -187,6 +187,7 @@
 		[2024-10-20] v3.21.2 修正 first_save_flag 类型错误，应为 int; 同时增加 FirstSaveFlag 属性, 用于 bool 类型判断是否首次充值 #2986 感谢 @WanderingGrass
 		[2024-11-14] v3.22.0 添加 NCF UrlScheme 接口 #3093 感谢 @mojinxun
 		[2025-05-23] v3.23.5 Feature/wxacode unlimit参数修改（PR #3133） 感谢 @mojinxun
+		[2025-06-08] v3.23.6 完善小程序二维码的获取结果处理（PR #3141） 感谢 @blackWins
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

@@ -82,19 +82,20 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
     [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
     public static class WxAppApi
     {
+        #region 同步方法
+
         /// <summary>
         /// 将提供的流的内容转换为 <see cref="WxJsonResult"/> 对象
         /// </summary>
         /// <param name="stream">包含要反序列化的JSON数据的输入流</param>
         /// <returns> <see cref="WxJsonResult"/> 从流的JSON内容反序列化的对象</returns>
-        static WxJsonResult ToWxJsonResult(Stream stream)
+        private static WxJsonResult ToWxJsonResult(Stream stream)
         {
+            stream.Position = 0;
             using StreamReader streamReader = new StreamReader(stream);
-            var errrInfo = streamReader.ReadToEnd();
-            return errrInfo.GetObject<WxJsonResult>();
+            var errorInfo = streamReader.ReadToEnd();
+            return errorInfo.GetObject<WxJsonResult>();
         }
-
-        #region 同步方法
 
         /// <summary>
         /// 获取小程序页面的小程序码
@@ -949,6 +950,19 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         #region 异步方法
 
         /// <summary>
+        /// 【异步方法】将提供的流的内容转换为 <see cref="WxJsonResult"/> 对象
+        /// </summary>
+        /// <param name="stream">包含要反序列化的JSON数据的输入流</param>
+        /// <returns> <see cref="WxJsonResult"/> 从流的JSON内容反序列化的对象</returns>
+        private static async Task<WxJsonResult> ToWxJsonResultAsync(Stream stream)
+        {
+            stream.Position = 0;
+            using StreamReader streamReader = new StreamReader(stream);
+            var errorInfo = await streamReader.ReadToEndAsync();
+            return errorInfo.GetObject<WxJsonResult>();
+        }
+
+        /// <summary>
         /// 【异步方法】获取小程序页面的小程序码
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
@@ -1022,10 +1036,10 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 await Post.DownloadAsync(CommonDI.CommonSP, url, SerializerHelper.GetJsonString(data, jsonSetting), stream).ConfigureAwait(false);
 
                 return stream.Length < 1024 ?
-                ToWxJsonResult(stream) : new WxJsonResult()
-                {
-                    errcode = ReturnCode.请求成功
-                };
+               await ToWxJsonResultAsync(stream) : new WxJsonResult()
+               {
+                   errcode = ReturnCode.请求成功
+               };
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
@@ -1093,10 +1107,10 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 await CO2NET.HttpUtility.Post.DownloadAsync(CommonDI.CommonSP, url, SerializerHelper.GetJsonString(data, jsonSetting), stream).ConfigureAwait(false);
 
                 return stream.Length < 1024 ?
-                ToWxJsonResult(stream) : new WxJsonResult()
-                {
-                    errcode = ReturnCode.请求成功
-                };
+              await ToWxJsonResultAsync(stream) : new WxJsonResult()
+              {
+                  errcode = ReturnCode.请求成功
+              };
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
@@ -1121,7 +1135,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 await Post.DownloadAsync(CommonDI.CommonSP, url, SerializerHelper.GetJsonString(data), stream).ConfigureAwait(false);
 
                 return stream.Length < 1024 ?
-                ToWxJsonResult(stream) : new WxJsonResult()
+                await ToWxJsonResultAsync(stream) : new WxJsonResult()
                 {
                     errcode = ReturnCode.请求成功
                 };

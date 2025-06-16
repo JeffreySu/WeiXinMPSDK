@@ -140,21 +140,22 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             PublicKeyCollection keys = new();
 
-            if (_tenpayV3Setting.TenPayV3_TenPayPubKeyEnable)
+            if (!string.IsNullOrWhiteSpace(_tenpayV3Setting.TenPayV3_TenPayPubKeyID))
             {
                 keys[_tenpayV3Setting.TenPayV3_TenPayPubKeyID] = SecurityHelper.GetUnwrapCertKey(_tenpayV3Setting.TenPayV3_TenPayPubKey);
-                return keys;
             }
 
             var certificates = await CertificatesAsync(_tenpayV3Setting.EncryptionType.Value);
             if (!certificates.ResultCode.Success)
             {
-                throw new TenpayApiRequestException("获取证书公钥失败：" + certificates.ResultCode.ErrorMessage);
+                return keys;
+                //throw new TenpayApiRequestException("获取证书公钥失败：" + certificates.ResultCode.ErrorMessage);
             }
 
             if (certificates.data?.Length == 0)
             {
-                throw new TenpayApiRequestException("Certificates 获取结果为空");
+                return keys;
+                //throw new TenpayApiRequestException("Certificates 获取结果为空");
             }
 
             //var tenpayV3Setting = Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;//TODO:改成从构造函数配置

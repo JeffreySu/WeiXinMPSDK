@@ -56,6 +56,10 @@ namespace Senparc.Weixin.TenPayV3
         /// PrepayId的打包信息
         /// </summary>
         public string PrepayIdPackage { get; set; }
+        /// <summary>
+        /// 签名类型，固定填RSA。
+        /// </summary>
+        public string SignType { get { return "RSA"; } }
 
         public JsApiUiPackage(string appId, string timestamp, string nonceStr,string prepayIdPackage, string signature)
         {

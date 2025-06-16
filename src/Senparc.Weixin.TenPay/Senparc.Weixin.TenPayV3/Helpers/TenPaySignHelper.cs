@@ -225,7 +225,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="content">应答报文主体</param>
         /// <param name="pubKey">平台公钥 可为空</param>
         /// <returns></returns>
-        public static async Task<bool> VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignature, string content, string serialNumber, bool isTenPayPubKey, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
+        public static async Task<bool> VerifyTenpaySign(string wechatpayTimestamp, string wechatpayNonce, string wechatpaySignature, string content, string serialNumber, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
         {
             if (!senparcWeixinSettingForTenpayV3.EncryptionType.HasValue)
             {
@@ -236,7 +236,9 @@ namespace Senparc.Weixin.TenPayV3.Helpers
 
             var tenpayV3InfoKey = TenPayHelper.GetRegisterKey(senparcWeixinSettingForTenpayV3.TenPayV3_MchId, senparcWeixinSettingForTenpayV3.TenPayV3_SubMchId);
             var pubKey = await TenPayV3InfoCollection.Data[tenpayV3InfoKey].GetPublicKeyAsync(serialNumber, senparcWeixinSettingForTenpayV3);
-            return VerifyTenpaySign(senparcWeixinSettingForTenpayV3.EncryptionType.Value, wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content, pubKey, senparcWeixinSettingForTenpayV3.TenPayV3_TenPayPubKeyEnable);
+            var isTenpayPubKey = serialNumber.StartsWith("PUB_KEY_ID_");
+
+            return VerifyTenpaySign(senparcWeixinSettingForTenpayV3.EncryptionType.Value, wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content, pubKey, isTenpayPubKey);
         }
 
         /// <summary>

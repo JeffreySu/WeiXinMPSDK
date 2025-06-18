@@ -123,7 +123,7 @@ namespace Senparc.Weixin.TenPayV3
             var wechatpaySignature = _httpContext.Request.Headers?["Wechatpay-Signature"];
             var wechatpaySerial = _httpContext.Request.Headers?["Wechatpay-Serial"];
 
-            result.VerifySignSuccess = await TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, Body, wechatpaySerial, isTenPayPubKey, _tenpayV3Setting);
+            result.VerifySignSuccess = await TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, Body, wechatpaySerial, _tenpayV3Setting);
             result.ResultCode = new TenPayApiResultCode($"{_httpContext.Response.StatusCode} / {_httpContext.Request.Method}", "", "", "", result.VerifySignSuccess == true);
 
             return result;
@@ -154,7 +154,7 @@ namespace Senparc.Weixin.TenPayV3
             var wechatpaySignature = _httpContext.Request.Headers?["Wechatpay-Signature"];
             var wechatpaySerial = _httpContext.Request.Headers?["Wechatpay-Serial"];
 
-            result.VerifySignSuccess = await TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, Body, wechatpaySerial, isPublicKey, this._tenpayV3Setting);
+            result.VerifySignSuccess = await TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, Body, wechatpaySerial, this._tenpayV3Setting);
             result.ResultCode = new TenPayApiResultCode($"{_httpContext.Response.StatusCode} / {_httpContext.Request.Method}", "", "", "", result.VerifySignSuccess == true);
 
             return result;

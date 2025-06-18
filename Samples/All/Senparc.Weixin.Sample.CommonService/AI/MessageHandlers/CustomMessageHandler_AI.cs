@@ -10,6 +10,7 @@
 ----------------------------------------------------------------*/
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -62,7 +63,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
             var storage = new ChatStore()
             {
                 Status = ChatStatus.Chat,
-                History = new Microsoft.SemanticKernel.ChatCompletion.ChatHistory()
+                History = new List<WeixinAiChatHistory>()
             };
 
             currentMessageContext.StorageData = storage.ToJson();//为了提升兼容性，采用字符格式
@@ -253,7 +254,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
         /// <param name="imgPrompt"></param>
         /// <param name="history"></param>
         /// <returns></returns>
-        private async Task<string> GetGenerateImgagePromptAsync(string imgPrompt, ChatHistory history)
+        private async Task<string> GetGenerateImgagePromptAsync(string imgPrompt, List<WeixinAiChatHistory> history)
         {
             SenparcTrace.SendCustomLog("GetGenerateImgagePrompt", $"{(imgPrompt, history).ToJson(true)}");
 
@@ -295,7 +296,7 @@ Prompt：";
         /// <param name="requestMessage">请求消息</param>
         /// <param name="imgPrompt">生成图片的 Prompt</param>
         /// <returns></returns>
-        private async Task GenerateImageAsync(string imgPrompt, ChatHistory history)
+        private async Task GenerateImageAsync(string imgPrompt, List<WeixinAiChatHistory> history)
         {
             //先发一条回复，提醒用户等待（为避免公众号响应时间超时），不等待
             _ = Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, "图片生成中，通常需要 1 分钟左右，请稍等！");
@@ -346,8 +347,8 @@ Prompt：";
                 {
                     ChatStore chatStore = chatJson.GetObject<ChatStore>();
 
-                    chatStore.History.AddUserMessage($"按要求生成图片：{imgPrompt}");
-                    chatStore.History.AddAssistantMessage("任务已完成");
+                    chatStore.AddUserMessage($"按要求生成图片：{imgPrompt}");
+                    chatStore.AddAssistantMessage("任务已完成");
 
                     await UpdateMessageContextAsync(currentMessageContext, chatStore);
                 }
@@ -398,7 +399,7 @@ Prompt：";
                                 senparcAiSetting: setting);
 
             //注入历史记录（也可以把 iWantToRun 对象缓存起来，其中会自动包含 history，不需要每次读取或者保存）
-            iWantToRun.StoredAiArguments.Context["history"] = chatStore.History;
+            iWantToRun.StoredAiArguments.Context["history"] = chatStore.GetChatHistory();// AIKernl 的 history 为 ChatHistory 类型
 
             //获取请求（注意：因为微信需要一次返回所有文本，所以此处不使用 AI 流行的 Stream（流式）输出
             var result = await aiHandler.ChatAsync(iWantToRun, prompt);
@@ -406,7 +407,7 @@ Prompt：";
             //保存历史记录
             if (storeHistory)
             {
-                chatStore.History = iWantToRun.StoredAiArguments.Context["history"] as ChatHistory;
+                chatStore.SetChatHistory(iWantToRun.StoredAiArguments.Context["history"] as ChatHistory);
                 await UpdateMessageContextAsync(currentMessageContext, chatStore);
             }
 

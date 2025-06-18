@@ -9,6 +9,7 @@
 
 ----------------------------------------------------------------*/
 
+using Microsoft.SemanticKernel.ChatCompletion;
 using Senparc.AI.Kernel.Handlers;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.AI.MessageHandlers
@@ -21,7 +22,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.AI.MessageHandlers
         public ChatStatus Status { get; set; }
 
         public MultimodelType MultimodelType { get; set; }
-        public string History { get; set; }
+        //public string History { get; set; }
+
+        public ChatHistory History { get; set; }
 
         public ChatStore()
         {

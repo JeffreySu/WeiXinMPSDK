@@ -11,8 +11,10 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.TextToImage;
 using Senparc.AI;
 using Senparc.AI.Entities;
@@ -60,7 +62,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
             var storage = new ChatStore()
             {
                 Status = ChatStatus.Chat,
-                History = ""
+                History = new Microsoft.SemanticKernel.ChatCompletion.ChatHistory()
             };
 
             currentMessageContext.StorageData = storage.ToJson();//为了提升兼容性，采用字符格式
@@ -251,14 +253,14 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
         /// <param name="imgPrompt"></param>
         /// <param name="history"></param>
         /// <returns></returns>
-        private async Task<string> GetGenerateImgagePromptAsync(string imgPrompt, string history)
+        private async Task<string> GetGenerateImgagePromptAsync(string imgPrompt, ChatHistory history)
         {
             SenparcTrace.SendCustomLog("GetGenerateImgagePrompt", $"{(imgPrompt, history).ToJson(true)}");
 
             //把对话上下文也给到，此处是一个能力演示，这是可选的。通常可以直接使用 Prompt 生成图片。
             var newImgPrompt = $@"请根据下方的 [对话历史] 以及 [最新命令]，理解意图，并生成一条可以提供给 DallE3 模型使用的图片生成 Prompt。
 [对话历史]
-{history}
+{string.Join("\r\n", history.Select(z => $"{z.Role}:{z.Content}"))}
 
 [最新命令]
 {imgPrompt}
@@ -293,12 +295,12 @@ Prompt：";
         /// <param name="requestMessage">请求消息</param>
         /// <param name="imgPrompt">生成图片的 Prompt</param>
         /// <returns></returns>
-        private async Task GenerateImageAsync(string imgPrompt, string history)
+        private async Task GenerateImageAsync(string imgPrompt, ChatHistory history)
         {
             //先发一条回复，提醒用户等待（为避免公众号响应时间超时），不等待
             _ = Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, "图片生成中，通常需要 1 分钟左右，请稍等！");
 
-            if (!history.IsNullOrEmpty())
+            if (history != null)
             {
                 imgPrompt = await GetGenerateImgagePromptAsync(imgPrompt, history);
             }
@@ -344,9 +346,9 @@ Prompt：";
                 {
                     ChatStore chatStore = chatJson.GetObject<ChatStore>();
 
-                    var chatItem = GetHistoryItem($"按要求生成图片：" + imgPrompt, "任务已完成。");
+                    chatStore.History.AddUserMessage($"按要求生成图片：{imgPrompt}");
+                    chatStore.History.AddAssistantMessage("任务已完成");
 
-                    chatStore.History += chatItem;
                     await UpdateMessageContextAsync(currentMessageContext, chatStore);
                 }
 
@@ -378,7 +380,7 @@ Prompt：";
             var parameter = new PromptConfigParameter()
             {
                 MaxTokens = 2000,
-                Temperature = 0.7,
+                Temperature = 0.3,
                 TopP = 0.5,
             };
 
@@ -404,7 +406,7 @@ Prompt：";
             //保存历史记录
             if (storeHistory)
             {
-                chatStore.History = iWantToRun.StoredAiArguments.Context["history"]?.ToString();
+                chatStore.History = iWantToRun.StoredAiArguments.Context["history"] as ChatHistory;
                 await UpdateMessageContextAsync(currentMessageContext, chatStore);
             }
 

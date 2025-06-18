@@ -33,6 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20211225
     修改描述：v0.5.2 发布版本删除调试代码
     
+    修改标识：mojinxun - 20250618
+    修改描述：v2.1.0 兼容微信平台证书和微信支付公钥 / PR #3144
+    
 ----------------------------------------------------------------*/
 
 using Org.BouncyCastle.Crypto.Parameters;
@@ -243,7 +246,8 @@ namespace Senparc.Weixin.TenPayV3
                                 }
                                 else
                                 {
-                                    result.VerifySignSuccess = TenPaySignHelper.VerifyTenpaySign(_tenpayV3Setting.EncryptionType.Value, wechatpayTimestamp, wechatpayNonce, wechatpaySignatureBase64, content, pubKey, _tenpayV3Setting.TenPayV3_TenPayPubKeyEnable);
+                                    var isTenpayPubKey = TenPaySignHelper.IsPublicKey(wechatpaySerial);
+                                    result.VerifySignSuccess = TenPaySignHelper.VerifyTenpaySign(_tenpayV3Setting.EncryptionType.Value, wechatpayTimestamp, wechatpayNonce, wechatpaySignatureBase64, content, pubKey, isTenpayPubKey);
                                 }
                             }
                             catch (Exception ex)

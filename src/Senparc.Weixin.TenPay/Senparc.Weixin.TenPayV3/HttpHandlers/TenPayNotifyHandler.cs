@@ -35,6 +35,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20241020
     修改描述：v1.6.5 修改 SM 证书判断逻辑，向下兼容未升级 appsettings.json 的系统 #3084 感谢 @WXJDLM
 
+    修改标识：mojinxun - 20250618
+    修改描述：v2.1.0 兼容微信平台证书和微信支付公钥 / PR #3144
+
 ----------------------------------------------------------------*/
 
 using Microsoft.AspNetCore.Http;
@@ -101,12 +104,20 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="associated_data">附加数据包 可空</param>
         /// <returns></returns>
         // TODO: 本方法持续测试
-        [Obsolete($"请使用 {nameof(DecryptGetObjectAsync)} 方法")]
+        [Obsolete($"请使用 {nameof(DecryptGetObjectAsync)} 方法", true)]
         public async Task<T> AesGcmDecryptGetObjectAsync<T>(string aes_key = null, string nonce = null, string associated_data = null, bool isTenPayPubKey = false) where T : ReturnJsonBase, new()
         {
             return await AesGcmDecryptGetObjectAsync<T>(nonce: nonce, associated_data: associated_data, isTenPayPubKey);
         }
 
+        /// <summary>
+        /// 将返回的结果中的ciphertext进行AEAD_AES_256_GCM解反序列化为实体
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="nonce">加密的随机串 可空</param>
+        /// <param name="associated_data">附加数据包 可空</param>
+        /// <param name="isPublicKey">是否为微信支付公钥</param>
+        /// <returns></returns>
         private async Task<T> AesGcmDecryptGetObjectAsync<T>(string nonce = null, string associated_data = null, bool isTenPayPubKey = false) where T : ReturnJsonBase, new()
         {
             var aes_key = _tenpayV3Setting.TenPayV3_APIv3Key;
@@ -123,7 +134,7 @@ namespace Senparc.Weixin.TenPayV3
             var wechatpaySignature = _httpContext.Request.Headers?["Wechatpay-Signature"];
             var wechatpaySerial = _httpContext.Request.Headers?["Wechatpay-Serial"];
 
-            result.VerifySignSuccess = await TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, Body, wechatpaySerial, isTenPayPubKey, _tenpayV3Setting);
+            result.VerifySignSuccess = await TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, Body, wechatpaySerial, _tenpayV3Setting);
             result.ResultCode = new TenPayApiResultCode($"{_httpContext.Response.StatusCode} / {_httpContext.Request.Method}", "", "", "", result.VerifySignSuccess == true);
 
             return result;
@@ -136,8 +147,9 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="aes_key">这里需要传入apiv3秘钥进行SM4/GCM/NoPadding解密 可空</param>
         /// <param name="nonce">加密的随机串 可空</param>
         /// <param name="associated_data">附加数据包 可空</param>
+        /// <param name="isPublicKey">是否为微信支付公钥</param>
         /// <returns></returns>
-            // TODO: 本方法持续测试
+        // TODO: 本方法持续测试
         private async Task<T> Sm4GcmDecryptGetObjectAsync<T>(string nonce = null, string associated_data = null, bool isPublicKey = false) where T : ReturnJsonBase, new()
         {
             var aes_key = _tenpayV3Setting.TenPayV3_APIv3Key;
@@ -154,7 +166,7 @@ namespace Senparc.Weixin.TenPayV3
             var wechatpaySignature = _httpContext.Request.Headers?["Wechatpay-Signature"];
             var wechatpaySerial = _httpContext.Request.Headers?["Wechatpay-Serial"];
 
-            result.VerifySignSuccess = await TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, Body, wechatpaySerial, isPublicKey, this._tenpayV3Setting);
+            result.VerifySignSuccess = await TenPaySignHelper.VerifyTenpaySign(wechatpayTimestamp, wechatpayNonce, wechatpaySignature, Body, wechatpaySerial, this._tenpayV3Setting);
             result.ResultCode = new TenPayApiResultCode($"{_httpContext.Response.StatusCode} / {_httpContext.Request.Method}", "", "", "", result.VerifySignSuccess == true);
 
             return result;

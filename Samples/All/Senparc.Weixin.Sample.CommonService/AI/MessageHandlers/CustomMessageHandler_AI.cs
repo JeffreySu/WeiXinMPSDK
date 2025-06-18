@@ -411,7 +411,15 @@ Prompt：";
                 await UpdateMessageContextAsync(currentMessageContext, chatStore);
             }
 
-            await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, result.OutputString);
+            try
+            {
+                Console.WriteLine($"AI 对话({appId},{OpenId})：{result.OutputString}");
+                await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, result.OutputString);
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.BaseExceptionLog(ex);
+            }
         }
 
         public async Task<bool> JudgeMultimodel(RequestMessageText requestMessageText, ChatStore chatStore, CustomMessageContext currentMessageContext)

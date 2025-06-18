@@ -16,8 +16,8 @@
         <None Remove="packages.config" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Senparc.AI.Agents" Version="0.5.5" />
-        <PackageReference Include="Senparc.AI.Kernel" Version="0.23.4" />
+        <PackageReference Include="Senparc.AI.Agents" Version="0.5.6.1" />
+        <PackageReference Include="Senparc.AI.Kernel" Version="0.25.1" />
         <PackageReference Include="Senparc.NeuChar" Version="2.5.2" />
         <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
         <PackageReference Include="System.Drawing.Common" Version="8.0.0" />

@@ -33,6 +33,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20231010
     修改描述：v1.1.0 TenPaySignHelper.GetJsApiUiPackage() 方法添加 senparcWeixinSettingForTenpayV3 参数
     
+    修改标识：mojinxun - 20250618
+    修改描述：v2.1.0 兼容微信平台证书和微信支付公钥 / PR #3144
 ----------------------------------------------------------------*/
 
 
@@ -236,7 +238,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers
 
             var tenpayV3InfoKey = TenPayHelper.GetRegisterKey(senparcWeixinSettingForTenpayV3.TenPayV3_MchId, senparcWeixinSettingForTenpayV3.TenPayV3_SubMchId);
             var pubKey = await TenPayV3InfoCollection.Data[tenpayV3InfoKey].GetPublicKeyAsync(serialNumber, senparcWeixinSettingForTenpayV3);
-            var isTenpayPubKey = serialNumber.StartsWith("PUB_KEY_ID_");
+            var isTenpayPubKey = TenPaySignHelper.IsPublicKey(serialNumber);
 
             return VerifyTenpaySign(senparcWeixinSettingForTenpayV3.EncryptionType.Value, wechatpayTimestamp, wechatpayNonce, wechatpaySignature, content, pubKey, isTenpayPubKey);
         }
@@ -256,6 +258,16 @@ namespace Senparc.Weixin.TenPayV3.Helpers
 
             JsApiUiPackage jsApiUiPackage = new(appId, timeStamp, nonceStr, prepayIdPackage, sign);
             return jsApiUiPackage;
+        }
+
+        /// <summary>
+        /// 是否为 Public Key（微信支付公钥）
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static bool IsPublicKey(string key)
+        {
+            return key.StartsWith("PUB_KEY_ID_");
         }
     }
 }

@@ -26,7 +26,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20210904
-    
+  
+    修改标识：mojinxun - 20250618
+    修改描述：v2.1.0 兼容微信平台证书和微信支付公钥 / PR #3144
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.TenPayV3

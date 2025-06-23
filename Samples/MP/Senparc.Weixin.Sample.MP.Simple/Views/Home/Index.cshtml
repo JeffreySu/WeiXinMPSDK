@@ -444,12 +444,12 @@ var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(accessToken);
     //此页面引导用户点击授权
     ViewData["UrlUserInfo"] =
         OAuthApi.GetAuthorizeUrl(appId,
-        "http://sdk.weixin.senparc.com/oauth2/UserInfoCallback?returnUrl=" + returnUrl.UrlEncode(),
+        "https://sdk.weixin.senparc.com/oauth2/UserInfoCallback?returnUrl=" + returnUrl.UrlEncode(),
         null, OAuthScope.snsapi_userinfo);//snsapi_userinfo方式回调地址
 
     ViewData["UrlBase"] =
         OAuthApi.GetAuthorizeUrl(appId,
-        "http://sdk.weixin.senparc.com/oauth2/BaseCallback?returnUrl=" + returnUrl.UrlEncode(),
+        "https://sdk.weixin.senparc.com/oauth2/BaseCallback?returnUrl=" + returnUrl.UrlEncode(),
         null, OAuthScope.snsapi_base);//snsapi_base方式回调地址
     return View();
 }</code></pre>
@@ -485,7 +485,7 @@ var result = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(accessToken);
                             </figure>
 
                             <h5>第三步：配置登陆后回调页面</h5>
-                            <p>授权成功后，网页将自动跳转到第一步中设置的回调 URL（<code>"http://sdk.weixin.senparc.com/oauth2/UserInfoCallback?returnUrl=" + returnUrl.UrlEncode()</code>），以 <strong>UserInfoCallback</strong> 为例：</p>
+                            <p>授权成功后，网页将自动跳转到第一步中设置的回调 URL（<code>"https://sdk.weixin.senparc.com/oauth2/UserInfoCallback?returnUrl=" + returnUrl.UrlEncode()</code>），以 <strong>UserInfoCallback</strong> 为例：</p>
                             <pre><code>public ActionResult UserInfoCallback(string code, string returnUrl)
 {
     if (string.IsNullOrEmpty(code))

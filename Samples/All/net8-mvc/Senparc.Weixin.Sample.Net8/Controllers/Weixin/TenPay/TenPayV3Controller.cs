@@ -1011,7 +1011,7 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
                 return Content("商品信息不存在，或非法进入！2004");
             }
 
-            var url = string.Format("http://sdk.weixin.senparc.com/TenPayV3/JsApi?productId={0}&hc={1}&t={2}", productId,
+            var url = string.Format("https://sdk.weixin.senparc.com/TenPayV3/JsApi?productId={0}&hc={1}&t={2}", productId,
                 product.GetHashCode(), SystemTime.Now.Ticks);
 
             BitMatrix bitMatrix;

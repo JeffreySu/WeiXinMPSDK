@@ -61,7 +61,7 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
                     keyword1 = new TemplateDataItem(openId),
                     keyword2 = new TemplateDataItem("网页测试"),
                     keyword3 = new TemplateDataItem(SystemTime.Now.ToString("O")),
-                    remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
+                    remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（https://sdk.weixin.senparc.com）查看！")
                 };
 
                 var miniProgram = new TemplateModel_MiniProgram()

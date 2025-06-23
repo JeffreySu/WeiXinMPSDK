@@ -32,6 +32,27 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
         public readonly string appId = Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
         private readonly string appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public OAuth2Controller(IHttpContextAccessor httpContextAccessor)
+        {
+            this._httpContextAccessor = httpContextAccessor;
+        }
+
+        private string GetBaseUrl(HttpContext httpContext)
+        {
+            // 获取协议（例如，http 或 https）
+            string protocol = httpContext.Request.Scheme;
+
+            // 获取域名和端口（例如，example.com:5000）
+            string host = httpContext.Request.Host.ToString();
+
+            // 构造完整的协议+域名+端口
+            string baseUrl = $"{protocol}://{host}";
+
+            return baseUrl;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -44,14 +65,16 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
 
             ViewData["returnUrl"] = returnUrl;
 
+            var baseUrl = GetBaseUrl(_httpContextAccessor.HttpContext);
+
             //此页面引导用户点击授权
             ViewData["UrlUserInfo"] =
                 OAuthApi.GetAuthorizeUrl(appId,
-                "http://sdk.weixin.senparc.com/oauth2/UserInfoCallback?returnUrl=" + returnUrl.UrlEncode(),
+                $"{baseUrl}/oauth2/UserInfoCallback?returnUrl=" + returnUrl.UrlEncode(),
                 state, OAuthScope.snsapi_userinfo);
             ViewData["UrlBase"] =
                 OAuthApi.GetAuthorizeUrl(appId,
-                "http://sdk.weixin.senparc.com/oauth2/BaseCallback?returnUrl=" + returnUrl.UrlEncode(),
+                $"{baseUrl}/oauth2/BaseCallback?returnUrl=" + returnUrl.UrlEncode(),
                 state, OAuthScope.snsapi_base);
             return View();
         }

@@ -201,12 +201,22 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
 
         public ActionResult DebugOpen()
         {
+            if (!Request.IsLocal())
+            {
+                return new UnauthorizedResult();//只允许本地访问
+            }
+
             Senparc.Weixin.Config.IsDebug = true;
             return Content("Debug状态已打开。");
         }
 
         public ActionResult DebugClose()
         {
+            if (!Request.IsLocal())
+            {
+                return new UnauthorizedResult();//只允许本地访问
+            }
+
             Senparc.Weixin.Config.IsDebug = false;
             return Content("Debug状态已关闭。");
         }

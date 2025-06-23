@@ -199,7 +199,7 @@ namespace Senparc.Weixin.Sample.TenPayV3.Controllers
             }
 
             //使用 JsApi 方式支付，引导到常规的商品详情页面
-            string url = $"http://sdk.weixin.senparc.com/TenpayApiV3/JsApi?productId={productId}&hc={product.GetHashCode()}&t={SystemTime.Now.Ticks}";
+            string url = $"https://sdk.weixin.senparc.com/TenpayApiV3/JsApi?productId={productId}&hc={product.GetHashCode()}&t={SystemTime.Now.Ticks}";
             var fileStream = QrCodeHelper.GerQrCodeStream(url);
 
             return File(fileStream, "image/png");

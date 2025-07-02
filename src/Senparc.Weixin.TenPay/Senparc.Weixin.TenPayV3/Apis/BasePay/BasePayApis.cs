@@ -83,7 +83,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
 
             if (!_tenpayV3Setting.EncryptionType.HasValue)
             {
-                throw new Senparc.Weixin.Exceptions.WeixinException("没有设置证书加密类型（EncryptionType）");
+                _tenpayV3Setting.EncryptionType = CertType.RSA;
             }
         }
 
@@ -140,9 +140,15 @@ namespace Senparc.Weixin.TenPayV3.Apis
         {
             PublicKeyCollection keys = new();
 
-            if (!string.IsNullOrWhiteSpace(_tenpayV3Setting.TenPayV3_TenPayPubKeyID))
+            if (_tenpayV3Setting.TenPayV3_TenPayPubKeyEnable)
             {
                 keys[_tenpayV3Setting.TenPayV3_TenPayPubKeyID] = SecurityHelper.GetUnwrapCertKey(_tenpayV3Setting.TenPayV3_TenPayPubKey);
+            }
+
+            // 如果平台证书禁用了，直接返回
+            if (_tenpayV3Setting.TenPayV3_PlatformCertDisable)
+            {
+                return keys;
             }
 
             var certificates = await CertificatesAsync(_tenpayV3Setting.EncryptionType.Value);

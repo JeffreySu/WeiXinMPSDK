@@ -42,6 +42,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
 输入“p”暂停，可以暂时保留记忆
 输入“e”退出，彻底删除记忆
 输入“m”可以进入多模态对话模式（根据语义自动生成文字+图片）
+输入“t”可以从多模态进入纯文本对话模式
 输入“img 文字”可以强制生成图片，例如：img 一只猫
 
 [结果由 AI 生成，仅供参考]";
@@ -156,7 +157,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                         judgeMultimodel = true;
                     }
 
-                    if (chatStore.Status == oldChatStatus)
+                    if (chatStore.Status == oldChatStatus && chatStore.MultimodelType == MultimodelType.SimpleChat)// 在文字对话的状态下，才能切换到多模态对话
                     {
                         if (requestMessageText.Content.Equals("M", StringComparison.OrdinalIgnoreCase))
                         {
@@ -177,6 +178,15 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                             {
                                 prompt = "img " + prompt;//添加 img 前缀
                             }
+                        }
+                        else if (requestMessageText.Content.Equals("T", StringComparison.OrdinalIgnoreCase) && chatStore.MultimodelType == MultimodelType.ChatAndImage)
+                        {
+                            //切换到纯文字对话
+                            chatStore.MultimodelType = MultimodelType.SimpleChat;
+                            await UpdateMessageContextAsync(currentMessageContext, chatStore);
+                            var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
+                            responseMessage.Content = "已切换到纯文字对话模式！AI 将用纯文字回复";
+                            return responseMessage;
                         }
                     }
 

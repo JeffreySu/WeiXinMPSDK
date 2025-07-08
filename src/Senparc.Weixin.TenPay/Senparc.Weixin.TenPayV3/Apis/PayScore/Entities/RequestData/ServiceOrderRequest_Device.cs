@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Senparc.Weixin.TenPayV3.Apis.PayScore
 {

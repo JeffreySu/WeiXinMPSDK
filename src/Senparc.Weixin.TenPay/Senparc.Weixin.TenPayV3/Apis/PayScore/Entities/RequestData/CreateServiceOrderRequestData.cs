@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20210925
     
+    修改标识：mojinxun - 20250708
+    修改描述：v2.1.1 微信支付分 增加参数device /PR #3156 / Issue #3155 感谢 @mojinxun @zariczhu
+
 ----------------------------------------------------------------*/
 
 

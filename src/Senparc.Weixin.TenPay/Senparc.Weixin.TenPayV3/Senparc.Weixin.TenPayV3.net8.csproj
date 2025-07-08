@@ -105,6 +105,6 @@
     <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Apis\PayScore\Entities\RequestData\ServiceOrderRequest\" />
+    <!-- <Folder Include="Apis\PayScore\Entities\RequestData\ServiceOrderRequest\" /> -->
   </ItemGroup>
 </Project>

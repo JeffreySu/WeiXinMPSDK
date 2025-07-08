@@ -65,7 +65,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <param name="goods_tag">订单优惠标记  <para>body订单优惠标记，代金券或立减金优惠的参数，说明详见代金券或立减金优惠</para><para>示例值：goods_tag</para><para>可为null</para></param>
         /// <param name="device">设备信息</param>
         public CompleteServiceOrderRequestData(string out_order_no, string appid, string service_id, Post_Payment[] post_payments, Post_Discount
-            [] post_discounts, long total_amount, Time_Range time_range, Location location, bool? profit_sharing, string goods_tag, Device device = default)
+            [] post_discounts, long total_amount, Time_Range time_range, Location location, bool? profit_sharing, string goods_tag, ServiceOrderRequest_Device device = default)
         {
             this.out_order_no = out_order_no;
             this.appid = appid;
@@ -161,7 +161,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <summary>
         /// 设备信息
         /// </summary>
-        public Device device { get; set; }
+        public ServiceOrderRequest_Device device { get; set; }
 
         #region 子数据类型
         public class Post_Payment
@@ -367,48 +367,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             /// </summary>
             public string end_location { get; set; }
 
-        }
-
-        public class Device
-        {
-
-            /// <summary>
-            /// 含参构造函数
-            /// </summary>
-            /// <param name="start_device_id">服务开始的设备ID  <para>某一设备在商户对应服务ID下的唯一标识，由商户自行填写，建议采用设备SN值。售货机、充电宝、充电桩等无人自助设备行业必传。</para></param>
-            /// <param name="end_device_id">服务结束的设备ID  <para>某一设备在商户对应服务ID下的唯一标识，由商户自行填写，建议采用设备SN值。售货机、充电宝、充电桩等无人自助设备行业必传。</para></param>
-            /// <param name="materiel_no">物料编码  <para>若商家参与政策，则商家填写行业侧给到商家的物料码（字母+数字的形式）；若商家未参与政策，则商家填写URL链接。</para></param>
-            public Device(string start_device_id, string end_device_id, string materiel_no)
-            {
-                this.start_device_id = start_device_id;
-                this.end_device_id = end_device_id;
-                this.materiel_no = materiel_no;
-            }
-
-            /// <summary>
-            /// 无参构造函数
-            /// </summary>
-            public Device()
-            {
-            }
-
-            /// <summary>
-            /// 服务开始的设备ID 
-            /// <para>某一设备在商户对应服务ID下的唯一标识，由商户自行填写，建议采用设备SN值。售货机、充电宝、充电桩等无人自助设备行业必传。</para>
-            /// </summary>
-            public string start_device_id { get; set; }
-
-            /// <summary>
-            /// 服务结束的设备ID 
-            /// <para> 某一设备在商户对应服务ID下的唯一标识，由商户自行填写，建议采用设备SN值。售货机、充电宝、充电桩等无人自助设备行业必传。</para>
-            /// </summary>
-            public string end_device_id { get; set; }
-
-            /// <summary>
-            /// 物料编码 
-            /// <para>若商家参与政策，则商家填写行业侧给到商家的物料码（字母+数字的形式）；若商家未参与政策，则商家填写URL链接。</para>
-            /// </summary>
-            public string materiel_no { get; set; }
         }
         #endregion
     }

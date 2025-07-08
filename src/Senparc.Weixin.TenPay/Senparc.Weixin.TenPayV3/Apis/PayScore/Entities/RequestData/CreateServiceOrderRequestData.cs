@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20210925
     
+    修改标识：mojinxun - 20250708
+    修改描述：v2.1.1 微信支付分 增加参数device /PR #3156 / Issue #3155 感谢 @mojinxun @zariczhu
+
 ----------------------------------------------------------------*/
 
 
@@ -62,7 +65,8 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <param name="notify_url">商户回调地址  <para>body商户接收用户确认订单和付款成功回调通知的地址。</para><para>示例值：https://api.test.com</para></param>
         /// <param name="openid">用户标识  <para>body微信用户在商户对应appid下的唯一标识。免确认订单：必填需确认订单：不填</para><para>获取用户openid指引</para></param>
         /// <param name="need_user_confirm">是否需要用户确认 <para>body枚举值：false：免确认订单true：需确认订单默认值true</para><para>示例值：true</para><para>可为null</para></param>
-        public CreateServiceOrderRequestData(string out_order_no, string appid, string service_id, string service_introduction, Post_Payment[] post_payments, Post_Discount[] post_discounts, Time_Range time_range, Location location, Risk_Fund risk_fund, string attach, string notify_url, string openid, bool? need_user_confirm)
+        /// <param name="device">设备信息</param>
+        public CreateServiceOrderRequestData(string out_order_no, string appid, string service_id, string service_introduction, Post_Payment[] post_payments, Post_Discount[] post_discounts, Time_Range time_range, Location location, Risk_Fund risk_fund, string attach, string notify_url, string openid, bool? need_user_confirm, ServiceOrderRequest_Device device = default)
         {
             this.out_order_no = out_order_no;
             this.appid = appid;
@@ -77,6 +81,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             this.notify_url = notify_url;
             this.openid = openid;
             this.need_user_confirm = need_user_confirm;
+            this.device = device;
         }
 
         /// <summary>
@@ -179,6 +184,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <para>可为null</para>
         /// </summary>
         public bool? need_user_confirm { get; set; }
+
+        /// <summary>
+        /// 设备信息
+        /// </summary>
+        public ServiceOrderRequest_Device device { get; set; }
 
         #region 子数据类型
         public class Post_Payment
@@ -422,7 +432,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
 
         }
 
-
+   
         #endregion
     }
 

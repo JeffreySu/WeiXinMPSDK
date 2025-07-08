@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20210925
     
+    修改标识：mojinxun - 20250708
+    修改描述：v2.1.1 微信支付分 增加参数device /PR #3156 / Issue #3155 感谢 @mojinxun @zariczhu
+
 ----------------------------------------------------------------*/
 
 using Newtonsoft.Json;
@@ -50,7 +53,8 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <param name="post_discounts">后付费商户优惠 <para>body后付费商户优惠列表，最多包含30条商户优惠。如果传入，用户侧则显示此参数。</para><para>可为null</para></param>
         /// <param name="total_amount">总金额  <para>body总金额，单位为分，不能超过完结订单时候的总金额，只能为整数，详见支付金额。此参数需满足：总金额=（修改后付费项目1…+修改后完结付费项目n）-（修改后付费商户优惠项目1…+修改后付费商户优惠项目n）</para><para>示例值：50000</para></param>
         /// <param name="reason">修改原因  <para>body按照字符计算，超过长度报错处理。</para><para>示例值：用户投诉</para></param>
-        public ModifyServiceOrderRequestData(string out_order_no, string appid, string service_id, Post_Payment[] post_payments, Post_Discount[] post_discounts, long total_amount, string reason)
+        /// <param name="device">设备信息</param>
+        public ModifyServiceOrderRequestData(string out_order_no, string appid, string service_id, Post_Payment[] post_payments, Post_Discount[] post_discounts, long total_amount, string reason, ServiceOrderRequest_Device device = default)
         {
             this.out_order_no = out_order_no;
             this.appid = appid;
@@ -59,6 +63,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             this.post_discounts = post_discounts;
             this.total_amount = total_amount;
             this.reason = reason;
+            this.device = device;
         }
 
         /// <summary>
@@ -116,6 +121,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <para>示例值：用户投诉</para>
         /// </summary>
         public string reason { get; set; }
+
+        /// <summary>
+        /// 设备信息
+        /// </summary>
+        public ServiceOrderRequest_Device device { get; set; }
 
         #region 子数据类型
         public class Post_Payment
@@ -233,8 +243,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             public uint count { get; set; }
 
         }
-
-
         #endregion
     }
 

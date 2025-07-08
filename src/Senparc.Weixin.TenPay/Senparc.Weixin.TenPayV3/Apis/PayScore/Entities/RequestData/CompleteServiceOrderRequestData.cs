@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20210925
     
+    修改标识：mojinxun - 20250708
+    修改描述：v2.1.1 微信支付分 增加参数device /PR #3156 / Issue #3155 感谢 @mojinxun @zariczhu
+
 ----------------------------------------------------------------*/
 
 
@@ -60,8 +63,9 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <param name="location">服务位置 <para>body服务位置如果传入，用户侧则显示此参数。</para><para>可为null</para></param>
         /// <param name="profit_sharing">微信支付服务分账标记  <para>body完结订单分账接口标记。分账开通流程，详见false：不分账，默认：falsetrue：分账。</para><para>示例值：false</para><para>可为null</para></param>
         /// <param name="goods_tag">订单优惠标记  <para>body订单优惠标记，代金券或立减金优惠的参数，说明详见代金券或立减金优惠</para><para>示例值：goods_tag</para><para>可为null</para></param>
+        /// <param name="device">设备信息</param>
         public CompleteServiceOrderRequestData(string out_order_no, string appid, string service_id, Post_Payment[] post_payments, Post_Discount
-            [] post_discounts, long total_amount, Time_Range time_range, Location location, bool? profit_sharing, string goods_tag)
+            [] post_discounts, long total_amount, Time_Range time_range, Location location, bool? profit_sharing, string goods_tag, ServiceOrderRequest_Device device = default)
         {
             this.out_order_no = out_order_no;
             this.appid = appid;
@@ -73,6 +77,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             this.location = location;
             this.profit_sharing = profit_sharing;
             this.goods_tag = goods_tag;
+            this.device = device;
         }
 
         /// <summary>
@@ -152,6 +157,11 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <para>可为null</para>
         /// </summary>
         public string goods_tag { get; set; }
+
+        /// <summary>
+        /// 设备信息
+        /// </summary>
+        public ServiceOrderRequest_Device device { get; set; }
 
         #region 子数据类型
         public class Post_Payment
@@ -358,8 +368,6 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
             public string end_location { get; set; }
 
         }
-
-
         #endregion
     }
 

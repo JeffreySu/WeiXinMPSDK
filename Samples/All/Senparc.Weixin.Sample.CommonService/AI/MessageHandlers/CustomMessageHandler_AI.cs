@@ -7,6 +7,12 @@
     
     创建标识：Senparc - 20240524
 
+    修改标识：Wang Qian - 20250728
+    修改描述：新增AI对话功能增强特性：
+    1. 新增"lc"命令：支持长对话模式，当对话达到10轮后自动整理记忆并清空历史
+    2. 新增记忆整理功能：在长对话模式下，AI会自动总结对话内容并保存为记忆
+    3. 优化欢迎消息：更新了功能说明，包含新增的命令使用说明
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -42,7 +48,10 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
 输入“p”暂停，可以暂时保留记忆
 输入“e”退出，彻底删除记忆
 输入“m”可以进入多模态对话模式（根据语义自动生成文字+图片）
+输入“t”可以从多模态进入纯文本对话模式
 输入“img 文字”可以强制生成图片，例如：img 一只猫
+输入“dm”可以关闭Markdown格式输出，使用纯文本回复
+输入“lc”可以开启长对话模式，开启后，对话每到达最大历史对话轮数（默认10轮）后，会自动整理对话记忆，并清空对话历史，以支持长对话
 
 [结果由 AI 生成，仅供参考]";
 
@@ -116,6 +125,8 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                     bool judgeMultimodel = true;
                     var oldChatStatus = chatStore.Status;
 
+
+
                     if (requestMessageText.Content.Equals("E", StringComparison.OrdinalIgnoreCase))
                     {
                         prompt = $"我即将结束对话，请发送一段文字和我告别，并提醒我：输入“AI”可以再次启动对话。";
@@ -156,7 +167,40 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                         judgeMultimodel = true;
                     }
 
-                    if (chatStore.Status == oldChatStatus)
+                    Func<string, bool> markDownFunc = content => requestMessageText.Content.Equals(content, StringComparison.OrdinalIgnoreCase);
+
+                    // 在对话、暂停状态下、可以切换 Markdown 格式输出
+                    if (chatStore.Status == oldChatStatus &&
+                         (markDownFunc("DM") || markDownFunc("MD")))
+                    {
+                        //是否启用 Markdown 格式输出
+                        var useMarkdown = markDownFunc("MD");
+                        //设置并更新状态
+                        chatStore.UseMarkdown = useMarkdown;
+                        await UpdateMessageContextAsync(currentMessageContext, chatStore);
+
+                        //返回提示
+                        var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
+                        responseMessage.Content = useMarkdown
+                            ? "已恢复Markdown格式输出，输入dm可关闭Markdown格式输出"
+                            : "已关闭Markdown格式输出，使用纯文本回复，输入md可恢复Markdown格式输出";
+                        return responseMessage;
+                    }
+
+                    Func<string, bool> longChatFunc = content => requestMessageText.Content.Equals(content, StringComparison.OrdinalIgnoreCase);
+
+                    // 在对话、暂停状态下、可以切换长对话模式
+                    if (chatStore.Status == oldChatStatus && longChatFunc("LC"))
+                    {
+                        chatStore.UseLongChat = chatStore.UseLongChat ? false : true;
+                        await UpdateMessageContextAsync(currentMessageContext, chatStore);
+
+                        var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
+                        responseMessage.Content = "已开启长对话模式！AI将在对话每到达最大历史对话轮数（默认10轮）后，会自动整理对话记忆，并清空对话历史，再次输入lc以关闭";
+                        return responseMessage;
+                    }
+
+                    if (chatStore.Status == oldChatStatus && chatStore.MultimodelType == MultimodelType.SimpleChat)// 在文字对话的状态下，才能切换到多模态对话
                     {
                         if (requestMessageText.Content.Equals("M", StringComparison.OrdinalIgnoreCase))
                         {
@@ -178,6 +222,15 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                                 prompt = "img " + prompt;//添加 img 前缀
                             }
                         }
+                        else if (requestMessageText.Content.Equals("T", StringComparison.OrdinalIgnoreCase) && chatStore.MultimodelType == MultimodelType.ChatAndImage)
+                        {
+                            //切换到纯文字对话
+                            chatStore.MultimodelType = MultimodelType.SimpleChat;
+                            await UpdateMessageContextAsync(currentMessageContext, chatStore);
+                            var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
+                            responseMessage.Content = "已切换到纯文字对话模式！AI 将用纯文字回复";
+                            return responseMessage;
+                        }
                     }
 
                     //组织返回消息
@@ -197,6 +250,8 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                         else
                         {
                             //文字问答
+                            //根据是否使用Markdown格式输出，为prompt添加前缀，不影响文生图的prompt
+                            prompt = chatStore.UseMarkdown ? "请使用Markdown格式回答： " + prompt : "请使用纯文本格式（非Markdown)回答： " + prompt;
                             await TextChatAsync(prompt, chatStore, storeHistory, currentMessageContext);
                         }
                     });
@@ -388,8 +443,13 @@ Prompt：";
             //最大保存 AI 对话记录数
             var maxHistoryCount = 10;
 
-            //默认 SystemMessage（可根据自己需要修改）
-            var systemMessage = Senparc.AI.DefaultSetting.DEFAULT_SYSTEM_MESSAGE;
+            //如果更新了记忆，把更新的记忆作为systemMessage
+            var memory = await ConsolidateMemoryAsync(chatStore, chatStore.LastStoredPrompt);
+
+            //更新上一次prompt
+            chatStore.LastStoredPrompt = prompt;
+
+            var systemMessage =  memory == null ? Senparc.AI.DefaultSetting.DEFAULT_SYSTEM_MESSAGE : memory;
 
             var aiHandler = new SemanticAiHandler(setting);
             var iWantToRun = aiHandler.ChatConfig(parameter,
@@ -471,6 +531,68 @@ Prompt：";
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// 整理记忆的方法
+        /// </summary>
+        /// <param name="chatStore"></param>
+        /// <returns></returns>
+        private async Task<string> ConsolidateMemoryAsync(ChatStore chatStore, string prompt)
+        {
+            var assistantMessageCount = chatStore.History.Count(h => h.Role == AuthorRole.Assistant);
+            if (chatStore.UseLongChat && assistantMessageCount >= 9)
+            {
+                var memoryPrompt = @"
+请用简洁的语言总结：
+1. 用户的主要需求或关注点
+2. 重要的偏好或习惯
+3. 关键的信息点
+4. 之前聊天的内容
+            ";
+                /* 模型配置
+                 * 注意：需要在 appsettings.json 中的 <SenparcAiSetting> 节点配置 AI 模型参数，否则无法使用 AI 能力
+                 */
+                var setting = (SenparcAiSetting)Senparc.AI.Config.SenparcAiSetting;//也可以留空，将自动获取
+
+                //模型请求参数
+                var parameter = new PromptConfigParameter()
+                {
+                    MaxTokens = 2000,
+                    Temperature = 0.3,
+                    TopP = 0.3,
+                };
+
+                //最大保存 AI 对话记录数
+                var maxHistoryCount = 10;
+
+                //使用上一轮的记忆作为SystemMessage
+                var systemMessage = chatStore.LastStoredMemory == null ? Senparc.AI.DefaultSetting.DEFAULT_SYSTEM_MESSAGE : chatStore.LastStoredMemory;
+
+                var aiHandler = new SemanticAiHandler(setting);
+                var iWantToRun = aiHandler.ChatConfig(parameter,
+                                    userId: "Jeffrey",
+                                    maxHistoryStore: maxHistoryCount,
+                                    chatSystemMessage: systemMessage,
+                                    senparcAiSetting: setting);
+
+                //注入历史记录（也可以把 iWantToRun 对象缓存起来，其中会自动包含 history，不需要每次读取或者保存）
+                iWantToRun.StoredAiArguments.Context["history"] = chatStore.GetChatHistory();// AIKernl 的 history 为 ChatHistory 类型
+
+                var result = await aiHandler.ChatAsync(iWantToRun, memoryPrompt);
+                
+                var memory = "用户之前的对话被概括为" + result.OutputString + "\n5.用户最近一次提问的内容是：" + prompt;
+
+                //更新chatStore中的上一轮记忆
+                chatStore.LastStoredMemory = memory;
+
+                //清空历史记录
+                chatStore.ClearHistory();
+                return memory;
+            }
+            else return null;
+            
+
         }
     }
 }

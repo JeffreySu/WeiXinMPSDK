@@ -44,6 +44,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
 输入“m”可以进入多模态对话模式（根据语义自动生成文字+图片）
 输入“t”可以从多模态进入纯文本对话模式
 输入“img 文字”可以强制生成图片，例如：img 一只猫
+输入“dm”可以关闭Markdown格式输出，使用纯文本回复
 
 [结果由 AI 生成，仅供参考]";
 
@@ -157,6 +158,27 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                         judgeMultimodel = true;
                     }
 
+                    // 在对话、暂停状态下、可以切换Markdown格式输出
+                    if (chatStore.Status == oldChatStatus)
+                    {
+                        if (requestMessageText.Content.Equals("DM", StringComparison.OrdinalIgnoreCase) && chatStore.UseMarkdown)
+                        {
+                            chatStore.UseMarkdown = false;
+                            await UpdateMessageContextAsync(currentMessageContext, chatStore);
+                            var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
+                            responseMessage.Content = "已关闭Markdown格式输出，使用纯文本回复，输入md可恢复Markdown格式输出";
+                            return responseMessage;
+                        }
+                        else if (requestMessageText.Content.Equals("MD", StringComparison.OrdinalIgnoreCase) && !chatStore.UseMarkdown)
+                        {
+                            chatStore.UseMarkdown = true;
+                            await UpdateMessageContextAsync(currentMessageContext, chatStore);
+                            var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
+                            responseMessage.Content = "已恢复Markdown格式输出，输入dm可关闭Markdown格式输出";
+                            return responseMessage;
+                        }
+                    }
+
                     if (chatStore.Status == oldChatStatus && chatStore.MultimodelType == MultimodelType.SimpleChat)// 在文字对话的状态下，才能切换到多模态对话
                     {
                         if (requestMessageText.Content.Equals("M", StringComparison.OrdinalIgnoreCase))
@@ -207,6 +229,8 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                         else
                         {
                             //文字问答
+                            //根据是否使用Markdown格式输出，为prompt添加前缀，不影响文生图的prompt
+                            prompt = chatStore.UseMarkdown ? "请使用Markdown格式回答： " + prompt :"请使用纯文本格式（非Markdown)回答： " + prompt;
                             await TextChatAsync(prompt, chatStore, storeHistory, currentMessageContext);
                         }
                     });

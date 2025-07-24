@@ -36,10 +36,16 @@ namespace Senparc.Weixin.MP.Sample.CommonService.AI.MessageHandlers
 
         public List<WeixinAiChatHistory> History { get; set; }
 
+        /// <summary>
+        /// 是否使用Markdown格式输出
+        /// </summary>
+        public bool UseMarkdown { get; set; }
+
         public ChatStore()
         {
             Status = ChatStatus.None;
             MultimodelType = MultimodelType.None;
+            UseMarkdown = true;
         }
 
         public ChatHistory GetChatHistory()

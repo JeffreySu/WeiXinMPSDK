@@ -196,7 +196,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                         await UpdateMessageContextAsync(currentMessageContext, chatStore);
 
                         var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
-                        responseMessage.Content = "已开启长对话模式！AI将在对话每到达最大历史对话轮数（默认10轮）后，会自动整理对话记忆，并清空对话历史，再次输入lc以关闭";
+                        responseMessage.Content = chatStore.UseLongChat ? "已开启长对话模式！AI将在对话每到达最大历史对话轮数（默认10轮）后，会自动整理对话记忆，并清空对话历史，再次输入lc以关闭" : "已关闭长对话模式！AI将不再自动整理对话记忆，并清空对话历史，再次输入lc以开启";
                         return responseMessage;
                     }
 

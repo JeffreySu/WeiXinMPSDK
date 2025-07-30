@@ -443,13 +443,16 @@ Prompt：";
             //最大保存 AI 对话记录数
             var maxHistoryCount = 10;
 
-            //如果更新了记忆，把更新的记忆作为systemMessage
-            var memory = await ConsolidateMemoryAsync(chatStore, chatStore.LastStoredPrompt);
+            //如果是长对话模式，那么调用整理记忆函数，如果整理了记忆，那么使用整理后的记忆，则否则使用默认系统消息
+            //在长对话模式情况下，如果还没有整理过记忆，那么返回值会是null，此时会使用默认系统消息
+            //默认系统消息可以自己设置，也可以使用Senparc.AI.DefaultSetting.DEFAULT_SYSTEM_MESSAGE
+            var systemMessage = chatStore.UseLongChat ? 
+            await ConsolidateMemoryAsync(chatStore, chatStore.LastStoredPrompt) ?? Senparc.AI.DefaultSetting.DEFAULT_SYSTEM_MESSAGE
+            :
+            Senparc.AI.DefaultSetting.DEFAULT_SYSTEM_MESSAGE;
 
             //更新上一次prompt
             chatStore.LastStoredPrompt = prompt;
-
-            var systemMessage =  memory == null ? Senparc.AI.DefaultSetting.DEFAULT_SYSTEM_MESSAGE : memory;
 
             var aiHandler = new SemanticAiHandler(setting);
             var iWantToRun = aiHandler.ChatConfig(parameter,
@@ -541,7 +544,10 @@ Prompt：";
         private async Task<string> ConsolidateMemoryAsync(ChatStore chatStore, string prompt)
         {
             var assistantMessageCount = chatStore.History.Count(h => h.Role == AuthorRole.Assistant);
-            if (chatStore.UseLongChat && assistantMessageCount >= 9)
+
+            //这里不进行是否使用长对话模式判断，因为判断是在TextChatAsync中进行的
+            //如果AI消息条数大于等于9，则整理记忆，这里是9是因为Senparc.AI的消息最大条数处理逻辑稍有问题，所以暂时设置为9
+            if (assistantMessageCount >= 9)
             {
                 var memoryPrompt = @"
 请用简洁的语言总结：
@@ -590,7 +596,7 @@ Prompt：";
                 chatStore.ClearHistory();
                 return memory;
             }
-            else return null;
+            else return chatStore.LastStoredMemory;
             
 
         }

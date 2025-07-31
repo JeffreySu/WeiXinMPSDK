@@ -12,7 +12,6 @@
 
 ----------------------------------------------------------------*/
 
-using Microsoft.Extensions.AI;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Senparc.AI.Kernel.Handlers;
 using System.Collections.Generic;

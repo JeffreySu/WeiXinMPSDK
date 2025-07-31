@@ -10,13 +10,39 @@
     修改标识：pekrr1e  - 20180503
     修改描述：v1.4.0 新增企业微信群聊会话功能支持
 
+    修改标识：Senparc  - 20250731
+    修改描述：v3.28.0 fix: 推送 News 的字段消息大小写敏感问题
+
 ----------------------------------------------------------------*/
 
-using Senparc.NeuChar.Entities;
 using System.Collections.Generic;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.Chat
 {
+
+    public class WorkArticle
+    {
+        /// <summary>
+        /// 标题，不超过128个字节，超过会自动截断
+        /// </summary>
+        public string title { get; set; }
+
+        /// <summary>
+        /// 描述，不超过512个字节，超过会自动截断
+        /// </summary>
+        public string description { get; set; }
+
+        /// <summary>
+        /// 点击后跳转的链接
+        /// </summary>
+        public string url { get; set; }
+
+        /// <summary>
+        /// 图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图1068*455，小图150*150。
+        /// </summary>        
+        public string picurl { get; set; }
+    }
+
     /// <summary>
     /// 发送消息基础数据
     /// </summary>
@@ -204,7 +230,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Chat
         {
             msgtype = ChatMsgType.news.ToString();
         }
-        public SendNewsMessageData(string chatid, List<Article> articles, string title, string url, string description = null, string picurl = null, string btntxt = null, int? safe = null) : this(chatid, safe)
+        public SendNewsMessageData(string chatid, List<WorkArticle> articles, string title, string url, string description = null, string picurl = null, string btntxt = null, int? safe = null) : this(chatid, safe)
         {
             news = new Chat_News(articles, title, url, description, picurl, btntxt);
         }
@@ -217,7 +243,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Chat
     }
     public class Chat_NewsBase
     {
-        public Chat_NewsBase(List<Article> articles, string title)
+        public Chat_NewsBase(List<WorkArticle> articles, string title)
         {
             this.articles = articles;
             this.title = title;
@@ -225,7 +251,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Chat
         /// <summary>
         /// 图文消息，一个图文消息支持1到8条图文
         /// </summary>
-        public List<Article> articles { get; set; }
+        public List<WorkArticle> articles { get; set; }
         /// <summary>
         /// 标题，不超过128个字节，超过会自动截断
         /// </summary>
@@ -233,7 +259,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Chat
     }
     public class Chat_News : Chat_NewsBase
     {
-        public Chat_News(List<Article> articles, string title, string url, string description = null, string picurl = null, string btntxt = null) : base(articles, title)
+        public Chat_News(List<WorkArticle> articles, string title, string url, string description = null, string picurl = null, string btntxt = null) : base(articles, title)
         {
             this.url = url;
             this.description = description;
@@ -263,7 +289,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Chat
         {
             msgtype = ChatMsgType.mpnews.ToString();
         }
-        public SendMpNewsMessageData(string chatid, List<Article> articles, string title, string thumb_media_id, string content, string author = null, string content_source_url = null, string digest = null, int? safe = null) : this(chatid, safe)
+        public SendMpNewsMessageData(string chatid, List<WorkArticle> articles, string title, string thumb_media_id, string content, string author = null, string content_source_url = null, string digest = null, int? safe = null) : this(chatid, safe)
         {
             mpnews = new Chat_MpNews(articles, title, thumb_media_id, content, author, content_source_url, digest);
         }
@@ -275,7 +301,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Chat
     }
     public class Chat_MpNews : Chat_NewsBase
     {
-        public Chat_MpNews(List<Article> articles, string title, string thumb_media_id, string content, string author = null, string content_source_url = null, string digest = null) : base(articles, title)
+        public Chat_MpNews(List<WorkArticle> articles, string title, string thumb_media_id, string content, string author = null, string content_source_url = null, string digest = null) : base(articles, title)
         {
             this.articles = articles;
             this.title = title;

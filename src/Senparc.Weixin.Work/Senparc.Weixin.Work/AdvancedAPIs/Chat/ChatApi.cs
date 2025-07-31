@@ -247,7 +247,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="opUser"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [Obsolete("此接口已被官方废除")]
+        [Obsolete("此接口已被官方废除", true)]
         public static WorkJsonResult QuitChat(string accessTokenOrAppKey, string chatId, string opUser, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -275,7 +275,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="chatIdOrUserId">会话值，为userid|chatid，分别表示：成员id|会话id，单聊是userid，群聊是chatid</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [Obsolete("此接口已被官方废除")]
+        [Obsolete("此接口已被官方废除", true)]
         public static WorkJsonResult ClearNotify(string accessTokenOrAppKey, string opUser, Chat_Type type, string chatIdOrUserId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -302,7 +302,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="userMuteList">成员新消息免打扰参数，数组，最大支持10000个成员</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [Obsolete("此接口已被官方废除")]
+        [Obsolete("此接口已被官方废除", true)]
         public static SetMuteResult SetMute(string accessTokenOrAppKey, List<UserMute> userMuteList, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -510,7 +510,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="opUser"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [Obsolete("此接口已被官方废除")]
+        [Obsolete("此接口已被官方废除", true)]
         public static async Task<WorkJsonResult> QuitChatAsync(string accessTokenOrAppKey, string chatId, string opUser, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -536,7 +536,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="chatIdOrUserId">会话值，为userid|chatid，分别表示：成员id|会话id，单聊是userid，群聊是chatid</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [Obsolete("此接口已被官方废除")]
+        [Obsolete("此接口已被官方废除", true)]
         public static async Task<WorkJsonResult> ClearNotifyAsync(string accessTokenOrAppKey, string opUser, Chat_Type type, string chatIdOrUserId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -578,7 +578,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="userMuteList">成员新消息免打扰参数，数组，最大支持10000个成员</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [Obsolete("此接口已被官方废除")]
+        [Obsolete("此接口已被官方废除", true)]
         public static async Task<SetMuteResult> SetMuteAsync(string accessTokenOrAppKey, List<UserMute> userMuteList, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

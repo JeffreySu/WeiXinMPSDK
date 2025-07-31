@@ -141,23 +141,23 @@ namespace Senparc.Weixin
         /// <summary>
         /// 公众号
         /// </summary>
-        MP,
+        MP = 0,
         /// <summary>
         /// 开放平台
         /// </summary>
-        Open,
+        Open = 1,
         /// <summary>
         /// 小程序
         /// </summary>
-        WxOpen,
+        WxOpen = 2,
         /// <summary>
-        /// 企业号
+        /// 企业号（已淘汰）
         /// </summary>
-        QY,
+        QY = 3,
         /// <summary>
         /// 企业微信
         /// </summary>
-        Work
+        Work = 4
     }
 
     /// <summary>
@@ -379,13 +379,13 @@ namespace Senparc.Weixin
         备案审核订单未处于可以撤回的状态 = 86330,
         不存在可撤回的审核订单 = 86368,
         申请小程序备案失败 = 86202,
-        系统错误_请稍后重试= 86301,
+        系统错误_请稍后重试 = 86301,
         输入信息与图片信息相差过大 = 86302,
         无法获取号码归属地 = 86303,
         证件有效期不满足要求 = 86308,
         当前正在审核中_请勿重复提交 = 86324,
         存在订单尚未完成_不允许再次提交 = 86358,
-        小程序未备案_不支持注销=86353,
+        小程序未备案_不支持注销 = 86353,
 
         //订阅通知
         模版tid参数错误 = 200014,
@@ -1542,7 +1542,7 @@ namespace Senparc.Weixin
     /// <summary>
     /// 用户信息中的性别（sex）
     /// </summary>
-    [Obsolete("请使用 Senparc.Weixin.Enums.WeixinSex 枚举。")]
+    [Obsolete("请使用 Senparc.Weixin.Enums.WeixinSex 枚举。", true)]
     public enum Sex
     {
 

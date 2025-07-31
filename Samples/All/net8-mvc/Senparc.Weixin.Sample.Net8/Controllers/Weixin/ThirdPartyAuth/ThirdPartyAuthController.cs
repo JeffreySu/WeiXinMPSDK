@@ -7,7 +7,6 @@ using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.MvcExtension;
-using Senparc.Weixin.Sample.CommonService.WorkMessageHandler;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Sample.CommonService.Utilities;
 using Senparc.Weixin.Sample.CommonService.WorkMessageHandlers;

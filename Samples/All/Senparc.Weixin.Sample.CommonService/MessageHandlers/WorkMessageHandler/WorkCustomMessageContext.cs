@@ -17,7 +17,7 @@ using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
 using Senparc.Weixin.Work.Entities;
 
-namespace Senparc.Weixin.Sample.CommonService.WorkMessageHandler
+namespace Senparc.Weixin.Sample.CommonService.WorkMessageHandlers
 {
     public class WorkCustomMessageContext : Senparc.Weixin.Work.MessageContexts.DefaultWorkMessageContext, IMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>
     {

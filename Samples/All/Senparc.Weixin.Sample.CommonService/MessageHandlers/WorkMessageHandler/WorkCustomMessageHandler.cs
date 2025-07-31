@@ -13,9 +13,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
+using Senparc.NeuChar.Entities.Request;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.Sample.CommonService.WorkMessageHandler;
+using Senparc.Weixin.Sample.CommonService.WorkMessageHandlers;
 using Senparc.Weixin.Work.AdvancedAPIs;
 using Senparc.Weixin.Work.Containers;
 using Senparc.Weixin.Work.Entities;
@@ -23,7 +25,7 @@ using Senparc.Weixin.Work.MessageHandlers;
 
 namespace Senparc.Weixin.Sample.CommonService.WorkMessageHandlers
 {
-    public class WorkCustomMessageHandler : WorkMessageHandler<WorkCustomMessageContext>
+    public partial class WorkCustomMessageHandler : WorkMessageHandler<WorkCustomMessageContext>
     {
         /// <summary>
         /// 为中间件提供生成当前类的委托
@@ -39,20 +41,37 @@ namespace Senparc.Weixin.Sample.CommonService.WorkMessageHandlers
             _workSetting = Senparc.Weixin.Config.SenparcWeixinSetting.WorkSetting;
         }
 
-        public override IWorkResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
+        public override async Task<IWorkResponseMessageBase> OnTextRequestAsync(RequestMessageText requestMessage)
         {
-            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
-            responseMessage.Content = "您发送了消息：" + requestMessage.Content;
 
-            //发送一条客服消息
-            var weixinSetting = Config.SenparcWeixinSetting.WorkSetting;
-            var appKey = AccessTokenContainer.BuildingKey(weixinSetting.WeixinCorpId, weixinSetting.WeixinCorpSecret);
-            MassApi.SendText(appKey, weixinSetting.WeixinCorpAgentId, "这是一条客服消息，对应您发送的消息：" + requestMessage.Content, OpenId);
+            #region 查看是否需要进入 AI 对话
 
-            return responseMessage;
+            var aiResponseMessage = await this.AIChatAsync(requestMessage);
+            if (aiResponseMessage != null)
+            {
+                return aiResponseMessage;
+            }
+
+            #endregion
+
+            var requestHandler = await requestMessage.StartHandler()
+            .Keyword("AI",()=>this.StartAIChatAsync().Result)
+            .Default(async()=>{
+               var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+                responseMessage.Content = "您发送了消息：" + requestMessage.Content;
+
+                //发送一条客服消息
+                var weixinSetting = Config.SenparcWeixinSetting.WorkSetting;
+                var appKey = AccessTokenContainer.BuildingKey(weixinSetting.WeixinCorpId, weixinSetting.WeixinCorpSecret);
+                MassApi.SendText(appKey, weixinSetting.WeixinCorpAgentId, "这是一条客服消息，对应您发送的消息：" + requestMessage.Content, OpenId);
+
+                return responseMessage;
+            });
+
+            return requestHandler.GetResponseMessage() as IWorkResponseMessageBase;
         }
 
-        public override IWorkResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
+        public override async Task<IWorkResponseMessageBase> OnImageRequestAsync(RequestMessageImage requestMessage)
         {
             var responseMessage = CreateResponseMessage<ResponseMessageImage>();
             responseMessage.Image.MediaId = requestMessage.MediaId;

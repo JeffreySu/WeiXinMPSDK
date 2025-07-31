@@ -270,7 +270,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                      * 这是一个特殊的过程，此请求通常来自于微微嗨（http://www.weiweihi.com）的“盛派网络小助手”应用请求（https://www.weiweihi.com/User/App/Detail/1），
                      * 用于演示微微嗨应用商店的处理过程，由于微微嗨的应用内部可以单独设置对话过期时间，所以这里通常不需要考虑对话状态，只要做最简单的响应。
                      */
-                    if (defaultResponseMessage.Content == "测试")
+                    if (requestMessage.Content == "测试")
                     {
                         //进入APP测试
                         defaultResponseMessage.Content = "您已经进入【盛派网络小助手】的测试程序，请发送任意信息进行测试。发送文字【退出】退出测试对话。10分钟内无任何交互将自动退出应用对话状态。";

@@ -46,6 +46,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// <summary>
     /// 群聊会话接口
     /// 文档：https://developer.work.weixin.qq.com/document/path/90245
+    /// https://developer.work.weixin.qq.com/document/path/90248
     /// </summary>
     [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
     public static class ChatApi

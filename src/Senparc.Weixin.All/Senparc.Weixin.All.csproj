@@ -3,7 +3,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>2025.7.15</Version>
+    <Version>2025.7.31</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.All</AssemblyName>
     <RootNamespace>Senparc.Weixin.All</RootNamespace>
@@ -52,6 +52,7 @@
 		[2025-01-21] v2025.1.21 更新版本号，加强 AI 支持
 		[2025-07-04] v2025.7.14 更新微信支付、小程序；优化 Sample；完善 AI 对话示例
 		[2025-07-08] v2025.7.15 微信支付分 增加参数device /PR #3156 / Issue #3155 感谢 @mojinxun @zariczhu
+		[2025-07-31] v2025.7.31 Work fix: 推送 News 的字段消息大小写敏感问题 / Issue 3164 感谢 @zhou-p
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

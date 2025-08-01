@@ -7,9 +7,11 @@
     
     创建标识：Senparc - 20240524
 
+    修改标识：Wang Qian - 20250728
+    修改描述：为长对话模式的支持新增了LastStoredMemory、LastStoredPrompt、UseLongChat属性
+
 ----------------------------------------------------------------*/
 
-using Microsoft.Extensions.AI;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Senparc.AI.Kernel.Handlers;
 using System.Collections.Generic;
@@ -41,11 +43,27 @@ namespace Senparc.Weixin.MP.Sample.CommonService.AI.MessageHandlers
         /// </summary>
         public bool UseMarkdown { get; set; }
 
+        /// <summary>
+        /// 是否使用长对话模式
+        /// </summary>
+        public bool UseLongChat { get; set; }
+
+        /// <summary>
+        /// 上一次保存的记忆
+        /// </summary>
+        public string LastStoredMemory { get; set; }
+
+        /// <summary>
+        /// 上一次提问的prompt
+        /// </summary>
+        public string LastStoredPrompt { get; set; }
+
         public ChatStore()
         {
             Status = ChatStatus.None;
             MultimodelType = MultimodelType.None;
             UseMarkdown = true;
+            UseLongChat = false;
         }
 
         public ChatHistory GetChatHistory()
@@ -60,7 +78,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.AI.MessageHandlers
 
         public void SetChatHistory(ChatHistory chatHistory)
         {
-            if (chatHistory==null)
+            if (chatHistory == null)
             {
                 ClearHistory();
             }
@@ -126,4 +144,5 @@ namespace Senparc.Weixin.MP.Sample.CommonService.AI.MessageHandlers
         SimpleChat,
         ChatAndImage
     }
+    
 }

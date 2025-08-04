@@ -19,7 +19,7 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         /// 返回Unknown，进行特殊处理
         /// </summary>
-        public override RequestMsgType MsgType => RequestMsgType.Unknown;
+        public override RequestMsgType MsgType => RequestMsgType.Mixed;
 
         /// <summary>
         /// 因为接口约束必须实现的属性，在这里不使用

@@ -55,14 +55,7 @@ namespace Senparc.Weixin.Work.Entities
         /// </summary>
         public ChatType ChatType { get; set; }
 
-        //默认返回Unknown，如果返回Unknown，说明是mixed或者stream消息，要通过msgtype来判断，特殊处理
-        public override RequestMsgType MsgType 
-        { 
-            get
-            {
-                return RequestMsgType.Unknown;
-            }
-        }
-
+        //默认返回Unknown，如果返回Unknown，说明是未知消息类型
+        public override RequestMsgType MsgType => RequestMsgType.Unknown;
     }
 }

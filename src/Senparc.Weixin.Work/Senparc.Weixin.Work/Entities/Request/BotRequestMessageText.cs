@@ -16,10 +16,7 @@ namespace Senparc.Weixin.Work.Entities
 {
     public class BotRequestMessageText : WorkBotRequestMessageBase, IRequestMessageText
     {
-        public override RequestMsgType MsgType
-        {
-            get { return RequestMsgType.Text; }
-        }
+        public override RequestMsgType MsgType => RequestMsgType.Text;
 
         /// <summary>
         /// 文本消息内容，对应text.content

@@ -19,7 +19,7 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         /// 默认返回Unknown类型，进行特殊处理
         /// </summary>
-        public override RequestMsgType MsgType => RequestMsgType.Unknown;
+        public override RequestMsgType MsgType => RequestMsgType.Stream;
 
         /// <summary>
         /// 流式消息id，对应stream.id

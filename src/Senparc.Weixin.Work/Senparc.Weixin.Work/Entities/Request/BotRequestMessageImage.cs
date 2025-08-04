@@ -17,10 +17,7 @@ namespace Senparc.Weixin.Work.Entities
 {
     public class BotRequestMessageImage : WorkBotRequestMessageBase, IRequestMessageImage
     {
-        public override RequestMsgType MsgType
-        {
-            get { return RequestMsgType.Image; }
-        }
+        public override RequestMsgType MsgType => RequestMsgType.Image;
         /// <summary>
         /// 因为接口约束必须实现的属性，在这里不使用
         /// </summary>

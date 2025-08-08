@@ -224,6 +224,11 @@ namespace Senparc.Weixin.Entities
         string TenPayV3_APIv3Key { get; set; }
 
         /// <summary>
+        /// 微信平台证书是否禁用 true/false 默认false 禁用
+        /// </summary>
+        bool TenPayV3_PlatformCertDisable { get; set; }
+
+        /// <summary>
         /// 微信支付（V3）微信平台公钥（替换平台证书）
         /// </summary>
         string TenPayV3_TenPayPubKey { get; set; }

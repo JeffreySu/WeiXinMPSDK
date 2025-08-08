@@ -67,7 +67,12 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public static string TryGetPrivateKeyFromFile(ref string tenPayV3_PrivateKey)
         {
-            if (tenPayV3_PrivateKey != null && tenPayV3_PrivateKey.Length < 100 && tenPayV3_PrivateKey.StartsWith("~/"))
+            if (string.IsNullOrWhiteSpace(tenPayV3_PrivateKey))
+            {
+                return tenPayV3_PrivateKey;
+            }
+
+            if (tenPayV3_PrivateKey.Length < 100 && tenPayV3_PrivateKey.StartsWith("~/"))
             {
                 //虚拟路径
                 //尝试读取文件
@@ -82,6 +87,11 @@ namespace Senparc.Weixin.Helpers
                 var privateKey = regex.Replace(fileContent, "");
                 tenPayV3_PrivateKey = privateKey;
             }
+            else
+            {
+                var privateKey = tenPayV3_PrivateKey.Replace("-----BEGIN PRIVATE KEY-----", "").Replace("-----END PRIVATE KEY-----", "");
+                tenPayV3_PrivateKey = privateKey;
+            }
             return tenPayV3_PrivateKey;
         }
 
@@ -91,7 +101,12 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public static string TryGetPublicKeyFromFile(ref string tenPayV3_PubKey)
         {
-            if (tenPayV3_PubKey != null && tenPayV3_PubKey.Length < 100 && tenPayV3_PubKey.StartsWith("~/"))
+            if (string.IsNullOrWhiteSpace(tenPayV3_PubKey))
+            {
+                return default;
+            }
+
+            if (tenPayV3_PubKey.Length < 100 && tenPayV3_PubKey.StartsWith("~/"))
             {
                 //虚拟路径
                 //尝试读取文件
@@ -106,6 +121,12 @@ namespace Senparc.Weixin.Helpers
                 var publicKey = regex.Replace(fileContent, "");
                 tenPayV3_PubKey = publicKey;
             }
+            else
+            {
+                var publicKey = tenPayV3_PubKey.Replace("-----BEGIN PUBLIC KEY-----", "").Replace("-----END PUBLIC KEY-----", "");
+                tenPayV3_PubKey = publicKey;
+            }
+
             return tenPayV3_PubKey;
         }
     }

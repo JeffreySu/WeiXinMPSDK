@@ -185,7 +185,12 @@ namespace Senparc.Weixin.Sample.CommonService.WorkMessageHandlers
                     });
 
                     //直接返回空响应，等待客服接口发送消息
-                    var noResponse = base.CreateResponseMessage<WorkResponseMessageNoResponse>();
+                    var noResponse = new WorkResponseMessageNoResponse
+                    {
+                        ToUserName = requestMessage.FromUserName,
+                        FromUserName = requestMessage.ToUserName,
+                        CreateTime = SystemTime.Now
+                    };
                     return noResponse;
 
                     #endregion

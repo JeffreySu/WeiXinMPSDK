@@ -30,7 +30,7 @@ namespace Senparc.Weixin.Work.MessageContext
         /// <param name="requestMsgType"></param>
         /// <param name="doc"></param>
         /// <returns></returns>
-        public override IWorkBotRequestMessageBase GetRequestEntityMappingResult(RequestMsgType requestMsgType, XDocument doc)
+        public override IWorkBotRequestMessageBase GetRequestEntityMappingResult(RequestMsgType requestMsgType, XDocument doc = null)
         {
             IWorkBotRequestMessageBase requestMessage;
             switch (requestMsgType)
@@ -66,7 +66,7 @@ namespace Senparc.Weixin.Work.MessageContext
             return requestMessage;
         }
 
-        public override IWorkBotResponseMessageBase GetResponseEntityMappingResult(ResponseMsgType responseMsgType, XDocument doc)
+        public override IWorkBotResponseMessageBase GetResponseEntityMappingResult(ResponseMsgType responseMsgType, XDocument doc = null)
         {
             IWorkBotResponseMessageBase responseMessage;
             switch (responseMsgType)

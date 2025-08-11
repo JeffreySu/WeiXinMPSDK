@@ -24,3 +24,4 @@ namespace Senparc.Weixin.Work.Entities
         public string Content { get; set; }
     }
 }
+

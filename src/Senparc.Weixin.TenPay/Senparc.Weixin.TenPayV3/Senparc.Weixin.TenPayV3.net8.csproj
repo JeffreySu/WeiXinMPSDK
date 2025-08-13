@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>2.1.1</Version>
+    <Version>2.2.0</Version>
     <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
     <LangVersion>10.0</LangVersion>
@@ -63,7 +63,7 @@
 		v2.0.1 微信支付公钥验签失败问题 / PR #3119 感谢 @Guili95
 		[2025-06-18] v2.1.0 兼容微信平台证书和微信支付公钥 / PR #3144 感谢 @mojinxun
 		[2025-07-08] v2.1.1 微信支付分 增加参数device /PR #3156 / Issue #3155 感谢 @mojinxun @zariczhu
-	</PackageReleaseNotes>
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

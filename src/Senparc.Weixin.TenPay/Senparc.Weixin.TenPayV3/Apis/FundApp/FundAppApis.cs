@@ -25,7 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：微信支付 V3 资金应用 - 商家转账 API
     
     
-    创建标识：Senparc - 20250124
+    创建标识：Senparc - 20250813
 
 ----------------------------------------------------------------*/
 
@@ -52,6 +52,8 @@ namespace Senparc.Weixin.TenPayV3.Apis.FundApp
             _tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
         }
 
+        #region 发起转账
+
         /// <summary>
         /// 发起转账API
         /// <para>商家转账用户确认模式下，用户申请收款时，商户可通过此接口申请创建转账单</para>
@@ -66,5 +68,52 @@ namespace Senparc.Weixin.TenPayV3.Apis.FundApp
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
             return await tenPayApiRequest.RequestAsync<TransferBillReturnJson>(url, data, timeOut);
         }
+
+        /// <summary>
+        /// 撤销转账API
+        /// <para>商户通过转账接口发起付款后，在用户确认收款之前可以通过该接口撤销付款</para>
+        /// <para>https://pay.weixin.qq.com/doc/v3/merchant/4012716458</para>
+        /// </summary>
+        /// <param name="data">撤销转账请求数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<CancelTransferReturnJson> CancelTransferAsync(CancelTransferRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/fund-app/mch-transfer/transfer-bills/out-bill-no/{data.out_bill_no}/cancel");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<CancelTransferReturnJson>(url, null, timeOut, ApiRequestMethod.POST);
+        }
+
+        /// <summary>
+        /// 商户单号查询转账单API
+        /// <para>商户可通过商户单号查询转账单据详情</para>
+        /// <para>https://pay.weixin.qq.com/doc/v3/merchant/4012716437</para>
+        /// </summary>
+        /// <param name="data">查询转账单请求数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<QueryTransferReturnJson> QueryTransferByOutBillNoAsync(QueryTransferByOutBillNoRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/fund-app/mch-transfer/transfer-bills/out-bill-no/{data.out_bill_no}");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<QueryTransferReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+        }
+
+        /// <summary>
+        /// 微信单号查询转账单API
+        /// <para>商户可通过微信转账单号查询转账单据详情</para>
+        /// <para>https://pay.weixin.qq.com/doc/v3/merchant/4012716457</para>
+        /// </summary>
+        /// <param name="data">查询转账单请求数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<QueryTransferReturnJson> QueryTransferByBillNoAsync(QueryTransferByBillNoRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/fund-app/mch-transfer/transfer-bills/transfer-bill-no/{data.transfer_bill_no}");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<QueryTransferReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+        }
+
+        #endregion
     }
 }

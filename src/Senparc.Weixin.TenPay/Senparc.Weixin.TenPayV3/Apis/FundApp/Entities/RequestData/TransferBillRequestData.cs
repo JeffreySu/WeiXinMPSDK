@@ -25,7 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：商家转账 - 发起转账API 请求数据
     
     
-    创建标识：Senparc - 20250124
+    创建标识：Senparc - 20250813
 
 ----------------------------------------------------------------*/
 

@@ -115,5 +115,69 @@ namespace Senparc.Weixin.TenPayV3.Apis.FundApp
         }
 
         #endregion
+
+        #region 获取电子回单
+
+        /// <summary>
+        /// 商户单号申请电子回单API
+        /// <para>商户可以指定商户转账单号通过该接口申请商家转账用户确认模式转账单据对应的电子回单</para>
+        /// <para>https://pay.weixin.qq.com/doc/v3/merchant/4012716452</para>
+        /// </summary>
+        /// <param name="data">申请电子回单请求数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<ApplyElecsignReturnJson> ApplyElecsignByOutBillNoAsync(ApplyElecsignByOutBillNoRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/fund-app/mch-transfer/elecsign/out-bill-no");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<ApplyElecsignReturnJson>(url, data, timeOut);
+        }
+
+        /// <summary>
+        /// 商户单号查询电子回单API
+        /// <para>商户可以指定商户转账单号通过该接口查询电子回单申请和处理进度</para>
+        /// <para>https://pay.weixin.qq.com/doc/v3/merchant/4012716436</para>
+        /// </summary>
+        /// <param name="data">查询电子回单请求数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<QueryElecsignReturnJson> QueryElecsignByOutBillNoAsync(QueryElecsignByOutBillNoRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/fund-app/mch-transfer/elecsign/out-bill-no/{data.out_bill_no}");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<QueryElecsignReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+        }
+
+        /// <summary>
+        /// 微信单号申请电子回单API
+        /// <para>商户可以指定微信转账单号通过该接口申请商家转账用户确认模式转账单据对应的电子回单</para>
+        /// <para>https://pay.weixin.qq.com/doc/v3/merchant/4012716456</para>
+        /// </summary>
+        /// <param name="data">申请电子回单请求数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<ApplyElecsignReturnJson> ApplyElecsignByBillNoAsync(ApplyElecsignByBillNoRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/fund-app/mch-transfer/elecsign/transfer-bill-no");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<ApplyElecsignReturnJson>(url, data, timeOut);
+        }
+
+        /// <summary>
+        /// 微信单号查询电子回单API
+        /// <para>商户可以指定微信转账单号通过该接口查询电子回单申请和处理进度</para>
+        /// <para>https://pay.weixin.qq.com/doc/v3/merchant/4012716455</para>
+        /// </summary>
+        /// <param name="data">查询电子回单请求数据</param>
+        /// <param name="timeOut">超时时间，单位为ms</param>
+        /// <returns></returns>
+        public async Task<QueryElecsignReturnJson> QueryElecsignByBillNoAsync(QueryElecsignByBillNoRequestData data, int timeOut = Config.TIME_OUT)
+        {
+            var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/fund-app/mch-transfer/elecsign/transfer-bill-no/{data.transfer_bill_no}");
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsync<QueryElecsignReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+        }
+
+        #endregion
     }
 }

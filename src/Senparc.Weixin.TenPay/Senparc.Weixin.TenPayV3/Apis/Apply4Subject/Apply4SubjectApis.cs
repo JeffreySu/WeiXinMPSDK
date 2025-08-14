@@ -118,3 +118,5 @@ namespace Senparc.Weixin.TenPayV3.Apis.Apply4Subject
         #endregion
     }
 }
+
+

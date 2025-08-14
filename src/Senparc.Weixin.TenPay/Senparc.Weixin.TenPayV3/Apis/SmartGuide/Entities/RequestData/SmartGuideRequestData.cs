@@ -82,3 +82,5 @@ namespace Senparc.Weixin.TenPayV3.Apis.SmartGuide
         public string group_qrcode { get; set; }
     }
 }
+
+

@@ -214,3 +214,5 @@ namespace Senparc.Weixin.TenPayV3.Apis.Apply4Sub
         public Apply4SubAccountInfo account_info { get; set; }
     }
 }
+
+

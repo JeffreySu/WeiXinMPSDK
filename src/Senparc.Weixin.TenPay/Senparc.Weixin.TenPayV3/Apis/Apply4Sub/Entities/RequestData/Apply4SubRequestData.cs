@@ -248,3 +248,5 @@ namespace Senparc.Weixin.TenPayV3.Apis.Apply4Sub
         public string sub_mchid { get; set; }
     }
 }
+
+

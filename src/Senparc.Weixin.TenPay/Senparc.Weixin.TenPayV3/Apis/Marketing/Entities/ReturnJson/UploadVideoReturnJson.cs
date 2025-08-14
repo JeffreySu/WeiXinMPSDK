@@ -46,3 +46,5 @@ namespace Senparc.Weixin.TenPayV3.Apis.Marketing
         public string media_id { get; set; }
     }
 }
+
+

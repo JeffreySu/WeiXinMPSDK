@@ -83,3 +83,5 @@ namespace Senparc.Weixin.TenPayV3.Apis.SmartGuide
         public string guide_id { get; set; }
     }
 }
+
+

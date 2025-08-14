@@ -57,3 +57,5 @@ namespace Senparc.Weixin.TenPayV3.Apis.MerchantRisk
         public string notify_url { get; set; }
     }
 }
+
+

@@ -83,6 +83,8 @@ namespace Senparc.Weixin.Sample.Net8
             //启用 WebApi（可选）
             services.AddAndInitDynamicApi(builder, options => options.DocXmlPath = ServerUtility.ContentRootMapPath("~/App_Data"));
 
+            services.AddMcpRouter();
+
             //此处可以添加更多 Cert 证书
             //services.AddCertHttpClient("name", "pwd", "path");
         }

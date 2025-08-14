@@ -47,7 +47,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
     public partial class MarketingApis
     {
         #region 视频上传接口
-
+        /*
         /// <summary>
         /// 视频上传API
         /// <para>通过本接口上传视频文件，获取视频MediaID</para>
@@ -63,7 +63,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
 
             //文件信息
             var fileBytes = fileStream.ReadFully();
-            var fileSha256 = SHA256.Create().ComputeHash(fileBytes).ToHex();
+            var fileSha256 =  SHA256.Create().ComputeHash(fileBytes).ToHex();
 
             var formData = new
             {
@@ -79,6 +79,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 fileName: fileName, 
                 formData: formData);
         }
+
 
         /// <summary>
         /// 视频上传API（通过文件路径）
@@ -96,6 +97,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
                 return await UploadVideoAsync(fileName, fs, timeOut);
             }
         }
+        */
 
         #endregion
     }

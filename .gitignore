@@ -70,4 +70,4 @@ yarn.lock
 /Samples/SamplePublish/
 /tools/WeixinDocVectorGenerator/WeixinDocVectorGenerator/App_Data/ApiDocXml/*
 /Samples/All/net8-mvc/Senparc.Weixin.Sample.Net8/App_Data/ApiDocXml
-*.json
+appsettings.Development.json

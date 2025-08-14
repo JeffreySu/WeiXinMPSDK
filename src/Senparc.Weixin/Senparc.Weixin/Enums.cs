@@ -157,7 +157,11 @@ namespace Senparc.Weixin
         /// <summary>
         /// 企业微信
         /// </summary>
-        Work = 4
+        Work = 4,
+        /// <summary>
+        /// 微信支付 V3
+        /// </summary>
+        TenPayV3=5,
     }
 
     /// <summary>

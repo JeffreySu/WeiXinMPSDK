@@ -150,7 +150,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Ecommerce
         }
 
         #endregion
-
+        /*
         #region 分账API
 
         /// <summary>
@@ -278,5 +278,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Ecommerce
         }
 
         #endregion
+        */
     }
+
 }

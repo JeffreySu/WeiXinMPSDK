@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>1.1.8</Version>
+    <Version>1.2.0</Version>
     <AssemblyName>Senparc.Weixin.Cache.CsRedis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.CsRedis</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -24,6 +24,7 @@
     <PackageReleaseNotes>
 			v0.1.0
 			创世
+			[2025-08-15] v1.2.0 更新 Senparc.CO2NET.Cache.CsRedis 基础包，解决非启用状态下被自动载入问题
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -61,7 +62,7 @@
   <ItemGroup>
     <!--<PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.1.0" />-->
     <!--<PackageReference Include="BinaryFormatter" Version="2.1.4" />-->
-    <PackageReference Include="Senparc.CO2NET.Cache.CsRedis" Version="2.2.0.1" />
+    <PackageReference Include="Senparc.CO2NET.Cache.CsRedis" Version="2.2.0.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net8.csproj" />

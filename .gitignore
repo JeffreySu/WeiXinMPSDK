@@ -68,5 +68,6 @@ yarn.lock
 /src/Senparc.Weixin.MP/Senparc.Weixin.MP.Test/AdvancedAPIs/Media/*.jpg
 /src/Senparc.Weixin.MP/Senparc.Weixin.MP.Test/*.jpg
 /Samples/SamplePublish/
-/tools/WeixinDocVectorGenerator/WeixinDocVectorGenerator/App_Data/ApiDocXml/DynamicFiles
-*.json
+/tools/WeixinDocVectorGenerator/WeixinDocVectorGenerator/App_Data/ApiDocXml/*
+/Samples/All/net8-mvc/Senparc.Weixin.Sample.Net8/App_Data/ApiDocXml
+appsettings.Development.json

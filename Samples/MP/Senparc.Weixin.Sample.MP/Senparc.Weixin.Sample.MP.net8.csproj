@@ -24,10 +24,10 @@
 
 	<!--引用 Nuget 包-->
 	<ItemGroup>
-		<PackageReference Include="Senparc.Weixin.AspNet" Version="1.4.9" />
-		<PackageReference Include="Senparc.Weixin.MP" Version="16.23.8" />
-		<PackageReference Include="Senparc.Weixin.MP.Middleware" Version="1.4.9" />
-		<PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.16.9" />
+		<PackageReference Include="Senparc.Weixin.AspNet" Version="1.4.10" />
+		<PackageReference Include="Senparc.Weixin.MP" Version="16.23.9" />
+		<PackageReference Include="Senparc.Weixin.MP.Middleware" Version="1.4.10" />
+		<PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.16.10" />
 	</ItemGroup>
 
 	<!--直接引用源码-->

@@ -44,6 +44,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+#if NET8_0_OR_GREATER
+using ModelContextProtocol.Protocol;
+using ModelContextProtocol.Server;
+#endif
 using Senparc.CO2NET;
 using Senparc.CO2NET.AspNet;
 using Senparc.CO2NET.Cache;
@@ -51,6 +55,7 @@ using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Senparc.Weixin.AspNet
 {
@@ -92,6 +97,55 @@ namespace Senparc.Weixin.AspNet
 
             return register;
         }
+
+
+#if NET8_0_OR_GREATER
+        #region MCP Router
+
+
+        public static IServiceCollection AddMcpRouter(IServiceCollection services)
+        {
+
+            //var aiFunction = global::Microsoft.Extensions.AI.AIFunctionFactory.Create(methodInfo,
+            // typeof(Senparc.Xncf.SenMapic.OHS.Local.AppService.MyFuctionAppService));
+
+            //var tool = McpServerTool.Create(aiFunction);
+
+            var routerName = "WeChat-Mcp";
+            System.Console.WriteLine($"正在添加微信 MCP Router:/{routerName}/sse");
+
+            var mcpServerBuilder = services.AddMcpServer(opt =>
+            {
+                opt.ServerInfo = new Implementation()
+                {
+                    Name = routerName,
+                    Version = "1.0.0",
+                };
+            })
+          .WithHttpTransport()
+          .WithToolsFromAssembly();
+
+
+
+            //var mcpServerBuilder = services.AddMcpServer(opt =>
+            //            {
+            //                opt.ServerInfo = new Implementation()
+            //                {
+            //                    Name = routerName,
+            //                    Version = "1.0.0",
+            //                };
+            //            })
+            //            .WithHttpTransport()
+            //                                //   .WithStdioServerTransport()
+            //                                //.WithTools(new[] { tool })
+            //                                .WithToolsFromAssembly()
+            //                                //.WithToolsFromAssembly(typeof(Senparc.Xncf.SenMapic.Register).Assembly)
+            //                                ;
+            return services;
+        }
+
+        #endregion
+#endif
     }
 }
 #endif

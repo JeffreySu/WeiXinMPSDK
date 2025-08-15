@@ -33,6 +33,9 @@ using Senparc.Weixin.Work.MessageHandlers.Middleware;
 using Senparc.Weixin.WxOpen;
 using Senparc.Weixin.WxOpen.MessageHandlers.Middleware;
 using System.Text;
+using Senparc.Weixin.AspNet;
+using Microsoft.AspNetCore.Routing.Patterns;
+using Senparc.CO2NET.ApiBind;
 
 namespace Senparc.Weixin.Sample.Net8
 {
@@ -80,8 +83,22 @@ namespace Senparc.Weixin.Sample.Net8
                     .AddSenparcAI(Configuration) //注册 Senparc.AI，提供 AI 能力（可选）
                     ;
 
+            var assemblies = Microsoft.Extensions.DependencyModel.DependencyContext.Default.RuntimeLibraries;
+
+            WebApiEngineExtensions.WebApiInitFinished = false;
             //启用 WebApi（可选）
-            services.AddAndInitDynamicApi(builder, options => options.DocXmlPath = ServerUtility.ContentRootMapPath("~/App_Data"));
+            services.AddAndInitDynamicApi(builder, options =>
+            {
+                options.DocXmlPath = ServerUtility.ContentRootMapPath("~/App_Data/ApiDocXml");
+                options.TaskCount = 8;
+                options.ShowDetailApiLog = true;
+            });
+
+            var apiGroups = ApiBindInfoCollection.Instance.GetGroupedCollection();
+            var apiGouupsCount = apiGroups.Count();
+
+            Senparc.Weixin.AspNet.WeixinRegister.AddMcpRouter(services);
+            //services.AddMcpRouter();
 
             //此处可以添加更多 Cert 证书
             //services.AddCertHttpClient("name", "pwd", "path");
@@ -146,6 +163,8 @@ namespace Senparc.Weixin.Sample.Net8
                     //配置全局使用Redis缓存（按需，独立）
                     if (UseRedis(senparcSetting.Value, out string redisConfigurationStr))//这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的，这里的if条件可以忽略
                     {
+                        Console.WriteLine("\t\t==== 开始注册缓存：" + redisConfigurationStr);
+
                         /* 说明：
                          * 1、Redis 的连接字符串信息会从 Config.SenparcSetting.Cache_Redis_Configuration 自动获取并注册，如不需要修改，下方方法可以忽略
                         /* 2、如需手动修改，可以通过下方 SetConfigurationOption 方法手动设置 Redis 链接信息（仅修改配置，不立即启用）
@@ -230,8 +249,10 @@ namespace Senparc.Weixin.Sample.Net8
                     //注意：如果使用非本地缓存，而不执行本块注册代码，将会收到“当前扩展缓存策略没有进行注册”的异常
 
                     //微信的 Redis 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）
-                    if (UseRedis(senparcSetting.Value, out _))
+                    if (UseRedis(senparcSetting.Value, out string rstr))
                     {
+                        Console.WriteLine("\t\t==== 开始注册微信缓存：" + rstr);
+
                         weixinRegister.UseSenparcWeixinCacheCsRedis();//CsRedis，两选一
                         //weixinRegister.UseSenparcWeixinCacheRedis();//StackExchange.Redis，两选一
                     }
@@ -452,6 +473,8 @@ namespace Senparc.Weixin.Sample.Net8
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapMcp("WeChatMcp");
             });
 
             //使用 SignalR（.NET Core 3.0）

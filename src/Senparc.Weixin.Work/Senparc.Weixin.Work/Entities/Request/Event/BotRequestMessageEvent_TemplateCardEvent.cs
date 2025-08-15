@@ -12,44 +12,48 @@
     创建标识：Wang Qian - 20250804
 ----------------------------------------------------------------*/
 
-using Senparc.NeuChar.Entities;
-using Senparc.NeuChar;
-using System.Xml.Serialization;
 using System.Collections.Generic;
 
 namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
-    /// 模板卡片事件推送
+    /// 模板卡片事件推送（template_card_event）
     /// </summary>
-    public class BotRequestMessageEvent_TemplateCardEvent : BotRequestMessageEventBase, IBotRequestMessageEventBase, IBotRequestMessageEventKey
+    public class BotRequestMessageEvent_TemplateCardEvent : BotRequestMessageEventBase
     {
-        public override Event Event => Event.TEMPLATE_CARD_EVENT;
-
         /// <summary>
-        /// 对应cardtype
+        /// 事件对象
         /// </summary>
-        public TemplateCard_CardTypeEnum CardType { get; set; }
+        public Event_TemplateCard @event { get; set; }
 
-        /// <summary>
-        /// 对应eventkey，用户点击的按钮交互模版卡片的按钮key
-        /// </summary>
-        public string EventKey { get; set; }
+        public class Event_TemplateCard
+        {
+            public string eventtype { get; set; } = "template_card_event";
+            public Template_Card_Event template_card_event { get; set; }
+        }
 
-        /// <summary>
-        /// 对应taskid，用户点击的交互模版卡片的task_id
-        /// </summary>
-        public string TaskId { get; set; }
+        public class Template_Card_Event
+        {
+            public string card_type { get; set; }
+            public string event_key { get; set; }
+            public string taskid { get; set; }
+            public Selected_Items selected_items { get; set; }
+        }
 
-        /// <summary>
-        /// 对应selected_items，用户点击提交的选择框数据，参考SeletedItem结构说明
-        /// </summary>
-        [XmlArray("SelectedItems")]
-        [XmlArrayItem("SelectedItem")]
-        public List<TemplateCard_SelectedItem> SelectedItems { get; set; }
+        public class Selected_Items
+        {
+            public List<Selected_Item> selected_item { get; set; }
+        }
 
+        public class Selected_Item
+        {
+            public string question_key { get; set; }
+            public Option_Ids option_ids { get; set; }
+        }
 
-        
-        
+        public class Option_Ids
+        {
+            public List<string> option_id { get; set; }
+        }
     }
 }

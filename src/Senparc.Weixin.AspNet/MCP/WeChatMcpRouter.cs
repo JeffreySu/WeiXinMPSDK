@@ -42,11 +42,14 @@ namespace Senparc.Weixin.AspNet.MCP
             [Description("平台名称，只能从以下名称中选择，不能出现任何偏差，且大小写敏感：WeChat_OfficialAccount, WeChat_MiniProgram, WeChat_Open, WeChat_Work")]
             string platformName)
         {
-            var apiItems = Senparc.CO2NET.WebApi.FindApiService.ApiItemList
-                                            .Where(z => z.Category == platformName)
-                                            .Select(z => z.FullMethodName.Substring(0, z.FullMethodName.LastIndexOf(".")))
-                                            .Distinct()
-                                            .ToArray();
+
+            var items = Senparc.CO2NET.WebApi.FindApiService.ApiItemList;
+            Console.WriteLine($"ApiItems 数量：{items.Count}");
+            var apiItems = items
+                                .Where(z => z.Category == platformName)
+                                .Select(z => z.FullMethodName.Substring(0, z.FullMethodName.LastIndexOf(".")))
+                                .Distinct()
+                                .ToArray();
             //TODO: 添加每个 API 模块的说明
 
             var result = new WeChatMcpResult<string[]>()

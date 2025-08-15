@@ -111,7 +111,7 @@ namespace Senparc.Weixin.AspNet
 
             //var tool = McpServerTool.Create(aiFunction);
 
-            var routerName = "WeChatMcp";
+            var routerName = "WeChat-Mcp";
             System.Console.WriteLine($"正在添加微信 MCP Router:/{routerName}/sse");
 
             var mcpServerBuilder = services.AddMcpServer(opt =>

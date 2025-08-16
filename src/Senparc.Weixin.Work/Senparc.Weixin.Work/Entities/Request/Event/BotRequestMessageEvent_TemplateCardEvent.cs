@@ -24,7 +24,7 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         /// 事件对象
         /// </summary>
-        public Event_TemplateCard @event { get; set; }
+        public new Event_TemplateCard @event { get; set; }
 
         public class Event_TemplateCard
         {

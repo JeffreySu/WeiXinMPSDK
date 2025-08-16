@@ -31,7 +31,7 @@ namespace Senparc.Weixin.Work.Entities
         /// </summary>
         public new From from { get; set; }
 
-        // 事件对象（event）先不在基类实现，由具体事件子类根据文档自行定义
+        public Event @event { get; set; }
 
         /// <summary>
         /// from 对象
@@ -47,6 +47,11 @@ namespace Senparc.Weixin.Work.Entities
             /// 成员 UserId，对应 userid
             /// </summary>
             public string userid { get; set; }
+        }
+
+        public class Event
+        {
+            public string eventtype { get; set; }
         }
 
     }

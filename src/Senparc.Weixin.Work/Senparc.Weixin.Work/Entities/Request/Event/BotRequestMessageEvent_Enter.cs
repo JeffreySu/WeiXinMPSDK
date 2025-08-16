@@ -23,7 +23,7 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         /// 事件对象：仅包含 eventtype = "enter_chat"
         /// </summary>
-        public Event_Enter @event { get; set; }
+        public new Event_Enter @event { get; set; }
 
         public class Event_Enter
         {

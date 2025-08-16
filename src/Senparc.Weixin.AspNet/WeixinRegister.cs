@@ -52,6 +52,7 @@ using Senparc.CO2NET;
 using Senparc.CO2NET.AspNet;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.RegisterServices;
+using Senparc.Weixin.AspNet.MCP;
 using Senparc.Weixin.Entities;
 using System;
 using System.Collections.Generic;
@@ -123,7 +124,8 @@ namespace Senparc.Weixin.AspNet
                 };
             })
           .WithHttpTransport()
-          .WithToolsFromAssembly();
+          .WithTools(new[] { typeof(WeChatMcpRouter) });
+            //.WithToolsFromAssembly();
 
 
 

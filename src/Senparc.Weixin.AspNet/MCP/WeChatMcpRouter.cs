@@ -15,7 +15,7 @@ namespace Senparc.Weixin.AspNet.MCP
     [McpServerToolType]
     public class WeChatMcpRouter
     {
-        [Description("Get all WeChat platform names")]
+        [Description("WeChat McpRouter entry point. Get all WeChat platform names")]
         [McpServerTool()]
         public WeChatMcpResult<List<PlatformDescription>> GetPlatformNames()
         {
@@ -50,6 +50,8 @@ namespace Senparc.Weixin.AspNet.MCP
                                 .Select(z => z.FullMethodName.Substring(0, z.FullMethodName.LastIndexOf(".")))
                                 .Distinct()
                                 .ToArray();
+
+
             //TODO: 添加每个 API 模块的说明
 
             var result = new WeChatMcpResult<string[]>()

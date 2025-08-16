@@ -7,6 +7,9 @@
     
     创建标识：Wang Qian - 20250803
 
+    修改标识: Wang Qian - 20250815
+    修改描述: 修改为直接映射文档原始键名，便于无特性反序列化
+
 ----------------------------------------------------------------*/
 
 
@@ -15,17 +18,25 @@ using Senparc.NeuChar;
 
 namespace Senparc.Weixin.Work.Entities
 {
-    public class BotRequestMessageImage : WorkBotRequestMessageBase, IRequestMessageImage
+    /// <summary>
+    /// 图片消息，请求实体
+    /// </summary>
+    public class BotRequestMessageImage : WorkBotRequestMessageBase
     {
-        public override RequestMsgType MsgType => RequestMsgType.Image;
         /// <summary>
-        /// 因为接口约束必须实现的属性，在这里不使用
+        /// 图片内容，对应 JSON 中的 image
         /// </summary>
-        public string MediaId { get; set; }
+        public Image image { get; set; }
 
         /// <summary>
-        /// 图片链接，对应image.url
+        /// 与文档一致的 image 对象
         /// </summary>
-        public string PicUrl { get; set; }
+        public class Image
+        {
+            /// <summary>
+            /// 图片 URL
+            /// </summary>
+            public string url { get; set; }
+        }
     }
 }

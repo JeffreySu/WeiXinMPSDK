@@ -63,9 +63,11 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
 
-            var result = ChatApi.QuitChat(accessToken, "1", "007");
+            // 注释掉已废弃的API调用
+            // var result = ChatApi.QuitChat(accessToken, "1", "007");
             
-            Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
+            // 由于该接口已被官方废除，跳过测试
+            Assert.Inconclusive("ChatApi.QuitChat接口已被官方废除");
         }
     }
 }

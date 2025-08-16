@@ -11,6 +11,9 @@
     修改标识：Senparc - 20191005
     修改描述：合并更新官方最新示例（没有实质变化）：https://work.weixin.qq.com/api/doc#90000/90138/90307/c#%E5%BA%93
 
+    修改标识：Wang Qian - 20250816
+    修改描述：添加 DecryptJsonMsg() 和 EncryptJsonMsg() 方法，支持 JSON 格式消息加解密
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Trace;
@@ -19,6 +22,7 @@ using System.Collections;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
+using Senparc.CO2NET.Helpers;
 //using System.Web;
 
 //-40001 ： 签名验证错误
@@ -197,6 +201,135 @@ namespace Senparc.Weixin.Work.Tencent
             sEncryptMsg = sEncryptMsg + NonceLabelHead + sNonce + NonceLabelTail;
             sEncryptMsg += "</xml>";
             return 0;
+        }
+
+        /// <summary>
+        /// 检验消息的真实性，并且获取解密后的明文（JSON格式）
+        /// 用于企业微信智能体（机器人）的JSON格式消息解密
+        /// 参考文档：https://developer.work.weixin.qq.com/document/path/101033
+        /// </summary>
+        /// <param name="sMsgSignature">签名串，对应URL参数的msg_signature</param>
+        /// <param name="sTimeStamp">时间戳，对应URL参数的timestamp</param>
+        /// <param name="sNonce">随机串，对应URL参数的nonce</param>
+        /// <param name="sPostData">密文JSON，对应POST请求的数据</param>
+        /// <param name="sMsg">解密后的原文，当return返回0时有效</param>
+        /// <returns>成功0，失败返回对应的错误码</returns>
+        public int DecryptJsonMsg(string sMsgSignature, string sTimeStamp, string sNonce, string sPostData, ref string sMsg)
+        {
+            if (m_sEncodingAESKey.Length != 43)
+            {
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
+            }
+
+            string sEncryptMsg;
+            try
+            {
+                // 解析JSON格式的加密消息
+                var encryptData = SerializerHelper.GetObject<EncryptJsonData>(sPostData);
+                sEncryptMsg = encryptData.encrypt;
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.SendCustomLog("DecryptJsonMsg Error", ex.Message);
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_ParseXml_Error;
+            }
+
+            // 验证签名
+            int ret = VerifySignature(m_sToken, sTimeStamp, sNonce, sEncryptMsg, sMsgSignature);
+            if (ret != 0)
+                return ret;
+
+            // 解密
+            string cpid = "";
+            try
+            {
+                sMsg = Cryptography.AES_decrypt(sEncryptMsg, m_sEncodingAESKey, ref cpid);
+            }
+            catch (FormatException)
+            {
+                sMsg = "";
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_DecodeBase64_Error;
+            }
+            catch (Exception)
+            {
+                sMsg = "";
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_DecryptAES_Error;
+            }
+
+            // 验证接收者ID
+            if (cpid != m_sReceiveId)
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_ValidateCorpid_Error;
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 将企业微信智能体（机器人）回复用户的消息加密打包（JSON格式）
+        /// </summary>
+        /// <param name="sReplyMsg">待回复用户的消息，JSON格式的字符串</param>
+        /// <param name="sTimeStamp">时间戳</param>
+        /// <param name="sNonce">随机串</param>
+        /// <param name="sEncryptMsg">加密后的JSON格式字符串</param>
+        /// <returns>成功0，失败返回对应的错误码</returns>
+        public int EncryptJsonMsg(string sReplyMsg, string sTimeStamp, string sNonce, ref string sEncryptMsg)
+        {
+            if (m_sEncodingAESKey.Length != 43)
+            {
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
+            }
+
+            string raw = "";
+            try
+            {
+                raw = Cryptography.AES_encrypt(sReplyMsg, m_sEncodingAESKey, m_sReceiveId);
+            }
+            catch (Exception)
+            {
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_EncryptAES_Error;
+            }
+
+            string MsgSignature = "";
+            int ret = GenarateSinature(m_sToken, sTimeStamp, sNonce, raw, ref MsgSignature);
+            if (0 != ret)
+                return ret;
+
+            // 构造JSON格式的加密消息
+            var encryptData = new EncryptJsonData
+            {
+                encrypt = raw,
+                msgsignature = MsgSignature,
+                timestamp = sTimeStamp,
+                nonce = sNonce
+            };
+
+            sEncryptMsg = SerializerHelper.GetJsonString(encryptData);
+            return 0;
+        }
+
+        /// <summary>
+        /// 加密的JSON数据结构（用于智能体消息）
+        /// </summary>
+        private class EncryptJsonData
+        {
+            /// <summary>
+            /// 加密后的消息密文
+            /// </summary>
+            public string encrypt { get; set; }
+
+            /// <summary>
+            /// 消息签名
+            /// </summary>
+            public string msgsignature { get; set; }
+
+            /// <summary>
+            /// 时间戳
+            /// </summary>
+            public string timestamp { get; set; }
+
+            /// <summary>
+            /// 随机串
+            /// </summary>
+            public string nonce { get; set; }
         }
 
         public class DictionarySort : System.Collections.IComparer

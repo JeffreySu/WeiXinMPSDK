@@ -83,22 +83,12 @@ namespace Senparc.Weixin.Sample.Net8
                     .AddSenparcAI(Configuration) //注册 Senparc.AI，提供 AI 能力（可选）
                     ;
 
-            var assemblies = Microsoft.Extensions.DependencyModel.DependencyContext.Default.RuntimeLibraries;
-
-            WebApiEngineExtensions.WebApiInitFinished = false;
             //启用 WebApi（可选）
             services.AddAndInitDynamicApi(builder, options =>
             {
                 options.DocXmlPath = ServerUtility.ContentRootMapPath("~/App_Data/ApiDocXml");
-                options.TaskCount = 8;
-                options.ShowDetailApiLog = true;
             });
 
-            var apiGroups = ApiBindInfoCollection.Instance.GetGroupedCollection();
-            var apiGouupsCount = apiGroups.Count();
-
-            Senparc.Weixin.AspNet.WeixinRegister.AddMcpRouter(services);
-            //services.AddMcpRouter();
 
             //此处可以添加更多 Cert 证书
             //services.AddCertHttpClient("name", "pwd", "path");
@@ -467,15 +457,6 @@ namespace Senparc.Weixin.Sample.Net8
             #endregion
 
             app.UseAuthorization();//需要在注册微信 SDK 之后执行
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-                endpoints.MapMcp("WeChatMcp");
-            });
 
             //使用 SignalR（.NET Core 3.0）
             app.UseEndpoints(endpoints =>

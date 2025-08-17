@@ -10,6 +10,7 @@
 
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.Work.Entities
 {
@@ -17,15 +18,51 @@ namespace Senparc.Weixin.Work.Entities
     /// 模板卡片消息（未实现）
     /// </summary>
     public class WorkBotResponseMessageTemplateCard : WorkBotResponseMessageBase
+{
+    // 模板卡片主体
+    public Template_Card template_card { get; set; }
+
+    public class Template_Card
     {
-        
-        public override ResponseMsgType MsgType => ResponseMsgType.Unknown;
-
-        /// <summary>
-        /// 对应cardtype
-        /// </summary>
-        public TemplateCard_CardTypeEnum CardType { get; set; }
-
-        /// <summary>
+        public string card_type { get; set; }
+        public Source source { get; set; }
+        public Main_Title main_title { get; set; }
+        public List<Select_Item> select_list { get; set; }
+        public Submit_Button submit_button { get; set; }
+        public string task_id { get; set; }
     }
+
+    public class Source
+    {
+        public string icon_url { get; set; }
+        public string desc { get; set; }
+    }
+
+    public class Main_Title
+    {
+        public string title { get; set; }
+        public string desc { get; set; }
+    }
+
+    public class Select_Item
+    {
+        public string question_key { get; set; }
+        public string title { get; set; }
+        public bool? disable { get; set; }   // 文档里可选时用可空
+        public string selected_id { get; set; }
+        public List<Option> option_list { get; set; }
+    }
+
+    public class Option
+    {
+        public string id { get; set; }
+        public string text { get; set; }
+    }
+
+    public class Submit_Button
+    {
+        public string text { get; set; }
+        public string key { get; set; }
+    }
+}
 }

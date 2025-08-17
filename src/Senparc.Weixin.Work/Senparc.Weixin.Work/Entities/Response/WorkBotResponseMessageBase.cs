@@ -6,23 +6,18 @@
     
     
     创建标识：Wang Qian - 20250804
+
+    修改标识：Wang Qian - 20250817
+    修改描述：修改响应消息基类，直接映射文档原始键名，便于无特性反序列化
 ----------------------------------------------------------------*/
 using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.Work.Entities
 {
-    public interface IWorkBotResponseMessageBase : IResponseMessageBase, IMessageBase
+
+    public class WorkBotResponseMessageBase 
     {
-        //ResponseMsgType MsgType { get; set; }
-    }
-
-    public class WorkBotResponseMessageBase : ResponseMessageBase, IWorkBotResponseMessageBase
-    {
-        public override ResponseMsgType MsgType => ResponseMsgType.Text;
-
-				 
-        //不需要CreateFromRequestMessage()方法，因为机器人响应消息不需要FromUserName和ToUserName
-
+        public string msgtype { get; set; }
     }
 }

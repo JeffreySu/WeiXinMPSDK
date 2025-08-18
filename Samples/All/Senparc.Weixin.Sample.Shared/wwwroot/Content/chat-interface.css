@@ -376,3 +376,244 @@
         transform: scale(1);
     }
 }
+
+/* AI 回复样式 */
+.ai-response-container {
+    margin-top: 30px;
+    max-width: 900px;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.response-item {
+    margin-bottom: 30px;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.ai-response {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+}
+
+.response-header {
+    border-bottom: 2px solid #f8f9fa;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+.response-header h3 {
+    color: #2c3e50;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.query-info {
+    color: #6c757d;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.user-query {
+    color: #667eea;
+    font-weight: 500;
+    background: rgba(102, 126, 234, 0.1);
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+.response-content > div {
+    margin-bottom: 25px;
+}
+
+.response-content h4 {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.module-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.module-tag {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.description-section p {
+    color: #495057;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.description-section ul {
+    color: #6c757d;
+    padding-left: 20px;
+}
+
+.description-section li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.code-tabs {
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.tab-buttons {
+    background: #f8f9fa;
+    display: flex;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #6c757d;
+    transition: all 0.3s ease;
+    border-right: 1px solid #dee2e6;
+}
+
+.tab-btn:last-child {
+    border-right: none;
+}
+
+.tab-btn.active {
+    background: #667eea;
+    color: white;
+}
+
+.tab-btn:hover:not(.active) {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+}
+
+.tab-content {
+    position: relative;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.tab-pane pre {
+    margin: 0;
+    padding: 20px;
+    background: #2d3748;
+    color: #e2e8f0;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    overflow-x: auto;
+}
+
+.tab-pane code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+}
+
+.tips-section {
+    background: rgba(102, 126, 234, 0.05);
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 4px solid #667eea;
+}
+
+.tip-item strong {
+    color: #2c3e50;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.tip-item ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.tip-item li {
+    color: #495057;
+    margin-bottom: 6px;
+    line-height: 1.5;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .ai-response {
+        padding: 20px;
+        margin: 0 10px;
+    }
+    
+    .tab-btn {
+        padding: 10px 15px;
+        font-size: 0.85rem;
+    }
+    
+    .tab-pane pre {
+        padding: 15px;
+        font-size: 0.8rem;
+    }
+    
+    .module-info {
+        gap: 8px;
+    }
+    
+    .module-tag {
+        padding: 4px 10px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .ai-response-container {
+        width: 100%;
+        padding: 0 5px;
+    }
+    
+    .ai-response {
+        padding: 15px;
+        margin: 0;
+    }
+    
+    .response-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .tab-buttons {
+        flex-direction: column;
+    }
+    
+    .tab-btn {
+        border-right: none;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .tab-btn:last-child {
+        border-bottom: none;
+    }
+}

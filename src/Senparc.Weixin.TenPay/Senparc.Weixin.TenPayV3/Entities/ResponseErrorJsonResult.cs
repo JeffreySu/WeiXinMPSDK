@@ -19,7 +19,8 @@ namespace Senparc.Weixin.TenPayV3.Entities
     public class Detail
     {
         public object location { get; set; }
-        public string[] value { get; set; }
+        //public string[] value { get; set; }
+        public int value { get; set; }
     }
 
 }

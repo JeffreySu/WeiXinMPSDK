@@ -3,7 +3,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>2025.8.13</Version>
+    <Version>2025.8.18</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.All</AssemblyName>
     <RootNamespace>Senparc.Weixin.All</RootNamespace>
@@ -54,7 +54,11 @@
 		[2025-07-08] v2025.7.15 微信支付分 增加参数device /PR #3156 / Issue #3155 感谢 @mojinxun @zariczhu
 		[2025-07-31] v2025.7.31 Work fix: 推送 News 的字段消息大小写敏感问题 / Issue 3164 感谢 @zhou-p
 		[2025-08-13] v2025.8.13 TenPayV3 feat: 添加新的“商家转账”接口 / Issue 3174
-</PackageReleaseNotes>
+		[2025-08-17] v2025.8.17
+		1、TenPayV3 fix: 处理 ResponseErrorJsonResult 中 value 值类型，由 string[] 改为 int；
+		2、WxOpen  fix: 修复 GetWxaCodeUnlimit() 方法 Page 参数问题
+		[2025-08-18] v2025.8.18 Cache.CsRedis 升级，完善初始化机制，避免无效连接字符串被启动
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

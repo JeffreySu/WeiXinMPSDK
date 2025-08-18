@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>1.2.0</Version>
+    <Version>1.2.1</Version>
     <AssemblyName>Senparc.Weixin.Cache.CsRedis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.CsRedis</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -22,10 +22,11 @@
     <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
     <PackageIcon>icon.jpg</PackageIcon>
     <PackageReleaseNotes>
-			v0.1.0
-			创世
-			[2025-08-15] v1.2.0 更新 Senparc.CO2NET.Cache.CsRedis 基础包，解决非启用状态下被自动载入问题
-</PackageReleaseNotes>
+		v0.1.0
+		创世
+		[2025-08-15] v1.2.0 update: Senparc.CO2NET.Cache.CsRedis 基础包，解决非启用状态下被自动载入问题
+		[2025-08-18] v1.2.1 fux: Senparc.CO2NET.Cache.CsRedis 基础包，解决启动失败的问题
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

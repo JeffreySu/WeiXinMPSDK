@@ -68,21 +68,26 @@
 
 .chat-watermark {
     position: absolute;
-    top: 50%;
-    left: 20px;
-    right: 60px;
-    transform: translateY(-50%);
+    top: 22px;
+    left: 22px;
+    right: 70px;
     font-size: 0.95rem;
-    color: rgba(108, 117, 125, 0.4);
+    color: rgba(108, 117, 125, 0.5);
     pointer-events: none;
     white-space: normal;
-    z-index: 1;
+    z-index: 3;
     font-weight: 400;
     letter-spacing: 0.2px;
     text-align: left;
-    line-height: 1.4;
+    line-height: 1.5;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    transition: opacity 0.3s ease;
+    opacity: 1;
+}
+
+.chat-watermark.hidden {
+    opacity: 0;
 }
 
 .chat-input-container {
@@ -95,8 +100,8 @@
     min-height: 120px;
     border: 2px solid #e9ecef;
     border-radius: 16px;
-    padding: 20px 60px 20px 20px;
-    font-size: 1.0rem;
+    padding: 22px 60px 20px 22px;
+    font-size: 0.95rem;
     line-height: 1.5;
     resize: vertical;
     outline: none;
@@ -247,14 +252,15 @@
     }
     
     .chat-watermark {
-        left: 15px;
-        right: 55px;
+        top: 20px;
+        left: 17px;
+        right: 65px;
         font-size: 0.9rem;
     }
     
     .chat-input {
-        padding: 18px 55px 18px 15px;
-        font-size: 0.95rem;
+        padding: 20px 55px 18px 17px;
+        font-size: 0.9rem;
     }
     
     .chat-features {
@@ -283,15 +289,16 @@
     }
     
     .chat-watermark {
-        left: 12px;
-        right: 50px;
+        top: 18px;
+        left: 14px;
+        right: 60px;
         font-size: 0.85rem;
     }
     
     .chat-input {
-        padding: 16px 50px 16px 12px;
+        padding: 18px 50px 16px 14px;
         min-height: 100px;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
 }
 

@@ -24,13 +24,19 @@
         });
 
         // 对话界面交互逻辑
-        $('#wechatApiInput').on('input', function() {
+        $('#wechatApiInput').on('input focus', function() {
             var text = $(this).val();
-            if (text.trim()) {
-                $('.chat-watermark').hide();
+            if (text.trim() || $(this).is(':focus')) {
+                $('.chat-watermark').css('opacity', '0');
                 $('#submitBtn').addClass('active');
             } else {
-                $('.chat-watermark').show();
+                $('.chat-watermark').css('opacity', '1');
+                $('#submitBtn').removeClass('active');
+            }
+        }).on('blur', function() {
+            var text = $(this).val();
+            if (!text.trim()) {
+                $('.chat-watermark').css('opacity', '1');
                 $('#submitBtn').removeClass('active');
             }
         });
@@ -87,7 +93,8 @@
                           rows="4"></textarea>
                 <button id="submitBtn" class="chat-submit-btn" type="button">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7 11L12 6L17 11M12 18V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="rotate(90 12 12)"/>
+                        <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </button>
             </div>

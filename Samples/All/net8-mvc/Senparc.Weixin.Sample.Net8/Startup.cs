@@ -84,10 +84,10 @@ namespace Senparc.Weixin.Sample.Net8
                     ;
 
             //启用 WebApi（可选）
-            services.AddAndInitDynamicApi(builder, options =>
-            {
-                options.DocXmlPath = ServerUtility.ContentRootMapPath("~/App_Data/ApiDocXml");
-            });
+            //services.AddAndInitDynamicApi(builder, options =>
+            //{
+            //    options.DocXmlPath = ServerUtility.ContentRootMapPath("~/App_Data/ApiDocXml");
+            //});
 
 
             //此处可以添加更多 Cert 证书
@@ -463,6 +463,11 @@ namespace Senparc.Weixin.Sample.Net8
             {
                 //配置自定义 SenparcHub
                 endpoints.MapHub<SenparcHub>("/SenparcHub");
+                
+                // 配置默认路由
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
 

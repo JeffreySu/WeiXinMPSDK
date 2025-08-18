@@ -48,12 +48,27 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
         }
 
         /// <summary>
-        /// 默认页面
+        /// AI文档助手页面
         /// </summary>
+        /// <param name="query">初始查询内容</param>
         /// <returns></returns>
-        public ActionResult Index()
+        public ActionResult Index(string query = null)
         {
-            return NotFound();
+            ViewData["InitialQuery"] = query;
+            return View();
+        }
+
+        /// <summary>
+        /// 处理来自首页的POST请求
+        /// </summary>
+        /// <param name="query">查询内容</param>
+        /// <returns></returns>
+        [HttpPost]
+        [ActionName("Index")]
+        public ActionResult IndexPost(string query)
+        {
+            ViewData["InitialQuery"] = query;
+            return View();
         }
 
         /// <summary>

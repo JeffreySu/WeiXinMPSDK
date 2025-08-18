@@ -617,3 +617,37 @@
         border-bottom: none;
     }
 }
+
+/* 返回首页链接样式 */
+.back-to-home {
+    background: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    margin-top: 50px;
+}
+
+.back-link {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+/* AiDoc页面专用样式 */
+.aidoc-page .chat-hero {
+    min-height: 60vh;
+}
+
+.aidoc-page .chat-title h1 {
+    font-size: 3rem;
+}
+
+@media (max-width: 768px) {
+    .aidoc-page .chat-title h1 {
+        font-size: 2.2rem;
+    }
+}

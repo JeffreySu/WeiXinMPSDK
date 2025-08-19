@@ -3,7 +3,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>2025.8.18.1</Version>
+    <Version>2025.8.19</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.All</AssemblyName>
     <RootNamespace>Senparc.Weixin.All</RootNamespace>
@@ -58,6 +58,7 @@
 		1、TenPayV3 fix: 处理 ResponseErrorJsonResult 中 value 值类型，由 string[] 改为 int；
 		2、WxOpen  fix: 修复 GetWxaCodeUnlimit() 方法 Page 参数问题
 		[2025-08-18] v2025.8.18 Cache.CsRedis 升级，完善初始化机制，避免无效连接字符串被启动
+		[2025-08-19] v2025.8.19 TenPayV3 处理 ResponseErrorJsonResult 中 value 值类型，由 int 改为 object
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

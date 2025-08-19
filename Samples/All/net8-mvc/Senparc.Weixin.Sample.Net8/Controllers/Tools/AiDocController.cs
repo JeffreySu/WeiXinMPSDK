@@ -32,6 +32,11 @@ using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Cache;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
+using ModelContextProtocol.Client;
+using Senparc.AI.Kernel;
+using Senparc.AI.Entities;
+using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
 
 namespace Senparc.Weixin.Sample.Net8.Controllers
 {
@@ -81,11 +86,59 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
         {
             try
             {
-                // 模拟处理时间
-                await Task.Delay(1500);
+
+                //建立 MCP 连接，并获取信息
+                var mcpEndpoint = "https://www.ncf.pub/mcp-senparc-xncf-weixinmanager/sse";
+                var clientTransport = new SseClientTransport(new SseClientTransportOptions()
+                {
+                    Endpoint = new Uri(mcpEndpoint),
+                    Name = "NCF-Server"
+                });
+
+                var client = await McpClientFactory.CreateAsync(clientTransport);
+                var tools = await client.ListToolsAsync();
+
+                var aiSetting = Senparc.AI.Config.SenparcAiSetting;
+                var semanticAiHandler = new SemanticAiHandler(aiSetting);
+
+                var parameter = new PromptConfigParameter()
+                {
+                    MaxTokens = 2000,
+                    Temperature = 0.7,
+                    TopP = 0.5,
+                };
+
+                var iWantToRun = semanticAiHandler.ChatConfig(parameter,
+                  userId: "Jeffrey",
+                  maxHistoryStore: 10,
+                  chatSystemMessage: "你是一位智能助手，帮我选择最适合的 API 方案。",
+                  senparcAiSetting: aiSetting,
+                  kernelBuilderAction: kh =>
+                  {
+                      // kh.Plugins.AddMcpFunctionsFromSseServerAsync("NCF-Server", "http://localhost:5000/sse/sse");
+#pragma warning disable SKEXP0001 // 类型仅用于评估，在将来的更新中可能会被更改或删除。取消此诊断以继续。
+                      kh.Plugins.AddFromFunctions("WeixinMpRouter", tools.Select(z => z.AsKernelFunction()));
+#pragma warning restore SKEXP0001 // 类型仅用于评估，在将来的更新中可能会被更改或删除。取消此诊断以继续。
+                  }
+                      );
+                var executionSettings2 = new OpenAIPromptExecutionSettings
+                {
+                    Temperature = 0,
+                    FunctionChoiceBehavior = FunctionChoiceBehavior.Auto()// FunctionChoiceBehavior.Auto()
+                };
+                var ka = new KernelArguments(executionSettings2) { };
+
+                ////输出结果
+                //SenparcAiResult ret = await semanticAiHandler.ChatAsync(iWantToRun, request.RequestPrompt/*, streamItemProceessing*/);
+
+                //////////var resultRaw = await iWantToRun.Kernel.InvokePromptAsync(request.RequestPrompt, ka);
+
+                var prompt = request.Query;
+                var resultRaw = await iWantToRun.Kernel.InvokePromptAsync(prompt, ka);
+
 
                 // 模拟HTML格式的回复内容
-                var htmlResponse = GenerateSimulatedResponse(request.Query);
+                var htmlResponse = GenerateResponse(prompt, resultRaw.ToString());
 
                 return Json(new
                 {
@@ -108,7 +161,7 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
         /// </summary>
         /// <param name="query">用户查询</param>
         /// <returns></returns>
-        private string GenerateSimulatedResponse(string query)
+        private string GenerateResponse(string query,string result)
         {
             var html = $@"
 <div class='ai-response'>

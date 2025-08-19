@@ -1,7 +1,9 @@
 ﻿#if NET8_0_OR_GREATER
 
 using ModelContextProtocol.Server;
+using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.WebApi;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +17,26 @@ namespace Senparc.Weixin.AspNet.MCP
     [McpServerToolType]
     public class WeChatMcpRouter
     {
+        IBaseObjectCacheStrategy _cache;
+        public WeChatMcpRouter(IBaseObjectCacheStrategy cache)
+        {
+            _cache = cache;
+        }
+
+        private async Task<List<ApiItem>> GetApiItems()
+        {
+            //_cache = _cache ?? Senparc.CO2NET.Cache.CacheStrategyFactory.GetObjectCacheStrategyInstance();
+
+            var cacheKey = "WeixinSdkApiItems";
+            var existKey = await _cache.CheckExistedAsync(cacheKey);
+            if (!existKey)
+            {
+                await _cache.SetAsync(cacheKey, cacheKey);
+            }
+
+            return await _cache.GetAsync<List<ApiItem>>(cacheKey);
+        }
+
         [Description("WeChat McpRouter entry point. Get all WeChat platform names")]
         [McpServerTool()]
         public WeChatMcpResult<List<PlatformDescription>> GetPlatformNames()
@@ -38,12 +60,12 @@ namespace Senparc.Weixin.AspNet.MCP
 
         [Description("Search WeChat API Catalog in the specified platform")]
         [McpServerTool]
-        public WeChatMcpResult<string[]> SearchWeChatApiCatalogInPlatform(
+        public async Task<WeChatMcpResult<string[]>> SearchWeChatApiCatalogInPlatform(
             [Description("平台名称，只能从以下名称中选择，不能出现任何偏差，且大小写敏感：WeChat_OfficialAccount, WeChat_MiniProgram, WeChat_Open, WeChat_Work")]
             string platformName)
         {
 
-            var items = Senparc.CO2NET.WebApi.FindApiService.ApiItemList;
+            var items = await GetApiItems();
             Console.WriteLine($"ApiItems 数量：{items.Count}");
             var apiItems = items
                                 .Where(z => z.Category == platformName)
@@ -64,13 +86,14 @@ namespace Senparc.Weixin.AspNet.MCP
 
         [Description("Search WeChat API List in the specified platform")]
         [McpServerTool]
-        public WeChatMcpResult<string[]> SearchWeChatApiListInPlatform(
+        public async Task<WeChatMcpResult<string[]>> SearchWeChatApiListInPlatform(
            [Description("API 目录名称，必须精准匹配 SearchWeChatApiCatalogInPlatform 返回信息中的 Result 中的某一条，不允许做任何修改")]
             string apiCatalogName)
         {
-            var apiItems = Senparc.CO2NET.WebApi.FindApiService.ApiItemList
-                                            .Where(z => z.FullMethodName.StartsWith(apiCatalogName))
-                                            .ToArray();
+            var items = await GetApiItems();
+
+            var apiItems = items.Where(z => z.FullMethodName.StartsWith(apiCatalogName))
+                                 .ToArray();
             //TODO: 添加每个 API 模块的说明
 
             var result = new WeChatMcpResult<string[]>()
@@ -78,11 +101,11 @@ namespace Senparc.Weixin.AspNet.MCP
                 NextRoundTip = "根据 Result 中的方法注释，选择一条最适合的方法名称，并尝试生成调用代码",
                 Result = apiItems.Select(z => new
                 {
-                     z.FullMethodName,
-                     z.ParamsPart,
-                     z.IsAsync,
-                     z.Summary,
-                     z.Category
+                    z.FullMethodName,
+                    z.ParamsPart,
+                    z.IsAsync,
+                    z.Summary,
+                    z.Category
                 }.ToJson()).ToArray()
             };
             return result;

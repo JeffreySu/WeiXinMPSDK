@@ -38,6 +38,7 @@ using Senparc.AI.Entities;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace Senparc.Weixin.Sample.Net8.Controllers
 {
@@ -60,7 +61,8 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
         /// <returns></returns>
         public ActionResult Index(string query = null)
         {
-            ViewData["InitialQuery"] = query;
+            // 解码 HTML 实体编码
+            ViewData["InitialQuery"] = System.Web.HttpUtility.HtmlDecode(query);
             return View();
         }
 
@@ -85,6 +87,7 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
         [HttpPost]
         public async Task<ActionResult> ProcessQuery([FromBody] QueryRequest request)
         {
+            request.Query = System.Web.HttpUtility.HtmlDecode(request.Query);
             try
             {
                 //建立 MCP 连接，并获取信息

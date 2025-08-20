@@ -146,7 +146,8 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
 ""CSharpCode"":""var appId = \""your_app_id\"";
 var openId = \""your_open_id\"";
 var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
-""ParamsDescription"":""<Table>展示所有参数说明，以及 Summary"",
+""Summary"":""获取用户基本信息接口"",
+""ParamsDescription"":""<table class=\""parameter-table\"">展示所有参数说明"",
 ""Tips"":""<strong>注意事项：</strong>
 <ul><li>确保用户已关注公众号，否则无法获取详细信息</li>
 <li>AccessToken需要定期刷新，建议使用SDK自动管理</li>
@@ -243,6 +244,8 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
                     
                     <div class='tab-pane' id='api'>
                         <pre><code class='language-http'>
+概要：{result.Summary}
+
 {result.ParamsDescription}</code></pre>
                     </div>
                 </div>
@@ -369,6 +372,7 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
             public string CSharpCode { get; set; }
             public string  Tips { get; set; }
             public string ParamsDescription { get; set; }
+            public string Summary { get; set; }
         }
     }
 }

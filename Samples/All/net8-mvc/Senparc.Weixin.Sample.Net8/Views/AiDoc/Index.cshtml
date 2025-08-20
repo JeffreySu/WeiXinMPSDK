@@ -87,9 +87,9 @@
                 $('.chat-interface').after(responseContainer);
             }
             
-            // 添加新的回复内容
+            // 添加新的回复内容到最前面
             var responseItem = $('<div class="response-item">' + htmlContent + '</div>');
-            responseContainer.append(responseItem);
+            responseContainer.prepend(responseItem);
             
             // 滚动到新回复
             $('html, body').animate({

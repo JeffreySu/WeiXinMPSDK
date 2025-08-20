@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net462;netstandard2.0;netstandard2.1;net8.0</TargetFrameworks>
-		<Version>1.5.0.1-preview.2</Version>
+		<Version>1.5.0.1-preview.3</Version>
 		<AssemblyName>Senparc.Weixin.AspNet</AssemblyName>
 		<RootNamespace>Senparc.Weixin.AspNet</RootNamespace>
 		<!--<OutputType>Library</OutputType>-->

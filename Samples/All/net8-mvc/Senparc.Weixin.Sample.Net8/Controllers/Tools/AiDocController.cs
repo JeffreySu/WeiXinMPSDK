@@ -175,12 +175,13 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
             <h4>📦 接口模块</h4>
             <div class='module-info'>
                 <span class='module-tag'>微信公众号 API</span>
-                <span class='module-tag'>用户管理</span>
+                <!-- <span class='module-tag'>用户管理</span> -->
             </div>
         </div>
         
         <div class='description-section'>
             <h4>📝 接口说明</h4>
+<p>{result}</p>
             <p>根据您的需求，推荐使用<strong>获取用户基本信息接口</strong>。该接口可以获取用户的昵称、头像、性别、所在城市、语言和关注时间等信息。</p>
             <ul>
                 <li>适用于已关注公众号的用户</li>

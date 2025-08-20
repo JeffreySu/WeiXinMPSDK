@@ -1,8 +1,44 @@
-﻿#if NET8_0_OR_GREATER
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2025 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2025 Senparc
+    
+    文件名：WeChatMcpRouter.cs
+    文件功能描述：微信 McpRouter
+    
+    
+    创建标识：Senparc - 20250814
+  
+    修改标识：Senparc - 20250820
+    修改描述：1.5.0.1-preview.3 优化 ApiItemList 的缓存
+
+----------------------------------------------------------------*/
+
+
+#if NET8_0_OR_GREATER
 
 using ModelContextProtocol.Server;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.WebApi;
 using System;
 using System.Collections.Generic;
@@ -31,7 +67,7 @@ namespace Senparc.Weixin.AspNet.MCP
             var existKey = await _cache.CheckExistedAsync(cacheKey);
             if (!existKey)
             {
-                await _cache.SetAsync(cacheKey, cacheKey);
+                await _cache.SetAsync(cacheKey, Senparc.CO2NET.WebApi.FindApiService.ApiItemList);
             }
 
             return await _cache.GetAsync<List<ApiItem>>(cacheKey);
@@ -66,13 +102,14 @@ namespace Senparc.Weixin.AspNet.MCP
         {
 
             var items = await GetApiItems();
-            Console.WriteLine($"ApiItems 数量：{items.Count}");
+            
             var apiItems = items
                                 .Where(z => z.Category == platformName)
                                 .Select(z => z.FullMethodName.Substring(0, z.FullMethodName.LastIndexOf(".")))
                                 .Distinct()
                                 .ToArray();
 
+            SenparcTrace.SendCustomLog("WeixinMcpRouter-SearchWeChatApiCatalogInPlatform", $"platformName:{platformName} , result:{apiItems.ToJson(true)}");
 
             //TODO: 添加每个 API 模块的说明
 
@@ -94,6 +131,10 @@ namespace Senparc.Weixin.AspNet.MCP
 
             var apiItems = items.Where(z => z.FullMethodName.StartsWith(apiCatalogName))
                                  .ToArray();
+
+            SenparcTrace.SendCustomLog("WeixinMcpRouter-SearchWeChatApiListInPlatform", $"apiCatalogName:{apiCatalogName} , result:{apiItems.ToJson(true)}");
+
+
             //TODO: 添加每个 API 模块的说明
 
             var result = new WeChatMcpResult<string[]>()

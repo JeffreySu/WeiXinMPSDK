@@ -18,6 +18,6 @@ namespace Senparc.Weixin.Work.Entities
 
     public class WorkBotResponseMessageBase 
     {
-        public string msgtype { get; set; }
+        public virtual string msgtype { get; set; }
     }
 }

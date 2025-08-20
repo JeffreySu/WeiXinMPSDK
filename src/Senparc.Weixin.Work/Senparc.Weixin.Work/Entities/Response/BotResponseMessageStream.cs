@@ -20,6 +20,8 @@ namespace Senparc.Weixin.Work.Entities
     /// </summary>
     public class BotResponseMessageStream : WorkBotResponseMessageBase
     {
+        public override string msgtype { get; set; } = "stream";
+        
         /// <summary>
         /// 流式响应消息的内部类，用于图文混排消息，目前只支持image，对应stream.msg_item集合中的元素
         /// </summary>

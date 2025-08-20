@@ -22,6 +22,8 @@ namespace Senparc.Weixin.Work.Entities
     /// </summary>
     public class BotRequestMessageMixed : WorkBotRequestMessageBase
     {
+        public override string msgtype { get; set; } = "mixed";
+
         /// <summary>
         /// 混排内容，对应 JSON 中的 mixed
         /// </summary>

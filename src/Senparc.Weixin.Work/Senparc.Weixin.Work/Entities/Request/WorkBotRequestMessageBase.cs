@@ -45,7 +45,7 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         /// 消息类型，例：text
         /// </summary>
-        public string msgtype { get; set; }
+        public virtual string msgtype { get; set; }
 
         /// <summary>
         /// 与文档一致的 from 对象

@@ -19,6 +19,8 @@ namespace Senparc.Weixin.Work.Entities
     /// </summary>
     public class BotResponseMessageTemplateCard : WorkBotResponseMessageBase
 {
+    public override string msgtype { get; set; } = "template_card";
+    
     // 模板卡片主体
     public Template_Card template_card { get; set; }
 

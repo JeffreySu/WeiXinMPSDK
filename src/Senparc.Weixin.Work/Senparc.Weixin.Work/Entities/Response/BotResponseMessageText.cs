@@ -21,6 +21,8 @@ namespace Senparc.Weixin.Work.Entities
     /// </summary>
     public class BotResponseMessageText : WorkBotResponseMessageBase
     {
+        public override string msgtype { get; set; } = "text";
+        
         /// <summary>
         /// 对应text对象的类
         /// </summary>

@@ -29,7 +29,7 @@ namespace Senparc.Weixin.Work.Test
     public class BotEntityHelperTest
     {
         [TestMethod]
-        public void TextEntityTest()
+        public void TextRequestEntityTest()
         {
             var json = """
 {
@@ -55,6 +55,18 @@ namespace Senparc.Weixin.Work.Test
             Assert.AreEqual("@RobotA hello robot",entityAsText.Content);
 
         }
+
+        [TestMethod]
+        public void TextResponseEntityTest()
+        {
+            var entity = new ResponseMessageText();
+            entity.Content = "this is a test";
+            var jsonString = BotEntityHelper.GetResponseMsgString(entity);
+            Assert.IsNotNull(jsonString);
+            System.Console.WriteLine(jsonString);
+            Assert.IsTrue(jsonString.Contains("this is a test"));
+        }
+
         
     }
 }

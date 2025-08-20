@@ -22,6 +22,8 @@ namespace Senparc.Weixin.Work.Entities
     /// </summary>
     public class BotRequestMessageStream : WorkBotRequestMessageBase
     {
+        public override string msgtype { get; set; } = "stream";
+
         /// <summary>
         /// 流式内容，对应 JSON 中的 stream
         /// </summary>

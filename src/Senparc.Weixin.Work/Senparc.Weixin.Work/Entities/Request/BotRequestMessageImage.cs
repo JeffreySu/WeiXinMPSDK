@@ -23,6 +23,7 @@ namespace Senparc.Weixin.Work.Entities
     /// </summary>
     public class BotRequestMessageImage : WorkBotRequestMessageBase
     {
+        public override string msgtype { get; set; } = "image";
         /// <summary>
         /// 图片内容，对应 JSON 中的 image
         /// </summary>

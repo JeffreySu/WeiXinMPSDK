@@ -179,5 +179,63 @@ namespace Senparc.Weixin.Work.Helpers
             return responseMessage;
         }
         
+        /// <summary>
+        /// 获取回复消息的json字符串
+        /// </summary>
+        /// <param name="responseMessage"></param>
+        /// <returns></returns>
+        public static string GetResponseMsgString(WorkResponseMessageBase responseMessage)
+        {
+            switch(responseMessage.MsgType)
+            {
+                case ResponseMsgType.Text:
+                    var jsonObjectText = ConvertResponseMessageToJsonObject(responseMessage);
+                    return SerializerHelper.GetJsonString(jsonObjectText);
+                case ResponseMsgType.Stream:
+                    var jsonObjectStream = ConvertResponseMessageToJsonObject(responseMessage);
+                    return SerializerHelper.GetJsonString(jsonObjectStream);
+                // case ResponseMsgType.TemplateCard:
+                //     var jsonObjectTemplateCard = ConvertResponseMessageToJsonObject(responseMessage);
+                //     return SerializerHelper.GetJsonString(jsonObjectTemplateCard);
+                default:
+                    return null;
+            }
+        }
+
+        /// <summary>
+        /// 将标准回复实体转换为json对象
+        /// </summary>
+        /// <param name="responseMessage"></param>
+        /// <returns></returns>
+        public static WorkBotResponseMessageBase ConvertResponseMessageToJsonObject(WorkResponseMessageBase responseMessage)
+        {
+            var responseJsonObject = new WorkBotResponseMessageBase();
+            switch(responseMessage.MsgType)
+            {
+                case ResponseMsgType.Text:
+                    var textResponseMessage = responseMessage as ResponseMessageText;
+                    var textJsonObject = new BotResponseMessageText();
+
+                    //创建一个text对象，避免空引用
+                    textJsonObject.text = new BotResponseMessageText.TextContent();
+                    textJsonObject.text.content = textResponseMessage.Content;
+                    responseJsonObject = textJsonObject;
+                    break;
+                case ResponseMsgType.Stream:
+                    // var streamResponseMessage = responseMessage as ResponseMessageStream;
+                    // var streamJsonObject = new BotResponseMessageStream();
+                    // responseJsonObject = streamJsonObject;
+                    break;
+                //case ResponseMsgType.TemplateCard:
+                    // var templateCardResponseMessage = responseMessage as ResponseMessageTemplateCard;
+                    // var templateCardJsonObject = new BotResponseMessageTemplateCard();
+                    // responseJsonObject = templateCardJsonObject;
+                    // break;
+                default:
+                    break;
+            }
+            return responseJsonObject;
+        }
+
     }
 }

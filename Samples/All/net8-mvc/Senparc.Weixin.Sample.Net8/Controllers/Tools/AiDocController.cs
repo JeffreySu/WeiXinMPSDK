@@ -37,6 +37,7 @@ using Senparc.AI.Kernel;
 using Senparc.AI.Entities;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
+using System.Text.RegularExpressions;
 
 namespace Senparc.Weixin.Sample.Net8.Controllers
 {
@@ -86,7 +87,6 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
         {
             try
             {
-
                 //建立 MCP 连接，并获取信息
                 var mcpEndpoint = "https://www.ncf.pub/mcp-senparc-xncf-weixinmanager/sse";
                 var clientTransport = new SseClientTransport(new SseClientTransportOptions()
@@ -106,12 +106,15 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
                     MaxTokens = 2000,
                     Temperature = 0.7,
                     TopP = 0.5,
+                    StopSequences = new List<string> { "<END>" }
                 };
+
+                var systemMessage = $@"你是一位智能助手，帮我选择最适合的 API 方案。";
 
                 var iWantToRun = semanticAiHandler.ChatConfig(parameter,
                   userId: "Jeffrey",
                   maxHistoryStore: 10,
-                  chatSystemMessage: "你是一位智能助手，帮我选择最适合的 API 方案。",
+                  chatSystemMessage: systemMessage,
                   senparcAiSetting: aiSetting,
                   kernelBuilderAction: kh =>
                   {
@@ -133,12 +136,44 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
 
                 //////////var resultRaw = await iWantToRun.Kernel.InvokePromptAsync(request.RequestPrompt, ka);
 
-                var prompt = request.Query;
+                var prompt = $@"
+## 基本要求
+1. 按照“API 查询要求”，使用 WeChat API function-calling 完成查询任务
+2. 结果需要严格使用 JSON 格式输出（注意：不需要包含任何 markdown 的标记，直接生成 JSON 代码），""输出""严格遵循示例如下：
+<START>{{
+""Platform"":""公众号"",
+""ApiDescription"",""<p>根据您的需求，推荐使用<strong>获取用户基本信息接口</strong>。该接口可以获取用户的昵称、头像、性别、所在城市、语言和关注时间等信息。</p>"",
+""CSharpCode"":""var appId = \""your_app_id\"";
+var openId = \""your_open_id\"";
+var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
+""Tips"":""<strong>注意事项：</strong>
+<ul><li>确保用户已关注公众号，否则无法获取详细信息</li>
+<li>AccessToken需要定期刷新，建议使用SDK自动管理</li>
+<li>接口调用频率限制：100万次/天</li></ul>""}}<END>
+
+### JSON 参数说明
+1. Platform 根据选择的平台进行匹配：
+{Senparc.NeuChar.PlatformType.WeChat_OfficialAccount}：微信公众号
+{Senparc.NeuChar.PlatformType.WeChat_Work}：企业微信
+{Senparc.NeuChar.PlatformType.WeChat_Open}：微信开放平台
+{Senparc.NeuChar.PlatformType.WeChat_MiniProgram}：微信小程序
+2. Tips 请根据接口实际说明进行调整
+3. 第一个参数为 accessTokenOrAppId 时，优先使用 appId 而不是 accessToken，因为 SDK 推荐提前注册并自动管理 AccessToken。
+4. 请不要添加任何不确定的信息或有风险的代码
+
+## API 查询要求
+{request.Query}
+
+## 输出
+<START>";
                 var resultRaw = await iWantToRun.Kernel.InvokePromptAsync(prompt, ka);
 
+                Console.WriteLine($"收到MCP回复：{resultRaw.ToString()}");
+
+                var mcpResult = resultRaw.ToString().GetObject<QueryMcpResult>();
 
                 // 模拟HTML格式的回复内容
-                var htmlResponse = GenerateResponse(prompt, resultRaw.ToString());
+                var htmlResponse = GenerateResponse(request.Query, mcpResult);
 
                 return Json(new
                 {
@@ -161,7 +196,7 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
         /// </summary>
         /// <param name="query">用户查询</param>
         /// <returns></returns>
-        private string GenerateResponse(string query,string result)
+        private string GenerateResponse(string query, QueryMcpResult result)
         {
             var html = $@"
 <div class='ai-response'>
@@ -181,13 +216,7 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
         
         <div class='description-section'>
             <h4>📝 接口说明</h4>
-<p>{result}</p>
-            <p>根据您的需求，推荐使用<strong>获取用户基本信息接口</strong>。该接口可以获取用户的昵称、头像、性别、所在城市、语言和关注时间等信息。</p>
-            <ul>
-                <li>适用于已关注公众号的用户</li>
-                <li>需要用户的OpenID作为参数</li>
-                <li>返回用户详细信息的JSON数据</li>
-            </ul>
+            {result.ApiDescription}
         </div>
         
         <div class='code-section'>
@@ -195,45 +224,17 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
             <div class='code-tabs'>
                 <div class='tab-buttons'>
                     <button class='tab-btn active' data-tab='csharp'>C#</button>
-                    <button class='tab-btn' data-tab='api'>API调用</button>
+                    <!-- <button class='tab-btn' data-tab='api'>API调用</button>-->
                 </div>
                 
                 <div class='tab-content'>
                     <div class='tab-pane active' id='csharp'>
                         <pre><code class='language-csharp'>// 获取用户基本信息
-var appId = ""your_app_id"";
-var openId = ""user_open_id"";
-
-// 方法一：使用 Senparc.Weixin SDK
-var userInfo = await UserApi.InfoAsync(appId, openId);
-Console.WriteLine($""用户昵称：{{userInfo.nickname}}"");
-Console.WriteLine($""用户头像：{{userInfo.headimgurl}}"");
-
-// 方法二：直接调用API
-var accessToken = await AccessTokenContainer.GetAccessTokenAsync(appId);
-var apiUrl = $""https://api.weixin.qq.com/cgi-bin/user/info?access_token={{accessToken}}&openid={{openId}}"";
-var result = await HttpHelper.GetAsync(apiUrl);</code></pre>
+{result.CSharpCode}</code></pre>
                     </div>
                     
                     <div class='tab-pane' id='api'>
-                        <pre><code class='language-http'>GET https://api.weixin.qq.com/cgi-bin/user/info
-?access_token=ACCESS_TOKEN
-&openid=OPENID
-&lang=zh_CN
-
-# 响应示例
-{{
-    ""subscribe"": 1,
-    ""openid"": ""oLVPpjqs2BhqzwPj5A-vTYAX3GLM"",
-    ""nickname"": ""微信用户"",
-    ""sex"": 1,
-    ""language"": ""zh_CN"",
-    ""city"": ""深圳"",
-    ""province"": ""广东"",
-    ""country"": ""中国"",
-    ""headimgurl"": ""http://wx.qlogo.cn/mmopen/..."",
-    ""subscribe_time"": 1672531200
-}}</code></pre>
+                        <pre><code class='language-http'></code></pre>
                     </div>
                 </div>
             </div>
@@ -242,18 +243,106 @@ var result = await HttpHelper.GetAsync(apiUrl);</code></pre>
         <div class='tips-section'>
             <h4>💡 使用提示</h4>
             <div class='tip-item'>
-                <strong>注意事项：</strong>
-                <ul>
-                    <li>确保用户已关注公众号，否则无法获取详细信息</li>
-                    <li>AccessToken需要定期刷新，建议使用SDK自动管理</li>
-                    <li>接口调用频率限制：100万次/天</li>
-                </ul>
+{result.Tips}
             </div>
         </div>
     </div>
 </div>";
 
-            return html;
+            var replacedSpaces = Regex.Replace(html, @" {2,}", " ");
+            return replacedSpaces;
+
+            //            var html = $@"
+            //<div class='ai-response'>
+            //    <div class='response-header'>
+            //        <h3>🤖 AI 助手回复</h3>
+            //        <p class='query-info'>您的查询：<span class='user-query'>{query}</span></p>
+            //    </div>
+
+            //    <div class='response-content'>
+            //        <div class='module-section'>
+            //            <h4>📦 接口模块</h4>
+            //            <div class='module-info'>
+            //                <span class='module-tag'>微信公众号 API</span>
+            //                <!-- <span class='module-tag'>用户管理</span> -->
+            //            </div>
+            //        </div>
+
+            //        <div class='description-section'>
+            //            <h4>📝 接口说明</h4>
+            //<p>{result}</p>
+            //            <p>根据您的需求，推荐使用<strong>获取用户基本信息接口</strong>。该接口可以获取用户的昵称、头像、性别、所在城市、语言和关注时间等信息。</p>
+            //            <ul>
+            //                <li>适用于已关注公众号的用户</li>
+            //                <li>需要用户的OpenID作为参数</li>
+            //                <li>返回用户详细信息的JSON数据</li>
+            //            </ul>
+            //        </div>
+
+            //        <div class='code-section'>
+            //            <h4>💻 代码示例</h4>
+            //            <div class='code-tabs'>
+            //                <div class='tab-buttons'>
+            //                    <button class='tab-btn active' data-tab='csharp'>C#</button>
+            //                    <button class='tab-btn' data-tab='api'>API调用</button>
+            //                </div>
+
+            //                <div class='tab-content'>
+            //                    <div class='tab-pane active' id='csharp'>
+            //                        <pre><code class='language-csharp'>// 获取用户基本信息
+            //var appId = ""your_app_id"";
+            //var openId = ""user_open_id"";
+
+            //// 方法一：使用 Senparc.Weixin SDK
+            //var userInfo = await UserApi.InfoAsync(appId, openId);
+            //Console.WriteLine($""用户昵称：{{userInfo.nickname}}"");
+            //Console.WriteLine($""用户头像：{{userInfo.headimgurl}}"");
+
+            //// 方法二：直接调用API
+            //var accessToken = await AccessTokenContainer.GetAccessTokenAsync(appId);
+            //var apiUrl = $""https://api.weixin.qq.com/cgi-bin/user/info?access_token={{accessToken}}&openid={{openId}}"";
+            //var result = await HttpHelper.GetAsync(apiUrl);</code></pre>
+            //                    </div>
+
+            //                    <div class='tab-pane' id='api'>
+            //                        <pre><code class='language-http'>GET https://api.weixin.qq.com/cgi-bin/user/info
+            //?access_token=ACCESS_TOKEN
+            //&openid=OPENID
+            //&lang=zh_CN
+
+            //# 响应示例
+            //{{
+            //    ""subscribe"": 1,
+            //    ""openid"": ""oLVPpjqs2BhqzwPj5A-vTYAX3GLM"",
+            //    ""nickname"": ""微信用户"",
+            //    ""sex"": 1,
+            //    ""language"": ""zh_CN"",
+            //    ""city"": ""深圳"",
+            //    ""province"": ""广东"",
+            //    ""country"": ""中国"",
+            //    ""headimgurl"": ""http://wx.qlogo.cn/mmopen/..."",
+            //    ""subscribe_time"": 1672531200
+            //}}</code></pre>
+            //                    </div>
+            //                </div>
+            //            </div>
+            //        </div>
+
+            //        <div class='tips-section'>
+            //            <h4>💡 使用提示</h4>
+            //            <div class='tip-item'>
+            //                <strong>注意事项：</strong>
+            //                <ul>
+            //                    <li>确保用户已关注公众号，否则无法获取详细信息</li>
+            //                    <li>AccessToken需要定期刷新，建议使用SDK自动管理</li>
+            //                    <li>接口调用频率限制：100万次/天</li>
+            //                </ul>
+            //            </div>
+            //        </div>
+            //    </div>
+            //</div>";
+
+            //return html;
         }
 
         /// <summary>
@@ -262,6 +351,14 @@ var result = await HttpHelper.GetAsync(apiUrl);</code></pre>
         public class QueryRequest
         {
             public string Query { get; set; }
+        }
+
+        public class QueryMcpResult
+        {
+            public string Platform { get; set; }
+            public string ApiDescription { get; set; }
+            public string CSharpCode { get; set; }
+            public string  Tips { get; set; }
         }
     }
 }

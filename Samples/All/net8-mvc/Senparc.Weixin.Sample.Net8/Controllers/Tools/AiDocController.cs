@@ -160,7 +160,7 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
 {Senparc.NeuChar.PlatformType.WeChat_Open}：微信开放平台
 {Senparc.NeuChar.PlatformType.WeChat_MiniProgram}：微信小程序
 2. Tips 请根据接口实际说明进行调整
-3. 第一个参数为 accessTokenOrAppId 时，优先使用 appId 而不是 accessToken，因为 SDK 推荐提前注册并自动管理 AccessToken。
+3. 第一个参数为 accessTokenOrAppId 时，优先使用 appId 而不是 accessToken，因此不需要 accessToken 参数，因为 SDK 推荐提前注册并自动管理 AccessToken。
 4. 请不要添加任何不确定的信息或有风险的代码
 
 ## API 查询要求
@@ -204,7 +204,14 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
 <div class='ai-response'>
     <div class='response-header'>
         <h3>🤖 AI 助手回复</h3>
-        <p class='query-info'>您的查询：<span class='user-query'>{query}</span></p>
+        <p class='query-info'>
+            您的查询：<span class='user-query'>{query}</span>
+            <button class='edit-query-btn' onclick='editQuery(this)' title='编辑此查询'>
+                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='16' height='16'>
+                    <path fill='currentColor' d='M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z'/>
+                </svg>
+            </button>
+        </p>
     </div>
     
     <div class='response-content'>

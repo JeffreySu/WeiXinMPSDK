@@ -116,6 +116,31 @@
             });
         }
 
+        // 编辑查询的函数
+        window.editQuery = function(button) {
+            var queryText = $(button).closest('.query-info').find('.user-query').text();
+            var input = $('#wechatApiInput');
+            
+            // 在当前内容后追加查询，如果当前有内容则添加换行
+            var currentContent = input.val().trim();
+            var newContent = currentContent
+                ? currentContent + '\n' + queryText
+                : queryText;
+            
+            // 更新输入框内容
+            input.val(newContent);
+            
+            // 聚焦到输入框并滚动到顶部
+            input.focus();
+            $('html, body').animate({
+                scrollTop: input.offset().top - 100
+            }, 500);
+            
+            // 更新UI状态
+            $('.chat-watermark').css('opacity', '0');
+            $('#submitBtn').addClass('active');
+        };
+
         // 如果有初始查询，自动填充并执行
         if (initialQuery && initialQuery.trim()) {
             $('#wechatApiInput').val(initialQuery);

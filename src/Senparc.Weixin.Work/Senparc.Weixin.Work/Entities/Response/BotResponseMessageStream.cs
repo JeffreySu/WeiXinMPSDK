@@ -18,7 +18,7 @@ namespace Senparc.Weixin.Work.Entities
     /// <summary>
     /// 流式响应消息
     /// </summary>
-    public class WorkBotResponseMessageStream : WorkBotResponseMessageBase
+    public class BotResponseMessageStream : WorkBotResponseMessageBase
     {
         /// <summary>
         /// 流式响应消息的内部类，用于图文混排消息，目前只支持image，对应stream.msg_item集合中的元素

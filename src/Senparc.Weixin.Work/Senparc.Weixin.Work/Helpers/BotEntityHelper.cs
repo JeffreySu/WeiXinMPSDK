@@ -29,7 +29,7 @@ namespace Senparc.Weixin.Work.Helpers
             var baseMessage = SerializerHelper.GetObject<WorkBotRequestMessageBase>(json);
             var requestMessage = new WorkRequestMessageBase();
             var jsonObject = new WorkBotRequestMessageBase();
-            switch(baseMessage.msgtype.ToUpper())
+            switch((baseMessage?.msgtype ?? string.Empty).Trim().ToUpper())
             {
                 case "TEXT":
                     jsonObject = SerializerHelper.GetObject<BotRequestMessageText>(json);
@@ -106,5 +106,78 @@ namespace Senparc.Weixin.Work.Helpers
             return requestMessage;
         }
 
+        /// <summary>
+        /// 获取回复实体（从 JSON 入手，仿照 GetRequestEntity 的流程）
+        /// 1) 先以基类获取 msgtype；2) 反序列化为具体回复 JSON 模型；3) 转为统一的 WorkResponseMessageBase
+        /// </summary>
+        /// <param name="json">机器人回复 JSON 字符串</param>
+        /// <returns>统一回复实体 WorkResponseMessageBase</returns>
+        public static WorkResponseMessageBase GetResponseEntity(string json)
+        {
+            var baseMessage = SerializerHelper.GetObject<WorkBotResponseMessageBase>(json);
+            var responseMessage = new WorkResponseMessageBase();
+            var jsonObject = new WorkBotResponseMessageBase();
+
+            switch ((baseMessage?.msgtype ?? string.Empty).Trim().ToUpper())
+            {
+                case "TEXT":
+                    jsonObject = SerializerHelper.GetObject<BotResponseMessageText>(json);
+                    responseMessage = ConvertJsonObjectToResponseMessage(jsonObject, json);
+                    break;
+                case "TEMPLATE_CARD":
+                    jsonObject = SerializerHelper.GetObject<BotResponseMessageTemplateCard>(json);
+                    responseMessage = ConvertJsonObjectToResponseMessage(jsonObject, json);
+                    break;
+                case "STREAM":
+                    jsonObject = SerializerHelper.GetObject<BotResponseMessageStream>(json);
+                    responseMessage = ConvertJsonObjectToResponseMessage(jsonObject, json);
+                    break;
+                default:
+                    break;
+            }
+
+            return responseMessage;
+        }
+
+        /// <summary>
+        /// 将回复 json 对象转换为统一的回复实体
+        /// </summary>
+        /// <param name="baseMessage">具体的回复 JSON 基类对象（通过 msgtype 判型）</param>
+        /// <param name="json">原始 JSON（如需二次反序列化可用）</param>
+        /// <returns>统一回复实体 WorkResponseMessageBase</returns>
+        public static WorkResponseMessageBase ConvertJsonObjectToResponseMessage(WorkBotResponseMessageBase baseMessage, string json = null)
+        {
+            var responseMessage = new WorkResponseMessageBase();
+
+            var msgType = NeuChar.Helpers.MsgTypeHelper.GetResponseMsgType(baseMessage.msgtype);
+            switch (msgType)
+            {
+                case ResponseMsgType.Text:
+                    var textJsonObject = baseMessage as BotResponseMessageText;
+                    // TODO: 在此将 textJsonObject 映射为具体的 ResponseMessageText 并赋给 responseMessage
+                    // var textResponse = new ResponseMessageText();
+                    // textResponse.Content = textJsonObject?.text?.content;
+                    // responseMessage = textResponse;
+                    break;
+
+                // 缺少模板卡片类型枚举
+                // case ResponseMsgType.TemplateCard:
+                //     var templateCardJsonObject = baseMessage as BotResponseMessageTemplateCard;
+                //     // TODO: 在此将 templateCardJsonObject 映射为具体的回复实体并赋给 responseMessage
+                //     break;
+
+                case ResponseMsgType.Stream:
+                    var streamJsonObject = baseMessage as BotResponseMessageStream;
+                    // TODO: 在此将 streamJsonObject 映射为具体的回复实体并赋给 responseMessage
+                    break;
+
+                default:
+                    // TODO: 其他类型
+                    break;
+            }
+
+            return responseMessage;
+        }
+        
     }
 }

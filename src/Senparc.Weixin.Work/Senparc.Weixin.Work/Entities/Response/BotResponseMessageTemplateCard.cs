@@ -17,7 +17,7 @@ namespace Senparc.Weixin.Work.Entities
     /// <summary>
     /// 模板卡片消息（未实现）
     /// </summary>
-    public class WorkBotResponseMessageTemplateCard : WorkBotResponseMessageBase
+    public class BotResponseMessageTemplateCard : WorkBotResponseMessageBase
 {
     // 模板卡片主体
     public Template_Card template_card { get; set; }

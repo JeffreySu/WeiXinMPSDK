@@ -19,8 +19,19 @@ namespace Senparc.Weixin.Work.Entities
     /// <summary>
     /// 机器人回复欢迎语文本消息，目前仅支持进入会话回调事件时，支持被动回复文本消息
     /// </summary>
-    public class WorkBotResponseMessageText : WorkBotResponseMessageBase
+    public class BotResponseMessageText : WorkBotResponseMessageBase
     {
-        public string content { get; set; }
+        /// <summary>
+        /// 对应text对象的类
+        /// </summary>
+        public class TextContent
+        {
+            public string content { get; set; }
+        }
+
+        /// <summary>
+        /// 对应text对象
+        /// </summary>
+        public TextContent text { get; set; }
     }
 }

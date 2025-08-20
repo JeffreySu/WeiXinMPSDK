@@ -142,8 +142,8 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
                 var prompt = $@"
 ## 基本要求
 1. 按照“API 查询要求”，使用 WeChat API function-calling 完成查询任务
-2. 结果需要严格使用 JSON 格式输出（注意：不需要包含任何 markdown 的标记，直接生成 JSON 代码），""输出""严格遵循示例如下：
-<START>{{
+2. 结果需要严格使用 JSON 格式输出（注意：不需要包含任何 markdown 的标记，直接生成 JSON 代码，以{{开始，以}}结束），""输出""严格遵循示例如下：
+{{
 ""Platform"":""公众号"",
 ""ApiDescription"",""<p>根据您的需求，推荐使用<strong>获取用户基本信息接口</strong>。该接口可以获取用户的昵称、头像、性别、所在城市、语言和关注时间等信息。</p>"",
 ""CSharpCode"":""var appId = \""your_app_id\"";
@@ -154,7 +154,7 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
 ""Tips"":""<strong>注意事项：</strong>
 <ul><li>确保用户已关注公众号，否则无法获取详细信息</li>
 <li>AccessToken需要定期刷新，建议使用SDK自动管理</li>
-<li>接口调用频率限制：100万次/天</li></ul>""}}<END>
+<li>接口调用频率限制：100万次/天</li></ul>""}}
 
 ### JSON 参数说明
 1. Platform 根据选择的平台进行匹配：
@@ -171,7 +171,7 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
 {request.Query}
 
 ## 输出
-<START>";
+";
                 var resultRaw = await iWantToRun.Kernel.InvokePromptAsync(prompt, ka);
 
                 Console.WriteLine($"收到MCP回复：{resultRaw.ToString()}");
@@ -222,7 +222,7 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
         <div class='module-section'>
             <h4>📦 接口模块</h4>
             <div class='module-info'>
-                <span class='module-tag'>微信公众号 API</span>
+                <span class='module-tag'>{result.Platform} API</span>
                 <!-- <span class='module-tag'>用户管理</span> -->
             </div>
         </div>

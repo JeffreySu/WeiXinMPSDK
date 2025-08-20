@@ -87,8 +87,11 @@
                 $('.chat-interface').after(responseContainer);
             }
             
-            // 添加新的回复内容到最前面
-            var responseItem = $('<div class="response-item">' + htmlContent + '</div>');
+            // 解码 HTML 实体编码并添加新的回复内容到最前面
+            var tempDiv = document.createElement('textarea');
+            tempDiv.innerHTML = htmlContent;
+            var decodedContent = tempDiv.value;
+            var responseItem = $('<div class="response-item">' + decodedContent + '</div>');
             responseContainer.prepend(responseItem);
             
             // 滚动到新回复
@@ -118,7 +121,10 @@
 
         // 编辑查询的函数
         window.editQuery = function(button) {
-            var queryText = $(button).closest('.query-info').find('.user-query').text();
+            var encodedText = $(button).closest('.query-info').find('.user-query').text();
+            var tempDiv = document.createElement('textarea');
+            tempDiv.innerHTML = encodedText;
+            var queryText = tempDiv.value;
             var input = $('#wechatApiInput');
             
             // 在当前内容后追加查询，如果当前有内容则添加换行
@@ -143,7 +149,11 @@
 
         // 如果有初始查询，自动填充并执行
         if (initialQuery && initialQuery.trim()) {
-            $('#wechatApiInput').val(initialQuery);
+            // 解码初始查询
+            var tempDiv = document.createElement('textarea');
+            tempDiv.innerHTML = initialQuery;
+            var decodedQuery = tempDiv.value;
+            $('#wechatApiInput').val(decodedQuery);
             $('.chat-watermark').css('opacity', '0');
             $('#submitBtn').addClass('active');
             

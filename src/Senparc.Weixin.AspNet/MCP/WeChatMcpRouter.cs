@@ -139,7 +139,7 @@ namespace Senparc.Weixin.AspNet.MCP
 
             var result = new WeChatMcpResult<string[]>()
             {
-                NextRoundTip = "根据 Result 中的方法注释，选择一条最适合的方法名称，并尝试生成调用代码",
+                NextRoundTip = "根据 Result 中的方法注释，选择一条最适合的方法名称，并尝试生成调用代码。除非：当前接口传入参数需要从其他微信接口获取，请继续使用同一个平台名称请求 SearchWeChatApiCatalogInPlatform，获取对应的参数结果，并传递给当前方法。",
                 Result = apiItems.Select(z => new
                 {
                     z.FullMethodName,

@@ -95,6 +95,6 @@
 	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0' ">
 		<PackageReference Include="ModelContextProtocol" Version="0.2.0-preview.3" />
 		<PackageReference Include="ModelContextProtocol.AspNetCore" Version="0.2.0-preview.3" />
-		<PackageReference Include="Senparc.CO2NET.WebApi" Version="2.1.1" />
+		<PackageReference Include="Senparc.CO2NET.WebApi" Version="2.1.2.1" />
 	</ItemGroup>
 </Project>

@@ -146,6 +146,7 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
 ""CSharpCode"":""var appId = \""your_app_id\"";
 var openId = \""your_open_id\"";
 var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
+""ParamsDescription"":""<Table>展示所有参数说明，以及 Summary"",
 ""Tips"":""<strong>注意事项：</strong>
 <ul><li>确保用户已关注公众号，否则无法获取详细信息</li>
 <li>AccessToken需要定期刷新，建议使用SDK自动管理</li>
@@ -224,17 +225,25 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
             <div class='code-tabs'>
                 <div class='tab-buttons'>
                     <button class='tab-btn active' data-tab='csharp'>C#</button>
-                    <!-- <button class='tab-btn' data-tab='api'>API调用</button>-->
+                    <button class='tab-btn' data-tab='api'>接口参数说明</button>
                 </div>
                 
                 <div class='tab-content'>
                     <div class='tab-pane active' id='csharp'>
-                        <pre><code class='language-csharp'>// 获取用户基本信息
+                        <div class='code-container'>
+                            <button class='copy-btn' onclick='copyCode(this)' title='复制代码'>
+                                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='16' height='16'>
+                                    <path fill='currentColor' d='M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z'/>
+                                </svg>
+                            </button>
+                            <pre><code class='language-csharp'>// 获取用户基本信息
 {result.CSharpCode}</code></pre>
+                        </div>
                     </div>
                     
                     <div class='tab-pane' id='api'>
-                        <pre><code class='language-http'></code></pre>
+                        <pre><code class='language-http'>
+{result.ParamsDescription}</code></pre>
                     </div>
                 </div>
             </div>
@@ -359,6 +368,7 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
             public string ApiDescription { get; set; }
             public string CSharpCode { get; set; }
             public string  Tips { get; set; }
+            public string ParamsDescription { get; set; }
         }
     }
 }

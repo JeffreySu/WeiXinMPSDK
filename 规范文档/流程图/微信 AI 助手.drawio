@@ -1,0 +1,164 @@
+<mxfile host="Electron" modified="2025-08-21T15:56:57.567Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="8HK7Mgys4tz5xwnk276i" version="24.6.4" type="device" pages="2">
+  <diagram name="微信 AI MCP 流程" id="bcl0UDQIyEJkVf1Aqp0s">
+    <mxGraphModel dx="1185" dy="864" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="VaqKG_5WbEzigN_5FnRn-8" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="320" y="520" width="670" height="468" as="geometry" />
+        </mxCell>
+        <mxCell id="MIYyPm9PLhzgJ3Vb66qU-3" value="开发者" style="swimlane;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="59" y="120" width="241" height="1050" as="geometry" />
+        </mxCell>
+        <mxCell id="MIYyPm9PLhzgJ3Vb66qU-6" value="1.1 发起请求" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="MIYyPm9PLhzgJ3Vb66qU-3">
+          <mxGeometry x="60.5" y="112" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="MIYyPm9PLhzgJ3Vb66qU-23" value="1.2 呈现" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="MIYyPm9PLhzgJ3Vb66qU-3">
+          <mxGeometry x="41" y="960" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="MIYyPm9PLhzgJ3Vb66qU-25" value="https://sdk.weixin.senparc.com/AiDoc" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#d6b656;fillColor=#fff2cc;" vertex="1" parent="MIYyPm9PLhzgJ3Vb66qU-3">
+          <mxGeometry x="10.5" y="39" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="MIYyPm9PLhzgJ3Vb66qU-4" value="AI 助手网页（微信应用服务器）" style="swimlane;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="300" y="120" width="240" height="1050" as="geometry" />
+        </mxCell>
+        <mxCell id="MIYyPm9PLhzgJ3Vb66qU-7" value="2.1 处理请求并&lt;div&gt;连接 MCP 服务&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="MIYyPm9PLhzgJ3Vb66qU-4">
+          <mxGeometry x="54" y="112" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VaqKG_5WbEzigN_5FnRn-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="MIYyPm9PLhzgJ3Vb66qU-4" source="MIYyPm9PLhzgJ3Vb66qU-11" target="MIYyPm9PLhzgJ3Vb66qU-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MIYyPm9PLhzgJ3Vb66qU-11" value="2.2 储存 tool-list" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="MIYyPm9PLhzgJ3Vb66qU-4">
+          <mxGeometry x="54" y="210" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="MIYyPm9PLhzgJ3Vb66qU-13" value="2.3 使用 Senparc.AI&lt;div&gt;构建 AI 请求，&lt;/div&gt;&lt;div&gt;并附加 MCP 连接&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="MIYyPm9PLhzgJ3Vb66qU-4">
+          <mxGeometry x="54" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="MIYyPm9PLhzgJ3Vb66qU-21" value="2.6 收集并处理信息" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="MIYyPm9PLhzgJ3Vb66qU-4">
+          <mxGeometry x="54" y="783" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VaqKG_5WbEzigN_5FnRn-3" value="2.5 请求 MCP Tool" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="MIYyPm9PLhzgJ3Vb66qU-4">
+          <mxGeometry x="54" y="580" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VaqKG_5WbEzigN_5FnRn-20" value="https://sdk.weixin.senparc.com/AiDoc" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#d6b656;fillColor=#fff2cc;" vertex="1" parent="MIYyPm9PLhzgJ3Vb66qU-4">
+          <mxGeometry x="10" y="40" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="MIYyPm9PLhzgJ3Vb66qU-5" value="NCF MCP 服务" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="540" y="120" width="239" height="1050" as="geometry" />
+        </mxCell>
+        <mxCell id="MIYyPm9PLhzgJ3Vb66qU-9" value="3.1 响应 tool-list&lt;div&gt;返回工具列表&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="MIYyPm9PLhzgJ3Vb66qU-5">
+          <mxGeometry x="60.5" y="112" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="MIYyPm9PLhzgJ3Vb66qU-26" value="NCF - WeixinManager 模块" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#d6b656;fillColor=#fff2cc;" vertex="1" parent="MIYyPm9PLhzgJ3Vb66qU-5">
+          <mxGeometry x="39.5" y="39" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VaqKG_5WbEzigN_5FnRn-6" value="3.2 执行 McpServerTool" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="MIYyPm9PLhzgJ3Vb66qU-5">
+          <mxGeometry x="60.5" y="675" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="MIYyPm9PLhzgJ3Vb66qU-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="MIYyPm9PLhzgJ3Vb66qU-6" target="MIYyPm9PLhzgJ3Vb66qU-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MIYyPm9PLhzgJ3Vb66qU-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="MIYyPm9PLhzgJ3Vb66qU-7" target="MIYyPm9PLhzgJ3Vb66qU-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MIYyPm9PLhzgJ3Vb66qU-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="MIYyPm9PLhzgJ3Vb66qU-9" target="MIYyPm9PLhzgJ3Vb66qU-11">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="662" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MIYyPm9PLhzgJ3Vb66qU-15" value="大模型服务" style="swimlane;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="779" y="120" width="241" height="1050" as="geometry" />
+        </mxCell>
+        <mxCell id="MIYyPm9PLhzgJ3Vb66qU-18" value="4.1 模型处理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="MIYyPm9PLhzgJ3Vb66qU-15">
+          <mxGeometry x="60.5" y="465" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VaqKG_5WbEzigN_5FnRn-12" value="4.2 模型总结" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="MIYyPm9PLhzgJ3Vb66qU-15">
+          <mxGeometry x="60.5" y="880" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VaqKG_5WbEzigN_5FnRn-16" value="Senparc.AI 对接" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#d6b656;fillColor=#fff2cc;" vertex="1" parent="MIYyPm9PLhzgJ3Vb66qU-15">
+          <mxGeometry x="65.5" y="39" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="MIYyPm9PLhzgJ3Vb66qU-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="VaqKG_5WbEzigN_5FnRn-24" target="MIYyPm9PLhzgJ3Vb66qU-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MIYyPm9PLhzgJ3Vb66qU-20" value="模型参数通过 Senparc.AI 提前设置&lt;div&gt;appsettings.json&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;" vertex="1" connectable="0" parent="MIYyPm9PLhzgJ3Vb66qU-19">
+          <mxGeometry x="-0.1045" y="1" relative="1" as="geometry">
+            <mxPoint x="22" y="-19" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VaqKG_5WbEzigN_5FnRn-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="MIYyPm9PLhzgJ3Vb66qU-18" target="VaqKG_5WbEzigN_5FnRn-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="900" y="730" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VaqKG_5WbEzigN_5FnRn-5" value="决定 tools 调用" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;" vertex="1" connectable="0" parent="VaqKG_5WbEzigN_5FnRn-4">
+          <mxGeometry x="0.3222" relative="1" as="geometry">
+            <mxPoint x="3" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VaqKG_5WbEzigN_5FnRn-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="VaqKG_5WbEzigN_5FnRn-3" target="VaqKG_5WbEzigN_5FnRn-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="414" y="820" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VaqKG_5WbEzigN_5FnRn-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="MIYyPm9PLhzgJ3Vb66qU-21" target="VaqKG_5WbEzigN_5FnRn-12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="414" y="1030" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VaqKG_5WbEzigN_5FnRn-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="rRv2bJSQRSbEMh5PgpuM-3" target="MIYyPm9PLhzgJ3Vb66qU-23">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VaqKG_5WbEzigN_5FnRn-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="VaqKG_5WbEzigN_5FnRn-6" target="MIYyPm9PLhzgJ3Vb66qU-21">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="660" y="933" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VaqKG_5WbEzigN_5FnRn-9" value="&lt;div style=&quot;font-size: 11px;&quot;&gt;注意这个过程会自动发生多次发生，&lt;span style=&quot;background-color: initial;&quot;&gt;直到所有 tools 调用完成&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#d6b656;fillColor=#fff2cc;" vertex="1" parent="1">
+          <mxGeometry x="490" y="531" width="320" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VaqKG_5WbEzigN_5FnRn-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VaqKG_5WbEzigN_5FnRn-24" target="VaqKG_5WbEzigN_5FnRn-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VaqKG_5WbEzigN_5FnRn-24" value="2.4 发起 AI 请求" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="354" y="585" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VaqKG_5WbEzigN_5FnRn-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="MIYyPm9PLhzgJ3Vb66qU-13" target="VaqKG_5WbEzigN_5FnRn-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rRv2bJSQRSbEMh5PgpuM-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="VaqKG_5WbEzigN_5FnRn-12" target="rRv2bJSQRSbEMh5PgpuM-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="1060" as="sourcePoint" />
+            <mxPoint x="220" y="1110" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="900" y="1110" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rRv2bJSQRSbEMh5PgpuM-3" value="2.7 获取并处理&lt;div&gt;AI 最终返回结果&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="354" y="1080" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="0IMow4E8Jr_S2IZHx9Sx" name="MCP 请求流程">
+    <mxGraphModel dx="1185" dy="864" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

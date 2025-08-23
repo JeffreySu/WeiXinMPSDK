@@ -1,0 +1,21 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schemas/draft/2025-07-09/server.json",
+  "description": "WeChat MCP Server using WeChat McpRouter",
+  "name": "io.github.JeffreySu/WeixinMPSDK",
+  "packages": [
+    {
+      "registry_name": "nuget",
+      "name": "<your package ID here>",
+      "version": "0.1.0-beta",
+      "package_arguments": [],
+      "environment_variables": []
+    }
+  ],
+  "repository": {
+    "url": "https://github.com/JeffreySu/WeixinMPSDK",
+    "source": "github"
+  },
+  "version_detail": {
+    "version": "0.1.0-beta"
+  }
+}

@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include=".vscode\mcp.json" />
+    <None Include=".vscode\mcp.json" Pack="true" PackagePath="/.vscode/" />
   </ItemGroup>
 
   <!-- Include additional files for browsing the MCP server. -->

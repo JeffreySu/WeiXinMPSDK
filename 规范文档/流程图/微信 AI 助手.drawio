@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2025-08-21T15:56:57.567Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="8HK7Mgys4tz5xwnk276i" version="24.6.4" type="device" pages="2">
+<mxfile host="Electron" modified="2025-08-22T04:21:10.932Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="-oM-u3Igvm284TTXOSbP" version="24.6.4" type="device" pages="2">
   <diagram name="微信 AI MCP 流程" id="bcl0UDQIyEJkVf1Aqp0s">
     <mxGraphModel dx="1185" dy="864" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -147,7 +147,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="rRv2bJSQRSbEMh5PgpuM-3" value="2.7 获取并处理&lt;div&gt;AI 最终返回结果&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+        <mxCell id="rRv2bJSQRSbEMh5PgpuM-3" value="2.7 获取&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;AI 最终返回结果，&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;并处理成页面所需数据&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
           <mxGeometry x="354" y="1080" width="120" height="60" as="geometry" />
         </mxCell>
       </root>

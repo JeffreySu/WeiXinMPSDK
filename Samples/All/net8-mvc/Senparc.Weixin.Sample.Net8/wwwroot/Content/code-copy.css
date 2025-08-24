@@ -1,0 +1,43 @@
+.code-container {
+    position: relative;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 6px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s, background-color 0.2s;
+    z-index: 10;
+}
+
+.copy-btn:hover {
+    opacity: 1;
+    background: #e9ecef;
+}
+
+.copy-btn svg {
+    display: block;
+}
+
+/* Success state */
+.copy-btn.success {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+}
+
+/* Animation for success state */
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0.7; }
+}
+
+.copy-btn.success {
+    animation: fadeOut 1s ease-out 1s forwards;
+}

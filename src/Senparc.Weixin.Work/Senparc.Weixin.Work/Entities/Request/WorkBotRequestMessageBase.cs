@@ -6,56 +6,56 @@
     
     
     创建标识：Wang Qian - 20250802
+
+    修改标识: Wang Qian - 20250815
+    修改描述: 修改消息基类，直接映射文档原始键名，便于无特性反序列化
 ----------------------------------------------------------------*/
 using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.Work.Entities
 {
-    /// <summary>
-    /// 会话类型，single\group，分别表示：单聊\群聊
-    /// </summary>
-    public enum ChatType 
+    public class WorkBotRequestMessageBase
     {
-        Single,
-        Group
-    }
-
-    public interface IWorkBotRequestMessageBase : IRequestMessageBase
-    {
-        string ChatId { get; set; }
-        ChatType ChatType { get; set; }
-
-    }
-    
-    /// <summary>
-    /// 企业微信智能机器人接收到请求的消息基类
-    /// </summary>
-    public abstract class WorkBotRequestMessageBase : RequestMessageBase, IWorkBotRequestMessageBase
-    {
-        //基类中包含:
-        
-        //RequestMessageBase 中包含：
-        //MsgId:对应msgid，本次回调的唯一性标志，开发者需据此进行事件排重（可能因为网络等原因重复回调）
-        //MsgType:对应msgtype，消息类型
-
-        //MessageBase 中包含:
-        //ToUserName: 对应aibotid，智能机器人id
-        //FromUserName: 对应userid，用户id
-        
-
+        /// <summary>
+        /// 机器人消息的唯一标识
+        /// </summary>
+        public string msgid { get; set; }
 
         /// <summary>
-        /// 对应chatid，会话id，仅群聊类型时候返回
+        /// 智能体（机器人）ID
         /// </summary>
-        public string ChatId { get; set; }
+        public string aibotid { get; set; }
 
         /// <summary>
-        /// 对应chattype，会话类型，single\group，分别表示：单聊\群聊
+        /// 会话ID
         /// </summary>
-        public ChatType ChatType { get; set; }
+        public string chatid { get; set; }
 
-        //默认返回Unknown，如果返回Unknown，说明是未知消息类型
-        public override RequestMsgType MsgType => RequestMsgType.Unknown;
+        /// <summary>
+        /// 会话类型，例：group
+        /// </summary>
+        public string chattype { get; set; }
+
+        /// <summary>
+        /// 发送方信息
+        /// </summary>
+        public From from { get; set; }
+
+        /// <summary>
+        /// 消息类型，例：text
+        /// </summary>
+        public virtual string msgtype { get; set; }
+
+        /// <summary>
+        /// 与文档一致的 from 对象
+        /// </summary>
+        public class From
+        {
+            /// <summary>
+            /// 成员UserId
+            /// </summary>
+            public string userid { get; set; }
+        }
     }
 }

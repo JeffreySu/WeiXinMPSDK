@@ -16,10 +16,18 @@ using Senparc.NeuChar;
 namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
-    /// 用户进入机器人对话的事件推送
+    /// 用户进入机器人对话的事件推送（enter_chat）
     /// </summary>
-    public class BotRequestMessageEvent_Enter : BotRequestMessageEventBase, IBotRequestMessageEventBase
+    public class BotRequestMessageEvent_Enter : BotRequestMessageEventBase
     {
-        public override Event Event => Event.ENTER;
+        /// <summary>
+        /// 事件对象：仅包含 eventtype = "enter_chat"
+        /// </summary>
+        public new Event_Enter @event { get; set; }
+
+        public class Event_Enter
+        {
+            public string eventtype { get; set; } = "enter_chat";
+        }
     }
 }

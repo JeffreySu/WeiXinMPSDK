@@ -146,7 +146,7 @@ var openId = \""your_open_id\"";
 var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
 ""Summary"":[""获取用户基本信息接口"",""第二个接口的Summary""],
 ""IsAsync"":false,
-""ParamsDescription"":[""<table class=\""parameter-table\"">第一个接口参数说明（<是否为异步方法>）"",""第二个接口的参数说明""],
+""ParamsDescription"":[""<table class=\""parameter-table\"">第一个接口参数说明（异步方法：<IsAsync>）"",""第二个接口的参数说明""],
 ""Tips"":""<strong>注意事项：</strong>
 <ul><li>确保用户已关注公众号，否则无法获取详细信息</li>
 <li>AccessToken需要定期刷新，建议使用SDK自动管理</li>

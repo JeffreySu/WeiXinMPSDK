@@ -20,6 +20,7 @@ using Senparc.Weixin.Work.Entities;
 using Senparc.CO2NET.Helpers;
 using Senparc.NeuChar;
 using System;
+using Senparc.CO2NET.Extensions;
 
 
 
@@ -126,6 +127,30 @@ namespace Senparc.Weixin.Work.Helpers
                                 throw new NotSupportedException($"不支持的事件类型: {eventJsonObject.@event.eventtype}");
                         }
                         break;
+                    case RequestMsgType.Mixed:
+                        var mixedJsonObject = SerializerHelper.GetObject<BotRequestMessageMixed>(json);
+                        //目前缺少RequestMessageMixed类，所以暂时不处理
+                        //var mixedRequestMessage = new RequestMessageMixed();
+                        
+                        //为共有字段赋值
+                        //SetRequestCommonFields(mixedRequestMessage, baseMessage);
+                        
+                        // 对特有属性赋值   
+                        //requestMessage = mixedRequestMessage;
+                        throw new NotSupportedException($"Mixed类型的消息暂未实现，需要先创建对应的RequestMessageMixed类");
+                        break;
+                    case RequestMsgType.Stream:
+                        var streamJsonObject = SerializerHelper.GetObject<BotRequestMessageStream>(json);
+                        //目前缺少RequestMessageStream类，所以暂时不处理
+                        //var streamRequestMessage = new RequestMessageStream();
+                        
+                        //为共有字段赋值
+                        //SetRequestCommonFields(streamRequestMessage, baseMessage);
+                        
+                        // 对特有属性赋值   
+                        //requestMessage = streamRequestMessage;
+                        throw new NotSupportedException($"Stream类型的消息暂未实现，需要先创建对应的RequestMessageStream类");
+                        break;
                     default:
                         throw new NotSupportedException($"不支持的消息类型: {msgType}");
                 }
@@ -161,7 +186,8 @@ namespace Senparc.Weixin.Work.Helpers
                     break;
                 // 注意：目前没有标准的ResponseMessageStream类，Stream类型暂时不处理
                 // 如需要支持Stream类型，需要先创建对应的标准Response类
-                // case ResponseMsgType.Stream:
+                case ResponseMsgType.Stream:
+                    throw new NotSupportedException($"Stream类型的回复消息暂未实现，需要先创建对应的ResponseMessageStream类");
                 //     var streamJsonObject = SerializerHelper.GetObject<BotResponseMessageStream>(json);
                 //     // TODO: 创建对应的ResponseMessageStream类
                 //     break;
@@ -221,7 +247,8 @@ namespace Senparc.Weixin.Work.Helpers
                     throw new NotSupportedException($"Stream类型的回复消息暂未实现，需要先创建对应的ResponseMessageStream类");
                     
                 // TODO: 添加模板卡片类型的处理,但是目前NeuChar标准中没有对应枚举，需要补充
-                // case ResponseMsgType.TemplateCard:
+                //case ResponseMsgType.TemplateCard:
+                    //throw new NotSupportedException($"TemplateCard类型的回复消息暂未实现，需要先创建对应的ResponseMessageTemplateCard类");
                 //     var templateCardResponseMessage = responseMessage as ResponseMessageTemplateCard;
                 //     var templateCardJsonObject = new BotResponseMessageTemplateCard();
                 //     // 设置templateCard相关属性
@@ -231,8 +258,7 @@ namespace Senparc.Weixin.Work.Helpers
                 default:
                     throw new NotSupportedException($"不支持的回复消息类型: {responseMessage.MsgType}");
             }
-
-            return responseJsonObject != null ? SerializerHelper.GetJsonString(responseJsonObject) : null;
+            return responseJsonObject.ToJson(true);
         }
 
     }

@@ -39,7 +39,7 @@ namespace Senparc.Weixin.Work.Helpers
         {
             requestMessage.FromUserName = baseMessage.from.userid;
             requestMessage.ToUserName = baseMessage.aibotid;
-            //requestMessage.MsgId = baseMessage.msgid;
+            requestMessage.MsgId = baseMessage.msgid;
         }
 
         /// <summary>

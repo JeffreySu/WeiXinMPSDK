@@ -93,6 +93,18 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
             request.Query = System.Web.HttpUtility.HtmlDecode(request.Query);
             try
             {
+
+                //对request内容进行判断，如果是完整的 http 请求（不包含其他内容），使用 CO2NET 获取网页内容，并且获取网页的 title
+                if (Regex.IsMatch(request.Query, @"^https?://", RegexOptions.IgnoreCase))
+                {
+                    var url = request.Query;
+                    var httpClient = new HttpClient();
+                    var response = await httpClient.GetAsync(url);
+                    var html = await response.Content.ReadAsStringAsync();
+                    var title = Regex.Match(html, @"<title>(.*?)</title>", RegexOptions.IgnoreCase).Groups[1].Value;
+                    request.Query += $" 标题：{title}";
+                }
+
                 //建立 MCP 连接，并获取信息
                 var mcpEndpoint = "https://www.ncf.pub/mcp-senparc-xncf-weixinmanager/sse";
                 var clientTransport = new SseClientTransport(new SseClientTransportOptions()

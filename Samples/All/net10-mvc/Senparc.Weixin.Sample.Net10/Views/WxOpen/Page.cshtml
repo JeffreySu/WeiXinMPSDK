@@ -1,0 +1,195 @@
+﻿@model System.String
+@*DPBMARK_FILE WxOpen*@
+@{
+    ViewBag.Title = "Senparc.Weixin SDK 小程序";
+    bool inWeChatBrowser = (ViewData["inWeChatBrowser"] is bool isIn) && isIn;
+    Layout = inWeChatBrowser ? null : "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style>
+        :root {
+            --bg-start: #f8fafc;
+            --bg-end: #f1f5f9;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+            --primary: #16a34a;
+            --primary-2: #22c55e;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            color: var(--text);
+            background: linear-gradient(180deg, var(--bg-start), var(--bg-end));
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .wxopen.wrapper {
+            padding: 36px 16px;
+        }
+
+        .card {
+            max-width: 920px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 12px 28px rgba(0,0,0,.08);
+            border: 1px solid var(--border);
+            padding: 28px clamp(16px, 4vw, 36px);
+        }
+
+        h2 {
+            margin: 0 0 12px 0;
+            font-size: clamp(22px, 3vw, 28px);
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: .2px;
+        }
+
+        .subtitle {
+            margin: 0 auto 20px;
+            max-width: 720px;
+            color: var(--muted);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 14px 0 6px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 18px;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-2), var(--primary));
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(34, 197, 94, .25);
+        }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(34, 197, 94, .3); }
+
+        .btn-ghost {
+            color: var(--text);
+            background: #fff;
+            border-color: var(--border);
+        }
+        .btn-ghost:hover { background: #f9fafb; }
+
+        .section {
+            margin-top: 22px;
+        }
+
+        h3 {
+            margin: 22px 0 8px;
+            font-weight: 700;
+            font-size: clamp(18px, 2.4vw, 22px);
+        }
+
+        h4 {
+            margin: 18px 0 10px;
+            font-weight: 600;
+            font-size: clamp(16px, 2.1vw, 20px);
+        }
+
+        .wxopen p { line-height: 1.7; margin: 8px 0; }
+        .muted { color: var(--muted); }
+        .center { text-align: center; }
+
+        .qr {
+            display: flex;
+            justify-content: center;
+            margin-top: 8px;
+        }
+        .qr img {
+            width: clamp(220px, 60vw, 320px);
+            border-radius: 12px;
+            box-shadow: 0 10px 24px rgba(0,0,0,.08);
+            border: 1px solid var(--border);
+        }
+
+        .note {
+            background: #f8fafc;
+            border: 1px dashed var(--border);
+            border-radius: 12px;
+            padding: 12px 14px;
+            color: var(--muted);
+        }
+
+        @@media (prefers-color-scheme: dark) {
+            :root {
+                --bg-start: #0b1220;
+                --bg-end: #0f172a;
+                --text: #e5e7eb;
+                --muted: #94a3b8;
+                --border: #1f2937;
+            }
+            .card { background: #0b1220; border-color: var(--border); box-shadow: 0 12px 28px rgba(0,0,0,.6); }
+            .btn-ghost { background: #0b1220; }
+            .btn-ghost:hover { background: #111827; }
+            .note { background: #0b1220; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper wxopen">
+        <div class="card">
+            <h2>@ViewBag.Title</h2>
+            <p class="subtitle">说明：Senparc.Weixin SDK 已支持大部分微信公众号、小程序的常用接口，欢迎和我们一起建设 SDK 或贡献代码！</p>
+
+            <div class="actions">
+                <a class="btn btn-primary" href="weixin://dl/business/?t=@Model">🚀 直接打开小程序</a>
+                @if (inWeChatBrowser)
+                {
+                    <a class="btn btn-ghost" href="/">返回首页</a>
+                }
+            </div>
+
+            <div class="section">
+                <h3>外部浏览器直接打开微信</h3>
+                <h4>体验方法：</h4>
+                <p>1、在微信外部浏览器打开此网页。</p>
+                <p>2、点击上方“直接打开小程序”按钮；或使用该链接【<a href="weixin://dl/business/?t=@Model">weixin://dl/business/?t=@Model</a>】。</p>
+            </div>
+
+            <div class="section">
+                <h4>如果您是开发者，可以这样轻松获得此功能：</h4>
+                <p>1、下载当前 <a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Samples/All/net8-mvc" target="_blank">Sample</a>。</p>
+                <p>2、在 <code>appsettings.json</code> 中配置小程序 AppId 等信息，然后部署或本地运行。</p>
+                <p>3、在运行电脑（或服务器）本地打开 <a href="/WxOpen/GetUrlScheme">/WxOpen/GetUrlScheme</a> 页面（不允许远程打开），即可看到可直接使用的 HTML 代码，将其插入到您自己的网页中即可。</p>
+                <p class="note">提示：部分外部浏览器可能会拦截 <code>weixin://</code> 协议，请在系统默认浏览器或支持唤起微信的浏览器中尝试。</p>
+            </div>
+
+            <div class="section center">
+                <h3>测试更多小程序功能</h3>
+                <div class="qr">
+                    <img src="~/images/SenparcRobot_MiniProgram.jpg" alt="Senparc.Weixin 小程序二维码" />
+                </div>
+                <p class="muted">扫描或微信内长按上方小程序二维码体验</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

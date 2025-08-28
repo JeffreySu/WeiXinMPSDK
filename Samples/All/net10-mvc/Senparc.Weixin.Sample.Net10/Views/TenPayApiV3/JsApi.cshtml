@@ -1,0 +1,180 @@
+﻿@using Senparc.Weixin.Sample.Net8.Models
+@*DPBMARK_FILE TenPay*@
+
+
+@*提示：当前过程模拟的是订单支付过程（订单已经生成），不能对同一个订单号重复支付 *@
+
+@{
+    Layout = null;
+    var jsApiUiPackage = ViewData["jsApiUiPackage"] as  Senparc.Weixin.TenPayV3.JsApiUiPackage;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>微信支付 - 确认支付</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            background: #f8f9fa;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .payment-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            width: 90%;
+            max-width: 480px;
+            text-align: center;
+        }
+
+        .product-info {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .product-name {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 2rem;
+            color: #e74c3c;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .payment-title {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .payment-subtitle {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        .payment-button {
+            display: inline-block;
+            background: #07c160;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .payment-button:hover {
+            background: #06ad56;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(7, 193, 96, 0.2);
+        }
+
+        .notice {
+            margin-top: 20px;
+            padding: 10px;
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        @@media (max-width: 480px) {
+            .payment-container {
+                padding: 20px;
+                width: 95%;
+            }
+
+            .product-price {
+                font-size: 1.8rem;
+            }
+
+            .payment-title {
+                font-size: 1.2rem;
+            }
+
+            .payment-button {
+                padding: 12px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        @if (ViewData["product"] is ProductModel product)
+        {
+            <div class="product-info">
+                <div class="product-name">@product.Name</div>
+                <div class="product-price">@product.Price.ToString("c")</div>
+            </div>
+        }
+
+        <h1 class="payment-title">确认支付</h1>
+        <p class="payment-subtitle">请点击下方按钮完成支付</p>
+
+        <button id="getBrandWCPayRequest" class="payment-button">立即支付</button>
+
+        <div class="notice">
+            提示：支付成功后可进入退款流程测试
+        </div>
+    </div>
+
+    <script>
+        // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            //公众号支付
+            jQuery('#getBrandWCPayRequest').click(function (e) {
+                WeixinJSBridge.invoke('getBrandWCPayRequest', {
+                    "appId": "@jsApiUiPackage.AppId",
+                    "timeStamp": "@jsApiUiPackage.Timestamp",
+                    "nonceStr": "@jsApiUiPackage.NonceStr",
+                    "package": "@Html.Raw(jsApiUiPackage.PrepayIdPackage)",
+                    "signType": "@Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting.EncryptionType",
+                    "paySign": "@Html.Raw(jsApiUiPackage.Signature)"
+                }, function (res) {
+                    if (res.err_msg == "get_brand_wcpay_request:ok") {
+                        setTimeout(function() {
+                            if (confirm('支付成功！点击"确定"进入退款流程测试。')) {
+                                location.href = '@Url.Action("Refund", "TenPayApiV3")';
+                            }
+                        }, 300);
+                    } else {
+                        alert(JSON.stringify(res));
+                    }
+                });
+            });
+
+            WeixinJSBridge.log('WeixinJSBridge ready');
+        }, false);
+    </script>
+</body>
+</html>

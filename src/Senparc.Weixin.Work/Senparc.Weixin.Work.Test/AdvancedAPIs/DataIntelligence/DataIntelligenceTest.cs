@@ -133,5 +133,51 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
                 Console.WriteLine($"限制验证测试异常: {ex.Message}");
             }
         }
+
+        [TestMethod]
+        public void GetMessageStatisticsTest()
+        {
+            // 测试消息统计API
+            var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
+
+            var startTime = DateTime.Now.AddDays(-30);
+            var endTime = DateTime.Now;
+
+            try
+            {
+                var result = DataIntelligenceApi.GetMessageStatistics(accessToken, startTime, endTime, "day", null, null);
+                Console.WriteLine($"消息统计API调用结果: errcode={result.errcode}, errmsg={result.errmsg}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"消息统计API调用异常: {ex.Message}");
+            }
+        }
+
+        [TestMethod]
+        public async void GetMessageStatisticsAsyncTest()
+        {
+            // 测试异步消息统计API
+            var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
+
+            var request = new GetMessageStatisticsRequest
+            {
+                starttime = DateTimeOffset.Now.AddDays(-7).ToUnixTimeSeconds(),
+                endtime = DateTimeOffset.Now.ToUnixTimeSeconds(),
+                type = "day",
+                agentid = null,
+                userids = null
+            };
+
+            try
+            {
+                var result = await DataIntelligenceApi.GetMessageStatisticsAsync(accessToken, request);
+                Console.WriteLine($"异步消息统计API调用结果: errcode={result.errcode}, errmsg={result.errmsg}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"异步消息统计API调用异常: {ex.Message}");
+            }
+        }
     }
 }

@@ -37,6 +37,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     public static class DataIntelligenceApi
     {
         private static string _urlFormatGetConversationRecords = Config.ApiWorkHost + "/cgi-bin/data/get_conversation_records?access_token={0}";
+        private static string _urlFormatGetMessageStatistics = Config.ApiWorkHost + "/cgi-bin/data/get_message_statistics?access_token={0}";
 
         #region 同步方法
 
@@ -88,6 +89,51 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 }
 
                 return CommonJsonSend.Send<GetConversationRecordsResult>(accessToken, _urlFormatGetConversationRecords, request, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 获取消息统计数据
+        /// 通过此接口可以获取企业微信中的消息统计信息，用于分析沟通趋势和活跃度
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="startTime">统计开始时间</param>
+        /// <param name="endTime">统计结束时间</param>
+        /// <param name="type">统计类型：day(按天), week(按周), month(按月)</param>
+        /// <param name="agentId">应用ID，为空时统计全部应用</param>
+        /// <param name="userIds">用户ID列表，为空时统计全部用户</param>
+        /// <param name="timeOut">超时时间</param>
+        /// <returns></returns>
+        public static GetMessageStatisticsResult GetMessageStatistics(string accessTokenOrAppKey, DateTime startTime, DateTime endTime, string type = "day", string agentId = null, string[] userIds = null, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var data = new GetMessageStatisticsRequest
+                {
+                    starttime = DateTimeHelper.GetUnixDateTime(startTime),
+                    endtime = DateTimeHelper.GetUnixDateTime(endTime),
+                    type = type ?? "day",
+                    agentid = agentId,
+                    userids = userIds
+                };
+
+                return CommonJsonSend.Send<GetMessageStatisticsResult>(accessToken, _urlFormatGetMessageStatistics, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 获取消息统计数据（使用请求对象）
+        /// 通过此接口可以获取企业微信中的消息统计信息，用于分析沟通趋势和活跃度
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="request">获取消息统计请求参数</param>
+        /// <param name="timeOut">超时时间</param>
+        /// <returns></returns>
+        public static GetMessageStatisticsResult GetMessageStatistics(string accessTokenOrAppKey, GetMessageStatisticsRequest request, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                return CommonJsonSend.Send<GetMessageStatisticsResult>(accessToken, _urlFormatGetMessageStatistics, request, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
 
@@ -143,6 +189,51 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 }
 
                 return await CommonJsonSend.SendAsync<GetConversationRecordsResult>(accessToken, _urlFormatGetConversationRecords, request, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取消息统计数据
+        /// 通过此接口可以获取企业微信中的消息统计信息，用于分析沟通趋势和活跃度
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="startTime">统计开始时间</param>
+        /// <param name="endTime">统计结束时间</param>
+        /// <param name="type">统计类型：day(按天), week(按周), month(按月)</param>
+        /// <param name="agentId">应用ID，为空时统计全部应用</param>
+        /// <param name="userIds">用户ID列表，为空时统计全部用户</param>
+        /// <param name="timeOut">超时时间</param>
+        /// <returns></returns>
+        public static async Task<GetMessageStatisticsResult> GetMessageStatisticsAsync(string accessTokenOrAppKey, DateTime startTime, DateTime endTime, string type = "day", string agentId = null, string[] userIds = null, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var data = new GetMessageStatisticsRequest
+                {
+                    starttime = DateTimeHelper.GetUnixDateTime(startTime),
+                    endtime = DateTimeHelper.GetUnixDateTime(endTime),
+                    type = type ?? "day",
+                    agentid = agentId,
+                    userids = userIds
+                };
+
+                return await CommonJsonSend.SendAsync<GetMessageStatisticsResult>(accessToken, _urlFormatGetMessageStatistics, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取消息统计数据（使用请求对象）
+        /// 通过此接口可以获取企业微信中的消息统计信息，用于分析沟通趋势和活跃度
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="request">获取消息统计请求参数</param>
+        /// <param name="timeOut">超时时间</param>
+        /// <returns></returns>
+        public static async Task<GetMessageStatisticsResult> GetMessageStatisticsAsync(string accessTokenOrAppKey, GetMessageStatisticsRequest request, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                return await CommonJsonSend.SendAsync<GetMessageStatisticsResult>(accessToken, _urlFormatGetMessageStatistics, request, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 

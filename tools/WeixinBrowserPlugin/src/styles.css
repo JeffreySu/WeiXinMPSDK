@@ -358,7 +358,7 @@ body.senparc-docked * {
 /* iframe样式 */
 #senparc-ai-iframe {
   width: 100% !important;
-  height: 100% !important;
+  height: calc(100% - 0px) !important;
   border: none;
   display: none;
   min-height: 500px;
@@ -370,6 +370,8 @@ body.senparc-docked * {
   margin: 0 !important;
   padding: 0 !important;
   box-sizing: border-box !important;
+  z-index: 1 !important;
+  pointer-events: auto;
 }
 
 /* 浮窗底部 */

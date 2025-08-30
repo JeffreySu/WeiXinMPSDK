@@ -247,10 +247,8 @@ class WeixinAIAssistant {
     // 初始设置为悬浮模式
     this.floatingWindow.classList.add('floating-mode');
 
-    // 确保DOM完全创建后再设置按钮事件
-    setTimeout(() => {
-      this.setupButtonEvents();
-    }, 200);
+    // 立即设置按钮事件，不延迟
+    this.setupButtonEvents();
 
     // 添加窗口大小变化监听器
     const resizeObserver = new ResizeObserver(() => {
@@ -314,10 +312,22 @@ class WeixinAIAssistant {
 
     console.log('🔗 设置浮窗按钮事件...');
 
-    // 使用更可靠的方式等待DOM元素完全创建
-    setTimeout(() => {
-      this.bindButtonEvents();
-    }, 100);
+    // 立即绑定事件，不使用延迟
+    this.bindButtonEvents();
+    
+    // 如果第一次绑定失败，再尝试一次
+    if (!this.isButtonEventsBound()) {
+      console.log('🔄 第一次绑定失败，重试...');
+      setTimeout(() => {
+        this.bindButtonEvents();
+      }, 50);
+    }
+  }
+
+  // 检查按钮事件是否已绑定
+  isButtonEventsBound() {
+    const closeButton = this.floatingWindow?.querySelector('#close-floating-window');
+    return closeButton && typeof closeButton.onclick === 'function';
   }
 
   // 绑定按钮事件的具体实现
@@ -327,39 +337,80 @@ class WeixinAIAssistant {
       return;
     }
 
-    // 设置关闭按钮事件
+    console.log('🔗 开始绑定按钮事件...');
+
+    // 设置关闭按钮事件 - 使用多种方法确保事件绑定成功
     const closeButton = this.floatingWindow.querySelector('#close-floating-window');
     if (closeButton) {
-      console.log('🔍 找到关闭按钮，开始绑定事件...');
+      console.log('🔍 找到关闭按钮，ID:', closeButton.id, '类名:', closeButton.className);
       
-      // 移除所有现有的事件监听器（如果有的话）
-      closeButton.onclick = null;
-      closeButton.onmousedown = null;
-      closeButton.ontouchstart = null;
-      
-      // 使用简单直接的事件绑定
-      closeButton.onclick = (e) => {
-        console.log('🖱️ 关闭按钮被点击');
-        e.preventDefault();
-        e.stopPropagation();
-        this.closeFloatingWindow();
+      // 创建关闭函数
+      const closeHandler = (e) => {
+        console.log('🖱️ 关闭按钮被点击！开始执行关闭操作...');
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        
+        // 直接调用关闭方法
+        try {
+          this.closeFloatingWindow();
+          console.log('✅ 关闭操作执行完成');
+        } catch (error) {
+          console.error('❌ 关闭操作失败:', error);
+        }
+        
         return false;
       };
 
-      // 确保按钮样式正确
-      closeButton.style.pointerEvents = 'auto';
-      closeButton.style.cursor = 'pointer';
-      closeButton.style.zIndex = '10002';
-      closeButton.style.position = 'relative';
+      // 方法1: 使用onclick属性
+      closeButton.onclick = closeHandler;
       
-      console.log('✅ 关闭按钮事件已绑定');
+      // 方法2: 使用addEventListener作为备用
+      closeButton.addEventListener('click', closeHandler, { capture: true, once: false });
+      
+      // 方法3: 使用mousedown作为额外保险
+      closeButton.addEventListener('mousedown', (e) => {
+        console.log('🖱️ 关闭按钮mousedown事件');
+        e.preventDefault();
+        setTimeout(() => closeHandler(e), 10);
+      });
+
+      // 确保按钮样式和属性正确
+      closeButton.style.cssText = `
+        pointer-events: auto !important;
+        cursor: pointer !important;
+        z-index: 10003 !important;
+        position: relative !important;
+        background: rgba(255, 255, 255, 0.2) !important;
+        border: none !important;
+        border-radius: 8px !important;
+        width: 32px !important;
+        height: 32px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: white !important;
+      `;
+      
+      // 添加调试属性
+      closeButton.setAttribute('data-event-bound', 'true');
+      closeButton.setAttribute('data-bind-time', Date.now().toString());
+      
+      console.log('✅ 关闭按钮事件已绑定 (多重保险)');
+      console.log('   - onclick:', typeof closeButton.onclick);
+      console.log('   - 样式cursor:', window.getComputedStyle(closeButton).cursor);
+      console.log('   - z-index:', window.getComputedStyle(closeButton).zIndex);
     } else {
       console.error('❌ 找不到关闭按钮元素');
+      console.log('🔍 浮窗内容:', this.floatingWindow.innerHTML.substring(0, 500));
+      
       // 尝试重新查找
       setTimeout(() => {
         console.log('🔄 重试查找关闭按钮...');
         this.bindButtonEvents();
-      }, 500);
+      }, 200);
+      return;
     }
 
     // 设置停靠按钮事件
@@ -367,24 +418,45 @@ class WeixinAIAssistant {
     if (dockButton) {
       console.log('🔍 找到停靠按钮，开始绑定事件...');
       
-      // 移除所有现有的事件监听器（如果有的话）
-      dockButton.onclick = null;
-      dockButton.ontouchstart = null;
-      
-      // 使用简单直接的事件绑定
-      dockButton.onclick = (e) => {
-        console.log('🖱️ 停靠按钮被点击');
-        e.preventDefault();
-        e.stopPropagation();
-        this.toggleDockMode();
+      // 创建停靠切换函数
+      const dockHandler = (e) => {
+        console.log('🖱️ 停靠按钮被点击！');
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        
+        try {
+          this.toggleDockMode();
+          console.log('✅ 停靠模式切换完成');
+        } catch (error) {
+          console.error('❌ 停靠模式切换失败:', error);
+        }
+        
         return false;
       };
 
+      // 多重事件绑定
+      dockButton.onclick = dockHandler;
+      dockButton.addEventListener('click', dockHandler, { capture: true });
+
       // 确保按钮样式正确
-      dockButton.style.pointerEvents = 'auto';
-      dockButton.style.cursor = 'pointer';
-      dockButton.style.zIndex = '10002';
-      dockButton.style.position = 'relative';
+      dockButton.style.cssText = `
+        pointer-events: auto !important;
+        cursor: pointer !important;
+        z-index: 10003 !important;
+        position: relative !important;
+        background: rgba(255, 255, 255, 0.2) !important;
+        border: none !important;
+        border-radius: 8px !important;
+        width: 32px !important;
+        height: 32px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: white !important;
+        margin-right: 4px !important;
+      `;
       
       console.log('✅ 停靠按钮事件已绑定');
     } else {
@@ -684,51 +756,83 @@ class WeixinAIAssistant {
 
   // 关闭浮窗
   closeFloatingWindow() {
-    console.log('🚪 开始关闭浮窗...');
+    console.log('🚪 ===== 开始关闭浮窗 =====');
     console.log('🔍 当前状态:', {
       isWindowOpen: this.isWindowOpen,
       isDocked: this.isDocked,
-      floatingWindowExists: !!this.floatingWindow
+      floatingWindowExists: !!this.floatingWindow,
+      windowDisplay: this.floatingWindow ? window.getComputedStyle(this.floatingWindow).display : 'N/A',
+      windowOpacity: this.floatingWindow ? window.getComputedStyle(this.floatingWindow).opacity : 'N/A'
     });
     
-    if (this.floatingWindow) {
+    if (!this.floatingWindow) {
+      console.log('⚠️ 浮窗元素不存在，无需关闭');
+      this.isWindowOpen = false;
+      return;
+    }
+
+    // 立即更新状态，防止重复点击
+    this.isWindowOpen = false;
+    
+    try {
       // 如果当前处于停靠模式，先恢复页面布局
       if (this.isDocked) {
         console.log('🔄 从停靠模式关闭，恢复页面布局...');
+        
+        // 移除停靠相关的样式和类
         document.body.classList.remove('senparc-docked');
         document.body.style.marginRight = '';
         document.body.style.transition = '';
         document.body.style.boxSizing = '';
         document.body.style.overflowX = '';
+        
+        // 清除微信文档特殊样式
         this.clearWeixinDocsSpecificStyles();
+        
+        // 更新停靠状态
         this.isDocked = false;
+        console.log('✅ 页面布局已恢复');
       }
       
-      // 移除显示类开始关闭动画
-      this.floatingWindow.classList.remove('show');
-      console.log('🎬 开始关闭动画');
+      // 立即隐藏浮窗，不等待动画
+      console.log('🎬 立即隐藏浮窗...');
+      this.floatingWindow.style.display = 'none';
+      this.floatingWindow.style.opacity = '0';
+      this.floatingWindow.style.visibility = 'hidden';
       
-      // 延迟隐藏窗口
+      // 移除显示相关的类
+      this.floatingWindow.classList.remove('show', 'floating-mode', 'docked-mode');
+      
+      console.log('👻 浮窗已立即隐藏');
+      
+      // 可选：延迟重置一些状态（不影响关闭效果）
       setTimeout(() => {
         if (this.floatingWindow) {
-          this.floatingWindow.style.display = 'none';
-          console.log('👻 浮窗已隐藏');
-          
-          // 保持iframe的内容状态，但确保样式正确
+          // 保持iframe的内容状态
           const iframe = this.floatingWindow.querySelector('#senparc-ai-iframe');
           if (iframe) {
-            // 不重置src，保持内容，但确保样式正确
             iframe.style.display = 'block';
             console.log('🔧 保持iframe状态');
           }
         }
-      }, 300);
-    } else {
-      console.log('⚠️ 浮窗元素不存在，无需关闭');
+      }, 100);
+      
+    } catch (error) {
+      console.error('❌ 关闭浮窗过程中出现错误:', error);
+      
+      // 强制关闭
+      if (this.floatingWindow) {
+        this.floatingWindow.style.display = 'none';
+        this.floatingWindow.style.opacity = '0';
+      }
+      
+      // 强制恢复页面状态
+      document.body.classList.remove('senparc-docked');
+      document.body.style.marginRight = '';
+      this.isDocked = false;
     }
     
-    this.isWindowOpen = false;
-    console.log('✅ 浮窗关闭完成，状态已更新');
+    console.log('✅ ===== 浮窗关闭完成 =====');
   }
 
   // 销毁插件

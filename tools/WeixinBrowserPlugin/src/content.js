@@ -88,9 +88,31 @@ class WeixinAIAssistant {
   // 设置事件监听器
   setupEventListeners() {
     if (this.logoButton) {
-      this.logoButton.addEventListener('click', () => {
+      console.log('🔗 绑定Logo按钮点击事件...');
+      
+      // 清除可能存在的旧事件
+      this.logoButton.onclick = null;
+      
+      // 使用多重绑定确保事件可靠
+      this.logoButton.onclick = (e) => {
+        console.log('🖱️ Logo按钮被点击！');
+        e.preventDefault();
+        e.stopPropagation();
         this.toggleFloatingWindow();
-      });
+        return false;
+      };
+      
+      // 备用事件绑定
+      this.logoButton.addEventListener('click', (e) => {
+        console.log('🖱️ Logo按钮addEventListener事件触发');
+        e.preventDefault();
+        e.stopPropagation();
+        this.toggleFloatingWindow();
+      }, { capture: true });
+      
+      console.log('✅ Logo按钮事件绑定完成');
+    } else {
+      console.error('❌ Logo按钮不存在，无法绑定事件');
     }
 
     // 监听ESC键关闭浮窗
@@ -110,19 +132,45 @@ class WeixinAIAssistant {
 
   // 切换浮窗显示状态
   toggleFloatingWindow() {
+    console.log('🔄 ===== 切换浮窗显示状态 =====');
+    console.log('🔍 当前状态:', {
+      isWindowOpen: this.isWindowOpen,
+      isDocked: this.isDocked,
+      floatingWindowExists: !!this.floatingWindow
+    });
+    
     if (this.isWindowOpen) {
+      console.log('📤 当前浮窗已打开，执行关闭操作...');
       this.closeFloatingWindow();
     } else {
+      console.log('📥 当前浮窗已关闭，执行打开操作...');
       this.openFloatingWindow();
     }
+    
+    console.log('✅ 切换操作完成，新状态:', this.isWindowOpen);
   }
 
   // 打开浮窗
   openFloatingWindow() {
-    console.log('🚀 打开AI助手浮窗...');
+    console.log('🚀 ===== 打开AI助手浮窗 =====');
+    console.log('🔍 当前状态:', {
+      isWindowOpen: this.isWindowOpen,
+      isDocked: this.isDocked,
+      floatingWindowExists: !!this.floatingWindow
+    });
     
     if (this.floatingWindow) {
-      this.floatingWindow.style.display = 'block';
+      console.log('♻️ 重新显示已存在的浮窗...');
+      
+      // 完全恢复显示状态
+      this.floatingWindow.style.display = 'flex';
+      this.floatingWindow.style.opacity = '1';
+      this.floatingWindow.style.visibility = 'visible';
+      
+      // 恢复必要的CSS类
+      this.floatingWindow.classList.add('floating-mode');
+      
+      // 更新状态
       this.isWindowOpen = true;
       
       // 确保iframe正确显示
@@ -171,22 +219,22 @@ class WeixinAIAssistant {
       }
       
       // 重新绑定按钮事件（重要！）
-      setTimeout(() => {
-        this.setupButtonEvents();
-      }, 100);
+      this.setupButtonEvents();
         
-      // 重新添加显示动画
-      setTimeout(() => {
+      // 立即添加显示动画
+      requestAnimationFrame(() => {
         if (this.floatingWindow) {
           this.floatingWindow.classList.add('show');
+          console.log('✨ 显示动画已启动');
           
           // 动画完成后重新计算iframe尺寸
           setTimeout(() => {
             this.recalculateIframeSize();
           }, 350); // 等待动画完成
         }
-      }, 10);
-      console.log('♻️ 重新显示已存在的浮窗');
+      });
+      
+      console.log('✅ 浮窗重新显示完成');
       return;
     }
 

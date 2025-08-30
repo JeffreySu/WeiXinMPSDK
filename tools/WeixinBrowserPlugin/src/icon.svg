@@ -1,0 +1,31 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景圆形 -->
+  <circle cx="64" cy="64" r="60" fill="url(#gradient)" stroke="#ffffff" stroke-width="4"/>
+  
+  <!-- 渐变定义 -->
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1aad19;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2dc653;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 主图标 - 层叠的六边形代表SDK架构 -->
+  <g transform="translate(64,64)">
+    <!-- 第一层 -->
+    <path d="M0 -24L-20.8 -12L-20.8 12L0 24L20.8 12L20.8 -12Z" fill="rgba(255,255,255,0.9)" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+    <!-- 第二层 -->
+    <path d="M0 -16L-13.9 -8L-13.9 8L0 16L13.9 8L13.9 -8Z" fill="rgba(255,255,255,0.7)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+    <!-- 第三层 -->
+    <path d="M0 -8L-6.9 -4L-6.9 4L0 8L6.9 4L6.9 -4Z" fill="rgba(255,255,255,0.5)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+    
+    <!-- AI符号 -->
+    <text x="0" y="6" text-anchor="middle" fill="#1aad19" font-family="Arial, sans-serif" font-size="12" font-weight="bold">AI</text>
+  </g>
+  
+  <!-- 装饰性元素 -->
+  <circle cx="32" cy="32" r="3" fill="rgba(255,255,255,0.6)"/>
+  <circle cx="96" cy="32" r="2" fill="rgba(255,255,255,0.4)"/>
+  <circle cx="32" cy="96" r="2" fill="rgba(255,255,255,0.4)"/>
+  <circle cx="96" cy="96" r="3" fill="rgba(255,255,255,0.6)"/>
+</svg>

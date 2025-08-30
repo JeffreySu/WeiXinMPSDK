@@ -1,0 +1,18 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景圆形 -->
+  <circle cx="8" cy="8" r="7" fill="#1aad19"/>
+  
+  <!-- 聊天气泡简化版 -->
+  <g transform="translate(8,6)">
+    <path d="M-3 -2 L2.5 -2 Q3 -2 3 -1.5 L3 1.5 Q3 2 2.5 2 L-1 2 L-2 3 L-1.5 2 L-3 2 Q-3.5 2 -3.5 1.5 L-3.5 -1.5 Q-3.5 -2 -3 -2 Z" fill="white"/>
+    
+    <!-- AI 文字 -->
+    <text x="0" y="0.5" text-anchor="middle" fill="#1aad19" font-family="Arial, sans-serif" font-size="4" font-weight="bold">AI</text>
+  </g>
+  
+  <!-- 代码符号简化 -->
+  <g transform="translate(8,11)">
+    <rect x="-2.5" y="-1" width="5" height="2" rx="0.5" fill="white"/>
+    <text x="0" y="0.2" text-anchor="middle" fill="#1aad19" font-family="Monaco, monospace" font-size="2.5" font-weight="bold">&lt;/&gt;</text>
+  </g>
+</svg>

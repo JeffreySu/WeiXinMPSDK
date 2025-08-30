@@ -1,0 +1,563 @@
+/* Senparc.Weixin.AI Chrome Extension Styles */
+
+/* Logo按钮样式 */
+.senparc-ai-logo-button {
+  position: fixed;
+  top: 80px;
+  left: 20px;
+  z-index: 10000;
+  background: linear-gradient(135deg, #1aad19 0%, #2dc653 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(26, 173, 25, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  user-select: none;
+  backdrop-filter: blur(10px);
+}
+
+.senparc-ai-logo-button:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 30px rgba(26, 173, 25, 0.4);
+  background: linear-gradient(135deg, #2dc653 0%, #1aad19 100%);
+}
+
+.senparc-ai-logo-button:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 10px rgba(26, 173, 25, 0.3);
+}
+
+.logo-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-text {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* 浮窗样式 */
+.senparc-ai-floating-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 90vw;
+  max-width: 1200px;
+  height: 80vh;
+  max-height: 800px;
+  min-height: 600px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  z-index: 10001;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 删除重复的停靠模式样式定义，使用下面的完整定义 */
+
+/* 悬浮模式样式（明确指定） */
+.senparc-ai-floating-window.floating-mode {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 90vw !important;
+  max-width: 1200px !important;
+  height: 80vh !important;
+  max-height: 800px !important;
+  min-height: 600px !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15) !important;
+  z-index: 10001 !important;
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* 悬浮模式的显示状态 */
+.senparc-ai-floating-window.floating-mode.show {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translate(-50%, -50%) scale(1) !important;
+  display: flex !important;
+}
+
+/* 通用的显示状态（向后兼容） */
+.senparc-ai-floating-window.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 停靠模式下的显示状态 - 强化优先级 */
+.senparc-ai-floating-window.docked-mode.show,
+.senparc-ai-floating-window.docked-mode {
+  position: fixed !important;
+  top: 0 !important;
+  left: auto !important;
+  right: 0 !important;
+  transform: none !important;
+  width: 40% !important;
+  height: 100vh !important;
+  max-width: none !important;
+  max-height: none !important;
+  min-height: 100vh !important;
+  border-radius: 0 !important;
+  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1) !important;
+  z-index: 10000 !important;
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 专门覆盖悬浮模式的transform */
+.senparc-ai-floating-window.docked-mode {
+  transform: none !important;
+}
+
+/* 确保停靠模式的transform样式绝对不被覆盖 */
+.senparc-ai-floating-window.docked-mode,
+.senparc-ai-floating-window.docked-mode.show,
+.senparc-ai-floating-window.docked-mode.floating-mode {
+  transform: none !important;
+}
+
+/* 停靠模式下的页面样式调整 - 使用更高优先级 */
+html body.senparc-docked {
+  margin-right: 40% !important;
+  transition: margin-right 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-sizing: border-box !important;
+  width: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* 确保所有直接子元素也受到影响 */
+body.senparc-docked > * {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* 防止某些固定定位元素不受影响 */
+body.senparc-docked *:not(#senparc-weixin-ai-window):not(#senparc-weixin-ai-button) {
+  max-width: calc(100vw - 40%) !important;
+}
+
+/* 针对常见的页面容器进行强制调整 */
+body.senparc-docked .container,
+body.senparc-docked .wrapper,
+body.senparc-docked .main,
+body.senparc-docked .content,
+body.senparc-docked main,
+body.senparc-docked header,
+body.senparc-docked footer,
+body.senparc-docked nav {
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* 强制所有固定和绝对定位的元素（除了我们的插件）调整 */
+body.senparc-docked [style*="position: fixed"]:not(#senparc-weixin-ai-window):not(#senparc-weixin-ai-button),
+body.senparc-docked [style*="position:fixed"]:not(#senparc-weixin-ai-window):not(#senparc-weixin-ai-button) {
+  right: 40% !important;
+}
+
+/* 针对微信开发者文档的特殊处理 */
+body.senparc-docked #app {
+  margin-right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+body.senparc-docked .page-container,
+body.senparc-docked .doc-container,
+body.senparc-docked .main-container {
+  margin-right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+body.senparc-docked .main-content,
+body.senparc-docked .doc-content,
+body.senparc-docked .content-wrapper {
+  margin-right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* 强制所有可能的布局容器 */
+body.senparc-docked [class*="layout"],
+body.senparc-docked [class*="page"],
+body.senparc-docked [class*="container"],
+body.senparc-docked [class*="wrapper"],
+body.senparc-docked [class*="content"] {
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* 针对可能使用flexbox的容器 */
+body.senparc-docked [style*="display: flex"],
+body.senparc-docked [style*="display:flex"] {
+  max-width: 100% !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* 确保所有子元素都不会超出边界 */
+body.senparc-docked * {
+  max-width: 100% !important;
+}
+
+/* 浮窗头部 */
+.floating-window-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #1aad19 0%, #2dc653 100%);
+  color: white;
+  border-radius: 16px 16px 0 0;
+}
+
+.window-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* 窗口控制按钮组 */
+.window-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  position: relative;
+  z-index: 10002;
+}
+
+.dock-button,
+.close-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer !important;
+  color: white;
+  transition: all 0.2s ease;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 10003;
+}
+
+.dock-button {
+  margin-right: 4px;
+}
+
+.dock-button:hover,
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.dock-button:active,
+.close-button:active {
+  transform: scale(0.95);
+}
+
+/* 浮窗内容区域 */
+.floating-window-content {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+/* 加载指示器 */
+.loading-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #666;
+  z-index: 1;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #1aad19;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #ff4757;
+}
+
+.retry-button {
+  background: #1aad19;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.retry-button:hover {
+  background: #2dc653;
+  transform: translateY(-1px);
+}
+
+/* iframe样式 */
+#senparc-ai-iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: none;
+  display: none;
+  min-height: 500px;
+  position: absolute;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* 浮窗底部 */
+.floating-window-footer {
+  padding: 12px 20px;
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  text-align: center;
+  border-radius: 0 0 16px 16px;
+}
+
+.footer-text {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .senparc-ai-floating-window {
+    width: 95vw;
+    height: 90vh;
+    min-height: 500px;
+    border-radius: 12px;
+  }
+  
+  /* 平板端停靠模式 */
+  .senparc-ai-floating-window.docked-mode {
+    width: 50% !important;
+  }
+  
+  body.senparc-docked {
+    margin-right: 50% !important;
+  }
+  
+  .floating-window-content {
+    min-height: 400px !important;
+  }
+  
+  #senparc-ai-iframe {
+    min-height: 400px !important;
+  }
+  
+  .floating-window-header {
+    padding: 12px 16px;
+    border-radius: 12px 12px 0 0;
+  }
+  
+  .window-title {
+    font-size: 14px;
+  }
+  
+  .logo-text {
+    display: none;
+  }
+  
+  .senparc-ai-logo-button {
+    top: 70px;
+    padding: 10px;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .senparc-ai-logo-button {
+    top: 60px;
+    left: 10px;
+    padding: 8px;
+  }
+  
+  .senparc-ai-floating-window {
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    border-radius: 0;
+    top: 0;
+    left: 0;
+    transform: none;
+  }
+  
+  /* 移动端禁用停靠模式，强制全屏 */
+  .senparc-ai-floating-window.docked-mode {
+    width: 100vw !important;
+    left: 0 !important;
+    right: auto !important;
+  }
+  
+  body.senparc-docked {
+    margin-right: 0 !important;
+  }
+  
+  .senparc-ai-floating-window.show {
+    transform: none;
+  }
+  
+  .floating-window-content {
+    min-height: calc(100vh - 120px) !important;
+  }
+  
+  #senparc-ai-iframe {
+    min-height: calc(100vh - 120px) !important;
+  }
+  
+  /* 移动端隐藏停靠按钮 */
+  .dock-button {
+    display: none !important;
+  }
+  
+  .floating-window-header {
+    border-radius: 0;
+  }
+  
+  .floating-window-footer {
+    border-radius: 0;
+  }
+}
+
+/* 暗色主题适配 */
+@media (prefers-color-scheme: dark) {
+  .senparc-ai-floating-window {
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+  
+  .floating-window-footer {
+    background: #2a2a2a;
+    border-top: 1px solid #3a3a3a;
+  }
+  
+  .loading-indicator {
+    color: #ccc;
+  }
+  
+  .spinner {
+    border: 4px solid #333;
+    border-top: 4px solid #1aad19;
+  }
+}
+
+/* 动画效果 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -40%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -40%) scale(0.9);
+  }
+}
+
+/* 滚动条样式 */
+.floating-window-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.floating-window-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.floating-window-content::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.floating-window-content::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* 高对比度模式适配 */
+@media (prefers-contrast: high) {
+  .senparc-ai-logo-button {
+    border: 2px solid white;
+  }
+  
+  .senparc-ai-floating-window {
+    border: 2px solid #000;
+  }
+}

@@ -1,0 +1,74 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景渐变 -->
+  <defs>
+    <!-- 微信绿色渐变 -->
+    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1aad19;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2dc653;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1aad19;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- 光泽效果 -->
+    <linearGradient id="glossEffect" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.4);stop-opacity:1" />
+      <stop offset="50%" style="stop-color:rgba(255,255,255,0.1);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgba(255,255,255,0.0);stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- 阴影滤镜 -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+    
+    <!-- 内部光效 -->
+    <radialGradient id="innerGlow" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.3);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgba(255,255,255,0.0);stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  
+  <!-- 主体圆形背景 -->
+  <circle cx="64" cy="64" r="58" fill="url(#mainGradient)" filter="url(#shadow)"/>
+  
+  <!-- 内部光效层 -->
+  <circle cx="64" cy="64" r="58" fill="url(#innerGlow)"/>
+  
+  <!-- 光泽效果 -->
+  <ellipse cx="64" cy="48" rx="45" ry="30" fill="url(#glossEffect)"/>
+  
+  <!-- 微信聊天气泡背景 -->
+  <g transform="translate(64,48)">
+    <!-- 主聊天气泡 -->
+    <path d="M-20 -12 L15 -12 Q20 -12 20 -7 L20 7 Q20 12 15 12 L-5 12 L-12 18 L-8 12 L-20 12 Q-25 12 -25 7 L-25 -7 Q-25 -12 -20 -12 Z" fill="rgba(255,255,255,0.95)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+    
+    <!-- AI 文字 -->
+    <text x="0" y="2" text-anchor="middle" fill="#1aad19" font-family="Arial, sans-serif" font-size="14" font-weight="bold">AI</text>
+  </g>
+  
+  <!-- 代码符号装饰 -->
+  <g transform="translate(64,78)">
+    <!-- 代码块背景 -->
+    <rect x="-18" y="-8" width="36" height="16" rx="4" fill="rgba(255,255,255,0.9)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+    
+    <!-- 代码符号 -->
+    <text x="-8" y="2" text-anchor="middle" fill="#1aad19" font-family="Monaco, monospace" font-size="10" font-weight="bold">&lt;/&gt;</text>
+    
+    <!-- SDK 标识 -->
+    <text x="8" y="2" text-anchor="middle" fill="#1aad19" font-family="Arial, sans-serif" font-size="8" font-weight="bold">SDK</text>
+  </g>
+  
+  <!-- 装饰性光点 -->
+  <circle cx="32" cy="32" r="2.5" fill="rgba(255,255,255,0.8)"/>
+  <circle cx="96" cy="32" r="1.5" fill="rgba(255,255,255,0.6)"/>
+  <circle cx="28" cy="96" r="1.5" fill="rgba(255,255,255,0.6)"/>
+  <circle cx="100" cy="96" r="2.5" fill="rgba(255,255,255,0.8)"/>
+  
+  <!-- 微信标志性的双圆弧装饰 -->
+  <g transform="translate(64,64)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none">
+    <path d="M-35 -10 Q-30 -20 -20 -15"/>
+    <path d="M35 10 Q30 20 20 15"/>
+  </g>
+  
+  <!-- 边框高光 -->
+  <circle cx="64" cy="64" r="58" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+</svg>

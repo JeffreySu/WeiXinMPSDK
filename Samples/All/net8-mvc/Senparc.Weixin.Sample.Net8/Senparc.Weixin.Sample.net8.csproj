@@ -14,15 +14,21 @@
         <None Remove="App_Data\cert\**" />
     </ItemGroup>
     <ItemGroup>
+        <None Remove="App_Data\ApiDocXml\Senparc.Areas.Admin.XML" />
         <None Remove="Program.cs.old" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="App_Data\ApiDocXml\**\*">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
         <PackageReference Include="Senparc.AI.Agents" Version="0.5.6.1" />
         <PackageReference Include="Senparc.AI.Kernel" Version="0.25.1" />
-        <PackageReference Include="Senparc.CO2NET.WebApi" Version="2.1.0.1" />
-        <PackageReference Include="Senparc.NeuChar.App" Version="1.5.2" />
-        <PackageReference Include="Senparc.NeuChar.AspNet" Version="1.6.2" />
+        <PackageReference Include="Senparc.CO2NET.WebApi" Version="2.1.1" />
+        <PackageReference Include="Senparc.NeuChar.App" Version="1.5.3" />
+        <PackageReference Include="Senparc.NeuChar.AspNet" Version="1.6.3" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.0" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
         <PackageReference Include="System.Drawing.Common" Version="8.0.0" />

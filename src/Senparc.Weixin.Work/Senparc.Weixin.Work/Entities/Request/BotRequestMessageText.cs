@@ -41,3 +41,4 @@ namespace Senparc.Weixin.Work.Entities
         }
     }
 }
+

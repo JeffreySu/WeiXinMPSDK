@@ -27,12 +27,10 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
-        Microsoft.AspNetCore.Hosting.IHostingEnvironment _env;
 
-        public HomeController(ILogger<HomeController> logger, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _env = env;
         }
 
         public IActionResult Index()

@@ -477,7 +477,12 @@ Prompt：";
             try
             {
                 Console.WriteLine($"AI 对话({appId},{OpenId})：{result.OutputString}");
-                await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, result.OutputString);
+
+                var responseMessageText = @$"{result.OutputString}
+-------
+由 AI 模型生成，仅供科学研究：{iWantToRun.SemanticAiHandler.SemanticKernelHelper.AiSetting.ModelName.Chat}";
+
+                await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, responseMessageText);
             }
             catch (Exception ex)
             {

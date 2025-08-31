@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>4.22.1</Version>
+    <Version>4.22.2</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -230,7 +230,7 @@
 		[2024-11-29] v4.21.8 返回值添加参数 is_snapshotuser 和 unionid #3100 感谢 @ccccccmd
 		[2025-04-17] v4.22.0 增加异步版本的 ThirdPartyMessageHandlerAsync 类 #3123 感谢 @xbotter
 		[2025-05-23] v4.22.1 修复开放平台删除模板时提示的“missing parameter priTmplId”错误 （PR #3134） 感谢 @LEIRONGHUA
-	</PackageReleaseNotes>
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -273,7 +273,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="2.5.2" />
+    <PackageReference Include="Senparc.NeuChar" Version="2.5.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net8.csproj" />

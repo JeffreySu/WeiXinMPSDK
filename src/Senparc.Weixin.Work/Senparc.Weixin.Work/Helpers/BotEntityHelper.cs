@@ -31,31 +31,37 @@ namespace Senparc.Weixin.Work.Helpers
 
 
         /// <summary>
-        /// 为请求消息设置公共字段
+        /// 创建请求实例并为请求消息设置公共字段
         /// </summary>
+        /// <typeparam name="T">请求消息实体类型</typeparam>
         /// <param name="requestMessage">请求消息实体</param>
         /// <param name="baseMessage">基础消息对象</param>
-        private static void SetRequestCommonFields(WorkRequestMessageBase requestMessage, WorkBotRequestMessageBase baseMessage)
+        private static T SetRequestCommonProperties<T>(WorkBotRequestMessageBase baseMessage) where T : WorkRequestMessageBase, new()
         {
+            var requestMessage = new T();
             requestMessage.FromUserName = baseMessage.from.userid;
             requestMessage.ToUserName = baseMessage.aibotid;
             requestMessage.MsgId = baseMessage.msgid;
+            return requestMessage;
         }
 
         /// <summary>
         /// 为回复消息设置公共字段
         /// </summary>
+        /// <typeparam name="T">回复消息实体类型</typeparam>
         /// <param name="responseMessage">回复消息实体</param>
         /// <param name="baseMessage">基础消息对象</param>
         /// <remarks>
         /// 注意：由于WorkResponseMessageBase的MsgType属性是只读的，
         /// 每个具体的响应消息类型会在自己的类中重写MsgType属性来设置正确的类型
         /// </remarks>
-        private static void SetResponseCommonFields(WorkResponseMessageBase responseMessage, WorkBotResponseMessageBase baseMessage)
+        private static T SetResponseCommonProperties<T>(WorkBotResponseMessageBase baseMessage) where T : WorkResponseMessageBase, new()
         {
+            var responseMessage = new T();
             // 目前回复消息的公共字段只有msgtype，但这个字段由各个子类自己设置
             // 这里可以设置其他公共字段（如果将来有的话）
             // responseMessage.CreateTime = DateTime.Now; // 示例
+            return responseMessage;
         }
 
 
@@ -75,10 +81,7 @@ namespace Senparc.Weixin.Work.Helpers
             {
                 // 直接创建 RequestMessageText 实例
                 var textJsonObject = SerializerHelper.GetObject<BotRequestMessageText>(json);
-                var textRequestMessage = new RequestMessageText();
-                
-                //为共有字段赋值
-                SetRequestCommonFields(textRequestMessage, baseMessage);
+                var textRequestMessage = SetRequestCommonProperties<RequestMessageText>(baseMessage);
                 
                 // 对特有属性赋值   
                 textRequestMessage.Content = textJsonObject.text.content;
@@ -90,10 +93,9 @@ namespace Senparc.Weixin.Work.Helpers
                 {
                     case RequestMsgType.Image:
                         var imageJsonObject = SerializerHelper.GetObject<BotRequestMessageImage>(json);
-                        var imageRequestMessage = new RequestMessageImage();
-                        
-                        //为共有字段赋值
-                        SetRequestCommonFields(imageRequestMessage, baseMessage);
+
+                        //创建请求消息实体,并设置共有字段
+                        var imageRequestMessage = SetRequestCommonProperties<RequestMessageImage>(baseMessage);
                         
                         // 对特有属性赋值   
                         imageRequestMessage.PicUrl = imageJsonObject.image.url;
@@ -105,20 +107,19 @@ namespace Senparc.Weixin.Work.Helpers
                         {
                             case "enter_chat":
                                 var enterChatJsonObject = SerializerHelper.GetObject<BotRequestMessageEvent_Enter>(json);
-                                var enterChatRequestMessage = new RequestMessageEvent_Enter_Agent();
+
+                                //创建请求消息实体,并设置共有字段
+                                var enterChatRequestMessage = SetRequestCommonProperties<RequestMessageEvent_Enter_Agent>(baseMessage);
                                 
-                                //为共有字段赋值
-                                SetRequestCommonFields(enterChatRequestMessage, baseMessage);
                                 
                                 // 对特有属性赋值   
                                 requestMessage = enterChatRequestMessage;
                                 break;
                             case "template_card_event":
                                 var templateCardEventJsonObject = SerializerHelper.GetObject<BotRequestMessageEvent_TemplateCardEvent>(json);
-                                var templateCardEventRequestMessage = new RequestMessageEvent_TemplateCardEvent();
-                                
-                                //为共有字段赋值
-                                SetRequestCommonFields(templateCardEventRequestMessage, baseMessage);
+
+                                //创建请求消息实体,并设置共有字段
+                                var templateCardEventRequestMessage = SetRequestCommonProperties<RequestMessageEvent_TemplateCardEvent>(baseMessage);
                                 
                                 // 对特有属性赋值   
                                 requestMessage = templateCardEventRequestMessage;
@@ -175,10 +176,9 @@ namespace Senparc.Weixin.Work.Helpers
             {
                 case ResponseMsgType.Text:
                     var textJsonObject = SerializerHelper.GetObject<BotResponseMessageText>(json);
-                    var textResponseMessage = new ResponseMessageText();
-                    
-                    //为共有字段赋值
-                    SetResponseCommonFields(textResponseMessage, baseMessage);
+
+                    //创建回复消息实体,并设置共有字段
+                    var textResponseMessage = SetResponseCommonProperties<ResponseMessageText>(baseMessage);
                     
                     // 对特有属性赋值
                     textResponseMessage.Content = textJsonObject?.text?.content;
@@ -194,10 +194,7 @@ namespace Senparc.Weixin.Work.Helpers
                 // TODO: 添加模板卡片类型的处理,但是目前NeuChar标准中没有对应枚举，需要补充
                 // case ResponseMsgType.TemplateCard:
                 //     var templateCardJsonObject = SerializerHelper.GetObject<BotResponseMessageTemplateCard>(json);
-                //     var templateCardResponseMessage = new ResponseMessageTemplateCard();
-                //     
-                //     //为共有字段赋值
-                //     SetResponseCommonFields(templateCardResponseMessage, baseMessage);
+                //     var templateCardResponseMessage = SetResponseCommonProperties<ResponseMessageTemplateCard>(baseMessage);
                 //     
                 //     // 对特有属性赋值
                 //     // TODO: 根据 templateCardJsonObject 设置特有属性

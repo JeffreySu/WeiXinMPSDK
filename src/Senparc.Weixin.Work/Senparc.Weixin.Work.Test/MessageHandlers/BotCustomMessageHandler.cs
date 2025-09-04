@@ -16,7 +16,7 @@ namespace Senparc.Weixin.Work.Test.net6.MessageHandlers
 {
     public class BotCustomMessageHandler : WorkBotMessageHandler<MessageContexts.DefaultWorkMessageContext>
     {
-        public BotCustomMessageHandler(Stream inputStream, IEncryptPostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false, IServiceProvider serviceProvider = null) : base(inputStream, postModel, maxRecordCount, onlyAllowEncryptMessage, serviceProvider)
+        public BotCustomMessageHandler(Stream inputStream, IEncryptPostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false, IServiceProvider serviceProvider = null, bool useJson = true) : base(inputStream, postModel, maxRecordCount, onlyAllowEncryptMessage, serviceProvider, useJson)
         {
         }
 
@@ -30,9 +30,13 @@ namespace Senparc.Weixin.Work.Test.net6.MessageHandlers
 
         public override IWorkResponseMessageBase DefaultResponseMessage(IWorkRequestMessageBase requestMessage)
         {
-            throw new NotImplementedException();
+            var responseMessage = CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "这是一条默认消息。";
+            return responseMessage;
         }
 
+
+        //仅是为了实现抽象类不报错，不做使用
         public override XDocument Init(XDocument requestDocument, IEncryptPostModel postModel)
         {
             throw new NotImplementedException();

@@ -85,7 +85,8 @@ namespace Senparc.Weixin.Work.MessageHandlers
             var timeStamp = SystemTime.Now.Ticks.ToString();
                 var nonce = SystemTime.Now.Ticks.ToString();
 
-                WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.CorpId);
+                //加解密库要求传 receiveid 参数，企业自建智能机器人的使用场景里，receiveid直接传空字符串即可
+                WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, "");
                 string finalResponseJson = null;
                 msgCrype.EncryptJsonMsg(ResponseJsonStr, timeStamp, nonce, ref finalResponseJson);
                 return finalResponseJson;
@@ -97,13 +98,19 @@ namespace Senparc.Weixin.Work.MessageHandlers
         {
         }
 
+        protected WorkBotMessageHandler(string postDataJson, IEncryptPostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false, IServiceProvider serviceProvider = null) : base(postDataJson, postModel, maxRecordCount, onlyAllowEncryptMessage, serviceProvider)
+        {
+        }
+
         public override string Init(string postDataJson, IEncryptPostModel postModel)
         {
             _postModel = postModel as PostModel ?? new PostModel();
 
             //解密，获得明文字符串
             string msgJson = null;
-            WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.CorpId);
+
+            //加解密库要求传 receiveid 参数，企业自建智能机器人的使用场景里，receiveid直接传空字符串即可
+            WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, "");
             var result = msgCrype.DecryptJsonMsg(_postModel.Msg_Signature, _postModel.Timestamp, _postModel.Nonce, postDataJson, ref msgJson);
 
             if (result != 0)
@@ -129,6 +136,10 @@ namespace Senparc.Weixin.Work.MessageHandlers
 
             return RequestMessage.CreateResponseMessage<TR>();
         }
+
+        public override MessageEntityEnlightener MessageEntityEnlightener { get { return WorkMessageEntityEnlightener.Instance; } }
+
+        public override ApiEnlightener ApiEnlightener { get { return WorkApiEnlightener.Instance; } }
 
 
 

@@ -20,9 +20,9 @@ namespace Senparc.Weixin.Work.Test.net6.MessageHandlers
         {
         }
 
-        public override MessageEntityEnlightener MessageEntityEnlightener => throw new NotImplementedException();
-
-        public override ApiEnlightener ApiEnlightener => throw new NotImplementedException();
+        public BotCustomMessageHandler(string postDataJson, IEncryptPostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false, IServiceProvider serviceProvider = null) : base(postDataJson, postModel, maxRecordCount, onlyAllowEncryptMessage, serviceProvider)
+        {
+        }
 
         public override XDocument ResponseDocument => throw new NotImplementedException();
 

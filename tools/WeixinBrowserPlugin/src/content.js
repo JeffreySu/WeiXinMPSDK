@@ -26,6 +26,7 @@ class WeixinAIAssistant {
       console.log('❌ 当前页面不在支持列表中');
       console.log('仅支持以下页面:');
       console.log('  - https://developers.weixin.qq.com/');
+      console.log('  - https://developer.work.weixin.qq.com/document');
       console.log('  - https://pay.weixin.qq.com/doc');
     }
   }
@@ -38,12 +39,18 @@ class WeixinAIAssistant {
     // 只允许以下两个特定地址
     const allowedUrls = [
       'developers.weixin.qq.com',
+      'developer.work.weixin.qq.com',
       'pay.weixin.qq.com'
     ];
     
     // 检查域名匹配
     const isAllowedDomain = allowedUrls.some(domain => hostname === domain);
     
+    // developer.work.weixin.qq.com，额外检查必须是/document路径
+    if (hostname === 'developer.work.weixin.qq.com') {
+      return url.includes('/document');
+    }
+
     // 对于pay.weixin.qq.com，额外检查必须是/doc路径
     if (hostname === 'pay.weixin.qq.com') {
       return url.includes('/doc');
@@ -83,6 +90,114 @@ class WeixinAIAssistant {
     // 添加到页面
     document.body.appendChild(this.logoButton);
     console.log('✅ Logo按钮已添加到页面');
+
+    // 添加拖拽功能
+    this.setupDragFeature();
+  }
+
+  // 设置拖拽功能
+  setupDragFeature() {
+    if (!this.logoButton) return;
+
+    let isDragging = false;
+    let currentX;
+    let currentY;
+    let initialX;
+    let initialY;
+    let xOffset = 0;
+    let yOffset = 0;
+
+    // 从localStorage获取保存的位置
+    const savedPosition = localStorage.getItem('senparcAiButtonPosition');
+    if (savedPosition) {
+      try {
+        const { x, y } = JSON.parse(savedPosition);
+        xOffset = x;
+        yOffset = y;
+        this.setTranslate(x, y, this.logoButton);
+      } catch (e) {
+        console.error('恢复按钮位置失败:', e);
+      }
+    }
+
+    const dragStart = (e) => {
+      if (e.type === "mousedown") {
+        initialX = e.clientX - xOffset;
+        initialY = e.clientY - yOffset;
+      } else {
+        initialX = e.touches[0].clientX - xOffset;
+        initialY = e.touches[0].clientY - yOffset;
+      }
+
+      if (e.target === this.logoButton || this.logoButton.contains(e.target)) {
+        isDragging = true;
+        this.logoButton.style.cursor = 'grabbing';
+      }
+    };
+
+    const dragEnd = () => {
+      if (!isDragging) return;
+      
+      initialX = currentX;
+      initialY = currentY;
+      isDragging = false;
+      this.logoButton.style.cursor = 'grab';
+
+      // 保存位置到localStorage
+      localStorage.setItem('senparcAiButtonPosition', JSON.stringify({
+        x: xOffset,
+        y: yOffset
+      }));
+    };
+
+    const drag = (e) => {
+      if (!isDragging) return;
+
+      e.preventDefault();
+
+      if (e.type === "mousemove") {
+        currentX = e.clientX - initialX;
+        currentY = e.clientY - initialY;
+      } else {
+        currentX = e.touches[0].clientX - initialX;
+        currentY = e.touches[0].clientY - initialY;
+      }
+
+      xOffset = currentX;
+      yOffset = currentY;
+
+      // 限制按钮不超出视窗范围
+      const buttonRect = this.logoButton.getBoundingClientRect();
+      const maxX = window.innerWidth - buttonRect.width;
+      const maxY = window.innerHeight - buttonRect.height;
+
+      xOffset = Math.min(Math.max(0, xOffset), maxX);
+      yOffset = Math.min(Math.max(0, yOffset), maxY);
+
+      this.setTranslate(xOffset, yOffset, this.logoButton);
+    };
+
+    // 设置元素位置
+    this.setTranslate = (xPos, yPos, el) => {
+      el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+    };
+
+    // 添加事件监听器
+    this.logoButton.addEventListener('mousedown', dragStart, false);
+    document.addEventListener('mousemove', drag, false);
+    document.addEventListener('mouseup', dragEnd, false);
+
+    // 触摸事件支持
+    this.logoButton.addEventListener('touchstart', dragStart, false);
+    document.addEventListener('touchmove', drag, false);
+    document.addEventListener('touchend', dragEnd, false);
+
+    // 设置初始样式
+    this.logoButton.style.position = 'fixed';
+    this.logoButton.style.cursor = 'grab';
+    this.logoButton.style.userSelect = 'none';
+    this.logoButton.style.zIndex = '10000';
+    this.logoButton.style.touchAction = 'none';
   }
 
   // 设置事件监听器

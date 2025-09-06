@@ -16,6 +16,7 @@
     {
       "matches": [
         "https://developers.weixin.qq.com/*",
+        "https://developer.work.weixin.qq.com/*",
         "https://pay.weixin.qq.com/doc*"
       ],
       "js": ["content.js"],
@@ -28,6 +29,7 @@
       "resources": ["icon.svg"],
       "matches": [
         "https://developers.weixin.qq.com/*",
+        "https://developer.work.weixin.qq.com/*",
         "https://pay.weixin.qq.com/*"
       ]
     }

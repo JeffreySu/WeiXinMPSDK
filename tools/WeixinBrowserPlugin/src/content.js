@@ -101,6 +101,7 @@ class WeixinAIAssistant {
 
     let isDragging = false;
     let hasMoved = false;
+    let mouseDownTime = 0;
     let initialX;
     let initialY;
     let xOffset = 0;
@@ -128,6 +129,7 @@ class WeixinAIAssistant {
       if (e.target === this.logoButton || this.logoButton.contains(e.target)) {
         isDragging = true;
         hasMoved = false;
+        mouseDownTime = Date.now();
 
         // 预先计算按钮尺寸和边界
         buttonWidth = this.logoButton.offsetWidth;
@@ -158,26 +160,25 @@ class WeixinAIAssistant {
     const dragEnd = (e) => {
       if (!isDragging) return;
       
+      const mouseUpTime = Date.now();
+      const pressDuration = mouseUpTime - mouseDownTime;
+      
       isDragging = false;
       this.logoButton.classList.remove('dragging');
       this.logoButton.style.cursor = 'grab';
 
-      // 如果有实际移动，则阻止点击事件并保存位置
-      if (hasMoved) {
+      // 如果有实际移动或按住时间超过200ms，则视为拖拽
+      if (hasMoved || pressDuration > 200) {
         e.preventDefault();
         e.stopPropagation();
         
-        // 使用更精确的方式阻止后续的点击事件
+        // 标记这次操作为拖拽
+        this.logoButton.setAttribute('data-just-dragged', 'true');
+        
+        // 一段时间后移除标记
         setTimeout(() => {
-          const clickHandler = (clickEvent) => {
-            if (clickEvent.target === this.logoButton || this.logoButton.contains(clickEvent.target)) {
-              clickEvent.stopPropagation();
-              clickEvent.preventDefault();
-            }
-            document.removeEventListener('click', clickHandler, true);
-          };
-          document.addEventListener('click', clickHandler, true);
-        }, 0);
+          this.logoButton.removeAttribute('data-just-dragged');
+        }, 100);
 
         // 保存位置到localStorage（使用防抖，延迟保存）
         if (this._savePositionTimeout) {
@@ -250,8 +251,8 @@ class WeixinAIAssistant {
       
       // 使用单一的点击事件处理器
       const handleClick = (e) => {
-        // 如果正在拖动或刚完成拖动，不触发点击
-        if (this.logoButton.classList.contains('dragging')) {
+        // 如果按钮刚被拖拽过，不触发点击事件
+        if (this.logoButton.getAttribute('data-just-dragged') === 'true') {
           return;
         }
         

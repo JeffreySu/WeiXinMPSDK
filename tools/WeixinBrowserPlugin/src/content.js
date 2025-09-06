@@ -178,39 +178,30 @@ class WeixinAIAssistant {
       e.preventDefault();
       e.stopPropagation();
 
-      let clientX, clientY;
-      if (e.type === "mousemove") {
-        clientX = e.clientX;
-        clientY = e.clientY;
-      } else {
-        clientX = e.touches[0].clientX;
-        clientY = e.touches[0].clientY;
-      }
+      // 直接获取新位置
+      const clientX = e.type === "mousemove" ? e.clientX : e.touches[0].clientX;
+      const clientY = e.type === "mousemove" ? e.clientY : e.touches[0].clientY;
 
       // 计算新位置
       let newX = clientX - initialX;
       let newY = clientY - initialY;
 
       // 限制按钮不超出视窗范围
-      const buttonRect = this.logoButton.getBoundingClientRect();
-      const maxX = window.innerWidth - buttonRect.width;
-      const maxY = window.innerHeight - buttonRect.height;
-
+      const maxX = window.innerWidth - this.logoButton.offsetWidth;
+      const maxY = window.innerHeight - this.logoButton.offsetHeight;
       newX = Math.min(Math.max(0, newX), maxX);
       newY = Math.min(Math.max(0, newY), maxY);
 
-      // 检测是否有实际移动
-      if (!hasMoved && (
-        Math.abs(newX - xOffset) > 5 || 
-        Math.abs(newY - yOffset) > 5
-      )) {
+      // 检测是否有实际移动（只在第一次移动时检查）
+      if (!hasMoved && (Math.abs(newX - xOffset) > 5 || Math.abs(newY - yOffset) > 5)) {
         hasMoved = true;
       }
 
-      // 更新位置
+      // 更新位置和状态
       xOffset = newX;
       yOffset = newY;
-      setPosition(this.logoButton, newX, newY);
+      this.logoButton.style.left = `${newX}px`;
+      this.logoButton.style.top = `${newY}px`;
     };
 
     // 添加事件监听器

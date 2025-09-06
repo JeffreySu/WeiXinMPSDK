@@ -100,6 +100,9 @@ class WeixinAIAssistant {
     if (!this.logoButton) return;
 
     let isDragging = false;
+    let dragStartTime = 0;
+    let hasMoved = false;
+    let lastFrameTime = 0;
     let currentX;
     let currentY;
     let initialX;
@@ -131,12 +134,35 @@ class WeixinAIAssistant {
 
       if (e.target === this.logoButton || this.logoButton.contains(e.target)) {
         isDragging = true;
+        hasMoved = false;
+        dragStartTime = Date.now();
         this.logoButton.style.cursor = 'grabbing';
+        
+        // 阻止事件冒泡，避免触发点击事件
+        e.stopPropagation();
+        e.preventDefault();
       }
     };
 
-    const dragEnd = () => {
+    const dragEnd = (e) => {
       if (!isDragging) return;
+      
+      const dragEndTime = Date.now();
+      const dragDuration = dragEndTime - dragStartTime;
+      
+      // 如果拖动时间超过200ms或有明显移动，则阻止点击事件
+      if (dragDuration > 200 || hasMoved) {
+        e.stopPropagation();
+        e.preventDefault();
+        
+        // 移除可能存在的点击事件监听器
+        const clickHandler = (clickEvent) => {
+          clickEvent.stopPropagation();
+          clickEvent.preventDefault();
+          document.removeEventListener('click', clickHandler, true);
+        };
+        document.addEventListener('click', clickHandler, true);
+      }
       
       initialX = currentX;
       initialY = currentY;
@@ -154,43 +180,61 @@ class WeixinAIAssistant {
       if (!isDragging) return;
 
       e.preventDefault();
+      e.stopPropagation();
 
-      if (e.type === "mousemove") {
-        currentX = e.clientX - initialX;
-        currentY = e.clientY - initialY;
-      } else {
-        currentX = e.touches[0].clientX - initialX;
-        currentY = e.touches[0].clientY - initialY;
-      }
+      // 使用requestAnimationFrame优化性能和响应速度
+      requestAnimationFrame((timestamp) => {
+        // 限制帧率，但保持响应速度
+        if (timestamp - lastFrameTime < 16) return; // ~60fps
+        lastFrameTime = timestamp;
 
-      xOffset = currentX;
-      yOffset = currentY;
+        let newX, newY;
+        if (e.type === "mousemove") {
+          newX = e.clientX - initialX;
+          newY = e.clientY - initialY;
+        } else {
+          newX = e.touches[0].clientX - initialX;
+          newY = e.touches[0].clientY - initialY;
+        }
 
-      // 限制按钮不超出视窗范围
-      const buttonRect = this.logoButton.getBoundingClientRect();
-      const maxX = window.innerWidth - buttonRect.width;
-      const maxY = window.innerHeight - buttonRect.height;
+        // 检测是否有实际移动
+        const moveThreshold = 5; // 5像素的移动阈值
+        if (!hasMoved && (
+          Math.abs(newX - xOffset) > moveThreshold || 
+          Math.abs(newY - yOffset) > moveThreshold
+        )) {
+          hasMoved = true;
+        }
 
-      xOffset = Math.min(Math.max(0, xOffset), maxX);
-      yOffset = Math.min(Math.max(0, yOffset), maxY);
+        // 限制按钮不超出视窗范围
+        const buttonRect = this.logoButton.getBoundingClientRect();
+        const maxX = window.innerWidth - buttonRect.width;
+        const maxY = window.innerHeight - buttonRect.height;
 
-      this.setTranslate(xOffset, yOffset, this.logoButton);
+        xOffset = Math.min(Math.max(0, newX), maxX);
+        yOffset = Math.min(Math.max(0, newY), maxY);
+
+        // 直接设置transform属性，避免使用style对象
+        this.setTranslate(xOffset, yOffset, this.logoButton);
+      });
     };
 
-    // 设置元素位置
+    // 优化的位置设置函数
     this.setTranslate = (xPos, yPos, el) => {
+      // 使用transform3d触发GPU加速
       el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+      el.style.willChange = 'transform';
     };
 
-    // 添加事件监听器
-    this.logoButton.addEventListener('mousedown', dragStart, false);
-    document.addEventListener('mousemove', drag, false);
-    document.addEventListener('mouseup', dragEnd, false);
+    // 添加事件监听器，使用capture确保最先捕获事件
+    this.logoButton.addEventListener('mousedown', dragStart, { capture: true });
+    document.addEventListener('mousemove', drag, { capture: true, passive: false });
+    document.addEventListener('mouseup', dragEnd, { capture: true });
 
     // 触摸事件支持
-    this.logoButton.addEventListener('touchstart', dragStart, false);
-    document.addEventListener('touchmove', drag, false);
-    document.addEventListener('touchend', dragEnd, false);
+    this.logoButton.addEventListener('touchstart', dragStart, { capture: true, passive: false });
+    document.addEventListener('touchmove', drag, { capture: true, passive: false });
+    document.addEventListener('touchend', dragEnd, { capture: true });
 
     // 设置初始样式
     this.logoButton.style.position = 'fixed';
@@ -198,6 +242,8 @@ class WeixinAIAssistant {
     this.logoButton.style.userSelect = 'none';
     this.logoButton.style.zIndex = '10000';
     this.logoButton.style.touchAction = 'none';
+    this.logoButton.style.willChange = 'transform';
+    this.logoButton.style.backfaceVisibility = 'hidden';
   }
 
   // 设置事件监听器

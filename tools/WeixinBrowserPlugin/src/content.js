@@ -105,21 +105,20 @@ class WeixinAIAssistant {
     let initialY;
     let xOffset = 0;
     let yOffset = 0;
-
-    // 设置元素位置
-    const setPosition = (el, x, y) => {
-      el.style.left = `${x}px`;
-      el.style.top = `${y}px`;
-    };
+    let buttonWidth;
+    let buttonHeight;
+    let maxX;
+    let maxY;
 
     // 从localStorage获取保存的位置
     const savedPosition = localStorage.getItem('senparcAiButtonPosition');
     if (savedPosition) {
       try {
         const { x, y } = JSON.parse(savedPosition);
+        this.logoButton.style.left = x + 'px';
+        this.logoButton.style.top = y + 'px';
         xOffset = x;
         yOffset = y;
-        setPosition(this.logoButton, x, y);
       } catch (e) {
         console.error('恢复按钮位置失败:', e);
       }
@@ -130,15 +129,26 @@ class WeixinAIAssistant {
         isDragging = true;
         hasMoved = false;
 
-        const rect = this.logoButton.getBoundingClientRect();
+        // 预先计算按钮尺寸和边界
+        buttonWidth = this.logoButton.offsetWidth;
+        buttonHeight = this.logoButton.offsetHeight;
+        maxX = window.innerWidth - buttonWidth;
+        maxY = window.innerHeight - buttonHeight;
+
+        // 计算初始偏移
+        const currentLeft = parseInt(this.logoButton.style.left) || 0;
+        const currentTop = parseInt(this.logoButton.style.top) || 0;
+        
         if (e.type === "mousedown") {
-          initialX = e.clientX - rect.left;
-          initialY = e.clientY - rect.top;
+          initialX = e.clientX - currentLeft;
+          initialY = e.clientY - currentTop;
         } else {
-          initialX = e.touches[0].clientX - rect.left;
-          initialY = e.touches[0].clientY - rect.top;
+          initialX = e.touches[0].clientX - currentLeft;
+          initialY = e.touches[0].clientY - currentTop;
         }
 
+        // 添加拖动状态类名，禁用所有过渡效果
+        this.logoButton.classList.add('dragging');
         this.logoButton.style.cursor = 'grabbing';
         e.preventDefault();
         e.stopPropagation();
@@ -149,26 +159,36 @@ class WeixinAIAssistant {
       if (!isDragging) return;
       
       isDragging = false;
+      this.logoButton.classList.remove('dragging');
       this.logoButton.style.cursor = 'grab';
 
-      // 如果有实际移动，则阻止点击事件
+      // 如果有实际移动，则阻止点击事件并保存位置
       if (hasMoved) {
         e.preventDefault();
         e.stopPropagation();
         
-        // 阻止后续的点击事件
-        const clickHandler = (clickEvent) => {
-          clickEvent.stopPropagation();
-          clickEvent.preventDefault();
-          document.removeEventListener('click', clickHandler, true);
-        };
-        document.addEventListener('click', clickHandler, true);
+        // 使用更精确的方式阻止后续的点击事件
+        setTimeout(() => {
+          const clickHandler = (clickEvent) => {
+            if (clickEvent.target === this.logoButton || this.logoButton.contains(clickEvent.target)) {
+              clickEvent.stopPropagation();
+              clickEvent.preventDefault();
+            }
+            document.removeEventListener('click', clickHandler, true);
+          };
+          document.addEventListener('click', clickHandler, true);
+        }, 0);
 
-        // 保存位置到localStorage
-        localStorage.setItem('senparcAiButtonPosition', JSON.stringify({
-          x: xOffset,
-          y: yOffset
-        }));
+        // 保存位置到localStorage（使用防抖，延迟保存）
+        if (this._savePositionTimeout) {
+          clearTimeout(this._savePositionTimeout);
+        }
+        this._savePositionTimeout = setTimeout(() => {
+          localStorage.setItem('senparcAiButtonPosition', JSON.stringify({
+            x: xOffset,
+            y: yOffset
+          }));
+        }, 500);
       }
     };
 
@@ -178,30 +198,28 @@ class WeixinAIAssistant {
       e.preventDefault();
       e.stopPropagation();
 
-      // 直接获取新位置
+      // 获取新位置
       const clientX = e.type === "mousemove" ? e.clientX : e.touches[0].clientX;
       const clientY = e.type === "mousemove" ? e.clientY : e.touches[0].clientY;
 
-      // 计算新位置
-      let newX = clientX - initialX;
-      let newY = clientY - initialY;
+      // 计算新位置（使用预先计算的边界）
+      let newX = Math.min(Math.max(0, clientX - initialX), maxX);
+      let newY = Math.min(Math.max(0, clientY - initialY), maxY);
 
-      // 限制按钮不超出视窗范围
-      const maxX = window.innerWidth - this.logoButton.offsetWidth;
-      const maxY = window.innerHeight - this.logoButton.offsetHeight;
-      newX = Math.min(Math.max(0, newX), maxX);
-      newY = Math.min(Math.max(0, newY), maxY);
-
-      // 检测是否有实际移动（只在第一次移动时检查）
+      // 只在第一次移动时检查
       if (!hasMoved && (Math.abs(newX - xOffset) > 5 || Math.abs(newY - yOffset) > 5)) {
         hasMoved = true;
       }
 
-      // 更新位置和状态
-      xOffset = newX;
-      yOffset = newY;
-      this.logoButton.style.left = `${newX}px`;
-      this.logoButton.style.top = `${newY}px`;
+      // 更新位置（直接修改style属性，避免创建字符串）
+      if (newX !== xOffset) {
+        this.logoButton.style.left = newX + 'px';
+        xOffset = newX;
+      }
+      if (newY !== yOffset) {
+        this.logoButton.style.top = newY + 'px';
+        yOffset = newY;
+      }
     };
 
     // 添加事件监听器
@@ -230,22 +248,21 @@ class WeixinAIAssistant {
       // 清除可能存在的旧事件
       this.logoButton.onclick = null;
       
-      // 使用多重绑定确保事件可靠
-      this.logoButton.onclick = (e) => {
+      // 使用单一的点击事件处理器
+      const handleClick = (e) => {
+        // 如果正在拖动或刚完成拖动，不触发点击
+        if (this.logoButton.classList.contains('dragging')) {
+          return;
+        }
+        
         console.log('🖱️ Logo按钮被点击！');
         e.preventDefault();
         e.stopPropagation();
         this.toggleFloatingWindow();
-        return false;
       };
-      
-      // 备用事件绑定
-      this.logoButton.addEventListener('click', (e) => {
-        console.log('🖱️ Logo按钮addEventListener事件触发');
-        e.preventDefault();
-        e.stopPropagation();
-        this.toggleFloatingWindow();
-      }, { capture: true });
+
+      // 使用捕获阶段绑定点击事件
+      this.logoButton.addEventListener('click', handleClick, { capture: true });
       
       console.log('✅ Logo按钮事件绑定完成');
     } else {

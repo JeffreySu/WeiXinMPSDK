@@ -1,0 +1,22 @@
+{
+  "name": "senparc-weixin-ai-extension",
+  "version": "0.1.0",
+  "description": "WeChat Developer AI Assistant Chrome Extension",
+  "private": true,
+  "scripts": {
+    "build": "node build.js",
+    "build:dev": "cross-env NODE_ENV=development node build.js",
+    "build:release": "node build-release.js",
+    "clean": "rimraf dist",
+    "clean:release": "rimraf release",
+    "prerelease": "npm run clean:release",
+    "release": "npm run build:release",
+    "validate": "node -e \"console.log('Validating package...'); require('./build-release.js')\""
+  },
+  "devDependencies": {
+    "archiver": "^5.3.1",
+    "cross-env": "^7.0.3",
+    "rimraf": "^5.0.1",
+    "terser": "^5.19.2"
+  }
+}

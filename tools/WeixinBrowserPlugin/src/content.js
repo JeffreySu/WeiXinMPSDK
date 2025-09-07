@@ -8,26 +8,42 @@ class WeixinAIAssistant {
     this.isWindowOpen = false;
     this.isDocked = false;
     this.originalBodyStyle = '';
+    this.debug = window.__SENPARC_DEBUG__ || {
+      enabled: false,
+      level: 'error',
+      trigger: 'senparc-debug'
+    };
     this.init();
+  }
+
+  log(level, ...args) {
+    if (this.debug.enabled || window.location.href.includes(this.debug.trigger)) {
+      if (this.debug.level === 'verbose' || 
+          (this.debug.level === 'info' && level !== 'verbose') ||
+          (this.debug.level === 'warn' && (level === 'warn' || level === 'error')) ||
+          (this.debug.level === 'error' && level === 'error')) {
+        console[level === 'verbose' ? 'log' : level](...args);
+      }
+    }
   }
 
   // 初始化插件
   init() {
-    console.log('Senparc.Weixin.AI 插件开始初始化...');
-    console.log('当前页面URL:', window.location.href);
-    console.log('当前域名:', window.location.hostname);
+    this.log('info', 'Senparc.Weixin.AI 插件开始初始化...');
+    this.log('verbose', '当前页面URL:', window.location.href);
+    this.log('verbose', '当前域名:', window.location.hostname);
     
     // 检查是否是微信文档页面
     if (this.isWeixinDocPage()) {
-      console.log('✅ 检测到微信文档页面，初始化AI助手...');
+      this.log('info', '✅ 检测到微信文档页面，初始化AI助手...');
       this.createLogoButton();
       this.setupEventListeners();
     } else {
-      console.log('❌ 当前页面不在支持列表中');
-      console.log('仅支持以下页面:');
-      console.log('  - https://developers.weixin.qq.com/');
-      console.log('  - https://developer.work.weixin.qq.com/document');
-      console.log('  - https://pay.weixin.qq.com/doc');
+      this.log('warn', '❌ 当前页面不在支持列表中');
+      this.log('info', '仅支持以下页面:');
+      this.log('info', '  - https://developers.weixin.qq.com/');
+      this.log('info', '  - https://developer.work.weixin.qq.com/document');
+      this.log('info', '  - https://pay.weixin.qq.com/doc');
     }
   }
 

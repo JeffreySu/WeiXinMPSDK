@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.23.8</Version>
+    <Version>3.23.8.1</Version>
     <LangVersion>9.0</LangVersion>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
@@ -189,7 +189,7 @@
 		[2025-05-23] v3.23.5 Feature/wxacode unlimit参数修改（PR #3133） 感谢 @mojinxun
 		[2025-06-08] v3.23.6 完善小程序二维码的获取结果处理（PR #3141） 感谢 @blackWins
 		[2025-08-16] v3.23.8 fix: 修复 GetWxaCodeUnlimit() 方法 Page 参数问题
-	</PackageReleaseNotes>
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

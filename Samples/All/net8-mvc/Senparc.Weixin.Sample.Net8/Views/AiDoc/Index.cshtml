@@ -1,0 +1,219 @@
+@{
+    ViewBag.Title = "AI文档助手 - 微信接口智能查询";
+    ViewData["HideBanner"] = true; // 隐藏顶部横幅
+}
+
+<div class="aidoc-page">
+
+@section HeaderContent {
+    <link href="~/Content/chat-interface.css" rel="stylesheet" />
+    <link href="~/Content/code-copy.css" rel="stylesheet" />
+}
+
+@section scripts {
+    <script src="~/js/code-copy.js"></script>
+<script>
+    $(function () {
+        var initialQuery = '@ViewData["InitialQuery"]';
+        
+        // 对话界面交互逻辑
+        $('#wechatApiInput').on('input focus', function() {
+            var text = $(this).val();
+            if (text.trim() || $(this).is(':focus')) {
+                $('.chat-watermark').css('opacity', '0');
+                $('#submitBtn').addClass('active');
+            } else {
+                $('.chat-watermark').css('opacity', '1');
+                $('#submitBtn').removeClass('active');
+            }
+        }).on('blur', function() {
+            var text = $(this).val();
+            if (!text.trim()) {
+                $('.chat-watermark').css('opacity', '1');
+                $('#submitBtn').removeClass('active');
+            }
+        });
+
+        $('#submitBtn').click(function() {
+            var query = $('#wechatApiInput').val().trim();
+            if (query) {
+                // 显示加载状态
+                $('.chat-loading').addClass('active');
+                $(this).prop('disabled', true);
+                
+                // 发送AJAX请求到AiDocController
+                $.ajax({
+                    url: '/AiDoc/ProcessQuery',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ query: query }),
+                    success: function(response) {
+                        $('.chat-loading').removeClass('active');
+                        $('#submitBtn').prop('disabled', false);
+                        
+                        if (response.success) {
+                            // 显示AI回复
+                            showAiResponse(response.data);
+                            // 清空输入框
+                            $('#wechatApiInput').val('');
+                            $('.chat-watermark').css('opacity', '1');
+                        } else {
+                            alert('错误：' + (response.message || '请求处理失败'));
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        $('.chat-loading').removeClass('active');
+                        $('#submitBtn').prop('disabled', false);
+                        alert('请求失败：' + error);
+                    }
+                });
+            }
+        });
+
+        // 回车键提交
+        $('#wechatApiInput').keypress(function(e) {
+            if (e.which == 13 && !e.shiftKey) {
+                e.preventDefault();
+                $('#submitBtn').click();
+            }
+        });
+
+        // 显示AI回复的函数
+        function showAiResponse(htmlContent) {
+            var responseContainer = $('#aiResponseContainer');
+            if (responseContainer.length === 0) {
+                // 如果容器不存在，创建一个
+                responseContainer = $('<div id="aiResponseContainer" class="ai-response-container"></div>');
+                $('.chat-interface').after(responseContainer);
+            }
+            
+            // 解码 HTML 实体编码并添加新的回复内容到最前面
+            var tempDiv = document.createElement('textarea');
+            tempDiv.innerHTML = htmlContent;
+            var decodedContent = tempDiv.value;
+            var responseItem = $('<div class="response-item">' + decodedContent + '</div>');
+            responseContainer.prepend(responseItem);
+            
+            // 滚动到新回复
+            $('html, body').animate({
+                scrollTop: responseItem.offset().top - 100
+            }, 500);
+            
+            // 初始化代码标签页
+            initCodeTabs(responseItem);
+        }
+
+        // 初始化代码标签页功能
+        function initCodeTabs(container) {
+            container.find('.tab-btn').click(function() {
+                var tabId = $(this).data('tab');
+                var tabContainer = $(this).closest('.code-tabs');
+                
+                // 切换按钮状态
+                tabContainer.find('.tab-btn').removeClass('active');
+                $(this).addClass('active');
+                
+                // 切换内容
+                tabContainer.find('.tab-pane').removeClass('active');
+                tabContainer.find('#' + tabId).addClass('active');
+            });
+        }
+
+        // 编辑查询的函数
+        window.editQuery = function(button) {
+            var encodedText = $(button).closest('.query-info').find('.user-query').text();
+            var tempDiv = document.createElement('textarea');
+            tempDiv.innerHTML = encodedText;
+            var queryText = tempDiv.value;
+            var input = $('#wechatApiInput');
+            
+            // 在当前内容后追加查询，如果当前有内容则添加换行
+            var currentContent = input.val().trim();
+            var newContent = currentContent
+                ? currentContent + '\n' + queryText
+                : queryText;
+            
+            // 更新输入框内容
+            input.val(newContent);
+            
+            // 聚焦到输入框并滚动到顶部
+            input.focus();
+            $('html, body').animate({
+                scrollTop: input.offset().top - 100
+            }, 500);
+            
+            // 更新UI状态
+            $('.chat-watermark').css('opacity', '0');
+            $('#submitBtn').addClass('active');
+        };
+
+        // 如果有初始查询，自动填充并执行
+        if (initialQuery && initialQuery.trim()) {
+            // 解码初始查询
+            var tempDiv = document.createElement('textarea');
+            tempDiv.innerHTML = initialQuery;
+            var decodedQuery = tempDiv.value;
+            $('#wechatApiInput').val(decodedQuery);
+            $('.chat-watermark').css('opacity', '0');
+            $('#submitBtn').addClass('active');
+            
+            // 延迟500ms后自动执行查询
+            setTimeout(function() {
+                $('#submitBtn').click();
+            }, 500);
+        }
+    });
+</script>
+}
+
+<!-- 微信接口对话界面 -->
+<div class="chat-hero">
+    <div class="chat-container">
+        <div class="chat-title">
+            <h1>微信接口智能助手</h1>
+            <p>让AI帮您快速调用微信公众号、小程序、企业微信、开放平台接口</p>
+        </div>
+        
+        <div class="chat-interface">
+            <div class="chat-watermark">
+                请输入你想调用的微信接口（已支持公众号、小程序、企业微信、开放平台，即将支持微信支付）
+            </div>
+            
+            <div class="chat-input-container">
+                <textarea id="wechatApiInput" class="chat-input" 
+                          placeholder="例如：获取用户基本信息、发送模板消息、创建菜单等..."
+                          rows="4"></textarea>
+                <button id="submitBtn" class="chat-submit-btn" type="button">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="chat-loading">
+                <div class="loading-dots">
+                    <div class="loading-dot"></div>
+                    <div class="loading-dot"></div>
+                    <div class="loading-dot"></div>
+                </div>
+                <span style="margin-left: 12px; color: #667eea;">正在处理您的请求...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 返回首页链接 -->
+<div class="back-to-home">
+    <div class="wrapper">
+        <p style="text-align: center; margin: 30px 0;">
+            <a href="@Url.Action("Index", "Home")" class="back-link">← 返回首页</a>
+            <span style="margin: 0 20px;">|</span>
+            <a href="@Url.Action("Index", "SimulateTool")" class="back-link">消息模拟器</a>
+            <span style="margin: 0 20px;">|</span>
+            <a href="@Url.Action("Index", "Menu")" class="back-link">菜单设置</a>
+        </p>
+    </div>
+</div>
+
+</div> <!-- .aidoc-page -->

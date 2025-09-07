@@ -3,7 +3,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>2025.8.19</Version>
+    <Version>2025.8.21</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.All</AssemblyName>
     <RootNamespace>Senparc.Weixin.All</RootNamespace>
@@ -59,7 +59,8 @@
 		2、WxOpen  fix: 修复 GetWxaCodeUnlimit() 方法 Page 参数问题
 		[2025-08-18] v2025.8.18 Cache.CsRedis 升级，完善初始化机制，避免无效连接字符串被启动
 		[2025-08-19] v2025.8.19 TenPayV3 处理 ResponseErrorJsonResult 中 value 值类型，由 int 改为 object
-	</PackageReleaseNotes>
+		[2025-08-21] v2025.8.21 发布 AI 助理
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

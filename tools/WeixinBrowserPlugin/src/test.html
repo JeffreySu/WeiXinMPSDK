@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微信开发文档测试页面</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1aad19;
+            border-bottom: 2px solid #1aad19;
+            padding-bottom: 10px;
+        }
+        .notice {
+            background: #e7f3ff;
+            border-left: 4px solid #1aad19;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .code-block {
+            background: #f8f8f8;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        .api-list {
+            list-style: none;
+            padding: 0;
+        }
+        .api-item {
+            background: #fafafa;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 3px solid #1aad19;
+        }
+        .api-name {
+            font-weight: bold;
+            color: #333;
+        }
+        .api-desc {
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>微信公众号开发文档</h1>
+        
+        <div class="notice">
+            <strong>注意：</strong>这是一个测试页面，用于验证 Senparc.Weixin.AI Chrome 插件功能。
+            <br>在真实的微信文档页面 (weixin.qq.com) 中，插件会自动检测并显示AI助手按钮。
+        </div>
+
+        <h2>接口调用说明</h2>
+        <p>微信公众号为开发者提供了丰富的接口，用于实现各种功能。以下是一些常用的接口：</p>
+
+        <h3>基础接口</h3>
+        <ul class="api-list">
+            <li class="api-item">
+                <div class="api-name">获取access_token</div>
+                <div class="api-desc">获取接口调用凭据，用于调用其他接口</div>
+            </li>
+            <li class="api-item">
+                <div class="api-name">获取微信服务器IP地址</div>
+                <div class="api-desc">获取微信服务器IP地址列表</div>
+            </li>
+        </ul>
+
+        <h3>消息管理</h3>
+        <ul class="api-list">
+            <li class="api-item">
+                <div class="api-name">接收普通消息</div>
+                <div class="api-desc">当用户发送消息给公众号时，微信服务器会将消息数据推送给开发者</div>
+            </li>
+            <li class="api-item">
+                <div class="api-name">发送被动回复消息</div>
+                <div class="api-desc">当用户发送消息给公众号时，开发者可以回复消息</div>
+            </li>
+            <li class="api-item">
+                <div class="api-name">发送客服消息</div>
+                <div class="api-desc">当用户和公众号有互动后，可以通过客服消息接口发送消息</div>
+            </li>
+        </ul>
+
+        <h3>用户管理</h3>
+        <ul class="api-list">
+            <li class="api-item">
+                <div class="api-name">获取用户基本信息</div>
+                <div class="api-desc">通过OpenID获取用户基本信息</div>
+            </li>
+            <li class="api-item">
+                <div class="api-name">获取用户列表</div>
+                <div class="api-desc">获取关注者列表</div>
+            </li>
+        </ul>
+
+        <h2>示例代码</h2>
+        <div class="code-block">
+            <pre><code>// 使用 Senparc.Weixin SDK 获取 Access Token
+var accessToken = await AccessTokenContainer.GetAccessTokenAsync(appId);
+
+// 发送文本消息
+var result = await CustomApi.SendTextAsync(accessToken, openId, "Hello World!");
+</code></pre>
+        </div>
+
+        <h2>测试说明</h2>
+        <p>要测试插件功能，请按以下步骤操作：</p>
+        <ol>
+            <li>确保已安装 Senparc.Weixin.AI Chrome 插件</li>
+            <li>访问真实的微信文档页面：<a href="https://developers.weixin.qq.com/doc/" target="_blank">https://developers.weixin.qq.com/doc/</a></li>
+            <li>查看页面左上角是否出现绿色的"Senparc.Weixin.AI"按钮</li>
+            <li>点击按钮测试AI助手功能</li>
+        </ol>
+
+        <div class="notice">
+            <strong>提示：</strong>本插件专为微信开发者设计，集成了 Senparc.Weixin SDK 的 AI 助手功能，
+            可以帮助您快速查询微信接口信息和生成代码示例。
+        </div>
+    </div>
+
+    <script>
+        // 模拟微信文档页面的一些行为
+        console.log('微信文档测试页面已加载');
+        console.log('当前URL:', window.location.href);
+        
+        // 检查插件是否已加载
+        setTimeout(() => {
+            if (window.WeixinAIAssistant) {
+                console.log('Senparc.Weixin.AI 插件已检测到');
+            } else {
+                console.log('未检测到插件，请确认插件已正确安装');
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

@@ -66,6 +66,7 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
         {
             // 解码 HTML 实体编码
             ViewData["InitialQuery"] = System.Web.HttpUtility.HtmlDecode(query);
+            //TODO: 增加缓存
             return View();
         }
 
@@ -93,7 +94,6 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
             request.Query = System.Web.HttpUtility.HtmlDecode(request.Query);
             try
             {
-
                 //对request内容进行判断，如果是完整的 http 请求（不包含其他内容），使用 CO2NET 获取网页内容，并且获取网页的 title
                 if (Regex.IsMatch(request.Query, @"^https?://", RegexOptions.IgnoreCase))
                 {
@@ -174,6 +174,10 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
 3. Tips 请根据接口实际说明进行调整
 4. 第一个参数为 accessTokenOrAppId 时，优先使用 appId 而不是 accessToken，因此不需要 accessToken 参数，因为 SDK 推荐提前注册并自动管理 AccessToken。
 5. 请不要添加任何不确定的信息或有风险的代码
+6. 如果没有任何接口符合要求，请设置以下参数：
+ 6.1. ApiDescription 中请输出：“根据您的需求，没有找到合适的接口，您可以提 Issue 到 https://github.com/JeffreySu/WeiXinMPSDK/issues”
+ 6.2. CSharpCode 中请输出：“// 根据您的需求，没有找到合适的接口，您可以提 Issue 到 https://github.com/JeffreySu/WeiXinMPSDK/issues”
+ 6.3. Summary、IsAsync、ParamsDescription、Tips等参数都输出对应类型的控制默认值。
 
 ## API 查询要求
 {request.Query}

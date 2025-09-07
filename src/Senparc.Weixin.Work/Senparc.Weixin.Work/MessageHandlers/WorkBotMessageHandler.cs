@@ -83,7 +83,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
                 return null;
             }
             var timeStamp = SystemTime.Now.Ticks.ToString();
-                var nonce = SystemTime.Now.Ticks.ToString();
+                var nonce = Guid.NewGuid().ToString("N");
 
                 //加解密库要求传 receiveid 参数，企业自建智能机器人的使用场景里，receiveid直接传空字符串即可
                 WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, "");

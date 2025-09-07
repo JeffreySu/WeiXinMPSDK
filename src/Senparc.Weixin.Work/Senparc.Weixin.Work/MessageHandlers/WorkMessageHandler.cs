@@ -139,7 +139,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
                 }
 
                 var timeStamp = SystemTime.Now.Ticks.ToString();
-                var nonce = SystemTime.Now.Ticks.ToString();
+                var nonce = Guid.NewGuid().ToString("N");
 
                 WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.CorpId);
                 string finalResponseXml = null;

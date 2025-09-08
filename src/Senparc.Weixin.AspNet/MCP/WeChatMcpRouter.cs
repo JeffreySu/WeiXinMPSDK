@@ -61,8 +61,6 @@ namespace Senparc.Weixin.AspNet.MCP
 
         private async Task<List<ApiItem>> GetApiItems()
         {
-            //_cache = _cache ?? Senparc.CO2NET.Cache.CacheStrategyFactory.GetObjectCacheStrategyInstance();
-
             var cacheKey = "WeixinSdkApiItems";
             var existKey = await _cache.CheckExistedAsync(cacheKey);
             if (!existKey)

@@ -1,0 +1,96 @@
+<svg width="440" height="280" viewBox="0 0 440 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景渐变 -->
+  <defs>
+    <!-- 主渐变背景 -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9ecef;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- 微信绿色渐变 -->
+    <linearGradient id="greenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1aad19;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2dc653;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1aad19;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- 阴影滤镜 -->
+    <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="440" height="280" fill="url(#bgGradient)"/>
+  
+  <!-- 装饰性几何图形 -->
+  <g opacity="0.1">
+    <circle cx="80" cy="60" r="120" fill="#1aad19"/>
+    <circle cx="360" cy="220" r="100" fill="#2dc653"/>
+  </g>
+  
+  <!-- 主图标区域 -->
+  <g transform="translate(80,90)">
+    <!-- 主图标背景 -->
+    <circle cx="50" cy="50" r="45" fill="url(#greenGradient)" filter="url(#dropShadow)"/>
+    
+    <!-- 微信聊天气泡 -->
+    <g transform="translate(50,40)">
+      <!-- 主聊天气泡 -->
+      <path d="M-18 -10 L13 -10 Q18 -10 18 -5 L18 5 Q18 10 13 10 L-3 10 L-10 16 L-6 10 L-18 10 Q-23 10 -23 5 L-23 -5 Q-23 -10 -18 -10 Z" fill="rgba(255,255,255,0.95)"/>
+      
+      <!-- AI 文字 -->
+      <text x="0" y="2" text-anchor="middle" fill="#1aad19" font-family="Arial, sans-serif" font-size="12" font-weight="bold">AI</text>
+    </g>
+    
+    <!-- 代码符号 -->
+    <g transform="translate(50,65)">
+      <rect x="-15" y="-6" width="30" height="12" rx="3" fill="rgba(255,255,255,0.9)"/>
+      <text x="-6" y="2" text-anchor="middle" fill="#1aad19" font-family="Monaco, monospace" font-size="8" font-weight="bold">&lt;/&gt;</text>
+      <text x="6" y="2" text-anchor="middle" fill="#1aad19" font-family="Arial, sans-serif" font-size="6" font-weight="bold">SDK</text>
+    </g>
+  </g>
+  
+  <!-- 标题文字 -->
+  <g transform="translate(180,80)">
+    <text x="0" y="0" fill="#2d3436" font-family="Arial, sans-serif" font-size="32" font-weight="bold">微信开发者AI助手</text>
+    <text x="0" y="35" fill="#636e72" font-family="Arial, sans-serif" font-size="18" font-weight="normal">WeChat Developer AI Assistant</text>
+    
+    <!-- 功能特性列表 -->
+    <g transform="translate(0,70)">
+      <g transform="translate(0,0)">
+        <circle cx="8" cy="8" r="3" fill="#1aad19"/>
+        <text x="20" y="12" fill="#2d3436" font-family="Arial, sans-serif" font-size="14" font-weight="normal">智能接口查询与代码生成</text>
+      </g>
+      
+      <g transform="translate(0,25)">
+        <circle cx="8" cy="8" r="3" fill="#1aad19"/>
+        <text x="20" y="12" fill="#2d3436" font-family="Arial, sans-serif" font-size="14" font-weight="normal">支持微信官方文档页面</text>
+      </g>
+      
+      <g transform="translate(0,50)">
+        <circle cx="8" cy="8" r="3" fill="#1aad19"/>
+        <text x="20" y="12" fill="#2d3436" font-family="Arial, sans-serif" font-size="14" font-weight="normal">集成Senparc.Weixin SDK</text>
+      </g>
+      
+      <g transform="translate(0,75)">
+        <circle cx="8" cy="8" r="3" fill="#1aad19"/>
+        <text x="20" y="12" fill="#2d3436" font-family="Arial, sans-serif" font-size="14" font-weight="normal">现代化响应式界面设计</text>
+      </g>
+    </g>
+  </g>
+  
+  <!-- 装饰性代码片段 -->
+  <g transform="translate(300,180)" opacity="0.6">
+    <rect x="0" y="0" width="120" height="80" rx="8" fill="#2d3436" stroke="#636e72" stroke-width="1"/>
+    <text x="10" y="20" fill="#1aad19" font-family="Monaco, monospace" font-size="8" font-weight="normal">// 微信API调用</text>
+    <text x="10" y="35" fill="#74b9ff" font-family="Monaco, monospace" font-size="8" font-weight="normal">const api = new</text>
+    <text x="10" y="50" fill="#74b9ff" font-family="Monaco, monospace" font-size="8" font-weight="normal">WeixinAPI();</text>
+    <text x="10" y="65" fill="#fd79a8" font-family="Monaco, monospace" font-size="8" font-weight="normal">api.sendMessage();</text>
+  </g>
+  
+  <!-- 底部标识 -->
+  <g transform="translate(220,240)">
+    <text x="0" y="0" text-anchor="middle" fill="#636e72" font-family="Arial, sans-serif" font-size="12" font-weight="normal">让微信开发更智能 • 让代码编写更高效</text>
+  </g>
+</svg>

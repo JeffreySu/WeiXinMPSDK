@@ -71,3 +71,6 @@ yarn.lock
 /tools/WeixinDocVectorGenerator/WeixinDocVectorGenerator/App_Data/ApiDocXml/*
 /Samples/All/net8-mvc/Senparc.Weixin.Sample.Net8/App_Data/ApiDocXml
 appsettings.Development.json
+*.dtmp
+*.bkp
+tools/WeixinBrowserPlugin/release/*

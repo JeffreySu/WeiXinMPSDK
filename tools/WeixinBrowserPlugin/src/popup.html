@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Senparc.Weixin.AI Assistant</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 320px;
+      min-height: 400px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: linear-gradient(135deg, #1aad19 0%, #2dc653 100%);
+      color: white;
+    }
+
+    .header {
+      padding: 20px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 12px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      font-size: 14px;
+    }
+
+    .feature-icon {
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .status {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+
+    .status-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .status-text {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .status.active {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .status.active .status-text {
+      color: #90EE90;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .button {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+    }
+
+    .button:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .button:active {
+      transform: translateY(0);
+    }
+
+    .button.primary {
+      background: rgba(255, 255, 255, 0.9);
+      color: #1aad19;
+      font-weight: 600;
+    }
+
+    .button.primary:hover {
+      background: white;
+    }
+
+    .footer {
+      padding: 16px 20px;
+      text-align: center;
+      font-size: 11px;
+      opacity: 0.6;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .version {
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="title">Senparc.Weixin.AI</div>
+    <div class="subtitle">微信开发智能助手</div>
+  </div>
+
+  <div class="content">
+    <div class="status" id="status">
+      <div class="status-title">插件状态</div>
+      <div class="status-text" id="status-text">检测中...</div>
+    </div>
+
+    <ul class="feature-list">
+      <li class="feature-item">
+        <div class="feature-icon">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polyline points="20,6 9,17 4,12" stroke="currentColor" stroke-width="2" fill="none"/>
+          </svg>
+        </div>
+        <span>自动检测微信文档页面</span>
+      </li>
+      <li class="feature-item">
+        <div class="feature-icon">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polyline points="20,6 9,17 4,12" stroke="currentColor" stroke-width="2" fill="none"/>
+          </svg>
+        </div>
+        <span>智能API接口查询</span>
+      </li>
+      <li class="feature-item">
+        <div class="feature-icon">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polyline points="20,6 9,17 4,12" stroke="currentColor" stroke-width="2" fill="none"/>
+          </svg>
+        </div>
+        <span>一键集成Senparc SDK</span>
+      </li>
+      <li class="feature-item">
+        <div class="feature-icon">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polyline points="20,6 9,17 4,12" stroke="currentColor" stroke-width="2" fill="none"/>
+          </svg>
+        </div>
+        <span>实时代码示例生成</span>
+      </li>
+    </ul>
+
+    <div class="buttons">
+      <button class="button primary" id="open-ai-doc">打开AI助手</button>
+      <a href="https://sdk.weixin.senparc.com/" target="_blank" class="button">访问Senparc官网</a>
+      <a href="https://github.com/JeffreySu/WeiXinMPSDK" target="_blank" class="button">查看GitHub项目</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>© 2024 Senparc.Weixin SDK</div>
+    <div class="version">版本 1.0.0</div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -39,6 +39,9 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Text;
+
+#pragma warning disable SKEXP0001 // 类型仅用于评估，在将来的更新中可能会被更改或删除。取消此诊断以继续。
 
 namespace Senparc.Weixin.Sample.Net8.Controllers
 {
@@ -63,6 +66,7 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
         {
             // 解码 HTML 实体编码
             ViewData["InitialQuery"] = System.Web.HttpUtility.HtmlDecode(query);
+            //TODO: 增加缓存
             return View();
         }
 
@@ -90,6 +94,17 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
             request.Query = System.Web.HttpUtility.HtmlDecode(request.Query);
             try
             {
+                //对request内容进行判断，如果是完整的 http 请求（不包含其他内容），使用 CO2NET 获取网页内容，并且获取网页的 title
+                if (Regex.IsMatch(request.Query, @"^https?://", RegexOptions.IgnoreCase))
+                {
+                    var url = request.Query;
+                    var httpClient = new HttpClient();
+                    var response = await httpClient.GetAsync(url);
+                    var html = await response.Content.ReadAsStringAsync();
+                    var title = Regex.Match(html, @"<title>(.*?)</title>", RegexOptions.IgnoreCase).Groups[1].Value;
+                    request.Query += $" 标题：{title}";
+                }
+
                 //建立 MCP 连接，并获取信息
                 var mcpEndpoint = "https://www.ncf.pub/mcp-senparc-xncf-weixinmanager/sse";
                 var clientTransport = new SseClientTransport(new SseClientTransportOptions()
@@ -115,32 +130,24 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
                 var systemMessage = $@"你是一位智能助手，帮我选择最适合的 API 方案。";
 
                 var iWantToRun = semanticAiHandler.ChatConfig(parameter,
-                  userId: "Jeffrey",
-                  maxHistoryStore: 10,
-                  chatSystemMessage: systemMessage,
-                  senparcAiSetting: aiSetting,
-                  kernelBuilderAction: kh =>
-                  {
-                      // kh.Plugins.AddMcpFunctionsFromSseServerAsync("NCF-Server", "http://localhost:5000/sse/sse");
-#pragma warning disable SKEXP0001 // 类型仅用于评估，在将来的更新中可能会被更改或删除。取消此诊断以继续。
-                      kh.Plugins.AddFromFunctions("WeixinMpRouter", tools.Select(z => z.AsKernelFunction()));
-#pragma warning restore SKEXP0001 // 类型仅用于评估，在将来的更新中可能会被更改或删除。取消此诊断以继续。
-                  }
-                      );
-                var executionSettings2 = new OpenAIPromptExecutionSettings
+                    userId: "Jeffrey",
+                    maxHistoryStore: 10,
+                    chatSystemMessage: systemMessage,
+                    senparcAiSetting: aiSetting,
+                    kernelBuilderAction: kh =>
+                    {
+                        // kh.Plugins.AddMcpFunctionsFromSseServerAsync("NCF-Server", "http://localhost:5000/sse/sse");
+                        kh.Plugins.AddFromFunctions("WeixinMpRouter", tools.Select(z => z.AsKernelFunction()));
+                    }
+                        );
+                var executionSettings = new OpenAIPromptExecutionSettings
                 {
                     Temperature = 0,
-                    FunctionChoiceBehavior = FunctionChoiceBehavior.Auto()// FunctionChoiceBehavior.Auto()
+                    FunctionChoiceBehavior = FunctionChoiceBehavior.Required()// FunctionChoiceBehavior.Auto()
                 };
-                var ka = new KernelArguments(executionSettings2) { };
+                var ka = new KernelArguments(executionSettings) { };
 
-                ////输出结果
-                //SenparcAiResult ret = await semanticAiHandler.ChatAsync(iWantToRun, request.RequestPrompt/*, streamItemProceessing*/);
-
-                //////////var resultRaw = await iWantToRun.Kernel.InvokePromptAsync(request.RequestPrompt, ka);
-
-                var prompt = $@"
-## 基本要求
+                var prompt = $@"## 基本要求
 1. 按照“API 查询要求”，使用 WeChat API function-calling 完成查询任务
 2. 结果需要严格使用 JSON 格式输出（注意：不需要包含任何 markdown 的标记，直接生成 JSON 代码，以{{开始，以}}结束），""输出""严格遵循示例如下：
 {{
@@ -149,8 +156,9 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
 ""CSharpCode"":""var appId = \""your_app_id\"";
 var openId = \""your_open_id\"";
 var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
-""Summary"":""获取用户基本信息接口"",
-""ParamsDescription"":""<table class=\""parameter-table\"">展示所有参数说明"",
+""Summary"":[""获取用户基本信息接口"",""第二个接口的Summary""],
+""IsAsync"":false,
+""ParamsDescription"":[""<table class=\""parameter-table\"">第一个接口参数说明（异步方法：<IsAsync>）"",""第二个接口的参数说明""],
 ""Tips"":""<strong>注意事项：</strong>
 <ul><li>确保用户已关注公众号，否则无法获取详细信息</li>
 <li>AccessToken需要定期刷新，建议使用SDK自动管理</li>
@@ -162,16 +170,21 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
 {Senparc.NeuChar.PlatformType.WeChat_Work}：企业微信
 {Senparc.NeuChar.PlatformType.WeChat_Open}：微信开放平台
 {Senparc.NeuChar.PlatformType.WeChat_MiniProgram}：微信小程序
-2. 如果过程中涉及到了多个接口，则在 ParamsDescription 中遍历展示这些接口的信息
+2. 如果过程中涉及到了多个接口，则在 ParamsDescription 中逐个展示这些接口的完整信息
 3. Tips 请根据接口实际说明进行调整
 4. 第一个参数为 accessTokenOrAppId 时，优先使用 appId 而不是 accessToken，因此不需要 accessToken 参数，因为 SDK 推荐提前注册并自动管理 AccessToken。
 5. 请不要添加任何不确定的信息或有风险的代码
+6. 如果没有任何接口符合要求，请设置以下参数：
+ 6.1. ApiDescription 中请输出：“根据您的需求，没有找到合适的接口，您可以提 Issue 到 https://github.com/JeffreySu/WeiXinMPSDK/issues”
+ 6.2. CSharpCode 中请输出：“// 根据您的需求，没有找到合适的接口，您可以提 Issue 到 https://github.com/JeffreySu/WeiXinMPSDK/issues”
+ 6.3. Summary、IsAsync、ParamsDescription、Tips等参数都输出对应类型的控制默认值。
 
 ## API 查询要求
 {request.Query}
 
 ## 输出
 ";
+                //输出结果
                 var resultRaw = await iWantToRun.Kernel.InvokePromptAsync(prompt, ka);
 
                 Console.WriteLine($"收到MCP回复：{resultRaw.ToString()}");
@@ -192,7 +205,7 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
                 return Json(new
                 {
                     success = false,
-                    message = "处理请求时发生错误：" + ex.Message
+                    message = "服务器繁忙,请稍后再试[手动狗头]"//"处理请求时发生错误：" + ex.Message
                 });
             }
         }
@@ -204,6 +217,21 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
         /// <returns></returns>
         private string GenerateResponse(string query, QueryMcpResult result)
         {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < result.Summary?.Length; i++)
+            {
+                sb.Append($"概要 - {result.Summary[i]}");
+                if (result.ParamsDescription?.Length>i)
+                {
+                    sb.Append(result.ParamsDescription[i]);
+                }
+
+                if (i < result.Summary?.Length - 1)
+                {
+                    sb.Append("<br/><br/>");
+                }
+            }
+
             var html = $@"
 <div class='ai-response'>
     <div class='response-header'>
@@ -255,9 +283,7 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
                     
                     <div class='tab-pane' id='api'>
                         <pre><code class='language-http'>
-概要：{result.Summary}
-
-{result.ParamsDescription}</code></pre>
+{sb.ToString()}</code></pre>
                     </div>
                 </div>
             </div>
@@ -274,6 +300,8 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
 
             var replacedSpaces = Regex.Replace(html, @" {2,}", " ");
             return replacedSpaces;
+
+            #region 静态代码
 
             //            var html = $@"
             //<div class='ai-response'>
@@ -366,6 +394,7 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
             //</div>";
 
             //return html;
+            #endregion
         }
 
         /// <summary>
@@ -381,9 +410,12 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
             public string Platform { get; set; }
             public string ApiDescription { get; set; }
             public string CSharpCode { get; set; }
-            public string  Tips { get; set; }
-            public string ParamsDescription { get; set; }
-            public string Summary { get; set; }
+            public string Tips { get; set; }
+            public string[] ParamsDescription { get; set; }
+            public string[] Summary { get; set; }
+            public bool IsAsync { get; set; }
+
         }
     }
 }
+#pragma warning restore SKEXP0001 // 类型仅用于评估，在将来的更新中可能会被更改或删除。取消此诊断以继续。

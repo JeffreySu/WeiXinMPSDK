@@ -541,30 +541,32 @@ sessionKey: {(await SessionContainer.CheckRegisteredAsync(sessionId)
         {
             try
             {
+                var weixinSetting = Config.SenparcWeixinSetting;
+
                 var sessionBag = SessionContainer.GetSession(sessionId);
                 var openId = sessionBag.OpenId;
 
                 //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-                var sp_billno = string.Format("{0}{1}{2}", Config.SenparcWeixinSetting.TenPayV3_MchId /*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
+                var sp_billno = string.Format("{0}{1}{2}", weixinSetting.TenPayV3_MchId /*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
                         TenPayV3Util.BuildRandomStr(6));
 
                 var body = "小程序微信支付Demo";
                 var price = 1;//单位：分
-                var notifyUrl = Config.SenparcWeixinSetting.TenPayV3_WxOpenTenpayNotify;
-                var basePayApis = new Senparc.Weixin.TenPayV3.Apis.BasePayApis(Config.SenparcWeixinSetting);
+                var notifyUrl = weixinSetting.TenPayV3_WxOpenTenpayNotify;
+                var basePayApis = new Senparc.Weixin.TenPayV3.Apis.BasePayApis(weixinSetting);
 
-                var requestData = new TenPayV3.Apis.BasePay.TransactionsRequestData(WxOpenAppId, Config.SenparcWeixinSetting.TenPayV3_MchId, body, sp_billno, new TenPayV3.Entities.TenpayDateTime(SystemTime.Now.AddMinutes(120).DateTime, false), HttpContext.UserHostAddress().ToString(), notifyUrl, null, new() { currency = "CNY", total = price }, new(openId), null, null, null);
+                var requestData = new TenPayV3.Apis.BasePay.TransactionsRequestData(WxOpenAppId, weixinSetting.TenPayV3_MchId, body, sp_billno, new TenPayV3.Entities.TenpayDateTime(SystemTime.Now.AddMinutes(120).DateTime, false), HttpContext.UserHostAddress().ToString(), notifyUrl, null, new() { currency = "CNY", total = price }, new(openId), null, null, null);
                 var result = await basePayApis.JsApiAsync(requestData);
 
                 var packageStr = "prepay_id=" + result.prepay_id;
 
-                var jsApiUiPackage = TenPaySignHelper.GetJsApiUiPackage(WxOpenAppId, result.prepay_id);
+                var jsApiUiPackage = TenPaySignHelper.GetJsApiUiPackage(WxOpenAppId, result.prepay_id, weixinSetting);
 
                 return Json(new
                 {
                     success = true,
                     prepay_id = result.prepay_id,
-                    appId = Config.SenparcWeixinSetting.WxOpenAppId,
+                    appId = weixinSetting.WxOpenAppId,
                     timeStamp = jsApiUiPackage.Timestamp,
                     nonceStr = jsApiUiPackage.NonceStr,
                     package = packageStr,

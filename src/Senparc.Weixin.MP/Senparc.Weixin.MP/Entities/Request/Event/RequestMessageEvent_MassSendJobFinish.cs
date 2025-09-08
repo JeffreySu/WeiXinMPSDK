@@ -140,7 +140,7 @@ namespace Senparc.Weixin.MP.Entities
         /// </summary>
         public long MsgID
         {
-            get { return base.MsgId; }
+            get { return (long)base.MsgId; }
             set
             {
                 base.MsgId = value;

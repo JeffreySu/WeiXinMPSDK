@@ -73,3 +73,4 @@ yarn.lock
 appsettings.Development.json
 *.dtmp
 *.bkp
+tools/WeixinBrowserPlugin/release/*

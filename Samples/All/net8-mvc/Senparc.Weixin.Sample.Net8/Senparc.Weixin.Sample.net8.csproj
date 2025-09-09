@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <Version>7.0.0</Version>
+        <Version>7.0.1</Version>
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>35e58786-0820-4cde-b1ff-f4c6198d00f7</UserSecretsId>
         <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>

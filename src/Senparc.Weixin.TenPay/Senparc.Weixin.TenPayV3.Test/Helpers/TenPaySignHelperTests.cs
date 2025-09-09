@@ -23,10 +23,10 @@ namespace Senparc.Weixin.TenPayV3.Test.Helpers.Tests
             var nonceStr = "5K8264ILTKCH16CQ2502SI8ZNMTM67VS";
 
             var separcWeixinSetting = Config.SenparcWeixinSetting with
-                                        {
-                                            TenPayV3_AppId = appId,
-                                            TenPayV3_PrivateKey = privateKey
-                                        };
+            {
+                TenPayV3_AppId = appId,
+                TenPayV3_PrivateKey = privateKey
+            };
 
             var result = TenPaySignHelper.CreatePaySign(timestamp, nonceStr, package, separcWeixinSetting);
             Assert.IsNotNull(result);
@@ -44,7 +44,7 @@ namespace Senparc.Weixin.TenPayV3.Test.Helpers.Tests
             var timestamp = "1414561699";
             var nonceStr = "5K8264ILTKCH16CQ2502SI8ZNMTM67VS";
 
-            var result = TenPaySignHelper.CreatePaySign(timestamp, nonceStr, package, appId, privateKey);
+            var result = TenPaySignHelper.CreatePaySign(timestamp, nonceStr, package, appId, privateKey, CertType.RSA);
             Assert.IsNotNull(result);
             Console.WriteLine(result);
 

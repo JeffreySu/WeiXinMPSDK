@@ -416,6 +416,31 @@
     color: #6c757d;
     font-size: 0.95rem;
     margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.edit-query-btn {
+    background: transparent;
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+    color: #667eea;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.edit-query-btn:hover {
+    background: rgba(102, 126, 234, 0.1);
+    color: #764ba2;
+}
+
+.edit-query-btn svg {
+    display: block;
 }
 
 .user-query {
@@ -538,6 +563,57 @@
     padding: 0;
 }
 
+/* 参数表格样式 */
+.parameter-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: #e2e8f0 !important;
+}
+
+.parameter-table * {
+    color: #e2e8f0 !important;
+}
+
+.parameter-table th,
+.parameter-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #4a5568;
+}
+
+.parameter-table th {
+    background: #3c4758;
+    font-weight: 600;
+    color: #a0aec0;
+}
+
+.parameter-table tr {
+    background: #2d3748;
+}
+
+.parameter-table tr:nth-child(even) {
+    background: #323b4c;
+}
+
+.parameter-table tr:hover {
+    background: #3c4758;
+}
+
+/* 响应式表格 */
+@media (max-width: 768px) {
+    .parameter-table {
+        font-size: 0.8rem;
+    }
+    
+    .parameter-table th,
+    .parameter-table td {
+        padding: 8px;
+    }
+}
+
 .tips-section {
     background: rgba(102, 126, 234, 0.05);
     padding: 20px;
@@ -615,5 +691,39 @@
     
     .tab-btn:last-child {
         border-bottom: none;
+    }
+}
+
+/* 返回首页链接样式 */
+.back-to-home {
+    background: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    margin-top: 50px;
+}
+
+.back-link {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+/* AiDoc页面专用样式 */
+.aidoc-page .chat-hero {
+    min-height: 60vh;
+}
+
+.aidoc-page .chat-title h1 {
+    font-size: 3rem;
+}
+
+@media (max-width: 768px) {
+    .aidoc-page .chat-title h1 {
+        font-size: 2.2rem;
     }
 }

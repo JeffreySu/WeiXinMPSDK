@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MCP.Server", "Senparc.Weixin.MCP.Server.csproj", "{A19E4799-DC50-5BEE-D56D-5F44A8D6895D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A19E4799-DC50-5BEE-D56D-5F44A8D6895D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A19E4799-DC50-5BEE-D56D-5F44A8D6895D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A19E4799-DC50-5BEE-D56D-5F44A8D6895D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A19E4799-DC50-5BEE-D56D-5F44A8D6895D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6BD8FBBD-5BEA-4ADA-A361-7C73B8138106}
+	EndGlobalSection
+EndGlobal

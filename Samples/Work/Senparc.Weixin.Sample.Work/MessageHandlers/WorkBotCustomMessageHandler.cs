@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using System.Xml.Linq;
+using Senparc.NeuChar;
 using Senparc.Weixin.Work;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.MessageContexts;
@@ -18,6 +20,10 @@ namespace Senparc.Weixin.Sample.Work.MessageHandlers
         public static Func<Stream, PostModel, int, IServiceProvider, WorkBotCustomMessageHandler> GenerateMessageHandler =
             (stream, postModel, maxRecordCount, serviceProvider) => new WorkBotCustomMessageHandler(stream, postModel, maxRecordCount, serviceProvider);
 
+        public override XDocument ResponseDocument => throw new NotImplementedException();
+
+        public override XDocument FinalResponseDocument => throw new NotImplementedException();
+
         public WorkBotCustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, IServiceProvider serviceProvider = null)
             : base(inputStream, postModel, maxRecordCount, serviceProvider: serviceProvider)
         {
@@ -35,6 +41,11 @@ namespace Senparc.Weixin.Sample.Work.MessageHandlers
             var responseMessage = CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "这是一条默认的 Bot 消息。";
             return responseMessage;
+        }
+
+        public override XDocument Init(XDocument requestDocument, IEncryptPostModel postModel)
+        {
+            throw new NotImplementedException();
         }
     }
 }

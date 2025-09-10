@@ -31,16 +31,6 @@ var registerService = app.UseSenparcWeixin(app.Environment, null, null,
     register => { },
     (register, weixinSetting) =>
 {
-app.UseMessageHandlerForWork("/WorkBotAsync", WorkBotCustomMessageHandler.GenerateMessageHandler, options =>
-{
-    var weixinSetting = Senparc.Weixin.Config.SenparcWeixinSetting;
-
-    options.AccountSettingFunc = context => weixinSetting;
-
-    var appKey = AccessTokenContainer.BuildingKey(weixinSetting.WorkSetting);
-    options.TextResponseLimitOptions = new TextResponseLimitOptions(2048, appKey);
-});
-
     //注册企业微信（可以执行多次，注册多个账号）
     register.RegisterWorkAccount(weixinSetting, "【盛派网络】企业微信");
 });
@@ -63,6 +53,7 @@ app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMess
     options.TextResponseLimitOptions = new TextResponseLimitOptions(2048, appKey);
 });
 
+//使用企业微信机器人 MessageHandler 中间件（不再需要创建 Controller）           --DPBMARK WorkBot
 app.UseMessageHandlerForWork("/WorkBotAsync", WorkBotCustomMessageHandler.GenerateMessageHandler, options =>
 {
     // 为机器人通道使用“企业微信机器人”这组配置（若未设置则回退到默认 WorkSetting）

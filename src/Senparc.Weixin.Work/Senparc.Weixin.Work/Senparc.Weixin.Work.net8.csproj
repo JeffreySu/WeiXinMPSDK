@@ -218,6 +218,7 @@
 			[2025-04-17] v3.26.0 添加打卡记录 #3126 感谢 mc7246
 			[2025-05-23] v3.27.0 fix:获客链接管理关于编辑获客链接的接口调用错误 感谢 @LainNya (Issue #3137）
 			[2025-07-21] v3.28.0 fix: 推送 News 的字段消息大小写敏感问题
+
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>
@@ -270,4 +271,5 @@
   <ItemGroup>
     <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
   </ItemGroup>
+
 </Project>

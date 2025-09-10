@@ -46,6 +46,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
         public BotEncryptPostData EncryptPostData { get; set; }
 
         /// <summary>
+
         /// 请求实体
         /// </summary>
         public new IWorkRequestMessageBase RequestMessage

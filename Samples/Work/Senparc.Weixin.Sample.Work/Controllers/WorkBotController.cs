@@ -27,6 +27,7 @@ using Senparc.CO2NET.AspNet.HttpUtility;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.AspNet.MvcExtension;
 using Senparc.Weixin.Sample.Work.MessageHandlers;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.Work;
 using Senparc.Weixin.Work.Entities;
 
@@ -37,9 +38,12 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
     /// </summary>
     public class WorkBotController : Controller
     {
-        public static readonly string Token = Config.SenparcWeixinSetting.WorkSetting.WeixinCorpToken;//与企业微信账号后台的Token设置保持一致，区分大小写。
-        public static readonly string EncodingAESKey = Config.SenparcWeixinSetting.WorkSetting.WeixinCorpEncodingAESKey;//与微信企业账号后台的EncodingAESKey设置保持一致，区分大小写。
-        public static readonly string CorpId = Config.SenparcWeixinSetting.WorkSetting.WeixinCorpId;//与微信企业账号后台的CorpId设置保持一致，区分大小写。
+        // 读取“企业微信机器人”的专用配置，不影响默认 WorkSetting
+        private static ISenparcWeixinSettingForWork BotSetting => Senparc.Weixin.Config.SenparcWeixinSetting["企业微信机器人"];
+
+        public static readonly string Token = BotSetting?.WeixinCorpToken ?? Config.SenparcWeixinSetting.WorkSetting.WeixinCorpToken;//与企业微信机器人后台的 Token 设置保持一致。
+        public static readonly string EncodingAESKey = BotSetting?.WeixinCorpEncodingAESKey ?? Config.SenparcWeixinSetting.WorkSetting.WeixinCorpEncodingAESKey;//与企业微信机器人后台的 EncodingAESKey 设置保持一致。
+        public static readonly string CorpId = BotSetting?.WeixinCorpId ?? Config.SenparcWeixinSetting.WorkSetting.WeixinCorpId;//与企业微信后台的 CorpId 设置保持一致。
 
         public WorkBotController()
         {

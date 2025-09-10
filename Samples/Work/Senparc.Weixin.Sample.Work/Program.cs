@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Senparc.Weixin.Work.Containers;
+using Senparc.Weixin.Entities;
 using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -59,6 +60,22 @@ app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMess
 
     //[可选] 设置最大文本长度回复限制（超长后会调用客服接口分批次回复）
     var appKey = AccessTokenContainer.BuildingKey(weixinSetting.WorkSetting);
+    options.TextResponseLimitOptions = new TextResponseLimitOptions(2048, appKey);
+});
+
+app.UseMessageHandlerForWork("/WorkBotAsync", WorkBotCustomMessageHandler.GenerateMessageHandler, options =>
+{
+    // 为机器人通道使用“企业微信机器人”这组配置（若未设置则回退到默认 WorkSetting）
+    var weixinSetting = Senparc.Weixin.Config.SenparcWeixinSetting;
+    var botSetting = Senparc.Weixin.Config.SenparcWeixinSetting["企业微信机器人"] as ISenparcWeixinSettingForWork;
+
+    // 仍然返回全局配置集合，供中间件识别；
+    // Bot 路由下的文本长度限制，基于机器人所用的 CorpId/Secret 计算 AppKey
+    options.AccountSettingFunc = context => weixinSetting;
+
+    var appKey = botSetting != null
+        ? AccessTokenContainer.BuildingKey(botSetting)
+        : AccessTokenContainer.BuildingKey(weixinSetting.WorkSetting);
     options.TextResponseLimitOptions = new TextResponseLimitOptions(2048, appKey);
 });
 #endregion

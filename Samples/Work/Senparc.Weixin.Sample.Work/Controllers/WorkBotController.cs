@@ -2,10 +2,10 @@
     Copyright (C) 2025 Senparc
     
     文件名：WorkBotController.cs
-    文件功能描述：企业号对接测试（从QYController.cs移植）
+    文件功能描述：企业微信智能机器人BotController
     
     
-    创建标识：Senparc - 20150312
+    创建标识：WangQian - 20250910
 ----------------------------------------------------------------*/
 
 /*

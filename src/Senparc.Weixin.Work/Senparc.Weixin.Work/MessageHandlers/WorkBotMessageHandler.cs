@@ -46,15 +46,34 @@ namespace Senparc.Weixin.Work.MessageHandlers
         public BotEncryptPostData EncryptPostData { get; set; }
 
         /// <summary>
-        /// 请求消息实体
+        /// 请求实体
         /// </summary>
-        public new IWorkRequestMessageBase RequestMessage { get; set; }
+        public new IWorkRequestMessageBase RequestMessage
+        {
+            get
+            {
+                return base.RequestMessage as IWorkRequestMessageBase;
+            }
+            set
+            {
+                base.RequestMessage = value;
+            }
+        }
 
         /// <summary>
-        /// 响应消息实体
+        /// 响应实体
         /// </summary>
-        public new IWorkResponseMessageBase ResponseMessage { get; set; }
-
+        public new IWorkResponseMessageBase ResponseMessage
+        {
+            get
+            {
+                return base.ResponseMessage as IWorkResponseMessageBase;
+            }
+            set
+            {
+                base.ResponseMessage = value;
+            }
+        }
 
         /// <summary>
         /// 从ResponseMessage转换而来的响应消息JSON字符串（未加密）

@@ -1,4 +1,4 @@
-﻿/*----------------------------------------------------------------
+/*----------------------------------------------------------------
     Copyright (C) 2025 Senparc
     
     文件名：WorkBotController.cs
@@ -43,7 +43,7 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
 
         public static readonly string Token = BotSetting?.WeixinCorpToken ?? Config.SenparcWeixinSetting.WorkSetting.WeixinCorpToken;//与企业微信机器人后台的 Token 设置保持一致。
         public static readonly string EncodingAESKey = BotSetting?.WeixinCorpEncodingAESKey ?? Config.SenparcWeixinSetting.WorkSetting.WeixinCorpEncodingAESKey;//与企业微信机器人后台的 EncodingAESKey 设置保持一致。
-        public static readonly string CorpId = BotSetting?.WeixinCorpId ?? Config.SenparcWeixinSetting.WorkSetting.WeixinCorpId;//与企业微信后台的 CorpId 设置保持一致。
+        public static readonly string CorpId = "";//企业微信智能机器人的CorpId为空字符串
 
         public WorkBotController()
         {

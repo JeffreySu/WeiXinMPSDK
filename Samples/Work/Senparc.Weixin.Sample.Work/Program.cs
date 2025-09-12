@@ -53,7 +53,7 @@ app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMess
     options.TextResponseLimitOptions = new TextResponseLimitOptions(2048, appKey);
 });
 
-//使用企业微信机器人 MessageHandler 中间件（不再需要创建 Controller）           --DPBMARK WorkBot
+//使用企业微信机器人 MessageHandler 中间件（不再需要创建 Controller）暂时无法使用 :(           --DPBMARK WorkBot
 app.UseMessageHandlerForWork("/WorkBotAsync", WorkBotCustomMessageHandler.GenerateMessageHandler, options =>
 {
     // 为机器人通道使用“企业微信机器人”这组配置（若未设置则回退到默认 WorkSetting）

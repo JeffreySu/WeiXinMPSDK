@@ -1,4 +1,4 @@
-/*----------------------------------------------------------------
+﻿/*----------------------------------------------------------------
     Copyright (C) 2025 Senparc
     
     文件名：WorkBotController.cs
@@ -113,9 +113,10 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
                 await messageHandler.ExecuteAsync(new CancellationToken());//执行微信处理过程（关键）
 
                 messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
-
+                
                 //自动返回加密后结果
                 return Content(messageHandler.FinalResponseJsonStr, "application/json");
+                
             }
             catch (Exception ex)
             {

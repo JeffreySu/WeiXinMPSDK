@@ -11,7 +11,6 @@
 using System;
 using System.IO;
 using Senparc.NeuChar.Context;
-using Senparc.Weixin.Exceptions;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Helpers;
@@ -23,6 +22,7 @@ using Senparc.Weixin.Work.Entities.Request.Event;
 using System.Xml.Linq;
 using Senparc.NeuChar.Entities;
 using Senparc.CO2NET.Helpers;
+using Senparc.NeuChar.Exceptions;
 
 namespace Senparc.Weixin.Work.MessageHandlers
 {
@@ -112,6 +112,26 @@ namespace Senparc.Weixin.Work.MessageHandlers
                 return finalResponseJson;
         } 
         }
+        /// <summary>
+        /// 在Bot场景下，将此属性设置为null，这样才能记录日志
+        /// </summary>
+        public override XDocument FinalResponseDocument
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        public override XDocument ResponseDocument
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+
 
 
         protected WorkBotMessageHandler(Stream inputStream, IEncryptPostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false, IServiceProvider serviceProvider = null, bool useJson = true) : base(inputStream, postModel, maxRecordCount, onlyAllowEncryptMessage, serviceProvider, useJson)

@@ -20,10 +20,6 @@ namespace Senparc.Weixin.Sample.Work.MessageHandlers
         public static Func<Stream, PostModel, int, IServiceProvider, WorkBotCustomMessageHandler> GenerateMessageHandler =
             (stream, postModel, maxRecordCount, serviceProvider) => new WorkBotCustomMessageHandler(stream, postModel, maxRecordCount, serviceProvider);
 
-        public override XDocument ResponseDocument => new XDocument();
-
-        public override XDocument FinalResponseDocument => new XDocument();
-
         public WorkBotCustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, IServiceProvider serviceProvider = null)
             : base(inputStream, postModel, maxRecordCount, serviceProvider: serviceProvider)
         {
@@ -41,11 +37,6 @@ namespace Senparc.Weixin.Sample.Work.MessageHandlers
             var responseMessage = CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "这是一条默认的 Bot 消息。";
             return responseMessage;
-        }
-
-        public override XDocument Init(XDocument requestDocument, IEncryptPostModel postModel)
-        {
-            throw new NotImplementedException();
         }
     }
 }

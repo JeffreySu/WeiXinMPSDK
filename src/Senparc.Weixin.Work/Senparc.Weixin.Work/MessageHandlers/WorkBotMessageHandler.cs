@@ -162,6 +162,12 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return msgJson;
         }
 
+        // 这只是为了实现基类的抽象方法
+        public override XDocument Init(XDocument requestDocument, IEncryptPostModel postModel)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// 根据当前的RequestMessage创建指定类型的ResponseMessage
         /// </summary>

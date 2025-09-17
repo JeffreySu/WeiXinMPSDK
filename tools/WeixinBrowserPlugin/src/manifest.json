@@ -4,8 +4,7 @@
   "version": "0.1.0",
   "description": "微信文档页面AI助手，提供智能接口查询功能",
   "permissions": [
-    "activeTab",
-    "storage"
+    "activeTab"
   ],
   "host_permissions": [
     "https://developers.weixin.qq.com/*",

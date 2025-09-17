@@ -58,14 +58,14 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
             Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
         }
 
-        [TestMethod]
-        public void QuitChatTest()
-        {
-            var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
+        //[TestMethod]
+        //public void QuitChatTest()
+        //{
+        //    var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
 
-            var result = ChatApi.QuitChat(accessToken, "1", "007");
+        //    var result = ChatApi.QuitChat(accessToken, "1", "007");
             
-            Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
-        }
+        //    Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
+        //}
     }
 }

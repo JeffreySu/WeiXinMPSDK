@@ -74,3 +74,4 @@ appsettings.Development.json
 *.dtmp
 *.bkp
 tools/WeixinBrowserPlugin/release/*
+tools/WeixinDev/weixindev-*.vsix

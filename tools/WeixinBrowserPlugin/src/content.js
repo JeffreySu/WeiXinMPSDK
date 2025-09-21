@@ -8,26 +8,42 @@ class WeixinAIAssistant {
     this.isWindowOpen = false;
     this.isDocked = false;
     this.originalBodyStyle = '';
+    this.debug = window.__SENPARC_DEBUG__ || {
+      enabled: false,
+      level: 'error',
+      trigger: 'senparc-debug'
+    };
     this.init();
+  }
+
+  log(level, ...args) {
+    if (this.debug.enabled || window.location.href.includes(this.debug.trigger)) {
+      if (this.debug.level === 'verbose' || 
+          (this.debug.level === 'info' && level !== 'verbose') ||
+          (this.debug.level === 'warn' && (level === 'warn' || level === 'error')) ||
+          (this.debug.level === 'error' && level === 'error')) {
+        console[level === 'verbose' ? 'log' : level](...args);
+      }
+    }
   }
 
   // 初始化插件
   init() {
-    console.log('Senparc.Weixin.AI 插件开始初始化...');
-    console.log('当前页面URL:', window.location.href);
-    console.log('当前域名:', window.location.hostname);
+    this.log('info', 'Senparc.Weixin.AI 插件开始初始化...');
+    this.log('verbose', '当前页面URL:', window.location.href);
+    this.log('verbose', '当前域名:', window.location.hostname);
     
     // 检查是否是微信文档页面
     if (this.isWeixinDocPage()) {
-      console.log('✅ 检测到微信文档页面，初始化AI助手...');
+      this.log('info', '✅ 检测到微信文档页面，初始化AI助手...');
       this.createLogoButton();
       this.setupEventListeners();
     } else {
-      console.log('❌ 当前页面不在支持列表中');
-      console.log('仅支持以下页面:');
-      console.log('  - https://developers.weixin.qq.com/');
-      console.log('  - https://developer.work.weixin.qq.com/document');
-      console.log('  - https://pay.weixin.qq.com/doc');
+      this.log('warn', '❌ 当前页面不在支持列表中');
+      this.log('info', '仅支持以下页面:');
+      this.log('info', '  - https://developers.weixin.qq.com/');
+      this.log('info', '  - https://developer.work.weixin.qq.com/document');
+      this.log('info', '  - https://pay.weixin.qq.com/doc');
     }
   }
 
@@ -1117,26 +1133,186 @@ if (document.readyState === 'loading') {
   initializeAssistant();
 }
 
-// 监听页面URL变化（SPA应用）
+// 监听页面URL变化（SPA应用）- 优化版本
 let lastUrl = location.href;
 let urlChangeTimeout = null;
 
-new MutationObserver(() => {
-  const url = location.href;
-  if (url !== lastUrl) {
-    lastUrl = url;
-    console.log('🔄 检测到页面URL变化:', url);
+// 方案1：基于 History API 的检测（推荐）
+function setupHistoryAPIDetection() {
+  // 保存原始的 pushState 和 replaceState 方法
+  const originalPushState = history.pushState;
+  const originalReplaceState = history.replaceState;
+  
+  function handleUrlChange() {
+    PerformanceMonitor.recordHistoryApiCall();
     
-    // 使用防抖，避免频繁重新初始化
-    if (urlChangeTimeout) {
-      clearTimeout(urlChangeTimeout);
+    const url = location.href;
+    if (url !== lastUrl) {
+      lastUrl = url;
+      PerformanceMonitor.recordUrlChange();
+      
+      if (URL_DETECTION_CONFIG.enableDebugLog) {
+        console.log('🔄 检测到页面URL变化 (History API):', url);
+      }
+      
+      // 使用防抖，避免频繁重新初始化
+      if (urlChangeTimeout) {
+        clearTimeout(urlChangeTimeout);
+      }
+      
+      urlChangeTimeout = setTimeout(() => {
+        initializeAssistant();
+      }, URL_DETECTION_CONFIG.debounceDelay);
     }
-    
-    urlChangeTimeout = setTimeout(() => {
-      initializeAssistant();
-    }, 1000);
   }
-}).observe(document, { subtree: true, childList: true });
+  
+  // 重写 pushState 方法
+  history.pushState = function(...args) {
+    originalPushState.apply(history, args);
+    handleUrlChange();
+  };
+  
+  // 重写 replaceState 方法
+  history.replaceState = function(...args) {
+    originalReplaceState.apply(history, args);
+    handleUrlChange();
+  };
+  
+  // 监听 popstate 事件（浏览器前进后退）
+  window.addEventListener('popstate', handleUrlChange);
+  
+  // 监听 hashchange 事件（hash变化）
+  window.addEventListener('hashchange', handleUrlChange);
+}
+
+// 方案2：优化的 MutationObserver（备选方案）
+function setupOptimizedMutationObserver() {
+  // 使用节流函数减少执行频率
+  let throttleTimeout = null;
+  
+  function throttledUrlCheck() {
+    PerformanceMonitor.recordMutationObserverCall();
+    
+    if (throttleTimeout) return;
+    
+    throttleTimeout = setTimeout(() => {
+      const url = location.href;
+      if (url !== lastUrl) {
+        lastUrl = url;
+        PerformanceMonitor.recordUrlChange();
+        
+        if (URL_DETECTION_CONFIG.enableDebugLog) {
+          console.log('🔄 检测到页面URL变化 (MutationObserver):', url);
+        }
+        
+        if (urlChangeTimeout) {
+          clearTimeout(urlChangeTimeout);
+        }
+        
+        urlChangeTimeout = setTimeout(() => {
+          initializeAssistant();
+        }, URL_DETECTION_CONFIG.debounceDelay);
+      }
+      throttleTimeout = null;
+    }, URL_DETECTION_CONFIG.throttleDelay);
+  }
+  
+  // 只监听特定的变化类型，减少触发频率
+  new MutationObserver(throttledUrlCheck).observe(document.body, {
+    childList: true,
+    subtree: false // 只监听直接子节点，不监听所有后代
+  });
+}
+
+// URL检测方案配置
+const URL_DETECTION_CONFIG = {
+  // 检测方案：'history' | 'mutation' | 'hybrid'
+  method: 'history', // 默认使用 History API 方案
+  
+  // 防抖延迟时间（毫秒）
+  debounceDelay: 500,
+  
+  // 节流延迟时间（毫秒，仅用于 MutationObserver）
+  throttleDelay: 100,
+  
+  // 是否启用调试日志
+  enableDebugLog: true
+};
+
+// 初始化URL检测
+function initUrlDetection() {
+  console.log(`🔧 初始化URL检测，使用方案: ${URL_DETECTION_CONFIG.method}`);
+  
+  switch (URL_DETECTION_CONFIG.method) {
+    case 'history':
+      setupHistoryAPIDetection();
+      break;
+    case 'mutation':
+      setupOptimizedMutationObserver();
+      break;
+    case 'hybrid':
+      // 混合方案：优先使用 History API，MutationObserver 作为备选
+      setupHistoryAPIDetection();
+      setupOptimizedMutationObserver();
+      break;
+    default:
+      console.warn('⚠️ 未知的URL检测方案，使用默认的 History API 方案');
+      setupHistoryAPIDetection();
+  }
+}
+
+// 性能监控
+const PerformanceMonitor = {
+  stats: {
+    historyApiCalls: 0,
+    mutationObserverCalls: 0,
+    urlChanges: 0,
+    lastUrlChangeTime: 0
+  },
+  
+  recordHistoryApiCall() {
+    this.stats.historyApiCalls++;
+  },
+  
+  recordMutationObserverCall() {
+    this.stats.mutationObserverCalls++;
+  },
+  
+  recordUrlChange() {
+    this.stats.urlChanges++;
+    this.stats.lastUrlChangeTime = Date.now();
+  },
+  
+  getStats() {
+    return { ...this.stats };
+  },
+  
+  reset() {
+    this.stats = {
+      historyApiCalls: 0,
+      mutationObserverCalls: 0,
+      urlChanges: 0,
+      lastUrlChangeTime: 0
+    };
+  },
+  
+  logStats() {
+    console.log('📊 URL检测性能统计:', this.getStats());
+  }
+};
+
+// 导出性能监控器供调试使用
+window.UrlDetectionPerformanceMonitor = PerformanceMonitor;
+
+// 启动URL检测
+initUrlDetection();
+
+// 定期输出性能统计（仅在调试模式下）
+if (URL_DETECTION_CONFIG.enableDebugLog) {
+  setInterval(() => {
+    PerformanceMonitor.logStats();
+  }, 30000); // 每30秒输出一次统计
+}
 
 // 导出给其他脚本使用
 window.WeixinAIAssistant = WeixinAIAssistant;

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Senparc.Weixin.Work.Containers;
+using Senparc.Weixin.Entities;
 using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,12 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//Ê¹ÓÃ±¾µØ»º´æ±ØĞëÌí¼Ó
+//ä½¿ç”¨æœ¬åœ°ç¼“å­˜å¿…é¡»æ·»åŠ 
 builder.Services.AddMemoryCache();
 
-#region Ìí¼ÓÎ¢ĞÅÅäÖÃ£¨Ò»ĞĞ´úÂë£©
+#region æ·»åŠ å¾®ä¿¡é…ç½®ï¼ˆä¸€è¡Œä»£ç ï¼‰
 
-//Senparc.Weixin ×¢²á£¨±ØĞë£©
+//Senparc.Weixin æ³¨å†Œï¼ˆå¿…é¡»ï¼‰
 builder.Services.AddSenparcWeixin(builder.Configuration);
 
 #endregion
@@ -23,32 +24,49 @@ builder.Services.AddSenparcWeixin(builder.Configuration);
 
 var app = builder.Build();
 
-#region ÆôÓÃÎ¢ĞÅÅäÖÃ£¨Ò»¾ä´úÂë£©
+#region å¯ç”¨å¾®ä¿¡é…ç½®ï¼ˆä¸€å¥ä»£ç ï¼‰
 
-//ÆôÓÃÎ¢ĞÅÅäÖÃ£¨±ØĞë£©
+//å¯ç”¨å¾®ä¿¡é…ç½®ï¼ˆå¿…é¡»ï¼‰
 var registerService = app.UseSenparcWeixin(app.Environment, null, null, 
     register => { },
     (register, weixinSetting) =>
 {
-    //×¢²áÆóÒµÎ¢ĞÅ£¨¿ÉÒÔÖ´ĞĞ¶à´Î£¬×¢²á¶à¸öÕËºÅ£©
-    register.RegisterWorkAccount(weixinSetting, "¡¾Ê¢ÅÉÍøÂç¡¿ÆóÒµÎ¢ĞÅ");
+    //æ³¨å†Œä¼ä¸šå¾®ä¿¡ï¼ˆå¯ä»¥æ‰§è¡Œå¤šæ¬¡ï¼Œæ³¨å†Œå¤šä¸ªè´¦å·ï¼‰
+    register.RegisterWorkAccount(weixinSetting, "ã€ç››æ´¾ç½‘ç»œã€‘ä¼ä¸šå¾®ä¿¡");
 });
 
-#region Ê¹ÓÃ MessageHadler ÖĞ¼ä¼ş£¬ÓÃÓÚÈ¡´ú´´½¨¶ÀÁ¢µÄ Controller
+#region ä½¿ç”¨ MessageHadler ä¸­é—´ä»¶ï¼Œç”¨äºå–ä»£åˆ›å»ºç‹¬ç«‹çš„ Controller
 
-//MessageHandler ÖĞ¼ä¼ş½éÉÜ£¨²Î¿¼¹«ÖÚºÅ£©£ºhttps://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html
+//MessageHandler ä¸­é—´ä»¶ä»‹ç»ï¼ˆå‚è€ƒå…¬ä¼—å·ï¼‰ï¼šhttps://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html
 
-//Ê¹ÓÃÆóÒµÎ¢ĞÅµÄ MessageHandler ÖĞ¼ä¼ş£¨²»ÔÙĞèÒª´´½¨ Controller£©                       --DPBMARK Work
+//ä½¿ç”¨ä¼ä¸šå¾®ä¿¡çš„ MessageHandler ä¸­é—´ä»¶ï¼ˆä¸å†éœ€è¦åˆ›å»º Controllerï¼‰                       --DPBMARK Work
 app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMessageHandler, options =>
 {
-    //»ñÈ¡Ä¬ÈÏÎ¢ĞÅÅäÖÃ
+    //è·å–é»˜è®¤å¾®ä¿¡é…ç½®
     var weixinSetting = Senparc.Weixin.Config.SenparcWeixinSetting;
 
-    //[±ØĞë] ÉèÖÃÎ¢ĞÅÅäÖÃ
+    //[å¿…é¡»] è®¾ç½®å¾®ä¿¡é…ç½®
     options.AccountSettingFunc = context => weixinSetting;
 
-    //[¿ÉÑ¡] ÉèÖÃ×î´óÎÄ±¾³¤¶È»Ø¸´ÏŞÖÆ£¨³¬³¤ºó»áµ÷ÓÃ¿Í·ş½Ó¿Ú·ÖÅú´Î»Ø¸´£©
+    //[å¯é€‰] è®¾ç½®æœ€å¤§æ–‡æœ¬é•¿åº¦å›å¤é™åˆ¶ï¼ˆè¶…é•¿åä¼šè°ƒç”¨å®¢æœæ¥å£åˆ†æ‰¹æ¬¡å›å¤ï¼‰
     var appKey = AccessTokenContainer.BuildingKey(weixinSetting.WorkSetting);
+    options.TextResponseLimitOptions = new TextResponseLimitOptions(2048, appKey);
+});
+
+//ä½¿ç”¨ä¼ä¸šå¾®ä¿¡æœºå™¨äºº MessageHandler ä¸­é—´ä»¶ï¼ˆä¸å†éœ€è¦åˆ›å»º Controllerï¼‰æš‚æ—¶æ— æ³•ä½¿ç”¨ :(           --DPBMARK WorkBot
+app.UseMessageHandlerForWork("/WorkBotAsync", WorkBotCustomMessageHandler.GenerateMessageHandler, options =>
+{
+    // ä¸ºæœºå™¨äººé€šé“ä½¿ç”¨â€œä¼ä¸šå¾®ä¿¡æœºå™¨äººâ€è¿™ç»„é…ç½®ï¼ˆè‹¥æœªè®¾ç½®åˆ™å›é€€åˆ°é»˜è®¤ WorkSettingï¼‰
+    var weixinSetting = Senparc.Weixin.Config.SenparcWeixinSetting;
+    var botSetting = Senparc.Weixin.Config.SenparcWeixinSetting["ä¼ä¸šå¾®ä¿¡æœºå™¨äºº"] as ISenparcWeixinSettingForWork;
+
+    // ä»ç„¶è¿”å›å…¨å±€é…ç½®é›†åˆï¼Œä¾›ä¸­é—´ä»¶è¯†åˆ«ï¼›
+    // Bot è·¯ç”±ä¸‹çš„æ–‡æœ¬é•¿åº¦é™åˆ¶ï¼ŒåŸºäºæœºå™¨äººæ‰€ç”¨çš„ CorpId/Secret è®¡ç®— AppKey
+    options.AccountSettingFunc = context => weixinSetting;
+
+    var appKey = botSetting != null
+        ? AccessTokenContainer.BuildingKey(botSetting)
+        : AccessTokenContainer.BuildingKey(weixinSetting.WorkSetting);
     options.TextResponseLimitOptions = new TextResponseLimitOptions(2048, appKey);
 });
 #endregion
@@ -66,7 +84,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-#region ´Ë²¿·Ö´úÂëÎª Sample ¹²ÏíÎÄ¼şĞèÒª¶øÌí¼Ó£¬Êµ¼ÊÏîÄ¿ÎŞĞèÌí¼Ó
+#region æ­¤éƒ¨åˆ†ä»£ç ä¸º Sample å…±äº«æ–‡ä»¶éœ€è¦è€Œæ·»åŠ ï¼Œå®é™…é¡¹ç›®æ— éœ€æ·»åŠ 
 #if DEBUG
 //app.UseStaticFiles(new StaticFileOptions
 //{

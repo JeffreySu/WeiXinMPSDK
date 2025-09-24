@@ -212,6 +212,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
 
             return Senparc.CO2NET.HttpUtility.Post.PostFileGetJson<UploadMediaResult>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
         }
+
+        
         #endregion
 
         #region 异步方法

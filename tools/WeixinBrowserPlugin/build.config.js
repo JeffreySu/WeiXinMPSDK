@@ -49,6 +49,6 @@ module.exports = {
     // 需要压缩的JS文件
     jsFiles: ['content.js'],
     // 版本号（与manifest.json保持一致）
-    version: '0.1.0'
+    version: '0.1.1'
   }
 };

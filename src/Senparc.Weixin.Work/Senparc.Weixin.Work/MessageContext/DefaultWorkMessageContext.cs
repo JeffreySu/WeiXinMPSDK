@@ -244,7 +244,7 @@ namespace Senparc.Weixin.Work.MessageContexts
                             break;
                         case "TEMPLATE_CARD_EVENT": // 模板卡片事件推送
                             requestMessage = new RequestMessageEvent_TemplateCardEvent();
-                            break;  
+                            break;
                         case "TEMPLATE_CARD_MENU_EVENT": // 通用模板卡片右上角菜单事件
                             requestMessage = new RequestMessageEvent_TemplateCardMenuEvent();
                             break;

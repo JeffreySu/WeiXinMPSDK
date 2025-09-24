@@ -1,3 +1,17 @@
+(function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const hashParams = new URLSearchParams(window.location.hash.substring(1));
+  
+  window.__SENPARC_DEBUG__ = {
+    enabled: false || 
+             urlParams.has('senparc_debug_mode') || 
+             hashParams.has('senparc_debug_mode') ||
+             window.location.href.includes('senparc_debug_mode=true'),
+    level: 'error',
+    trigger: 'senparc_debug_mode=true'
+  };
+})();
+
 // Senparc.Weixin.AI Chrome Extension Content Script
 // 监控微信文档页面并添加AI助手功能
 
@@ -77,12 +91,12 @@ class WeixinAIAssistant {
 
   // 创建Logo按钮
   createLogoButton() {
-    console.log('🎨 开始创建Logo按钮...');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🎨 开始创建Logo按钮...'); }
     
     // 检查是否已经存在按钮，避免重复创建
     const existingButton = document.getElementById('senparc-weixin-ai-button');
     if (existingButton) {
-      console.log('⚠️ Logo按钮已存在，移除旧按钮');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('⚠️ Logo按钮已存在，移除旧按钮'); }
       existingButton.remove();
     }
     
@@ -105,7 +119,7 @@ class WeixinAIAssistant {
 
     // 添加到页面
     document.body.appendChild(this.logoButton);
-    console.log('✅ Logo按钮已添加到页面');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('✅ Logo按钮已添加到页面'); }
 
     // 添加拖拽功能
     this.setupDragFeature();
@@ -137,7 +151,7 @@ class WeixinAIAssistant {
         xOffset = x;
         yOffset = y;
       } catch (e) {
-        console.error('恢复按钮位置失败:', e);
+        if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.error('恢复按钮位置失败:', e); }
       }
     }
 
@@ -260,7 +274,7 @@ class WeixinAIAssistant {
   // 设置事件监听器
   setupEventListeners() {
     if (this.logoButton) {
-      console.log('🔗 绑定Logo按钮点击事件...');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🔗 绑定Logo按钮点击事件...'); }
       
       // 清除可能存在的旧事件
       this.logoButton.onclick = null;
@@ -272,7 +286,7 @@ class WeixinAIAssistant {
           return;
         }
         
-        console.log('🖱️ Logo按钮被点击！');
+        if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🖱️ Logo按钮被点击！'); }
         e.preventDefault();
         e.stopPropagation();
         this.toggleFloatingWindow();
@@ -281,9 +295,9 @@ class WeixinAIAssistant {
       // 使用捕获阶段绑定点击事件
       this.logoButton.addEventListener('click', handleClick, { capture: true });
       
-      console.log('✅ Logo按钮事件绑定完成');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('✅ Logo按钮事件绑定完成'); }
     } else {
-      console.error('❌ Logo按钮不存在，无法绑定事件');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.error('❌ Logo按钮不存在，无法绑定事件'); }
     }
 
     // 监听ESC键关闭浮窗
@@ -303,7 +317,7 @@ class WeixinAIAssistant {
 
   // 切换浮窗显示状态
   toggleFloatingWindow() {
-    console.log('🔄 ===== 切换浮窗显示状态 =====');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🔄 ===== 切换浮窗显示状态 ====='); }
     console.log('🔍 当前状态:', {
       isWindowOpen: this.isWindowOpen,
       isDocked: this.isDocked,
@@ -311,14 +325,14 @@ class WeixinAIAssistant {
     });
     
     if (this.isWindowOpen) {
-      console.log('📤 当前浮窗已打开，执行关闭操作...');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('📤 当前浮窗已打开，执行关闭操作...'); }
       this.closeFloatingWindow();
     } else {
-      console.log('📥 当前浮窗已关闭，执行打开操作...');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('📥 当前浮窗已关闭，执行打开操作...'); }
       this.openFloatingWindow();
     }
     
-    console.log('✅ 切换操作完成，新状态:', this.isWindowOpen);
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('✅ 切换操作完成，新状态:', this.isWindowOpen); }
   }
 
   // 打开浮窗

@@ -21,12 +21,14 @@ async function processJavaScript(filename) {
     };
   `;
   
-  // 替换console语句
-  const debugWrappedContent = content.replace(/console\.(log|info|warn|error)\((.*?)\);?/g, 
-    `if (window.__SENPARC_DEBUG__.enabled || (window.location.href.includes(window.__SENPARC_DEBUG__.trigger))) {
-      console.$1($2);
-    }`
-  );
+  // 替换console语句 - 使用更安全的方式
+  let debugWrappedContent = content;
+  if (config.debug.enabled) {
+    debugWrappedContent = debugConfig + '\n' + content;
+  } else {
+    // 在生产模式下，简单地添加调试配置但不修改console语句
+    debugWrappedContent = debugConfig + '\n' + content;
+  }
   
   // 压缩代码
   const minified = await terser.minify(debugWrappedContent, {
@@ -49,8 +51,17 @@ async function processJavaScript(filename) {
 // 复制静态文件
 function copyStaticFiles() {
   config.build.staticFiles.forEach(file => {
-    const content = fs.readFileSync(path.join(config.build.srcDir, file));
-    fs.writeFileSync(path.join(config.build.outDir, file), content);
+    const srcPath = path.join(config.build.srcDir, file);
+    const destPath = path.join(config.build.outDir, file);
+    
+    // 确保目标目录存在
+    const destDir = path.dirname(destPath);
+    if (!fs.existsSync(destDir)) {
+      fs.mkdirSync(destDir, { recursive: true });
+    }
+    
+    const content = fs.readFileSync(srcPath);
+    fs.writeFileSync(destPath, content);
   });
 }
 

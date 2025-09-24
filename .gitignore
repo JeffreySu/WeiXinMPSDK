@@ -75,3 +75,4 @@ appsettings.Development.json
 *.bkp
 tools/WeixinBrowserPlugin/release/*
 tools/WeixinDev/weixindev-*.vsix
+tools/WeixinBrowserPlugin/dist/senparc-weixin-ai-*.zip

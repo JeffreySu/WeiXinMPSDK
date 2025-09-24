@@ -1,6 +1,6 @@
 {
   "name": "senparc-weixin-ai-extension",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "WeChat Developer AI Assistant Chrome Extension",
   "private": true,
   "scripts": {

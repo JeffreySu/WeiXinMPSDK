@@ -337,7 +337,7 @@ class WeixinAIAssistant {
 
   // 打开浮窗
   openFloatingWindow() {
-    console.log('🚀 ===== 打开AI助手浮窗 =====');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🚀 ===== 打开AI助手浮窗 ====='); }
     console.log('🔍 当前状态:', {
       isWindowOpen: this.isWindowOpen,
       isDocked: this.isDocked,
@@ -345,7 +345,7 @@ class WeixinAIAssistant {
     });
     
     if (this.floatingWindow) {
-      console.log('♻️ 重新显示已存在的浮窗...');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('♻️ 重新显示已存在的浮窗...'); }
       
       // 完全恢复显示状态
       this.floatingWindow.style.display = 'flex';
@@ -382,7 +382,7 @@ class WeixinAIAssistant {
         if (parentContent) {
           const parentHeight = parentContent.offsetHeight;
           const parentWidth = parentContent.offsetWidth;
-          console.log('🔧 父容器尺寸:', parentWidth, 'x', parentHeight);
+          if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🔧 父容器尺寸:', parentWidth, 'x', parentHeight); }
           
           // 直接设置具体的像素值
           iframe.style.width = parentWidth + 'px';
@@ -395,12 +395,12 @@ class WeixinAIAssistant {
           iframe.style.opacity = '1';
         }, 50);
         
-        console.log('🔧 重置iframe样式');
+        if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🔧 重置iframe样式'); }
       }
       
       if (loadingIndicator) {
         loadingIndicator.style.display = 'none';
-                console.log('🔧 隐藏加载指示器');
+        if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🔧 隐藏加载指示器'); }
       }
       
       // 重新绑定按钮事件（重要！）
@@ -410,7 +410,7 @@ class WeixinAIAssistant {
       requestAnimationFrame(() => {
         if (this.floatingWindow) {
           this.floatingWindow.classList.add('show');
-          console.log('✨ 显示动画已启动');
+          if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('✨ 显示动画已启动'); }
           
           // 动画完成后重新计算iframe尺寸
           setTimeout(() => {
@@ -419,7 +419,7 @@ class WeixinAIAssistant {
         }
       });
       
-      console.log('✅ 浮窗重新显示完成');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('✅ 浮窗重新显示完成'); }
       return;
     }
 
@@ -485,7 +485,7 @@ class WeixinAIAssistant {
 
     // 添加窗口大小变化监听器
     const resizeObserver = new ResizeObserver(() => {
-      console.log('📐 检测到浮窗尺寸变化，重新计算iframe');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('📐 检测到浮窗尺寸变化，重新计算iframe'); }
       this.recalculateIframeSize();
     });
     
@@ -508,7 +508,7 @@ class WeixinAIAssistant {
         this.recalculateIframeSize();
       }, 100);
       
-      console.log('🎯 iframe加载完成，尺寸已重新计算');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🎯 iframe加载完成，尺寸已重新计算'); }
     });
 
     // 监听iframe加载错误
@@ -539,18 +539,18 @@ class WeixinAIAssistant {
   // 设置按钮事件
   setupButtonEvents() {
     if (!this.floatingWindow) {
-      console.error('❌ 浮窗不存在，无法设置按钮事件');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.error('❌ 浮窗不存在，无法设置按钮事件'); }
       return;
     }
 
-    console.log('🔗 设置浮窗按钮事件...');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🔗 设置浮窗按钮事件...'); }
 
     // 立即绑定事件，不使用延迟
     this.bindButtonEvents();
     
     // 如果第一次绑定失败，再尝试一次
     if (!this.isButtonEventsBound()) {
-      console.log('🔄 第一次绑定失败，重试...');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🔄 第一次绑定失败，重试...'); }
       setTimeout(() => {
         this.bindButtonEvents();
       }, 50);
@@ -566,20 +566,20 @@ class WeixinAIAssistant {
   // 绑定按钮事件的具体实现
   bindButtonEvents() {
     if (!this.floatingWindow) {
-      console.error('❌ 浮窗不存在，无法绑定按钮事件');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.error('❌ 浮窗不存在，无法绑定按钮事件'); }
       return;
     }
 
-    console.log('🔗 开始绑定按钮事件...');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🔗 开始绑定按钮事件...'); }
 
     // 设置关闭按钮事件 - 使用多种方法确保事件绑定成功
     const closeButton = this.floatingWindow.querySelector('#close-floating-window');
     if (closeButton) {
-      console.log('🔍 找到关闭按钮，ID:', closeButton.id, '类名:', closeButton.className);
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🔍 找到关闭按钮，ID:', closeButton.id, '类名:', closeButton.className); }
       
       // 创建关闭函数
       const closeHandler = (e) => {
-        console.log('🖱️ 关闭按钮被点击！开始执行关闭操作...');
+        if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🖱️ 关闭按钮被点击！开始执行关闭操作...'); }
         if (e) {
           e.preventDefault();
           e.stopPropagation();
@@ -588,9 +588,9 @@ class WeixinAIAssistant {
         // 直接调用关闭方法
         try {
           this.closeFloatingWindow();
-          console.log('✅ 关闭操作执行完成');
+          if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('✅ 关闭操作执行完成'); }
         } catch (error) {
-          console.error('❌ 关闭操作失败:', error);
+          if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.error('❌ 关闭操作失败:', error); }
         }
         
         return false;
@@ -604,7 +604,7 @@ class WeixinAIAssistant {
       
       // 方法3: 使用mousedown作为额外保险
       closeButton.addEventListener('mousedown', (e) => {
-        console.log('🖱️ 关闭按钮mousedown事件');
+        if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🖱️ 关闭按钮mousedown事件'); }
         e.preventDefault();
         setTimeout(() => closeHandler(e), 10);
       });
@@ -630,17 +630,17 @@ class WeixinAIAssistant {
       closeButton.setAttribute('data-event-bound', 'true');
       closeButton.setAttribute('data-bind-time', Date.now().toString());
       
-      console.log('✅ 关闭按钮事件已绑定 (多重保险)');
-      console.log('   - onclick:', typeof closeButton.onclick);
-      console.log('   - 样式cursor:', window.getComputedStyle(closeButton).cursor);
-      console.log('   - z-index:', window.getComputedStyle(closeButton).zIndex);
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('✅ 关闭按钮事件已绑定 (多重保险)'); }
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('   - onclick:', typeof closeButton.onclick); }
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('   - 样式cursor:', window.getComputedStyle(closeButton).cursor); }
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('   - z-index:', window.getComputedStyle(closeButton).zIndex); }
     } else {
-      console.error('❌ 找不到关闭按钮元素');
-      console.log('🔍 浮窗内容:', this.floatingWindow.innerHTML.substring(0, 500));
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.error('❌ 找不到关闭按钮元素'); }
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🔍 浮窗内容:', this.floatingWindow.innerHTML.substring(0, 500)); }
       
       // 尝试重新查找
       setTimeout(() => {
-        console.log('🔄 重试查找关闭按钮...');
+        if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🔄 重试查找关闭按钮...'); }
         this.bindButtonEvents();
       }, 200);
       return;
@@ -649,11 +649,11 @@ class WeixinAIAssistant {
     // 设置停靠按钮事件
     const dockButton = this.floatingWindow.querySelector('#dock-toggle-button');
     if (dockButton) {
-      console.log('🔍 找到停靠按钮，开始绑定事件...');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🔍 找到停靠按钮，开始绑定事件...'); }
       
       // 创建停靠切换函数
       const dockHandler = (e) => {
-        console.log('🖱️ 停靠按钮被点击！');
+        if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🖱️ 停靠按钮被点击！'); }
         if (e) {
           e.preventDefault();
           e.stopPropagation();
@@ -661,9 +661,9 @@ class WeixinAIAssistant {
         
         try {
           this.toggleDockMode();
-          console.log('✅ 停靠模式切换完成');
+          if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('✅ 停靠模式切换完成'); }
         } catch (error) {
-          console.error('❌ 停靠模式切换失败:', error);
+          if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.error('❌ 停靠模式切换失败:', error); }
         }
         
         return false;
@@ -691,9 +691,9 @@ class WeixinAIAssistant {
         margin-right: 4px !important;
       `;
       
-      console.log('✅ 停靠按钮事件已绑定');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('✅ 停靠按钮事件已绑定'); }
     } else {
-      console.error('❌ 找不到停靠按钮元素');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.error('❌ 找不到停靠按钮元素'); }
     }
   }
 
@@ -708,7 +708,7 @@ class WeixinAIAssistant {
 
   // 设置停靠模式
   setDockMode() {
-    console.log('🔗 切换到停靠模式...');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🔗 切换到停靠模式...'); }
     
     if (!this.floatingWindow) return;
     
@@ -754,7 +754,7 @@ class WeixinAIAssistant {
     document.body.style.boxSizing = 'border-box';
     document.body.style.overflowX = 'hidden';
     
-    console.log('🎯 强制应用停靠样式作为补充');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🎯 强制应用停靠样式作为补充'); }
     
     // 针对微信开发者文档的特殊处理
     this.applyWeixinDocsSpecificStyles();
@@ -764,7 +764,7 @@ class WeixinAIAssistant {
     
     this.isDocked = true;
     this.isWindowOpen = true; // 确保状态一致
-    console.log('✅ 已切换到停靠模式');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('✅ 已切换到停靠模式'); }
     
     // 重新计算iframe尺寸
     setTimeout(() => {
@@ -774,7 +774,7 @@ class WeixinAIAssistant {
 
   // 设置悬浮模式
   setFloatingMode() {
-    console.log('🌊 切换到悬浮模式...');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🌊 切换到悬浮模式...'); }
     
     if (!this.floatingWindow) return;
     
@@ -829,7 +829,7 @@ class WeixinAIAssistant {
     document.body.style.boxSizing = '';
     document.body.style.overflowX = '';
     
-    console.log('🎯 清除强制停靠样式');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🎯 清除强制停靠样式'); }
     
     // 清除微信文档特殊样式
     this.clearWeixinDocsSpecificStyles();
@@ -839,7 +839,7 @@ class WeixinAIAssistant {
     
     this.isDocked = false;
     this.isWindowOpen = true; // 确保状态一致
-    console.log('✅ 已切换到悬浮模式');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('✅ 已切换到悬浮模式'); }
     
     // 重新计算iframe尺寸
     setTimeout(() => {
@@ -847,11 +847,9 @@ class WeixinAIAssistant {
     }, 100);
   }
 
-
-
   // 针对微信开发者文档的特殊样式处理
   applyWeixinDocsSpecificStyles() {
-    console.log('📱 应用微信开发者文档特殊样式...');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('📱 应用微信开发者文档特殊样式...'); }
     
     // 检查并处理常见的微信文档容器
     const weixinSelectors = [
@@ -893,12 +891,12 @@ class WeixinAIAssistant {
       }
     });
     
-    console.log('✅ 微信开发者文档特殊样式处理完成');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('✅ 微信开发者文档特殊样式处理完成'); }
   }
   
   // 清除微信文档特殊样式
   clearWeixinDocsSpecificStyles() {
-    console.log('🧹 清除微信开发者文档特殊样式...');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🧹 清除微信开发者文档特殊样式...'); }
     
     const weixinSelectors = [
       '#app',
@@ -927,7 +925,7 @@ class WeixinAIAssistant {
       });
     });
     
-    console.log('✅ 微信开发者文档特殊样式清除完成');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('✅ 微信开发者文档特殊样式清除完成'); }
   }
 
   // 更新停靠按钮图标
@@ -958,7 +956,7 @@ class WeixinAIAssistant {
 
   // 重新计算iframe尺寸
   recalculateIframeSize() {
-    console.log('📐 重新计算iframe尺寸...');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('📐 重新计算iframe尺寸...'); }
     
     if (!this.floatingWindow) return;
     
@@ -973,7 +971,7 @@ class WeixinAIAssistant {
       
       // 获取实际尺寸
       const rect = contentArea.getBoundingClientRect();
-      console.log('📏 内容区域尺寸:', rect.width, 'x', rect.height);
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('📏 内容区域尺寸:', rect.width, 'x', rect.height); }
       
       // 设置iframe尺寸
       iframe.style.width = rect.width + 'px';
@@ -983,13 +981,13 @@ class WeixinAIAssistant {
       iframe.style.display = 'block';
       iframe.style.visibility = 'visible';
       
-      console.log('✅ iframe尺寸重新计算完成');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('✅ iframe尺寸重新计算完成'); }
     }
   }
 
   // 关闭浮窗
   closeFloatingWindow() {
-    console.log('🚪 ===== 开始关闭浮窗 =====');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🚪 ===== 开始关闭浮窗 ====='); }
     console.log('🔍 当前状态:', {
       isWindowOpen: this.isWindowOpen,
       isDocked: this.isDocked,
@@ -999,7 +997,7 @@ class WeixinAIAssistant {
     });
     
     if (!this.floatingWindow) {
-      console.log('⚠️ 浮窗元素不存在，无需关闭');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('⚠️ 浮窗元素不存在，无需关闭'); }
       this.isWindowOpen = false;
       return;
     }
@@ -1010,7 +1008,7 @@ class WeixinAIAssistant {
     try {
       // 如果当前处于停靠模式，先恢复页面布局
       if (this.isDocked) {
-        console.log('🔄 从停靠模式关闭，恢复页面布局...');
+        if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🔄 从停靠模式关闭，恢复页面布局...'); }
         
         // 移除停靠相关的样式和类
         document.body.classList.remove('senparc-docked');
@@ -1024,11 +1022,11 @@ class WeixinAIAssistant {
         
         // 更新停靠状态
         this.isDocked = false;
-        console.log('✅ 页面布局已恢复');
+        if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('✅ 页面布局已恢复'); }
       }
       
       // 立即隐藏浮窗，不等待动画
-      console.log('🎬 立即隐藏浮窗...');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🎬 立即隐藏浮窗...'); }
       this.floatingWindow.style.display = 'none';
       this.floatingWindow.style.opacity = '0';
       this.floatingWindow.style.visibility = 'hidden';
@@ -1036,7 +1034,7 @@ class WeixinAIAssistant {
       // 移除显示相关的类
       this.floatingWindow.classList.remove('show', 'floating-mode', 'docked-mode');
       
-      console.log('👻 浮窗已立即隐藏');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('👻 浮窗已立即隐藏'); }
       
       // 可选：延迟重置一些状态（不影响关闭效果）
       setTimeout(() => {
@@ -1045,13 +1043,13 @@ class WeixinAIAssistant {
           const iframe = this.floatingWindow.querySelector('#senparc-ai-iframe');
           if (iframe) {
             iframe.style.display = 'block';
-            console.log('🔧 保持iframe状态');
+            if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🔧 保持iframe状态'); }
           }
         }
       }, 100);
       
     } catch (error) {
-      console.error('❌ 关闭浮窗过程中出现错误:', error);
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.error('❌ 关闭浮窗过程中出现错误:', error); }
       
       // 强制关闭
       if (this.floatingWindow) {
@@ -1065,12 +1063,12 @@ class WeixinAIAssistant {
       this.isDocked = false;
     }
     
-    console.log('✅ ===== 浮窗关闭完成 =====');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('✅ ===== 浮窗关闭完成 ====='); }
   }
 
   // 销毁插件
   destroy() {
-    console.log('🗑️ 销毁插件实例...');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🗑️ 销毁插件实例...'); }
     
     // 如果处于停靠模式，先恢复悬浮模式
     if (this.isDocked) {
@@ -1106,14 +1104,14 @@ class WeixinAIAssistant {
     // 清理所有可能的重复按钮
     const existingButtons = document.querySelectorAll('#senparc-weixin-ai-button');
     existingButtons.forEach(button => {
-      console.log('🧹 清理重复的Logo按钮');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🧹 清理重复的Logo按钮'); }
       button.remove();
     });
     
     // 清理所有可能的重复浮窗
     const existingWindows = document.querySelectorAll('#senparc-weixin-ai-window');
     existingWindows.forEach(window => {
-      console.log('🧹 清理重复的浮窗');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🧹 清理重复的浮窗'); }
       window.remove();
     });
   }
@@ -1126,7 +1124,7 @@ let globalAssistantInstance = null;
 function initializeAssistant() {
   // 清理旧实例
   if (globalAssistantInstance) {
-    console.log('🧹 清理旧的插件实例');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🧹 清理旧的插件实例'); }
     globalAssistantInstance.destroy();
     globalAssistantInstance = null;
   }
@@ -1134,9 +1132,9 @@ function initializeAssistant() {
   // 创建新实例
   try {
     globalAssistantInstance = new WeixinAIAssistant();
-    console.log('✨ 插件实例创建成功');
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('✨ 插件实例创建成功'); }
   } catch (error) {
-    console.error('❌ 插件实例创建失败:', error);
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.error('❌ 插件实例创建失败:', error); }
   }
 }
 
@@ -1166,7 +1164,7 @@ function setupHistoryAPIDetection() {
       PerformanceMonitor.recordUrlChange();
       
       if (URL_DETECTION_CONFIG.enableDebugLog) {
-        console.log('🔄 检测到页面URL变化 (History API):', url);
+        if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🔄 检测到页面URL变化 (History API):', url); }
       }
       
       // 使用防抖，避免频繁重新初始化
@@ -1216,7 +1214,7 @@ function setupOptimizedMutationObserver() {
         PerformanceMonitor.recordUrlChange();
         
         if (URL_DETECTION_CONFIG.enableDebugLog) {
-          console.log('🔄 检测到页面URL变化 (MutationObserver):', url);
+          if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🔄 检测到页面URL变化 (MutationObserver):', url); }
         }
         
         if (urlChangeTimeout) {
@@ -1255,7 +1253,7 @@ const URL_DETECTION_CONFIG = {
 
 // 初始化URL检测
 function initUrlDetection() {
-  console.log(`🔧 初始化URL检测，使用方案: ${URL_DETECTION_CONFIG.method}`);
+  if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log(`🔧 初始化URL检测，使用方案: ${URL_DETECTION_CONFIG.method}`); }
   
   switch (URL_DETECTION_CONFIG.method) {
     case 'history':
@@ -1270,7 +1268,7 @@ function initUrlDetection() {
       setupOptimizedMutationObserver();
       break;
     default:
-      console.warn('⚠️ 未知的URL检测方案，使用默认的 History API 方案');
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.warn('⚠️ 未知的URL检测方案，使用默认的 History API 方案'); }
       setupHistoryAPIDetection();
   }
 }
@@ -1311,7 +1309,7 @@ const PerformanceMonitor = {
   },
   
   logStats() {
-    console.log('📊 URL检测性能统计:', this.getStats());
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('📊 URL检测性能统计:', this.getStats()); }
   }
 };
 

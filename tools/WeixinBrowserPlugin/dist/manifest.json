@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "WeChat Developer AI Assistant",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "微信文档页面AI助手，提供智能接口查询功能",
   "permissions": [
     "activeTab"

@@ -22,6 +22,9 @@ class WeixinAIAssistant {
     this.isWindowOpen = false;
     this.isDocked = false;
     this.originalBodyStyle = '';
+    this.lastUrl = window.location.href; // 记录上次的URL
+    this.lastIframeUrl = null; // 记录上次iframe的URL
+    this.urlCheckDebounceTimeout = null; // URL检查防抖计时器
     this.debug = window.__SENPARC_DEBUG__ || {
       enabled: false,
       level: 'error',
@@ -315,6 +318,160 @@ class WeixinAIAssistant {
     });
   }
 
+  // 检查URL是否已变化
+  hasUrlChanged() {
+    const currentUrl = window.location.href;
+    const urlChanged = currentUrl !== this.lastUrl;
+    
+    if (urlChanged) {
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { 
+        console.log('🔄 检测到URL变化:', {
+          previousUrl: this.lastUrl,
+          currentUrl: currentUrl
+        }); 
+      }
+    }
+    
+    return urlChanged;
+  }
+
+  // 带防抖的URL变化检查和处理
+  debouncedUrlChangeCheck(callback, delay = 300) {
+    if (this.urlCheckDebounceTimeout) {
+      clearTimeout(this.urlCheckDebounceTimeout);
+    }
+    
+    this.urlCheckDebounceTimeout = setTimeout(() => {
+      if (this.hasUrlChanged()) {
+        if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { 
+          console.log('🔄 防抖URL检查：检测到变化，执行回调...'); 
+        }
+        if (typeof callback === 'function') {
+          callback();
+        }
+      }
+      this.urlCheckDebounceTimeout = null;
+    }, delay);
+  }
+
+  // 更新记录的URL
+  updateLastUrl() {
+    this.lastUrl = window.location.href;
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { 
+      console.log('📝 更新记录的URL:', this.lastUrl); 
+    }
+  }
+
+  // 重新加载iframe内容
+  reloadIframeContent() {
+    if (!this.floatingWindow) {
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { 
+        console.warn('⚠️ 浮窗不存在，无法重新加载iframe'); 
+      }
+      return;
+    }
+
+    const iframe = this.floatingWindow.querySelector('#senparc-ai-iframe');
+    const loadingIndicator = this.floatingWindow.querySelector('.loading-indicator');
+    
+    if (!iframe) {
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { 
+        console.warn('⚠️ 找不到iframe元素'); 
+      }
+      return;
+    }
+
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { 
+      console.log('🔄 开始重新加载iframe内容...'); 
+    }
+
+    // 显示加载指示器
+    if (loadingIndicator) {
+      loadingIndicator.style.display = 'block';
+      loadingIndicator.innerHTML = `
+        <div class="spinner"></div>
+        <p>检测到页面变化，正在重新加载...</p>
+      `;
+    }
+
+    // 暂时隐藏iframe
+    iframe.style.display = 'none';
+
+    // 构造新的iframe URL
+    const currentUrl = encodeURIComponent(window.location.href);
+    const newIframeUrl = `https://sdk.weixin.senparc.com/AiDoc?query=${currentUrl}`;
+    
+    // 检查是否真的需要重新加载（URL是否不同）
+    if (this.lastIframeUrl === newIframeUrl) {
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { 
+        console.log('📋 iframe URL未变化，无需重新加载'); 
+      }
+      // 仍然隐藏加载指示器并显示iframe
+      if (loadingIndicator) {
+        loadingIndicator.style.display = 'none';
+      }
+      iframe.style.display = 'block';
+      return;
+    }
+
+    // 记录新的iframe URL
+    this.lastIframeUrl = newIframeUrl;
+    
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { 
+      console.log('🌐 更新iframe URL:', newIframeUrl); 
+    }
+
+    // 更新iframe的src
+    iframe.src = newIframeUrl;
+
+    // 监听iframe重新加载完成
+    const handleIframeLoad = () => {
+      if (loadingIndicator) {
+        loadingIndicator.style.display = 'none';
+      }
+      iframe.style.display = 'block';
+      
+      // 重新计算iframe尺寸
+      setTimeout(() => {
+        this.recalculateIframeSize();
+      }, 100);
+      
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { 
+        console.log('✅ iframe重新加载完成'); 
+      }
+      
+      // 移除事件监听器
+      iframe.removeEventListener('load', handleIframeLoad);
+    };
+
+    // 监听iframe加载错误
+    const handleIframeError = () => {
+      if (loadingIndicator) {
+        loadingIndicator.innerHTML = `
+          <div class="error-message">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+              <path d="M15 9L9 15M9 9L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <p>重新加载失败，请检查网络连接</p>
+            <button onclick="location.reload()" class="retry-button">重试</button>
+          </div>
+        `;
+      }
+      
+      if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { 
+        console.error('❌ iframe重新加载失败'); 
+      }
+      
+      // 移除事件监听器
+      iframe.removeEventListener('error', handleIframeError);
+    };
+
+    // 添加事件监听器
+    iframe.addEventListener('load', handleIframeLoad, { once: true });
+    iframe.addEventListener('error', handleIframeError, { once: true });
+  }
+
   // 切换浮窗显示状态
   toggleFloatingWindow() {
     if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🔄 ===== 切换浮窗显示状态 ====='); }
@@ -344,8 +501,20 @@ class WeixinAIAssistant {
       floatingWindowExists: !!this.floatingWindow
     });
     
+    // 检查URL是否已变化
+    const urlChanged = this.hasUrlChanged();
+    
     if (this.floatingWindow) {
       if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('♻️ 重新显示已存在的浮窗...'); }
+      
+      // 如果URL已变化，需要重新加载iframe内容
+      if (urlChanged) {
+        if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { 
+          console.log('🔄 URL已变化，重新加载iframe内容...'); 
+        }
+        this.reloadIframeContent();
+        this.updateLastUrl(); // 更新记录的URL
+      }
       
       // 完全恢复显示状态
       this.floatingWindow.style.display = 'flex';
@@ -430,6 +599,11 @@ class WeixinAIAssistant {
 
     // 获取当前页面URL作为query参数
     const currentUrl = encodeURIComponent(window.location.href);
+    const iframeUrl = `https://sdk.weixin.senparc.com/AiDoc?query=${currentUrl}`;
+    
+    // 记录iframe URL
+    this.lastIframeUrl = iframeUrl;
+    this.updateLastUrl(); // 同时更新记录的页面URL
     
     // 创建浮窗内容
     this.floatingWindow.innerHTML = `
@@ -463,7 +637,7 @@ class WeixinAIAssistant {
         </div>
         <iframe 
           id="senparc-ai-iframe" 
-          src="https://sdk.weixin.senparc.com/AiDoc?query=${currentUrl}" 
+          src="${iframeUrl}" 
           frameborder="0"
           allow="clipboard-read; clipboard-write"
           sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation-by-user-activation">
@@ -1002,6 +1176,12 @@ class WeixinAIAssistant {
       return;
     }
 
+    // 在关闭前记录当前URL状态（重要：为下次打开时的URL比较做准备）
+    this.updateLastUrl();
+    if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { 
+      console.log('📝 关闭浮窗前记录URL状态:', this.lastUrl); 
+    }
+
     // 立即更新状态，防止重复点击
     this.isWindowOpen = false;
     
@@ -1069,6 +1249,12 @@ class WeixinAIAssistant {
   // 销毁插件
   destroy() {
     if (window.__SENPARC_DEBUG__ && window.__SENPARC_DEBUG__.enabled) { console.log('🗑️ 销毁插件实例...'); }
+    
+    // 清理防抖计时器
+    if (this.urlCheckDebounceTimeout) {
+      clearTimeout(this.urlCheckDebounceTimeout);
+      this.urlCheckDebounceTimeout = null;
+    }
     
     // 如果处于停靠模式，先恢复悬浮模式
     if (this.isDocked) {

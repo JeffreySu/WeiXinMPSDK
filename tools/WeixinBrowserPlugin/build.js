@@ -73,15 +73,43 @@ async function createZip() {
   );
   const archive = archiver('zip', { zlib: { level: 9 } });
   
-  archive.pipe(output);
-  
-  // 添加所有文件到zip
-  fs.readdirSync(config.build.outDir).forEach(file => {
-    if (file.endsWith('.zip')) return;
-    archive.file(path.join(config.build.outDir, file), { name: file });
+  return new Promise((resolve, reject) => {
+    output.on('close', () => {
+      console.log(`📦 ZIP包创建完成，大小: ${archive.pointer()} bytes`);
+      resolve();
+    });
+    
+    output.on('error', reject);
+    archive.on('error', reject);
+    
+    archive.pipe(output);
+    
+    // 递归添加所有文件和目录到zip（排除已有的zip文件）
+    function addToArchive(dirPath, archivePath = '') {
+      const items = fs.readdirSync(dirPath);
+      
+      items.forEach(item => {
+        if (item.endsWith('.zip')) return; // 跳过zip文件
+        
+        const fullPath = path.join(dirPath, item);
+        const archiveItemPath = archivePath ? path.join(archivePath, item) : item;
+        const stats = fs.statSync(fullPath);
+        
+        if (stats.isDirectory()) {
+          // 递归处理目录
+          addToArchive(fullPath, archiveItemPath);
+        } else {
+          // 添加文件
+          archive.file(fullPath, { name: archiveItemPath });
+        }
+      });
+    }
+    
+    // 从构建输出目录开始添加
+    addToArchive(config.build.outDir);
+    
+    archive.finalize();
   });
-  
-  await archive.finalize();
 }
 
 // 主构建流程
@@ -113,4 +141,5 @@ async function build() {
 
 // 执行构建
 build();
+
 

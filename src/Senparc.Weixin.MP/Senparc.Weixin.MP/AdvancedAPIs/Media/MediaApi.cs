@@ -495,6 +495,26 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
+
+        /// <summary>
+        /// 上传图文消息内的图片获取URL
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="file">上传文件的绝对路径</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static UploadImgResult UploadImg(string accessTokenOrAppId, Stream fileStream, int timeOut = Config.TIME_OUT)
+        {
+            //接口文档参考：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738729
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
+                fileStream.Seek(0, SeekOrigin.Begin);
+                return CO2NET.HttpUtility.Post.PostGetJson<UploadImgResult>(CommonDI.CommonSP, url, null, fileStream, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
+
         #endregion
 
         #region AI开放接口
@@ -968,6 +988,23 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 fileDictionary["media"] = file;
                 return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<UploadImgResult>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
 
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】上传图文消息内的图片获取URL
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="file"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<UploadImgResult> UploadImgAsync(string accessTokenOrAppId, Stream fileStream, int timeOut = Config.TIME_OUT)
+        {
+            //接口文档参考：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738729
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
+                return await CO2NET.HttpUtility.Post.PostGetJsonAsync<UploadImgResult>(CommonDI.CommonSP, url, null, fileStream, timeOut: timeOut).ConfigureAwait(false);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
 

@@ -1004,6 +1004,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
+                fileStream.Seek(0, SeekOrigin.Begin);
                 return await CO2NET.HttpUtility.Post.PostGetJsonAsync<UploadImgResult>(CommonDI.CommonSP, url, null, fileStream, timeOut: timeOut).ConfigureAwait(false);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }

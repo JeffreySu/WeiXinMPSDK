@@ -104,7 +104,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
         /// <param name="media_id">文件id，通过文件上传接口获取</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WorkJsonResult SendFile(string key, string media_id, int timeOut=Config.TIME_OUT)
+        public static WorkJsonResult SendFile(string key, string media_id, int timeOut = Config.TIME_OUT)
         {
             var data = new
             {
@@ -213,7 +213,21 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
             return Senparc.CO2NET.HttpUtility.Post.PostFileGetJson<UploadMediaResult>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
         }
 
-        
+        /// <summary>
+        /// 上传文件
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="filepath"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static UploadMediaResult UploadMedia(string key, Stream fileStream, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/webhook/upload_media?key={0}&type=file", key);
+            fileStream.Seek(timeOut, SeekOrigin.Begin);
+            return Senparc.CO2NET.HttpUtility.Post.PostGetJson<UploadMediaResult>(CommonDI.CommonSP, url, null, fileStream, null, timeOut: timeOut);
+
+        }
+
         #endregion
 
         #region 异步方法

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Version>3.0.2</Version>
+		<LangVersion>latest</LangVersion>
+        <AssemblyName>Senparc.Weixin.MP.Sample.CommonService</AssemblyName>
+        <RootNamespace>Senparc.Weixin.MP.Sample.CommonService</RootNamespace>
+        <Description>此项目是 Sample.Net6 下启动项目</Description>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Remove="Properties\**" />
+        <EmbeddedResource Remove="Properties\**" />
+        <None Remove="Properties\**" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Remove="packages.config" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Senparc.AI.Agents" Version="0.5.6.1" />
+        <PackageReference Include="Senparc.AI.Kernel" Version="0.25.1" />
+        <PackageReference Include="Senparc.NeuChar" Version="2.5.3" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+        <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
+        <PackageReference Include="System.Diagnostics.FileVersionInfo" Version="4.3.0" />
+        <PackageReference Include="ZXing.Net" Version="0.16.9" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\src\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.net10.csproj" />
+        <ProjectReference Include="..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.net10.csproj" />
+        <ProjectReference Include="..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.net10.csproj" />
+        <ProjectReference Include="..\..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net10.csproj" />
+        <ProjectReference Include="..\..\..\src\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.net10.csproj" />
+        <ProjectReference Include="..\..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay.net10.csproj" />
+        <ProjectReference Include="..\..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.net10.csproj" />
+        <ProjectReference Include="..\..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net10.csproj" />
+        <ProjectReference Include="..\..\..\src\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net10.csproj" />
+    </ItemGroup>
+</Project>

@@ -34,8 +34,4 @@
     <PackageReference Include="ModelContextProtocol" Version="0.3.0-preview.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Senparc.Weixin.All\Senparc.Weixin.All.csproj" />
-  </ItemGroup>
-
 </Project>

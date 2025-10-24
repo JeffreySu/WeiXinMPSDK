@@ -138,17 +138,17 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <summary>
         /// 金额详细信息
         /// </summary>
-        public Amount amount { get; set; }
+        public RefundAmount amount { get; set; }
 
         /// <summary>
         /// 优惠退款信息
         /// </summary>
-        public Promotion_Detail[] promotion_detail { get; set; }
+        public RefundPromotionDetail[] promotion_detail { get; set; }
 
         /// <summary>
         /// 金额详细信息
         /// </summary>
-        public class Amount
+        public class RefundAmount
         {
             /// <summary>
             /// 总金额
@@ -166,7 +166,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             /// <summary>
             /// 退款出资的账户类型及金额信息
             /// </summary>
-            public From[] from { get; set; }
+            public RefundFrom[] from { get; set; }
 
             /// <summary>
             /// 用户支付金额
@@ -214,7 +214,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <summary>
         /// 退款出资的账户类型及金额信息
         /// </summary>
-        public class From
+        public class RefundFrom
         {
             /// <summary>
             /// 出资账户类型
@@ -237,7 +237,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <summary>
         /// 优惠退款信息
         /// </summary>
-        public class Promotion_Detail
+        public class RefundPromotionDetail
         {
             /// <summary>
             /// 券或者立减优惠id
@@ -277,13 +277,13 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             /// <summary>
             /// 单品列表信息
             /// </summary>
-            public Goods_Detail[] goods_detail { get; set; }
+            public RefundGoodsDetail[] goods_detail { get; set; }
         }
 
         /// <summary>
         /// 单品列表信息
         /// </summary>
-        public class Goods_Detail
+        public class RefundGoodsDetail
         {
             /// <summary>
             /// 商户侧商品编码

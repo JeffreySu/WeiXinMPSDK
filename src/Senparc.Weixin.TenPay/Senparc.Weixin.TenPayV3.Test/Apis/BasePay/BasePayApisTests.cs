@@ -28,8 +28,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
         public void CertificatesTest()
         {
             BasePayApis basePayApis = new BasePayApis();
-            var algorithmType = Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting.EncryptionType ?? CertType.RSA;
-            var certs = basePayApis.CertificatesAsync(algorithmType).GetAwaiter().GetResult();
+            var certs = basePayApis.CertificatesAsync(Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting.EncryptionType.Value).GetAwaiter().GetResult();
             Assert.IsNotNull(certs);
             Console.WriteLine(certs.ToJson(true));
             Assert.IsTrue(certs.ResultCode.Success);

@@ -129,27 +129,27 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <summary>
         /// 支付者信息
         /// </summary>
-        public Payer payer { get; set; }
+        public OrderPayer payer { get; set; }
 
         /// <summary>
         /// 订单金额信息
         /// </summary>
-        public Amount amount { get; set; }
+        public OrderAmount amount { get; set; }
 
         /// <summary>
         /// 支付场景信息描述
         /// </summary>
-        public Scene_Info scene_info { get; set; }
+        public OrderSceneInfo scene_info { get; set; }
 
         /// <summary>
         /// 优惠功能，享受优惠时返回该字段。
         /// </summary>
-        public Promotion_Detail[] promotion_detail { get; set; }
+        public OrderPromotionDetail[] promotion_detail { get; set; }
 
         /// <summary>
         /// 支付者信息
         /// </summary>
-        public class Payer
+        public class OrderPayer
         {
             /// <summary>
             /// 用户标识	
@@ -176,7 +176,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <summary>
         /// 订单金额信息
         /// </summary>
-        public class Amount
+        public class OrderAmount
         {
             /// <summary>
             /// 总金额
@@ -207,7 +207,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             /// <summary>
             /// 支付场景信息描述
             /// </summary>
-            public Scene_Info scene_info { get; set; }
+            public OrderSceneInfo scene_info { get; set; }
 
 
         }
@@ -215,7 +215,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <summary>
         /// 支付场景信息描述
         /// </summary>
-        public class Scene_Info
+        public class OrderSceneInfo
         {
             /// <summary>
             /// 商户端设备号
@@ -228,7 +228,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         /// <summary>
         /// 优惠功能
         /// </summary>
-        public class Promotion_Detail
+        public class OrderPromotionDetail
         {
             /// <summary>
             /// 券ID
@@ -298,13 +298,13 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             /// <summary>
             /// 单品列表信息
             /// </summary>
-            public Goods_Detail[] goods_detail { get; set; }
+            public OrderGoodsDetail[] goods_detail { get; set; }
         }
 
         /// <summary>
         /// 单品列表信息
         /// </summary>
-        public class Goods_Detail
+        public class OrderGoodsDetail
         {
             /// <summary>
             /// 商品编码

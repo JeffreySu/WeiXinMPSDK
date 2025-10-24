@@ -21,6 +21,7 @@
 
 
 using Senparc.CO2NET.Helpers.Serializers;
+using Senparc.CO2NET.Trace;
 using Senparc.NeuChar;
 using Senparc.Weixin.Entities;
 using System.Collections.Generic;
@@ -135,6 +136,33 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
             JsonSetting jsonSetting = new JsonSetting(true);
             return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(key, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
         }
+
+
+        /// <summary>
+        /// 群机器人发送markdown2信息
+        /// </summary>
+        /// <param name="key">机器人Key</param>
+        /// <param name="content">markdown_v2内容，最长不超过4096个字节，必须是utf8编码。
+        /// <para>特殊的，</para> 
+        /// <para>1. markdown_v2不支持字体颜色、@群成员的语法， 具体支持的语法可参考下面说明</para> 
+        /// <para>2. 消息内容在客户端 4.1.36 版本以下(安卓端为4.1.38以下) 消息表现为纯文本，建议使用最新客户端版本体验</para> </param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WorkJsonResult SendMarkdownV2(string key, string content, int timeOut = Config.TIME_OUT)
+        {
+            var data = new
+            {
+                msgtype = "markdown_v2",
+                markdown_v2 = new
+                {
+                    content
+                }
+            };
+            JsonSetting jsonSetting = new JsonSetting(true);
+
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(key, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+        }
+
         /// <summary>
         /// 群机器人发送图片信息
         /// </summary>
@@ -326,6 +354,31 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
             JsonSetting jsonSetting = new JsonSetting(true);
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(key, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// 【异步方法】群机器人发送markdown2信息
+        /// </summary>
+        /// <param name="key">机器人Key</param>
+        /// <param name="content">markdown_v2内容，最长不超过4096个字节，必须是utf8编码。
+        /// <para>特殊的，</para> 
+        /// <para>1. markdown_v2不支持字体颜色、@群成员的语法， 具体支持的语法可参考下面说明</para> 
+        /// <para>2. 消息内容在客户端 4.1.36 版本以下(安卓端为4.1.38以下) 消息表现为纯文本，建议使用最新客户端版本体验</para> </param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> SendMarkdownV2Async(string key, string content, int timeOut = Config.TIME_OUT)
+        {
+            var data = new
+            {
+                msgtype = "markdown_v2",
+                markdown_v2 = new
+                {
+                    content
+                }
+            };
+            JsonSetting jsonSetting = new JsonSetting(true);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(key, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
+        }
+
         /// <summary>
         /// 【异步方法】群机器人发送图片信息
         /// </summary>

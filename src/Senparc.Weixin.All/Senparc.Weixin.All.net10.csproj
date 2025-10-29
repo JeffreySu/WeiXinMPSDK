@@ -3,7 +3,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>2025.11.0-preivew.net.10</Version>
+    <Version>2025.11.0-preview.10</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.All</AssemblyName>
     <RootNamespace>Senparc.Weixin.All</RootNamespace>

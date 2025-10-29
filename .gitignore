@@ -76,3 +76,5 @@ appsettings.Development.json
 tools/WeixinBrowserPlugin/release/*
 /tools/WeixinBrowserPlugin/dist
 /tools/WeixinDev/weixindev-*.vsix
+/.cursor
+/Samples/All/net10-mvc/Senparc.Weixin.Sample.Net10/App_Data/ApiDocXml

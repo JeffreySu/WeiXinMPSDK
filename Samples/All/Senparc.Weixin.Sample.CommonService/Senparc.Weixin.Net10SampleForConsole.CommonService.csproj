@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Version>3.0.1</Version>
+    <AssemblyName>Senparc.Weixin.MP.Sample.CommonService</AssemblyName>
+    <RootNamespace>Senparc.Weixin.MP.Sample.CommonService</RootNamespace>
+    <Description>此项目是 Sample.Net6 下启动项目</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <None Remove="Properties\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="packages.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Senparc.AI.Kernel" Version="0.25.1" />
+	  <PackageReference Include="Senparc.NeuChar" Version="2.5.2" />
+	  <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+	  <PackageReference Include="Senparc.Weixin.TenPay" Version="1.17.8" />
+	  <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
+	  <PackageReference Include="System.Diagnostics.FileVersionInfo" Version="4.3.0" />
+	  <PackageReference Include="ZXing.Net" Version="0.16.9" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+		<PackageReference Include="Senparc.WebSocket" Version="1.1.8" />
+		<PackageReference Include="Senparc.Weixin.Cache.CsRedis" Version="1.1.7" />
+		<PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.18.8" />
+		<PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.20.8" />
+		<PackageReference Include="Senparc.Weixin.MP" Version="16.23.8" />
+		<PackageReference Include="Senparc.Weixin.Open" Version="4.22.1" />
+		<PackageReference Include="Senparc.Weixin.TenPayV3" Version="2.1.1" />
+		<PackageReference Include="Senparc.Weixin.Work" Version="3.28.0" />
+		<PackageReference Include="Senparc.Weixin.WxOpen" Version="3.23.6" />
+	</ItemGroup>
+
+
+</Project> 

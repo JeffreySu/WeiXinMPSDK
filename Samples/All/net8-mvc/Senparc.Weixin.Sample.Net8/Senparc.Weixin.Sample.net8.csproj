@@ -36,7 +36,6 @@
     </ItemGroup>
     <ItemGroup>
         <!-- 添加所有模块引用 -->
-        <ProjectReference Include="..\..\..\..\src\Senparc.Weixin.All\Senparc.Weixin.All.csproj" />
         <ProjectReference Include="..\..\Senparc.Weixin.Sample.CommonService\Senparc.Weixin.Net8Sample.CommonService.csproj" />
     </ItemGroup>
     <ItemGroup Condition="'$(Configuration)' == 'Release'">

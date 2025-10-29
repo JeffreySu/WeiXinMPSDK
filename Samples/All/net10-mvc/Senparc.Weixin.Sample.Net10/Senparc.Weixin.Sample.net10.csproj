@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Version>8.0.0</Version>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>35e58786-0820-4cde-b1ff-f4c6198d00f7</UserSecretsId>
+        <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Remove="App_Data\cert\**" />
+        <Content Remove="App_Data\cert\**" />
+        <EmbeddedResource Remove="App_Data\cert\**" />
+        <None Remove="App_Data\cert\**" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Remove="App_Data\ApiDocXml\Senparc.Areas.Admin.XML" />
+        <None Remove="Program.cs.old" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="App_Data\ApiDocXml\**\*">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+        <PackageReference Include="Senparc.AI.Agents" Version="0.5.6.1" />
+        <PackageReference Include="Senparc.AI.Kernel" Version="0.25.1" />
+        <PackageReference Include="Senparc.CO2NET.WebApi" Version="2.1.4" />
+        <PackageReference Include="Senparc.NeuChar.App" Version="1.5.6" />
+        <PackageReference Include="Senparc.NeuChar.AspNet" Version="1.6.3" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.0" />
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
+        <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
+        <PackageReference Include="System.IO.Compression.ZipFile" Version="4.3.0" />
+    </ItemGroup>
+    <ItemGroup>
+        <!-- 添加所有模块引用 -->
+        <ProjectReference Include="..\..\Senparc.Weixin.Sample.CommonService\Senparc.Weixin.Net10Sample.CommonService.csproj" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+        <None Update="App_Data\Document\Config.xml">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+        </None>
+        <None Update="App_Data\Document\readme.md">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="App_Data\QrCode\readme.txt">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Web.config">
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </None>
+        <None Update="appsettings.json">
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </None>
+        <None Update="appsettings.Development.json">
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </None>
+        <None Update="App_Data\**\*">
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </None>
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="App_Data\NeuChar\" />
+        <Folder Include="wwwroot\" />
+    </ItemGroup>
+    <Import Project="..\..\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems" Label="Shared" />
+</Project>

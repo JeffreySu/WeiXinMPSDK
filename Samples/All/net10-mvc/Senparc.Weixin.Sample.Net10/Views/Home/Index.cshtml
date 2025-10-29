@@ -1,0 +1,469 @@
+﻿@model Senparc.Weixin.Sample.Net8.Models.VD.Home_IndexVD
+@{
+    ViewBag.Title = "微信SDK,微信公众平台,小程序SDK - Senparc.Weixin SDK - 公众号 企业号 开放平台 盛派微信号";
+
+}
+<link href="~/Content/chat-interface.css" rel="stylesheet" />
+
+@* @section HeaderContent {
+} *@
+
+@section scripts
+    {
+<script>
+    $(function () {
+        $(".test table td:not(:empty)").hover(function () {
+            $(this).addClass('currentTestItem');
+        },
+            function () {
+                $(this).removeClass('currentTestItem');
+            });
+
+        $('#showTest').click(function () {
+            $(this).fadeOut(function () { $('#testTip').slideDown(); });
+        });
+
+        // 对话界面交互逻辑
+        $('#wechatApiInput').on('input focus', function() {
+            var text = $(this).val();
+            if (text.trim() || $(this).is(':focus')) {
+                $('.chat-watermark').css('opacity', '0');
+                $('#submitBtn').addClass('active');
+            } else {
+                $('.chat-watermark').css('opacity', '1');
+                $('#submitBtn').removeClass('active');
+            }
+        }).on('blur', function() {
+            var text = $(this).val();
+            if (!text.trim()) {
+                $('.chat-watermark').css('opacity', '1');
+                $('#submitBtn').removeClass('active');
+            }
+        });
+
+        $('#submitBtn').click(function() {
+            var query = $('#wechatApiInput').val().trim();
+            if (query) {
+                // 显示加载状态
+                $('.chat-loading').addClass('active');
+                $(this).prop('disabled', true);
+                
+                // 创建表单并跳转到AiDoc页面
+                var form = $('<form method="post" action="/AiDoc"></form>');
+                form.append('<input type="hidden" name="query" value="' + query + '" />');
+                $('body').append(form);
+                form.submit();
+            }
+        });
+
+        // 回车键提交
+        $('#wechatApiInput').keypress(function(e) {
+            if (e.which == 13 && !e.shiftKey) {
+                e.preventDefault();
+                $('#submitBtn').click();
+            }
+        });
+    });
+</script>
+}
+@functions {
+
+    public static string YesOrNo(bool obj)
+    {
+        return obj ? "Y-brightgreen" : "N-lightgrey";
+    }
+}
+<!-- 微信接口对话界面 -->
+<div class="chat-hero">
+    <div class="chat-container">
+        <div class="chat-title">
+            <h1>微信接口智能助手</h1>
+            <p>让AI帮您快速调用微信公众号、小程序、企业微信、开放平台接口</p>
+        </div>
+        
+        <div class="chat-interface">
+            <div class="chat-watermark">
+                请输入你想调用的微信接口（已支持公众号、小程序、企业微信、开放平台，即将支持微信支付）
+            </div>
+            
+            <div class="chat-input-container">
+                <textarea id="wechatApiInput" class="chat-input" 
+                          placeholder="例如：获取用户基本信息、发送模板消息、创建菜单等..."
+                          rows="4"></textarea>
+                <button id="submitBtn" class="chat-submit-btn" type="button">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="chat-loading">
+                <div class="loading-dots">
+                    <div class="loading-dot"></div>
+                    <div class="loading-dot"></div>
+                    <div class="loading-dot"></div>
+                </div>
+                <span style="margin-left: 12px; color: #667eea;">正在处理您的请求...</span>
+            </div>
+            
+            <!-- 功能模块暂时隐藏，后续开发时启用 -->
+            <div class="chat-features" style="display: none;">
+                <div class="chat-feature">
+                    <div class="chat-feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 12H16M8 8H16M8 16H12M6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>公众号接口</h3>
+                    <p>用户管理、消息处理、菜单设置、素材管理等</p>
+                </div>
+                
+                <div class="chat-feature">
+                    <div class="chat-feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>小程序接口</h3>
+                    <p>登录授权、数据分析、订阅消息、生物认证等</p>
+                </div>
+                
+                <div class="chat-feature">
+                    <div class="chat-feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>企业微信</h3>
+                    <p>通讯录管理、应用消息、客户联系、会话存档等</p>
+                </div>
+                
+                <div class="chat-feature">
+                    <div class="chat-feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>开放平台</h3>
+                    <p>第三方平台、授权管理、代小程序实现业务等</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper">
+    <div class="weixin-bottom">
+        <div class="sample-notice">
+        <span class="sample-notice-title">说明：</span>
+            当前 Sample 为比较全面的微信公众号 + 企业微信 + 小程序 + 微信支付的综合 Sample，<br />
+            可直接用于大型系统的多平台集成的参考，或根据代码注释的提示选用某个模块的对应代码，<br />
+            如需查看只包含公众号的最小化 Sample 教程，请【<a href="https://www.cnblogs.com/szw/p/wecaht-minimization-example.html" target="_blank">点击这里</a>】。
+        </div>
+
+
+        <h1 class="weixin-item-title">
+            目前 Senparc.Weixin SDK 已支持微信 8.x API 中几乎所有接口以及<strong>小程序</strong>
+        </h1>
+        <p>
+            当前站点运行 <a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Samples/All/net8-mvc/" target="_blank">Sample</a>
+            版本：v@(TempData["SampleVersion"]) (@TempData["BuildTime"])
+        </p>
+        <p>&nbsp;</p>
+        <p>支持 .NET Framework 4.6+ / .NET Core 2.x / .NET Core 3.x / .NET 5 - <strong> .NET 8</strong></p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <div class="weixin-bottom-buttons">
+            <p class="weixin-item-button">
+                <a href="https://book.weixin.senparc.com/book/link?code=sdk-homepage" class="application" target="_blank">购买正版 Senparc 官方教程</a>
+                &nbsp; &nbsp;
+                <a href="https://book.weixin.senparc.com/book/videolinknetease?code=sdk-home-top-button" class="application" target="_blank">观看官方视频教程</a>
+                &nbsp; &nbsp; &nbsp;
+
+                <a href="/Home/Book" class="application" target="_blank">官方教程配套阅读系统</a>
+                &nbsp; &nbsp; &nbsp;
+
+            </p>
+            <p class="weixin-item-button" style="padding-top:10px;">
+
+                <a href="https://sdk.weixin.senparc.com@(Url.Action("Index", "Document" ))" class="application" target="_blank">下载 SDK 帮助文档</a>
+                &nbsp; &nbsp; &nbsp;
+
+                <a href="https://github.com/JeffreySu/WeiXinMPSDK" class="application" target="_blank">GitHub 源码</a>
+                &nbsp; &nbsp; &nbsp;
+
+                @*
+                    </p>
+                    <p class="weixin-item-button">
+                *@
+                <a href="https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Overview" class="application" target="_blank">微信官方API</a>
+            </p>
+        </div>
+        <div class="clear"></div>
+        <p class="weixin-item-title">
+
+            <a href="https://github.com/JeffreySu/WeiXinMPSDK" target="_blank"><img src="https://img.shields.io/github/watchers/JeffreySu/WeixinMPSDK.svg?style=social&label=Watch" /></a>
+
+
+            <a href="https://github.com/JeffreySu/WeiXinMPSDK" target="_blank"><img src="https://img.shields.io/github/stars/JeffreySu/WeixinMPSDK.svg?style=social&label=Star" /></a>
+
+
+            <a href="https://github.com/JeffreySu/WeiXinMPSDK" target="_blank"><img src="https://img.shields.io/github/forks/JeffreySu/WeixinMPSDK.svg?style=social&label=Fork" /></a>
+
+
+            <a href="https://github.com/JeffreySu/WeiXinMPSDK" target="_blank"><img src="https://img.shields.io/github/followers/JeffreySu.svg?style=social&logo=github&label=Follow" /></a>
+        </p>
+        <div class="clear"></div>
+
+        @foreach (var item in Model.AssemblyModelCollection)
+        {
+            var groupInfo = item.Key;
+            var model = item.Value;
+            var i = 0;
+            <div class="weixin-bottom-group">
+                <h2 class="weixin-item-title">@groupInfo.Title</h2>
+
+                <div class="weixin-bottom-description">
+                    @Html.Raw(groupInfo.Description)
+                </div>
+                <div class="weixin-bottom-table" id="nuget-versions-@i">
+                    <table class="tbVersion">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>功能模块</th>
+                                <th>Nuget 包名称</th>
+                                <th>Nuget 版本</th>
+                                @*<th>Nuget 下载量</th>*@
+                                <th>当前站点运行版本</th>
+                                <th>.NET 4.6.2</th>
+                                @*<th>.NET Standard<br />2.0 / 2.1</th>*@
+                                @* <th>.NET Core<br />2.x / 3.x</th> *@
+                                <th>.NET 10.0（向下兼容）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var value in model)
+                            {
+                                <tr>
+                                    <td>@(++i)</td>
+                                    <td>@Html.Raw(value.Title)</td>
+                                    <td>
+                                        <a class="sdk-version" href="https://www.nuget.org/packages/@(value.NugetName)" target="_blank">
+                                            @*@(value.AssemblyName)*@@(value.NugetName)
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="sdk-version" href="https://www.nuget.org/packages/@(value.NugetName)" target="_blank">
+                                            <img src="https://img.shields.io/nuget/v/@(value.NugetName).svg?style=flat" />
+                                        </a>
+                                    </td>
+                                    @*<td>
+                                        <img src="https://img.shields.io/nuget/dt/@(value.NugetName).svg" alt="NuGet" style="max-width:100%;">
+                                        </td>*@
+                                    <td>
+                                        @if (value.GitHubUrl != null)
+                                        {
+                                            <a class="sdk-version" href="@value.GitHubUrl" target="_blank">v@(value.Version)</a>
+                                        }
+                                        else
+                                        {
+                                            <text>v@(value.Version)</text>
+                                        }
+                                    </td>
+                                    <td><img title=".NET 4.6.2" alt=".NET 4.6.2" src="https://img.shields.io/badge/4.6.2-@(YesOrNo(value.SupportNet45)).svg" /></td>
+                                    @*<td><img title=".NET Standard 2.0 / 2.1" alt=".NET Standard 2.0 / 2.1" src="https://img.shields.io/badge/standard2.1-@(YesOrNo(value.SupportStandard21)).svg" /></td>*@
+                                    @* <td><img title=".NET Core 2.x / 3.x" alt=".NET Core 2.x / 3.x" src="https://img.shields.io/badge/netcore3.1-@(YesOrNo(value.SupportNetCore31)).svg" /></td> *@
+                                    <td><img title=".NET 6.0 / 8.0" alt=".NET 6.0 / 8.0" src="https://img.shields.io/badge/net8.0-@(YesOrNo(value.SupportNet6)).svg" /></td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        }
+
+    </div>
+    <div class="content-weixin">
+        <p class="weixin-item-title">关注官方微信 进行互动测试</p>
+
+        <div class="weixin-item weixin-item-bs weixin-item-left">
+            <img class="official-img" src="~/images/v2/ewm_01.png" alt="微信SDK公众号" />
+        </div>
+
+        <div class="weixin-item weixin-item-bs weixin-item-left">
+            <img class="official-img" src="~/images/SenparcRobot_MiniProgram.jpg" alt="微信SDK小程序" />
+        </div>
+
+        @*<div class="clear"></div>*@
+        <div class="weixin-item  readmore">
+            <table class="tbVersion tbVersion_bootstrap">
+                <tr>
+                    <td>运行中的缓存框架：@TempData["CacheStrategy"]</td>
+                    <td>@Html.ActionLink("测试", "Test", "Cache", null, new { @class = "sdk-version" })</td>
+                </tr>
+                <tr>
+                    <td>最新文档版本（MP）：v@(TempData["NewestDocumentVersion"])</td>
+                    <td>@Html.ActionLink("下载", "Index", "Document", null, new { @class = "sdk-version" })</td>
+                </tr>
+                <tr>
+                    <td>GitHub 源码：<img src="https://mysenparc.visualstudio.com/Senparc%20SDK/_apis/build/status/Weixin%20SDK/Senparc.Weixin%20Dev-%E5%86%85%E9%83%A8-%E8%87%AA%E5%8A%A8-.Net6"></td>
+                    <td>
+                        <a href="https://github.com/JeffreySu/WeiXinMPSDK" class="sdk-version" target="_blank">
+                            查看
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>小程序：<img src="https://travis-ci.org/JeffreySu/WxOpen.svg?branch=master"></td>
+                    <td>
+                        <a href="https://github.com/JeffreySu/WxOpen" class="sdk-version" target="_blank">
+                            查看
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>WebSocket：<img src="https://travis-ci.org/JeffreySu/WebSocket.svg?branch=master"></td>
+                    <td>
+                        <a href="https://github.com/JeffreySu/Senparc.WebSocket" class="sdk-version" target="_blank">
+                            查看
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+    <div class="line"></div>
+
+    <div id="showTest">
+        ⇩ 展开公众号测试说明 ⇩
+    </div>
+
+    <div class="test test_bs" id="testTip">
+        <table>
+            <tr>
+                <td>
+                    <div class="test-item">
+                        <img src="~/images/v2/icon_01.png" />
+                        <p class="item-title">文本测试</p>
+                        <p class="item-content">随意输入文本信息，系统将自动回复一条包含原文的文本信息。如果连续发送多条信息，系统会自动记录通讯的下文，直到超过规定时间记录自动清空。</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="test-item">
+                        <img src="~/images/v2/icon_02.png" />
+                        <p class="item-title">位置测试</p>
+                        <p class="item-content">发送一条位置信息，系统将自动回复详细的位置信息图片数据及一条图文链接。</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="test-item">
+                        <img src="~/images/v2/icon_03.png" />
+                        <p class="item-title">图片测试</p>
+                        <p class="item-content">发送一张图片，系统将自动回复一条带链接的图文信息。</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="test-item">
+                        <img src="~/images/v2/icon_04.png" />
+                        <p class="item-title">语音测试</p>
+                        <p class="item-content">发送一条语音信息，系统将自动回复一条音乐格式信息。</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="test-item">
+                        <img src="~/images/v2/icon_05.png" />
+                        <p class="item-title">视频测试</p>
+                        <p class="item-content">发送一条视频信息，系统将自动回复一条带有视频ID的信息。</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="test-item">
+                        <img src="~/images/v2/icon_06.png" />
+                        <p class="item-title">订阅测试</p>
+                        <p class="item-content">订阅（关注）账号的第一时间，系统将发送一条欢迎信息（等同于之前的Hello2BizUser）</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="test-item">
+                        <img src="~/images/v2/icon_07.png" />
+                        <p class="item-title">客服端约束测试</p>
+                        <p class="item-content">发送文字信息【约束】，进行测试。</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="test-item">
+                        <img src="~/images/v2/icon_08.png" />
+                        <p class="item-title">自定义菜单测试</p>
+                        <p class="item-content">点击自定菜单进行测试</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="test-item">
+                        <img src="~/images/v2/icon_09.png" />
+                        <p class="item-title">代理+托管测试</p>
+                        <p class="item-content">1.发送文字信息【代理】或【托管】，或点击菜单【功能体验】【托管】，服务器将从其他微信平台获取“代理”或“托管”文字请求的结果。2.点击菜单【功能体验】>【会员消息】，查看自己的会员信息（来自另外一台 WeiWeiHi 服务器的微信会员系统）</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="test-item">
+                        <img src="~/images/v2/icon_12.png" />
+                        <p class="item-title">微信支付测试</p>
+                        <p class="item-content">点击菜单【功能体验】 【微信支付】，体验微信支付整个过程。</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="test-item">
+                        <img src="~/images/v2/icon_13.png" />
+                        <p class="item-title">微信弹出拍照或相册测试</p>
+                        <p class="item-content">点击菜单【二级菜单】 【拍照或相册】，弹出拍照或从相框选择对话框，发送图片。</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="test-item">
+                        <img src="~/images/v2/icon_14.png" />
+                        <p class="item-title">微信扫码测试</p>
+                        <p class="item-content">点击菜单【二级菜单】 【微信扫码】，进入微信扫码界面。</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="line"></div>
+    <div class="weixin-weiweihi">
+        <div class="weixin-item">
+            <div class="weixin-item-content">
+                <p class="weixin-item-title">基于 Senparc SDK 开发的“微微嗨会议智能助手”</p>
+                <p class="weixin-item-font">“微微嗨会议智能助手”是在 Senparc.Weixin.MP + Open + Redis 等模块的基础上研发的实时场景互动云平台，为各类会议、活动、婚庆、教育等不同场景提供组织管理及多屏实时互动服务。欢迎体验！</p>
+                @*<a href="http://www.weiweihi.com/AgentApply" class="application" target="_blank">申请成为微微嗨代理</a>*@
+            </div>
+            <div class="weixin-item-img">
+                <img src="~/images/v2/ewm_02.png" width="250" />
+            </div>
+            <a href="javascript:;"></a>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+

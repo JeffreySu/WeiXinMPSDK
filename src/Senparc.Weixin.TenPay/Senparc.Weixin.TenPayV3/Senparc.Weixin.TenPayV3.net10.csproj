@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>2.2.1.1</Version>
+    <Version>2.3.0-preivew.net.10</Version>
     <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
     <LangVersion>10.0</LangVersion>

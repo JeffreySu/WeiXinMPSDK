@@ -27,7 +27,6 @@
     <PackageReference Include="Moq" Version="4.20.69" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.10" />
     <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
-    <PackageReference Include="Senparc.CO2NET.AspNet" Version="2.1.0.1" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
   </ItemGroup>
 
@@ -43,7 +42,7 @@
     <ProjectReference Include="..\..\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net10.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net10.csproj" />
 	  <ProjectReference Include="..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net10.csproj" />
-	  <ProjectReference Include="..\..\Senparc.Weixin.All\Senparc.Weixin.All.csproj" />
+	  <ProjectReference Include="..\..\Senparc.Weixin.All\Senparc.Weixin.All.net10.csproj" />
   </ItemGroup>
 
   <ItemGroup>

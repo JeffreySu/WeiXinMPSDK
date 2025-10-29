@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;net10.0</TargetFrameworks>
-    <Version>1.5.0.2-preview</Version>
+    <Version>1.6.0-preivew.net.10</Version>
     <AssemblyName>Senparc.Weixin.AspNet</AssemblyName>
     <RootNamespace>Senparc.Weixin.AspNet</RootNamespace>
     <!--<OutputType>Library</OutputType>-->
@@ -95,6 +95,6 @@
   <ItemGroup Condition="'$(TargetFramework)' == 'net10.0' ">
     <PackageReference Include="ModelContextProtocol" Version="0.2.0-preview.3" />
     <PackageReference Include="ModelContextProtocol.AspNetCore" Version="0.2.0-preview.3" />
-    <PackageReference Include="Senparc.CO2NET.WebApi" Version="2.1.2.1" />
+    <PackageReference Include="Senparc.CO2NET.WebApi" Version="2.1.4" />
   </ItemGroup>
 </Project>

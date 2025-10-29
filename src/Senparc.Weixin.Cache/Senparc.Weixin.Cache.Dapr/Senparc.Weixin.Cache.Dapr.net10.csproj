@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net10.0</TargetFrameworks>
-    <Version>0.2.8.1-beta1</Version>
+    <Version>0.3.0-preivew.net.10</Version>
     <AssemblyName>Senparc.Weixin.Cache.Dapr</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Dapr</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>

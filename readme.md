@@ -32,14 +32,14 @@ Senparc.Weixin —— 微信 .NET SDK
 
 [[English Version]](readme.en.md)
 
-> 📈 **Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最受欢迎的 .NET 开源项目之一。本项目已持续维护超过 11 年，助力大量系统和应用取得成功。我们将继续保持更新，并正在深度融合 [AI](https://github.com/Senparc/Senparc.AI) 场景应用，示例正在逐步上线。欢迎加入我们的社区 👐**
+> 📈 **Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最受欢迎的 .NET 开源项目之一。本项目已持续维护超过 12 年，助力大量系统和应用取得成功。我们将继续保持更新，并正在深度融合 [AI](https://github.com/Senparc/Senparc.AI) 场景应用，示例正在逐步上线。欢迎加入我们的社区 👐**
 
 使用 Senparc.Weixin，您可以方便快速地开发微信全平台的应用（包括微信公众号、小程序、小游戏、企业号、开放平台、微信支付、JS-SDK、微信硬件/蓝牙，等等）。本项目的 Demo 同样适合初学者进行 .NET 编程学习。
 
 目前 Senparc.Weixin 已经支持几乎所有微信平台模块和接口，并同时支持 
 [.NET 3.5 / 4.0 / 4.5 / .NET Standard 2.x / .NET Core 2.x / .NET Core 3.x / .NET 6.0 / .NET 7.0 / .NET 8.0 / .NET 10.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer) 等多种框架，同时兼容所有 MVC、Razor、WebApi、Console（命令行）、桌面应用（.exe）、Blazor、MAUI、后台服务等环境，和外部框架完全解耦。<br>
 
-自 2013 年起立项 10 年多来，我们一直保持着项目的持续更新，并将完整的源代码以及设计思想毫无保留地分享给大家，希望有更多的人可以从中受益，理解并传播开源的精神，一同助力中国开源事业！感恩一路上给我们提供帮助的朋友们！
+自 2013 年起立项 12 年多来，我们一直保持着项目的持续更新，并将完整的源代码以及设计思想毫无保留地分享给大家，希望有更多的人可以从中受益，理解并传播开源的精神，一同助力中国开源事业！感恩一路上给我们提供帮助的朋友们！
 
 如果你喜欢并希望我们继续优化这个项目，请给我们一个 ★Star ：)
 
@@ -608,11 +608,11 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 
 ## 👩‍🏫 如何使用 .NET Core 开发
 
-> 当前分支包含了 .NET Framework 4.6.2+ 及 .NET 6.0/7.0/8.0 的全版本代码（已经不更新的版本请查看 [release](https://github.com/JeffreySu/WeiXinMPSDK/releases) 快照）。<br>
+> 当前分支包含了 .NET Framework 4.6.2+ 及 .NET 6.0/7.0/8.0/10.0 的全版本代码（已经不更新的版本请查看 [release](https://github.com/JeffreySu/WeiXinMPSDK/releases) 快照）。<br>
 > 其中 .NET Framework 的 Demo 位于 `/src/Samples/All/net45-mvc` 目录下，<br>
 > 【推荐】.NET 10.0（向下兼容 .NET 5.0、6.0、7.0、8.0 及 .NET Core 3.1 等更低版本） 的 Demo 位于 `/Samples/All/net10-mvc` 目录下。<br>
-> .NET 8.0（向下兼容 .NET 5.0、6.0、7.0 及 .NET Core 3.1 等更低版本） 的 Demo 位于 `/Samples/All/net8-mvc` 目录下。<br><br>
-> 注意：以上 Sample 中，`net8-mvc` 中的 Sample 直接引用了每个模块的源码，使用 `Release` 编译后可生成兼容不同版本的 Senaprc.Weixin SDK 库。
+> .NET 10.0（向下兼容 .NET 5.0、6.0、7.0、8.0 及 .NET Core 3.1 等更低版本） 的 Demo 位于 `/Samples/All/net10-mvc` 目录下。<br><br>
+> 注意：以上 Sample 中，`net10-mvc` 中的 Sample 直接引用了每个模块的源码，使用 `Release` 编译后可生成兼容不同版本的 Senaprc.Weixin SDK 库。
 
 ## ↕️ 使用Nuget安装到项目中
 
@@ -626,7 +626,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 
 ### 2) 部署到任意服务器的 FTP
 
-在 Web 服务器上安装 FTP 服务（推荐 [FileZilla Server](https://filezilla-project.org/download.php?type=server)），直接使用 FTP 直接上传本地已经编译好的代码（本项项目 [Samples](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Samples) 中对应的是 [Senparc.Weixin.Sample.Net8](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net8-mvc)，编译后即可直接使用，无需修改代码）。如果使用 Azure App Service 或其他云服务，通常 FTP 也都是开通的。
+在 Web 服务器上安装 FTP 服务（推荐 [FileZilla Server](https://filezilla-project.org/download.php?type=server)），直接使用 FTP 直接上传本地已经编译好的代码（本项项目 [Samples](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Samples) 中对应的是 [Senparc.Weixin.Sample.Net10](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net10-mvc)，编译后即可直接使用，无需修改代码）。如果使用 Azure App Service 或其他云服务，通常 FTP 也都是开通的。
 
 
 <!--
@@ -745,7 +745,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 Apache License Version 2.0
 
 ```
-Copyright 2024 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2025 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file 
 except in compliance with the License. You may obtain a copy of the License at

@@ -3,7 +3,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>2025.9.8</Version>
+    <Version>2025.11-preivew.net.10</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.All</AssemblyName>
     <RootNamespace>Senparc.Weixin.All</RootNamespace>
@@ -62,6 +62,7 @@
 		[2025-08-19] v2025.8.19 TenPayV3 处理 ResponseErrorJsonResult 中 value 值类型，由 int 改为 object
 		[2025-08-21] v2025.8.21 发布 AI 助理
 		[2025-09-08] v2025.9.8 更新基础库，为 Work 提供重构后的新版本 MessageHandler
+		[2025-10-24] v2025.10.24 TenPayV3 解决 Swagger 文档默认读取方式下可能出现的命名冲突问题 / Issue #3125 感谢 @dodu2014
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

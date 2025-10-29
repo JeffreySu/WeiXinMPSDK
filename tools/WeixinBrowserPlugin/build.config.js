@@ -45,10 +45,10 @@ module.exports = {
     // 输出目录
     outDir: 'dist',
     // 需要复制的静态文件
-    staticFiles: ['manifest.json', 'icon.svg', 'styles.css'],
+    staticFiles: ['manifest.json', 'styles.css', 'popup.html', 'popup.js', 'icons/icon16.png', 'icons/icon48.png', 'icons/icon128.png'],
     // 需要压缩的JS文件
     jsFiles: ['content.js'],
     // 版本号（与manifest.json保持一致）
-    version: '0.1.0'
+    version: '0.1.3'
   }
 };

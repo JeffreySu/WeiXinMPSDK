@@ -165,14 +165,14 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
 <li>接口调用频率限制：100万次/天</li></ul>""}}
 
 ### JSON 参数说明
-1. Platform 根据选择的平台进行匹配：
+1. Platform 参数根据选择的平台进行匹配，使用中文名称：
 {Senparc.NeuChar.PlatformType.WeChat_OfficialAccount}：微信公众号
 {Senparc.NeuChar.PlatformType.WeChat_Work}：企业微信
 {Senparc.NeuChar.PlatformType.WeChat_Open}：微信开放平台
 {Senparc.NeuChar.PlatformType.WeChat_MiniProgram}：微信小程序
 2. 如果过程中涉及到了多个接口，则在 ParamsDescription 中逐个展示这些接口的完整信息
 3. Tips 请根据接口实际说明进行调整
-4. 第一个参数为 accessTokenOrAppId 时，优先使用 appId 而不是 accessToken，因此不需要 accessToken 参数，因为 SDK 推荐提前注册并自动管理 AccessToken。
+4. 第一个参数为 accessTokenOrAppId 时，优先使用 appId 而不是 accessToken，因此不需要 accessToken 参数，因为 SDK 推荐提前注册并自动管理 AccessToken
 5. 请不要添加任何不确定的信息或有风险的代码
 6. 如果没有任何接口符合要求，请设置以下参数：
  6.1. ApiDescription 中请输出：“根据您的需求，没有找到合适的接口，您可以提 Issue 到 https://github.com/JeffreySu/WeiXinMPSDK/issues”

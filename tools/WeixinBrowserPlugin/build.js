@@ -21,12 +21,14 @@ async function processJavaScript(filename) {
     };
   `;
   
-  // 替换console语句
-  const debugWrappedContent = content.replace(/console\.(log|info|warn|error)\((.*?)\);?/g, 
-    `if (window.__SENPARC_DEBUG__.enabled || (window.location.href.includes(window.__SENPARC_DEBUG__.trigger))) {
-      console.$1($2);
-    }`
-  );
+  // 替换console语句 - 使用更安全的方式
+  let debugWrappedContent = content;
+  if (config.debug.enabled) {
+    debugWrappedContent = debugConfig + '\n' + content;
+  } else {
+    // 在生产模式下，简单地添加调试配置但不修改console语句
+    debugWrappedContent = debugConfig + '\n' + content;
+  }
   
   // 压缩代码
   const minified = await terser.minify(debugWrappedContent, {
@@ -49,8 +51,17 @@ async function processJavaScript(filename) {
 // 复制静态文件
 function copyStaticFiles() {
   config.build.staticFiles.forEach(file => {
-    const content = fs.readFileSync(path.join(config.build.srcDir, file));
-    fs.writeFileSync(path.join(config.build.outDir, file), content);
+    const srcPath = path.join(config.build.srcDir, file);
+    const destPath = path.join(config.build.outDir, file);
+    
+    // 确保目标目录存在
+    const destDir = path.dirname(destPath);
+    if (!fs.existsSync(destDir)) {
+      fs.mkdirSync(destDir, { recursive: true });
+    }
+    
+    const content = fs.readFileSync(srcPath);
+    fs.writeFileSync(destPath, content);
   });
 }
 
@@ -62,15 +73,43 @@ async function createZip() {
   );
   const archive = archiver('zip', { zlib: { level: 9 } });
   
-  archive.pipe(output);
-  
-  // 添加所有文件到zip
-  fs.readdirSync(config.build.outDir).forEach(file => {
-    if (file.endsWith('.zip')) return;
-    archive.file(path.join(config.build.outDir, file), { name: file });
+  return new Promise((resolve, reject) => {
+    output.on('close', () => {
+      console.log(`📦 ZIP包创建完成，大小: ${archive.pointer()} bytes`);
+      resolve();
+    });
+    
+    output.on('error', reject);
+    archive.on('error', reject);
+    
+    archive.pipe(output);
+    
+    // 递归添加所有文件和目录到zip（排除已有的zip文件）
+    function addToArchive(dirPath, archivePath = '') {
+      const items = fs.readdirSync(dirPath);
+      
+      items.forEach(item => {
+        if (item.endsWith('.zip')) return; // 跳过zip文件
+        
+        const fullPath = path.join(dirPath, item);
+        const archiveItemPath = archivePath ? path.join(archivePath, item) : item;
+        const stats = fs.statSync(fullPath);
+        
+        if (stats.isDirectory()) {
+          // 递归处理目录
+          addToArchive(fullPath, archiveItemPath);
+        } else {
+          // 添加文件
+          archive.file(fullPath, { name: archiveItemPath });
+        }
+      });
+    }
+    
+    // 从构建输出目录开始添加
+    addToArchive(config.build.outDir);
+    
+    archive.finalize();
   });
-  
-  await archive.finalize();
 }
 
 // 主构建流程
@@ -102,3 +141,5 @@ async function build() {
 
 // 执行构建
 build();
+
+

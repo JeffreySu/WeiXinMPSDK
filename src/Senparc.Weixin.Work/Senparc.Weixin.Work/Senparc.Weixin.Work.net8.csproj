@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.28.2</Version>
+    <Version>3.30-preivew.net.10</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -205,19 +205,20 @@
 			v3.16.0 MessageHandler 和客服接口支持长文本自动切割后连续发送
 			v3.16.4 企业微信三方代开发处理事件: 修复 Async 方法循环调用的 Bug
 			v3.17.0 成员对外联系 &gt; 客户消息通知处理
-			v3.18.1
-			1、Work v3.18.1 新加企业微信企业客户标签回调事件（PR #2948）
-			2、修复：ApprovalCreateTemplateRequest.template_names 命名更正为：template_name（Issue #2949）
-			v3.19.0 企业微信中间件增加:会话存档-产生会话回调事件回调 （PR #2993）
-			v3.20.0 模板卡片点击回调事件（PR #2997）
-			[2024-08-06] v3.21.4 更新基础库，包括 Senparc.CO2NET 相关库、Senparc.AI
-			[2024-08-12] v3.22.2 Work:增加获客链接管理接口 #3060
-			[2024-09-29] v3.23.0 更新并同意 BuildingKey 方法，构建一致的 AppKey
-			[2024-11-14] v3.24.0 企微回调: 移除不正确的通用模板卡片事件; 增加通用模板卡片事件推送; 增加通用模板卡片右上角菜单事件推送（PR #3096）
-			[2025-02-18] v3.25.5 修复“客户标签回调函数-重排事件报错”(Issue #3116）
-			[2025-04-17] v3.26.0 添加打卡记录 #3126 感谢 mc7246
-			[2025-05-23] v3.27.0 fix:获客链接管理关于编辑获客链接的接口调用错误 感谢 @LainNya (Issue #3137）
-			[2025-07-21] v3.28.0 fix: 推送 News 的字段消息大小写敏感问题
+		v3.18.1
+		1、Work v3.18.1 新加企业微信企业客户标签回调事件（PR #2948）
+		2、修复：ApprovalCreateTemplateRequest.template_names 命名更正为：template_name（Issue #2949）
+		v3.19.0 企业微信中间件增加:会话存档-产生会话回调事件回调 （PR #2993）
+		v3.20.0 模板卡片点击回调事件（PR #2997）
+		[2024-08-06] v3.21.4 更新基础库，包括 Senparc.CO2NET 相关库、Senparc.AI
+		[2024-08-12] v3.22.2 Work:增加获客链接管理接口 #3060
+		[2024-09-29] v3.23.0 更新并同意 BuildingKey 方法，构建一致的 AppKey
+		[2024-11-14] v3.24.0 企微回调: 移除不正确的通用模板卡片事件; 增加通用模板卡片事件推送; 增加通用模板卡片右上角菜单事件推送（PR #3096）
+		[2025-02-18] v3.25.5 修复“客户标签回调函数-重排事件报错”(Issue #3116）
+		[2025-04-17] v3.26.0 添加打卡记录 #3126 感谢 mc7246
+		[2025-05-23] v3.27.0 fix:获客链接管理关于编辑获客链接的接口调用错误 感谢 @LainNya (Issue #3137）
+		[2025-07-21] v3.28.0 fix: 推送 News 的字段消息大小写敏感问题
+		[2025-10-10] v3.29.0 Webhook 添加 Markdown2 接口 感谢 @bbhxwl（Issue #3201）
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL变化检测功能演示 - Senparc.Weixin.AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .demo-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(45deg, #1aad19, #2dc653);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .demo-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .demo-button {
+            background: linear-gradient(135deg, #1aad19 0%, #2dc653 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(26, 173, 25, 0.4);
+        }
+
+        .demo-button:active {
+            transform: translateY(0);
+        }
+
+        .demo-button.secondary {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .status-panel {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .url-display {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 16px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            word-break: break-all;
+            font-size: 12px;
+        }
+
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .instructions h3 {
+            color: #90EE90;
+            margin-bottom: 16px;
+            font-size: 18px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        .warning {
+            background: rgba(255, 193, 7, 0.2);
+            border: 1px solid rgba(255, 193, 7, 0.4);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 20px 0;
+        }
+
+        .success {
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid rgba(40, 167, 69, 0.4);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .demo-container {
+                padding: 20px;
+                margin: 20px;
+            }
+
+            .title {
+                font-size: 24px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .demo-controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1 class="title">🚀 URL变化检测功能演示</h1>
+        <p class="subtitle">微信浏览器插件 - 智能URL变化检测与iframe自动重新加载</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <h3 class="feature-title">智能URL检测</h3>
+                <p class="feature-desc">自动检测页面URL变化，判断是否需要重新加载AI助手内容</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">防抖优化</h3>
+                <p class="feature-desc">使用防抖机制避免频繁检查，提升性能和用户体验</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">精确同步</h3>
+                <p class="feature-desc">iframe内容与当前页面URL保持完美同步，确保AI助手提供准确的帮助</p>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>🧪 测试步骤</h3>
+            <ol>
+                <li><strong>打开浮窗：</strong>点击页面上的绿色"Senparc.Weixin.AI"按钮打开AI助手浮窗</li>
+                <li><strong>观察URL：</strong>注意当前页面的URL和iframe中加载的内容</li>
+                <li><strong>关闭浮窗：</strong>点击浮窗右上角的关闭按钮</li>
+                <li><strong>模拟URL变化：</strong>点击下方的"模拟URL变化"按钮改变页面URL</li>
+                <li><strong>重新打开：</strong>再次点击绿色按钮打开浮窗</li>
+                <li><strong>验证结果：</strong>观察iframe是否自动加载了新URL对应的内容</li>
+            </ol>
+        </div>
+
+        <div class="url-display">
+            <strong>当前页面URL:</strong><br>
+            <span id="current-url">加载中...</span>
+        </div>
+
+        <div class="demo-controls">
+            <button class="demo-button" onclick="simulateUrlChange()">
+                🔄 模拟URL变化
+            </button>
+            <button class="demo-button secondary" onclick="resetUrl()">
+                🔙 重置URL
+            </button>
+            <button class="demo-button secondary" onclick="runAutoTest()">
+                🤖 自动测试
+            </button>
+            <button class="demo-button secondary" onclick="clearLogs()">
+                🧹 清除日志
+            </button>
+        </div>
+
+        <div class="status-panel" id="status-panel">
+            <div>🎯 演示页面已加载，等待操作...</div>
+        </div>
+
+        <div class="warning">
+            <strong>⚠️ 注意：</strong>此演示需要在微信开发者文档页面（developers.weixin.qq.com）加载插件才能完整体验所有功能。
+        </div>
+
+        <div class="success" id="plugin-status" style="display: none;">
+            <strong>✅ 插件已加载：</strong>检测到Senparc.Weixin.AI插件，可以开始测试！
+        </div>
+    </div>
+
+    <script>
+        // 全局变量
+        let originalUrl = window.location.href;
+        let testCounter = 0;
+
+        // 更新当前URL显示
+        function updateUrlDisplay() {
+            document.getElementById('current-url').textContent = window.location.href;
+        }
+
+        // 添加日志到状态面板
+        function addLog(message, type = 'info') {
+            const panel = document.getElementById('status-panel');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.style.color = type === 'error' ? '#ff6b6b' : 
+                                   type === 'success' ? '#51cf66' : 
+                                   type === 'warning' ? '#ffd43b' : '#74c0fc';
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            panel.appendChild(logEntry);
+            panel.scrollTop = panel.scrollHeight;
+        }
+
+        // 模拟URL变化
+        function simulateUrlChange() {
+            testCounter++;
+            const newUrl = originalUrl + (originalUrl.includes('#') ? '&' : '#') + 'test=' + testCounter + '&t=' + Date.now();
+            history.pushState({}, '', newUrl);
+            updateUrlDisplay();
+            addLog(`🔄 URL已变化为: ${newUrl}`, 'info');
+            
+            // 触发popstate事件确保插件检测到变化
+            window.dispatchEvent(new PopStateEvent('popstate', { state: {} }));
+            addLog('📡 已触发popstate事件通知插件', 'info');
+        }
+
+        // 重置URL
+        function resetUrl() {
+            history.pushState({}, '', originalUrl);
+            updateUrlDisplay();
+            addLog(`🔙 URL已重置为: ${originalUrl}`, 'info');
+            window.dispatchEvent(new PopStateEvent('popstate', { state: {} }));
+        }
+
+        // 清除日志
+        function clearLogs() {
+            const panel = document.getElementById('status-panel');
+            panel.innerHTML = '<div>🧹 日志已清除</div>';
+        }
+
+        // 检查插件状态
+        function checkPluginStatus() {
+            if (window.globalAssistantInstance) {
+                document.getElementById('plugin-status').style.display = 'block';
+                addLog('✅ 检测到Senparc.Weixin.AI插件实例', 'success');
+                return true;
+            } else {
+                addLog('⚠️ 未检测到插件实例，可能需要在微信文档页面加载', 'warning');
+                return false;
+            }
+        }
+
+        // 自动测试
+        async function runAutoTest() {
+            addLog('🤖 开始自动测试...', 'info');
+            
+            if (!checkPluginStatus()) {
+                addLog('❌ 插件未加载，无法运行自动测试', 'error');
+                return;
+            }
+
+            const instance = window.globalAssistantInstance;
+            
+            try {
+                // 测试1: URL变化检测
+                addLog('🧪 测试1: URL变化检测功能', 'info');
+                const initialUrl = window.location.href;
+                addLog(`📍 记录初始URL: ${initialUrl}`, 'info');
+                
+                simulateUrlChange();
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                const hasChanged = instance.hasUrlChanged();
+                if (hasChanged) {
+                    addLog('✅ URL变化检测正常工作', 'success');
+                } else {
+                    addLog('❌ URL变化检测未工作', 'error');
+                }
+
+                // 测试2: 浮窗重新打开
+                addLog('🧪 测试2: 浮窗重新打开与URL同步', 'info');
+                
+                if (!instance.isWindowOpen) {
+                    addLog('📂 打开浮窗...', 'info');
+                    instance.openFloatingWindow();
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                }
+
+                addLog('🚪 关闭浮窗...', 'info');
+                instance.closeFloatingWindow();
+                await new Promise(resolve => setTimeout(resolve, 500));
+
+                simulateUrlChange();
+                await new Promise(resolve => setTimeout(resolve, 500));
+
+                addLog('📂 重新打开浮窗...', 'info');
+                instance.openFloatingWindow();
+                await new Promise(resolve => setTimeout(resolve, 2000));
+
+                addLog('✅ 自动测试完成！请观察iframe是否加载了新URL的内容', 'success');
+
+            } catch (error) {
+                addLog(`❌ 自动测试失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 页面加载完成后的初始化
+        function initialize() {
+            updateUrlDisplay();
+            addLog('🎯 演示页面初始化完成', 'info');
+            addLog('📝 记录原始URL: ' + originalUrl, 'info');
+            
+            // 延迟检查插件状态
+            setTimeout(() => {
+                checkPluginStatus();
+            }, 1000);
+        }
+
+        // 监听URL变化
+        window.addEventListener('popstate', () => {
+            updateUrlDisplay();
+            addLog('📡 检测到popstate事件，URL可能已变化', 'info');
+        });
+
+        // 监听页面加载
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initialize);
+        } else {
+            initialize();
+        }
+
+        // 定期检查插件状态
+        setInterval(() => {
+            if (window.globalAssistantInstance && !document.getElementById('plugin-status').style.display) {
+                document.getElementById('plugin-status').style.display = 'block';
+                addLog('✅ 检测到插件已加载', 'success');
+            }
+        }, 3000);
+    </script>
+</body>
+</html>

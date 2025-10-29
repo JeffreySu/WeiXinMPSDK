@@ -1,0 +1,143 @@
+{
+  "name": "weixindev",
+  "displayName": "WeixinDev - 微信开发助手",
+  "description": "Senparc.Weixin SDK AI助手，快速插入微信接口代码",
+  "version": "1.0.0",
+  "publisher": "senparc",
+  "author": {
+    "name": "Senparc",
+    "email": "support@senparc.com"
+  },
+  "homepage": "https://sdk.weixin.senparc.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JeffreySu/WeiXinMPSDK"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other",
+    "Snippets",
+    "Extension Packs"
+  ],
+  "keywords": [
+    "微信",
+    "WeChat",
+    "Senparc",
+    "SDK",
+    "AI助手",
+    "代码生成"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "weixindev.openSidebar",
+        "title": "打开微信开发助手",
+        "category": "WeixinDev"
+      },
+      {
+        "command": "weixindev.insertWeixinInterface",
+        "title": "插入微信接口",
+        "category": "WeixinDev"
+      },
+      {
+        "command": "weixindev.refreshWebview",
+        "title": "刷新",
+        "icon": "$(refresh)"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "weixindev.insertWeixinInterface",
+          "when": "resourceExtname == .cs",
+          "group": "1_modification"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "weixindev.refreshWebview",
+          "when": "view == weixindev.sidebar",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "weixindev.openSidebar",
+          "when": "true"
+        },
+        {
+          "command": "weixindev.insertWeixinInterface", 
+          "when": "true"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "weixindev",
+          "title": "微信开发助手",
+          "icon": "$(code)"
+        }
+      ]
+    },
+    "views": {
+      "weixindev": [
+        {
+          "id": "weixindev.sidebar",
+          "name": "AI助手"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "WeixinDev",
+      "properties": {
+        "weixindev.apiUrl": {
+          "type": "string",
+          "default": "https://sdk.weixin.senparc.com/AiDoc",
+          "description": "微信AI助手API地址"
+        },
+        "weixindev.autoInsertComments": {
+          "type": "boolean",
+          "default": true,
+          "description": "自动插入提示注释"
+        },
+        "weixindev.enableDebugMode": {
+          "type": "boolean",
+          "default": false,
+          "description": "启用调试模式"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test",
+    "package": "npx @vscode/vsce package",
+    "install-extension": "npx @vscode/vsce package && code --install-extension weixindev-1.0.0.vsix"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^7.14.1",
+    "@typescript-eslint/parser": "^7.11.0",
+    "eslint": "^8.57.0",
+    "typescript": "^5.4.5",
+    "@vscode/test-cli": "^0.0.9",
+    "@vscode/test-electron": "^2.4.0",
+    "@vscode/vsce": "^2.19.0"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "cheerio": "^1.0.0-rc.12"
+  }
+}

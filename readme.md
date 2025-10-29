@@ -7,7 +7,7 @@ Senparc.Weixin —— 微信 .NET SDK
 [![Build status](https://mysenparc.visualstudio.com/Senparc%20SDK/_apis/build/status/Weixin%20SDK/Senparc.Weixin%20Dev-%E5%86%85%E9%83%A8-%E8%87%AA%E5%8A%A8-.Net6)](https://mysenparc.visualstudio.com/Senparc%20SDK/_build/latest?definitionId=36)
 [![NuGet](https://img.shields.io/nuget/dt/Senparc.Weixin.svg)](https://www.nuget.org/packages/Senparc.Weixin)
 [![GitHub commit activity the past week, 4 weeks, year](https://img.shields.io/github/commit-activity/4w/JeffreySu/WeiXinMPSDK.svg)](https://github.com/JeffreySu/WeiXinMPSDK/commits/master)
-![Static Badge](https://img.shields.io/badge/.NET-8.0-blue)
+![Static Badge](https://img.shields.io/badge/.NET-10.0-blue)
 [![Senparc.Weixin.All](https://img.shields.io/nuget/vpre/Senparc.Weixin.All?label=Senparc.Weixin.All)](https://www.nuget.org/packages/Senparc.Weixin.All/)
 [![license](https://img.shields.io/github/license/JeffreySu/WeiXinMPSDK.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
@@ -37,7 +37,7 @@ Senparc.Weixin —— 微信 .NET SDK
 使用 Senparc.Weixin，您可以方便快速地开发微信全平台的应用（包括微信公众号、小程序、小游戏、企业号、开放平台、微信支付、JS-SDK、微信硬件/蓝牙，等等）。本项目的 Demo 同样适合初学者进行 .NET 编程学习。
 
 目前 Senparc.Weixin 已经支持几乎所有微信平台模块和接口，并同时支持 
-[.NET 3.5 / 4.0 / 4.5 / .NET Standard 2.x / .NET Core 2.x / .NET Core 3.x / .NET 6.0 / .NET 7.0 / .NET 8.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer) 等多种框架，同时兼容所有 MVC、Razor、WebApi、Console（命令行）、桌面应用（.exe）、Blazor、MAUI、后台服务等环境，和外部框架完全解耦。<br>
+[.NET 3.5 / 4.0 / 4.5 / .NET Standard 2.x / .NET Core 2.x / .NET Core 3.x / .NET 6.0 / .NET 7.0 / .NET 8.0 / .NET 10.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer) 等多种框架，同时兼容所有 MVC、Razor、WebApi、Console（命令行）、桌面应用（.exe）、Blazor、MAUI、后台服务等环境，和外部框架完全解耦。<br>
 
 自 2013 年起立项 10 年多来，我们一直保持着项目的持续更新，并将完整的源代码以及设计思想毫无保留地分享给大家，希望有更多的人可以从中受益，理解并传播开源的精神，一同助力中国开源事业！感恩一路上给我们提供帮助的朋友们！
 
@@ -52,7 +52,7 @@ Senparc.Weixin —— 微信 .NET SDK
 <!-- > 📺 <img src="https://github.com/JeffreySu/WeiXinMPSDK/assets/2281927/743f3019-c96b-4b61-acdb-d1834947d5d0" width="400" /><br />
 在 2024 微软 MVP 全球峰会上有幸采访到 Scott Hanselman，并交流了一部分有关 AI 的话题，我们将会在 2024 年 4 月 13 日的“盛派 3.14 技术开放日”活动上再次进行对话，深入交流关于 AI 和 Agent 对未来软件行业以及开源软件的影响，欢迎大家关注！[查看视频](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%BE%AE%E8%BD%AF-MVP-%E5%85%A8%E7%90%83%E5%B3%B0%E4%BC%9A%E9%87%87%E8%AE%BF-Scott-Hanselman)<br/>-->
 > [!NOTE]
-> ⚡ Sample 已支持 .NET 8.0（向下兼容），[点击这里查看](/Samples/All/net8-mvc)！<br/>
+> ⚡ Sample 已支持 .NET 10.0（向下兼容，同时保持 .NET 8.0 版本），[点击这里查看 .NET 10](/Samples/All/net10-mvc) 或 [查看 .NET 8](/Samples/All/net8-mvc)！<br/>
 > 🔒 [微信支付 V3 模块（V1.0）](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3)已上线！[Nuget](https://www.nuget.org/packages/Senparc.Weixin.TenPayV3)<br>
 > 🎠 全面支持长文本自动分片发送，更多：[《顺应 GenAI 应用，自动“续航”回复超长文本消息》](https://www.cnblogs.com/szw/p/weixin-large-text-response.html)<br/>
 
@@ -221,8 +221,9 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 * [⭐ Star 数量统计](#-star-数量统计)
 * [📎 License](#-license)
 
-本库包含了 .NET Framework/.NET Standard 2.0+/.NET Core 3.1/.NET 6/.NET 7/.NET 8 等多个版本的源代码（核心逻辑完全一致）：
+本库包含了 .NET Framework/.NET Standard 2.0+/.NET Core 3.1/.NET 6/.NET 7/.NET 8/.NET 10 等多个版本的源代码（核心逻辑完全一致）：
 
+* 使用 Visual Studio 2022 打开 Demo（支持所有版本）：.NET 10.0 - [Senparc.Weixin.Sample.Net10.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer-.NET10/Samples/All/net10-mvc)（包含源码引用推荐）
 * 使用 Visual Studio 2022 打开 Demo（支持所有版本）：.NET 8.0 - [Senparc.Weixin.Sample.Net8.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net8-mvc)（包含源码引用推荐）
 * 使用 Visual Studio 2019 或更高版本打开 .NET Framework Demo：[Senparc.Weixin.MP.Sample.Net45.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/net45-mvc/)（不包含源码，仅引用类库）
 * 使用 Visual Studio 2019 或更高版本打开命令行 Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/All/console)
@@ -231,24 +232,24 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 
 | # | 模块功能                                            | DLL                                             | Nuget                          | 支持 .NET 版本 
 |---|----------------------------------------------------|-------------------------------------------------|---------------------------------------|--------------------------------------
-| 1| 基础库                                               |Senparc.Weixin.dll                               | [![Senparc.Weixin][1.1]][1.2]<br>[![Senparc.Weixin][nuget-img-base]][nuget-url-base]  |         ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8] 
-| 2| 微信公众号 /<br> JSSDK / 摇周边<br> 等等 |Senparc.Weixin.MP.dll                           | [![MP][2.1]][2.2]<br>[![MP][nuget-img-mp]][nuget-url-mp]  |          ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
-| 3| [微信小程序<br>（支持小游戏）<br>（独立项目）](https://github.com/JeffreySu/WxOpen)  |Senparc.Weixin.WxOpen.dll  |  [![WxOpen][9.1]][9.2]<br>[![WxOpen][nuget-img-wxopen]][nuget-url-wxopen] |       ![.NET 4.5][net46Y]  ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
-| 4| 微信支付                                             |Senparc.Weixin.TenPay.dll  |  [![TenPay][12.1]][12.2]<br>[![TenPay][nuget-img-tenpay]][nuget-url-tenpay] |       ![.NET 4.5][net46Y]  ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
-| 5| 微信支付 V3                                         |Senparc.Weixin.TenPayV3.dll  |  [![TenPayV3][13.1]][13.2]<br>[![TenPay][nuget-img-tenpayv3]][nuget-url-tenpayv3] |       ![.NET 4.5][net46N]  ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
-| 6| ASP.NET MVC 扩展<br>               |Senparc.Weixin.MP.MVC.dll                 | [![MP.MVC][3.1]][3.2]<br>[![Mvc][nuget-img-mvc]][nuget-url-mvc] |        ![.NET 4.5][net46Y] ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
-| 7| 微信企业号<br>（官方已停更）                                           |Senparc.Weixin.QY.dll                            | [![QY][4.1]][4.2]<br>[![QY][nuget-img-qy]][nuget-url-qy]  |      ![.NET 4.5][net46Y] ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
-| 9| 企业微信                                             |Senparc.Weixin.Work.dll                          | [![Work][5.1]][5.2]<br>[![Work][nuget-img-work]][nuget-url-work]  |          ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
-| 9| 微信开放平台                                         |Senparc.Weixin.Open.dll                          | [![Open][6.1]][6.2]<br>[![Open][nuget-img-open]][nuget-url-open]|         ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
-| 10| Redis 分布式缓存                                     |Senparc.Weixin.Cache.<br>Redis.dll               | [![Cache.Redis][7.1]][7.2]<br>[![Redis][nuget-img-redis]][nuget-url-redis] |           ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
-| 11| Memcached <br> 分布式缓存                            |Senparc.Weixin.Cache.<br>Memcached.dll           | [![Cache.Memcached][8.1]][8.2]<br>[![MC][nuget-img-mc]][nuget-url-mc] |         ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
-| 12| [WebSocket <br>（独立项目）](https://github.com/JeffreySu/Senparc.WebSocket)    |Senparc.WebSocket.dll |  [![Senparc.WebSocket][10.1]][10.2]<br>[![WebSocket][nuget-img-ws]][nuget-url-ws]  |          ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
-| 13| All In One 集成库       |Senparc.Weixin.All.dll                               | [![Senparc.Weixin.All][14.1]][14.2]<br>[![Senparc.Weixin.All][nuget-img-base]][nuget-url-base]  |         ![.NET 4.5][net46N]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8] 
+| 1| 基础库                                               |Senparc.Weixin.dll                               | [![Senparc.Weixin][1.1]][1.2]<br>[![Senparc.Weixin][nuget-img-base]][nuget-url-base]  |         ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  ![.NET 10.0][net10]  ![.NET 10.0][net10] 
+| 2| 微信公众号 /<br> JSSDK / 摇周边<br> 等等 |Senparc.Weixin.MP.dll                           | [![MP][2.1]][2.2]<br>[![MP][nuget-img-mp]][nuget-url-mp]  |          ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  ![.NET 10.0][net10]  
+| 3| [微信小程序<br>（支持小游戏）<br>（独立项目）](https://github.com/JeffreySu/WxOpen)  |Senparc.Weixin.WxOpen.dll  |  [![WxOpen][9.1]][9.2]<br>[![WxOpen][nuget-img-wxopen]][nuget-url-wxopen] |       ![.NET 4.5][net46Y]  ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  ![.NET 10.0][net10]  
+| 4| 微信支付                                             |Senparc.Weixin.TenPay.dll  |  [![TenPay][12.1]][12.2]<br>[![TenPay][nuget-img-tenpay]][nuget-url-tenpay] |       ![.NET 4.5][net46Y]  ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  ![.NET 10.0][net10]  
+| 5| 微信支付 V3                                         |Senparc.Weixin.TenPayV3.dll  |  [![TenPayV3][13.1]][13.2]<br>[![TenPay][nuget-img-tenpayv3]][nuget-url-tenpayv3] |       ![.NET 4.5][net46N]  ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  ![.NET 10.0][net10]  
+| 6| ASP.NET MVC 扩展<br>               |Senparc.Weixin.MP.MVC.dll                 | [![MP.MVC][3.1]][3.2]<br>[![Mvc][nuget-img-mvc]][nuget-url-mvc] |        ![.NET 4.5][net46Y] ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  ![.NET 10.0][net10]  
+| 7| 微信企业号<br>（官方已停更）                                           |Senparc.Weixin.QY.dll                            | [![QY][4.1]][4.2]<br>[![QY][nuget-img-qy]][nuget-url-qy]  |      ![.NET 4.5][net46Y] ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  ![.NET 10.0][net10]  
+| 9| 企业微信                                             |Senparc.Weixin.Work.dll                          | [![Work][5.1]][5.2]<br>[![Work][nuget-img-work]][nuget-url-work]  |          ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  ![.NET 10.0][net10]  
+| 9| 微信开放平台                                         |Senparc.Weixin.Open.dll                          | [![Open][6.1]][6.2]<br>[![Open][nuget-img-open]][nuget-url-open]|         ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  ![.NET 10.0][net10]  
+| 10| Redis 分布式缓存                                     |Senparc.Weixin.Cache.<br>Redis.dll               | [![Cache.Redis][7.1]][7.2]<br>[![Redis][nuget-img-redis]][nuget-url-redis] |           ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  ![.NET 10.0][net10]  
+| 11| Memcached <br> 分布式缓存                            |Senparc.Weixin.Cache.<br>Memcached.dll           | [![Cache.Memcached][8.1]][8.2]<br>[![MC][nuget-img-mc]][nuget-url-mc] |         ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  ![.NET 10.0][net10]  
+| 12| [WebSocket <br>（独立项目）](https://github.com/JeffreySu/Senparc.WebSocket)    |Senparc.WebSocket.dll |  [![Senparc.WebSocket][10.1]][10.2]<br>[![WebSocket][nuget-img-ws]][nuget-url-ws]  |          ![.NET 4.5][net46Y]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  ![.NET 10.0][net10]  
+| 13| All In One 集成库       |Senparc.Weixin.All.dll                               | [![Senparc.Weixin.All][14.1]][14.2]<br>[![Senparc.Weixin.All][nuget-img-base]][nuget-url-base]  |         ![.NET 4.5][net46N]    ![.NET Standard 2.0/2.1][core20Y]   ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  ![.NET 10.0][net10] 
 
 #### 图例
-| ![.NET 4.6][net46Y] | ![.NET Standard 2.x][core20Y] | ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  
+| ![.NET 4.6][net46Y] | ![.NET Standard 2.x][core20Y] | ![.NET 5.0 / 6.0 / 7.0 / 8.0][net8]  ![.NET 10.0][net10]  
 |--|--|--|
-| .NET Framework 4.6.2+      |  .NET Standard 2.0 / 2.1  |   .NET 8.0，向下兼容 .NET 5.0-7.0
+| .NET Framework 4.6.2+      |  .NET Standard 2.0 / 2.1  |   .NET 8.0，向下兼容 .NET 5.0-7.0  |   .NET 10.0，向下兼容 .NET 5.0-9.0 |
 
 > [!WARNING]
 > 1. 自 2019 年 5 月 1 日起，.NET Framework 3.5 及 4.0 停止更新，最后一个 .NET Framework 3.5 + 4.0 稳定版[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.6.15)。<br>
@@ -291,6 +292,7 @@ app.UseMessageHandlerForMp("/WeixinAsync",
 [net46N-]: https://img.shields.io/badge/.NET%20Framework%204.6+----lightgrey.svg
 [core20Y]: https://img.shields.io/badge/.NET%20Standard2.x-Y-brightgreen.svg
 [net8]: https://img.shields.io/badge/.NET%208.0-Y-brightgreen.svg
+[net10]: https://img.shields.io/badge/.NET%2010.0-Y-brightgreen.svg
 
 
 [nuget-img-base]: https://img.shields.io/nuget/dt/Senparc.Weixin.svg
@@ -372,6 +374,7 @@ Senparc.Weixin SDK 所有的模块的用法都保持了高度的一致，包括�
 |[All](/Samples/All/)         |   包含微信公众号、小程序、微信支付、企业微信等所有功能的混合场景演示，<br>推荐用于集成多个平台的项目，或许要进行深度开发的场景参考（进阶） | 
 | ┣ [All/console](/Samples/All/console)			|命令行 Console Demo（.NET Core）| Nuget 包
 | ┣ [All/net45-mvc](/Samples/All/net45-mvc)						|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET MVC）|  Nuget 包
+| ┗ [All/net10-mvc](/Samples/All/net10-mvc)			|可以直接发布使用的 Demo（.NET 10.0），兼容 .NET 5.0、6.0、7.0、8.0 和 .NET Core | <strong>源码（最新）<strong>
 | ┗ [All/net8-mvc](/Samples/All/net8-mvc)			|可以直接发布使用的 Demo（.NET 8.0），兼容 .NET 5.0、6.0、7.0 和 .NET Core | <strong>源码（最新）<strong>
 
 [进入 Samples 文件夹](/Samples/)
@@ -394,7 +397,7 @@ Web 版：<a href="https://www.cnblogs.com/szw/p/WeChatSampleBuilder-V2.html#Web
 ## 🎨 资源
 
 1. 官网地址：https://weixin.senparc.com/
-2. 在线 Demo 地址（.NET 8.0，向下兼容 .NET 6.0、7.0 和 .NET Core）：https://sdk.weixin.senparc.com/
+2. 在线 Demo 地址（.NET 10.0，向下兼容 .NET 6.0、7.0、8.0 和 .NET Core）：https://sdk.weixin.senparc.com/
 3. 微信开发系列教程：https://www.cnblogs.com/szw/p/weixin-course-index.html
 4. 微信技术交流社区：https://weixin.senparc.com/QA
 5. 自定义菜单在线编辑工具：https://sdk.weixin.senparc.com/Menu
@@ -607,7 +610,8 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 
 > 当前分支包含了 .NET Framework 4.6.2+ 及 .NET 6.0/7.0/8.0 的全版本代码（已经不更新的版本请查看 [release](https://github.com/JeffreySu/WeiXinMPSDK/releases) 快照）。<br>
 > 其中 .NET Framework 的 Demo 位于 `/src/Samples/All/net45-mvc` 目录下，<br>
-> 【推荐】.NET 8.0（向下兼容 .NET 5.0、6.0、7.0 及 .NET Core 3.1 等更低版本） 的 Demo 位于 `/Samples/All/net8-mvc` 目录下。<br><br>
+> 【推荐】.NET 10.0（向下兼容 .NET 5.0、6.0、7.0、8.0 及 .NET Core 3.1 等更低版本） 的 Demo 位于 `/Samples/All/net10-mvc` 目录下。<br>
+> .NET 8.0（向下兼容 .NET 5.0、6.0、7.0 及 .NET Core 3.1 等更低版本） 的 Demo 位于 `/Samples/All/net8-mvc` 目录下。<br><br>
 > 注意：以上 Sample 中，`net8-mvc` 中的 Sample 直接引用了每个模块的源码，使用 `Release` 编译后可生成兼容不同版本的 Senaprc.Weixin SDK 库。
 
 ## ↕️ 使用Nuget安装到项目中

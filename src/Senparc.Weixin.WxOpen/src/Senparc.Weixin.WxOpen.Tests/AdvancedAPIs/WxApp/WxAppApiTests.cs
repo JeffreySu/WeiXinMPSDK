@@ -61,10 +61,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
         public void CreateWxaQrCodeTest2()
         {
             var dt1 = SystemTime.Now;
-            var filePath = "../../Config/qr2.jpg";
+            var filePath =  Path.Combine(Senparc.CO2NET.Config.RootDirectoryPath, "Config", "qr2.jpg");
             var result = WxAppApi.CreateWxQrCode(base._wxOpenAppId, filePath, "pages/websocket", 100);
             var dt2 = SystemTime.Now;
-            Console.WriteLine("执行时间：{0}ms", (dt2 - dt1).TotalMilliseconds);
+            var fs = new FileStream(filePath, FileMode.Open);
+            
+            Console.WriteLine("执行时间：{0}ms，生成文件大小：{1}", (dt2 - dt1).TotalMilliseconds, fs.Length);
         }
 
         [TestMethod()]

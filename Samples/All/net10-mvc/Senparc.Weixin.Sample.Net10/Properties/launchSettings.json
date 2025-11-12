@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Senparc.Weixin.Sample.Net8": {
+    "Senparc.Weixin.Sample.Net10": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

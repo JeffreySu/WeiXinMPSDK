@@ -94,8 +94,11 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <returns> <see cref="WxJsonResult"/> 从流的JSON内容反序列化的对象</returns>
         private static WxJsonResult ToWxJsonResult(Stream stream)
         {
-            stream.Position = 0;
-            using StreamReader streamReader = new StreamReader(stream);
+            stream.Position = 0; // 保证从开始位置读取
+            using MemoryStream memoryStream = new MemoryStream();
+            stream.CopyTo(memoryStream); // 将内容复制到 MemoryStream
+            memoryStream.Position = 0; // 保证从开始位置读取
+            using StreamReader streamReader = new StreamReader(memoryStream);
             var errorInfo = streamReader.ReadToEnd();
             return errorInfo.GetObject<WxJsonResult>();
         }
@@ -959,8 +962,11 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <returns> <see cref="WxJsonResult"/> 从流的JSON内容反序列化的对象</returns>
         private static async Task<WxJsonResult> ToWxJsonResultAsync(Stream stream)
         {
-            stream.Position = 0;
-            using StreamReader streamReader = new StreamReader(stream);
+            stream.Position = 0; // 保证从开始位置读取
+            using MemoryStream memoryStream = new MemoryStream();
+            await stream.CopyToAsync(memoryStream);
+            memoryStream.Position = 0; // 保证从开始位置读取
+            using StreamReader streamReader = new StreamReader(memoryStream);
             var errorInfo = await streamReader.ReadToEndAsync();
             return errorInfo.GetObject<WxJsonResult>();
         }

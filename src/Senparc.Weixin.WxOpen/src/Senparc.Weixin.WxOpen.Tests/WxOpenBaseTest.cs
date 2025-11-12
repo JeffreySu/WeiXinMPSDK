@@ -10,7 +10,7 @@ namespace Senparc.Weixin.WxOpen.Tests
     {
         public WxOpenBaseTest()
         {
-            AccessTokenContainer.Register(base._wxOpenAppId, base._wxOpenAppSecret, "小程序单元测试");
+            AccessTokenContainer.RegisterAsync(base._wxOpenAppId, base._wxOpenAppSecret, "小程序单元测试").GetAwaiter();
         }
     }
 }

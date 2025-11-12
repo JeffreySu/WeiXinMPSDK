@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-    <Version>3.29.0-preivew.net.10</Version>
+    <Version>3.29.0</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>

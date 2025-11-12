@@ -21,7 +21,7 @@ AI 能力来自于 [Senparc.AI](https://github.com/Senparc/Senparc.AI)，并深�
 
 ## 代码位置
 
-AI 功能将整合在 [/Samples/All/net8-mvc](../Samples/All/net8-mvc/Senparc.Weixin.Sample.Net8/) 集成案例中。
+AI 功能将整合在 [/Samples/All/net8-mvc](../Samples/All/net10-mvc/Senparc.Weixin.Sample.Net10/) 集成案例中。
 
 更多说明将在对应功能上线后在本文档中补充。
 

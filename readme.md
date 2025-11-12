@@ -46,13 +46,13 @@ Senparc.Weixin —— 微信 .NET SDK
 ## 🔔 公告
 
 > [!TIP]
+> ⚡ .NET 10 正式版已发布，最新 [Sample for .NET 10](./Samples/All/net10-mvc/)（向下兼容）, 在线 Sample：https://sdk.weixin.senparc.com/<br>
 > 🔥 AI 聊天机器人微信集成 Sample 已上线！[查看](/Samples%20with%20AI)<br>
 > 🥇 [2024-2025 年度盛派开发者社区“优秀贡献者”评选活动正式启动](https://mp.weixin.qq.com/s/1b6iBuTZbFsm92l17pLz8Q)<br>
 > 🎬 `Scott Hansleman 关于 AI 话题的专访（2024 年盛派 3.14 开放日活动）` [查看视频](https://www.bilibili.com/video/BV1NE421K78D/)<br/>
 <!-- > 📺 <img src="https://github.com/JeffreySu/WeiXinMPSDK/assets/2281927/743f3019-c96b-4b61-acdb-d1834947d5d0" width="400" /><br />
 在 2024 微软 MVP 全球峰会上有幸采访到 Scott Hanselman，并交流了一部分有关 AI 的话题，我们将会在 2024 年 4 月 13 日的“盛派 3.14 技术开放日”活动上再次进行对话，深入交流关于 AI 和 Agent 对未来软件行业以及开源软件的影响，欢迎大家关注！[查看视频](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%BE%AE%E8%BD%AF-MVP-%E5%85%A8%E7%90%83%E5%B3%B0%E4%BC%9A%E9%87%87%E8%AE%BF-Scott-Hanselman)<br/>-->
 > [!NOTE]
-> ⚡ Sample 已支持 .NET 10.0（向下兼容，同时保持 .NET 8.0 版本），[点击这里查看 .NET 10](/Samples/All/net10-mvc) 或 [查看 .NET 8](/Samples/All/net8-mvc)！<br/>
 > 🔒 [微信支付 V3 模块（V1.0）](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3)已上线！[Nuget](https://www.nuget.org/packages/Senparc.Weixin.TenPayV3)<br>
 > 🎠 全面支持长文本自动分片发送，更多：[《顺应 GenAI 应用，自动“续航”回复超长文本消息》](https://www.cnblogs.com/szw/p/weixin-large-text-response.html)<br/>
 
@@ -745,7 +745,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 Apache License Version 2.0
 
 ```
-Copyright 2024 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2025 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file 
 except in compliance with the License. You may obtain a copy of the License at

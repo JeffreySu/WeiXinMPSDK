@@ -87,11 +87,21 @@ namespace Senparc.Weixin.TenPayV3
                 || _httpContext.Request.Method == "PUT"
                 || _httpContext.Request.Method == "PATCH")
             {
-                using (var reader = new StreamReader(_httpContext.Request.Body))
+                _httpContext.Request.EnableBuffering(); // 启用缓冲（允许重复读取）
+                _httpContext.Request.Body.Position = 0; // 重置流位置到起始点
+
+                using (var reader = new StreamReader(
+                    _httpContext.Request.Body,
+                    encoding: System.Text.Encoding.UTF8,
+                    detectEncodingFromByteOrderMarks: false,
+                    bufferSize: 1024,
+                    leaveOpen: true)) // 关键：读取后不关闭底层流
                 {
                     Body = reader.ReadToEndAsync().GetAwaiter().GetResult();
                     NotifyRequest = Body.GetObject<NotifyRequest>();
                 }
+
+                _httpContext.Request.Body.Position = 0; // 重置位置，供后续使用
             }
         }
 

@@ -1,8 +1,8 @@
 # Senparc.Weixin.Sample.Net10 项目说明
 
 > 推荐您使用当前 Sample（[在线示例](https://sdk.weixin.senparc.com/)）。<br>
-> 如果您使用的是 Visual Studio，
-请升级到 VS 2022（或将来更新版本），并安装 [.NET 10.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)。
+> 如果您使用的是 Visual Studio，请升级到 VS 2022（或更新版本），
+> 并安装 [.NET 10.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)。
 
 当前 Sample 提供了 .NET 10.0 的 Mvc 项目示例，可以直接进行部署测试（高级功能测试需要修改配置文件，如修改 appId 等）。
 
@@ -16,6 +16,10 @@
 2. 如果您想要学习某个单一模块的用法，可以查看对应模块的说明和Sample，或查看单元测试项目。
 3. 但是您不用太过担心，示例中已经将各个模块使用注释、文件夹等方式进行了区分，阅读代码不会有障碍。
 4. 本项目非常适合综合场景的实际项目参考，如果您在学习过程中有任何问题，欢迎加群询问。
+
+## 使用 .NET 8.0 Demo
+
+返回上一级后见：[net8-mvc/Senparc.Weixin.MP.Sample.Net8](../net8-mvc)。
 
 ## 使用 .NET Framework 4.5 Demo
 

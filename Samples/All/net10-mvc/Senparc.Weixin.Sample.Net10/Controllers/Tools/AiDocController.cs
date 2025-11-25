@@ -156,6 +156,17 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
 <li>AccessToken需要定期刷新，建议使用SDK自动管理</li>
 <li>接口调用频率限制：100万次/天</li></ul>""}}
 
+返回结果所对应的反序列化类为：
+public class QueryMcpResult
+{{
+    public string Platform {{ get; set; }}
+    public string ApiDescription {{ get; set; }}
+    public string CSharpCode {{ get; set; }}
+    public string  Tips {{ get; set; }}
+    public string ParamsDescription {{ get; set; }}
+    public string Summary {{ get; set; }}
+}}
+
 ### JSON 参数说明
 1. Platform 根据选择的平台进行匹配：
 {Senparc.NeuChar.PlatformType.WeChat_OfficialAccount}：微信公众号
@@ -166,6 +177,7 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
 3. Tips 请根据接口实际说明进行调整
 4. 第一个参数为 accessTokenOrAppId 时，优先使用 appId 而不是 accessToken，因此不需要 accessToken 参数，因为 SDK 推荐提前注册并自动管理 AccessToken。
 5. 请不要添加任何不确定的信息或有风险的代码
+6. 输出结果必须是干净、完整的一段 JSON
 
 ## API 查询要求
 {request.Query}
@@ -376,14 +388,14 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
             public string Query { get; set; }
         }
 
-        public class QueryMcpResult
-        {
-            public string Platform { get; set; }
-            public string ApiDescription { get; set; }
-            public string CSharpCode { get; set; }
-            public string  Tips { get; set; }
-            public string ParamsDescription { get; set; }
-            public string Summary { get; set; }
-        }
+public class QueryMcpResult
+{
+    public string Platform { get; set; }
+    public string ApiDescription { get; set; }
+    public string CSharpCode { get; set; }
+    public string  Tips { get; set; }
+    public string ParamsDescription { get; set; }
+    public string Summary { get; set; }
+}
     }
 }

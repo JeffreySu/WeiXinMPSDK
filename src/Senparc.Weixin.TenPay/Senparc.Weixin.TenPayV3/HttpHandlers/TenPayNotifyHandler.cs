@@ -47,6 +47,7 @@ using Senparc.Weixin.TenPayV3.Apis.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
 using System;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 
 
@@ -87,11 +88,22 @@ namespace Senparc.Weixin.TenPayV3
                 || _httpContext.Request.Method == "PUT"
                 || _httpContext.Request.Method == "PATCH")
             {
-                using (var reader = new StreamReader(_httpContext.Request.Body))
+                // 启用缓冲（允许重复读取）
+                _httpContext.Request.EnableBuffering();
+                
+                using (var reader = new StreamReader(
+                    _httpContext.Request.Body,
+                    encoding: Encoding.UTF8,
+                    detectEncodingFromByteOrderMarks: false,
+                    bufferSize: 1024,
+                    leaveOpen: true)) // 关键：读取后不关闭底层流
                 {
                     Body = reader.ReadToEndAsync().GetAwaiter().GetResult();
                     NotifyRequest = Body.GetObject<NotifyRequest>();
                 }
+                
+                // 重置流位置，供后续中间件/控制器读取
+                _httpContext.Request.Body.Position = 0;
             }
         }
 

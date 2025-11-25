@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
-        <Version>10.0.0.20251120</Version>
+        <Version>10.0.1</Version>
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>35e58786-0820-4cde-b1ff-f4c6198d00f7</UserSecretsId>
         <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>

@@ -90,7 +90,8 @@ namespace Senparc.Weixin.TenPayV3
             {
                 // 启用缓冲（允许重复读取）
                 _httpContext.Request.EnableBuffering();
-                
+                _httpContext.Request.Body.Position = 0; // 重置流位置到起始点
+
                 using (var reader = new StreamReader(
                     _httpContext.Request.Body,
                     encoding: Encoding.UTF8,

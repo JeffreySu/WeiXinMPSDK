@@ -110,7 +110,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             }
 
             // name加密
-            var basePayApis = new BasePayApis();
+            var basePayApis = new BasePayApis(_tenpayV3Setting);
             var publicKeys = await basePayApis.GetPublicKeysAsync();
             var publicKeyKv = publicKeys.FirstOrDefault();
             foreach (var each in data.receivers)
@@ -321,7 +321,7 @@ namespace Senparc.Weixin.TenPayV3.Apis
             }
 
             // name加密
-            var basePayApis = new BasePayApis();
+            var basePayApis = new BasePayApis(_tenpayV3Setting);
             var publicKeys = await basePayApis.GetPublicKeysAsync();
             var publicKeyKv = publicKeys.FirstOrDefault();
             SecurityHelper.FieldEncrypt(data, publicKeyKv.Value, _tenpayV3Setting.EncryptionType.Value, _tenpayV3Setting.TenPayV3_TenPayPubKeyEnable);

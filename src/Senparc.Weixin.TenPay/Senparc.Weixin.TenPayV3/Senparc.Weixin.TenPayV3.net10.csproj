@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>2.3.1</Version>
+    <Version>2.3.2</Version>
     <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
     <LangVersion>10.0</LangVersion>
@@ -66,7 +66,11 @@
 		[2025-08-17] v2.2.1-beta.1 处理 ResponseErrorJsonResult 中 value 值类型，由 string[] 改为 int
 		[2025-08-19] v2.2.1 处理 ResponseErrorJsonResult 中 value 值类型，由 int 改为 object
 		[2025-11-26] v2.3.1 修复 TenPayNotifyHandler 中 Body 赋值问题 / Issue #3220 感谢 @wind2006
-</PackageReleaseNotes>
+		[2025-11-26] v2.4.0
+		1、fix: 多个V3配置的情况，ProfitsharingApis中AddProfitsharingReceiverAsync方法BasePayApis配置问题 / Issue #3226 感谢 @today5040
+		2、fix: TenPayNotifyHandler Body 读取 bug  / Issue #3220 感谢 @wind2006
+		3、feat: 添加“企业微信数据与智能专区的接口” /Issue #3091 感谢 @faceman0814
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

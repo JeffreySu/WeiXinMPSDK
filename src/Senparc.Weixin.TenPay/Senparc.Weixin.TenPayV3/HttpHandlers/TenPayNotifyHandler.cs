@@ -47,6 +47,7 @@ using Senparc.Weixin.TenPayV3.Apis.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
 using System;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 
 
@@ -87,12 +88,13 @@ namespace Senparc.Weixin.TenPayV3
                 || _httpContext.Request.Method == "PUT"
                 || _httpContext.Request.Method == "PATCH")
             {
-                _httpContext.Request.EnableBuffering(); // 启用缓冲（允许重复读取）
+                // 启用缓冲（允许重复读取）
+                _httpContext.Request.EnableBuffering();
                 _httpContext.Request.Body.Position = 0; // 重置流位置到起始点
 
                 using (var reader = new StreamReader(
                     _httpContext.Request.Body,
-                    encoding: System.Text.Encoding.UTF8,
+                    encoding: Encoding.UTF8,
                     detectEncodingFromByteOrderMarks: false,
                     bufferSize: 1024,
                     leaveOpen: true)) // 关键：读取后不关闭底层流
@@ -100,8 +102,9 @@ namespace Senparc.Weixin.TenPayV3
                     Body = reader.ReadToEndAsync().GetAwaiter().GetResult();
                     NotifyRequest = Body.GetObject<NotifyRequest>();
                 }
-
-                _httpContext.Request.Body.Position = 0; // 重置位置，供后续使用
+                
+                // 重置流位置，供后续中间件/控制器读取
+                _httpContext.Request.Body.Position = 0;
             }
         }
 

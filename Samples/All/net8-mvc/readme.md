@@ -17,6 +17,11 @@
 3. 但是您不用太过担心，示例中已经将各个模块使用注释、文件夹等方式进行了区分，阅读代码不会有障碍。
 4. 本项目非常适合综合场景的实际项目参考，如果您在学习过程中有任何问题，欢迎加群询问。
 
+## 使用 .NET 10.0 Demo （推荐）
+
+返回上一级后见：[net10-mvc/Senparc.Weixin.MP.Sample.Net10](../net10-mvc)。
+
+
 ## 使用 .NET Framework 4.5 Demo
 
 返回上一级后见：[net45-mvc/Senparc.Weixin.MP.Sample](../net45-mvc)。

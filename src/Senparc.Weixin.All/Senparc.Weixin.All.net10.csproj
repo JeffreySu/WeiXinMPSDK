@@ -3,7 +3,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>2025.11.12</Version>
+    <Version>2025.12.2</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.All</AssemblyName>
     <RootNamespace>Senparc.Weixin.All</RootNamespace>
@@ -64,6 +64,10 @@
 		[2025-09-08] v2025.9.8 更新基础库，为 Work 提供重构后的新版本 MessageHandler
 		[2025-10-24] v2025.10.24 TenPayV3 解决 Swagger 文档默认读取方式下可能出现的命名冲突问题 / Issue #3125 感谢 @dodu2014
 		[2025-11-12] v2025.11.12 发布 .NET 10 正式版
+		[2025-12-02] v2025.12.2  v2.4.0
+		1、fix: 多个V3配置的情况，ProfitsharingApis中AddProfitsharingReceiverAsync方法BasePayApis配置问题 / Issue #3226 感谢 @today5040
+		2、fix: TenPayNotifyHandler Body 读取 bug  / Issue #3220 感谢 @wind2006
+		3、feat: 添加“企业微信数据与智能专区的接口” /Issue #3091 感谢 @faceman0814
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

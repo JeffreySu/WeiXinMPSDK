@@ -205,7 +205,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA.OAJson
         public string type { get; set; }
 
         /// <summary>
-        /// 时间戳，填写utc时间戳
+        /// 时间戳，填写UTC时间戳
         /// </summary>
         public long s_timestamp { get; set; }
     }
@@ -349,12 +349,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA.OAJson
         public string type { get; set; }
 
         /// <summary>
-        /// 时长范围
+        /// 开始时间
         /// </summary>
         public ApplyEventRequest_DateRangeData new_begin { get; set; }
 
         /// <summary>
-        /// 时长范围
+        /// 结束时间
         /// </summary>
         public ApplyEventRequest_DateRangeData new_end { get; set; }
 
@@ -370,7 +370,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA.OAJson
     public class ApplyEventRequest_DateRangeData
     {
         /// <summary>
-        /// 时间戳，填写utc时间戳
+        /// 时间戳，填写UTC时间戳
         /// </summary>
         public long timestamp { get; set; }
 
@@ -466,7 +466,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA.OAJson
     public class ApplyEventRequest_AttendanceDateRangeData
     {
         /// <summary>
-        /// 时间戳，填写utc时间戳
+        /// 时间戳，填写UTC时间戳
         /// </summary>
         public long timestamp { get; set; }
 

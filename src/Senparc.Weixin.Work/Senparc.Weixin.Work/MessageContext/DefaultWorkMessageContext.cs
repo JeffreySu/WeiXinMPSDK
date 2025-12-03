@@ -248,6 +248,9 @@ namespace Senparc.Weixin.Work.MessageContexts
                         case "TEMPLATE_CARD_MENU_EVENT": // 通用模板卡片右上角菜单事件
                             requestMessage = new RequestMessageEvent_TemplateCardMenuEvent();
                             break;
+                        case "KF_MSG_OR_EVENT": // 微信客服消息与事件回调通知
+                            requestMessage = new RequestMessageEvent_Kf_Msg_Or_Event();
+                            break;
                         default://其他意外类型（也可以选择抛出异常）
                             requestMessage = new RequestMessageEventBase();
                             break;

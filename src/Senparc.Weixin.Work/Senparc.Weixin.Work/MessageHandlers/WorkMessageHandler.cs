@@ -923,6 +923,16 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
+        /// <summary>
+        ///     微信客服消息与事件回调通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_KfMsgOrEventRequest(RequestMessageEvent_Kf_Msg_Or_Event requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
         #endregion //Event 下属分类
         #endregion
 

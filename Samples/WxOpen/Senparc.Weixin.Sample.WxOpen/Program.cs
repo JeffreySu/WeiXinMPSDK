@@ -1,7 +1,12 @@
-using Microsoft.AspNetCore.Builder;
+ï»¿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.FileProviders;
+using Senparc.Weixin.RegisterServices;
+using Senparc.Weixin.AspNet;
+using Senparc.Weixin.WxOpen.MessageHandlers.Middleware;
+using Senparc.Weixin.Sample.WxOpen.MessageHandlers;
 using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,47 +14,47 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//Ê¹ÓÃ±¾µØ»º´æ±ØĞëÌí¼Ó
+// ä½¿ç”¨å†…å­˜ç¼“å­˜
 builder.Services.AddMemoryCache();
 
-#region Ìí¼ÓÎ¢ĞÅÅäÖÃ£¨Ò»ĞĞ´úÂë£©
+#region é…ç½®å¾®ä¿¡å‚æ•°ï¼ˆæ³¨å…¥ï¼‰
 
-//Senparc.Weixin ×¢²á£¨±ØĞë£©
+// Senparc.Weixin æ³¨å†Œï¼ˆæ³¨å…¥ï¼‰
 builder.Services.AddSenparcWeixin(builder.Configuration);
 
 #endregion
 
 var app = builder.Build();
 
-#region ÆôÓÃÎ¢ĞÅÅäÖÃ£¨Ò»¾ä´úÂë£©
+#region é…ç½®å¾®ä¿¡å‚æ•°ï¼ˆæ³¨å†Œï¼‰
 
-//ÊÖ¶¯»ñÈ¡ÅäÖÃĞÅÏ¢¿ÉÊ¹ÓÃÒÔÏÂ·½·¨
-//var senparcWeixinSetting = app.Services.GetService<IOptions<SenparcWeixinSetting>>()!.Value;
+// æ‰‹åŠ¨è·å–é…ç½®ä¿¡æ¯å¯ä½¿ç”¨å¦‚ä¸‹æ–¹å¼ï¼š
+// var senparcWeixinSetting = app.Services.GetService<IOptions<SenparcWeixinSetting>>()!.Value;
 
-//ÆôÓÃÎ¢ĞÅÅäÖÃ£¨±ØĞë£©
+// è¿›è¡Œå¾®ä¿¡å‚æ•°é…ç½®ï¼ˆæ³¨å†Œï¼‰
 var registerService = app.UseSenparcWeixin(app.Environment,
-    null /* ²»Îª null Ôò¸²¸Ç appsettings  ÖĞµÄ SenpacSetting ÅäÖÃ*/,
-    null /* ²»Îª null Ôò¸²¸Ç appsettings  ÖĞµÄ SenpacWeixinSetting ÅäÖÃ*/,
+    null /* ä¼ å…¥ null åˆ™ä½¿ç”¨ appsettings ä¸­çš„ SenparcSetting é…ç½® */,
+    null /* ä¼ å…¥ null åˆ™ä½¿ç”¨ appsettings ä¸­çš„ SenparcWeixinSetting é…ç½® */,
     register => { },
     (register, weixinSetting) =>
 {
-    //×¢²á¹«ÖÚºÅĞÅÏ¢£¨¿ÉÒÔÖ´ĞĞ¶à´Î£¬×¢²á¶à¸öĞ¡³ÌĞò£©
-    register.RegisterWxOpenAccount(weixinSetting, "¡¾Ê¢ÅÉÍøÂçĞ¡ÖúÊÖ¡¿Ğ¡³ÌĞò");
+    // æ³¨å†Œå°ç¨‹åºè´¦å·ä¿¡æ¯ï¼ˆç¤ºä¾‹ï¼‰
+    register.RegisterWxOpenAccount(weixinSetting, "ç››æ´¾å°åŠ©æ‰‹Â·å°ç¨‹åº");
 });
 
-#region Ê¹ÓÃ MessageHadler ÖĞ¼ä¼ş£¬ÓÃÓÚÈ¡´ú´´½¨¶ÀÁ¢µÄ Controller
+#region ä½¿ç”¨ MessageHandler ä¸­é—´ä»¶ç›´æ¥æ¥æ”¶æ¶ˆæ¯ï¼Œæ— éœ€ Controller
 
-//MessageHandler ÖĞ¼ä¼ş½éÉÜ£ºhttps://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html
-//Ê¹ÓÃ¹«ÖÚºÅµÄ MessageHandler ÖĞ¼ä¼ş£¨²»ÔÙĞèÒª´´½¨ Controller£©                       --DPBMARK MP
+// MessageHandler ä¸­é—´ä»¶åŠŸèƒ½ï¼šhttps://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html
+// ä½¿ç”¨å°ç¨‹åºçš„ MessageHandler ä¸­é—´ä»¶ï¼Œä¸å†éœ€è¦ç¼–å†™ Controller                       --DPBMARK MP
 app.UseMessageHandlerForWxOpen("/WxOpenAsync", CustomWxOpenMessageHandler.GenerateMessageHandler, options =>
 {
-    //»ñÈ¡Ä¬ÈÏÎ¢ĞÅÅäÖÃ
+    // è·å–é»˜è®¤å¾®ä¿¡é…ç½®
     var weixinSetting = Senparc.Weixin.Config.SenparcWeixinSetting;
 
-    //[±ØĞë] ÉèÖÃÎ¢ĞÅÅäÖÃ
+    // [å¿…å¡«] æŒ‡å®šå¾®ä¿¡é…ç½®
     options.AccountSettingFunc = context => weixinSetting;
 
-    //[¿ÉÑ¡] ÉèÖÃ×î´óÎÄ±¾³¤¶È»Ø¸´ÏŞÖÆ£¨³¬³¤ºó»áµ÷ÓÃ¿Í·ş½Ó¿Ú·ÖÅú´Î»Ø¸´£©
+    // [å¯é€‰] è®¾ç½®æ–‡æœ¬è¿”å›é•¿åº¦é™åˆ¶ï¼›å¦‚éœ€è¶…é•¿æ¶ˆæ¯å¯é€šè¿‡å®¢æœæ¥å£åˆ†æ®µå›å¤
     options.TextResponseLimitOptions = new TextResponseLimitOptions(2048, weixinSetting.WxOpenAppId);
 });
 #endregion
@@ -67,7 +72,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-#region ´Ë²¿·Ö´úÂëÎª Sample ¹²ÏíÎÄ¼şĞèÒª¶øÌí¼Ó£¬Êµ¼ÊÏîÄ¿ÎŞĞèÌí¼Ó
+#region æ­¤æ®µä»£ç ä»…ä¸º Sample ç¤ºä¾‹éœ€è¦ï¼Œå®é™…é¡¹ç›®å¯æŒ‰éœ€å¤„ç†
 #if DEBUG
 //app.UseStaticFiles(new StaticFileOptions
 //{

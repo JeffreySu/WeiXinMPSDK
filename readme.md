@@ -456,7 +456,7 @@ Web 版：<a href="https://www.cnblogs.com/szw/p/WeChatSampleBuilder-V2.html#Web
 ## 🧪 关注测试账号体验功能（SenparcRobot）：
 |盛派网络小助手公众号|盛派网络小助手小程序|BookHelper|
 |--|--|--|
-| <img src="https://sdk.weixin.senparc.com/Images/qrcode.jpg" width="258" /> | <img src="https://sdk.weixin.senparc.com/Images/SenparcRobot_MiniProgram.jpg" width="258" /> | <img src="https://sdk.weixin.senparc.com/Images/qrcode-bookhelper.jpg" width="258" /> |
+| <img width="258" height="258" alt="image" src="https://github.com/user-attachments/assets/35aa4952-13fd-4cf1-b81f-43f053ff631c" /> | <img width="258" height="430" alt="image" src="https://github.com/user-attachments/assets/07b5f2b2-54ed-455d-9e17-0ae67ce56038" />  | <img width="258" height="716" alt="image" src="https://github.com/user-attachments/assets/7a1b8231-5cca-4742-bc12-4cb2a83c7b40" /> |
 
 ## ✋ 贡献代码
 

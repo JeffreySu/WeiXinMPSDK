@@ -412,6 +412,11 @@ namespace Senparc.Weixin.Work.MessageHandlers
                         OnEvent_TemplateCardMenuEventRequestAsync(
                             RequestMessage as RequestMessageEvent_TemplateCardMenuEvent);
                     break;
+                case Event.KF_MSG_OR_EVENT: // 微信客服消息与事件回调通知
+                    responseMessage = await
+                        OnEvent_KfMsgOrEventRequestAsync(
+                            RequestMessage as RequestMessageEvent_Kf_Msg_Or_Event);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -856,6 +861,17 @@ namespace Senparc.Weixin.Work.MessageHandlers
             RequestMessageEvent_TemplateCardMenuEvent requestMessage)
         {
             return await Task.Run(() => OnEvent_TemplateCardMenuEventRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        ///     微信客服消息与事件回调通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_KfMsgOrEventRequestAsync(
+            RequestMessageEvent_Kf_Msg_Or_Event requestMessage)
+        {
+            return await Task.Run(() => OnEvent_KfMsgOrEventRequest(requestMessage)).ConfigureAwait(false);
         }
 
         #endregion //Event 下属分类

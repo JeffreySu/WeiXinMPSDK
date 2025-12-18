@@ -1,4 +1,18 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2025 Senparc
+    
+    文件名：ApplyEventRequest.cs
+    文件功能描述：提交审批申请 请求参数
+    
+    
+    创建标识：Senparc - 20251218
+    
+    修改标识：Senparc - 20251218
+    修改描述：添加对所有控件类型的支持，包括明细控件（Table）的 children 属性
+    
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

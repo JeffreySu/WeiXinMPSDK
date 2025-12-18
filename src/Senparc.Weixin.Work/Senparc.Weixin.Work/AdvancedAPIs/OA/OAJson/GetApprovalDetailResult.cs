@@ -1,4 +1,17 @@
 ﻿
+/*----------------------------------------------------------------
+    Copyright (C) 2025 Senparc
+    
+    文件名：GetApprovalDetailResult.cs
+    文件功能描述：获取审批申请详情 返回结果
+    
+    
+    创建标识：Senparc - 20251218
+    
+    修改标识：Senparc - 20251218
+    修改描述：添加对所有控件类型的支持，包括明细控件（Table）的 children 属性
+    
+----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
 using System.Collections.Generic;

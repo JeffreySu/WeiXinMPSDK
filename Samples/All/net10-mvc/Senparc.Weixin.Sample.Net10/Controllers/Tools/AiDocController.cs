@@ -162,10 +162,13 @@ public class QueryMcpResult
     public string Platform {{ get; set; }}
     public string ApiDescription {{ get; set; }}
     public string CSharpCode {{ get; set; }}
-    public string  Tips {{ get; set; }}
+    public string Tips {{ get; set; }}
     public string ParamsDescription {{ get; set; }}
     public string Summary {{ get; set; }}
 }}
+
+最终 JSON 结果如：
+""{{\""Platform\"":""xxx"",\""ApiDescription\"":""xxxx"",\""CSharpCode\"":""xxxx"",\""Tips\"":""xxxx"",\""ParamsDescription\"":""xxxx"",\""Summary\"":""xxxx""}}""
 
 ### JSON 参数说明
 1. Platform 根据选择的平台进行匹配：
@@ -388,14 +391,14 @@ public class QueryMcpResult
             public string Query { get; set; }
         }
 
-public class QueryMcpResult
-{
-    public string Platform { get; set; }
-    public string ApiDescription { get; set; }
-    public string CSharpCode { get; set; }
-    public string  Tips { get; set; }
-    public string ParamsDescription { get; set; }
-    public string Summary { get; set; }
-}
+        public class QueryMcpResult
+        {
+            public string Platform { get; set; }
+            public string ApiDescription { get; set; }
+            public string CSharpCode { get; set; }
+            public string Tips { get; set; }
+            public string ParamsDescription { get; set; }
+            public string Summary { get; set; }
+        }
     }
 }

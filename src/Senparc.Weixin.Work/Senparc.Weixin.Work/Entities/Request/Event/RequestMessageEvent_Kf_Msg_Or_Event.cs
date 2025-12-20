@@ -4,7 +4,7 @@
     文件名：RequestMessageEvent_Kf_Msg_Or_Event.cs
     文件功能描述：微信客服消息与事件回调通知
 
-    创建标识：Senparc - 20251220
+    创建标识：Senparc - 20251203
 
     官方文档：https://developer.work.weixin.qq.com/document/path/94670
 ----------------------------------------------------------------*/

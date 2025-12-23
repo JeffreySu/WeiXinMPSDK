@@ -269,6 +269,15 @@ namespace Senparc.Weixin.Work.Test
 </BatchJob>
 </xml>";
 
+        private string xmlEvent_Kf_Msg_Or_Event = @"<xml>
+   <ToUserName><![CDATA[ww12345678910]]></ToUserName>
+   <CreateTime>1348831860</CreateTime>
+   <MsgType><![CDATA[event]]></MsgType>
+   <Event><![CDATA[kf_msg_or_event]]></Event>
+   <Token><![CDATA[ENCApHxnGDNAVNY4AaSJKj4Tb5mwsEMzxhFmHVGcra996NR]]></Token>
+   <OpenKfId><![CDATA[wkxxxxxxx]]></OpenKfId>
+</xml>";
+
         [TestMethod]
         public void GetRequestEntityTest()
         {
@@ -466,6 +475,17 @@ namespace Senparc.Weixin.Work.Test
                 Assert.AreEqual("wx28dbb14e37208abe", result.ToUserName);
                 Assert.AreEqual("ok", result.BatchJob.ErrMsg);
                 Assert.AreEqual(0, result.BatchJob.ErrCode);
+            }
+
+            {
+                //Event_Kf_Msg_Or_Event
+                var doc = XDocument.Parse(xmlEvent_Kf_Msg_Or_Event);
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageEvent_Kf_Msg_Or_Event;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("ww12345678910", result.ToUserName);
+                Assert.AreEqual("ENCApHxnGDNAVNY4AaSJKj4Tb5mwsEMzxhFmHVGcra996NR", result.Token);
+                Assert.AreEqual("wkxxxxxxx", result.OpenKfId);
+                Assert.AreEqual(Event.KF_MSG_OR_EVENT, result.Event);
             }
         }
     }

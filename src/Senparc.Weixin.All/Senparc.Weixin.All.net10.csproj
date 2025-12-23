@@ -3,7 +3,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>2025.12.2</Version>
+    <Version>2025.12.23</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.All</AssemblyName>
     <RootNamespace>Senparc.Weixin.All</RootNamespace>
@@ -68,6 +68,7 @@
 		1、fix: 多个V3配置的情况，ProfitsharingApis中AddProfitsharingReceiverAsync方法BasePayApis配置问题 / Issue #3226 感谢 @today5040
 		2、fix: TenPayNotifyHandler Body 读取 bug  / Issue #3220 感谢 @wind2006
 		3、feat: 添加“企业微信数据与智能专区的接口” /Issue #3091 感谢 @faceman0814
+		[2025-12-23] v2025.12.23 Work v3.30.0 feat: 添加“企业微信审批表单构建明细控件的子控件”/ Issue #3228 感谢 @Nice-Ljn
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

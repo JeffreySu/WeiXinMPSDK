@@ -46,7 +46,7 @@ var registerService = app.UseSenparcWeixin(app.Environment,
 app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
 {
     // 获取默认微信配置
-    var weixinSetting = Senparc.Weixin.Config.SenparcWeixinSetting.Items["OpenVip"];
+    var weixinSetting = Senparc.Weixin.Config.SenparcWeixinSetting;
 
     // [必填] 指定微信配置
     options.AccountSettingFunc = context => weixinSetting;

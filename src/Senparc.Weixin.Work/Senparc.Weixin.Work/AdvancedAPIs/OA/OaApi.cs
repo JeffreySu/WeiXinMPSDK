@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：mojinxun - 20230226
     
+    修改标识：Senparc - 20251223
+    修改描述：添加创建审批模板接口返回参数template_id
+    
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;
@@ -161,10 +164,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA
         /// <param name="data">请求参数</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult ApprovalCreateTemplate(string accessToken, ApprovalCreateTemplateRequest data, int timeOut = Config.TIME_OUT)
+        public static ApprovalCreateTemplateResult ApprovalCreateTemplate(string accessToken, ApprovalCreateTemplateRequest data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = Config.ApiWorkHost + "/cgi-bin/oa/approval/create_template?access_token={0}";
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<ApprovalCreateTemplateResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -296,10 +299,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA
         /// <param name="data">请求参数</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> ApprovalCreateTemplateAsync(string accessToken, ApprovalCreateTemplateRequest data, int timeOut = Config.TIME_OUT)
+        public static async Task<ApprovalCreateTemplateResult> ApprovalCreateTemplateAsync(string accessToken, ApprovalCreateTemplateRequest data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = Config.ApiWorkHost + "/cgi-bin/oa/approval/create_template?access_token={0}";
-            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<ApprovalCreateTemplateResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>

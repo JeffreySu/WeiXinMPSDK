@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-		<Version>3.30.0</Version>
+		<Version>3.30.1</Version>
 		<LangVersion>10.0</LangVersion>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -219,6 +219,7 @@
 			[2025-05-23] v3.27.0 fix:获客链接管理关于编辑获客链接的接口调用错误 感谢 @LainNya (Issue #3137）
 			[2025-07-21] v3.28.0 fix: 推送 News 的字段消息大小写敏感问题
 			[2025-12-23] v3.30.0 feat: 添加“企业微信审批表单构建明细控件的子控件”
+			[2025-12-23] v3.30.1 修复 Webhook SendFile 接口参数格式，符合企业微信官方文档
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

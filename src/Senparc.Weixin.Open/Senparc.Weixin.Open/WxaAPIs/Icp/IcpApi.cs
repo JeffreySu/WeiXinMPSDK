@@ -122,15 +122,17 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="cancel_type">注销类型：1 -- 注销主体, 2 -- 注销小程序, 3 -- 注销微信小程序</param>
+        /// <param name="reason_type">注销原因：1. 不再运营该小程序；2. 主体信息发生变更，需注销备案后重新备案；</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static ApplyIcpFilingResultJson CancelIcpFiling(string accessToken, int cancel_type,int timeOut = Config.TIME_OUT)
+        public static ApplyIcpFilingResultJson CancelIcpFiling(string accessToken, int cancel_type, int reason_type, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/icp/cancel_icp_filing?access_token={0}", accessToken.AsUrlData());
 
             var postData = new
             {
-                cancel_type
+                cancel_type,
+                reason_type
             };
             return CommonJsonSend.Send<ApplyIcpFilingResultJson>(null, url, postData, CommonJsonSendType.POST, timeOut);
         }
@@ -306,15 +308,17 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="cancel_type">注销类型：1 -- 注销主体, 2 -- 注销小程序, 3 -- 注销微信小程序</param>
+        /// <param name="reason_type">注销原因：1. 不再运营该小程序；2. 主体信息发生变更，需注销备案后重新备案；</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> CancelIcpFilingAsync(string accessToken, int cancel_type, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> CancelIcpFilingAsync(string accessToken, int cancel_type, int reason_type, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/icp/cancel_icp_filing?access_token={0}", accessToken.AsUrlData());
 
             var postData = new
             {
-                cancel_type
+                cancel_type,
+                reason_type
             };
             return await CommonJsonSend.SendAsync<ApplyIcpFilingResultJson>(null, url, postData, CommonJsonSendType.POST, timeOut);
         }

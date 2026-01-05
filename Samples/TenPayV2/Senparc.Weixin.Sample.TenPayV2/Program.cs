@@ -1,4 +1,9 @@
-﻿using Senparc.Weixin.RegisterServices;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.FileProviders;
+using Senparc.Weixin.RegisterServices;
+using Senparc.Weixin.AspNet;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,47 +1,57 @@
-using System.Text;
+ï»¿using System.Text;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.FileProviders;
+using Senparc.Weixin.RegisterServices;
+using Senparc.Weixin.AspNet;
+using Senparc.Weixin.MP.MessageHandlers.Middleware;
+using Senparc.Weixin.Sample.MP;
 using Senparc.Weixin.MP.AdvancedAPIs.MerChant;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//Ê¹ÓÃ±¾µØ»º´æ±ØĞëÌí¼Ó
+// ä½¿ç”¨å†…å­˜ç¼“å­˜å¿…é¡»æ·»åŠ 
 builder.Services.AddMemoryCache();
 
-#region Ìí¼ÓÎ¢ĞÅÅäÖÃ£¨Ò»ĞĞ´úÂë£©
+#region æ·»åŠ å¾®ä¿¡é…ç½®ï¼ˆä¸€è¡Œä»£ç ï¼‰
 
-//Senparc.Weixin ×¢²á£¨±ØĞë£©
+// Senparc.Weixin æ³¨å†Œï¼ˆå¿…é¡»ï¼‰
 builder.Services.AddSenparcWeixin(builder.Configuration);
 
 #endregion
 
 var app = builder.Build();
 
-#region ÆôÓÃÎ¢ĞÅÅäÖÃ£¨Ò»¾ä´úÂë£©
+#region å¯ç”¨å¾®ä¿¡é…ç½®ï¼ˆä¸€å¥ä»£ç ï¼‰
 
-//ÆôÓÃÎ¢ĞÅÅäÖÃ£¨±ØĞë£©
+// å¯ç”¨å¾®ä¿¡é…ç½®ï¼ˆå¿…é¡»ï¼‰
 var registerService = app.UseSenparcWeixin(app.Environment,
-        senparcSetting: null /* ²»Îª null Ôò¸²¸Ç appsettings  ÖĞµÄ SenpacSetting ÅäÖÃ*/,
-        senparcWeixinSetting: null /* ²»Îª null Ôò¸²¸Ç appsettings  ÖĞµÄ SenpacWeixinSetting ÅäÖÃ*/,
-        globalRegisterConfigure: register => { /* CO2NET È«¾ÖÅäÖÃ */ },
-        weixinRegisterConfigure: (register, weixinSetting) => {/* ×¢²á¹«ÖÚºÅ»òÆäËûÆ½Ì¨ĞÅÏ¢£¨¿ÉÒÔÖ´ĞĞ¶à´Î£¬×¢²á¶à¸ö¹«ÖÚºÅ£©*/},
-        autoRegisterAllPlatforms: true /* ×Ô¶¯×¢²áËùÓĞÆ½Ì¨ */
+        senparcSetting: null /* ä¼ å…¥ null åˆ™è¦†ç›– appsettings ä¸­çš„ SenpacSetting é…ç½®*/,
+        senparcWeixinSetting: null /* ä¼ å…¥ null åˆ™è¦†ç›– appsettings ä¸­çš„ SenpacWeixinSetting é…ç½®*/,
+        globalRegisterConfigure: register => { /* CO2NET å…¨å±€é…ç½® */ },
+        weixinRegisterConfigure: (register, weixinSetting) => {/* æ³¨å†Œå…¬ä¼—å·æˆ–å¼€æ”¾å¹³å°è´¦å·ä¿¡æ¯ï¼ˆå¯ä»¥æ‰§è¡Œå¤šæ¬¡ï¼Œæ³¨å†Œå¤šä¸ªå…¬ä¼—å·ï¼‰*/},
+        autoRegisterAllPlatforms: true /* è‡ªåŠ¨æ³¨å†Œæ‰€æœ‰å¹³å° */
         );
 
-#region Ê¹ÓÃ MessageHadler ÖĞ¼ä¼ş£¬ÓÃÓÚÈ¡´ú´´½¨¶ÀÁ¢µÄ Controller
+#region ä½¿ç”¨ MessageHandler ä¸­é—´ä»¶ç›´æ¥æ¥æ”¶æ¶ˆæ¯ï¼Œæ— éœ€ Controller
 
-//MessageHandler ÖĞ¼ä¼ş½éÉÜ£ºhttps://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html
-//Ê¹ÓÃ¹«ÖÚºÅµÄ MessageHandler ÖĞ¼ä¼ş£¨²»ÔÙĞèÒª´´½¨ Controller£©
+// MessageHandler ä¸­é—´ä»¶åŠŸèƒ½ï¼šhttps://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html
+// ä½¿ç”¨å…¬ä¼—å·çš„ MessageHandler ä¸­é—´ä»¶ï¼Œä¸å†éœ€è¦ç¼–å†™ Controller
 app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
 {
-    //»ñÈ¡Ä¬ÈÏÎ¢ĞÅÅäÖÃ
-    var weixinSetting = Senparc.Weixin.Config.SenparcWeixinSetting.Items["OpenVip"];
+    // è·å–é»˜è®¤å¾®ä¿¡é…ç½®
+    var weixinSetting = Senparc.Weixin.Config.SenparcWeixinSetting;
 
-    //[±ØĞë] ÉèÖÃÎ¢ĞÅÅäÖÃ
+    // [å¿…å¡«] æŒ‡å®šå¾®ä¿¡é…ç½®
     options.AccountSettingFunc = context => weixinSetting;
 
-    //[¿ÉÑ¡] ÉèÖÃ×î´óÎÄ±¾³¤¶È»Ø¸´ÏŞÖÆ£¨³¬³¤ºó»áµ÷ÓÃ¿Í·ş½Ó¿Ú·ÖÅú´Î»Ø¸´£©
+    // [å¯é€‰] è®¾ç½®æ–‡æœ¬è¿”å›é•¿åº¦é™åˆ¶ï¼›å¦‚éœ€è¶…é•¿æ¶ˆæ¯å¯é€šè¿‡å®¢æœæ¥å£åˆ†æ®µå›å¤
     options.TextResponseLimitOptions = new TextResponseLimitOptions(2048, weixinSetting.WeixinAppId);
 });
 
@@ -49,16 +59,16 @@ app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageH
 
 #endregion
 
-#region ¸ß¼¶½Ó¿Úµ÷ÓÃÊ¾Àı
+#region é€»è¾‘æ¥å£è°ƒç”¨ç¤ºä¾‹
 
 app.MapGroup("/").MapGet("/TryApi", async () =>
 {
-    //ÑİÊ¾»ñÈ¡ÒÑ¹Ø×¢ÓÃ»§µÄ OpenId£¨·ÖÅú»ñÈ¡µÄµÚÒ»Åú£©
+    // å±•ç¤ºå¦‚ä½•è·å–å·²å…³æ³¨ç”¨æˆ·çš„ OpenIdï¼ˆä»…è·å–çš„ç¬¬ä¸€ä¸ªï¼‰
 
     var weixinSetting = Senparc.Weixin.Config.SenparcWeixinSetting.MpSetting;
     var users = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(weixinSetting.WeixinAppId, null);
 
-    Console.WriteLine($"Õ¹Ê¾Ç° {users.count} ¸ö OpenId");
+    Console.WriteLine($"å±•ç¤ºå‰ {users.count} ä¸ª OpenId");
 
     return users.data.openid;
 });
@@ -76,7 +86,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-#region ´Ë²¿·Ö´úÂëÎª Sample ¹²ÏíÎÄ¼şĞèÒª¶øÌí¼Ó£¬Êµ¼ÊÏîÄ¿ÎŞĞèÌí¼Ó
+#region æ­¤æ®µä»£ç ä»…ä¸º Sample ç¤ºä¾‹éœ€è¦ï¼Œå®é™…é¡¹ç›®å¯æŒ‰éœ€å¤„ç†
 #if DEBUG
 //app.UseStaticFiles(new StaticFileOptions
 //{

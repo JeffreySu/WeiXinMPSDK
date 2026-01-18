@@ -3,7 +3,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>2025.12.23</Version>
+    <Version>2026.1.18</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.All</AssemblyName>
     <RootNamespace>Senparc.Weixin.All</RootNamespace>
@@ -69,6 +69,9 @@
 		2、fix: TenPayNotifyHandler Body 读取 bug  / Issue #3220 感谢 @wind2006
 		3、feat: 添加“企业微信数据与智能专区的接口” /Issue #3091 感谢 @faceman0814
 		[2025-12-23] v2025.12.23 Work v3.30.0 feat: 添加“企业微信审批表单构建明细控件的子控件”/ Issue #3228 感谢 @Nice-Ljn
+		[2026-01-18] v2026.1.18
+		1、WxOpen feat: 增加发送用工消息、解除用工关系 API #3246 感谢 @dodu2014
+		2、Work fix: 创建审批模板接口缺少返回参数 #3238 感谢 @Nice-Ljn
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

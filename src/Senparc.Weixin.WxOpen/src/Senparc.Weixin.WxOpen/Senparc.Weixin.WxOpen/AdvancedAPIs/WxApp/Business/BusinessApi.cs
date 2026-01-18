@@ -1,8 +1,4 @@
-﻿using Senparc.NeuChar;
-using Senparc.Weixin.CommonAPIs;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Business.JsonResult;
-#region Apache License Version 2.0
+﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
 Copyright 2025 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
@@ -31,8 +27,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     创建标识：Senparc - 20220112
 
+    修改标识：dodu2014 - 20260109
+    修改描述：v3.25.0 feat: 添加“解绑用工关系”接口
+
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Business.JsonResult;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp

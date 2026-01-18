@@ -30,7 +30,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v3.10.401 升级 MessageApi.SendSubscribe() 方法参数
 
     修改标识：dodu2014 - 20260109
-    修改描述：v3.10.401 加入推送用工消息
+    修改描述：v3.25.0 加入推送用工消息
 
 ----------------------------------------------------------------*/
 

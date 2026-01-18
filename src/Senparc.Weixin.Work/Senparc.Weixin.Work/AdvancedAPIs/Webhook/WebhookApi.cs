@@ -13,6 +13,9 @@
     修改标识：mc7246 - 20230211
     修改描述：丰富 Webhook 接口：SendTemplateCard， SendFile
 
+    修改标识：Senparc - 20251223
+    修改描述：修复 SendFile 接口参数格式，符合企业微信官方文档
+
 ----------------------------------------------------------------*/
 
 /*
@@ -110,7 +113,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
             var data = new
             {
                 msgtype = "file",
-                media_id
+                file = new
+                {
+                    media_id
+                }
             };
             JsonSetting jsonSetting = new JsonSetting(true);
             return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(key, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
@@ -328,7 +334,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
             var data = new
             {
                 msgtype = "file",
-                media_id
+                file = new
+                {
+                    media_id
+                }
             };
             JsonSetting jsonSetting = new JsonSetting(true);
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(key, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);

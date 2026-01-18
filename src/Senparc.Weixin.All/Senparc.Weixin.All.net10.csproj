@@ -70,8 +70,9 @@
 		3、feat: 添加“企业微信数据与智能专区的接口” /Issue #3091 感谢 @faceman0814
 		[2025-12-23] v2025.12.23 Work v3.30.0 feat: 添加“企业微信审批表单构建明细控件的子控件”/ Issue #3228 感谢 @Nice-Ljn
 		[2026-01-18] v2026.1.18
-		1、WxOpen feat: 增加发送用工消息、解除用工关系 API #3246 感谢 @dodu2014
-		2、Work fix: 创建审批模板接口缺少返回参数 #3238 感谢 @Nice-Ljn
+		1、WxOpen v3.25.0 feat: 增加发送用工消息、解除用工关系 API #3246 感谢 @dodu2014
+		2、Work v3.30.1 fix: 创建审批模板接口缺少返回参数 #3238 感谢 @Nice-Ljn
+		3、Work v3.30.1 fix: 企业微信群机器人发送文件消息时提示 media_id missing #3236 感谢 @609394359
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

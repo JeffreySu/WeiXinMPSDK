@@ -43,7 +43,6 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.TenPayV3.Apis;
 using Senparc.Weixin.TenPayV3.Entities;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3

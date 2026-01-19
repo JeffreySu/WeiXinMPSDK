@@ -142,7 +142,7 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="serialNumber"></param>
         /// <param name="apiV3Key"></param>
         public TenPayV3Info(string appId, string appSecret, string mchId, string key, string certPath, string certSecret, 
-            string tenPayV3Notify, string tenPayV3WxOpenNotify, string privateKey, string serialNumber, string apiV3Key,CertType certType)
+            string tenPayV3Notify, string tenPayV3WxOpenNotify, string privateKey, string serialNumber, string apiV3Key, CertType certType)
             : this(appId, appSecret, mchId, key, certPath, certSecret, "", "", "", tenPayV3Notify, 
                   tenPayV3WxOpenNotify, privateKey, serialNumber, apiV3Key, certType)
         {

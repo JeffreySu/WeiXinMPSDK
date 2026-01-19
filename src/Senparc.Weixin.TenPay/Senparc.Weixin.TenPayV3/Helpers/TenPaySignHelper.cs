@@ -128,7 +128,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="timeStamp">时间戳</param>
         /// <param name="nonceStr">随机串</param>
         /// <param name="package">格式：prepay_id={0}</param>
-        /// <param name="senparcWeixinSettingForTenpayV3">可为空 为空将从Senparc.Weixin.Config获取</param>
+        /// <param name="tenPayV3Info">支付配置信息（TenPayV3Info）</param>
         /// <returns></returns>
         public static string CreatePaySign(string timeStamp, string nonceStr, string package, TenPayV3Info tenPayV3Info)
         {

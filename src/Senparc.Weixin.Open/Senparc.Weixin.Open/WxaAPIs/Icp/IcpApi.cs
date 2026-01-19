@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：IcpApi.cs
     文件功能描述：第三方服务商小程序备案 接口
@@ -9,6 +9,9 @@
 
     修改标识：Senparc - 20230805
     修改描述：v4.15.0 完善“第三方服务商小程序备案”接口
+
+    修改标识：mc7246 - 20260119
+    修改描述：修复小程序注销备案缺失参数，添加 reason_type 参数，修改 cancel_type 为枚举类型 #3243
 
 ----------------------------------------------------------------*/
 
@@ -131,8 +134,8 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
             var postData = new
             {
-                cancel_type,
-                reason_type
+                cancel_type = (int)cancel_type,
+                reason_type = (int)reason_type
             };
             return CommonJsonSend.Send<ApplyIcpFilingResultJson>(null, url, postData, CommonJsonSendType.POST, timeOut);
         }
@@ -410,3 +413,4 @@ namespace Senparc.Weixin.Open.WxaAPIs
         #endregion
     }
 }
+

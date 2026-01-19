@@ -281,7 +281,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         {
             if (tenPayV3Info == null)
             {
-                throw new Senparc.Weixin.TenPayV3.TenpayApiRequestException("senparcWeixinSettingForTenpayV3 参数不能为空！");
+                throw new Senparc.Weixin.TenPayV3.TenpayApiRequestException("tenPayV3Info 参数不能为空！");
             }
 
             var timeStamp = TenPayV3Util.GetTimestamp();

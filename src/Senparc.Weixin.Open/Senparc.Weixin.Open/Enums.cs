@@ -499,7 +499,7 @@ namespace Senparc.Weixin.Open
     public enum CancelIcpFiling_Cancel_Type
     {
         注销主体 = 1,
-        注销小程序 =2,
+        注销小程序 = 2,
         注销微信小程序 = 3
     }
     public enum CancelIcpFiling_Reason_Type

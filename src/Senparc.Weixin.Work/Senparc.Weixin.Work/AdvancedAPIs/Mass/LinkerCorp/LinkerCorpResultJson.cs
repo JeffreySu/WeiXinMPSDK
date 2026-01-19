@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：MiniResultJson.cs
     文件功能描述：互联企业消息推送接口返回结果
@@ -24,4 +24,5 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Mass
         public string[] invalidtag { get; set; }
     }
 }
+
 

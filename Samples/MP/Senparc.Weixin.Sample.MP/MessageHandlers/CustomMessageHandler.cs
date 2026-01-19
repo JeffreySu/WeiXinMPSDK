@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
 
     文件名：CustomMessageHandler.cs
     文件功能描述：微信公众号自定义MessageHandler
@@ -375,3 +375,4 @@ MD5:{3}", requestMessage.Title, requestMessage.Description, requestMessage.FileT
         #endregion
     }
 }
+

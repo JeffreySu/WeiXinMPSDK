@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：ScheduleApi.cs
     文件功能描述：日程相关API
@@ -194,3 +194,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule
         #endregion
     }
 }
+

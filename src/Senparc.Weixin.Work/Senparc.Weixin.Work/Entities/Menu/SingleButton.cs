@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：SingleButton.cs
     文件功能描述：所有单击按钮的基类
@@ -29,3 +29,4 @@ namespace Senparc.Weixin.Work.Entities.Menu
         }
     }
 }
+

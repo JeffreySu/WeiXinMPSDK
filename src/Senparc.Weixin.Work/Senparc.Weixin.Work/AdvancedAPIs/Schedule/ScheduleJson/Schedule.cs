@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：Schedule.cs
     文件功能描述：日程信息
@@ -175,3 +175,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
         public string schedule_id { get; set; }
     }
 }
+

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：SenparcWeixinSettingItemCollection.cs
     文件功能描述：SenparcWeixinSettingItem 集合
@@ -51,3 +51,4 @@ namespace Senparc.Weixin.Entities
         }
     }
 }
+

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageUnauthorized.cs
     文件功能描述：推送取消授权通知
@@ -28,3 +28,4 @@ namespace Senparc.Weixin.Open
         public int beian_status { get; set; }
     }
 }
+

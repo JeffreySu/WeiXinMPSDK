@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
 
     文件名：UserInfoJson.cs
     文件功能描述：获取用户信息返回结果
@@ -135,3 +135,4 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
         public List<UserInfoJson> user_info_list { get; set; }
     }
 }
+

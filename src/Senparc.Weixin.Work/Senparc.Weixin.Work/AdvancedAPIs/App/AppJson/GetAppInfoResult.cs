@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：GetAppInfoResult.cs
     文件功能描述：获取企业号应用返回结果
@@ -97,3 +97,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.App
         public int[] tagid { get; set; }
     }
 }
+

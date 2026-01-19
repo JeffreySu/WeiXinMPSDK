@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：GetUserBehaviorDataParam.cs
     文件功能描述：获取「联系客户统计」数据 接口请求参数
@@ -159,3 +159,4 @@ behavior_data.negative_feedback_cnt	删除/拉黑成员的客户数，即将成�
         public int new_contact_cnt { get; set; }
     }
 }
+

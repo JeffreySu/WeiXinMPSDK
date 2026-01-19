@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：MiniResultJson.cs
     文件功能描述：企业微信小程序返回结果
@@ -37,3 +37,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         public string session_key { get; set; }
     }
 }
+

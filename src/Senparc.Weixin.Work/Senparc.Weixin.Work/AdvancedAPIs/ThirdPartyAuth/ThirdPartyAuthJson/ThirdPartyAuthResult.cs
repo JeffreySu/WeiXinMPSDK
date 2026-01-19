@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：ThirdPartyAuthResult.cs
     文件功能描述：第三方应用授权返回结果
@@ -536,5 +536,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         public int expires_in { get; set; }
     }
 }
+
 
 

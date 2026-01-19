@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：LinkerCorpData.cs
     文件功能描述：互联企业消息推送接口数据
@@ -285,4 +285,5 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Mass
     }
     #endregion
 }
+
 

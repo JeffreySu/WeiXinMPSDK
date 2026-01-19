@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageBase.cs
     文件功能描述：第三方应用授权回调消息服务
@@ -38,3 +38,4 @@ namespace Senparc.Weixin.Open
         }
     }
 }
+

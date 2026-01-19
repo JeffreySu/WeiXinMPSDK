@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：GetLoginInfoResult.cs
     文件功能描述：获取企业号管理员登录信息返回结果
@@ -25,3 +25,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.LoginAuth
         public int expires_in { get; set; }
     }
 }
+

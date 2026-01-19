@@ -1,7 +1,4 @@
-﻿using Senparc.NeuChar;
-using Senparc.Weixin.CommonAPIs;
-using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Business.JsonResult;
-#region Apache License Version 2.0
+﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
 Copyright 2025 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
@@ -23,15 +20,22 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2025 Senparc
-  
+
     文件名：BusinessApi.cs
     文件功能描述：wxa/business 接口
-    
-    
+
+
     创建标识：Senparc - 20220112
+
+    修改标识：dodu2014 - 20260109
+    修改描述：v3.25.0 feat: 添加“解绑用工关系”接口
 
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Business.JsonResult;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
@@ -45,7 +49,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         #region 同步方法
 
         /// <summary>
-        /// code换取用户手机号。 
+        /// code换取用户手机号。
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="code">每个code只能使用一次，code的有效期为5min</param>
@@ -62,13 +66,31 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 解绑用工关系
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openidList">被解绑用户的openid列表</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult UnBindUserAuthinfo(string accessTokenOrAppId, string[] openidList, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/business/unbinduserb2cauthinfo?access_token={0}";
+                string url = string.Format(urlFormat, accessToken);
+                var data = new { openid_list = openidList };
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
 
         #endregion
 
         #region 异步方法
 
         /// <summary>
-        /// 【异步方法】code换取用户手机号。 
+        /// 【异步方法】code换取用户手机号。
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="code">每个code只能使用一次，code的有效期为5min</param>
@@ -82,6 +104,24 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 string url = string.Format(urlFormat, accessToken);
                 var data = new { code = code };
                 return await CommonJsonSend.SendAsync<GetUserPhoneNumberJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】解绑用工关系
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openidList">被解绑用户的openid列表</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> UnBindUserAuthinfoAsync(string accessTokenOrAppId, string[] openidList, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/business/unbinduserb2cauthinfo?access_token={0}";
+                string url = string.Format(urlFormat, accessToken);
+                var data = new { openid_list = openidList };
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
 

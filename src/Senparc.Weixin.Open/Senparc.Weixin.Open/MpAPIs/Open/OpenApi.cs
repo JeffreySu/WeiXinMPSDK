@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
 
     文件名：OpenApi.cs
     文件功能描述：微信开放平台帐号管理接口
@@ -141,3 +141,4 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         #endregion
     }
 }
+

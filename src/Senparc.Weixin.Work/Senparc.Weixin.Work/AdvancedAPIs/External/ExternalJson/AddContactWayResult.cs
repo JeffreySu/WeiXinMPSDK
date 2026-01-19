@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：AddContactWayResult.cs
     文件功能描述：配置客户联系「联系我」方式 返回数据
@@ -29,3 +29,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
         public string qr_code { get; set; }
     }
 }
+

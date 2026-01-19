@@ -1,5 +1,5 @@
-/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2026 Senparc
   
     文件名：RequestMessageFactory.cs
     文件功能描述：获取XDocument转换后的IRequestMessageBase实例
@@ -216,3 +216,4 @@ namespace Senparc.Weixin.Work
         }
     }
 }
+

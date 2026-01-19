@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageAuthorized.cs
     文件功能描述：授权成功通知
@@ -39,3 +39,4 @@ namespace Senparc.Weixin.Open
         public DateTimeOffset AuthorizationCodeExpiredTime { get; set; }
     }
 }
+

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：GetUserLivingRequest.cs
     文件功能描述：获取指定成员的所有直播ID 接口请求参数
@@ -208,3 +208,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Living.LivingJson
         public short is_mic { get; set; }
     }
 }
+

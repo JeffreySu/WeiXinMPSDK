@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageNicknameAudit.cs
     文件功能描述：小程序昵称审核事件
@@ -45,3 +45,4 @@ namespace Senparc.Weixin.Open
         public string reason { get; set; }
     }
 }
+

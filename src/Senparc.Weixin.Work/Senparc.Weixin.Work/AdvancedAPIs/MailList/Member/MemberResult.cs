@@ -1,5 +1,5 @@
-/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2026 Senparc
 
     文件名：MemberResult.cs
     文件功能描述：成员接口返回结果
@@ -228,3 +228,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         public string[] invalidtag { get; set; }
     }
 }
+

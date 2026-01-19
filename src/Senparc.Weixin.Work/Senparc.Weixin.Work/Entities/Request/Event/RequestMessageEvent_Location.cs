@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageEvent_Location.cs
     文件功能描述：事件之上报地理位置事件
@@ -37,3 +37,4 @@ namespace Senparc.Weixin.Work.Entities
         public double Precision { get; set; }
     }
 }
+

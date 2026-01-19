@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：ResponseMessageBase.cs
     文件功能描述：响应回复消息基类
@@ -169,3 +169,4 @@ namespace Senparc.Weixin.Work.Entities
 		}
 	}
 }
+

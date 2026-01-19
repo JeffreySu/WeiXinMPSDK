@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：ChatApi.cs
     文件功能描述：企业号消息接口
@@ -597,3 +597,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
     }
 }
+

@@ -1,5 +1,5 @@
-/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2026 Senparc
     
     文件名：ApprovalCreateTemplateResult.cs
     文件功能描述：创建审批模板返回结果
@@ -24,3 +24,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA.OAJson
         public string template_id { get; set; }
     }
 }
+

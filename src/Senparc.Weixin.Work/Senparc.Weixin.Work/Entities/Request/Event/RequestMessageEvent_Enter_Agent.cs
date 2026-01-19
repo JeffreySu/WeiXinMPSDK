@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageEvent_Enter_Agent.cs
     文件功能描述：事件之用户进入应用的事件推送(enter_agent)
@@ -32,3 +32,4 @@ namespace Senparc.Weixin.Work.Entities
         public string EventKey { get; set; }
     }
 }
+

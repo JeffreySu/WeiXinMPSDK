@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：GetExternalContactInfoBatchResult.cs
     文件功能描述：批量获取客户详情 返回结果
@@ -78,3 +78,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
         public string[] tag_id { get; set; }
     }
 }
+

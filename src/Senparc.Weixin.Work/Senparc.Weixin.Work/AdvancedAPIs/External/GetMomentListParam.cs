@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：GetMomentListParam.cs
     文件功能描述：获取企业全部的发表内容 参数
@@ -200,3 +200,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External
         public short publish_status { get; set; }
     }
 }
+

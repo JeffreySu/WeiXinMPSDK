@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageFastRegisterBetaAppApp.cs
     文件功能描述：创建试用小程序事件推送
@@ -49,3 +49,4 @@ namespace Senparc.Weixin.Open
         public string name { get; set; }
     }
 }
+

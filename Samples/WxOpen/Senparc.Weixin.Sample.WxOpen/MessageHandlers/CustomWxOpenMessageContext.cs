@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：CustomMessageContext.cs
     文件功能描述：微信消息上下文
@@ -49,3 +49,4 @@ namespace Senparc.Weixin.Sample.WxOpen.MessageHandlers
         }
     }
 }
+

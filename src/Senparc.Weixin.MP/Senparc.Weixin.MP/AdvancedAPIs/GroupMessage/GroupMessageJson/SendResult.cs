@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：SendResult.cs
     文件功能描述：群发结果
@@ -53,3 +53,4 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         public string msg_status { get; set; }
     }
 }
+

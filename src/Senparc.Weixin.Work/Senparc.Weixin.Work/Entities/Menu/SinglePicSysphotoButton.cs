@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：SinglePicSysphotoButton.cs
     文件功能描述：调起系统相机按钮
@@ -35,3 +35,4 @@ namespace Senparc.Weixin.Work.Entities.Menu
         }
     }
 }
+

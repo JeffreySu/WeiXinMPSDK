@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -54,6 +54,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20230207
     修改描述：v4.14.15 完善“第三方平台业务域名”，添加枚举：ModifyWxaJumpDomain_Action #2767 #2789
 
+
+    修改标识：mc7246 - 20260119
+    修改描述：修复小程序注销备案缺失参数，添加CancelIcpFiling_Cancel_Type和CancelIcpFiling_Reason_Type枚举 #3243
 ----------------------------------------------------------------*/
 
 

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2025 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2026 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -53,6 +53,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20230207
     修改描述：v4.14.15 完善“第三方平台业务域名”，添加枚举：ModifyWxaJumpDomain_Action #2767 #2789
+
+    修改标识：mc7246 - 20260119
+    修改描述：修复小程序注销备案缺失参数，添加 CancelIcpFiling_Cancel_Type 和 CancelIcpFiling_Reason_Type 枚举 #3243
 
 ----------------------------------------------------------------*/
 
@@ -492,4 +495,24 @@ namespace Senparc.Weixin.Open
         /// </summary>
         get
     }
+
+    /// <summary>
+    /// 注销类型
+    /// </summary>
+    public enum CancelIcpFiling_Cancel_Type
+    {
+        注销主体 = 1,
+        注销小程序 = 2,
+        注销微信小程序 = 3
+    }
+
+    /// <summary>
+    /// 注销原因类型
+    /// </summary>
+    public enum CancelIcpFiling_Reason_Type
+    {
+        不再运营该小程序注销主体 = 1,
+        主体信息发生变更_需注销备案后重新备案 = 2
+    }
 }
+

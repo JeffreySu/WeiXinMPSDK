@@ -125,7 +125,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="reason_type">注销原因：1. 不再运营该小程序；2. 主体信息发生变更，需注销备案后重新备案；</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static ApplyIcpFilingResultJson CancelIcpFiling(string accessToken, int cancel_type, int reason_type, int timeOut = Config.TIME_OUT)
+        public static ApplyIcpFilingResultJson CancelIcpFiling(string accessToken, CancelIcpFiling_Cancel_Type cancel_type, CancelIcpFiling_Reason_Type reason_type, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/icp/cancel_icp_filing?access_token={0}", accessToken.AsUrlData());
 
@@ -311,7 +311,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="reason_type">注销原因：1. 不再运营该小程序；2. 主体信息发生变更，需注销备案后重新备案；</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> CancelIcpFilingAsync(string accessToken, int cancel_type, int reason_type, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> CancelIcpFilingAsync(string accessToken, CancelIcpFiling_Cancel_Type cancel_type, CancelIcpFiling_Reason_Type reason_type, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/icp/cancel_icp_filing?access_token={0}", accessToken.AsUrlData());
 

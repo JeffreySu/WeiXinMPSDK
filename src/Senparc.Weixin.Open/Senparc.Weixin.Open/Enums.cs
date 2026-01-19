@@ -492,4 +492,16 @@ namespace Senparc.Weixin.Open
         /// </summary>
         get
     }
+
+    public enum CancelIcpFiling_Cancel_Type
+    {
+        注销主体 = 1,
+        注销小程序 =2,
+        注销微信小程序 = 3
+    }
+    public enum CancelIcpFiling_Reason_Type
+    {
+        不再运营该小程序注销主体 = 1,
+        主体信息发生变更_需注销备案后重新备案 = 2
+    }
 }

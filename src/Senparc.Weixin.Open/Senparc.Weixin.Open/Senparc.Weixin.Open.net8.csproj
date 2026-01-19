@@ -230,6 +230,7 @@
 		[2024-11-29] v4.21.8 返回值添加参数 is_snapshotuser 和 unionid #3100 感谢 @ccccccmd
 		[2025-04-17] v4.22.0 增加异步版本的 ThirdPartyMessageHandlerAsync 类 #3123 感谢 @xbotter
 		[2025-05-23] v4.22.1 修复开放平台删除模板时提示的“missing parameter priTmplId”错误 （PR #3134） 感谢 @LEIRONGHUA
+		[2026-01-19] v4.23 修复小程序注销备案缺失参数，改用枚举类型 #3243 感谢 @mc7246
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

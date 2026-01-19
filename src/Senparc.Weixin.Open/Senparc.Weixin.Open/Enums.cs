@@ -54,6 +54,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20230207
     修改描述：v4.14.15 完善“第三方平台业务域名”，添加枚举：ModifyWxaJumpDomain_Action #2767 #2789
 
+
+    修改标识：mc7246 - 20260119
+    修改描述：添加注销备案相关枚举类型（CancelIcpFiling_Cancel_Type、CancelIcpFiling_Reason_Type）
 ----------------------------------------------------------------*/
 
 

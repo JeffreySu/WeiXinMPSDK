@@ -1,6 +1,122 @@
-﻿@*
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    // Senparc.Weixin SDK 微信支付 V3 退款测试
+    ViewData["Title"] = "Senparc.Weixin SDK 微信支付 V3 退款测试";
 }
 
+<style>
+    .refund-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .page-title {
+        color: #333;
+        font-weight: 600;
+        margin-bottom: 25px;
+        text-align: center;
+        border-bottom: 2px solid #f0f0f0;
+        padding-bottom: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #555;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+        box-sizing: border-box; /* Ensure padding doesn't affect width */
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 12px;
+        background-color: #07c160; /* WeChat Green */
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .btn-submit:hover {
+        background-color: #06ad56;
+    }
+
+    .btn-back {
+        width: 100%;
+        padding: 12px;
+        background-color: #f8f9fa;
+        color: #333;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 15px;
+    }
+
+    .btn-back:hover {
+        background-color: #e9ecef;
+    }
+
+    .alert-note {
+        margin-top: 25px;
+        padding: 15px;
+        background-color: #e6f7ff;
+        border: 1px solid #bae7ff;
+        border-radius: 6px;
+        color: #0050b3;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+</style>
+
+<div class="refund-container">
+    <h2 class="page-title">@ViewData["Title"]</h2>
+    
+    <form action="/TenPayApiV3/Refund" method="get">
+        <div class="form-group">
+            <label for="billNumber">商户单号</label>
+            <input type="text" class="form-control" id="billNumber" name="billNumber" placeholder="请输入商户单号" required autocomplete="off" />
+        </div>
+        <div class="form-group">
+            <label for="billFee">订单金额（单位：分）</label>
+            <input type="number" class="form-control" id="billFee" name="billFee" placeholder="请输入订单金额" required min="1" />
+        </div>
+        <button type="submit" class="btn-submit">提交退款申请</button>
+        <button type="button" class="btn-back" onclick="history.back()">返回</button>
+    </form>
+    
+    <div class="alert-note" role="alert">
+        <strong>提示：</strong> 只能对当前用户支付的订单发起退款。
+    </div>
+</div>

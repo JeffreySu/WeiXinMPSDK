@@ -528,6 +528,7 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
         /// 退款申请接口
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public async Task<IActionResult> Refund(string billNumber = null, int? billFee = null)
         {
             try

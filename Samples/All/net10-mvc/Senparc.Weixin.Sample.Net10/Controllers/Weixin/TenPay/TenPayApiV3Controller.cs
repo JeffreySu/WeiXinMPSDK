@@ -519,6 +519,11 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
 
         #region 订单及退款
 
+        public async Task<IActionResult> RefundForm()
+        {
+            return View();
+        }
+
         /// <summary>
         /// 退款申请接口
         /// </summary>
@@ -531,14 +536,20 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
 
                 string nonceStr = TenPayV3Util.GetNoncestr();
 
-                string outTradeNo = billNumber ?? HttpContext.Session.GetString("BillNo");
-                if (!TradeNumberToTransactionId.TryGetValue(outTradeNo, out string transactionId))
+                string outTradeNo = String.Empty;
+                string transactionId = String.Empty;
+                if (billNumber == null)
                 {
-                    return Content("transactionId 不正确，可能是服务器还没有收到微信回调确认通知，退款失败。请稍后刷新再试。");
+                    outTradeNo = HttpContext.Session.GetString("BillNo");
+                    if (!TradeNumberToTransactionId.TryGetValue(outTradeNo, out transactionId))
+                    {
+                        return Content("transactionId 不正确，可能是服务器还没有收到微信回调确认通知，退款失败。请稍后刷新再试。");
+                    }
                 }
-
-                if (billNumber != null)
+                else
                 {
+                    outTradeNo = billNumber;
+
                     //验证本人操作
                     var openId = HttpContext.Session.GetString("OpenId");
                     if (openId == null)
@@ -552,6 +563,8 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
                         {
                             return Content("你只能对自己的交易发起退款！");
                         }
+
+                        transactionId = orderResult.transaction_id;
                     }
                 }
 

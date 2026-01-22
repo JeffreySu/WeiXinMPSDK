@@ -298,7 +298,7 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
                 //请求信息
                 TransactionsRequestData jsApiRequestData = new(TenPayV3Info.AppId, TenPayV3Info.MchId, name + " - 微信支付 V3", sp_billno, new TenpayDateTime(DateTime.Now.AddHours(1), false), null, notifyUrl, null, new() { currency = "CNY", total = price }, new(openId), null, null, null);
 
-                    //请求接口
+                //请求接口
                 var basePayApis2 = new TenPayV3.TenPayHttpClient.BasePayApis2(_httpClient, _tenpayV3Setting);
                 var result = await basePayApis2.JsApiAsync(jsApiRequestData);
 
@@ -523,7 +523,7 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
         /// 退款申请接口
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> Refund()
+        public async Task<IActionResult> Refund(string billNumber = null, int? billFee = null)
         {
             try
             {
@@ -531,16 +531,34 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
 
                 string nonceStr = TenPayV3Util.GetNoncestr();
 
-                string outTradeNo = HttpContext.Session.GetString("BillNo");
+                string outTradeNo = billNumber ?? HttpContext.Session.GetString("BillNo");
                 if (!TradeNumberToTransactionId.TryGetValue(outTradeNo, out string transactionId))
                 {
                     return Content("transactionId 不正确，可能是服务器还没有收到微信回调确认通知，退款失败。请稍后刷新再试。");
                 }
 
+                if (billNumber != null)
+                {
+                    //验证本人操作
+                    var openId = HttpContext.Session.GetString("OpenId");
+                    if (openId == null)
+                    {
+                        return Content("请从正规页面进入，并完成身份验证！");
+                    }
+                    else
+                    {
+                        var orderResult = await _basePayApis.OrderQueryByOutTradeNoAsync(new QueryRequestData(TenPayV3Info.MchId, outTradeNo));
+                        if (orderResult.payer.openid != openId)
+                        {
+                            return Content("你只能对自己的交易发起退款！");
+                        }
+                    }
+                }
+
                 WeixinTrace.SendCustomLog("进入退款流程", "2 outTradeNo：" + outTradeNo + ",transactionId：" + transactionId);
 
                 string outRefundNo = "OutRefunNo-" + SystemTime.Now.Ticks;
-                int totalFee = int.Parse(HttpContext.Session.GetString("BillFee"));
+                int totalFee = billFee.HasValue ? billFee.Value : int.Parse(HttpContext.Session.GetString("BillFee"));
                 int refundFee = totalFee;
                 string opUserId = TenPayV3Info.MchId;
                 var notifyUrl = "https://sdk.weixin.senparc.com/TenPayApiV3/RefundNotifyUrl";

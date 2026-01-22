@@ -162,7 +162,7 @@ namespace Senparc.Weixin.MP.Containers
                 catch (Exception ex)
                 {
                     //记录异常但不阻塞调用方
-                    Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog("AccessTokenContainer.Register 异步注册出错", ex.Message);
+                    Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog("MP.AccessTokenContainer.Register 异步注册出错", ex.Message);
                 }
             });
         }

@@ -80,9 +80,8 @@ namespace Senparc.Weixin.RegisterServices
                 services = services.AddSenparcGlobalServices(configuration);//自动注册 SenparcGlobalServices
             }
 
-            //【性能优化】延迟注册 HttpClient，避免在启动时构建 ServiceProvider
-            //将证书加载推迟到第一次 HTTP 请求时，避免阻塞启动流程
-            //注意：如果用户提供了自定义的 addCertHttpClient，仍然会立即执行
+            //【性能优化】直接从 IConfiguration 读取配置，避免构建 ServiceProvider
+            //这样可以避免阻塞主线程，提升启动性能
             if (addCertHttpClient != null)
             {
                 //用户提供了自定义证书加载逻辑，立即执行
@@ -90,30 +89,24 @@ namespace Senparc.Weixin.RegisterServices
             }
             else
             {
-                //延迟加载：通过后台任务异步注册证书 HttpClient
-                //这样可以避免阻塞主线程，提升启动性能
-                _ = Task.Run(() =>
+                //直接从 Configuration 读取设置，不需要构建 ServiceProvider
+                var weixinSettingSection = configuration.GetSection("SenparcWeixinSetting");
+                var tenPayV3Section = weixinSettingSection.GetSection("TenpayV3Setting");
+                
+                //检查是否配置了 TenPay 证书
+                var certPath = tenPayV3Section["TenPayV3_CertPath"];
+                if (!string.IsNullOrEmpty(certPath))
                 {
-                    try
-                    {
-                        //延迟构建 ServiceProvider，避免在注册阶段阻塞
-                        using (var scope = services.BuildServiceProvider().CreateScope())
-                        {
-                            var tenPayV3Setting = scope.ServiceProvider.GetService<IOptions<SenparcWeixinSetting>>()?.Value?.TenpayV3Setting;
-                            
-                            if (tenPayV3Setting != null)
-                            {
-                                var key = TenPayHelper.GetRegisterKey(tenPayV3Setting);
-                                services.AddCertHttpClient(key, tenPayV3Setting.TenPayV3_CertSecret, tenPayV3Setting.TenPayV3_CertPath);
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        //记录异常但不阻塞启动
-                        Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog("AddSenparcWeixin 延迟注册证书 HttpClient 出错", ex.Message);
-                    }
-                });
+                    var certSecret = tenPayV3Section["TenPayV3_CertSecret"];
+                    var mchId = tenPayV3Section["TenPayV3_MchId"];
+                    var subMchId = tenPayV3Section["TenPayV3_SubMchId"];
+                    
+                    // 生成 key（与 TenPayHelper.GetRegisterKey 逻辑一致）
+                    var key = TenPayHelper.GetRegisterKey(mchId, subMchId);
+                    
+                    //注册证书 HttpClient
+                    services.AddCertHttpClient(key, certSecret, certPath);
+                }
             }
 
             return services;

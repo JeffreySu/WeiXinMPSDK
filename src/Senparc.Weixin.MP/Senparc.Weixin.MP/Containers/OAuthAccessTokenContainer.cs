@@ -134,8 +134,20 @@ namespace Senparc.Weixin.MP.Containers
         [Obsolete("请使用 RegisterAsync() 方法")]
         public static void Register(string appId, string appSecret, string code, string name = null)
         {
-            var task = RegisterAsync(appId, appSecret, name);
-            Task.WaitAll(new[] { task }, 10000);
+            //使用后台任务执行注册，避免阻塞主线程导致性能问题
+            //注册过程本身不会立即获取Ticket，只是设置注册信息
+            _ = Task.Run(async () => 
+            {
+                try
+                {
+                    await RegisterAsync(appId, appSecret, name).ConfigureAwait(false);
+                }
+                catch (Exception ex)
+                {
+                    //记录异常但不阻塞调用方
+                    Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog("MP.OAuthAccessTokenContainer.Register 异步注册出错", ex.Message);
+                }
+            });
         }
 
         /// <summary>

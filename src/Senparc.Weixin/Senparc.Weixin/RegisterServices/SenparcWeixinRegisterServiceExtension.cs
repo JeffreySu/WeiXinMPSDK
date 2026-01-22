@@ -51,6 +51,7 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 #endif
 
 namespace Senparc.Weixin.RegisterServices
@@ -79,19 +80,33 @@ namespace Senparc.Weixin.RegisterServices
                 services = services.AddSenparcGlobalServices(configuration);//自动注册 SenparcGlobalServices
             }
 
-            //注册 HttpClient
-            using (var scope = services.BuildServiceProvider().CreateScope())
+            //【性能优化】直接从 IConfiguration 读取配置，避免构建 ServiceProvider
+            //这样可以避免阻塞主线程，提升启动性能
+            if (addCertHttpClient != null)
             {
-                //var serviceProvider = serviceCollection.BuildServiceProvider();
-                var tenPayV3Setting = scope.ServiceProvider.GetService<IOptions<SenparcWeixinSetting>>().Value.TenpayV3Setting;
-
-                var key = TenPayHelper.GetRegisterKey(tenPayV3Setting);
-
-                //执行 Http 证书添加，如果为空则执行默认操作
-                (addCertHttpClient ?? (() =>
+                //用户提供了自定义证书加载逻辑，立即执行
+                addCertHttpClient();
+            }
+            else
+            {
+                //直接从 Configuration 读取设置，不需要构建 ServiceProvider
+                var weixinSettingSection = configuration.GetSection("SenparcWeixinSetting");
+                var tenPayV3Section = weixinSettingSection.GetSection("TenpayV3Setting");
+                
+                //检查是否配置了 TenPay 证书
+                var certPath = tenPayV3Section["TenPayV3_CertPath"];
+                if (!string.IsNullOrEmpty(certPath))
                 {
-                    services.AddCertHttpClient(key, tenPayV3Setting.TenPayV3_CertSecret, tenPayV3Setting.TenPayV3_CertPath);
-                }))();
+                    var certSecret = tenPayV3Section["TenPayV3_CertSecret"];
+                    var mchId = tenPayV3Section["TenPayV3_MchId"];
+                    var subMchId = tenPayV3Section["TenPayV3_SubMchId"];
+                    
+                    // 生成 key（与 TenPayHelper.GetRegisterKey 逻辑一致）
+                    var key = TenPayHelper.GetRegisterKey(mchId, subMchId);
+                    
+                    //注册证书 HttpClient
+                    services.AddCertHttpClient(key, certSecret, certPath);
+                }
             }
 
             return services;

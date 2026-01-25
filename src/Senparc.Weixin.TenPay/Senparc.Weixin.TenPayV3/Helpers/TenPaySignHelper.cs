@@ -65,7 +65,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <para>https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/wechatpay4_0.shtml</para>
         /// </summary>
         /// <param name="message">签名串</param>
-        /// <param name="privateKey">签名私钥 可为空</param>
+        /// <param name="privateKey">签名私钥，如果为空，则从 <code>Senparc.Weixin.Config.SenparcWeixinSetting.TenPayV3_PrivateKey</code> 中获取</param>
         /// <returns></returns>
         public static string CreateSign(CertType certType, string message, string privateKey = null)
         {
@@ -116,6 +116,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="package">格式：prepay_id={0}</param>
         /// <param name="senparcWeixinSettingForTenpayV3">可为空 为空将从Senparc.Weixin.Config获取</param>
         /// <returns></returns>
+        [Obsolete("推荐使用带 TenPayV3Info 参数的 CreatePaySign() 方法，可以使用 new TenPayV3Info(senparcWeixinSettingForTenpayV3) 构建 TenPayV3Info 对象。", true)]
         public static string CreatePaySign(string timeStamp, string nonceStr, string package, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
         {
 
@@ -268,7 +269,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         [Obsolete("v2.3.3 起该方法已过时，请使用 GetJsApiUiPackage(string prepayId, TenPayV3Info tenPayV3Info) 方法。")]
         public static JsApiUiPackage GetJsApiUiPackage(string appId, string prepayId, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
         {
-           return GetJsApiUiPackage(prepayId, new TenPayV3Info(senparcWeixinSettingForTenpayV3));
+            return GetJsApiUiPackage(prepayId, new TenPayV3Info(senparcWeixinSettingForTenpayV3));
         }
 
         /// <summary>

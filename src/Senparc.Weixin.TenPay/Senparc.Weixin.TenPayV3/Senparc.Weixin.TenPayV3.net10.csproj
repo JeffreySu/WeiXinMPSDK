@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>2.3.3-preview.1</Version>
+    <Version>2.3.4.1-preview</Version>
     <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
     <LangVersion>10.0</LangVersion>
@@ -71,7 +71,7 @@
 		2、fix: TenPayNotifyHandler Body 读取 bug  / Issue #3220 感谢 @wind2006
 		3、feat: 添加“企业微信数据与智能专区的接口” /Issue #3091 感谢 @faceman0814
 		[2026-01-18] v2.3.3-preview.1 fix: TenPaySignHelper.GetJsApiUiPackage 验签appId 传入无效,导致调起支付验签失败 #3244 感谢 @ByteXiong
-	</PackageReleaseNotes>
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

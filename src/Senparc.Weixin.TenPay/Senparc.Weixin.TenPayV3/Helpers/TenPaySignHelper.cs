@@ -275,8 +275,8 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <summary>
         /// 获取给 JsApi UI 使用的打包签名信息
         /// </summary>
-        /// <param name="appId"></param>
-        /// <param name="prepayId"></param>
+        /// <param name="prepayId">预支付交易会话标识。</param>
+        /// <param name="tenPayV3Info">微信支付 V3 配置信息。</param>
         /// <returns></returns>
         public static JsApiUiPackage GetJsApiUiPackage(string prepayId, TenPayV3Info tenPayV3Info)
         {

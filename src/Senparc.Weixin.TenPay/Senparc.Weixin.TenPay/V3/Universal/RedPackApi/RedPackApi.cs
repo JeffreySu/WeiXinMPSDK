@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2025 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2026 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
   
     文件名：RedPackApi.cs
     文件功能描述：普通红包发送和红包查询Api（暂缺裂变红包发送）
@@ -967,3 +967,4 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
 
     }
 }
+

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：SetAppPostData.cs
     文件功能描述：设置企业号应用需要Post的数据
@@ -61,3 +61,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.App
         public string home_url { get; set; }
     }
 }
+

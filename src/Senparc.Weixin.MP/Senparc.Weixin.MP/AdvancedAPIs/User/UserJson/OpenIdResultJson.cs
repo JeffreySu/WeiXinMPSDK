@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
 
     文件名：OpenIdResultJson.cs
     文件功能描述：获取关注者OpenId信息返回结果
@@ -44,3 +44,4 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
         public List<string> openid { get; set; }
     }
 }
+

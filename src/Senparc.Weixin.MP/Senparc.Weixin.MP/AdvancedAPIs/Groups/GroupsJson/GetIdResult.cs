@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：GetIdResult.cs
     文件功能描述：获取用户分组ID返回结果
@@ -23,3 +23,4 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Groups
         public int groupid { get; set; }
     }
 }
+

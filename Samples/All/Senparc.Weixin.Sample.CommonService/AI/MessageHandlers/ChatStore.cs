@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：ChatStore.cs
     文件功能描述：按个人信息隔离的 Chat 缓存
@@ -146,3 +146,4 @@ namespace Senparc.Weixin.MP.Sample.CommonService.AI.MessageHandlers
     }
     
 }
+

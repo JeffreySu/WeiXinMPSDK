@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：ButtonGroup.cs
     文件功能描述：整个按钮设置（可以直接用ButtonGroup实例返回JSON对象）
@@ -31,3 +31,4 @@ namespace Senparc.Weixin.Work.Entities.Menu
         }
     }
 }
+

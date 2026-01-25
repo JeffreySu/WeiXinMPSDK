@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：IcpApi.cs
     文件功能描述：第三方服务商小程序备案 接口
@@ -9,6 +9,9 @@
 
     修改标识：Senparc - 20230805
     修改描述：v4.15.0 完善“第三方服务商小程序备案”接口
+
+    修改标识：mc7246 - 20260119
+    修改描述：修复小程序注销备案缺失参数，添加 reason_type 参数，修改 cancel_type 为枚举类型 #3243
 
 ----------------------------------------------------------------*/
 
@@ -122,15 +125,17 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="cancel_type">注销类型：1 -- 注销主体, 2 -- 注销小程序, 3 -- 注销微信小程序</param>
+        /// <param name="reason_type">注销原因：1. 不再运营该小程序；2. 主体信息发生变更，需注销备案后重新备案；</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static ApplyIcpFilingResultJson CancelIcpFiling(string accessToken, int cancel_type,int timeOut = Config.TIME_OUT)
+        public static ApplyIcpFilingResultJson CancelIcpFiling(string accessToken, CancelIcpFiling_Cancel_Type cancel_type, CancelIcpFiling_Reason_Type reason_type, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/icp/cancel_icp_filing?access_token={0}", accessToken.AsUrlData());
 
             var postData = new
             {
-                cancel_type
+                cancel_type = (int)cancel_type,
+                reason_type = (int)reason_type
             };
             return CommonJsonSend.Send<ApplyIcpFilingResultJson>(null, url, postData, CommonJsonSendType.POST, timeOut);
         }
@@ -306,15 +311,17 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="cancel_type">注销类型：1 -- 注销主体, 2 -- 注销小程序, 3 -- 注销微信小程序</param>
+        /// <param name="reason_type">注销原因：1. 不再运营该小程序；2. 主体信息发生变更，需注销备案后重新备案；</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> CancelIcpFilingAsync(string accessToken, int cancel_type, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> CancelIcpFilingAsync(string accessToken, CancelIcpFiling_Cancel_Type cancel_type, CancelIcpFiling_Reason_Type reason_type, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/icp/cancel_icp_filing?access_token={0}", accessToken.AsUrlData());
 
             var postData = new
             {
-                cancel_type
+                cancel_type,
+                reason_type
             };
             return await CommonJsonSend.SendAsync<ApplyIcpFilingResultJson>(null, url, postData, CommonJsonSendType.POST, timeOut);
         }
@@ -406,3 +413,4 @@ namespace Senparc.Weixin.Open.WxaAPIs
         #endregion
     }
 }
+

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：TenpayApiV3Controller.cs
     文件功能描述：微信支付V3 Controller
@@ -735,3 +735,4 @@ namespace Senparc.Weixin.Sample.TenPayV3.Controllers
         #endregion
     }
 }
+

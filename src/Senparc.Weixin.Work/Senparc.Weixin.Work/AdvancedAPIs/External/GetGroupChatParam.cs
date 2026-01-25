@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：GetGroupChatParam.cs
     文件功能描述：获取「群聊数据统计」数据 按群主聚合的方式 接口请求参数
@@ -136,3 +136,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External
     }
 
 }
+

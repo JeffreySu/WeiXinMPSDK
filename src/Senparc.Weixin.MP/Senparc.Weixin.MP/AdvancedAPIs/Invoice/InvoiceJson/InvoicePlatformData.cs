@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：InvoicePlatformData.cs
     文件功能描述：开票平台接口post数据
@@ -282,3 +282,4 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public string encrypt_code { get; set; }
     }
 }
+

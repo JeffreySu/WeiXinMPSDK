@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：MediaController.cs
     文件功能描述：根据mediaId获取语音
@@ -72,3 +72,4 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
         }
     }
 }
+

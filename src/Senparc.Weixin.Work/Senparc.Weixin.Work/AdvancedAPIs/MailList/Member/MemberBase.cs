@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：MemberBase.cs
     文件功能描述：成员信息基础类
@@ -155,3 +155,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList.Member
     }
 
 }
+

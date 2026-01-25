@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
 
     文件名：MemcachedContainerStrategy.cs
     文件功能描述：Memcached 容器缓存策略。
@@ -127,3 +127,4 @@ namespace Senparc.Weixin.Cache.Memcached
 
     }
 }
+

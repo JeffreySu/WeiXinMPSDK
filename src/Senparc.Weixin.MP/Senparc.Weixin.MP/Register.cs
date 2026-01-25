@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
 
     文件名：Register.cs
     文件功能描述：Senparc.Weixin.MP 快捷注册流程
@@ -241,3 +241,4 @@ namespace Senparc.Weixin.MP
 
     }
 }
+

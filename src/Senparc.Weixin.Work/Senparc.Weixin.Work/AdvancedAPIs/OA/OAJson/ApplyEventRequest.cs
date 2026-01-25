@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：ApplyEventRequest.cs
     文件功能描述：提交审批申请 请求参数
@@ -500,3 +500,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA.OAJson
         public List<ApplyEventRequest_TextLang> summary_info { get; set; }
     }
 }
+

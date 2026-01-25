@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageEvent_XPay_Refund_Notify.cs
     文件功能描述：小程序虚拟支付 - 退款推送
@@ -79,3 +79,4 @@ namespace Senparc.Weixin.WxOpen.Entities
         public int RetryTimes { get; set; }
     }
 }
+

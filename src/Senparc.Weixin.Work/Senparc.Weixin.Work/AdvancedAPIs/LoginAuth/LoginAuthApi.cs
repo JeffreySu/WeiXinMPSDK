@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
 
     文件名：LoginAuthApi.cs
     文件功能描述：企业号登录授权接口
@@ -95,3 +95,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
     }
 }
+

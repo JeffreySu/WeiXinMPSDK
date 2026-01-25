@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：KFResult.cs
     文件功能描述：客服返回结果
@@ -27,3 +27,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.KF
         public int[] tag { get; set; }
     }
 }
+

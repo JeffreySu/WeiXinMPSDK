@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：OAuthJoinAPI.cs
     文件功能描述：公众号授权给第三方平台
@@ -1263,3 +1263,4 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         #endregion
     }
 }
+

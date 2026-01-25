@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessage3rdWxaAuth.cs
     文件功能描述：小程序订单页设置审核结果通知
@@ -60,3 +60,4 @@ namespace Senparc.Weixin.Open
         public string reason { get; set; }
     }
 }
+

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageLocation.cs
     文件功能描述：接收普通地理位置消息
@@ -35,3 +35,4 @@ namespace Senparc.Weixin.Work.Entities
         public string Label { get; set; }
     }
 }
+

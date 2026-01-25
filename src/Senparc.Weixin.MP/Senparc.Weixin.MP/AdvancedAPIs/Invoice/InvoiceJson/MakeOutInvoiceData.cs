@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：MakeOutInvoiceData.cs
     文件功能描述：统一开票post数据
@@ -205,3 +205,4 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public string out_title_id { get; set; }
     }
 }
+

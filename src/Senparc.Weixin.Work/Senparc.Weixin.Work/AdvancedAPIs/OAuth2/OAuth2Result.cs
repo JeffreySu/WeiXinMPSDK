@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：OAuth2Result.cs
     文件功能描述：获取成员信息返回结果
@@ -148,3 +148,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OAuth2
         public string avatar { get; set; }
     }
 }
+

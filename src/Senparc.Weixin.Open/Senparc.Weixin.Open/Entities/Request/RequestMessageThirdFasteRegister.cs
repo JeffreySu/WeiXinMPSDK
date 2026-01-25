@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageThirdFasteRegister.cs
     文件功能描述：注册审核事件推送
@@ -60,3 +60,4 @@ namespace Senparc.Weixin.Open
         public ThirdFasteRegisterInfo info {get;set;}
     }
 }
+

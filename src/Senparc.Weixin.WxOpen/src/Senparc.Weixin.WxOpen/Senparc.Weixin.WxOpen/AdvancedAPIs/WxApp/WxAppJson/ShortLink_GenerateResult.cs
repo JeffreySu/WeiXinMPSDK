@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：Short ShortLink_GenerateResult.cs
     文件功能描述：Short Link 生成结果
@@ -25,3 +25,4 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         public string link { get; set; }
     }
 }
+

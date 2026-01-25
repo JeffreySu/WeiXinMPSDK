@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：QRConnectUserInfo.cs
     文件功能描述：获取用户信息
@@ -66,3 +66,4 @@ namespace Senparc.Weixin.Open.QRConnect
         public string unionid { get; set; }
     }
 }
+

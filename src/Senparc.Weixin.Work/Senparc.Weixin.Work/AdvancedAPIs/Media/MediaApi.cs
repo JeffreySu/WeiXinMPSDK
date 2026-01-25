@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：MediaApi.cs
     文件功能描述：多媒体文件接口
@@ -600,3 +600,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
     }
 }
+

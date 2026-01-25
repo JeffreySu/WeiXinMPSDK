@@ -32,7 +32,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20210829
     修改描述：添加 V3 中新增加的属性
 
-    修改标识：Senparc - 20260119
+    修改标识：Senparc - 20260118
     修改描述：V3 中新增加 CertType 属性
 
 ----------------------------------------------------------------*/

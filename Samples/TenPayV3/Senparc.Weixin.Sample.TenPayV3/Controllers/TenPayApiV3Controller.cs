@@ -298,7 +298,7 @@ namespace Senparc.Weixin.Sample.TenPayV3.Controllers
                 }
 
                 //获取 UI 信息包
-                var jsApiUiPackage = TenPaySignHelper.GetJsApiUiPackage(TenPayV3Info.AppId, result.prepay_id, _tenpayV3Setting);
+                var jsApiUiPackage = TenPaySignHelper.GetJsApiUiPackage(result.prepay_id, TenPayV3Info);
                 ViewData["jsApiUiPackage"] = jsApiUiPackage;
 
                 //临时记录订单信息，留给退款申请接口测试使用（分布式情况下请注意数据同步）

@@ -560,7 +560,7 @@ sessionKey: {(await SessionContainer.CheckRegisteredAsync(sessionId)
 
                 var packageStr = "prepay_id=" + result.prepay_id;
 
-                var jsApiUiPackage = TenPaySignHelper.GetJsApiUiPackage(WxOpenAppId, result.prepay_id, weixinSetting);
+                var jsApiUiPackage = TenPaySignHelper.GetJsApiUiPackage(result.prepay_id, new TenPayV3Info(weixinSetting));
 
                 return Json(new
                 {

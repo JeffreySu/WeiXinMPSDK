@@ -263,12 +263,15 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <summary>
         /// 获取给 JsApi UI 使用的打包签名信息
         /// </summary>
-        /// <param name="appId"></param>
-        /// <param name="prepayId"></param>
+        /// <param name="appId">【注意】此参数已被忽略，实际使用的 AppId 来自 senparcWeixinSettingForTenpayV3.TenPayV3_AppId。请使用新方法 GetJsApiUiPackage(string prepayId, TenPayV3Info tenPayV3Info)。</param>
+        /// <param name="prepayId">预支付交易会话标识</param>
+        /// <param name="senparcWeixinSettingForTenpayV3">微信支付配置信息</param>
         /// <returns></returns>
-        [Obsolete("v2.3.3 起该方法已过时，请使用 GetJsApiUiPackage(string prepayId, TenPayV3Info tenPayV3Info) 方法。")]
+        [Obsolete("v2.3.3 起该方法已过时，请使用 GetJsApiUiPackage(string prepayId, TenPayV3Info tenPayV3Info) 方法。注意：appId 参数已被忽略，实际使用的是 senparcWeixinSettingForTenpayV3 中的 AppId。")]
         public static JsApiUiPackage GetJsApiUiPackage(string appId, string prepayId, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
         {
+            // 注意：appId 参数在此方法中被忽略，实际使用的是从 senparcWeixinSettingForTenpayV3 创建的 TenPayV3Info 中的 AppId
+            // 这是为了确保签名使用正确的配置信息
             return GetJsApiUiPackage(prepayId, new TenPayV3Info(senparcWeixinSettingForTenpayV3));
         }
 

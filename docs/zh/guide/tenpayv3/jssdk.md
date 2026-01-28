@@ -121,7 +121,7 @@ public ActionResult JsApi(int productId, int hc)
         }
 
         //获取 UI 信息包
-        var jsApiUiPackage = TenPaySignHelper.GetJsApiUiPackage(TenPayV3Info.AppId, result.prepay_id);
+        var jsApiUiPackage = TenPaySignHelper.GetJsApiUiPackage(result.prepay_id, TenPayV3Info);
         ViewData["jsApiUiPackage"] = jsApiUiPackage;
 
         //其他逻辑

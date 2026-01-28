@@ -16,10 +16,11 @@ namespace Senparc.Weixin.TenPayV3
 
         /// <summary>
         /// 注册微信支付TenpayV3
+        /// <para>多商户配置示例请参考：/Samples/TenPayV3/多商户配置示例-MultiMerchantExample.md</para>
         /// </summary>
         /// <param name="registerService">RegisterService</param>
-        /// <param name="tenPayV3Info">微信支付（新版本 V3）参数</param>
-        /// <param name="name">公众号唯一标识名称</param>
+        /// <param name="tenPayV3Info">微信支付（新版本 V3）参数，使用 Func 可实现动态配置</param>
+        /// <param name="name">商户唯一标识名称，用于多商户场景区分不同商户</param>
         /// <returns></returns>
         public static IRegisterService RegisterTenpayApiV3(this IRegisterService registerService, Func<TenPayV3Info> tenPayV3Info, string name)
         {
@@ -29,6 +30,7 @@ namespace Senparc.Weixin.TenPayV3
 
         /// <summary>
         /// 根据 SenparcWeixinSetting 自动注册微信支付Tenpay（注意：新注册账号请使用RegisterTenpayV3！
+        /// <para>多商户配置示例请参考：/Samples/TenPayV3/多商户配置示例-MultiMerchantExample.md</para>
         /// </summary>
         /// <param name="registerService">RegisterService</param>
         /// <param name="weixinSettingForTenpayV3">ISenparcWeixinSetting</param>

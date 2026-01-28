@@ -57,19 +57,22 @@ namespace Senparc.Weixin.TenPayV3
 {
     /// <summary>
     /// 微信支付信息集合，Key为商户号（MchId）
+    /// <para>多商户配置说明请参考：/Samples/TenPayV3/多商户配置示例-MultiMerchantExample.md</para>
     /// </summary>
     public class TenPayV3InfoCollection : Dictionary<string, TenPayV3Info>
     {
         /// <summary>
         /// 微信支付信息集合，Key为商户号（MchId）
+        /// <para>获取示例：TenPayV3InfoCollection.Data[TenPayHelper.GetRegisterKey(mchId, subMchId)]</para>
         /// </summary>
         public static TenPayV3InfoCollection Data = new TenPayV3InfoCollection();
 
         /// <summary>
         /// 注册TenPayV3Info信息
+        /// <para>多商户注册示例请参考：/Samples/TenPayV3/多商户配置示例-MultiMerchantExample.md</para>
         /// </summary>
-        /// <param name="tenPayV3Info"></param>
-        /// <param name="name">公众号唯一标识（或名称）</param>
+        /// <param name="tenPayV3Info">商户信息</param>
+        /// <param name="name">商户唯一标识（或名称），用于在 Config.SenparcWeixinSetting.Items 中存储配置</param>
         public static void Register(TenPayV3Info tenPayV3Info, string name)
         {
             var key = TenPayHelper.GetRegisterKey(tenPayV3Info.MchId, tenPayV3Info.Sub_MchId);

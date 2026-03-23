@@ -131,7 +131,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 grant_type= "client_credential",
                 appid= appid,
                 secret= secret,
-                force_refresh= false
+                force_refresh= force_refresh
             };
             AccessTokenResult result = CommonJsonSend.Send<AccessTokenResult>(null, url, data, CommonJsonSendType.POST);
             if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode.请求成功)
@@ -281,7 +281,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 grant_type= "client_credential",
                 appid= appid,
                 secret= secret,
-                force_refresh= false
+                force_refresh= force_refresh
             };
 
             AccessTokenResult result = await CommonJsonSend.SendAsync<AccessTokenResult>(null, url, data, CommonJsonSendType.POST);

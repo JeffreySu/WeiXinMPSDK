@@ -60,6 +60,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：dupeng0811 - 20230520
     修改描述：v16.18.11 新增“获取稳定版接口调用凭据”接口
 
+    修改标识：dupeng0811 - 20260323
+    修改描述：v16.24.2 修复 GetStableAccessToken 方法中 force_refresh 参数硬编码问题
+
 ----------------------------------------------------------------*/
 
 /*

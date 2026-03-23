@@ -60,6 +60,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：dupeng0811 - 20230520
     修改描述：v16.18.11 新增“获取稳定版接口调用凭据”接口
 
+    修改标识：dupeng0811 - 20260323
+    修改描述：v16.24.2 修复 GetStableAccessToken 方法中 force_refresh 参数硬编码问题
+
 ----------------------------------------------------------------*/
 
 /*
@@ -131,7 +134,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 grant_type= "client_credential",
                 appid= appid,
                 secret= secret,
-                force_refresh= false
+                force_refresh= force_refresh
             };
             AccessTokenResult result = CommonJsonSend.Send<AccessTokenResult>(null, url, data, CommonJsonSendType.POST);
             if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode.请求成功)
@@ -281,7 +284,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 grant_type= "client_credential",
                 appid= appid,
                 secret= secret,
-                force_refresh= false
+                force_refresh= force_refresh
             };
 
             AccessTokenResult result = await CommonJsonSend.SendAsync<AccessTokenResult>(null, url, data, CommonJsonSendType.POST);

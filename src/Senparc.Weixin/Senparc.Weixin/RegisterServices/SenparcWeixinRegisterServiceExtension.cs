@@ -208,7 +208,26 @@ namespace Senparc.Weixin.RegisterServices
                     {
                         try
                         {
-                            var cert = new X509Certificate2(certPath, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+                            // .NET 9.0 兼容性改进：使用更灵活的证书加载标志
+                            // MachineKeySet 在某些平台上可能失败，添加 Exportable 标志以提高兼容性
+                            X509KeyStorageFlags storageFlags;
+                            
+                            #if NET9_0_OR_GREATER
+                            // .NET 9.0+: 使用更兼容的标志组合
+                            // Exportable 允许私钥导出，提高跨平台兼容性
+                            // DefaultKeySet 让系统选择合适的密钥存储位置
+                            storageFlags = X509KeyStorageFlags.Exportable | X509KeyStorageFlags.PersistKeySet;
+                            if (System.OperatingSystem.IsWindows())
+                            {
+                                // 仅在 Windows 上使用 MachineKeySet
+                                storageFlags |= X509KeyStorageFlags.MachineKeySet;
+                            }
+                            #else
+                            // 旧版本 .NET: 保持原有行为
+                            storageFlags = X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet;
+                            #endif
+                            
+                            var cert = new X509Certificate2(certPath, certPassword, storageFlags);
                             var checkValidationResult = false;
                             //serviceCollection.AddHttpClient<SenparcHttpClient>(certName)
                             services.AddHttpClient(certName)
@@ -217,6 +236,15 @@ namespace Senparc.Weixin.RegisterServices
                                         var httpClientHandler = HttpClientHelper.GetHttpClientHandler(null, RequestUtility.SenparcHttpClientWebProxy, System.Net.DecompressionMethods.None);
 
                                         httpClientHandler.ClientCertificates.Add(cert);
+
+                                        #if NET9_0_OR_GREATER
+                                        // .NET 9.0+ 兼容性改进：
+                                        // 1. 显式支持 TLS 1.2 和 TLS 1.3
+                                        httpClientHandler.SslProtocols = System.Security.Authentication.SslProtocols.Tls12 | System.Security.Authentication.SslProtocols.Tls13;
+                                        
+                                        // 2. 确保证书选择回调正确处理客户端证书
+                                        httpClientHandler.ClientCertificateOptions = System.Net.Http.ClientCertificateOption.Manual;
+                                        #endif
 
                                         if (checkValidationResult)
                                         {
@@ -229,7 +257,24 @@ namespace Senparc.Weixin.RegisterServices
                         }
                         catch (Exception ex)
                         {
-                            Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"添加微信支付证书发生异常", $"certName:{certName},certPath:{certPath}");
+                            var errorDetails = $"certName:{certName},certPath:{certPath}";
+                            #if NET9_0_OR_GREATER
+                            // .NET 9.0+ 提供更详细的错误信息
+                            errorDetails += $",OS:{System.Runtime.InteropServices.RuntimeInformation.OSDescription}";
+                            if (ex is System.Security.Cryptography.CryptographicException cryptoEx)
+                            {
+                                errorDetails += $",CryptoError:{cryptoEx.Message}";
+                                Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog(
+                                    $"添加微信支付证书发生加密异常 (.NET 9.0+)", 
+                                    $"{errorDetails}。提示：.NET 9.0 对证书要求更严格，请确保：1) 证书文件格式正确(.p12/.pfx)，2) 证书密码正确，3) 证书具有私钥，4) 在非 Windows 系统上证书权限正确。");
+                            }
+                            else
+                            {
+                                Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"添加微信支付证书发生异常 (.NET 9.0+)", errorDetails);
+                            }
+                            #else
+                            Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"添加微信支付证书发生异常", errorDetails);
+                            #endif
                             Senparc.CO2NET.Trace.SenparcTrace.BaseExceptionLog(ex);
                         }
                     }

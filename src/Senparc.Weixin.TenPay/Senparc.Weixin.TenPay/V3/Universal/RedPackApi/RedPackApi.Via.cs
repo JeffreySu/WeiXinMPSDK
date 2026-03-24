@@ -151,7 +151,7 @@ namespace Senparc.Weixin.TenPay.V3
             string password = mchId;
 
             //调用证书
-            X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+            X509Certificate2 cer = LoadCertificate(cert, password);
 
             XmlDocument doc = new Senparc.CO2NET.ExtensionEntities.XmlDocument_XxeFixed();
             #region 发起post请求，载入到doc中

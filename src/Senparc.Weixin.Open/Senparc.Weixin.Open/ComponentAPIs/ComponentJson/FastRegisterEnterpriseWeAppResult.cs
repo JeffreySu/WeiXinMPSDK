@@ -21,11 +21,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
 
-    文件名：FastRegisterPersonalWeAppResult.cs
-    文件功能描述：创建个人主体小程序接口返回结果
+    文件名：FastRegisterEnterpriseWeAppResult.cs
+    文件功能描述：快速注册企业小程序返回结果
 
 
-    创建标识： mc7246 - 20211107
+    创建标识： mc7246 - 20260328
 
 ----------------------------------------------------------------*/
 
@@ -35,25 +35,24 @@ using System;
 namespace Senparc.Weixin.Open.ComponentAPIs
 {
     /// <summary>
-    /// 创建个人主体小程序接口返回结果
+    /// 快速注册企业小程序返回结果
     /// </summary>
     [Serializable]
-    public class FastRegisterPersonalWeAppResult : WxJsonResult
+    public class FastRegisterEnterpriseWeAppResult : WxJsonResult
     {
         /// <summary>
-        /// 任务id，后面query查询需要用到
+        /// 任务ID
         /// </summary>
         public string taskid { get; set; }
 
         /// <summary>
-        /// 给用户扫码认证的验证url
+        /// 授权验证url
         /// </summary>
         public string authorize_url { get; set; }
 
         /// <summary>
-        /// 任务的状态 0成功
+        /// 任务状态
         /// </summary>
         public FastRegisterWeApp_Status status { get; set; }
     }
 }
-

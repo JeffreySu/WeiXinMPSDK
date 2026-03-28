@@ -318,6 +318,79 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             return result;
         }
 
+
+        /// <summary>
+        /// 快速注册企业小程序
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="entName">企业名（需与工商部门登记信息一致）；如果是“无主体名称个体工商户”则填“个体户+法人姓名”，例如“个体户张三”</param>
+        /// <param name="legalPersonaOpenId">new_version为false时必填，为true时可不填</param>
+        /// <param name="legalPersonaName">new_version为false时必填，为true时可不填</param>
+        /// <param name="action">create：创建任务。query: 查询注册任务的状态</param>
+        /// <param name="entCode">企业代码，只支持统一社会信用代码</param>
+        /// <param name="codeType">new_version为false时必填，为true时可不填</param>
+        /// <param name="componentPhone">第三方联系电话</param>
+        /// <param name="taskId">任务ID，查询时需传入</param>
+        /// <param name="newVersion">接口新旧版本标识，使用该新接口必须填true，不填则为false</param>
+        /// <param name="newVersion"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static FastRegisterEnterpriseWeAppResult FastRegisterEnterpriseWeApp(string componentAccessToken, string entName, string legalPersonaOpenId, string legalPersonaName, string action = "create", string entCode = "", CodeType codeType = CodeType.统一社会信用代码, string componentPhone = "", string taskId="", bool newVersion = false, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(
+                Config.ApiMpHost + "/wxa/component/fastregisterenterpriseweapp?action={0}&access_token={1}",
+                action.AsUrlData(),
+                componentAccessToken.AsUrlData());
+
+            //var data;
+            object data;
+            if (action == "create")
+            {
+                if (newVersion)
+                {
+                    data = new
+                    {
+                        name = entName,
+                        code = entCode,
+                        component_phone = componentPhone,
+                        new_version = newVersion
+                    };
+                }
+                else
+                {
+                    data = new
+                    {
+                        name = entName,
+                        code = entCode,
+                        code_type = codeType,
+                        legal_persona_openid = legalPersonaOpenId,
+                        legal_persona_name = legalPersonaName,
+                        component_phone = componentPhone
+                    };
+                }
+            }
+            else
+            {
+                if (newVersion)
+                {
+                    data = new
+                    {
+                        taskid = taskId,
+                        new_version = newVersion
+                    };
+                }
+                else
+                {
+                    data = new
+                    {
+                        taskid = taskId
+                    };
+                }
+            }
+
+            return CommonJsonSend.Send<FastRegisterEnterpriseWeAppResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
         /// <summary>
         /// 文档：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=21538208049W8uwq&token=&lang=zh_CN
         /// 创建(查询)小程序接口
@@ -375,10 +448,11 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="wxUser">个人用户微信号</param>
         /// <param name="taskid">任务id</param>
         /// <param name="action">动作类型：create或query，当为create时，taskid可不传参，当为query时，idName,wxUser可不传参</param>
+        /// <param name="newVersion">接口新旧版本标识，使用该新接口必须填true，不填则为false</param>
         /// <param name="componentPhone">第三方联系电话（方便法人与第三方联系）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static FastRegisterPersonalWeAppResult FastRegisterPersonalWeApp(string componentAccessToken, string idName = "", string wxUser = "", string taskid = "", string action = "create", string componentPhone = "", int timeOut = Config.TIME_OUT)
+        public static FastRegisterPersonalWeAppResult FastRegisterPersonalWeApp(string componentAccessToken, string idName = "", string wxUser = "", string taskid = "", string action = "create", string componentPhone = "", int timeOut = Config.TIME_OUT, bool newVersion = false)
         {
             var url = string.Format(
                 Config.ApiMpHost + "/wxa/component/fastregisterpersonalweapp?action={0}&component_access_token={1}",
@@ -389,19 +463,42 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             object data;
             if (action == "create")
             {
-                data = new
+                if (newVersion)
                 {
-                    idname = idName,
-                    wxuser = wxUser,
-                    component_phone = componentPhone
-                };
+                    data = new
+                    {
+                        wxuser = wxUser,
+                        component_phone = componentPhone,
+                        new_version = newVersion
+                    };
+                }
+                else
+                {
+                    data = new
+                    {
+                        idname = idName,
+                        wxuser = wxUser,
+                        component_phone = componentPhone
+                    };
+                }
             }
             else
             {
-                data = new
+                if (newVersion)
                 {
-                    taskid = taskid
-                };
+                    data = new
+                    {
+                        taskid = taskid,
+                        new_version =newVersion
+                    };
+                }
+                else
+                {
+                    data = new
+                    {
+                        taskid = taskid
+                    };
+                }
             }
 
             return CommonJsonSend.Send<FastRegisterPersonalWeAppResult>(null, url, data, CommonJsonSendType.POST, timeOut);
@@ -446,26 +543,43 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="componentPhone">第三方联系电话</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult VerifyBetaWeApp(string componentAccessToken, string entName, string entCode, string legalPersonaWechat, string legalPersonaName, string legalPersonaIDCard, CodeType codeType = CodeType.统一社会信用代码, string componentPhone = "", int timeOut = Config.TIME_OUT)
+        public static WxJsonResult VerifyBetaWeApp(string componentAccessToken, string entName, string entCode, string legalPersonaWechat, string legalPersonaName, string legalPersonaIDCard, CodeType codeType = CodeType.统一社会信用代码, string componentPhone = "", int timeOut = Config.TIME_OUT, bool newVersion = false)
         {
             var url = string.Format(
                 Config.ApiMpHost + "/wxa/verifybetaweapp?access_token={0}",
                 componentAccessToken.AsUrlData());
 
             //var data;
-            object data = new
+            object data;
+            if (newVersion )
             {
-                verify_info = new
+                data = new
                 {
-                    enterprise_name = entName,
-                    code = entCode,
-                    code_type = codeType,
-                    legal_persona_wechat = legalPersonaWechat,
-                    legal_persona_name = legalPersonaName,
-                    legal_persona_idcard = legalPersonaIDCard,
-                    component_phone = componentPhone
-                }
-            };
+                    verify_info = new
+                    {
+                        enterprise_name = entName,
+                        code = entCode,
+                        component_phone = componentPhone
+                    },
+                    new_version = newVersion
+                };
+            }
+            else
+            {
+                data = new
+                {
+                    verify_info = new
+                    {
+                        enterprise_name = entName,
+                        code = entCode,
+                        code_type = codeType,
+                        legal_persona_wechat = legalPersonaWechat,
+                        legal_persona_name = legalPersonaName,
+                        legal_persona_idcard = legalPersonaIDCard,
+                        component_phone = componentPhone
+                    }
+                };
+            }
 
             return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
@@ -901,6 +1015,79 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         }
 
         /// <summary>
+        /// 【异步方法】快速注册企业小程序
+        /// 文档：https://developers.weixin.qq.com/doc/oplatform/openApi/register-management/fast-registration-ent/api_fastregisterenterpriseweapp.html
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="entName">企业名（需与工商部门登记信息一致）；如果是“无主体名称个体工商户”则填“个体户+法人姓名”，例如“个体户张三”</param>
+        /// <param name="legalPersonaOpenId">new_version为false时必填，为true时可不填</param>
+        /// <param name="legalPersonaName">new_version为false时必填，为true时可不填</param>
+        /// <param name="action">create：创建任务。query: 查询注册任务的状态</param>
+        /// <param name="entCode">企业代码，只支持统一社会信用代码</param>
+        /// <param name="codeType">new_version为false时必填，为true时可不填</param>
+        /// <param name="componentPhone">第三方联系电话</param>
+        /// <param name="taskId">任务ID，查询时需传入</param>
+        /// <param name="newVersion">接口新旧版本标识，使用该新接口必须填true，不填则为false</param>
+        /// <param name="newVersion"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<FastRegisterEnterpriseWeAppResult> FastRegisterEnterpriseWeAppAsync(string componentAccessToken, string entName, string legalPersonaOpenId, string legalPersonaName, string action = "create", string entCode = "", CodeType codeType = CodeType.统一社会信用代码, string componentPhone = "", string taskId = "", bool newVersion = false, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(
+                Config.ApiMpHost + "/wxa/component/fastregisterenterpriseweapp?action={0}&access_token={1}",
+                action.AsUrlData(),
+                componentAccessToken.AsUrlData());
+
+            //var data;
+            object data;
+            if (action == "create")
+            {
+                if (newVersion)
+                {
+                    data = new
+                    {
+                        name = entName,
+                        code = entCode,
+                        component_phone = componentPhone,
+                        new_version = newVersion
+                    };
+                }
+                else
+                {
+                    data = new
+                    {
+                        name = entName,
+                        code = entCode,
+                        code_type = codeType,
+                        legal_persona_openid = legalPersonaOpenId,
+                        legal_persona_name = legalPersonaName,
+                        component_phone = componentPhone
+                    };
+                }
+            }
+            else
+            {
+                if (newVersion)
+                {
+                    data = new
+                    {
+                        taskid = taskId,
+                        new_version = newVersion
+                    };
+                }
+                else
+                {
+                    data = new
+                    {
+                        taskid = taskId
+                    };
+                }
+            }
+
+            return await CommonJsonSend.SendAsync<FastRegisterEnterpriseWeAppResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// 【异步方法】创建小程序接口
         /// 文档：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=21538208049W8uwq&token=&lang=zh_CN
         /// </summary>
@@ -956,10 +1143,11 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="wxUser">个人用户微信号</param>
         /// <param name="taskid">任务id</param>
         /// <param name="action">动作类型：create或query，当为create时，taskid可不传参，当为query时，idName,wxUser可不传参</param>
+        /// <param name="newVersion">接口新旧版本标识，使用该新接口必须填true，不填则为false</param>
         /// <param name="componentPhone">第三方联系电话（方便法人与第三方联系）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<FastRegisterPersonalWeAppResult> FastRegisterPersonalWeAppAsync(string componentAccessToken, string idName = "", string wxUser = "", string taskid = "", string action = "create", string componentPhone = "", int timeOut = Config.TIME_OUT)
+        public static async Task<FastRegisterPersonalWeAppResult> FastRegisterPersonalWeAppAsync(string componentAccessToken, string idName = "", string wxUser = "", string taskid = "", string action = "create", string componentPhone = "", int timeOut = Config.TIME_OUT, bool newVersion = false)
         {
             var url = string.Format(
                 Config.ApiMpHost + "/wxa/component/fastregisterpersonalweapp?action={0}&component_access_token={1}",
@@ -967,23 +1155,46 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 componentAccessToken.AsUrlData());
 
             //var data;
-            object data;
-            if (action == "create")
+            object data; if (action == "create")
             {
-                data = new
+                if (newVersion)
                 {
-                    idname = idName,
-                    wxuser = wxUser,
-                    component_phone = componentPhone
-                };
+                    data = new
+                    {
+                        wxuser = wxUser,
+                        component_phone = componentPhone,
+                        new_version = newVersion
+                    };
+                }
+                else
+                {
+                    data = new
+                    {
+                        idname = idName,
+                        wxuser = wxUser,
+                        component_phone = componentPhone
+                    };
+                }
             }
             else
             {
-                data = new
+                if (newVersion)
                 {
-                    taskid = taskid
-                };
+                    data = new
+                    {
+                        taskid = taskid,
+                        new_version = newVersion
+                    };
+                }
+                else
+                {
+                    data = new
+                    {
+                        taskid = taskid
+                    };
+                }
             }
+
 
             return await CommonJsonSend.SendAsync<FastRegisterPersonalWeAppResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
@@ -1027,26 +1238,43 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="componentPhone">第三方联系电话</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> VerifyBetaWeAppAsync(string componentAccessToken, string entName, string entCode, string legalPersonaWechat, string legalPersonaName, string legalPersonaIDCard, CodeType codeType = CodeType.统一社会信用代码, string componentPhone = "", int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> VerifyBetaWeAppAsync(string componentAccessToken, string entName, string entCode, string legalPersonaWechat, string legalPersonaName, string legalPersonaIDCard, CodeType codeType = CodeType.统一社会信用代码, string componentPhone = "", int timeOut = Config.TIME_OUT, bool newVersion = false)
         {
             var url = string.Format(
                 Config.ApiMpHost + "/wxa/verifybetaweapp?access_token={0}",
                 componentAccessToken.AsUrlData());
 
-            //var data;
-            object data = new
+            object data;
+            if (newVersion)
             {
-                verify_info = new
+                data = new
                 {
-                    enterprise_name = entName,
-                    code = entCode,
-                    code_type = codeType,
-                    legal_persona_wechat = legalPersonaWechat,
-                    legal_persona_name = legalPersonaName,
-                    legal_persona_idcard = legalPersonaIDCard,
-                    component_phone = componentPhone
-                }
-            };
+                    verify_info = new
+                    {
+                        enterprise_name = entName,
+                        code = entCode,
+                        component_phone = componentPhone
+                    },
+                    new_version = newVersion
+                };
+            }
+            else
+            {
+                data = new
+                {
+                    verify_info = new
+                    {
+                        enterprise_name = entName,
+                        code = entCode,
+                        code_type = codeType,
+                        legal_persona_wechat = legalPersonaWechat,
+                        legal_persona_name = legalPersonaName,
+                        legal_persona_idcard = legalPersonaIDCard,
+                        component_phone = componentPhone
+                    }
+                };
+            }
+
 
             return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }

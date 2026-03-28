@@ -543,7 +543,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="componentPhone">第三方联系电话</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult VerifyBetaWeApp(string componentAccessToken, string entName, string entCode, string legalPersonaWechat, string legalPersonaName, string legalPersonaIDCard, CodeType codeType = CodeType.统一社会信用代码, bool newVersion = false, string componentPhone = "", int timeOut = Config.TIME_OUT)
+        public static WxJsonResult VerifyBetaWeApp(string componentAccessToken, string entName, string entCode, string legalPersonaWechat, string legalPersonaName, string legalPersonaIDCard, CodeType codeType = CodeType.统一社会信用代码, string componentPhone = "", int timeOut = Config.TIME_OUT, bool newVersion = false)
         {
             var url = string.Format(
                 Config.ApiMpHost + "/wxa/verifybetaweapp?access_token={0}",
@@ -1238,7 +1238,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="componentPhone">第三方联系电话</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> VerifyBetaWeAppAsync(string componentAccessToken, string entName, string entCode, string legalPersonaWechat, string legalPersonaName, string legalPersonaIDCard, CodeType codeType = CodeType.统一社会信用代码, bool newVersion = false, string componentPhone = "", int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> VerifyBetaWeAppAsync(string componentAccessToken, string entName, string entCode, string legalPersonaWechat, string legalPersonaName, string legalPersonaIDCard, CodeType codeType = CodeType.统一社会信用代码, string componentPhone = "", int timeOut = Config.TIME_OUT, bool newVersion = false)
         {
             var url = string.Format(
                 Config.ApiMpHost + "/wxa/verifybetaweapp?access_token={0}",

@@ -59,10 +59,7 @@ using Senparc.Weixin.Open.ComponentAPIs.RequestData;
 using Senparc.Weixin.Open.Entities;
 using System;
 using System.Collections.Generic;
-using System.Reflection.Emit;
-using System.Threading;
 using System.Threading.Tasks;
-using static System.Collections.Specialized.BitVector32;
 
 namespace Senparc.Weixin.Open.ComponentAPIs
 {

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：WorkCustomMessageHandler.cs
     文件功能描述：自定义WorkMessageHandler
@@ -106,3 +106,4 @@ namespace Senparc.Weixin.Sample.Work.MessageHandlers
         }
     }
 }
+

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-    <Version>3.25.0</Version>
+    <Version>3.25.1</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
@@ -191,7 +191,7 @@
 		[2025-08-16] v3.23.8 fix: 修复 GetWxaCodeUnlimit() 方法 Page 参数问题
 		[2025-11-05] v3.24.1 fix: 修复 WxAppApi.ToWxJsonResult() 方法会自动释放 stream 参数的问题 感谢 @bbhxwl
 		[2026-01-18] v3.25.0 feat: 增加发送用工消息、解除用工关系 API #3246 感谢 @dodu2014
-	</PackageReleaseNotes>
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

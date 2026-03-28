@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：AddScheduleJsonResult.cs
     文件功能描述：创建日程接口返回参数
@@ -26,3 +26,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
         public string schedule_id { get; set; }
     }
 }
+

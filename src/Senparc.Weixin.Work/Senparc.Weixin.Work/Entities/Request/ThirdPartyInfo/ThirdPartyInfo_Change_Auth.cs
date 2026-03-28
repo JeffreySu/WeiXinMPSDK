@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：ThirdPartyInfo_Change_Auth.cs
     文件功能描述：变更授权的通知
@@ -29,3 +29,4 @@ namespace Senparc.Weixin.Work.Entities
         public string AuthCorpId { get; set; }
     }
 }
+

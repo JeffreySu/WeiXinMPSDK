@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageEvent_PicWeixin.cs
     文件功能描述：事件之弹出微信相册发图器(pic_weixin)
@@ -38,3 +38,4 @@ namespace Senparc.Weixin.Work.Entities
         public SendPicsInfo SendPicsInfo { get; set; }
     }
 }
+

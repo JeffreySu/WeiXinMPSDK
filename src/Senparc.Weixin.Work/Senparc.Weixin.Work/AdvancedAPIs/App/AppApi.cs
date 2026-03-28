@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：AppApi.cs
     文件功能描述：管理企业号应用接口
@@ -176,3 +176,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
     }
 }
+

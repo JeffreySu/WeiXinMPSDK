@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：EntityHelper.cs
     文件功能描述：实体与xml相互转换
@@ -431,3 +431,4 @@ namespace Senparc.Weixin.Work.Helpers
         }
     }
 }
+

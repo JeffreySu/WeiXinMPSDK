@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：ThirdPartyAuthPostData.cs
     文件功能描述：第三方应用授权需要post的数据
@@ -70,5 +70,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
     }
 
 }
+
 
 

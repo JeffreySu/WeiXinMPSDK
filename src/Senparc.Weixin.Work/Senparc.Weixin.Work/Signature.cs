@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
   
     文件名：Signature.cs
     文件功能描述：检测签名
@@ -79,3 +79,4 @@ namespace Senparc.Weixin.Work
         }
     }
 }
+

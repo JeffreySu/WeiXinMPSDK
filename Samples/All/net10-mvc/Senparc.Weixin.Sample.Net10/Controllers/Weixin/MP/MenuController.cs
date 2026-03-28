@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：MenuController.cs
     文件功能描述：自定义菜单设置工具Controller
@@ -226,3 +226,4 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
         }
     }
 }
+

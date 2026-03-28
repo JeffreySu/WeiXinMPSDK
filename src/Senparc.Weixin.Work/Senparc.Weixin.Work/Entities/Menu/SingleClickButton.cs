@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：SingleClickButton.cs
     文件功能描述：单个按键
@@ -34,3 +34,4 @@ namespace Senparc.Weixin.Work.Entities.Menu
         }
     }
 }
+

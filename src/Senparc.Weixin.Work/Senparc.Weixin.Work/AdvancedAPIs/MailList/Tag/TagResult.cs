@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：DepartmentResult.cs
     文件功能描述：标签接口返回结果
@@ -122,3 +122,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         public string tagname { get; set; }
     }
 }
+

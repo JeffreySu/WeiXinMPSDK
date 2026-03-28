@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：Receiver.cs
     文件功能描述：接收人
@@ -25,3 +25,4 @@ namespace Senparc.Weixin.Work.Entities
         public string Id { get; set; }
     }
 }
+

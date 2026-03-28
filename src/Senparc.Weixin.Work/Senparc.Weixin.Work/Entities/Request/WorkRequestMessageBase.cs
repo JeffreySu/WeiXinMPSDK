@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageBase.cs
     文件功能描述：接收到请求的消息基类
@@ -42,3 +42,4 @@ namespace Senparc.Weixin.Work.Entities
         public int AgentID { get; set; }
     }
 }
+

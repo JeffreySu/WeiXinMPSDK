@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：ChatInfo.cs
     文件功能描述：会话信息
@@ -33,3 +33,4 @@ namespace Senparc.Weixin.Work.Entities
         public string UserList { get; set; }
     }
 }
+

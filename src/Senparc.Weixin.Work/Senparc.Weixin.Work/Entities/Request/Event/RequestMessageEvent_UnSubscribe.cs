@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageEvent_Unsubscribe.cs
     文件功能描述：事件之取消关注事件的推送（unsubscribe）
@@ -27,3 +27,4 @@ namespace Senparc.Weixin.Work.Entities
         }
     }
 }
+

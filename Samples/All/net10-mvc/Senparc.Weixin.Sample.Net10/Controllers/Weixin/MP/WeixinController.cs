@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
 
     文件名：WeixinController.cs
     文件功能描述：用于处理微信回调的信息
@@ -270,3 +270,4 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
         }
     }
 }
+

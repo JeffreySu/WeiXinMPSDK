@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：UpdateForeverNewsData.cs
     文件功能描述：修改永久图文素材需要post的数据
@@ -33,3 +33,4 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         public List<NewsModel> articles { get; set; }
     }
 }
+

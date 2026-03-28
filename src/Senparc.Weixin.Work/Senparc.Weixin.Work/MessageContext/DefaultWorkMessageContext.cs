@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：DefaultWorkMessageContext.cs
     文件功能描述：企业微信上下文的默认实现
@@ -316,3 +316,4 @@ namespace Senparc.Weixin.Work.MessageContexts
         }
     }
 }
+

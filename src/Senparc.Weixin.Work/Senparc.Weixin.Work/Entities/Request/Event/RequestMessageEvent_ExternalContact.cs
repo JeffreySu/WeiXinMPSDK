@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageEvent_Change_ExternalContact.cs
     文件功能描述：上报企业客户变更事件
@@ -265,3 +265,4 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
         dismiss,
     }
 }
+

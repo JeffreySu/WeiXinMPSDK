@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：WebhookNews.cs
     文件功能描述：Webhook群机器人相关Api，News 传入参数实例
@@ -56,3 +56,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
     }
 
 }
+

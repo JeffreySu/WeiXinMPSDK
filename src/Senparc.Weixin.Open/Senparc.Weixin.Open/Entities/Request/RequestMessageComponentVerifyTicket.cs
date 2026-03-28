@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageComponentVerifyTicket.cs
     文件功能描述：推送component_verify_ticket协议
@@ -19,3 +19,4 @@ namespace Senparc.Weixin.Open
         public string ComponentVerifyTicket { get; set; }
     }
 }
+

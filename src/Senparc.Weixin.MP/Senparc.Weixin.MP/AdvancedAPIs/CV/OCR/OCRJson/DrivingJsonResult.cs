@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：DrivingJsonResult.cs
     文件功能描述：OCR 行驶证识别返回结果
@@ -114,3 +114,4 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
         public ImgSize img_size { get; set; }
     }
 }
+

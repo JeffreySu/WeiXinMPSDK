@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：IdCardJsonResult.cs
     文件功能描述：OCR 身份证识别返回结果
@@ -54,3 +54,4 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
         public string valid_date { get; set; }
     }
 }
+

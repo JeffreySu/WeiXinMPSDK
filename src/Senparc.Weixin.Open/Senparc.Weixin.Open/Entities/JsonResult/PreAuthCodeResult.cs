@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：PreAuthCodeResult.cs
     文件功能描述：获取预授权码返回结果
@@ -29,3 +29,4 @@ namespace Senparc.Weixin.Open.Entities
         public int expires_in { get; set; }
     }
 }
+

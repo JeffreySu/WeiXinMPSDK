@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：QRConnectAPI.cs
     文件功能描述：微信扫码登录
@@ -219,3 +219,4 @@ namespace Senparc.Weixin.Open.QRConnect
         #endregion
     }
 }
+

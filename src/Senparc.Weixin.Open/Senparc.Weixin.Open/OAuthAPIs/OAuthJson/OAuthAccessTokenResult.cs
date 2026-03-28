@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：OAuthAccessTokenResult.cs
     文件功能描述：获取OAuth AccessToken的结果
@@ -57,3 +57,4 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         public int? is_snapshotuser { get; set; }
     }
 }
+

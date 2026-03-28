@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：CommJsonResult.cs
     文件功能描述：OCR 通用印刷体识别返回结果
@@ -41,3 +41,4 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
         public Pos pos { get; set; }
     }
 }
+

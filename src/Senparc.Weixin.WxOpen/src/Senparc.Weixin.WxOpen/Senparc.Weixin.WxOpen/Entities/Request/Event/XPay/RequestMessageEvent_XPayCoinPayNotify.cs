@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageEvent_XPay_Coin_Pay_Notify.cs
     文件功能描述：小程序虚拟支付 - 代币支付推送
@@ -74,3 +74,4 @@ namespace Senparc.Weixin.WxOpen.Entities
 
     }
 }
+

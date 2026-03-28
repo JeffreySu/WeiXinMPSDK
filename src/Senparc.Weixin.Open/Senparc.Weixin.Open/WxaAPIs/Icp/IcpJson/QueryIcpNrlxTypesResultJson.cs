@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：QueryIcpNrlxTypesResultJson.cs
     文件功能描述：获取前置审批项类型结果 接口返回消息
@@ -42,3 +42,4 @@ namespace Senparc.Weixin.Open.WxaAPIs.Icp.IcpJson
         public string name { get; set; }
     }
 }
+

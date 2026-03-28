@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：BizLicenseJsonResult.cs
     文件功能描述：OCR 营业执照识别返回结果
@@ -85,3 +85,4 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
         public Position cert_position { get; set; }
     }
 }
+

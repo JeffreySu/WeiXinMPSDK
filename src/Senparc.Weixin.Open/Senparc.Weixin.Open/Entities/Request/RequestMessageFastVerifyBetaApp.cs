@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageFastVerifyBetaApp.cs
     文件功能描述：试用小程序快速认证事件推送
@@ -39,3 +39,4 @@ namespace Senparc.Weixin.Open
         public ThirdFasteRegisterInfo info {get;set;}
     }
 }
+

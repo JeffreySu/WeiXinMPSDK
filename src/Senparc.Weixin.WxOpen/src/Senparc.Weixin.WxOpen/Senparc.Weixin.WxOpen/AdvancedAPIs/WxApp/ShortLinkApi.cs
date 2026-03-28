@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：ShortLinkApi.cs
     文件功能描述：小程序 Short Link
@@ -78,3 +78,4 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         #endregion
     }
 }
+

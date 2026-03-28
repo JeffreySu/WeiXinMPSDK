@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：GetCheckinDataJsonResult.cs
     文件功能描述：获取打卡数据返回结果
@@ -93,3 +93,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         public int lng { get; set; }
     }
 }
+

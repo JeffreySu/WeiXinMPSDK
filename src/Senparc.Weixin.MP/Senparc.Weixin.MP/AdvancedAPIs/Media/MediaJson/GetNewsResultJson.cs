@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：GetNewsResultJson.cs
     文件功能描述：获取图文类型永久素材返回结果
@@ -49,3 +49,4 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         public string to_content { get; set; }
     }
 }
+

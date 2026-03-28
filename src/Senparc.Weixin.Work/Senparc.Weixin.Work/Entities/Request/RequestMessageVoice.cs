@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageVoice.cs
     文件功能描述：接收普通语音消息
@@ -33,3 +33,4 @@ namespace Senparc.Weixin.Work.Entities
         public string Format { get; set; }
     }
 }
+

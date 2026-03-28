@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：OAuthContainer.cs
     文件功能描述：OAuth容器
@@ -23,3 +23,4 @@ namespace Senparc.Weixin.Open.Containers
     //TODO:计划于3.x中发布
     //TODO：已经忘了为什么要支持了:P - Jeffrey 2018.10.21
 }
+

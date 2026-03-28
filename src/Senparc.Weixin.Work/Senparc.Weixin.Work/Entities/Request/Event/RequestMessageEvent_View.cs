@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageEvent_View.cs
     文件功能描述：事件之URL跳转视图（View）
@@ -32,3 +32,4 @@ namespace Senparc.Weixin.Work.Entities
         public string EventKey { get; set; }
     }
 }
+

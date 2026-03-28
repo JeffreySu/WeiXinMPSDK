@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageEvent_ScancodePush.cs
     文件功能描述：事件之扫码推事件(scancode_push)
@@ -38,3 +38,4 @@ namespace Senparc.Weixin.Work.Entities
         public ScanCodeInfo ScanCodeInfo { get; set; }
     }
 }
+

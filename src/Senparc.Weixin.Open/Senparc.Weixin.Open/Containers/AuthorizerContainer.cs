@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2025 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2026 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -185,12 +185,20 @@ namespace Senparc.Weixin.Open.Containers
         [Obsolete("请使用 RegisterAsync() 方法")]
         private static void Register(string componentAppId, string authorizerAppId, string name = null)
         {
-            var task = RegisterAsync(componentAppId, authorizerAppId, name);
-            Task.WaitAll(new[] { task }, 10000);
-            //Task.Factory.StartNew(() =>
-            //{
-            //    RegisterAsync(componentAppId, authorizerAppId, name).ConfigureAwait(false);
-            //}).ConfigureAwait(false);
+            //使用后台任务执行注册，避免阻塞主线程导致性能问题
+            //注册过程本身不会立即获取Ticket，只是设置注册信息
+            _ = Task.Run(async () => 
+            {
+                try
+                {
+                    await RegisterAsync(componentAppId, authorizerAppId, name).ConfigureAwait(false);
+                }
+                catch (Exception ex)
+                {
+                    //记录异常但不阻塞调用方
+                    Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog("Open.AuthorizerContainer.Register 异步注册出错", ex.Message);
+                }
+            });
         }
 
         /// <summary>
@@ -803,3 +811,4 @@ namespace Senparc.Weixin.Open.Containers
         #endregion
     }
 }
+

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：GenerateNFCSchemeJsonResult.cs
     文件功能描述：GenerateNFCScheme() 接口返回参数
@@ -24,3 +24,4 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.UrlScheme
         public string openlink { get; set; }
     }
 }
+

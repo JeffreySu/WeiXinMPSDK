@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2025 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2026 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：CommonApi.cs
     文件功能描述：通用接口(用于和微信服务器通讯，一般不涉及自有网站服务器的通讯)
@@ -59,6 +59,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：dupeng0811 - 20230520
     修改描述：v16.18.11 新增“获取稳定版接口调用凭据”接口
+
+    修改标识：dupeng0811 - 20260323
+    修改描述：v16.24.2 修复 GetStableAccessToken 方法中 force_refresh 参数硬编码问题
 
 ----------------------------------------------------------------*/
 
@@ -131,7 +134,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 grant_type= "client_credential",
                 appid= appid,
                 secret= secret,
-                force_refresh= false
+                force_refresh= force_refresh
             };
             AccessTokenResult result = CommonJsonSend.Send<AccessTokenResult>(null, url, data, CommonJsonSendType.POST);
             if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode.请求成功)
@@ -281,7 +284,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 grant_type= "client_credential",
                 appid= appid,
                 secret= secret,
-                force_refresh= false
+                force_refresh= force_refresh
             };
 
             AccessTokenResult result = await CommonJsonSend.SendAsync<AccessTokenResult>(null, url, data, CommonJsonSendType.POST);
@@ -388,3 +391,4 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
     }
 }
+

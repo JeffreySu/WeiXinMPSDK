@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：AsynchronousPostData.cs
     文件功能描述：异步任务接口提交数据Json
@@ -119,3 +119,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Asynchronous
         public int action { get; set; }
     }
 }
+

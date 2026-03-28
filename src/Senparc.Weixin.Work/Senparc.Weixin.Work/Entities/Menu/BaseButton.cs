@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：BaseButton.cs
     文件功能描述：所有菜单按钮基类
@@ -30,3 +30,4 @@ namespace Senparc.Weixin.Work.Entities.Menu
         public string name { get; set; }
     }
 }
+

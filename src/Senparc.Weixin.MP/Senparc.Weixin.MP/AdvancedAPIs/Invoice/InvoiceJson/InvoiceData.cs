@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：InvoiceData.cs
     文件功能描述：电子票据post数据
@@ -199,3 +199,4 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public AuthType type { get; set; }
     }
 }
+

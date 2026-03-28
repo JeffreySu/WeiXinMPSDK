@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
 
     文件名：WeixinInternalRequestAttribute.cs
     文件功能描述：微信内置浏览器状态判断
@@ -88,3 +88,4 @@ namespace Senparc.Weixin.MP.MvcExtension
         }
     }
 }
+

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：SpeedResult.cs
     文件功能描述：群发速度
@@ -29,3 +29,4 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         public int realspeed { get; set; }
     }
 }
+

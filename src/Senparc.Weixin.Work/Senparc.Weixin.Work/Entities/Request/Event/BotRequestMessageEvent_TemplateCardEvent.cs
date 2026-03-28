@@ -1,5 +1,5 @@
-/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2026 Senparc
     
     文件名：BotRequestMessageEvent_TemplateCardEvent.cs
     文件功能描述：模板卡片事件推送(template_card_event)

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
 
     文件名：Register.cs
     文件功能描述：Senparc.Weixin.Cache.Redis 注册类
@@ -48,3 +48,4 @@ namespace Senparc.Weixin.Cache.CsRedis
         }
     }
 }
+

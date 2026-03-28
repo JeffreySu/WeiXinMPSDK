@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：QueryIcpServiceContentTypesResultJson.cs
     文件功能描述：获取小程序服务内容类型 接口返回消息
@@ -56,3 +56,4 @@ namespace Senparc.Weixin.Open.WxaAPIs.Icp.IcpJson
         public string remark { get; set; }
     }
 }
+

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageEventBase.cs
     文件功能描述：事件基类
@@ -65,3 +65,4 @@ namespace Senparc.Weixin.Work.Entities
         //public string EventKey { get; set; }
     }
 }
+

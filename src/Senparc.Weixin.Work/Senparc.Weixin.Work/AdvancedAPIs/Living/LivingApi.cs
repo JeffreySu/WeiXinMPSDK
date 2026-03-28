@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：LivingApi.cs
     文件功能描述：群直播接口
@@ -135,3 +135,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Living
         #endregion
     }
 }
+

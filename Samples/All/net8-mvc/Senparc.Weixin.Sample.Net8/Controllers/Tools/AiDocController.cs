@@ -1,5 +1,5 @@
-/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2026 Senparc
     
     AiDocController.cs
     文件功能描述：AI 文档
@@ -419,3 +419,4 @@ var result = await Senparc.weixin.MP.AdvancedApi.UserInfo(appId, openId);"",
     }
 }
 #pragma warning restore SKEXP0001 // 类型仅用于评估，在将来的更新中可能会被更改或删除。取消此诊断以继续。
+

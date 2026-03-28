@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：ComponentAccessTokenResult.cs
     文件功能描述：获取第三方平台access_token
@@ -28,3 +28,4 @@ namespace Senparc.Weixin.Open.Entities
         public int expires_in { get; set; }
     }
 }
+

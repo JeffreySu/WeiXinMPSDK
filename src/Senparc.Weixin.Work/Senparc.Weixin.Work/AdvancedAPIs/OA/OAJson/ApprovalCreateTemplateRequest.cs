@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
 
     文件名：ApprovalCreateTemplateRequest.cs
     文件功能描述：创建审批模板 请求
@@ -367,3 +367,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA.OAJson
         public int perday_duration { get; set; }
     }
 }
+

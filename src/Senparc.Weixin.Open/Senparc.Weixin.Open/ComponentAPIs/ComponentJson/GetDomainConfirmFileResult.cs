@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
 
     文件名：ModifyWxaServerDomainResult.cs
     文件功能描述：设置第三方平台服务器域名 返回结果
@@ -33,3 +33,4 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public string file_content { get; set; }
     }
 }
+

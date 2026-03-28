@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：OAuthUserInfo.cs
     文件功能描述：通过OAuth的获取到的用户信息
@@ -60,3 +60,4 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         public string unionid { get; set; }
     }
 }
+

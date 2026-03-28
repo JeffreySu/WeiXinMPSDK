@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：WorkResponseMessageUnknownType.cs
     文件功能描述：企业号未知响应类型
@@ -57,3 +57,4 @@ namespace Senparc.Weixin.Work.Entities.Response
 
     }
 }
+

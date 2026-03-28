@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
 
     文件名：SenparcOAuthAttribute.cs
     文件功能描述：自动判断OAuth授权状态
@@ -164,3 +164,4 @@ namespace Senparc.Weixin.MP.MvcExtension
 #endif
     }
 }
+

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageEvent_Living_Status_Change_Base.cs
     文件功能描述：直播回调事件
@@ -31,3 +31,4 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
         public int Status { get; set; }
     }
 }
+

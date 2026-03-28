@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageEvent_XPay_Goods_Deliver_Notify.cs
     文件功能描述：小程序虚拟支付 - 道具发货推送
@@ -97,3 +97,4 @@ namespace Senparc.Weixin.WxOpen.Entities
 
     }
 }
+

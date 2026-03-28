@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2025 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2026 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
 
     文件名：AccessTokenContainer.cs
     文件功能描述：通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
@@ -151,12 +151,20 @@ namespace Senparc.Weixin.MP.Containers
         [Obsolete("请使用 RegisterAsync() 方法")]
         public static void Register(string appId, string appSecret, string name = null)
         {
-            var task = RegisterAsync(appId, appSecret, name);
-            Task.WaitAll(new[] { task }, 10000);
-            //Task.Factory.StartNew(() =>
-            //{
-            //    RegisterAsync(appId, appSecret, name).ConfigureAwait(false);
-            //}).ConfigureAwait(false);
+            //使用后台任务执行注册，避免阻塞主线程导致性能问题
+            //注册过程本身不会立即获取Token，只是设置注册信息
+            _ = Task.Run(async () => 
+            {
+                try
+                {
+                    await RegisterAsync(appId, appSecret, name).ConfigureAwait(false);
+                }
+                catch (Exception ex)
+                {
+                    //记录异常但不阻塞调用方
+                    Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog("MP.AccessTokenContainer.Register 异步注册出错", ex.Message);
+                }
+            });
         }
 
         #region AccessToken
@@ -333,4 +341,5 @@ namespace Senparc.Weixin.MP.Containers
         #endregion
     }
 }
+
 

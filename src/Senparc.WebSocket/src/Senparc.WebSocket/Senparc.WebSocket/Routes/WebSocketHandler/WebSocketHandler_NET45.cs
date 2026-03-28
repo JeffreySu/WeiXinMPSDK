@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
 
     文件名：WebSocketHandler.cs
     文件功能描述：WebSocket处理程序
@@ -106,3 +106,4 @@ namespace Senparc.WebSocket
     }
 #endif
 }
+

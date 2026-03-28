@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：WorkCustomMessageContext.cs
     文件功能描述：企业号消息上下文
@@ -45,3 +45,4 @@ namespace Senparc.Weixin.Sample.CommonService.WorkMessageHandler
         }
     }
 }
+

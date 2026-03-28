@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2025 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2026 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
  
     文件名：TenPayV3Info.cs
 
@@ -31,6 +31,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20210829
     修改描述：添加 V3 中新增加的属性
+
+    修改标识：Senparc - 20260118
+    修改描述：V3 中新增加 CertType 属性
 
 ----------------------------------------------------------------*/
 
@@ -115,6 +118,11 @@ namespace Senparc.Weixin.TenPayV3
         /// </summary>
         public string TenPayV3_APIv3Key { get; set; }
 
+        /// <summary>
+        /// 证书类型
+        /// </summary>
+        public CertType? TenPayV3_CertType { get; set; }
+
         #endregion
 
 
@@ -132,8 +140,10 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="privateKey"></param>
         /// <param name="serialNumber"></param>
         /// <param name="apiV3Key"></param>
-        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string certPath, string certSecret, string tenPayV3Notify, string tenPayV3WxOpenNotify, string privateKey, string serialNumber, string apiV3Key)
-            : this(appId, appSecret, mchId, key, certPath, certSecret, "", "", "", tenPayV3Notify, tenPayV3WxOpenNotify, privateKey, serialNumber, apiV3Key)
+        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string certPath, string certSecret, 
+            string tenPayV3Notify, string tenPayV3WxOpenNotify, string privateKey, string serialNumber, string apiV3Key, CertType certType)
+            : this(appId, appSecret, mchId, key, certPath, certSecret, "", "", "", tenPayV3Notify, 
+                  tenPayV3WxOpenNotify, privateKey, serialNumber, apiV3Key, certType)
         {
 
         }
@@ -154,7 +164,10 @@ namespace Senparc.Weixin.TenPayV3
         /// <param name="privateKey"></param>
         /// <param name="serialNumber"></param>
         /// <param name="apiV3Key"></param>
-        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string certPath, string certSecret, string subAppId, string subAppSecret, string subMchId, string tenPayV3Notify, string tenPayV3WxOpenNotify, string privateKey, string serialNumber, string apiV3Key)
+        /// <param name="certType"></param>
+        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string certPath, string certSecret, string subAppId, 
+            string subAppSecret, string subMchId, string tenPayV3Notify, string tenPayV3WxOpenNotify, string privateKey, string serialNumber, 
+            string apiV3Key, CertType? certType)
         {
             AppId = appId;
             AppSecret = appSecret;
@@ -170,6 +183,8 @@ namespace Senparc.Weixin.TenPayV3
             TenPayV3_PrivateKey = privateKey;
             TenPayV3_SerialNumber = serialNumber;
             TenPayV3_APIv3Key = apiV3Key;
+            TenPayV3_CertType = certType;
+
         }
 
         /// <summary>
@@ -190,7 +205,8 @@ namespace Senparc.Weixin.TenPayV3
                   senparcWeixinSettingForTenpayV3.TenPayV3_WxOpenTenpayNotify,
                   senparcWeixinSettingForTenpayV3.TenPayV3_PrivateKey,
                   senparcWeixinSettingForTenpayV3.TenPayV3_SerialNumber,
-                  senparcWeixinSettingForTenpayV3.TenPayV3_APIv3Key
+                  senparcWeixinSettingForTenpayV3.TenPayV3_APIv3Key,
+                  senparcWeixinSettingForTenpayV3.EncryptionType
                   )
         {
             //_tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
@@ -231,3 +247,4 @@ namespace Senparc.Weixin.TenPayV3
         }
     }
 }
+

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：SearchApi.cs
     文件功能描述：小程序搜索
@@ -71,3 +71,4 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         #endregion
     }
 }
+

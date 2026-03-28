@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：MenuJsonResult.cs
     文件功能描述：OCR 菜单识别返回结果
@@ -24,3 +24,4 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
         public string content { get; set; }
     }
 }
+

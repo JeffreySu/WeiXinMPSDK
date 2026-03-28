@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：RequestMessageEvent_OpenApprovalChange.cs
     文件功能描述：自建审批申请状态变化回调通知
@@ -189,3 +189,4 @@ namespace Senparc.Weixin.Work.Entities
 
 
 }
+

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：SimulateToolController.cs
     文件功能描述：消息模拟工具
@@ -456,3 +456,4 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
         }
     }
 }
+

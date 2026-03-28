@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：CommonApi.cs
     文件功能描述：通用基础API
@@ -302,3 +302,4 @@ namespace Senparc.Weixin.Work.CommonAPIs
         #endregion
     }
 }
+

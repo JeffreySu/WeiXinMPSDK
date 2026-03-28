@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2025 Senparc
+    Copyright (C) 2026 Senparc
     
     文件名：UploadResultJson.cs
     文件功能描述：上传媒体文件返回结果
@@ -33,3 +33,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Media
         public string media_id { get; set; }
     }
 }
+

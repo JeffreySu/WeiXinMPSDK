@@ -34,6 +34,9 @@
     修改标识：Senparc - 20250218
     修改描述：[2025-02-18] v3.25.5 修复“客户标签回调函数-重排事件报错”(Issue #3116）
 
+
+    修改标识：Senparc - 20251203
+    修改描述：添加: 微信客服消息与事件回调通知（KF_MSG_OR_EVENT）事件处理
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;
@@ -247,6 +250,9 @@ namespace Senparc.Weixin.Work.MessageContexts
                             break;
                         case "TEMPLATE_CARD_MENU_EVENT": // 通用模板卡片右上角菜单事件
                             requestMessage = new RequestMessageEvent_TemplateCardMenuEvent();
+                            break;
+                        case "KF_MSG_OR_EVENT": // 微信客服消息与事件回调通知
+                            requestMessage = new RequestMessageEvent_Kf_Msg_Or_Event();
                             break;
                         default://其他意外类型（也可以选择抛出异常）
                             requestMessage = new RequestMessageEventBase();

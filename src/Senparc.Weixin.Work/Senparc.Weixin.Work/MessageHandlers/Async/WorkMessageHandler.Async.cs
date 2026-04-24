@@ -21,6 +21,9 @@
     
     修改标识: IcedMango - 20241114
     修改描述: 添加: 通用模板卡片右上角菜单事件推送; 修复不正确的通用模板卡片事件推送类型
+
+    修改标识：Senparc - 20251203
+    修改描述：添加: 微信客服消息与事件回调通知（KF_MSG_OR_EVENT）异步事件处理方法
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Context;
@@ -411,6 +414,11 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     responseMessage = await
                         OnEvent_TemplateCardMenuEventRequestAsync(
                             RequestMessage as RequestMessageEvent_TemplateCardMenuEvent);
+                    break;
+                case Event.KF_MSG_OR_EVENT: // 微信客服消息与事件回调通知
+                    responseMessage = await
+                        OnEvent_KfMsgOrEventRequestAsync(
+                            RequestMessage as RequestMessageEvent_Kf_Msg_Or_Event);
                     break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -856,6 +864,17 @@ namespace Senparc.Weixin.Work.MessageHandlers
             RequestMessageEvent_TemplateCardMenuEvent requestMessage)
         {
             return await Task.Run(() => OnEvent_TemplateCardMenuEventRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        ///     微信客服消息与事件回调通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_KfMsgOrEventRequestAsync(
+            RequestMessageEvent_Kf_Msg_Or_Event requestMessage)
+        {
+            return await Task.Run(() => OnEvent_KfMsgOrEventRequest(requestMessage)).ConfigureAwait(false);
         }
 
         #endregion //Event 下属分类

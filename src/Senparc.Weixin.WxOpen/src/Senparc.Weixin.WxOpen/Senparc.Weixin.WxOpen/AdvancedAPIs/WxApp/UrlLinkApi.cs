@@ -36,9 +36,10 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="expireTime">到期失效的 URL Link 的失效时间，为 Unix 时间戳。生成的到期失效 URL Link 在该时间前有效。最长有效期为1年。expire_type 为 0 必填</param>
         /// <param name="expireInterval">到期失效的URL Link的失效间隔天数。生成的到期失效URL Link在该间隔时间到达前有效。最长间隔天数为365天。expire_type 为 1 必填</param>
         /// <param name="cloudBase">云开发静态网站自定义 H5 配置参数，可配置中转的云开发 H5 页面。不填默认用官方 H5 页面</param>
+        /// <param name="safetyNotice">安全提示配置，用于配置是否显示安全提示及安全提示页面的跳转链接</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GenerateResultJson Generate(string accessTokenOrAppId, string path = null, string query = null, string envVersion = "release", bool isExpire = false, int? expireType = null, long? expireTime = null, int? expireInterval = null, Generate_CloudBase cloudBase = null, int timeOut = Config.TIME_OUT)
+        public static GenerateResultJson Generate(string accessTokenOrAppId, string path = null, string query = null, string envVersion = "release", bool isExpire = false, int? expireType = null, long? expireTime = null, int? expireInterval = null, Generate_CloudBase cloudBase = null, Generate_SafetyNotice safetyNotice = null, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -52,7 +53,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                     expire_type = expireType,
                     expire_time = expireTime,
                     expire_interval = expireInterval,
-                    cloud_base = cloudBase
+                    cloud_base = cloudBase,
+                    safety_notice = safetyNotice
                 };
                 return CommonJsonSend.Send<GenerateResultJson>(accessToken, urlFormat, postBody, timeOut: timeOut);
             }, accessTokenOrAppId);
@@ -72,9 +74,10 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="expireTime">到期失效的 URL Link 的失效时间，为 Unix 时间戳。生成的到期失效 URL Link 在该时间前有效。最长有效期为1年。expire_type 为 0 必填</param>
         /// <param name="expireInterval">到期失效的URL Link的失效间隔天数。生成的到期失效URL Link在该间隔时间到达前有效。最长间隔天数为365天。expire_type 为 1 必填</param>
         /// <param name="cloudBase">云开发静态网站自定义 H5 配置参数，可配置中转的云开发 H5 页面。不填默认用官方 H5 页面</param>
+        /// <param name="safetyNotice">安全提示配置，用于配置是否显示安全提示及安全提示页面的跳转链接</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<GenerateResultJson> GenerateAsync(string accessTokenOrAppId, string path = null, string query = null, string envVersion = "release", bool isExpire = false, int? expireType = null, long? expireTime = null, int? expireInterval = null, Generate_CloudBase cloudBase = null, int timeOut = Config.TIME_OUT)
+        public static async Task<GenerateResultJson> GenerateAsync(string accessTokenOrAppId, string path = null, string query = null, string envVersion = "release", bool isExpire = false, int? expireType = null, long? expireTime = null, int? expireInterval = null, Generate_CloudBase cloudBase = null, Generate_SafetyNotice safetyNotice = null, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -88,7 +91,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                     expire_type = expireType,
                     expire_time = expireTime,
                     expire_interval = expireInterval,
-                    cloud_base = cloudBase
+                    cloud_base = cloudBase,
+                    safety_notice = safetyNotice
                 };
                 return await CommonJsonSend.SendAsync<GenerateResultJson>(accessToken, urlFormat, postBody, timeOut: timeOut);
             }, accessTokenOrAppId);

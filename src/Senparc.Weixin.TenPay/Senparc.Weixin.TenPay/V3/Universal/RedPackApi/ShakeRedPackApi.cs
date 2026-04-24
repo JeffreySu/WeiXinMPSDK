@@ -56,6 +56,28 @@ namespace Senparc.Weixin.TenPay.V3
             return string.Format("{0}{1}", SystemTime.Now.ToString("yyyyMMddHHmmssfff"), TenPayV3Util.BuildRandomStr(3));
         }
 
+        /// <summary>
+        /// 加载X509证书 - .NET 9.0兼容版本
+        /// </summary>
+        /// <param name="certPath">证书路径</param>
+        /// <param name="password">证书密码</param>
+        /// <returns></returns>
+        private static X509Certificate2 LoadCertificate(string certPath, string password)
+        {
+            // .NET 9.0 兼容性改进：使用更灵活的证书加载标志
+            X509KeyStorageFlags storageFlags;
+            #if NET9_0_OR_GREATER
+            storageFlags = X509KeyStorageFlags.Exportable | X509KeyStorageFlags.PersistKeySet;
+            if (System.OperatingSystem.IsWindows())
+            {
+                storageFlags |= X509KeyStorageFlags.MachineKeySet;
+            }
+            #else
+            storageFlags = X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet;
+            #endif
+            return new X509Certificate2(certPath, password, storageFlags);
+        }
+
         #region 错误码
 
         /*
@@ -153,7 +175,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             string password = mchId;
 
             //调用证书
-            X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+            X509Certificate2 cer = LoadCertificate(cert, password);
 
             XmlDocument doc = new Senparc.CO2NET.ExtensionEntities.XmlDocument_XxeFixed();
 

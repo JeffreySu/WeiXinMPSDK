@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;net10.0</TargetFrameworks>
-    <Version>1.6.1</Version>
+    <Version>1.6.2</Version>
     <AssemblyName>Senparc.Weixin.AspNet</AssemblyName>
     <RootNamespace>Senparc.Weixin.AspNet</RootNamespace>
     <!--<OutputType>Library</OutputType>-->
@@ -32,6 +32,7 @@
 			v1.2.3 UseSenparcWeixin() 方法添加 useSenparcWeixin 参数，用于指定是否自动执行 register.UseSenparcWeixin() 方法
 			[2024-08-06] v1.2.5 更新基础库，包括 Senparc.CO2NET 相关库、Senparc.AI
 			[2025-08-15] v1.5.0 更新 Senparc.CO2NET.WebApi，提供针对微信接口的 McpRouter
+			[2026-04-15] v1.6.2 .NET 10 相关 preview 升级为正式版
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <PackageId>Senparc.Weixin.AspNet</PackageId>
@@ -93,8 +94,8 @@
     <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net10.0' ">
-    <PackageReference Include="ModelContextProtocol" Version="0.2.0-preview.3" />
-    <PackageReference Include="ModelContextProtocol.AspNetCore" Version="0.2.0-preview.3" />
+    <PackageReference Include="ModelContextProtocol" Version="0.2.0" />
+    <PackageReference Include="ModelContextProtocol.AspNetCore" Version="0.2.0" />
     <PackageReference Include="Senparc.CO2NET.WebApi" Version="2.1.4" />
   </ItemGroup>
 </Project>

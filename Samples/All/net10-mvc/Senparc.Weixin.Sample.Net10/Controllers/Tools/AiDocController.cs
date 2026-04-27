@@ -92,13 +92,13 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
             {
                 //建立 MCP 连接，并获取信息
                 var mcpEndpoint = "https://www.ncf.pub/mcp-senparc-xncf-weixinmanager/sse";
-                var clientTransport = new SseClientTransport(new SseClientTransportOptions()
+                var clientTransport = new HttpClientTransport(new HttpClientTransportOptions()
                 {
                     Endpoint = new Uri(mcpEndpoint),
                     Name = "NCF-Server"
                 });
 
-                var client = await McpClientFactory.CreateAsync(clientTransport);
+                var client = await McpClient.CreateAsync(clientTransport);
                 var tools = await client.ListToolsAsync();
 
                 var aiSetting = Senparc.AI.Config.SenparcAiSetting;
@@ -402,4 +402,3 @@ public class QueryMcpResult
         }
     }
 }
-

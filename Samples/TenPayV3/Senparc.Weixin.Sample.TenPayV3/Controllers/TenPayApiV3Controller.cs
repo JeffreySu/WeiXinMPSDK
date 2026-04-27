@@ -98,7 +98,7 @@ namespace Senparc.Weixin.Sample.TenPayV3.Controllers
 
             if (url.IsNullOrEmpty())
             {
-                throw new Exception("此功能需要使用微信公众号，但未获取到 OAuth URL，如果此项目为自动僧城项目，请确保已经引用“公众号”");
+                throw new Exception("此功能需要使用微信公众号，但未获取到 OAuth URL，如果此项目为自动生成项目，请确保已经引用“公众号”");
             }
 
             return Redirect(url);

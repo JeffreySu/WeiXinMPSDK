@@ -52,5 +52,37 @@ namespace Senparc.Weixin.TenPayV3.Test.Helpers.Tests
             var exceptedResult = "POmTZCzk7fj+FeSwbU4rNghygFOzwpoaQt9SBW8blDAPZCVJ7wVnDVisx6t1ryyBpB3NmOwiNaT+hHi7YthYZzr0kvL5kWKSnpssyWBofnjqbFWBSV8JaFx7Ia2qnsgdVYALisYjLBr+bj69YXuyWiBxYFx+JylH6wW4w55Rziatoa4rwrdlrpgE2yRTxDu9wSZ4VCdUYSMj2ctyAy2fOiCcP00VGjihJWGCXXjeVm2YQyFZXB7KqGPhncdHaFmJzIvL8SbWKSc36cUKSuHhZ5n+oZVU8Vf+lb/eJibzTWxBIAJbtQplKojG48ukd7QFtRUd3b2EkOjzmeJ26zMlfA==";
             Assert.AreEqual(exceptedResult, result);
         }
+
+        [TestMethod]
+        public void GetJsApiUiPackage_ForWxOpen_ShouldUsePrepayIdPrefix()
+        {
+            var appId = "wx8888888888888888";
+            var separcWeixinSetting = Config.SenparcWeixinSetting with
+            {
+                TenPayV3_AppId = appId,
+                TenPayV3_PrivateKey = privateKey
+            };
+
+            var tenpayInfo = new TenPayV3Info(separcWeixinSetting);
+            var jsApiUiPackage = TenPaySignHelper.GetJsApiUiPackage("wx201410272009395522657a690389285100", tenpayInfo, JsApiAppType.WxOpen);
+
+            Assert.AreEqual("prepay_id=wx201410272009395522657a690389285100", jsApiUiPackage.PrepayIdPackage);
+        }
+
+        [TestMethod]
+        public void GetJsApiUiPackage_ForNativeApp_ShouldUseRawPrepayId()
+        {
+            var appId = "wx8888888888888888";
+            var separcWeixinSetting = Config.SenparcWeixinSetting with
+            {
+                TenPayV3_AppId = appId,
+                TenPayV3_PrivateKey = privateKey
+            };
+
+            var tenpayInfo = new TenPayV3Info(separcWeixinSetting);
+            var jsApiUiPackage = TenPaySignHelper.GetJsApiUiPackage("prepay_id=wx201410272009395522657a690389285100", tenpayInfo, JsApiAppType.NativeApp);
+
+            Assert.AreEqual("wx201410272009395522657a690389285100", jsApiUiPackage.PrepayIdPackage);
+        }
     }
 }

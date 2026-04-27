@@ -56,5 +56,30 @@ namespace Senparc.Weixin.TenPayV3
         DELETE
     }
 
+    /// <summary>
+    /// 支付请求签名算法类型
+    /// </summary>
+    public enum CertType
+    {
+        RSA,
+        SM
+    }
+
+    /// <summary>
+    /// 调起支付的应用类型
+    /// </summary>
+    public enum JsApiAppType
+    {
+        /// <summary>
+        /// 微信小程序
+        /// </summary>
+        WxOpen,
+
+        /// <summary>
+        /// 原生 App
+        /// </summary>
+        NativeApp
+    }
+
 }
 

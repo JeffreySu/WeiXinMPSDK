@@ -269,7 +269,21 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         [Obsolete("v2.3.3 起该方法已过时，请使用 GetJsApiUiPackage(string prepayId, TenPayV3Info tenPayV3Info) 方法。")]
         public static JsApiUiPackage GetJsApiUiPackage(string appId, string prepayId, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
         {
-            return GetJsApiUiPackage(prepayId, new TenPayV3Info(senparcWeixinSettingForTenpayV3));
+            return GetJsApiUiPackage(appId, prepayId, null, senparcWeixinSettingForTenpayV3);
+        }
+
+        /// <summary>
+        /// 获取给 JsApi UI 使用的打包签名信息
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="prepayId"></param>
+        /// <param name="appType">应用类型，可为空，默认为 <see cref="JsApiAppType.WxOpen"/></param>
+        /// <param name="senparcWeixinSettingForTenpayV3">可为空，为空时将从 Senparc.Weixin.Config 获取</param>
+        /// <returns></returns>
+        [Obsolete("v2.3.3 起该方法已过时，请使用 GetJsApiUiPackage(string prepayId, TenPayV3Info tenPayV3Info, JsApiAppType appType) 方法。")]
+        public static JsApiUiPackage GetJsApiUiPackage(string appId, string prepayId, JsApiAppType? appType, ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
+        {
+            return GetJsApiUiPackage(prepayId, new TenPayV3Info(senparcWeixinSettingForTenpayV3), appType ?? JsApiAppType.WxOpen);
         }
 
         /// <summary>
@@ -278,7 +292,18 @@ namespace Senparc.Weixin.TenPayV3.Helpers
         /// <param name="prepayId">预支付交易会话标识。</param>
         /// <param name="tenPayV3Info">微信支付 V3 配置信息。</param>
         /// <returns></returns>
+        [Obsolete("v2.4.0 起该方法已过时，请使用 GetJsApiUiPackage(string prepayId, TenPayV3Info tenPayV3Info, JsApiAppType? appType) 方法。")]
         public static JsApiUiPackage GetJsApiUiPackage(string prepayId, TenPayV3Info tenPayV3Info)
+            => GetJsApiUiPackage(prepayId, tenPayV3Info, JsApiAppType.WxOpen);
+
+        /// <summary>
+        /// 获取给 JsApi UI 使用的打包签名信息
+        /// </summary>
+        /// <param name="prepayId">预支付交易会话标识。</param>
+        /// <param name="tenPayV3Info">微信支付 V3 配置信息。</param>
+        /// <param name="appType">应用类型（小程序或原生 App）。</param>
+        /// <returns></returns>
+        public static JsApiUiPackage GetJsApiUiPackage(string prepayId, TenPayV3Info tenPayV3Info, JsApiAppType appType = JsApiAppType.WxOpen)
         {
             if (tenPayV3Info == null)
             {
@@ -287,11 +312,34 @@ namespace Senparc.Weixin.TenPayV3.Helpers
 
             var timeStamp = TenPayV3Util.GetTimestamp();
             var nonceStr = TenPayV3Util.GetNoncestr();
-            var prepayIdPackage = prepayId.Contains("prepay_id=") ? prepayId : string.Format("prepay_id={0}", prepayId);
+            var prepayIdPackage = GetPrepayIdPackage(prepayId, appType);
             var sign = TenPaySignHelper.CreatePaySign(timeStamp, nonceStr, prepayIdPackage, tenPayV3Info);
 
             JsApiUiPackage jsApiUiPackage = new(tenPayV3Info.AppId, timeStamp, nonceStr, prepayIdPackage, sign);
             return jsApiUiPackage;
+        }
+
+        /// <summary>
+        /// 根据微信小程序或原生 APP 定义不同格式的 prepayId 签名字符串
+        /// </summary>
+        /// <param name="prepayId"></param>
+        /// <param name="appType"></param>
+        /// <returns></returns>
+        private static string GetPrepayIdPackage(string prepayId, JsApiAppType appType)
+        {
+            if (string.IsNullOrWhiteSpace(prepayId))
+            {
+                return prepayId;
+            }
+
+            const string prepayIdPrefix = "prepay_id=";
+            var normalizedPrepayId = prepayId.StartsWith(prepayIdPrefix, StringComparison.OrdinalIgnoreCase)
+                ? prepayId.Substring(prepayIdPrefix.Length)
+                : prepayId;
+
+            return appType == JsApiAppType.NativeApp
+                ? normalizedPrepayId
+                : $"{prepayIdPrefix}{normalizedPrepayId}";
         }
 
         /// <summary>

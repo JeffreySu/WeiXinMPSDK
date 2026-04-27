@@ -38,7 +38,7 @@ AI 功能将整合在 [/Samples/All/net8-mvc](../Samples/All/net10-mvc/Senparc.W
 
 > [查看代码](https://github.com/JeffreySu/WeiXinMPSDK/blob/f28a5995b3e5f01b3be384b5c7462324ec6f0886/Samples/All/Senparc.Weixin.Sample.CommonService/MessageHandlers/CustomMessageHandler/CustomMessageHandler.cs#L194-L194)
 
-其中 `StartAIChatAsync()` 用于激活当前用户对话山下文的 AI 对话状态
+其中 `StartAIChatAsync()` 用于激活当前用户对话上下文的 AI 对话状态
 
 > [查看代码](https://github.com/JeffreySu/WeiXinMPSDK/blob/d721b118b036b6f37d2cf4e932fb954653eba667/Samples/All/Senparc.Weixin.Sample.CommonService/AI/MessageHandlers/CustomMessageHandler_AI.cs#L70-L70)
 

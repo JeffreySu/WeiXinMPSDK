@@ -123,6 +123,11 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sec
         /// 认证联系人邮箱
         /// </summary>
         public string email { get; set; }
+
+        /// <summary>
+        /// 认证联系人手机号，仅打回重填时可填写
+        /// </summary>
+        public string mobile { get; set; }
     }
 
     /// <summary>
@@ -131,7 +136,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sec
     public class WxaAuthAuthData_InvoiceInfo
     {
         /// <summary>
-        /// 发票类型 1: 不开发票 2: 电子发票 3: 增值税专票
+        /// 发票类型 1: 不开发票 2: 电子发票 3: 增值税专票（2024年4月3日起废弃） 4: 增值税专票（数电类型）
         /// </summary>
         public int invoice_type { get; set; }
 
@@ -141,7 +146,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sec
         public WxaAuthAuthData_InvoiceInfo_Electronic electronic { get; set; }
 
         /// <summary>
-        /// 发票类型=3时必填 增值税专票开票信息
+        /// 发票类型=4时必填 增值税专票开票信息
         /// </summary>
         public WxaAuthAuthData_InvoiceInfo_Vat vat { get; set; }
 

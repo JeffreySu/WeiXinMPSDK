@@ -124,11 +124,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
         /// </summary>
         public Repeat_Type repeat_type { get; set; }
         /// <summary>
-        /// 重复结束时刻，Unix时间戳。不填或填0表示一直重复
+        /// 重复频率单位（历史字段，保留兼容）
         /// </summary>
         public int repeat_unit { get; set; }
         /// <summary>
-        /// 重复结束时刻，Unix时间戳。不填或填0表示一直重复
+        /// 重复结束时刻，Unix时间戳。不填或填0表示一直重复（新字段）
         /// </summary>
         public int? repeat_until { get; set; }
         /// <summary>

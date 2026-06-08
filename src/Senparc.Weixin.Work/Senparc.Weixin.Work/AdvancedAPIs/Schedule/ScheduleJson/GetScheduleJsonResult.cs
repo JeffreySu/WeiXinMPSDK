@@ -6,6 +6,9 @@
     
     
     创建标识：lishewen - 20191226
+
+    修改标识：Copilot - 20260608
+    修改描述：v3.17.x 增加 get_by_calendar 返回的 sequence 字段
     
 ----------------------------------------------------------------*/
 
@@ -79,6 +82,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
         /// 日程状态。0-正常；1-已取消
         /// </summary>
         public int status { get; set; }
+        /// <summary>
+        /// 日程序号（get_by_calendar接口返回）
+        /// </summary>
+        public int? sequence { get; set; }
     }
 
     public class AttendeeResult : Attendee
@@ -87,4 +94,3 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
     }
 
 }
-

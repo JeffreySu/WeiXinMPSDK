@@ -10,6 +10,9 @@
     修改标识：Senparc - 20230226
     修改描述：v3.15.16 Add 方法修改 ScheduleAdd 参数类型
 
+    修改标识：Copilot - 20260608
+    修改描述：v3.17.x 新增日程参与者和按日历获取接口，补充取消参数
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;
@@ -74,7 +77,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule
         /// <param name="schedule_id">日程ID</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WorkJsonResult Del(string accessTokenOrAppKey, string schedule_id, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult Del(string accessTokenOrAppKey, string schedule_id, int? op_mode = null, int? op_start_time = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -82,7 +85,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule
 
                 var data = new
                 {
-                    schedule_id
+                    schedule_id,
+                    op_mode,
+                    op_start_time
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
@@ -107,6 +112,54 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetScheduleJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+        /// <summary>
+        /// 获取日历下的日程列表
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">接口调用凭证</param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetScheduleJsonResult GetByCalendar(string accessTokenOrAppKey, GetByCalendarData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = Config.ApiWorkHost + "/cgi-bin/oa/schedule/get_by_calendar?access_token={0}";
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetScheduleJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+        /// <summary>
+        /// 新增日程参与者
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">接口调用凭证</param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WorkJsonResult AddAttendees(string accessTokenOrAppKey, ScheduleAttendeesData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = Config.ApiWorkHost + "/cgi-bin/oa/schedule/add_attendees?access_token={0}";
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+        /// <summary>
+        /// 删除日程参与者
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">接口调用凭证</param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WorkJsonResult DelAttendees(string accessTokenOrAppKey, ScheduleAttendeesData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = Config.ApiWorkHost + "/cgi-bin/oa/schedule/del_attendees?access_token={0}";
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
         #endregion
@@ -156,7 +209,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule
         /// <param name="schedule_id">日程ID</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<WorkJsonResult> DelAsync(string accessTokenOrAppKey, string schedule_id, int timeOut = Config.TIME_OUT)
+        public static async Task<WorkJsonResult> DelAsync(string accessTokenOrAppKey, string schedule_id, int? op_mode = null, int? op_start_time = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -164,7 +217,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule
 
                 var data = new
                 {
-                    schedule_id
+                    schedule_id,
+                    op_mode,
+                    op_start_time
                 };
 
                 return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
@@ -191,7 +246,54 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule
                 return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetScheduleJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
+        /// <summary>
+        /// 获取日历下的日程列表
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">接口调用凭证</param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetScheduleJsonResult> GetByCalendarAsync(string accessTokenOrAppKey, GetByCalendarData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = Config.ApiWorkHost + "/cgi-bin/oa/schedule/get_by_calendar?access_token={0}";
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetScheduleJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 新增日程参与者
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">接口调用凭证</param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> AddAttendeesAsync(string accessTokenOrAppKey, ScheduleAttendeesData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = Config.ApiWorkHost + "/cgi-bin/oa/schedule/add_attendees?access_token={0}";
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 删除日程参与者
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">接口调用凭证</param>
+        /// <param name="data">请求参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> DelAttendeesAsync(string accessTokenOrAppKey, ScheduleAttendeesData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = Config.ApiWorkHost + "/cgi-bin/oa/schedule/del_attendees?access_token={0}";
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
         #endregion
     }
 }
-

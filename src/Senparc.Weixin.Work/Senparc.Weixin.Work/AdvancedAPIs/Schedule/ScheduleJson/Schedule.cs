@@ -10,6 +10,9 @@
     修改标识：Senparc - 20230226
     修改描述：v3.15.16 添加 RepeatDayOfWeek 枚举、完善 Schedule 属性
 
+    修改标识：Copilot - 20260608
+    修改描述：v3.17.x 同步企业微信日程接口新增字段与请求参数
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -52,6 +55,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
     public class Schedule
     {
         /// <summary>
+        /// 日程管理员ID列表
+        /// </summary>
+        public List<string> admins { get; set; }
+        /// <summary>
         /// 组织者
         /// </summary>
         public string organizer { get; set; }
@@ -63,6 +70,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
         /// 日程结束时间，Unix时间戳
         /// </summary>
         public int end_time { get; set; }
+        /// <summary>
+        /// 是否为全天日程。0-否；1-是
+        /// </summary>
+        public int? is_whole_day { get; set; }
         /// <summary>
         /// 日程参与者列表。最多支持2000人
         /// </summary>
@@ -101,6 +112,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
         /// </summary>
         public Remind_Before_Event_Secs remind_before_event_secs { get; set; }
         /// <summary>
+        /// 日程开始时间与提醒时间的差值列表（单位秒）
+        /// </summary>
+        public int[] remind_time_diffs { get; set; }
+        /// <summary>
         /// 是否重复日程。0-否；1-是
         /// </summary>
         public int is_repeat { get; set; }
@@ -112,6 +127,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
         /// 重复结束时刻，Unix时间戳。不填或填0表示一直重复
         /// </summary>
         public int repeat_unit { get; set; }
+        /// <summary>
+        /// 重复结束时刻，Unix时间戳。不填或填0表示一直重复
+        /// </summary>
+        public int? repeat_until { get; set; }
         /// <summary>
         /// 是否自定义重复。0-否；1-是
         /// </summary>
@@ -174,5 +193,41 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
         /// </summary>
         public string schedule_id { get; set; }
     }
-}
 
+    /// <summary>
+    /// 日程参与者变更请求参数
+    /// </summary>
+    public class ScheduleAttendeesData
+    {
+        /// <summary>
+        /// 日程ID
+        /// </summary>
+        public string schedule_id { get; set; }
+
+        /// <summary>
+        /// 日程参与者列表
+        /// </summary>
+        public List<Attendee> attendees { get; set; }
+    }
+
+    /// <summary>
+    /// 获取日历下的日程列表请求参数
+    /// </summary>
+    public class GetByCalendarData
+    {
+        /// <summary>
+        /// 日历ID
+        /// </summary>
+        public string cal_id { get; set; }
+
+        /// <summary>
+        /// 分页偏移量
+        /// </summary>
+        public int? offset { get; set; }
+
+        /// <summary>
+        /// 每页大小
+        /// </summary>
+        public int? limit { get; set; }
+    }
+}

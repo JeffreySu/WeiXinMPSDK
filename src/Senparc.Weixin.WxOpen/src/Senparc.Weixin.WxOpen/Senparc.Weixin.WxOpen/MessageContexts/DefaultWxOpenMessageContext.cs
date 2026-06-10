@@ -114,6 +114,15 @@ namespace Senparc.Weixin.WxOpen.MessageContexts
                         case "CHARGE_SERVICE_QUOTA_NOTIFY": //付费管理订单用量告警事件
                             requestMessage = new RequestMessageEvent_ChargeServiceQuotaNotify();
                             break;
+                        case "XPAY_GOODS_DELIVER_NOTIFY":  // 小程序虚拟支付-道具发货推送
+                            requestMessage = new RequestMessageEvent_XPayGoodsDeliverNotify();
+                            break;
+                        case "XPAY_COIN_PAY_NOTIFY": // 小程序虚拟支付-代币支付推送
+                            requestMessage = new RequestMessageEvent_XPayCoinPayNotify();
+                            break;
+                        case "XPAY_REFUND_NOTIFY": // 小程序虚拟支付-退款推送
+                            requestMessage = new RequestMessageEvent_XPayRefundNotify();
+                            break;
                         default://其他意外类型（也可以选择抛出异常）
                             requestMessage = new RequestMessageEventBase();
                             break;

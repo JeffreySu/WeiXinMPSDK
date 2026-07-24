@@ -2,10 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <PackageReleaseNotes>
       [2026-07-18] v1.0.1 Dependency update from Senparc.Weixin to 6.23.2; Senparc.Weixin.TenPay to 1.18.2
       [2026-07-20] v1.0.2 Dependency update from Senparc.Weixin to 6.24.0; Senparc.Weixin.TenPay to 1.18.3
+      [2026-07-23] v1.0.3 补充微信支付 Native AOT 序列化测试
+      1、验证分账接收方使用源生成元数据完成序列化
+      2、同步微信支付项目版本和测试依赖
     </PackageReleaseNotes>
 
     <IsPackable>false</IsPackable>

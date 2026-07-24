@@ -3,7 +3,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>2026.7.20</Version>
+    <Version>2026.7.23</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.All</AssemblyName>
     <RootNamespace>Senparc.Weixin.All</RootNamespace>
@@ -91,7 +91,9 @@
 		[2026-06-25] WxOpen v3.27.2 fix: 修复 微信小程序虚拟支付，IOS退款消息推送，属性错误！ / Issue #3310 / PR #3311 感谢 @lilinjian2001
 		[2026-07-18] v2026.7.18 Dependency update from Senparc.Weixin to 6.23.2; Senparc.Weixin.MP to 16.24.4; Senparc.Weixin.Open to 4.24.2; Senparc.Weixin.TenPayV3 to 2.4.1; Senparc.Weixin.Work to 3.31.1; Senparc.Weixin.WxOpen to 3.27.3
 		[2026-07-20] v2026.7.20 Dependency update from Senparc.Weixin to 6.24.0; Senparc.Weixin.MP to 16.25.0; Senparc.Weixin.Open to 4.24.3; Senparc.Weixin.TenPay to 1.18.3; Senparc.Weixin.TenPayV3 to 2.5.0; Senparc.Weixin.Work to 3.32.0; Senparc.Weixin.WxOpen to 3.28.0
-	</PackageReleaseNotes>
+		[2026-07-23] v2026.7.23 同步微信全模块依赖升级
+		1、聚合 CO2NET 4.1、NeuChar 3.0 与各微信模块最新版本
+    </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-    <Version>4.24.3</Version>
+    <Version>4.24.4</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -212,7 +212,10 @@
 		2、为组件票据及授权方凭据增加锁内二次检查，避免并发重复刷新
 		[2026-07-20] v4.24.3 适配开放平台容器注册回调容量管理
 		1、组件票据和授权方容器使用兼容的注册容量检查
-</PackageReleaseNotes>
+		[2026-07-23] v4.24.4 升级开放平台基础依赖
+		1、升级 NeuChar 3.0.0
+		2、显式保留 Newtonsoft.Json 13.0.4 以兼容授权模型序列化
+    </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -255,6 +258,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net10.csproj" />
   </ItemGroup>
   <ItemGroup>

@@ -3,10 +3,13 @@
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net10.0</TargetFramework>
-		<Version>1.0.2</Version>
+		<Version>1.0.3</Version>
 		<PackageReleaseNotes>
 			[2026-07-18] v1.0.1 Dependency update from Senparc.Weixin.Net10Sample.CommonService to 3.0.3
 			[2026-07-18] v1.0.2 Dependency update from Senparc.Weixin.Net10Sample.CommonService to 3.1.0
+			[2026-07-23] v1.0.3 升级控制台示例使用的微信组件
+			1、升级缓存、公众号、开放平台、支付、企业微信及小程序组件
+			2、统一使用 NuGet.org 最新稳定版依赖
 		</PackageReleaseNotes>
 	</PropertyGroup>
 
@@ -23,15 +26,15 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
-		<PackageReference Include="Senparc.WebSocket" Version="1.1.8" />
-		<PackageReference Include="Senparc.Weixin.Cache.CsRedis" Version="1.1.7" />
-		<PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.18.8" />
-		<PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.20.8" />
-		<PackageReference Include="Senparc.Weixin.MP" Version="16.23.8" />
-		<PackageReference Include="Senparc.Weixin.Open" Version="4.22.1" />
-		<PackageReference Include="Senparc.Weixin.TenPayV3" Version="2.1.1" />
-		<PackageReference Include="Senparc.Weixin.Work" Version="3.28.0" />
-		<PackageReference Include="Senparc.Weixin.WxOpen" Version="3.23.6" />
+		<PackageReference Include="Senparc.WebSocket" Version="1.2.1" />
+		<PackageReference Include="Senparc.Weixin.Cache.CsRedis" Version="1.3.3" />
+		<PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.19.3" />
+		<PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.21.3" />
+		<PackageReference Include="Senparc.Weixin.MP" Version="16.25.0" />
+		<PackageReference Include="Senparc.Weixin.Open" Version="4.24.3" />
+		<PackageReference Include="Senparc.Weixin.TenPayV3" Version="2.5.0" />
+		<PackageReference Include="Senparc.Weixin.Work" Version="3.32.0" />
+		<PackageReference Include="Senparc.Weixin.WxOpen" Version="3.28.0" />
 	</ItemGroup>
 
 	<ItemGroup>

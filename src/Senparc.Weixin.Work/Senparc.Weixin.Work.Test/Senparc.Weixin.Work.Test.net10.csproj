@@ -2,10 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <PackageReleaseNotes>
       [2026-07-18] v1.0.1 Dependency update from Senparc.Weixin to 6.23.2; Senparc.Weixin.MP to 16.24.4; Senparc.Weixin.Work to 3.31.1
       [2026-07-20] v1.0.2 Dependency update from Senparc.Weixin to 6.24.0; Senparc.Weixin.MP to 16.25.0; Senparc.Weixin.Work to 3.32.0
+      [2026-07-23] v1.0.3 同步企业微信测试依赖
+      1、适配企业微信组件、NeuChar 3.0 与最新序列化依赖
     </PackageReleaseNotes>
 
     <IsPackable>false</IsPackable>

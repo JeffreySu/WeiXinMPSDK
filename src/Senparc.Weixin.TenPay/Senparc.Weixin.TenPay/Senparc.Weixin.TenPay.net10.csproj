@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-    <Version>1.18.3</Version>
+    <LangVersion>10.0</LangVersion>
+    <Version>1.19.0</Version>
     <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -60,7 +61,10 @@
             [2026-07-18] v1.18.2 Dependency update from Senparc.Weixin to 6.23.2
             [2026-07-20] v1.18.3 完善旧版红包请求的网络与证书资源管理
             1、统一证书、响应、流和 HTTP 请求资源的确定性释放
-</PackageReleaseNotes>
+            [2026-07-23] v1.19.0 增强微信支付请求的 Native AOT 序列化能力
+            1、新增 System.Text.Json 源生成上下文并迁移分账与 H5 场景序列化
+            2、升级 CO2NET.AspNet 2.1.3，保留 net462 兼容路径
+    </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -99,7 +103,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.AspNet" Version="2.1.1" />
+    <PackageReference Include="Senparc.CO2NET.AspNet" Version="2.1.3" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" Condition=" '$(TargetFramework)' != 'net10.0' " />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net10.csproj" />

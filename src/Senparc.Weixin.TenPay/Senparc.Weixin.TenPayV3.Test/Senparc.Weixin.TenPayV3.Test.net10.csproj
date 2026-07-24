@@ -2,13 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <PackageReleaseNotes>
       [2026-07-18] v1.0.1 完善 HTTP 客户端复用和随机数安全性测试
       1、覆盖同配置 HttpClient 复用及自定义请求头隔离
       2、验证 TenPayV3 随机字符串长度、字符范围与随机性
       [2026-07-20] v1.0.2 增加支付流式下载、通知限制和已发布 API 兼容性测试
       1、覆盖取消传播、请求复用、正文上限与旧程序集元数据兼容
+      [2026-07-23] v1.0.3 同步微信支付 V3 测试依赖
+      1、适配 TenPayV3 组件与 CO2NET.AspNet 2.1.3
     </PackageReleaseNotes>
 
     <IsPackable>false</IsPackable>

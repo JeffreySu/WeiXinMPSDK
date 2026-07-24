@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>2.5.0</Version>
+    <Version>2.5.1</Version>
     <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
     <LangVersion>10.0</LangVersion>
@@ -80,7 +80,10 @@
 		1、支持账单及营销明细流式下载、增量校验与取消传播
 		2、增加通知正文限长异步读取、支付公钥并发刷新和线程安全配置访问
 		3、保持已发布构造函数、DTO 与受保护方法的兼容签名
-</PackageReleaseNotes>
+		[2026-07-23] v2.5.1 升级微信支付 V3 基础依赖
+		1、升级 CO2NET.AspNet 2.1.3
+		2、显式保留 Newtonsoft.Json 13.0.4 以兼容现有 V3 模型
+    </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -112,7 +115,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BouncyCastle.Cryptography" Version="2.4.0" />
-    <PackageReference Include="Senparc.CO2NET.AspNet" Version="2.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Senparc.CO2NET.AspNet" Version="2.1.3" />
     <PackageReference Include="System.Security.Cryptography.Cng" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>

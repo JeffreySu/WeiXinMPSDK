@@ -21,7 +21,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
   
-    文件名：TenpayV3ProtfitSharingRequestData.cs
+    文件名：TenpayV3ProfitShareingRequestData.cs
     文件功能描述：分账请求
     
     创建标识：hesi815 - 20200318
@@ -44,10 +44,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20210202
     修改描述：v1.6.200.2 修复：调用分账查询接口, 结果返回"验证签名失败"问题 https://github.com/JeffreySu/WeiXinMPSDK/issues/2309
 
+    修改标识：Senparc - 20260723
+    修改描述：v1.19.0 使用 System.Text.Json 源生成元数据序列化分账接收方参数
+
 ----------------------------------------------------------------*/
 
-using Newtonsoft.Json;
-using Senparc.CO2NET.Extensions;
 using System;
 
 namespace Senparc.Weixin.TenPay.V3
@@ -189,9 +190,7 @@ namespace Senparc.Weixin.TenPay.V3
             PackageRequestHandler.SetParameter("out_order_no", this.OutOrderNo);     //商户系统内部的分账单号
             if (Receivers != null)
             {
-                JsonSerializerSettings setting = new JsonSerializerSettings();
-                setting.NullValueHandling = NullValueHandling.Ignore;
-                PackageRequestHandler.SetParameter("receivers", Receivers.ToJson(false, setting));   //分账接收方列表
+                PackageRequestHandler.SetParameter("receivers", TenPayJsonSerializer.Serialize(Receivers));   //分账接收方列表
             }
 
             Sign = PackageRequestHandler.CreateSha256Sign("key", this.Key);
@@ -577,9 +576,7 @@ namespace Senparc.Weixin.TenPay.V3
             PackageRequestHandler.SetParameter("nonce_str", this.NonceStr);                //随机字符串
             PackageRequestHandler.SetParameter("sign_type", this.SignType);     //签名类型，默认为MD5
 
-            JsonSerializerSettings setting = new JsonSerializerSettings();
-            setting.NullValueHandling = NullValueHandling.Ignore;
-            PackageRequestHandler.SetParameter("receiver", Receiver.ToJson(false, setting));   //场景信息
+            PackageRequestHandler.SetParameter("receiver", TenPayJsonSerializer.Serialize(Receiver));   //场景信息
 
             Sign = PackageRequestHandler.CreateSha256Sign("key", this.Key);
 
@@ -704,9 +701,7 @@ namespace Senparc.Weixin.TenPay.V3
             PackageRequestHandler.SetParameter("nonce_str", this.NonceStr);                 //随机字符串
             PackageRequestHandler.SetParameter("sign_type", this.SignType);                 //签名类型，默认为MD5
 
-            JsonSerializerSettings setting = new JsonSerializerSettings();
-            setting.NullValueHandling = NullValueHandling.Ignore;
-            PackageRequestHandler.SetParameter("receiver", Receiver.ToJson(false, setting));//场景信息
+            PackageRequestHandler.SetParameter("receiver", TenPayJsonSerializer.Serialize(Receiver));//场景信息
 
             Sign = PackageRequestHandler.CreateSha256Sign("key", this.Key);
 
@@ -723,4 +718,3 @@ namespace Senparc.Weixin.TenPay.V3
         public readonly string Sign;
     }
 }
-

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-		<Version>3.32.0</Version>
+		<Version>3.32.1</Version>
 		<LangVersion>10.0</LangVersion>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -219,7 +219,10 @@
 			[2026-07-20] v3.32.0 新增可注入企业微信客户端并优化消息与凭据处理
 			1、新增 WorkApiClient 和外部凭据提供器注册入口
 			2、优化注册容量、反射缓存、异步回调与文件流释放
-		</PackageReleaseNotes>
+			[2026-07-23] v3.32.1 升级企业微信基础依赖
+			1、升级 NeuChar 3.0.0
+			2、显式保留 Newtonsoft.Json 13.0.4 以兼容菜单模型序列化
+    </PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>
 	</PropertyGroup>
@@ -263,7 +266,8 @@
 		<Reference Include="System.Xml.Linq" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Senparc.NeuChar" Version="2.6.2" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+		<PackageReference Include="Senparc.NeuChar" Version="3.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net10.csproj" />

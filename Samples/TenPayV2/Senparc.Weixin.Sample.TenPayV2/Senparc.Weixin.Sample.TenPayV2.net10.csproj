@@ -2,6 +2,12 @@
 
 	<PropertyGroup>
 		<TargetFramework>net10.0</TargetFramework>
+		<Version>1.0.1</Version>
+		<PackageReleaseNotes>
+		  [2026-07-23] v1.0.1 升级微信支付 V2 示例依赖
+		  1、升级 AspNet、MP、MP.MVC 与 TenPay 至最新稳定版
+		  2、适配最新微信支付基础组件
+		</PackageReleaseNotes>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 
@@ -24,10 +30,10 @@
 
 	<!--引用 Nuget 包-->
 	<ItemGroup>
-	  <PackageReference Include="Senparc.Weixin.AspNet" Version="1.6.0" />
-	  <PackageReference Include="Senparc.Weixin.MP" Version="16.23.9" />
-	  <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.16.10" />
-	  <PackageReference Include="Senparc.Weixin.TenPay" Version="1.17.9" />
+	  <PackageReference Include="Senparc.Weixin.AspNet" Version="1.6.4" />
+	  <PackageReference Include="Senparc.Weixin.MP" Version="16.25.0" />
+	  <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.17.3" />
+	  <PackageReference Include="Senparc.Weixin.TenPay" Version="1.18.3" />
 	  <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
 	  <PackageReference Include="ZXing.Net" Version="0.16.9" />
 	</ItemGroup>

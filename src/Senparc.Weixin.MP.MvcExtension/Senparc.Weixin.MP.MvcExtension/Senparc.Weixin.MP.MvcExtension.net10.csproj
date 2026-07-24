@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-    <Version>7.17.3</Version>
+    <Version>7.17.4</Version>
     <AssemblyName>Senparc.Weixin.MP.MvcExtension</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.MvcExtension</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -75,7 +75,10 @@
             [2024-08-06] v7.14.5 更新基础库，包括 Senparc.CO2NET 相关库、Senparc.AI
             [2026-07-18] v7.17.2 Dependency update from Senparc.Weixin to 6.23.2; Senparc.Weixin.MP to 16.24.4
             [2026-07-20] v7.17.3 Dependency update from Senparc.Weixin.AspNet to 1.6.4; Senparc.Weixin.MP to 16.25.0
-</PackageReleaseNotes>
+            [2026-07-23] v7.17.4 同步公众号 MVC 扩展依赖
+            1、适配 NeuChar 3.0 与最新公众号基础组件
+            2、保持 MVC 扩展的多目标框架兼容
+    </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <PackageId>Senparc.Weixin.MP.MVC</PackageId>
   </PropertyGroup>

@@ -31,12 +31,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v14.10.9 TenPayV3UnifiedorderRequestData_SceneInfo 支持新H5支付的场景参数
                        - https://github.com/JeffreySu/WeiXinMPSDK/issues/1111
 
-    ----------------------------------------------------------------*/
+    修改标识：Senparc - 20260723
+    修改描述：v1.19.0 使用 System.Text.Json 源生成元数据序列化 H5 支付场景参数
+
+----------------------------------------------------------------*/
 
 //统一支付文档：https://pay.weixin.qq.com/wiki/doc/api/H5.php?chapter=9_1 
 //H5统一支付文档：https://pay.weixin.qq.com/wiki/doc/api/H5.php?chapter=9_20&index=1
 
+#if NET45
 using Senparc.CO2NET.Extensions;
+#endif
 
 namespace Senparc.Weixin.TenPay.V3
 {
@@ -101,6 +106,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public override string ToString()
         {
+#if NET45
             if (store_info != null)
             {
                 return new { store_info = store_info }.ToJson();
@@ -110,6 +116,32 @@ namespace Senparc.Weixin.TenPay.V3
             {
                 return new { h5_info = h5_info }.ToJson();
             }
+#else
+            if (store_info != null)
+            {
+                return TenPayJsonSerializer.Serialize(new StoreInfoJson { store_info = store_info });
+            }
+
+            if (h5_info is H5_Info_IOS iosInfo)
+            {
+                return TenPayJsonSerializer.Serialize(new H5InfoIosJson { h5_info = iosInfo });
+            }
+
+            if (h5_info is H5_Info_Android androidInfo)
+            {
+                return TenPayJsonSerializer.Serialize(new H5InfoAndroidJson { h5_info = androidInfo });
+            }
+
+            if (h5_info is H5_Info_WAP wapInfo)
+            {
+                return TenPayJsonSerializer.Serialize(new H5InfoWapJson { h5_info = wapInfo });
+            }
+
+            if (h5_info != null)
+            {
+                return TenPayJsonSerializer.SerializeCustomH5Info(h5_info);
+            }
+#endif
 
             return "";
         }
@@ -208,4 +240,3 @@ namespace Senparc.Weixin.TenPay.V3
     }
 
 }
-

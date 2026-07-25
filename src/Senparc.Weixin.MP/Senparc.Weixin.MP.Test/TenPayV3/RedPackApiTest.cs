@@ -30,7 +30,7 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.MP.Test.RedPackApiTest
 {
     [TestClass]
-    class RedPackApiTest : CommonApiTest
+    public class RedPackApiTest : CommonApiTest
     {
         [TestMethod]
         public void SendNormalRedPackTest()
@@ -55,4 +55,3 @@ namespace Senparc.Weixin.MP.Test.RedPackApiTest
         }
     }
 }
-

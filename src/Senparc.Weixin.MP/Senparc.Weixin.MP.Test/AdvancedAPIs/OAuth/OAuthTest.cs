@@ -27,6 +27,7 @@ using Senparc.Weixin.MP.Test.CommonAPIs;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs.OAuth
 {
+    [TestClass]
     public class OAuthTest : CommonApiTest
     {
         [TestMethod]
@@ -36,4 +37,3 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.OAuth
         }
     }
 }
-

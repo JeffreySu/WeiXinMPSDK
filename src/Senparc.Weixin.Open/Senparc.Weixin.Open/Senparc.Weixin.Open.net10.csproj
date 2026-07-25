@@ -215,6 +215,11 @@
 		[2026-07-23] v4.24.4 升级开放平台基础依赖
 		1、升级 NeuChar 3.0.0
 		2、显式保留 Newtonsoft.Json 13.0.4 以兼容授权模型序列化
+		3、补齐组件管理、认证备案、代管小程序与代管公众号 P1 接口
+		4、补齐小程序流量主代运营 26 项接口及强类型模型
+		5、补齐微信云托管环境共享、环境创建及服务版本生命周期 10 项接口
+		6、补齐第三方平台批量云开发环境、云函数、数据库、文件及静态网站 31 项接口
+		7、补齐第三方平台普通代云开发环境、消息推送、云函数、数据库、文件及微信支付授权 37 项接口
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

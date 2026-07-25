@@ -20,12 +20,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
-  
+
     文件名：WxaEmbeddedApi.cs
     文件功能描述：半屏小程序管理接口
-    
-    
+
+
     创建标识：mc7246 - 20220706
+
+    修改标识：Senparc - 20260724
+    修改描述：v4.24.4 补齐开放平台基础管理、流量主代运营和微信云托管接口
 
 ----------------------------------------------------------------*/
 
@@ -151,7 +154,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static WxJsonResult SetAuthorize(string accessToken, int flag)
         {
-            var url = $"{Config.ApiMpHost}/wxaapi/wxaembedded/get_own_list?access_token={accessToken.AsUrlData()}";
+            var url = $"{Config.ApiMpHost}/wxaapi/wxaembedded/set_authorize?access_token={accessToken.AsUrlData()}";
 
             var data = new
             {
@@ -268,7 +271,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> SetAuthorizeAsync(string accessToken, int flag)
         {
-            var url = $"{Config.ApiMpHost}/wxaapi/wxaembedded/get_own_list?access_token={accessToken.AsUrlData()}";
+            var url = $"{Config.ApiMpHost}/wxaapi/wxaembedded/set_authorize?access_token={accessToken.AsUrlData()}";
 
             var data = new
             {
@@ -281,4 +284,3 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
     }
 }
-

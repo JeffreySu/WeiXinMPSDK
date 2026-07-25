@@ -20,11 +20,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
-  
+
     文件名：TenPayHttpHandler.cs
     文件功能描述：微信支付V3 HttpHandler
-    
-    
+
+
     创建标识：Senparc - 20210815
 
     修改标识：Senparc - 20210822
@@ -32,13 +32,21 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：MartyZane - 20240530
     修改描述：TenPayV3Setting里面增加AuthrizationType属性，用于设置认证类型，选项有WECHATPAY2-SHA256-RSA2048、WECHATPAY2-SM2-WITH-SM3，默认为WECHATPAY2-SM2-WITH-SM3
-    
+
+    修改标识：Senparc - 20260724
+    修改描述：v2.5.1 补齐微信支付 V3 退款、投诉、停车、医保、品牌入驻和商户开户接口并增强 HTTP 与通知处理
+
+    修改标识：Senparc - 20260725
+    修改描述：v2.5.1 支持微信支付品牌 API 专用 RSA 鉴权
+
 ----------------------------------------------------------------*/
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Reflection.Emit;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Crypto.Parameters;
@@ -52,6 +60,7 @@ namespace Senparc.Weixin.TenPayV3
     /// </summary>
     public class TenPayHttpHandler : DelegatingHandler
     {
+        internal const string SignatureBodyHeader = "X-Senparc-WeChatPay-Signature-Body";
         //private readonly string merchantId;
         //private readonly string serialNo;
         //private readonly string privateKey;
@@ -66,11 +75,31 @@ namespace Senparc.Weixin.TenPayV3
         //}
 
         //TODO: 此处重构使用ISenparcWeixinSettingForTenpayV3初始化实例
-        private ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting;
+        private readonly ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting;
+        private readonly TenPayBrandApiCredentials _brandApiCredentials;
 
         public TenPayHttpHandler(ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3 = null)
+            : this(senparcWeixinSettingForTenpayV3, null)
+        {
+        }
+
+        internal TenPayHttpHandler(TenPayBrandApiCredentials brandApiCredentials)
+            : this(null, brandApiCredentials ??
+                throw new ArgumentNullException(nameof(brandApiCredentials)))
+        {
+        }
+
+        private TenPayHttpHandler(
+            ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3,
+            TenPayBrandApiCredentials brandApiCredentials)
         {
             InnerHandler = new HttpClientHandler();
+
+            _brandApiCredentials = brandApiCredentials;
+            if (_brandApiCredentials != null)
+            {
+                return;
+            }
 
             _tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
 
@@ -92,8 +121,9 @@ namespace Senparc.Weixin.TenPayV3
         {
             var auth = await BuildAuthAsync(request);
 
-            var authorizationValue =
-                _tenpayV3Setting.EncryptionType == CertType.SM
+            var authorizationValue = _brandApiCredentials != null
+                ? TenPayBrandApiCredentials.AuthorizationType
+                : _tenpayV3Setting.EncryptionType == CertType.SM
                     ? "WECHATPAY2-SM2-WITH-SM3"
                     : "WECHATPAY2-SHA256-RSA2048";
 
@@ -114,8 +144,19 @@ namespace Senparc.Weixin.TenPayV3
             string body = "";
             if (method == "POST" || method == "PUT" || method == "PATCH")
             {
-                var content = request.Content;
-                body = await content.ReadAsStringAsync();
+                if (request.Headers.TryGetValues(SignatureBodyHeader, out var signatureBodies))
+                {
+                    var encodedBody = signatureBodies.FirstOrDefault();
+                    request.Headers.Remove(SignatureBodyHeader);
+                    body = string.IsNullOrEmpty(encodedBody)
+                        ? ""
+                        : Encoding.UTF8.GetString(Convert.FromBase64String(encodedBody));
+                }
+                else
+                {
+                    var content = request.Content;
+                    body = content == null ? "" : await content.ReadAsStringAsync();
+                }
             }
 
             string uri = request.RequestUri.PathAndQuery;
@@ -129,6 +170,16 @@ namespace Senparc.Weixin.TenPayV3
             //return $"mchid=\"{merchantId}\",nonce_str=\"{nonce}\",timestamp=\"{timestamp}\",serial_no=\"{serialNo}\",signature=\"{signature}\"";
 
             //TODO:此处重构使用ISenparcWeixinSettingForTenpayV3
+            if (_brandApiCredentials != null)
+            {
+                var brandSignature = TenPaySignHelper.CreateSign(CertType.RSA,
+                    message, _brandApiCredentials.BrandPrivateKey);
+                return $"brand_id=\"{_brandApiCredentials.BrandId}\"," +
+                       $"nonce_str=\"{nonce}\",timestamp=\"{timestamp}\"," +
+                       $"serial_no=\"{_brandApiCredentials.BrandSerialNumber}\"," +
+                       $"signature=\"{brandSignature}\"";
+            }
+
             string signature = string.Empty;
             if (_tenpayV3Setting.EncryptionType == CertType.SM)
             {
@@ -149,4 +200,3 @@ namespace Senparc.Weixin.TenPayV3
         }
     }
 }
-

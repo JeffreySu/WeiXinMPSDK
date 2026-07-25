@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20260723
     修改描述：v1.19.0 新增支付请求源生成序列化上下文，提升裁剪与 Native AOT 兼容性
 
+    修改标识：Senparc - 20260724
+    修改描述：v1.19.0 增强微信支付请求模型的 Native AOT 序列化兼容能力
+
 ----------------------------------------------------------------*/
 
 using System;

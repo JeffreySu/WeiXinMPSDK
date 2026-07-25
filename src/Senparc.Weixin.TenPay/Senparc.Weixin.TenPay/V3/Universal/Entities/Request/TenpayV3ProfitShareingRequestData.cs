@@ -20,10 +20,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
-  
+
     文件名：TenpayV3ProfitShareingRequestData.cs
     文件功能描述：分账请求
-    
+
     创建标识：hesi815 - 20200318
 
     修改标识：15989221023 - 20200416
@@ -31,7 +31,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：15989221023 - 20200511
     修改描述：v1.5.502.1 添加 TenPayV3UnifiedorderRequestData Version 参数 https://github.com/JeffreySu/WeiXinMPSDK/pull/2174
-   
+
     修改标识：Senparc - 20200528
     修改描述：v1.5.502.2 fix bug:必须指定待分账的接收方列表 判断有误 https://github.com/JeffreySu/WeiXinMPSDK/issues/2181
 
@@ -46,6 +46,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20260723
     修改描述：v1.19.0 使用 System.Text.Json 源生成元数据序列化分账接收方参数
+
+    修改标识：Senparc - 20260724
+    修改描述：v1.19.0 增强微信支付请求模型的 Native AOT 序列化兼容能力
 
 ----------------------------------------------------------------*/
 

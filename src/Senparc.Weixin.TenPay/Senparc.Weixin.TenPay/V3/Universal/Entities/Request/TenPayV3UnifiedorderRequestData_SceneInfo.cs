@@ -20,11 +20,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
- 
+
     文件名：TenPayV3UnifiedorderRequestData_SceneInfo.cs
     文件功能描述：TenPayV3UnifiedorderRequestData 的 SceneInfo 参数
-    
-    
+
+
     创建标识：Senparc - 20180223
 
     修改标识：Senparc - 20180223
@@ -33,6 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20260723
     修改描述：v1.19.0 使用 System.Text.Json 源生成元数据序列化 H5 支付场景参数
+
+    修改标识：Senparc - 20260724
+    修改描述：v1.19.0 增强微信支付请求模型的 Native AOT 序列化兼容能力
 
 ----------------------------------------------------------------*/
 

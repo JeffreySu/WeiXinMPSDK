@@ -20,10 +20,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
- 
+
     文件名：TenPayNotifyHandler.cs
     文件功能描述：微信支付V3 回调请求handler
-    
+
     创建标识：Senparc - 20210819
 
     修改标识：Senparc - 20210819
@@ -46,6 +46,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20260718
     修改描述：v2.5.0 新增限长、可取消的异步通知正文读取
+
+    修改标识：Senparc - 20260724
+    修改描述：v2.5.1 公开通知 ID 和原始正文，便于调用方实现幂等处理
+
+    修改标识：Senparc - 20260725
+    修改描述：v2.5.1 新增品牌 API 专用密钥解密及微信支付公钥验签入口
+
+    修改标识：Senparc - 20260725
+    修改描述：v2.5.1 按官方处理顺序先验签再解密品牌回调
 
 ----------------------------------------------------------------*/
 
@@ -76,6 +85,21 @@ namespace Senparc.Weixin.TenPayV3
 
         readonly private NotifyRequest NotifyRequest;
         readonly private string Body;
+
+        /// <summary>
+        /// 微信支付通知信封。可读取官方通知 ID、事件类型和加密资源元数据。
+        /// </summary>
+        public NotifyRequest Notification => NotifyRequest;
+
+        /// <summary>
+        /// 微信支付通知的唯一 ID，可作为调用方幂等去重键。
+        /// </summary>
+        public string NotificationId => NotifyRequest?.id;
+
+        /// <summary>
+        /// 原始通知正文。验签、审计或延迟处理时可复用，不会再次读取请求流。
+        /// </summary>
+        public string RawBody => Body;
 
         private ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting { get; }
         private HttpContext _httpContext;
@@ -315,6 +339,65 @@ namespace Senparc.Weixin.TenPayV3
             {
                 return await AesGcmDecryptGetObjectAsync<T>(nonce, associated_data, isTenPayPubKey: isPublicKey);
             }
+        }
+
+        /// <summary>
+        /// 使用品牌 API 专用密钥解密通知资源，并使用品牌关联的微信支付公钥验签。
+        /// </summary>
+        /// <typeparam name="T">解密后的强类型通知模型。</typeparam>
+        /// <param name="brandApiKey">品牌 API 密钥。</param>
+        /// <param name="brandApiCredentials">品牌 API 鉴权凭据，其中包含回调验签所需的微信支付公钥。</param>
+        /// <param name="nonce">加密随机串；为空时读取通知资源中的值。</param>
+        /// <param name="associatedData">附加数据；为空时读取通知资源中的值。</param>
+        /// <returns>验签并解密后的品牌通知。</returns>
+        public Task<T> DecryptBrandGetObjectAsync<T>(string brandApiKey,
+            TenPayBrandApiCredentials brandApiCredentials,
+            string nonce = null, string associatedData = null)
+            where T : ReturnJsonBase, new()
+        {
+            if (string.IsNullOrWhiteSpace(brandApiKey))
+            {
+                throw new ArgumentException("品牌 API 密钥不能为空。",
+                    nameof(brandApiKey));
+            }
+
+            _ = brandApiCredentials ?? throw new ArgumentNullException(
+                nameof(brandApiCredentials));
+            var resource = NotifyRequest?.resource ?? throw new InvalidDataException(
+                "通知正文中缺少加密资源 resource。");
+
+            var wechatpayTimestamp =
+                _httpContext.Request.Headers?["Wechatpay-Timestamp"].ToString();
+            var wechatpayNonce =
+                _httpContext.Request.Headers?["Wechatpay-Nonce"].ToString();
+            var wechatpaySignature =
+                _httpContext.Request.Headers?["Wechatpay-Signature"].ToString();
+            var wechatpaySerial =
+                _httpContext.Request.Headers?["Wechatpay-Serial"].ToString();
+
+            if (!string.Equals(wechatpaySerial,
+                brandApiCredentials.WechatpayPublicKeyId,
+                StringComparison.Ordinal))
+            {
+                throw new InvalidOperationException(
+                    "品牌 API 通知的微信支付公钥 ID 与配置不匹配。");
+            }
+
+            var verifySignSuccess = TenPaySignHelper.VerifyTenpaySign(
+                CertType.RSA, wechatpayTimestamp, wechatpayNonce,
+                wechatpaySignature, Body,
+                brandApiCredentials.WechatpayPublicKey, true);
+            var decryptedString = SecurityHelper.AesGcmDecryptCiphertext(
+                brandApiKey, nonce ?? resource.nonce,
+                associatedData ?? resource.associated_data,
+                resource.ciphertext);
+            var result = decryptedString.GetObject<T>();
+            result.VerifySignSuccess = verifySignSuccess;
+            result.ResultCode = new TenPayApiResultCode(
+                $"{_httpContext.Response.StatusCode} / {_httpContext.Request.Method}",
+                "", "", "", result.VerifySignSuccess == true);
+
+            return Task.FromResult(result);
         }
     }
 }

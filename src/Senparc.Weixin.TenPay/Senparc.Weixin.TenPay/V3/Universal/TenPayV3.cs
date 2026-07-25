@@ -97,6 +97,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20260523
     修改描述：补充更新日志，完善文件头修改记录
 
+    修改标识：Senparc - 20260725
+    修改描述：v1.19.0 新增企业付款异步入口并确定性释放证书与请求流
+
 ----------------------------------------------------------------*/
 
 /*
@@ -154,16 +157,17 @@ namespace Senparc.Weixin.TenPay.V3
                 #else
                 storageFlags = X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet;
                 #endif
-                X509Certificate2 cer = new X509Certificate2(cert, certPassword, storageFlags);
+                using (X509Certificate2 cer = new X509Certificate2(cert, certPassword, storageFlags))
+                {
+                    string responseContent = RequestUtility.HttpPost(
+                        CommonDI.CommonSP,
+                        url,
+                        postStream: ms,
+                        cer: cer,
+                        timeOut: timeOut);
 
-                string responseContent = RequestUtility.HttpPost(
-                    CommonDI.CommonSP,
-                    url,
-                    postStream: ms,
-                    cer: cer,
-                    timeOut: timeOut);
-
-                return responseContent;
+                    return responseContent;
+                }
             }
         }
 
@@ -194,16 +198,17 @@ namespace Senparc.Weixin.TenPay.V3
                 #else
                 storageFlags = X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet;
                 #endif
-                X509Certificate2 cer = new X509Certificate2(cert, certPassword, storageFlags);
+                using (X509Certificate2 cer = new X509Certificate2(cert, certPassword, storageFlags))
+                {
+                    string responseContent = await RequestUtility.HttpPostAsync(
+                        CommonDI.CommonSP,
+                        url,
+                        postStream: ms,
+                        cer: cer,
+                        timeOut: timeOut).ConfigureAwait(false);
 
-                string responseContent = await RequestUtility.HttpPostAsync(
-                    CommonDI.CommonSP,
-                    url,
-                    postStream: ms,
-                    cer: cer,
-                    timeOut: timeOut).ConfigureAwait(false);
-
-                return responseContent;
+                    return responseContent;
+                }
             }
         }
 #else
@@ -889,10 +894,12 @@ namespace Senparc.Weixin.TenPay.V3
             var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}mmpaymkttransfers/promotion/transfers");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-            MemoryStream ms = new MemoryStream();
-            ms.Write(formDataBytes, 0, formDataBytes.Length);
-            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                ms.Write(formDataBytes, 0, formDataBytes.Length);
+                ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+                return RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut);
+            }
         }
 
 
@@ -960,10 +967,12 @@ namespace Senparc.Weixin.TenPay.V3
             var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}mmpaymkttransfers/gettransferinfo");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-            MemoryStream ms = new MemoryStream();
-            ms.Write(formDataBytes, 0, formDataBytes.Length);
-            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                ms.Write(formDataBytes, 0, formDataBytes.Length);
+                ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+                return RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut);
+            }
         }
 
 
@@ -1450,10 +1459,12 @@ namespace Senparc.Weixin.TenPay.V3
             var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}mmpaymkttransfers/promotion/transfers");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-            MemoryStream ms = new MemoryStream();
-            ms.Write(formDataBytes, 0, formDataBytes.Length);
-            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut).ConfigureAwait(false);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                ms.Write(formDataBytes, 0, formDataBytes.Length);
+                ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+                return await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut).ConfigureAwait(false);
+            }
         }
 
         /// <summary>
@@ -1474,7 +1485,36 @@ namespace Senparc.Weixin.TenPay.V3
             var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}mmpaymkttransfers/promotion/transfers");
             var data = dataInfo.PackageRequestHandler.ParseXML();
 #if NET462
-            string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
+            string responseContent = await CertPostAsync(cert, certPassword, data, urlFormat, timeOut).ConfigureAwait(false);
+#else
+            string responseContent = await CertPost_NetCoreAsync(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
+#endif
+            return new TransfersResult(responseContent);
+        }
+
+        /// <summary>
+        /// 【异步方法】用于企业向员工付款。
+        /// </summary>
+        /// <param name="serviceProvider">服务提供者。</param>
+        /// <param name="dataInfo">企业付款请求数据。</param>
+#if NET462
+        /// <param name="cert">证书绝对路径。</param>
+        /// <param name="certPassword">证书密码。</param>
+#endif
+        /// <param name="timeOut">超时时间（毫秒）。</param>
+        /// <returns>企业付款结果。</returns>
+        public static async Task<TransfersResult> PayToWorkerAsync(
+            IServiceProvider serviceProvider,
+            TenPayV3PayToWorkerRequestData dataInfo,
+#if NET462
+            string cert, string certPassword,
+#endif
+            int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/mmpaymkttransfers/promotion/paywwsptrans2pocket");
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+#if NET462
+            string responseContent = await CertPostAsync(cert, certPassword, data, urlFormat, timeOut).ConfigureAwait(false);
 #else
             string responseContent = await CertPost_NetCoreAsync(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
 #endif
@@ -1493,10 +1533,12 @@ namespace Senparc.Weixin.TenPay.V3
             var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}mmpaymkttransfers/gettransferinfo");
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-            MemoryStream ms = new MemoryStream();
-            ms.Write(formDataBytes, 0, formDataBytes.Length);
-            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut).ConfigureAwait(false);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                ms.Write(formDataBytes, 0, formDataBytes.Length);
+                ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+                return await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut).ConfigureAwait(false);
+            }
         }
 
         /// <summary>
@@ -1516,7 +1558,36 @@ namespace Senparc.Weixin.TenPay.V3
             var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}mmpaymkttransfers/gettransferinfo");
             var data = dataInfo.PackageRequestHandler.ParseXML();
 #if NET462
-            string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
+            string responseContent = await CertPostAsync(cert, certPassword, data, urlFormat, timeOut).ConfigureAwait(false);
+#else
+            string responseContent = await CertPost_NetCoreAsync(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
+#endif
+            return new GetTransferInfoResult(responseContent);
+        }
+
+        /// <summary>
+        /// 【异步方法】查询企业向员工付款记录。
+        /// </summary>
+        /// <param name="serviceProvider">服务提供者。</param>
+        /// <param name="dataInfo">付款记录查询请求数据。</param>
+#if NET462
+        /// <param name="cert">证书绝对路径。</param>
+        /// <param name="certPassword">证书密码。</param>
+#endif
+        /// <param name="timeOut">超时时间（毫秒）。</param>
+        /// <returns>付款记录查询结果。</returns>
+        public static async Task<GetTransferInfoResult> QueryPayLogAsync(
+            IServiceProvider serviceProvider,
+            TenPayV3GetTransferInfoRequestData dataInfo,
+#if NET462
+            string cert, string certPassword,
+#endif
+            int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = ReurnPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/mmpaymkttransfers/promotion/querywwsptrans2pocket");
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+#if NET462
+            string responseContent = await CertPostAsync(cert, certPassword, data, urlFormat, timeOut).ConfigureAwait(false);
 #else
             string responseContent = await CertPost_NetCoreAsync(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
 #endif
@@ -1545,4 +1616,3 @@ namespace Senparc.Weixin.TenPay.V3
         #endregion
     }
 }
-

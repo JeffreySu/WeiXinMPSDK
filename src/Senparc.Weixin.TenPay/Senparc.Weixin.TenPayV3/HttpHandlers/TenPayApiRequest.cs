@@ -20,11 +20,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
-  
+
     文件名：TenPayApiRequest.cs
     文件功能描述：微信支付V3接口请求
-    
-    
+
+
     创建标识：Senparc - 20210815
 
     修改标识：Senparc - 20210822
@@ -42,6 +42,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20260718
     修改描述：v2.5.0 复用序列化设置并支持请求取消与响应头优先读取
 
+    修改标识：Senparc - 20260724
+    修改描述：v2.5.1 补齐微信支付 V3 退款、投诉、停车、医保、品牌入驻、商户开户和商户注销接口并增强 HTTP 与通知处理
+
+    修改标识：Senparc - 20260725
+    修改描述：v2.5.1 支持微信支付品牌 API 专用鉴权与响应验签
+
+    修改标识：Senparc - 20260725
+    修改描述：v2.5.1 限制品牌会员图片大小并避免 multipart 文件缓冲的重复数组分配
+
 ----------------------------------------------------------------*/
 
 using Org.BouncyCastle.Crypto.Parameters;
@@ -53,6 +62,8 @@ using Senparc.Weixin.Helpers;
 using Senparc.Weixin.TenPayV3.Apis.Entities;
 using Senparc.Weixin.TenPayV3.Helpers;
 using System;
+using System.Buffers;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -76,8 +87,10 @@ namespace Senparc.Weixin.TenPayV3
         };
         private static readonly ConditionalWeakTable<ISenparcWeixinSettingForTenpayV3, Lazy<HttpClient>> HttpClients = new();
         private static readonly ConditionalWeakTable<Action<HttpClient>, ConditionalWeakTable<ISenparcWeixinSettingForTenpayV3, Lazy<HttpClient>>> CustomHttpClients = new();
+        private static readonly ConditionalWeakTable<TenPayBrandApiCredentials, Lazy<HttpClient>> BrandHttpClients = new();
 
         private readonly ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting;
+        private readonly TenPayBrandApiCredentials _brandApiCredentials;
         private readonly Action<HttpClient> _setHeaderAction;
         private readonly Lazy<HttpClient> _client;
 
@@ -86,6 +99,27 @@ namespace Senparc.Weixin.TenPayV3
             _tenpayV3Setting = senparcWeixinSettingForTenpayV3 ?? Senparc.Weixin.Config.SenparcWeixinSetting.TenpayV3Setting;
             _setHeaderAction = setHeaderAction;
             _client = GetOrCreateHttpClient(_tenpayV3Setting, _setHeaderAction);
+        }
+
+        private TenPayApiRequest(TenPayBrandApiCredentials brandApiCredentials)
+        {
+            _brandApiCredentials = brandApiCredentials ??
+                throw new ArgumentNullException(nameof(brandApiCredentials));
+            _client = BrandHttpClients.GetValue(_brandApiCredentials,
+                credentials => new Lazy<HttpClient>(
+                    () => CreateBrandHttpClient(credentials),
+                    LazyThreadSafetyMode.ExecutionAndPublication));
+        }
+
+        /// <summary>
+        /// 创建使用微信支付品牌 API 专用鉴权的请求实例。
+        /// </summary>
+        /// <param name="brandApiCredentials">品牌 ID、品牌 API 证书和微信支付公钥凭据。</param>
+        /// <returns>使用 <c>WECHATPAY-BRAND-SHA256-RSA2048</c> 认证类型的请求实例。</returns>
+        public static TenPayApiRequest CreateForBrand(
+            TenPayBrandApiCredentials brandApiCredentials)
+        {
+            return new TenPayApiRequest(brandApiCredentials);
         }
 
         private static Lazy<HttpClient> GetOrCreateHttpClient(ISenparcWeixinSettingForTenpayV3 setting, Action<HttpClient> setHeaderAction)
@@ -112,6 +146,22 @@ namespace Senparc.Weixin.TenPayV3
             return client;
         }
 
+        private static HttpClient CreateBrandHttpClient(
+            TenPayBrandApiCredentials brandApiCredentials)
+        {
+            var client = new HttpClient(
+                new TenPayHttpHandler(brandApiCredentials))
+            {
+                Timeout = Timeout.InfiniteTimeSpan
+            };
+
+            SetDefaultHeaders(client);
+            client.DefaultRequestHeaders.TryAddWithoutValidation(
+                "Wechatpay-Serial",
+                brandApiCredentials.WechatpayPublicKeyId);
+            return client;
+        }
+
         private static void SetDefaultHeaders(HttpClient client)
         {
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -131,12 +181,18 @@ namespace Senparc.Weixin.TenPayV3
         public void SetHeader(HttpClient client)
         {
             SetDefaultHeaders(client);
+            if (_brandApiCredentials != null)
+            {
+                client.DefaultRequestHeaders.TryAddWithoutValidation(
+                    "Wechatpay-Serial",
+                    _brandApiCredentials.WechatpayPublicKeyId);
+            }
             _setHeaderAction?.Invoke(client);
         }
 
         /// <summary>
         /// 获取 HttpResponseMessage 对象
-        /// </summary> 
+        /// </summary>
         /// <param name="url"></param>
         /// <param name="data">如果为 GET 请求，此参数可为 null</param>
         /// <param name="timeOut"></param>
@@ -221,6 +277,357 @@ namespace Senparc.Weixin.TenPayV3
         }
 
         /// <summary>
+        /// 发送微信支付 multipart/form-data 文件请求。签名正文按微信支付要求使用 meta JSON，
+        /// 而实际 HTTP 正文包含 meta 和 file 两个表单字段。
+        /// </summary>
+        /// <param name="url">微信支付 API URL。</param>
+        /// <param name="fileName">上传文件名。</param>
+        /// <param name="fileStream">待上传文件流。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <param name="checkSign">是否校验微信支付响应签名。</param>
+        /// <param name="createDefaultInstance">返回空响应时创建默认结果的委托。</param>
+        /// <returns>反序列化后的微信支付响应结果。</returns>
+        public Task<T> RequestMultipartAsync<T>(string url, string fileName, Stream fileStream,
+            int timeOut = Config.TIME_OUT, bool checkSign = true, Func<T> createDefaultInstance = null)
+            where T : ReturnJsonBase, new()
+        {
+            return RequestMultipartAsync(url, fileName, fileStream, CancellationToken.None,
+                timeOut, checkSign, createDefaultInstance);
+        }
+
+        /// <summary>
+        /// 发送支持取消的微信支付 multipart/form-data 文件请求。
+        /// </summary>
+        /// <param name="url">微信支付 API URL。</param>
+        /// <param name="fileName">上传文件名。</param>
+        /// <param name="fileStream">待上传文件流。</param>
+        /// <param name="cancellationToken">取消令牌。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <param name="checkSign">是否校验微信支付响应签名。</param>
+        /// <param name="createDefaultInstance">返回空响应时创建默认结果的委托。</param>
+        /// <returns>反序列化后的微信支付响应结果。</returns>
+        public Task<T> RequestMultipartAsync<T>(string url, string fileName, Stream fileStream,
+            CancellationToken cancellationToken, int timeOut = Config.TIME_OUT, bool checkSign = true,
+            Func<T> createDefaultInstance = null)
+            where T : ReturnJsonBase, new()
+        {
+            return RequestMultipartCoreAsync(url, fileName, fileStream, cancellationToken,
+                MultipartMetaFieldStyle.FilenameAndSha256, timeOut, checkSign,
+                createDefaultInstance);
+        }
+
+        /// <summary>
+        /// 发送使用 <c>filename</c> 与 <c>sha256</c> 元数据字段、并限制文件大小的
+        /// multipart/form-data 文件请求。
+        /// </summary>
+        internal Task<T> RequestMultipartWithMaxSizeAsync<T>(string url,
+            string fileName, Stream fileStream,
+            CancellationToken cancellationToken, int maxFileBytes,
+            int timeOut = Config.TIME_OUT, bool checkSign = true,
+            Func<T> createDefaultInstance = null)
+            where T : ReturnJsonBase, new()
+        {
+            return RequestMultipartCoreAsync(url, fileName, fileStream,
+                cancellationToken, MultipartMetaFieldStyle.FilenameAndSha256,
+                timeOut, checkSign, createDefaultInstance, maxFileBytes);
+        }
+
+        /// <summary>
+        /// 发送使用 <c>file_name</c> 与 <c>file_digest</c> 元数据字段的
+        /// multipart/form-data 文件请求。
+        /// </summary>
+        /// <param name="url">微信支付 API URL。</param>
+        /// <param name="fileName">上传文件名。</param>
+        /// <param name="fileStream">待上传文件流。</param>
+        /// <param name="cancellationToken">取消令牌。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <param name="checkSign">是否校验微信支付响应签名。</param>
+        /// <param name="createDefaultInstance">返回空响应时创建默认结果的委托。</param>
+        /// <returns>反序列化后的微信支付响应结果。</returns>
+        internal Task<T> RequestMultipartWithFileDigestAsync<T>(string url,
+            string fileName, Stream fileStream, CancellationToken cancellationToken,
+            int timeOut = Config.TIME_OUT, bool checkSign = true,
+            Func<T> createDefaultInstance = null)
+            where T : ReturnJsonBase, new()
+        {
+            return RequestMultipartCoreAsync(url, fileName, fileStream, cancellationToken,
+                MultipartMetaFieldStyle.FileNameAndFileDigest, timeOut,
+                checkSign, createDefaultInstance);
+        }
+
+        /// <summary>
+        /// 发送使用 <c>filename</c> 与 <c>file_digest</c> 元数据字段的
+        /// multipart/form-data 文件请求。
+        /// </summary>
+        internal Task<T> RequestMultipartWithFilenameAndFileDigestAsync<T>(
+            string url, string fileName, Stream fileStream,
+            CancellationToken cancellationToken,
+            int timeOut = Config.TIME_OUT, bool checkSign = true,
+            Func<T> createDefaultInstance = null,
+            int maxFileBytes = 2 * 1024 * 1024)
+            where T : ReturnJsonBase, new()
+        {
+            return RequestMultipartCoreAsync(url, fileName, fileStream,
+                cancellationToken,
+                MultipartMetaFieldStyle.FilenameAndFileDigest, timeOut,
+                checkSign, createDefaultInstance, maxFileBytes);
+        }
+
+        private async Task<T> RequestMultipartCoreAsync<T>(string url, string fileName,
+            Stream fileStream, CancellationToken cancellationToken,
+            MultipartMetaFieldStyle metaFieldStyle, int timeOut, bool checkSign,
+            Func<T> createDefaultInstance, int? maxFileBytes = null)
+            where T : ReturnJsonBase, new()
+        {
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                throw new ArgumentException("文件名不能为空。", nameof(fileName));
+            }
+
+            _ = fileStream ?? throw new ArgumentNullException(nameof(fileStream));
+            if (timeOut <= 0 && timeOut != Timeout.Infinite)
+            {
+                throw new ArgumentOutOfRangeException(nameof(timeOut), "超时时间必须大于 0，或使用 Timeout.Infinite。 ");
+            }
+            if (maxFileBytes.HasValue && maxFileBytes.Value <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(maxFileBytes),
+                    "文件大小上限必须大于 0。");
+            }
+            if (maxFileBytes.HasValue && fileStream.CanSeek &&
+                fileStream.Length - fileStream.Position > maxFileBytes.Value)
+            {
+                throw new InvalidDataException(
+                    $"上传文件超过允许上限 {maxFileBytes.Value} 字节。");
+            }
+
+            T result = null;
+            try
+            {
+                byte[] fileBytes;
+                int fileLength;
+                using (var memoryStream = new MemoryStream())
+                {
+                    var buffer = ArrayPool<byte>.Shared.Rent(81920);
+                    try
+                    {
+                        int bytesRead;
+                        while ((bytesRead = await fileStream.ReadAsync(buffer,
+                            0, buffer.Length, cancellationToken)
+                            .ConfigureAwait(false)) > 0)
+                        {
+                            if (maxFileBytes.HasValue &&
+                                memoryStream.Length + bytesRead >
+                                maxFileBytes.Value)
+                            {
+                                throw new InvalidDataException(
+                                    $"上传文件超过允许上限 {maxFileBytes.Value} 字节。");
+                            }
+
+                            await memoryStream.WriteAsync(buffer, 0,
+                                bytesRead, cancellationToken)
+                                .ConfigureAwait(false);
+                        }
+
+                        fileBytes = memoryStream.GetBuffer();
+                        fileLength = checked((int)memoryStream.Length);
+                    }
+                    finally
+                    {
+                        ArrayPool<byte>.Shared.Return(buffer);
+                    }
+                }
+                string fileSha256;
+                using (var sha256 = SHA256.Create())
+                {
+                    fileSha256 = BitConverter.ToString(sha256.ComputeHash(
+                            fileBytes, 0, fileLength))
+                        .Replace("-", "")
+                        .ToLowerInvariant();
+                }
+
+                var metaJson = CreateMultipartMetaJson(fileName, fileSha256,
+                    metaFieldStyle);
+
+                using var request = new HttpRequestMessage(HttpMethod.Post, url);
+                using var multipart = new MultipartFormDataContent();
+                var fileContent = new ByteArrayContent(fileBytes, 0,
+                    fileLength);
+                fileContent.Headers.ContentType = new MediaTypeHeaderValue(
+                    GetMultipartMediaType(fileName));
+                multipart.Add(fileContent, "file", fileName);
+                multipart.Add(new StringContent(metaJson, Encoding.UTF8, "application/json"), "meta");
+                request.Content = multipart;
+
+                var signatureBody = Convert.ToBase64String(Encoding.UTF8.GetBytes(metaJson));
+                request.Headers.TryAddWithoutValidation(TenPayHttpHandler.SignatureBodyHeader, signatureBody);
+
+                using var timeoutCancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+                if (timeOut != Timeout.Infinite)
+                {
+                    timeoutCancellationTokenSource.CancelAfter(timeOut);
+                }
+
+                using var responseMessage = await _client.Value.SendAsync(
+                    request, HttpCompletionOption.ResponseContentRead, timeoutCancellationTokenSource.Token)
+                    .ConfigureAwait(false);
+                var content = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var resultCode = TenPayApiResultCode.TryGetCode(responseMessage.StatusCode, content);
+
+                if (resultCode.Success)
+                {
+                    if (responseMessage.StatusCode == HttpStatusCode.NoContent)
+                    {
+                        result = new T { VerifySignSuccess = true };
+                    }
+                    else
+                    {
+                        result = content.GetObject<T>();
+                        if (checkSign)
+                        {
+                            var timestamp = responseMessage.Headers.GetValues("Wechatpay-Timestamp").First();
+                            var nonce = responseMessage.Headers.GetValues("Wechatpay-Nonce").First();
+                            var signature = responseMessage.Headers.GetValues("Wechatpay-Signature").First();
+                            var serial = responseMessage.Headers.GetValues("Wechatpay-Serial").First();
+                            if (_brandApiCredentials != null)
+                            {
+                                if (!string.Equals(serial,
+                                    _brandApiCredentials.WechatpayPublicKeyId,
+                                    StringComparison.Ordinal))
+                                {
+                                    throw new InvalidOperationException(
+                                        "品牌 API 响应的微信支付公钥 ID 与配置不匹配。");
+                                }
+
+                                result.VerifySignSuccess =
+                                    TenPaySignHelper.VerifyTenpaySign(
+                                        CertType.RSA, timestamp, nonce,
+                                        signature, content,
+                                        _brandApiCredentials.WechatpayPublicKey,
+                                        true);
+                            }
+                            else
+                            {
+                                var publicKey = await TenPayV3InfoCollection
+                                    .GetAPIv3PublicKeyAsync(_tenpayV3Setting,
+                                        serial, cancellationToken)
+                                    .ConfigureAwait(false);
+
+                                if (_tenpayV3Setting.EncryptionType == CertType.SM)
+                                {
+                                    var publicKeyBytes = Convert.FromBase64String(publicKey);
+                                    var parameters = SMPemHelper.LoadPublicKeyToParameters(publicKeyBytes);
+                                    result.VerifySignSuccess = GmHelper.VerifySm3WithSm2(parameters,
+                                        $"{timestamp}\n{nonce}\n{content}\n", signature);
+                                }
+                                else
+                                {
+                                    result.VerifySignSuccess = TenPaySignHelper.VerifyTenpaySign(
+                                        _tenpayV3Setting.EncryptionType.Value, timestamp, nonce, signature,
+                                        content, publicKey, TenPaySignHelper.IsPublicKey(serial));
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    result = createDefaultInstance?.Invoke() ?? GetInstance<T>(true);
+                    resultCode.Additional = content;
+                }
+
+                result.ResultCode = resultCode;
+                return result;
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.BaseExceptionLog(ex);
+                result = createDefaultInstance?.Invoke() ?? GetInstance<T>(false);
+                if (result != null)
+                {
+                    result.ResultCode = new TenPayApiResultCode { ErrorMessage = ex.Message };
+                }
+
+                return result;
+            }
+        }
+
+        private enum MultipartMetaFieldStyle
+        {
+            FilenameAndSha256,
+            FileNameAndFileDigest,
+            FilenameAndFileDigest
+        }
+
+        private static string CreateMultipartMetaJson(string fileName,
+            string fileSha256, MultipartMetaFieldStyle metaFieldStyle)
+        {
+            switch (metaFieldStyle)
+            {
+                case MultipartMetaFieldStyle.FileNameAndFileDigest:
+                    return new
+                    {
+                        file_name = fileName,
+                        file_digest = fileSha256
+                    }.ToJson(false, RequestJsonSerializerSettings);
+                case MultipartMetaFieldStyle.FilenameAndFileDigest:
+                    return new
+                    {
+                        filename = fileName,
+                        file_digest = fileSha256
+                    }.ToJson(false, RequestJsonSerializerSettings);
+                default:
+                    return new
+                    {
+                        filename = fileName,
+                        sha256 = fileSha256
+                    }.ToJson(false, RequestJsonSerializerSettings);
+            }
+        }
+
+        private static string GetMultipartMediaType(string fileName)
+        {
+            switch (Path.GetExtension(fileName)?.ToLowerInvariant())
+            {
+                case ".jpg":
+                case ".jpeg":
+                    return "image/jpeg";
+                case ".bmp":
+                    return "image/bmp";
+                case ".png":
+                    return "image/png";
+                case ".pdf":
+                    return "application/pdf";
+                case ".avi":
+                    return "video/x-msvideo";
+                case ".wmv":
+                    return "video/x-ms-wmv";
+                case ".mpeg":
+                case ".mpg":
+                    return "video/mpeg";
+                case ".mp4":
+                case ".m4v":
+                    return "video/mp4";
+                case ".mov":
+                    return "video/quicktime";
+                case ".mkv":
+                    return "video/x-matroska";
+                case ".flv":
+                    return "video/x-flv";
+                case ".f4v":
+                    return "video/x-f4v";
+                case ".rmvb":
+                    return "application/vnd.rn-realmedia-vbr";
+                default:
+                    return "application/octet-stream";
+            }
+        }
+
+        /// <summary>
         /// 请求参数，获取结果
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -234,13 +641,63 @@ namespace Senparc.Weixin.TenPayV3
         public Task<T> RequestAsync<T>(string url, object data, int timeOut = Config.TIME_OUT, ApiRequestMethod requestMethod = ApiRequestMethod.POST, bool checkSign = true, Func<T> createDefaultInstance = null)
             where T : ReturnJsonBase, new()
         {
-            return RequestAsync(url, data, CancellationToken.None, timeOut, requestMethod, checkSign, createDefaultInstance);
+            return RequestAsyncCore(url, data, CancellationToken.None, timeOut, requestMethod,
+                checkSign, createDefaultInstance, true);
         }
 
         /// <summary>
         /// 请求参数，获取结果，并支持调用方取消。
         /// </summary>
-        public async Task<T> RequestAsync<T>(string url, object data, CancellationToken cancellationToken, int timeOut = Config.TIME_OUT, ApiRequestMethod requestMethod = ApiRequestMethod.POST, bool checkSign = true, Func<T> createDefaultInstance = null)
+        public Task<T> RequestAsync<T>(string url, object data, CancellationToken cancellationToken, int timeOut = Config.TIME_OUT, ApiRequestMethod requestMethod = ApiRequestMethod.POST, bool checkSign = true, Func<T> createDefaultInstance = null)
+            where T : ReturnJsonBase, new()
+        {
+            return RequestAsyncCore(url, data, cancellationToken, timeOut, requestMethod,
+                checkSign, createDefaultInstance, true);
+        }
+
+        /// <summary>
+        /// 发送不包含请求正文的微信支付请求。
+        /// </summary>
+        /// <typeparam name="T">微信支付返回结果类型。</typeparam>
+        /// <param name="url">微信支付 API URL。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <param name="requestMethod">HTTP 请求方法，通常为 POST 或 DELETE。</param>
+        /// <param name="checkSign">是否校验微信支付响应签名。</param>
+        /// <param name="createDefaultInstance">返回空响应或失败时创建结果实例的委托。</param>
+        /// <returns>反序列化后的微信支付响应结果。</returns>
+        public Task<T> RequestWithoutBodyAsync<T>(string url, int timeOut = Config.TIME_OUT,
+            ApiRequestMethod requestMethod = ApiRequestMethod.POST, bool checkSign = true,
+            Func<T> createDefaultInstance = null)
+            where T : ReturnJsonBase, new()
+        {
+            return RequestWithoutBodyAsync(url, CancellationToken.None, timeOut, requestMethod,
+                checkSign, createDefaultInstance);
+        }
+
+        /// <summary>
+        /// 发送支持取消且不包含请求正文的微信支付请求。
+        /// </summary>
+        /// <typeparam name="T">微信支付返回结果类型。</typeparam>
+        /// <param name="url">微信支付 API URL。</param>
+        /// <param name="cancellationToken">取消令牌。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <param name="requestMethod">HTTP 请求方法，通常为 POST 或 DELETE。</param>
+        /// <param name="checkSign">是否校验微信支付响应签名。</param>
+        /// <param name="createDefaultInstance">返回空响应或失败时创建结果实例的委托。</param>
+        /// <returns>反序列化后的微信支付响应结果。</returns>
+        public Task<T> RequestWithoutBodyAsync<T>(string url,
+            CancellationToken cancellationToken, int timeOut = Config.TIME_OUT,
+            ApiRequestMethod requestMethod = ApiRequestMethod.POST, bool checkSign = true,
+            Func<T> createDefaultInstance = null)
+            where T : ReturnJsonBase, new()
+        {
+            return RequestAsyncCore(url, null, cancellationToken, timeOut, requestMethod,
+                checkSign, createDefaultInstance, false);
+        }
+
+        private async Task<T> RequestAsyncCore<T>(string url, object data,
+            CancellationToken cancellationToken, int timeOut, ApiRequestMethod requestMethod,
+            bool checkSign, Func<T> createDefaultInstance, bool checkDataNotNull)
             where T : ReturnJsonBase, new()
         {
             T result = null;
@@ -248,7 +705,8 @@ namespace Senparc.Weixin.TenPayV3
             try
             {
                 using HttpResponseMessage responseMessage = await GetHttpResponseMessageAsync(
-                    url, data, cancellationToken, HttpCompletionOption.ResponseContentRead, timeOut, requestMethod).ConfigureAwait(false);
+                    url, data, cancellationToken, HttpCompletionOption.ResponseContentRead, timeOut,
+                    requestMethod, checkDataNotNull).ConfigureAwait(false);
 
                 //获取响应结果
                 string content = await responseMessage.Content.ReadAsStringAsync();//TODO:如果不正确也要返回详情
@@ -269,35 +727,77 @@ namespace Senparc.Weixin.TenPayV3
                     }
                     else
                     {
-                        //TODO:待测试
-                        //验证微信签名
-                        //result.Signed = VerifyTenpaySign(responseMessage.Headers, content);
-                        var wechatpayTimestamp = responseMessage.Headers.GetValues("Wechatpay-Timestamp").First();
-                        var wechatpayNonce = responseMessage.Headers.GetValues("Wechatpay-Nonce").First();
-                        var wechatpaySignatureBase64 = responseMessage.Headers.GetValues("Wechatpay-Signature").First();//后续需要base64解码
-                        var wechatpaySerial = responseMessage.Headers.GetValues("Wechatpay-Serial").First();
-
                         result = content.GetObject<T>();
 
                         if (checkSign)
                         {
                             try
                             {
-                                var pubKey = await TenPayV3InfoCollection.GetAPIv3PublicKeyAsync(this._tenpayV3Setting, wechatpaySerial, cancellationToken).ConfigureAwait(false);
-                                if (this._tenpayV3Setting.EncryptionType == CertType.SM)
+                                var wechatpayTimestamp = responseMessage.Headers.GetValues("Wechatpay-Timestamp").First();
+                                var wechatpayNonce = responseMessage.Headers.GetValues("Wechatpay-Nonce").First();
+                                var wechatpaySignatureBase64 = responseMessage.Headers.GetValues("Wechatpay-Signature").First();
+                                var wechatpaySerial = responseMessage.Headers.GetValues("Wechatpay-Serial").First();
+                                if (_brandApiCredentials != null)
                                 {
-                                    byte[] pubKeyBytes = Convert.FromBase64String(pubKey);
-                                    ECPublicKeyParameters eCPublicKeyParameters = SMPemHelper.LoadPublicKeyToParameters(pubKeyBytes);
+                                    if (!string.Equals(wechatpaySerial,
+                                            _brandApiCredentials.WechatpayPublicKeyId,
+                                            StringComparison.Ordinal))
+                                    {
+                                        throw new InvalidOperationException(
+                                            "品牌 API 响应的微信支付公钥 ID 与配置不匹配。");
+                                    }
 
-                                    //验签名串
-                                    string contentForSign = $"{wechatpayTimestamp}\n{wechatpayNonce}\n{content}\n";
-
-                                    result.VerifySignSuccess = GmHelper.VerifySm3WithSm2(eCPublicKeyParameters, contentForSign, wechatpaySignatureBase64);
+                                    result.VerifySignSuccess =
+                                        TenPaySignHelper.VerifyTenpaySign(
+                                            CertType.RSA, wechatpayTimestamp,
+                                            wechatpayNonce,
+                                            wechatpaySignatureBase64, content,
+                                            _brandApiCredentials.WechatpayPublicKey,
+                                            true);
                                 }
                                 else
                                 {
-                                    var isTenpayPubKey = TenPaySignHelper.IsPublicKey(wechatpaySerial);
-                                    result.VerifySignSuccess = TenPaySignHelper.VerifyTenpaySign(_tenpayV3Setting.EncryptionType.Value, wechatpayTimestamp, wechatpayNonce, wechatpaySignatureBase64, content, pubKey, isTenpayPubKey);
+                                    var pubKey = await TenPayV3InfoCollection
+                                        .GetAPIv3PublicKeyAsync(
+                                            _tenpayV3Setting, wechatpaySerial,
+                                            cancellationToken)
+                                        .ConfigureAwait(false);
+                                    if (_tenpayV3Setting.EncryptionType ==
+                                        CertType.SM)
+                                    {
+                                        byte[] pubKeyBytes =
+                                            Convert.FromBase64String(pubKey);
+                                        ECPublicKeyParameters
+                                            eCPublicKeyParameters =
+                                                SMPemHelper
+                                                    .LoadPublicKeyToParameters(
+                                                        pubKeyBytes);
+
+                                        string contentForSign =
+                                            $"{wechatpayTimestamp}\n{wechatpayNonce}\n{content}\n";
+
+                                        result.VerifySignSuccess =
+                                            GmHelper.VerifySm3WithSm2(
+                                                eCPublicKeyParameters,
+                                                contentForSign,
+                                                wechatpaySignatureBase64);
+                                    }
+                                    else
+                                    {
+                                        var isTenpayPubKey =
+                                            TenPaySignHelper.IsPublicKey(
+                                                wechatpaySerial);
+                                        result.VerifySignSuccess =
+                                            TenPaySignHelper
+                                                .VerifyTenpaySign(
+                                                    _tenpayV3Setting
+                                                        .EncryptionType.Value,
+                                                    wechatpayTimestamp,
+                                                    wechatpayNonce,
+                                                    wechatpaySignatureBase64,
+                                                    content, pubKey,
+                                                    isTenpayPubKey);
+                                    }
                                 }
                             }
                             catch (Exception ex)

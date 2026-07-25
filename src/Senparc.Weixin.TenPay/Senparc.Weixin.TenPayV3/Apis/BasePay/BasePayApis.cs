@@ -20,11 +20,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
-  
+
     文件名：BasePayApis.cs
     文件功能描述：新微信支付V3基础接口
-    
-    
+
+
     创建标识：Senparc - 20180904
 
     修改标识：Senparc - 20210811
@@ -60,6 +60,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20260718
     修改描述：v2.5.0 支持账单流式下载、增量校验与取消传播
 
+    修改标识：Senparc - 20260724
+    修改描述：v2.5.1 补齐微信支付 V3 退款、投诉、停车、医保、品牌入驻和商户开户接口并增强 HTTP 与通知处理
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Helpers;
@@ -78,7 +81,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis
 {
-    public class BasePayApis
+    public partial class BasePayApis
     {
 
         private ISenparcWeixinSettingForTenpayV3 _tenpayV3Setting;

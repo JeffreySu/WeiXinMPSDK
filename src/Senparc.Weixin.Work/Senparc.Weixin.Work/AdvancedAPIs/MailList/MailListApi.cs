@@ -54,6 +54,9 @@
     修改标识：Senparc - 20230613
     修改描述：v3.15.21 添加获取子部门ID列表方法,包含同步及异步（PR #2858）
 
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 拆分当前通讯录补充接口并保持原有静态入口兼容
+
 ----------------------------------------------------------------*/
 
 /*
@@ -84,7 +87,7 @@ using Senparc.CO2NET;
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {
     [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
-    public static class MailListApi
+    public static partial class MailListApi
     {
         #region 同步方法
 
@@ -1335,4 +1338,3 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
     }
 }
-

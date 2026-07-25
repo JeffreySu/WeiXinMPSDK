@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     创建标识：IcedMango - 20240809
 
+    修改标识：Senparc - 20260724
+    修改描述：v3.32.1 补齐企业微信通讯录、安全、智能机器人、微信客服和获客助手接口
+
 ----------------------------------------------------------------*/
 using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
@@ -41,7 +44,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.CustomerAcquisition
     /// <summary>
     /// 获客链接管理Api
     /// </summary>
-    public class CustomerAcquisitionApi
+    public partial class CustomerAcquisitionApi
     {
         #region 同步方法
 

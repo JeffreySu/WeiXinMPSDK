@@ -30,7 +30,8 @@
     修改标识：Senparc - 20190129
     修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
 
-
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 补齐应用迁移、权限与管理员查询接口
 
 ----------------------------------------------------------------*/
 
@@ -54,7 +55,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// 应用管理
     /// </summary>
     [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
-    public static class AppApi
+    public static partial class AppApi
     {
         #region 同步方法
 
@@ -176,4 +177,3 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
     }
 }
-

@@ -13,6 +13,9 @@
     修改标识：Senparc - 20260608
     修改描述：v3.17.x 新增日程参与者和按日历获取接口，补充取消参数
 
+    修改标识：Senparc - 20260724
+    修改描述：v3.32.1 补齐重复日程更新选项与分裂日程返回值
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;
@@ -68,6 +71,22 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+        /// <summary>
+        /// 更新重复日程，可指定仅更新本次或本次及以后，并接收分裂后新产生的日程 ID。
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">接口调用凭证</param>
+        /// <param name="data">日程、参与人更新策略和重复日程操作模式</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static UpdateScheduleJsonResult UpdateRepeat(string accessTokenOrAppKey, ScheduleUpdateData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = Config.ApiWorkHost + "/cgi-bin/oa/schedule/update?access_token={0}";
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<UpdateScheduleJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
         /// <summary>
@@ -200,6 +219,22 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule
                 };
 
                 return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 异步更新重复日程，可指定仅更新本次或本次及以后，并接收分裂后新产生的日程 ID。
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">接口调用凭证</param>
+        /// <param name="data">日程、参与人更新策略和重复日程操作模式</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<UpdateScheduleJsonResult> UpdateRepeatAsync(string accessTokenOrAppKey, ScheduleUpdateData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = Config.ApiWorkHost + "/cgi-bin/oa/schedule/update?access_token={0}";
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<UpdateScheduleJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
         /// <summary>

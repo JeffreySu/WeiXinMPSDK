@@ -19,11 +19,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
     
-    文件名：WorkBenchApi
+    文件名：WorkBenchApi.cs
     文件功能描述：自定义工作台相关接口
     
     
     创建标识：chinanhb - 20230603
+
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 补齐批量设置应用工作台数据接口
+
 ----------------------------------------------------------------*/
 
 /*
@@ -54,7 +58,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.WorkBench
     /// 自定义工作台接口
     /// </summary>
     [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
-    public class WorkBenchApi
+    public partial class WorkBenchApi
     {
         #region 同步方法
         /// <summary>
@@ -157,4 +161,3 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.WorkBench
         #endregion
     }
 }
-

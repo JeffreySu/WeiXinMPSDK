@@ -17,7 +17,7 @@
     修改描述：v3.3.5 添加Login_User_Type枚举
 
     修改标识：Senparc - 20150507
-    修改描述：v4.2.1 ResponseMsgType添加SuccessResponse枚举 
+    修改描述：v4.2.1 ResponseMsgType添加SuccessResponse枚举
 
     修改标识：pekrr1e  - 20180503
     修改描述：v1.4.0 新增企业微信群聊会话功能支持
@@ -40,7 +40,7 @@
 
     修改标识：Senparc - 20210324
     修改描述：v3.15.15 添加：重置永久授权码通知枚举：ThirdpartyInfo.RESET_PERMANENT_CODE
-    
+
     修改标识：Senparc - 20230226
     修改描述：v3.15.16 新增“任务卡片事件推送”事件 Event 枚举值，添加 TencentGender、
                        ExternalAttributeType、GroupChatJoinScene、
@@ -48,26 +48,33 @@
 
     修改标识：Senparc - 20230321
     修改描述：v3.15.17 添加“邮箱获取 userid”接口，增加 Email_Type 枚举
-    
+
     修改标识：Senparc - 20230914
     修改描述：v3.16.4 企业微信三方代开发处理事件: 修复 Async 方法循环调用的 Bug，添加 ThirdPartyInfo 枚举值
 
     修改标识：XiaoPoTian - 20231119
     修改描述：v3.18.1 添加枚举“企业客户标签变更事件”（CHANGE_EXTERNAL_Tag）
-    
+
     修改标识：IcedMango - 20240229
     修改描述：添加枚举“企业微信会话存档-产生会话回调事件”（MSGAUDIT_NOTIFY）
 
     修改标识：LofyLiu - 20240315
     修改描述：添加枚举“模板卡片点击回调事件”
-    
+
     修改标识: IcedMango - 20241114
     修改描述: 添加: 通用模板卡片右上角菜单事件推送; 修复不正确的通用模板卡片事件推送类型
 
     修改标识: Senparc - 20251203
     修改描述: 添加: 微信客服消息与事件回调通知（KF_MSG_OR_EVENT）
+
     修改标识：Senparc - 20260523
     修改描述：补充更新日志，完善文件头修改记录
+
+    修改标识：Senparc - 20260724
+    修改描述：v3.32.1 补齐企业微信通讯录、安全、智能机器人、微信客服和获客助手接口
+
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 接入应用邮箱新邮件变更回调事件
 
 ----------------------------------------------------------------*/
 
@@ -185,6 +192,14 @@ namespace Senparc.Weixin.Work
         /// </summary>
         BATCH_JOB_RESULT,
         /// <summary>
+        /// 上下游空间、分组或企业变更事件
+        /// </summary>
+        change_chain,
+        /// <summary>
+        /// 安全管理事件（如企业微信域名 IP 变更）
+        /// </summary>
+        security,
+        /// <summary>
         /// 通讯录变更事件
         /// </summary>
         change_contact,
@@ -241,6 +256,90 @@ namespace Senparc.Weixin.Work
         /// <para>文档：https://developer.work.weixin.qq.com/document/path/94670</para>
         /// </summary>
         KF_MSG_OR_EVENT,
+
+        /// <summary>
+        /// 微信客服账号授权变更通知
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/97712</para>
+        /// </summary>
+        KF_ACCOUNT_AUTH_CHANGE,
+
+        /// <summary>
+        /// 获客助手事件通知
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/97299</para>
+        /// </summary>
+        CUSTOMER_ACQUISITION,
+
+        /// <summary>
+        /// 应用邮箱新邮件变更事件
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/97506</para>
+        /// </summary>
+        app_email_change,
+
+        /// <summary>
+        /// 会议室预定事件
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/95333</para>
+        /// </summary>
+        book_meeting_room,
+
+        /// <summary>
+        /// 会议室取消预定事件
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/95333</para>
+        /// </summary>
+        cancel_meeting_room,
+
+        /// <summary>
+        /// 小程序对外收款支付成功通知（SDK 内部事件映射）
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/97335</para>
+        /// </summary>
+        pay_transaction,
+
+        /// <summary>
+        /// 小程序对外收款退款通知（SDK 内部事件映射）
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/97338</para>
+        /// </summary>
+        pay_refund,
+
+        /// <summary>
+        /// 成员提交高级功能账号申请事件
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/99876</para>
+        /// </summary>
+        submit_vip_account_approval,
+
+        /// <summary>
+        /// 成员高级功能账号申请终止事件
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/99877</para>
+        /// </summary>
+        finish_vip_account_approval,
+
+        /// <summary>
+        /// 删除 API 创建的日历事件
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/97728</para>
+        /// </summary>
+        delete_calendar,
+
+        /// <summary>
+        /// 修改 API 创建的日历事件
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/97730</para>
+        /// </summary>
+        modify_calendar,
+
+        /// <summary>
+        /// 修改 API 创建的日程事件
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/97731</para>
+        /// </summary>
+        modify_schedule,
+
+        /// <summary>
+        /// 删除 API 创建的日程事件
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/97732</para>
+        /// </summary>
+        delete_schedule,
+
+        /// <summary>
+        /// 日程参与人回执事件
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/98111</para>
+        /// </summary>
+        respond_schedule,
     }
 
     public enum TencentGender
@@ -656,4 +755,3 @@ namespace Senparc.Weixin.Work
         个人邮箱 = 2
     }
 }
-

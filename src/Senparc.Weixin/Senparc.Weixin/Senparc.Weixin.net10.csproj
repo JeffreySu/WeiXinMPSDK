@@ -3,7 +3,7 @@
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
     <!--<FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>-->
     <Version>6.25.0</Version>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>12.0</LangVersion>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -304,6 +304,7 @@
 			[2026-07-23] v6.25.0 增强 System.Text.Json 与 Native AOT 请求能力
 			1、新增基于 JsonTypeInfo 的同步和异步微信 API 请求入口
 			2、升级 CO2NET 4.1.0 与 NeuChar 3.0.0，并统一错误结果序列化
+			3、增强微信 API 请求序列化、错误响应与 Native AOT 兼容能力
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

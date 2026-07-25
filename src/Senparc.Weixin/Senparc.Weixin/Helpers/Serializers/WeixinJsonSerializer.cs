@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20260723
     修改描述：v6.25.0 新增内置 JSON 源生成上下文和裁剪安全的序列化帮助方法
 
+    修改标识：Senparc - 20260724
+    修改描述：v6.25.0 增强微信 API 请求序列化、错误响应与 Native AOT 兼容能力
+
 ----------------------------------------------------------------*/
 
 using System;

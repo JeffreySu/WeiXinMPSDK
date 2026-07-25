@@ -38,7 +38,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20150407
     修改描述：发起Post请求方法修改，为了上传永久视频素材
- 
+
     修改标识：Senparc - 20160720
     修改描述：增加了PostFileGetJsonAsync的异步方法（与之前的方法多一个参数）
 
@@ -47,7 +47,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180928
     修改描述：将 CO2NET 已经移植的方法标记为过期
-    
+
     修改标识：Senparc - 20190129
     修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
 
@@ -56,6 +56,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20260723
     修改描述：v6.25.0 新增基于 JsonTypeInfo 的 Post 响应解析以兼容裁剪与 Native AOT
+
+    修改标识：Senparc - 20260724
+    修改描述：v6.25.0 增强微信 API 请求序列化、错误响应与 Native AOT 兼容能力
 
 ----------------------------------------------------------------*/
 

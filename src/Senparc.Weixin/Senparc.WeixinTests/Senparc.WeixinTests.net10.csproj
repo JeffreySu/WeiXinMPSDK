@@ -10,6 +10,7 @@
       [2026-07-23] v1.0.3 补充 System.Text.Json 与 Native AOT 序列化验证
       1、覆盖微信 JSON 源生成上下文和响应解析
       2、同步 CO2NET.AspNet 2.1.3 测试依赖
+      3、补充微信请求序列化与 Native AOT 回归测试
     </PackageReleaseNotes>
     <!--<AssemblyName>Senparc.WeixinTests</AssemblyName>-->
 

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-    <Version>1.2.2</Version>
+    <Version>1.2.3</Version>
     <AssemblyName>Senparc.WebSocket</AssemblyName>
     <RootNamespace>Senparc.WebSocket</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -45,9 +45,11 @@
 		v0.8.3 提供带符号的 nuget 包（.snupkg)
 		v0.9.0 使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
 		v1.0.3 清理引用项目
-		[2026-07-23] v1.2.2 升级 WebSocket 基础依赖
+		[2026-07-24] v1.2.3 升级 WebSocket 基础依赖并修复现代 .NET 目标传递依赖安全公告
 		1、升级 CO2NET 4.1.0
 		2、显式升级 Newtonsoft.Json 13.0.4 以保持现有序列化行为
+		3、显式锁定 Microsoft.AspNetCore.WebSockets 2.3.11
+		4、显式锁定 System.Net.WebSockets.WebSocketProtocol 5.1.0
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -105,6 +107,8 @@
     <!--<PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.WebSockets" Version="2.2.1" />-->
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.WebSockets" Version="2.3.11" />
+    <PackageReference Include="System.Net.WebSockets.WebSocketProtocol" Version="5.1.0" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET" Version="4.1.0" />

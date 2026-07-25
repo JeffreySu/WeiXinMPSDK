@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>12.0</LangVersion>
     <Version>1.19.0</Version>
     <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
@@ -64,6 +64,7 @@
             [2026-07-23] v1.19.0 增强微信支付请求的 Native AOT 序列化能力
             1、新增 System.Text.Json 源生成上下文并迁移分账与 H5 场景序列化
             2、升级 CO2NET.AspNet 2.1.3，保留 net462 兼容路径
+            3、增强微信支付请求模型的 Native AOT 序列化兼容能力
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

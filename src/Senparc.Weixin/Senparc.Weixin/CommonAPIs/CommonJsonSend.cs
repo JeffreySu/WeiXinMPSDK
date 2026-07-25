@@ -31,7 +31,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v14.4.11 完善CommonJsonSend.SendAsync()方法参数
 
     修改标识：Senparc - 20190129
-    修改描述：v6.3.8 修复 CommonJsonSend.Send() 方法中的异常请求结果自动抛出 
+    修改描述：v6.3.8 修复 CommonJsonSend.Send() 方法中的异常请求结果自动抛出
 
     修改标识：Senparc - 20190602
     修改描述：v6.4.8 根据 Config.ThrownWhenJsonResultFaild 优化 getFailAction 和 postFailAction 抛出异常逻辑
@@ -50,6 +50,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20260723
     修改描述：v6.25.0 新增基于 JsonTypeInfo 的同步和异步微信 API 请求入口
+
+    修改标识：Senparc - 20260724
+    修改描述：v6.25.0 增强微信 API 请求序列化、错误响应与 Native AOT 兼容能力
 
 ----------------------------------------------------------------*/
 

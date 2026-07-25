@@ -1,11 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
-    
+
     文件名：DefaultWxOpenMessageContext.cs
     文件功能描述：小程序上下文消息的默认实现
-    
-    
+
+
     创建标识：Senparc - 20230905
+
+    修改标识：Senparc - 20260724
+    修改描述：v3.28.1 补齐小程序物流、交易、直播、短剧、小说和行业能力接口及事件
 
 ----------------------------------------------------------------*/
 
@@ -114,6 +117,21 @@ namespace Senparc.Weixin.WxOpen.MessageContexts
                         case "CHARGE_SERVICE_QUOTA_NOTIFY": // 付费管理订单用量告警事件
                             requestMessage = new RequestMessageEvent_ChargeServiceQuotaNotify();
                             break;
+                        case "SECVOD_UPLOAD_EVENT": // 短剧媒资上传完成事件
+                            requestMessage = new RequestMessageEvent_SecVodUpload();
+                            break;
+                        case "SECVOD_AUDIT_EVENT": // 短剧剧目审核状态事件
+                            requestMessage = new RequestMessageEvent_SecVodAudit();
+                            break;
+                        case "WXALIVE_FOLLOW_NOTIFY": // 小程序直播长期订阅状态通知
+                            requestMessage = new RequestMessageEvent_WxAliveFollowNotify();
+                            break;
+                        case "WXALIVE_PUSH_MESSAGE_NOTIFY": // 小程序直播长期订阅群发结果通知
+                            requestMessage = new RequestMessageEvent_WxAlivePushMessageNotify();
+                            break;
+                        case "RETAIL_REFUND_NOTIFY": // B2B 门店助手退款结果通知
+                            requestMessage = new RequestMessageEvent_RetailRefundNotify();
+                            break;
                         case "XPAY_GOODS_DELIVER_NOTIFY": //虚拟支付 道具发货推送
                             requestMessage = new RequestMessageEvent_XPayGoodsDeliverNotify();
                             break;
@@ -186,4 +204,3 @@ namespace Senparc.Weixin.WxOpen.MessageContexts
         }
     }
 }
-

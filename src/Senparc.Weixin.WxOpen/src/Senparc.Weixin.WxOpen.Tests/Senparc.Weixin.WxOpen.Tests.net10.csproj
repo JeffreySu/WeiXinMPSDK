@@ -8,6 +8,9 @@
 			[2026-07-20] v1.0.2 Dependency update from Senparc.Weixin to 6.24.0; Senparc.Weixin.MP to 16.25.0; Senparc.Weixin.WxOpen to 3.28.0
 			[2026-07-23] v1.0.3 同步小程序测试依赖
 			1、适配小程序组件、NeuChar 3.0 与最新序列化依赖
+			2、补充小程序新增接口、序列化和回调事件契约测试
+			3、补充 P1 基础能力 52 项公开 API、官方路径、字段和响应模型契约测试
+			4、覆盖物流、交易、B2B、短剧、小说、直播、虚拟支付和行业 P2/P3 产品簇
 		</PackageReleaseNotes>
 
 		<IsPackable>false</IsPackable>

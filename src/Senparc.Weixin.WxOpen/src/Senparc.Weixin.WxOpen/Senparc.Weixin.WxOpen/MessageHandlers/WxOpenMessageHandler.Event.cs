@@ -20,13 +20,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
-    
-    文件名：MessageHandler.Event.cs
+
+    文件名：WxOpenMessageHandler.Event.cs
     文件功能描述：微信请求的集中处理方法：Event相关
-    
-    
+
+
     创建标识：Senparc - 20150924
-  
+
     修改标识：Senparc - 20191004
     修改描述：添加异步方法
 
@@ -40,7 +40,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v3.15.2 添加小程序隐私权限审核结果推送
 
     修改标识：Senparc - 20220806
-    修改描述：v3.15.7 添加 OnEvent_MediaCheckRequest() 方法 
+    修改描述：v3.15.7 添加 OnEvent_MediaCheckRequest() 方法
                - 内容安全回调：wxa_media_check 推送结果内容安全回调：wxa_media_check 推送结果
 
     修改标识：mc7246 - 20230119
@@ -48,7 +48,6 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：chinanhb - 20230529
     修改描述：添加运单轨迹更新推送 添加OnEvent_AddExpressPath()方法
-
 
     修改标识：mc7246 - 20230831
     修改描述：添加小程序发货信息管理服务事件推送 添加OnEvent_TradeManageRemindAccessApi()、OnEvent_TradeManageOrderSettlement()、OnEvent_TradeManageRemindShipping()方法
@@ -58,6 +57,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20260617
     修改描述：v3.27.0 添加 iOS 会员订阅相关事件处理方法
+
+    修改标识：Senparc - 20260724
+    修改描述：v3.28.1 补齐小程序物流、交易、直播、短剧、小说和行业能力接口及事件
 
 ----------------------------------------------------------------*/
 
@@ -151,6 +153,21 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.charge_service_quota_notify:
                     responseMessage = OnEvent_ChargeServiceQuotaNotifyRequest(RequestMessage as RequestMessageEvent_ChargeServiceQuotaNotify);
                     break;
+                case Event.secvod_upload_event:
+                    responseMessage = OnEvent_SecVodUploadRequest(RequestMessage as RequestMessageEvent_SecVodUpload);
+                    break;
+                case Event.secvod_audit_event:
+                    responseMessage = OnEvent_SecVodAuditRequest(RequestMessage as RequestMessageEvent_SecVodAudit);
+                    break;
+                case Event.wxalive_follow_notify:
+                    responseMessage = OnEvent_WxAliveFollowNotifyRequest(RequestMessage as RequestMessageEvent_WxAliveFollowNotify);
+                    break;
+                case Event.wxalive_push_message_notify:
+                    responseMessage = OnEvent_WxAlivePushMessageNotifyRequest(RequestMessage as RequestMessageEvent_WxAlivePushMessageNotify);
+                    break;
+                case Event.retail_refund_notify:
+                    responseMessage = OnEvent_RetailRefundNotifyRequest(RequestMessage as RequestMessageEvent_RetailRefundNotify);
+                    break;
 
                 #region 小程序虚拟支付
                 case Event.xpay_goods_deliver_notify:
@@ -183,6 +200,56 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="requestMessage"></param>
         /// <returns></returns>
         public virtual IResponseMessageBase OnEvent_ChargeServiceQuotaNotifyRequest(RequestMessageEvent_ChargeServiceQuotaNotify requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 短剧媒资上传完成事件。
+        /// </summary>
+        /// <param name="requestMessage">媒资 ID、来源上下文和上传结果。</param>
+        /// <returns>默认响应消息。</returns>
+        public virtual IResponseMessageBase OnEvent_SecVodUploadRequest(RequestMessageEvent_SecVodUpload requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 短剧剧目审核状态事件。
+        /// </summary>
+        /// <param name="requestMessage">剧目 ID 和审核详情。</param>
+        /// <returns>默认响应消息。</returns>
+        public virtual IResponseMessageBase OnEvent_SecVodAuditRequest(RequestMessageEvent_SecVodAudit requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 小程序直播长期订阅状态通知。
+        /// </summary>
+        /// <param name="requestMessage">直播间、订阅用户、时间、直播状态和订阅行为。</param>
+        /// <returns>默认响应消息。</returns>
+        public virtual IResponseMessageBase OnEvent_WxAliveFollowNotifyRequest(RequestMessageEvent_WxAliveFollowNotify requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 小程序直播长期订阅群发结果通知。
+        /// </summary>
+        /// <param name="requestMessage">群发消息标识、直播间及各结果数量。</param>
+        /// <returns>默认响应消息。</returns>
+        public virtual IResponseMessageBase OnEvent_WxAlivePushMessageNotifyRequest(RequestMessageEvent_WxAlivePushMessageNotify requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// B2B 门店助手退款结果通知。
+        /// </summary>
+        /// <param name="requestMessage">退款结果通知内容。</param>
+        /// <returns>默认响应消息。</returns>
+        public virtual IResponseMessageBase OnEvent_RetailRefundNotifyRequest(RequestMessageEvent_RetailRefundNotify requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -504,6 +571,21 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.charge_service_quota_notify:
                     responseMessage = await OnEvent_ChargeServiceQuotaNotifyRequestAsync(RequestMessage as RequestMessageEvent_ChargeServiceQuotaNotify);
                     break;
+                case Event.secvod_upload_event:
+                    responseMessage = await OnEvent_SecVodUploadRequestAsync(RequestMessage as RequestMessageEvent_SecVodUpload);
+                    break;
+                case Event.secvod_audit_event:
+                    responseMessage = await OnEvent_SecVodAuditRequestAsync(RequestMessage as RequestMessageEvent_SecVodAudit);
+                    break;
+                case Event.wxalive_follow_notify:
+                    responseMessage = await OnEvent_WxAliveFollowNotifyRequestAsync(RequestMessage as RequestMessageEvent_WxAliveFollowNotify);
+                    break;
+                case Event.wxalive_push_message_notify:
+                    responseMessage = await OnEvent_WxAlivePushMessageNotifyRequestAsync(RequestMessage as RequestMessageEvent_WxAlivePushMessageNotify);
+                    break;
+                case Event.retail_refund_notify:
+                    responseMessage = await OnEvent_RetailRefundNotifyRequestAsync(RequestMessage as RequestMessageEvent_RetailRefundNotify);
+                    break;
 
                 #region 小程序虚拟支付
                 case Event.xpay_goods_deliver_notify:
@@ -538,6 +620,56 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         public virtual async Task<IResponseMessageBase> OnEvent_ChargeServiceQuotaNotifyRequestAsync(RequestMessageEvent_ChargeServiceQuotaNotify requestMessage)
         {
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_ChargeServiceQuotaNotifyRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】短剧媒资上传完成事件。
+        /// </summary>
+        /// <param name="requestMessage">媒资 ID、来源上下文和上传结果。</param>
+        /// <returns>默认响应消息。</returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_SecVodUploadRequestAsync(RequestMessageEvent_SecVodUpload requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_SecVodUploadRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】短剧剧目审核状态事件。
+        /// </summary>
+        /// <param name="requestMessage">剧目 ID 和审核详情。</param>
+        /// <returns>默认响应消息。</returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_SecVodAuditRequestAsync(RequestMessageEvent_SecVodAudit requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_SecVodAuditRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】小程序直播长期订阅状态通知。
+        /// </summary>
+        /// <param name="requestMessage">直播间、订阅用户、时间、直播状态和订阅行为。</param>
+        /// <returns>默认响应消息。</returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_WxAliveFollowNotifyRequestAsync(RequestMessageEvent_WxAliveFollowNotify requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_WxAliveFollowNotifyRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】小程序直播长期订阅群发结果通知。
+        /// </summary>
+        /// <param name="requestMessage">群发消息标识、直播间及各结果数量。</param>
+        /// <returns>默认响应消息。</returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_WxAlivePushMessageNotifyRequestAsync(RequestMessageEvent_WxAlivePushMessageNotify requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_WxAlivePushMessageNotifyRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】B2B 门店助手退款结果通知。
+        /// </summary>
+        /// <param name="requestMessage">退款结果通知内容。</param>
+        /// <returns>默认响应消息。</returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_RetailRefundNotifyRequestAsync(RequestMessageEvent_RetailRefundNotify requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_RetailRefundNotifyRequest(requestMessage)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -808,4 +940,3 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
     }
 }
-

@@ -1,14 +1,17 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
-    
+
     文件名：UrlSchemeApi.cs
     文件功能描述：URL Scheme 接口
-    
-    
+
+
     创建标识：Senparc - 20210118
 
     修改标识：Senparc - 20241114
     修改描述：v3.22.0 添加 NCF UrlScheme 接口 #3093 感谢 @mojinxun
+
+    修改标识：Senparc - 20260724
+    修改描述：v3.28.1 补齐小程序物流、交易、直播、短剧、小说和行业能力接口及事件
 
 ----------------------------------------------------------------*/
 
@@ -90,6 +93,25 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 查询小程序 URL Scheme 信息或访问额度
+        /// </summary>
+        /// <param name="scheme">待查询的 URL Scheme；queryType 为 0 时必填</param>
+        /// <param name="queryType">查询类型：0 查询 Scheme 信息，1 查询访问额度</param>
+        /// <param name="accessTokenOrAppId">接口调用凭证或已注册的 AppId。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static QuerySchemeJsonResult QueryScheme(string accessTokenOrAppId, string scheme = null, int queryType = 0,
+            int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/wxa/queryscheme?access_token={0}";
+                var data = new { scheme, query_type = queryType };
+                return CommonJsonSend.Send<QuerySchemeJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
         #endregion
 
         #region 异步方法
@@ -155,7 +177,26 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
                      jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting(true));
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
+
+
+        /// <summary>
+        /// 【异步方法】查询小程序 URL Scheme 信息或访问额度
+        /// </summary>
+        /// <param name="scheme">待查询的 URL Scheme；queryType 为 0 时必填</param>
+        /// <param name="queryType">查询类型：0 查询 Scheme 信息，1 查询访问额度</param>
+        /// <param name="accessTokenOrAppId">接口调用凭证或已注册的 AppId。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static async Task<QuerySchemeJsonResult> QuerySchemeAsync(string accessTokenOrAppId, string scheme = null, int queryType = 0,
+            int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/wxa/queryscheme?access_token={0}";
+                var data = new { scheme, query_type = queryType };
+                return await CommonJsonSend.SendAsync<QuerySchemeJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
         #endregion
     }
 }
-

@@ -20,11 +20,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
-  
+
     文件名：Enums.cs
     文件功能描述：枚举类型
-    
-    
+
+
     创建标识：Senparc - 20170106
 
     修改标识：mc7246 - 20220504
@@ -32,7 +32,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：mc7246 - 20230119
     修改描述：v3.15.12 添加小程序类目审核结果事件推送，增加 Event.wxa_category_audit 枚举值
-    
+
     修改标识：chinanhb - 20230529
     修改描述：运单轨迹更新事件推送，增加 Event.add_express_path 枚举值
 
@@ -41,6 +41,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20260617
     修改描述：v3.27.0 Event 添加"iOS 会员订阅"推送事件枚举
+
+    修改标识：Senparc - 20260724
+    修改描述：v3.28.1 补齐小程序物流、交易、直播、短剧、小说和行业能力接口及事件
 
 ----------------------------------------------------------------*/
 
@@ -127,6 +130,35 @@ namespace Senparc.Weixin.WxOpen
         /// </summary>
         charge_service_quota_notify,
 
+        #region 短剧媒资管理
+        /// <summary>
+        /// 短剧媒资上传完成事件
+        /// </summary>
+        secvod_upload_event,
+        /// <summary>
+        /// 短剧剧目审核状态事件
+        /// </summary>
+        secvod_audit_event,
+        #endregion
+
+        #region 小程序直播
+        /// <summary>
+        /// 小程序直播长期订阅状态通知
+        /// </summary>
+        wxalive_follow_notify,
+        /// <summary>
+        /// 小程序直播长期订阅群发结果通知
+        /// </summary>
+        wxalive_push_message_notify,
+        #endregion
+
+        #region B2B 门店助手
+        /// <summary>
+        /// B2B 门店助手退款结果通知
+        /// </summary>
+        retail_refund_notify,
+        #endregion
+
 
         #region 小程序虚拟支付
         /// <summary>
@@ -173,4 +205,3 @@ namespace Senparc.Weixin.WxOpen
     //    SuccessResponse = 200
     //}
 }
-

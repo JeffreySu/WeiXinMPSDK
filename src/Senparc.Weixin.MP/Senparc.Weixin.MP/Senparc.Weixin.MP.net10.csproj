@@ -460,6 +460,12 @@
 		[2026-07-23] v16.25.1 升级公众号基础组件依赖
 		1、升级 CO2NET.APM 2.1.4、NeuChar 3.0.0 与 NeuChar.App 1.6.0
 		2、显式保留 Newtonsoft.Json 13.0.4 以兼容现有卡券和发票模型
+		3、补齐 openApi、模板与草稿、用户迁移、短链、统计和商品卡片 P1 接口
+		4、补齐驾驶证 OCR、图片智能裁剪、二维码/条码识别和微信就医助手消息推送 P2 接口
+		5、补齐微信“一物一码”申请、下载、激活、状态查询及票据换码 P3 接口
+		6、补齐微信非税缴费应收、下单、对账、通知、刷卡、退款及订单查询 P3 接口
+		7、修正图片智能裁剪 multipart 请求，将 ratios 作为普通表单字段而非文件路径上传
+		8、补齐公众号 openApi、统计、图像、医疗、非税和一物一码官方接口
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

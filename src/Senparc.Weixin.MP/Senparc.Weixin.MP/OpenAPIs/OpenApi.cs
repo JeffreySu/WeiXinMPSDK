@@ -27,6 +27,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     创建标识：Senparc - 20220731
 
+    修改标识：Senparc - 20260724
+    修改描述：v16.25.1 补齐公众号 openApi、统计、图像、医疗、非税和一物一码官方接口
 
 ----------------------------------------------------------------*/
 
@@ -73,6 +75,27 @@ namespace Senparc.Weixin.MP.OpenAPIs
                 };
 
                 return CommonJsonSend.Send<QuotaGetJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 重置指定 API 的每日调用次数
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口所属账号的 AccessToken 或已注册 AppId</param>
+        /// <param name="cgiPath">API 请求路径，必须以“/”开头</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static WxJsonResult ClearQuota(string accessTokenOrAppId, string cgiPath, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/openapi/quota/clear?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    cgi_path = cgiPath
+                };
+
+                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
 
@@ -135,6 +158,27 @@ namespace Senparc.Weixin.MP.OpenAPIs
         }
 
         /// <summary>
+        /// 【异步方法】重置指定 API 的每日调用次数
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口所属账号的 AccessToken 或已注册 AppId</param>
+        /// <param name="cgiPath">API 请求路径，必须以“/”开头</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static async Task<WxJsonResult> ClearQuotaAsync(string accessTokenOrAppId, string cgiPath, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/openapi/quota/clear?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    cgi_path = cgiPath
+                };
+
+                return await CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// 【异步方法】查询 rid 信息
         /// https://developers.weixin.qq.com/doc/offiaccount/openApi/get_rid_info.html
         /// <para>1、由于查询 rid 信息属于开发者私密行为，因此仅支持同账号的查询。举个例子，rid=1111，是小程序账号 A 调用某接口出现的报错，那么则需要使用小程序账号 A 的access_token调用当前接口查询rid=1111的详情信息，如果使用小程序账号 B 的身份查询，则出现报错，错误码为xxx。公众号、第三方平台账号的接口同理。</para>
@@ -163,4 +207,3 @@ namespace Senparc.Weixin.MP.OpenAPIs
         #endregion
     }
 }
-

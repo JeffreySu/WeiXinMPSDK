@@ -20,25 +20,32 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
-    
+
     文件名：OCRApi.cs
     文件功能描述：智能接口 /OCR识别
-    
-    
+
+
     创建标识：yaofeng - 20231204
+
+    修改标识：Senparc - 20260724
+    修改描述：v16.25.1 补齐公众号 openApi、统计、图像、医疗、非税和一物一码官方接口
 
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.CommonAPIs;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
 {
     /// <summary>
     /// 智能接口 /OCR识别
-    /// https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/OCR.html
     /// </summary>
+    /// <remarks>
+    /// 微信官方文档：<see href="https://developers.weixin.qq.com/doc/service/guide/product/Intelligent_Interface/ocr.html"/>。
+    /// </remarks>
     [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, true)]
     public static class OCRApi
     {
@@ -88,6 +95,49 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
             {
                 string url = string.Format(Config.ApiMpHost + "/cv/ocr/driving?img_url={0}&access_token={1}", System.Web.HttpUtility.UrlEncode(img_url), accessToken);
                 return CommonJsonSend.Send<DrivingJsonResult>(null, url, new { }, CommonJsonSendType.POST, timeOut: timeOut, contentType: "application/json");
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 驾驶证 OCR 识别（图片 URL 方式）。
+        /// </summary>
+        /// <param name="accessTokenOrAppId">公众号 AccessToken 或 AppId。</param>
+        /// <param name="imgUrl">需要识别的驾驶证图片 URL，图片大小不能超过 2 MB。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>驾驶证识别结果。</returns>
+        /// <remarks>
+        /// 微信官方文档：<see href="https://developers.weixin.qq.com/doc/service/api/openpoc/ocr/api_drivinglicenseocr"/>。
+        /// </remarks>
+        public static DrivingLicenseJsonResult DrivingLicense(string accessTokenOrAppId, string imgUrl, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiMpHost + "/cv/ocr/drivinglicense?img_url={0}&access_token={1}", System.Web.HttpUtility.UrlEncode(imgUrl), accessToken);
+                return CommonJsonSend.Send<DrivingLicenseJsonResult>(null, url, new { }, CommonJsonSendType.POST, timeOut: timeOut, contentType: "application/json");
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 驾驶证 OCR 识别（本地文件上传方式）。
+        /// </summary>
+        /// <param name="accessTokenOrAppId">公众号 AccessToken 或 AppId。</param>
+        /// <param name="file">需要识别的驾驶证图片绝对路径，图片大小不能超过 2 MB。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>驾驶证识别结果。</returns>
+        /// <remarks>
+        /// 请求使用官方定义的 <c>img</c> multipart/form-data 字段。
+        /// 微信官方文档：<see href="https://developers.weixin.qq.com/doc/service/api/openpoc/ocr/api_drivinglicenseocr"/>。
+        /// </remarks>
+        public static DrivingLicenseJsonResult DrivingLicenseByFile(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiMpHost + "/cv/ocr/drivinglicense?access_token={0}", accessToken);
+                var fileDictionary = new Dictionary<string, string>
+                {
+                    ["img"] = file
+                };
+                return Post.PostFileGetJson<DrivingLicenseJsonResult>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
 
@@ -206,6 +256,49 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
         }
 
         /// <summary>
+        /// 异步驾驶证 OCR 识别（图片 URL 方式）。
+        /// </summary>
+        /// <param name="accessTokenOrAppId">公众号 AccessToken 或 AppId。</param>
+        /// <param name="imgUrl">需要识别的驾驶证图片 URL，图片大小不能超过 2 MB。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>驾驶证识别结果。</returns>
+        /// <remarks>
+        /// 微信官方文档：<see href="https://developers.weixin.qq.com/doc/service/api/openpoc/ocr/api_drivinglicenseocr"/>。
+        /// </remarks>
+        public static async Task<DrivingLicenseJsonResult> DrivingLicenseAsync(string accessTokenOrAppId, string imgUrl, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiMpHost + "/cv/ocr/drivinglicense?img_url={0}&access_token={1}", System.Web.HttpUtility.UrlEncode(imgUrl), accessToken);
+                return await CommonJsonSend.SendAsync<DrivingLicenseJsonResult>(null, url, new { }, CommonJsonSendType.POST, timeOut: timeOut, contentType: "application/json").ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 异步驾驶证 OCR 识别（本地文件上传方式）。
+        /// </summary>
+        /// <param name="accessTokenOrAppId">公众号 AccessToken 或 AppId。</param>
+        /// <param name="file">需要识别的驾驶证图片绝对路径，图片大小不能超过 2 MB。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>驾驶证识别结果。</returns>
+        /// <remarks>
+        /// 请求使用官方定义的 <c>img</c> multipart/form-data 字段。
+        /// 微信官方文档：<see href="https://developers.weixin.qq.com/doc/service/api/openpoc/ocr/api_drivinglicenseocr"/>。
+        /// </remarks>
+        public static async Task<DrivingLicenseJsonResult> DrivingLicenseByFileAsync(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiMpHost + "/cv/ocr/drivinglicense?access_token={0}", accessToken);
+                var fileDictionary = new Dictionary<string, string>
+                {
+                    ["img"] = file
+                };
+                return await Post.PostFileGetJsonAsync<DrivingLicenseJsonResult>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// 营业执照OCR识别
         /// </summary>
         /// <param name="accessTokenOrAppId">Token</param>
@@ -271,4 +364,3 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CV.OCR
         #endregion
     }
 }
-

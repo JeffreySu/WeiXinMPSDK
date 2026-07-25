@@ -20,22 +20,22 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
-    
-    文件名：TemplateAPI.cs
+
+    文件名：TemplateApi.cs
     文件功能描述：模板消息接口
-    
-    
+
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
- 
+
     修改标识：Senparc - 20150312
     修改描述：开放代理请求超时时间
- 
+
     修改标识：Senparc - 20160719
     修改描述：增加其接口的异步方法
- 
+
     修改标识：Senparc - 20160808
     修改描述：去掉SendTemplateMessage，SendTemplateMessageAsync中的topcolor参数
 
@@ -44,6 +44,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170707
     修改描述：v14.5.4 添加“一次性订阅消息”相关接口
+
+    修改标识：Senparc - 20260724
+    修改描述：v16.25.1 补齐公众号 openApi、统计、图像、医疗、非税和一物一码官方接口
 
 ----------------------------------------------------------------*/
 
@@ -268,6 +271,32 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 查询被拦截的模板消息
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken 或 AppId（推荐使用 AppId，需要先注册）</param>
+        /// <param name="templateMessageId">被拦截的模板消息 Id</param>
+        /// <param name="largestId">上一页结果中的最大 Id，首次查询传 0</param>
+        /// <param name="limit">单页数量，最大 100</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static QueryBlockTemplateMessageResult QueryBlockTemplateMessage(string accessTokenOrAppId,
+            string templateMessageId, long largestId = 0, int limit = 100, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/wxa/sec/queryblocktmplmsg?access_token={0}";
+                var data = new
+                {
+                    tmpl_msg_id = templateMessageId,
+                    largest_id = largestId,
+                    limit
+                };
+
+                return CommonJsonSend.Send<QueryBlockTemplateMessageResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
         #endregion
 
         #region 异步方法
@@ -448,6 +477,32 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
 
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】查询被拦截的模板消息
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken 或 AppId（推荐使用 AppId，需要先注册）</param>
+        /// <param name="templateMessageId">被拦截的模板消息 Id</param>
+        /// <param name="largestId">上一页结果中的最大 Id，首次查询传 0</param>
+        /// <param name="limit">单页数量，最大 100</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static async Task<QueryBlockTemplateMessageResult> QueryBlockTemplateMessageAsync(string accessTokenOrAppId,
+            string templateMessageId, long largestId = 0, int limit = 100, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/wxa/sec/queryblocktmplmsg?access_token={0}";
+                var data = new
+                {
+                    tmpl_msg_id = templateMessageId,
+                    largest_id = largestId,
+                    limit
+                };
+
+                return await CommonJsonSend.SendAsync<QueryBlockTemplateMessageResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
 

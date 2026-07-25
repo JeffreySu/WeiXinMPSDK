@@ -20,12 +20,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
-    
+
     文件名：DraftApi.cs
     文件功能描述：草稿箱接口
-    
-    
+
+
     创建标识：dupeng0811 - 20220227
+
+    修改标识：Senparc - 20260724
+    修改描述：v16.25.1 补齐公众号 openApi、统计、图像、医疗、非税和一物一码官方接口
 
 ----------------------------------------------------------------*/
 
@@ -183,6 +186,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Draft
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 开启草稿箱，或仅查询草稿箱开关状态。官方开关开启后不可关闭。
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken 或 AppId（推荐使用 AppId，需要先注册）</param>
+        /// <param name="checkOnly">true 表示仅查询状态；false 表示开启草稿箱</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static DraftSwitchResultJson Switch(string accessTokenOrAppId, bool checkOnly = true, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = Config.ApiMpHost + "/cgi-bin/draft/switch?access_token={0}" + (checkOnly ? "&checkonly=1" : string.Empty);
+                return CommonJsonSend.Send<DraftSwitchResultJson>(accessToken, url, null, CommonJsonSendType.POST, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
         #endregion
 
         #region 异步方法
@@ -320,6 +339,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Draft
 
                 return CommonJsonSend.SendAsync<DraftListResultJson>(accessToken, url, date, CommonJsonSendType.POST, timeOut);
 
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】开启草稿箱，或仅查询草稿箱开关状态。官方开关开启后不可关闭。
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken 或 AppId（推荐使用 AppId，需要先注册）</param>
+        /// <param name="checkOnly">true 表示仅查询状态；false 表示开启草稿箱</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static async Task<DraftSwitchResultJson> SwitchAsync(string accessTokenOrAppId, bool checkOnly = true, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            {
+                var url = Config.ApiMpHost + "/cgi-bin/draft/switch?access_token={0}" + (checkOnly ? "&checkonly=1" : string.Empty);
+                return CommonJsonSend.SendAsync<DraftSwitchResultJson>(accessToken, url, null, CommonJsonSendType.POST, timeOut: timeOut);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
 

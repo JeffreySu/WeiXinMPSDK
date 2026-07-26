@@ -3,7 +3,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>2026.7.26</Version>
+    <Version>2026.7.26.1</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.All</AssemblyName>
     <RootNamespace>Senparc.Weixin.All</RootNamespace>
@@ -104,6 +104,7 @@
 		5、WxOpen：补齐物流、即时配送、交易保障、虚拟支付、短剧、小说、直播、B2B 门店及行业能力等官方接口与事件
 		6、Work：大规模补齐通讯录、客户联系、会议、文档、微盘、家校、政民沟通、硬件、许可账号等现行官方接口与回调
 		7、TenPay / TenPayV3：增强 STJ 源生成与企业支付异步入口；补齐异常退款、投诉、停车、医保、电商收付通、品牌会员、商品券等接口
+		8、MP / Work / WxOpen Middleware：显式约束安全版本的加密 XML 依赖，消除现代聚合链高危公告
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

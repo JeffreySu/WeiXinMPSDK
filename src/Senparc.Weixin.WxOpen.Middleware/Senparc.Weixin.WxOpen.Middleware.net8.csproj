@@ -25,6 +25,7 @@
 			v0.1.0 创世
 			v1.0.0 发布正式版
             [2024-08-06] v1.2.5 更新基础库，包括 Senparc.CO2NET 相关库、Senparc.AI
+			[2026-07-26] 修复现代 .NET 目标中的加密 XML 传递依赖安全公告
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <PackageId>Senparc.Weixin.WxOpen.Middleware</PackageId>
@@ -70,6 +71,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.NeuChar.AspNet" Version="1.7.0" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' != 'net462'">
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="8.0.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net8.csproj" />

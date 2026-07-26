@@ -25,7 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：上下游及互联企业相关接口
 
 
-    创建标识：mojinxun - 20230226
+    创建标识：mojinxun - 20230224
 
     修改标识：Senparc - 20260725
     修改描述：v3.32.1 新增上下游小程序会话转换、企业链路分组和企业信息接口，并修正对接规则路径

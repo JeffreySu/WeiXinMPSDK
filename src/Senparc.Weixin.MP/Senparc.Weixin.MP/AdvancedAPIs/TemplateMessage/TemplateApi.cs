@@ -25,7 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：模板消息接口
 
 
-    创建标识：Senparc - 20150211
+    创建标识：Senparc - 20160707
 
     修改标识：Senparc - 20150303
     修改描述：整理接口

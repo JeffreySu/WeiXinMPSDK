@@ -16,7 +16,7 @@ you may not use this file except in compliance with the License.
     文件功能描述：ComponentOpenApi 微信接口封装
 
 
-    创建标识：Senparc - 20260723
+    创建标识：Senparc - 20260725
 
     修改标识：Senparc - 20260724
     修改描述：v4.24.4 补齐开放平台基础管理、流量主代运营和微信云托管接口

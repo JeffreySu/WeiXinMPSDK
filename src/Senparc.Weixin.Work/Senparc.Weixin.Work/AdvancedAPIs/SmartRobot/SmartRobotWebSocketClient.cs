@@ -5,7 +5,7 @@
     文件功能描述：SmartRobotWebSocketClient 相关功能
 
 
-    创建标识：Senparc - 20260723
+    创建标识：Senparc - 20260725
 
     修改标识：Senparc - 20260724
     修改描述：v3.32.1 补齐企业微信通讯录、安全、智能机器人、微信客服和获客助手接口

@@ -12,7 +12,7 @@ Licensed under the Apache License, Version 2.0 (the "License").
     文件功能描述：微信支付 V3 不活跃商户身份核实接口
 
 
-    创建标识：Senparc - 20260724
+    创建标识：Senparc - 20260725
 
     修改标识：Senparc - 20260724
     修改描述：v2.5.1 补齐不活跃商户身份核实与子商户管控查询接口

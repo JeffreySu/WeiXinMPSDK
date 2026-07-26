@@ -5,7 +5,7 @@
     文件功能描述：获取成员信息返回结果
     http://work.weixin.qq.com/api/doc#10028
     
-    创建标识：Senparc - 20150313
+    创建标识：Senparc - 20140923
     
     修改标识：Senparc - 20150313
     修改描述：整理接口

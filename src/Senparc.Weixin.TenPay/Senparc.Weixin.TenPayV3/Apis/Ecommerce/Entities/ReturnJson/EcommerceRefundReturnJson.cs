@@ -25,7 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：微信支付 V3 电商收付通交易退款返回及通知模型
 
 
-    创建标识：Senparc - 20260724
+    创建标识：Senparc - 20260725
 
     修改标识：Senparc - 20260724
     修改描述：v2.5.1 补齐电商退款、垫付回补和退款通知模型

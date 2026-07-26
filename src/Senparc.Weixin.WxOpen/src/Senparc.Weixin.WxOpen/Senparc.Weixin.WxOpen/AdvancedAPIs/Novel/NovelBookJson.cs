@@ -25,7 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：NovelBookJson 强类型数据模型
 
 
-    创建标识：Senparc - 20260724
+    创建标识：Senparc - 20260725
 
     修改标识：Senparc - 20260724
     修改描述：v3.28.1 补齐小程序物流、交易、直播、短剧、小说和行业能力接口及事件

@@ -25,7 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：Post
 
 
-    创建标识：Senparc - 20150211
+    创建标识：Senparc - 20140923
 
     修改标识：Senparc - 20150303
     修改描述：整理接口
@@ -54,11 +54,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190602
     修改描述：添加 Config.ThrownWhenJsonResultFaild 判断
 
-    修改标识：Senparc - 20260723
-    修改描述：v6.25.0 新增基于 JsonTypeInfo 的 Post 响应解析以兼容裁剪与 Native AOT
-
-    修改标识：Senparc - 20260724
-    修改描述：v6.25.0 增强微信 API 请求序列化、错误响应与 Native AOT 兼容能力
+    修改标识：Senparc - 20260726
+    修改描述：v6.25.0 新增基于 JsonTypeInfo 的 Post 响应解析以兼容裁剪与 Native AOT；增强微信 API 请求序列化、错误响应与 Native AOT 兼容能力
 
 ----------------------------------------------------------------*/
 

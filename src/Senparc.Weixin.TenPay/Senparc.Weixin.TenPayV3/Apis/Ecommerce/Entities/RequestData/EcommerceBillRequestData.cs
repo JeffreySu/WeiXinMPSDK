@@ -25,7 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：微信支付 V3 电商收付通资金账单申请模型
 
 
-    创建标识：Senparc - 20260724
+    创建标识：Senparc - 20260725
 
     修改标识：Senparc - 20260724
     修改描述：v2.5.1 补齐全部及单个二级商户资金账单申请模型

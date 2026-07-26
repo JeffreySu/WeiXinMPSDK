@@ -5,7 +5,7 @@
     文件功能描述：CustomerServiceBusinessApi 微信接口封装
 
 
-    创建标识：Senparc - 20260723
+    创建标识：Senparc - 20260725
 
     修改标识：Senparc - 20260724
     修改描述：v3.28.1 补齐小程序物流、交易、直播、短剧、小说和行业能力接口及事件

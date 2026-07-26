@@ -5,7 +5,7 @@
     文件功能描述：企业微信会话内容存档 Finance 原生 SDK 动态加载适配器
 
 
-    创建标识：Senparc - 20260725
+    创建标识：Senparc - 20260726
 
     修改标识：Senparc - 20260725
     修改描述：v3.32.1 补齐 Windows、Linux Finance 原生函数绑定和资源释放

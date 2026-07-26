@@ -23,7 +23,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：自定义工作台相关接口
     
     
-    创建标识：chinanhb - 20230603
+    创建标识：chinanhb - 20230605
 
     修改标识：Senparc - 20260725
     修改描述：v3.32.1 补齐批量设置应用工作台数据接口

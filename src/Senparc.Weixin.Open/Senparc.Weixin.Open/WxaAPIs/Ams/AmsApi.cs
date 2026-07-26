@@ -12,7 +12,7 @@ Licensed under the Apache License Version 2.0 (the "License").
     文件功能描述：AmsApi 微信接口封装
 
 
-    创建标识：Senparc - 20260724
+    创建标识：Senparc - 20260725
 
     修改标识：Senparc - 20260724
     修改描述：v4.24.4 补齐开放平台基础管理、流量主代运营和微信云托管接口

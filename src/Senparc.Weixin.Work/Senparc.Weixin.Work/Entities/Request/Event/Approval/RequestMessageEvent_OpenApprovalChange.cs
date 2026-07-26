@@ -6,7 +6,7 @@
     官方文档：https://developer.work.weixin.qq.com/document/path/90269
     
     
-    创建标识：Senparc - 20220211
+    创建标识：Senparc - 20220214
 
     修改标识：Senparc - 20230405
     修改描述：v3.15.17.1 修改 RequestMessageEvent_OpenApprovalChange 中 OpenTemplateId 参数类型为 string

@@ -12,7 +12,7 @@ Licensed under the Apache License, Version 2.0 (the "License").
     文件功能描述：微信支付 V3 电商收付通商户注销请求模型
 
 
-    创建标识：Senparc - 20260724
+    创建标识：Senparc - 20260725
 
     修改标识：Senparc - 20260724
     修改描述：v2.5.1 补齐商户注销新旧流程请求字段

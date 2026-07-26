@@ -12,7 +12,7 @@ Licensed under the Apache License, Version 2.0 (the "License").
     文件功能描述：ParkingRefundNotifyJson 强类型数据模型
 
 
-    创建标识：Senparc - 20260723
+    创建标识：Senparc - 20260725
 
     修改标识：Senparc - 20260724
     修改描述：v2.5.1 补齐微信支付 V3 退款、投诉、停车、医保、品牌入驻和商户开户接口并增强 HTTP 与通知处理

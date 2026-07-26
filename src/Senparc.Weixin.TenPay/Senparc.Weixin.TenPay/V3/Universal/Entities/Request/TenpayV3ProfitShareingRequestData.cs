@@ -24,7 +24,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件名：TenpayV3ProfitShareingRequestData.cs
     文件功能描述：分账请求
 
-    创建标识：hesi815 - 20200318
+    创建标识：hesi815 - 20200303
 
     修改标识：15989221023 - 20200416
     修改描述：v1.5.402 添加 Version 参数 https://github.com/JeffreySu/WeiXinMPSDK/pull/2151
@@ -44,11 +44,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20210202
     修改描述：v1.6.200.2 修复：调用分账查询接口, 结果返回"验证签名失败"问题 https://github.com/JeffreySu/WeiXinMPSDK/issues/2309
 
-    修改标识：Senparc - 20260723
-    修改描述：v1.19.0 使用 System.Text.Json 源生成元数据序列化分账接收方参数
-
-    修改标识：Senparc - 20260724
-    修改描述：v1.19.0 增强微信支付请求模型的 Native AOT 序列化兼容能力
+    修改标识：Senparc - 20260726
+    修改描述：v1.19.0 使用 System.Text.Json 源生成元数据序列化分账接收方参数；增强微信支付请求模型的 Native AOT 序列化兼容能力
 
 ----------------------------------------------------------------*/
 

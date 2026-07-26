@@ -33,11 +33,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：MartyZane - 20240530
     修改描述：TenPayV3Setting里面增加AuthrizationType属性，用于设置认证类型，选项有WECHATPAY2-SHA256-RSA2048、WECHATPAY2-SM2-WITH-SM3，默认为WECHATPAY2-SM2-WITH-SM3
 
-    修改标识：Senparc - 20260724
-    修改描述：v2.5.1 补齐微信支付 V3 退款、投诉、停车、医保、品牌入驻和商户开户接口并增强 HTTP 与通知处理
-
-    修改标识：Senparc - 20260725
-    修改描述：v2.5.1 支持微信支付品牌 API 专用 RSA 鉴权
+    修改标识：Senparc - 20260726
+    修改描述：v2.5.1 补齐微信支付 V3 退款、投诉、停车、医保、品牌入驻和商户开户接口并增强 HTTP 与通知处理；支持微信支付品牌 API 专用 RSA 鉴权
 
 ----------------------------------------------------------------*/
 

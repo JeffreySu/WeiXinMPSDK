@@ -48,11 +48,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20260718
     修改描述：v6.24.0 移除 JSON 请求的额外 UTF-8 整体缓冲
 
-    修改标识：Senparc - 20260723
-    修改描述：v6.25.0 新增基于 JsonTypeInfo 的同步和异步微信 API 请求入口
-
-    修改标识：Senparc - 20260724
-    修改描述：v6.25.0 增强微信 API 请求序列化、错误响应与 Native AOT 兼容能力
+    修改标识：Senparc - 20260726
+    修改描述：v6.25.0 新增基于 JsonTypeInfo 的同步和异步微信 API 请求入口；增强微信 API 请求序列化、错误响应与 Native AOT 兼容能力
 
 ----------------------------------------------------------------*/
 

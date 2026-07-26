@@ -25,7 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：微信请求的集中处理方法：Event相关
 
 
-    创建标识：Senparc - 20150924
+    创建标识：Senparc - 20170107
 
     修改标识：Senparc - 20191004
     修改描述：添加异步方法

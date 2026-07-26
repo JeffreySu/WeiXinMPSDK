@@ -25,7 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：草稿箱接口
 
 
-    创建标识：dupeng0811 - 20220227
+    创建标识：dupeng0811 - 20220221
 
     修改标识：Senparc - 20260724
     修改描述：v16.25.1 补齐公众号 openApi、统计、图像、医疗、非税和一物一码官方接口

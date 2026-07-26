@@ -25,7 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：审批接口
     
     
-    创建标识：mojinxun - 20230226
+    创建标识：mojinxun - 20220224
     
     修改标识：Senparc - 20251223
     修改描述：添加创建审批模板接口返回参数template_id

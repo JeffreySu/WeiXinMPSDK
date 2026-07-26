@@ -31,11 +31,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v14.10.9 TenPayV3UnifiedorderRequestData_SceneInfo 支持新H5支付的场景参数
                        - https://github.com/JeffreySu/WeiXinMPSDK/issues/1111
 
-    修改标识：Senparc - 20260723
-    修改描述：v1.19.0 使用 System.Text.Json 源生成元数据序列化 H5 支付场景参数
-
-    修改标识：Senparc - 20260724
-    修改描述：v1.19.0 增强微信支付请求模型的 Native AOT 序列化兼容能力
+    修改标识：Senparc - 20260726
+    修改描述：v1.19.0 使用 System.Text.Json 源生成元数据序列化 H5 支付场景参数；增强微信支付请求模型的 Native AOT 序列化兼容能力
 
 ----------------------------------------------------------------*/
 

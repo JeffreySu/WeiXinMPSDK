@@ -12,7 +12,7 @@ Licensed under the Apache License, Version 2.0 (the "License").
     文件功能描述：第三方平台当前版授权方选项接口
 
 
-    创建标识：Senparc - 20260725
+    创建标识：Senparc - 20260726
 
     修改标识：Senparc - 20260725
     修改描述：v4.24.4 补齐当前授权方选项获取和设置接口

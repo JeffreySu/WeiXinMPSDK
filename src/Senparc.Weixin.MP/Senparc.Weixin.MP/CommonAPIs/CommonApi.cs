@@ -25,7 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：通用接口(用于和微信服务器通讯，一般不涉及自有网站服务器的通讯)
 
 
-    创建标识：Senparc - 20150211
+    创建标识：Senparc - 20130514
 
     修改标识：Senparc - 20150303
     修改描述：整理接口

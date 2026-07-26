@@ -96,6 +96,14 @@
 		2、WebSocket 链锁定 Microsoft.AspNetCore.WebSockets 2.3.11 与 WebSocketProtocol 5.1.0
 		3、AspNet 链锁定安全版本的 System.Security.Cryptography.Xml
 		4、Memcached 链锁定 Newtonsoft.Json 13.0.4
+		[2026-07-26] v2026.7.26 全模块官方接口补齐与 Native AOT / System.Text.Json 能力增强
+		1、Dependency update from Senparc.Weixin to 6.25.0; Senparc.Weixin.MP to 16.25.1; Senparc.Weixin.Open to 4.24.4; Senparc.Weixin.TenPay to 1.19.0; Senparc.Weixin.TenPayV3 to 2.5.1; Senparc.Weixin.Work to 3.32.1; Senparc.Weixin.WxOpen to 3.28.1
+		2、Senparc.Weixin：新增基于 JsonTypeInfo 的同步/异步微信 API 请求入口，增强 Native AOT、错误序列化与请求兼容能力
+		3、MP：补齐 openApi、模板与草稿、用户迁移、短链、统计、OCR/图像识别、就医助手、一物一码、非税缴费等官方接口
+		4、Open：补齐组件管理、认证备案、代管小程序/公众号、流量主代运营、云托管与代云开发等官方接口
+		5、WxOpen：补齐物流、即时配送、交易保障、虚拟支付、短剧、小说、直播、B2B 门店及行业能力等官方接口与事件
+		6、Work：大规模补齐通讯录、客户联系、会议、文档、微盘、家校、政民沟通、硬件、许可账号等现行官方接口与回调
+		7、TenPay / TenPayV3：增强 STJ 源生成与企业支付异步入口；补齐异常退款、投诉、停车、医保、电商收付通、品牌会员、商品券等接口
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

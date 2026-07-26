@@ -37,6 +37,12 @@
     修改标识：Senparc - 20260725
     修改描述：v3.32.1 增加应用邮箱新邮件变更异步回调处理入口
 
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 增加设备数据授权变更异步回调处理入口
+
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 增加硬件设备特征变更异步回调处理入口
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Context;
@@ -459,6 +465,36 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     responseMessage = await
                         OnEvent_AppEmailChangeRequestAsync(
                             RequestMessage as RequestMessageEvent_App_Email_Change);
+                    break;
+                case Event.public_email_change: // 公共邮箱接收邮件事件
+                    responseMessage = await
+                        OnEvent_PublicEmailChangeRequestAsync(
+                            RequestMessage as RequestMessageEvent_Public_Email_Change);
+                    break;
+                case Event.wedrive_insufficient_capacity: // 微盘容量不足事件
+                    responseMessage = await
+                        OnEvent_WeDriveInsufficientCapacityRequestAsync(
+                            RequestMessage as RequestMessageEvent_WeDrive_Insufficient_Capacity);
+                    break;
+                case Event.wedrive_space_change: // 微盘空间变更事件
+                    responseMessage = await
+                        OnEvent_WeDriveSpaceChangeRequestAsync(
+                            RequestMessage as RequestMessageEvent_WeDrive_Space_Change);
+                    break;
+                case Event.wedrive_file_change: // 微盘文件变更事件
+                    responseMessage = await
+                        OnEvent_WeDriveFileChangeRequestAsync(
+                            RequestMessage as RequestMessageEvent_WeDrive_File_Change);
+                    break;
+                case Event.program_notify: // 数据与智能专区程序通知应用事件
+                    responseMessage = await
+                        OnEvent_ProgramNotifyRequestAsync(
+                            RequestMessage as RequestMessageEvent_Program_Notify);
+                    break;
+                case Event.change_school_contact: // 家校通讯录成员或部门变更事件
+                    responseMessage = await
+                        OnEvent_ChangeSchoolContactRequestAsync(
+                            RequestMessage as RequestMessageEvent_Change_School_Contact);
                     break;
                 case Event.book_meeting_room: // 会议室预定事件
                     responseMessage = await
@@ -1031,6 +1067,61 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return await Task.FromResult(OnEvent_AppEmailChangeRequest(requestMessage)).ConfigureAwait(false);
         }
 
+        /// <summary>公共邮箱接收邮件事件。</summary>
+        /// <param name="requestMessage">包含公共邮箱 ID 和当前新邮件数量的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_PublicEmailChangeRequestAsync(
+            RequestMessageEvent_Public_Email_Change requestMessage)
+        {
+            return await Task.FromResult(OnEvent_PublicEmailChangeRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>微盘容量不足事件。</summary>
+        /// <param name="requestMessage">企业微盘容量使用率超过 90% 时产生的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_WeDriveInsufficientCapacityRequestAsync(
+            RequestMessageEvent_WeDrive_Insufficient_Capacity requestMessage)
+        {
+            return await Task.FromResult(OnEvent_WeDriveInsufficientCapacityRequest(requestMessage))
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>微盘空间变更事件。</summary>
+        /// <param name="requestMessage">包含变更类型和空间 ID 列表的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_WeDriveSpaceChangeRequestAsync(
+            RequestMessageEvent_WeDrive_Space_Change requestMessage)
+        {
+            return await Task.FromResult(OnEvent_WeDriveSpaceChangeRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>微盘文件变更事件。</summary>
+        /// <param name="requestMessage">包含变更类型和文件 ID 列表的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_WeDriveFileChangeRequestAsync(
+            RequestMessageEvent_WeDrive_File_Change requestMessage)
+        {
+            return await Task.FromResult(OnEvent_WeDriveFileChangeRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>数据与智能专区程序通知应用事件。</summary>
+        /// <param name="requestMessage">包含通知 ID 和通知场景的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_ProgramNotifyRequestAsync(
+            RequestMessageEvent_Program_Notify requestMessage)
+        {
+            return await Task.FromResult(OnEvent_ProgramNotifyRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>家校通讯录成员或部门变更事件。</summary>
+        /// <param name="requestMessage">包含变更类型和成员或部门 ID 的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_ChangeSchoolContactRequestAsync(
+            RequestMessageEvent_Change_School_Contact requestMessage)
+        {
+            return await Task.FromResult(OnEvent_ChangeSchoolContactRequest(requestMessage)).ConfigureAwait(false);
+        }
+
         /// <summary>会议室预定事件。</summary>
         /// <param name="requestMessage">企业微信会议室预定事件请求消息。</param>
         /// <returns>微信接口返回结果。</returns>
@@ -1145,6 +1236,12 @@ namespace Senparc.Weixin.Work.MessageHandlers
                 case ThirdPartyInfo.RESET_PERMANENT_CODE:
                     return OnThirdPartEvent_Reset_Permanent_CodeAsync(
                         (RequestMessageInfo_Reset_Permanent_Code)thirdPartyInfo);
+                case ThirdPartyInfo.DEVICE_DATA_AUTH_CHANGE:
+                    return OnThirdPartyEvent_DeviceDataAuthChangeAsync(
+                        (RequestMessageInfo_Device_Data_Auth_Change)thirdPartyInfo);
+                case ThirdPartyInfo.DEVICE_FEATURE_CHANGE:
+                    return OnThirdPartyEvent_DeviceFeatureChangeAsync(
+                        (RequestMessageInfo_Device_Feature_Change)thirdPartyInfo);
                 case ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT:
                 {
                     var cecRequestMessage = RequestMessage as IRequestMessageEvent_Change_ExternalContact_Base;
@@ -1229,6 +1326,30 @@ namespace Senparc.Weixin.Work.MessageHandlers
             RequestMessageInfo_Reset_Permanent_Code thirdPartyInfo)
         {
             return await Task.FromResult(OnThirdPartEvent_ResetPermanentCode(thirdPartyInfo)).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 异步处理设备数据授权变更通知。
+        /// </summary>
+        /// <param name="requestMessage">设备数据授权变更通知。</param>
+        /// <returns>第三方回调响应文本。</returns>
+        protected virtual async Task<string> OnThirdPartyEvent_DeviceDataAuthChangeAsync(
+            RequestMessageInfo_Device_Data_Auth_Change requestMessage)
+        {
+            return await Task.FromResult(OnThirdPartyEvent_DeviceDataAuthChange(requestMessage))
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 异步处理硬件设备特征变更通知。
+        /// </summary>
+        /// <param name="requestMessage">硬件设备特征变更通知。</param>
+        /// <returns>第三方回调响应文本。</returns>
+        protected virtual async Task<string> OnThirdPartyEvent_DeviceFeatureChangeAsync(
+            RequestMessageInfo_Device_Feature_Change requestMessage)
+        {
+            return await Task.FromResult(OnThirdPartyEvent_DeviceFeatureChange(requestMessage))
+                .ConfigureAwait(false);
         }
 
         #region 外部联系人

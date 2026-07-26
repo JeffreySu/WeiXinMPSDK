@@ -31,6 +31,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ExternalPay
         private const string SetMerchantUseScopePath = "/cgi-bin/externalpay/set_mch_use_scope";
         private const string GetBillListPath = "/cgi-bin/externalpay/get_bill_list";
         private const string GetPaymentInfoPath = "/cgi-bin/externalpay/get_payment_info";
+        private const string GetFundFlowPath = "/cgi-bin/externalpay/get_fund_flow";
 
         /// <summary>
         /// 添加对外收款商户号。
@@ -179,6 +180,33 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ExternalPay
             int timeOut = Config.TIME_OUT)
             => PostAsync<ExternalPayGetPaymentInfoResult>(accessTokenOrAppKey,
                 GetPaymentInfoPath, data, timeOut);
+
+        /// <summary>
+        /// 分页获取企业在企业微信开通的对外收款商户号资金流水。
+        /// <para>参考文档：<see href="https://developer.work.weixin.qq.com/document/path/98100"/></para>
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">对外收款应用凭证，或由 AccessTokenContainer.BuildingKey 生成的 AppKey。</param>
+        /// <param name="data">最长 31 天的查询时间范围、可选商户号和分页参数。</param>
+        /// <param name="timeOut">请求超时时间。</param>
+        /// <returns>资金流水记录及下一页游标。</returns>
+        public static ExternalPayGetFundFlowResult GetFundFlow(string accessTokenOrAppKey,
+            ExternalPayGetFundFlowRequest data, int timeOut = Config.TIME_OUT)
+            => Post<ExternalPayGetFundFlowResult>(accessTokenOrAppKey,
+                GetFundFlowPath, data, timeOut);
+
+        /// <summary>
+        /// 异步分页获取企业在企业微信开通的对外收款商户号资金流水。
+        /// <para>参考文档：<see href="https://developer.work.weixin.qq.com/document/path/98100"/></para>
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">对外收款应用凭证，或由 AccessTokenContainer.BuildingKey 生成的 AppKey。</param>
+        /// <param name="data">最长 31 天的查询时间范围、可选商户号和分页参数。</param>
+        /// <param name="timeOut">请求超时时间。</param>
+        /// <returns>资金流水记录及下一页游标。</returns>
+        public static Task<ExternalPayGetFundFlowResult> GetFundFlowAsync(
+            string accessTokenOrAppKey, ExternalPayGetFundFlowRequest data,
+            int timeOut = Config.TIME_OUT)
+            => PostAsync<ExternalPayGetFundFlowResult>(accessTokenOrAppKey,
+                GetFundFlowPath, data, timeOut);
 
         private static T Post<T>(string accessTokenOrAppKey, string path, object data, int timeOut)
             where T : WorkJsonResult, new()

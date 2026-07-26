@@ -17,6 +17,9 @@ Licensed under the Apache License, Version 2.0 (the "License").
     修改标识：Senparc - 20260724
     修改描述：v4.24.4 补齐开放平台基础管理、流量主代运营和微信云托管接口
 
+    修改标识：Senparc - 20260725
+    修改描述：v4.24.4 增加开放平台账号绑定状态返回模型
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
@@ -39,6 +42,17 @@ namespace Senparc.Weixin.Open.WxaAPIs.P1
         public string period_fetch_url { get; set; }
         public string period_env { get; set; }
         public string period_function_name { get; set; }
+    }
+
+    /// <summary>
+    /// 查询是否绑定开放平台账号接口返回结果。
+    /// </summary>
+    public class BindOpenAccountJsonResult : WxJsonResult
+    {
+        /// <summary>
+        /// 是否已绑定开放平台账号。
+        /// </summary>
+        public bool have_open { get; set; }
     }
 
     /// <summary>

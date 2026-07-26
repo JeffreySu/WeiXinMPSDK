@@ -5,8 +5,11 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
+using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Work.AdvancedAPIs.School;
+using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.MessageHandlers;
 
 namespace Senparc.Weixin.Work.Test.AdvancedAPIs.School
 {
@@ -192,6 +195,59 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.School
             Assert.AreEqual(1, department.open_group_chat);
             Assert.AreEqual("teacher-1", department.department_admins[0].userid);
             Assert.AreEqual("group-1", department.group_chat_id);
+        }
+
+        [TestMethod]
+        public void SchoolContactCallbackPreservesMemberAndDepartmentChangeTypes()
+        {
+            var studentDocument = XDocument.Parse(@"<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[sys]]></FromUserName>
+<CreateTime>5178368698</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[change_school_contact]]></Event>
+<ChangeType><![CDATA[update_student]]></ChangeType>
+<Id><![CDATA[student-1]]></Id>
+</xml>");
+            var studentRequest = RequestMessageFactory.GetRequestEntity(
+                new MessageContexts.DefaultWorkMessageContext(), studentDocument) as
+                RequestMessageEvent_Change_School_Contact;
+
+            Assert.IsNotNull(studentRequest);
+            Assert.AreEqual(Event.change_school_contact, studentRequest.Event);
+            Assert.AreEqual("update_student", studentRequest.ChangeType);
+            Assert.AreEqual("student-1", studentRequest.Id);
+
+            var departmentDocument = XDocument.Parse(@"<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[sys]]></FromUserName>
+<CreateTime>5178368698</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[change_school_contact]]></Event>
+<ChangeType><![CDATA[create_deparmtment]]></ChangeType>
+<Id><![CDATA[5000000000]]></Id>
+</xml>");
+            var departmentRequest = RequestMessageFactory.GetRequestEntity(
+                new MessageContexts.DefaultWorkMessageContext(), departmentDocument) as
+                RequestMessageEvent_Change_School_Contact;
+
+            Assert.IsNotNull(departmentRequest);
+            Assert.AreEqual("create_deparmtment", departmentRequest.ChangeType);
+            Assert.AreEqual("5000000000", departmentRequest.Id);
+            Assert.IsNotNull(typeof(WorkMessageHandler<>).GetMethod(
+                "OnEvent_ChangeSchoolContactRequest"));
+            Assert.IsNotNull(typeof(WorkMessageHandler<>).GetMethod(
+                "OnEvent_ChangeSchoolContactRequestAsync"));
+
+            var source = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src",
+                "Senparc.Weixin.Work", "Senparc.Weixin.Work", "Entities", "Request", "Event",
+                "RequestMessageEvent_Change_School_Contact.cs"));
+            StringAssert.Contains(source, "/document/path/92032");
+            StringAssert.Contains(source, "/document/path/92052");
+            Assert.AreEqual(4, source.Split(new[] { "/// <summary>" },
+                StringSplitOptions.None).Length - 1);
+            Assert.IsFalse(source.Contains("public object "));
+            Assert.IsFalse(source.Contains("public dynamic "));
         }
 
         [TestMethod]

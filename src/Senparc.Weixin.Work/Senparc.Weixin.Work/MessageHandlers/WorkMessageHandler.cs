@@ -93,6 +93,12 @@
     修改标识：Senparc - 20260725
     修改描述：v3.32.1 增加应用邮箱新邮件变更回调处理入口
 
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 增加设备数据授权变更回调处理入口
+
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 增加硬件设备特征变更回调处理入口
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -1004,6 +1010,60 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
+        /// <summary>公共邮箱接收邮件事件。</summary>
+        /// <param name="requestMessage">包含公共邮箱 ID 和当前新邮件数量的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_PublicEmailChangeRequest(
+            RequestMessageEvent_Public_Email_Change requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>微盘容量不足事件。</summary>
+        /// <param name="requestMessage">企业微盘容量使用率超过 90% 时产生的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_WeDriveInsufficientCapacityRequest(
+            RequestMessageEvent_WeDrive_Insufficient_Capacity requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>微盘空间变更事件。</summary>
+        /// <param name="requestMessage">包含变更类型和空间 ID 列表的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_WeDriveSpaceChangeRequest(
+            RequestMessageEvent_WeDrive_Space_Change requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>微盘文件变更事件。</summary>
+        /// <param name="requestMessage">包含变更类型和文件 ID 列表的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_WeDriveFileChangeRequest(
+            RequestMessageEvent_WeDrive_File_Change requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>数据与智能专区程序通知应用事件。</summary>
+        /// <param name="requestMessage">包含通知 ID 和通知场景的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_ProgramNotifyRequest(
+            RequestMessageEvent_Program_Notify requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>家校通讯录成员或部门变更事件。</summary>
+        /// <param name="requestMessage">包含变更类型和成员或部门 ID 的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeSchoolContactRequest(
+            RequestMessageEvent_Change_School_Contact requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
         /// <summary>会议室预定事件。</summary>
         /// <param name="requestMessage">企业微信会议室预定事件请求消息。</param>
         /// <returns>微信接口返回结果。</returns>
@@ -1181,6 +1241,28 @@ namespace Senparc.Weixin.Work.MessageHandlers
         }
 
         protected virtual string OnThirdPartEvent_ResetPermanentCode(RequestMessageInfo_Reset_Permanent_Code requestMessage)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        /// <summary>
+        /// 处理设备数据授权变更通知。
+        /// </summary>
+        /// <param name="requestMessage">设备数据授权变更通知。</param>
+        /// <returns>第三方回调响应文本。</returns>
+        protected virtual string OnThirdPartyEvent_DeviceDataAuthChange(
+            RequestMessageInfo_Device_Data_Auth_Change requestMessage)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        /// <summary>
+        /// 处理硬件设备特征变更通知。
+        /// </summary>
+        /// <param name="requestMessage">硬件设备特征变更通知。</param>
+        /// <returns>第三方回调响应文本。</returns>
+        protected virtual string OnThirdPartyEvent_DeviceFeatureChange(
+            RequestMessageInfo_Device_Feature_Change requestMessage)
         {
             return ThirdPartyEventSuccessResult;
         }

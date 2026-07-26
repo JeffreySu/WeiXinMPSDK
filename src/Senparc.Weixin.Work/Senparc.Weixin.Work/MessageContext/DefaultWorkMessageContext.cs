@@ -281,6 +281,24 @@ namespace Senparc.Weixin.Work.MessageContexts
                         case "APP_EMAIL_CHANGE": // 应用邮箱新邮件变更事件
                             requestMessage = new RequestMessageEvent_App_Email_Change();
                             break;
+                        case "PUBLIC_EMAIL_CHANGE": // 公共邮箱接收邮件事件
+                            requestMessage = new RequestMessageEvent_Public_Email_Change();
+                            break;
+                        case "WEDRIVE_INSUFFICIENT_CAPACITY": // 微盘容量不足事件
+                            requestMessage = new RequestMessageEvent_WeDrive_Insufficient_Capacity();
+                            break;
+                        case "WEDRIVE_SPACE_CHANGE": // 微盘空间变更事件
+                            requestMessage = new RequestMessageEvent_WeDrive_Space_Change(doc.Root);
+                            break;
+                        case "WEDRIVE_FILE_CHANGE": // 微盘文件变更事件
+                            requestMessage = new RequestMessageEvent_WeDrive_File_Change(doc.Root);
+                            break;
+                        case "PROGRAM_NOTIFY": // 数据与智能专区程序通知应用事件
+                            requestMessage = new RequestMessageEvent_Program_Notify();
+                            break;
+                        case "CHANGE_SCHOOL_CONTACT": // 家校通讯录成员或部门变更事件
+                            requestMessage = new RequestMessageEvent_Change_School_Contact();
+                            break;
                         case "BOOK_MEETING_ROOM": // 会议室预定事件
                             requestMessage = new RequestMessageEvent_Book_Meeting_Room();
                             break;

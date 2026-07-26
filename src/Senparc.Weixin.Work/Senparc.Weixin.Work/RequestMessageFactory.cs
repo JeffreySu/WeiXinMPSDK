@@ -34,6 +34,12 @@
     修改标识：Senparc - 20260725
     修改描述：v3.32.1 接入小程序对外收款支付与退款通知识别
 
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 接入设备数据授权变更通知识别
+
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 接入硬件设备特征变更通知识别
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -140,6 +146,12 @@ namespace Senparc.Weixin.Work
                             break;
                         case ThirdPartyInfo.RESET_PERMANENT_CODE:
                             requestMessage = new RequestMessageInfo_Reset_Permanent_Code();
+                            break;
+                        case ThirdPartyInfo.DEVICE_DATA_AUTH_CHANGE:
+                            requestMessage = new RequestMessageInfo_Device_Data_Auth_Change();
+                            break;
+                        case ThirdPartyInfo.DEVICE_FEATURE_CHANGE:
+                            requestMessage = new RequestMessageInfo_Device_Feature_Change();
                             break;
                         case ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT:
                             switch (doc.Root.Element("ChangeType").Value.ToUpper())

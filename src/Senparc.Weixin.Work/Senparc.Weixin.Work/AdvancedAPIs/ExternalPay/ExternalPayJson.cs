@@ -361,4 +361,85 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ExternalPay
         /// </summary>
         public IList<ExternalPayPaymentBill> bill_list { get; set; }
     }
+
+    /// <summary>
+    /// 获取企业对外收款资金流水请求。
+    /// </summary>
+    public class ExternalPayGetFundFlowRequest
+    {
+        /// <summary>查询开始时间戳，单位为秒。</summary>
+        public long begin_time { get; set; }
+
+        /// <summary>查询结束时间戳，单位为秒；与开始时间间隔不能超过 31 天。</summary>
+        public long end_time { get; set; }
+
+        /// <summary>可选的微信支付商户号；为空时查询全部已开通商户号。</summary>
+        public string mch_id { get; set; }
+
+        /// <summary>分页游标；首次请求可不填。</summary>
+        public string cursor { get; set; }
+
+        /// <summary>每页数量，默认 100，最大 200。</summary>
+        public int? limit { get; set; }
+    }
+
+    /// <summary>
+    /// 对外收款资金流水所属规则组。
+    /// </summary>
+    public class ExternalPayFundFlowGroup
+    {
+        /// <summary>规则组名称。</summary>
+        public string group_name { get; set; }
+    }
+
+    /// <summary>
+    /// 对外收款资金流水记录。
+    /// </summary>
+    public class ExternalPayFundFlow
+    {
+        /// <summary>动账 Unix 时间戳，单位为秒。</summary>
+        public long timestamp { get; set; }
+
+        /// <summary>关联单号，即微信支付资金流水单号。</summary>
+        public string request_no { get; set; }
+
+        /// <summary>动账类型：1 退款、2 交易手续费、3 收款、4 提现、5 其他。</summary>
+        public int transaction_type { get; set; }
+
+        /// <summary>收支类型：1 收入、2 支出。</summary>
+        public int fund_flow_type { get; set; }
+
+        /// <summary>动账金额，单位为分；使用 64 位整数避免大额累计溢出。</summary>
+        public long transaction_amount { get; set; }
+
+        /// <summary>动账后的账户余额，单位为分；使用 64 位整数保留大额余额。</summary>
+        public long account_balance { get; set; }
+
+        /// <summary>商户订单号，即业务凭证号。</summary>
+        public string out_trade_no { get; set; }
+
+        /// <summary>微信支付商户号。</summary>
+        public string mch_id { get; set; }
+
+        /// <summary>操作成员 UserId。</summary>
+        public string operator_userid { get; set; }
+
+        /// <summary>资金流水所属规则组列表。</summary>
+        public IList<ExternalPayFundFlowGroup> group_list { get; set; }
+
+        /// <summary>资金流水备注。</summary>
+        public string remark { get; set; }
+    }
+
+    /// <summary>
+    /// 获取企业对外收款资金流水结果。
+    /// </summary>
+    public class ExternalPayGetFundFlowResult : WorkJsonResult
+    {
+        /// <summary>下一页游标；为空表示已经拉取完全部记录。</summary>
+        public string next_cursor { get; set; }
+
+        /// <summary>资金流水记录列表。</summary>
+        public IList<ExternalPayFundFlow> fund_flow_list { get; set; }
+    }
 }

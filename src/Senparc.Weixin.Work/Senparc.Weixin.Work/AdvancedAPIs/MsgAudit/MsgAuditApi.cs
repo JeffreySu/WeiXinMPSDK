@@ -13,6 +13,9 @@
     修改标识：Senparc - 20260725
     修改描述：v3.32.1 补齐会话内容存档机器人信息接口
 
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 增加 Finance 原生 SDK 客户端入口说明
+
 ----------------------------------------------------------------*/
 
 using System.Threading.Tasks;
@@ -25,7 +28,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MsgAudit
     /// <summary>
     /// 企业微信会话内容存档 HTTP 接口。
     /// <para>调用这些接口时，必须使用会话内容存档应用 Secret 获取的 access_token。</para>
-    /// <para>聊天记录拉取、消息解密和媒体下载属于企业微信 Finance 原生 SDK，不由本类封装。</para>
+    /// <para>聊天记录拉取、消息解密和媒体下载属于企业微信 Finance 原生 SDK，使用 <see cref="MsgAuditFinanceClient"/> 调用。</para>
     /// </summary>
     public static class MsgAuditApi
     {

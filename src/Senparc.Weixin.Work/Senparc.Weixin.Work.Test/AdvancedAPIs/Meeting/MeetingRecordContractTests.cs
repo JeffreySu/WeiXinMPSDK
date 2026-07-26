@@ -15,7 +15,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.Meeting
     public class MeetingRecordContractTests
     {
         [TestMethod]
-        public void RecordApiContainsFiveSyncAndAsyncEntries()
+        public void RecordApiContainsTenSyncAndAsyncEntries()
         {
             var contracts = new[]
             {
@@ -29,7 +29,20 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.Meeting
                 (nameof(MeetingApi.DeleteMeetingRecord), typeof(DeleteMeetingRecordRequest),
                     typeof(DeleteMeetingRecordResult)),
                 (nameof(MeetingApi.DeleteMeetingRecordFile), typeof(DeleteMeetingRecordFileRequest),
-                    typeof(DeleteMeetingRecordFileResult))
+                    typeof(DeleteMeetingRecordFileResult)),
+                (nameof(MeetingApi.GetMeetingRecordFile), typeof(GetMeetingRecordFileRequest),
+                    typeof(GetMeetingRecordFileResult)),
+                (nameof(MeetingApi.GetMeetingRecordFileList), typeof(GetMeetingRecordFileListRequest),
+                    typeof(GetMeetingRecordFileListResult)),
+                (nameof(MeetingApi.GetMeetingRecordTranscriptParagraphList),
+                    typeof(GetMeetingRecordTranscriptParagraphListRequest),
+                    typeof(GetMeetingRecordTranscriptParagraphListResult)),
+                (nameof(MeetingApi.GetMeetingRecordTranscriptDetail),
+                    typeof(GetMeetingRecordTranscriptDetailRequest),
+                    typeof(GetMeetingRecordTranscriptDetailResult)),
+                (nameof(MeetingApi.SearchMeetingRecordTranscript),
+                    typeof(SearchMeetingRecordTranscriptRequest),
+                    typeof(SearchMeetingRecordTranscriptResult))
             };
 
             foreach (var contract in contracts)
@@ -57,9 +70,18 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.Meeting
                 "/cgi-bin/meeting/record/get_statistics",
                 "/cgi-bin/meeting/record/update_sharing_config",
                 "/cgi-bin/meeting/record/delete",
-                "/cgi-bin/meeting/record/delete_file"
+                "/cgi-bin/meeting/record/delete_file",
+                "/cgi-bin/meeting/record/get_file",
+                "/cgi-bin/meeting/record/get_file_list",
+                "/cgi-bin/meeting/record/transcript/get_paragraph_list",
+                "/cgi-bin/meeting/record/transcript/get_detail",
+                "/cgi-bin/meeting/record/transcript/search"
             };
-            var documentIds = new[] { 98192, 98209, 98208, 98206, 98207 };
+            var documentIds = new[]
+            {
+                98192, 98209, 98208, 98206, 98207,
+                98205, 98196, 98212, 98211, 98213
+            };
 
             foreach (var path in paths)
             {
@@ -72,13 +94,13 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.Meeting
                     documentId.ToString());
             }
 
-            Assert.AreEqual(10, CountOccurrences(source, "/// <summary>"));
-            Assert.AreEqual(10, CountOccurrences(source, "/// <param name=\"accessTokenOrAppKey\">"));
-            Assert.AreEqual(10, CountOccurrences(source, "/// <param name=\"request\">"));
-            Assert.AreEqual(10, CountOccurrences(source, "/// <param name=\"timeOut\">"));
-            Assert.AreEqual(10, CountOccurrences(source, "/// <returns>"));
-            Assert.AreEqual(5, CountOccurrences(source, "=> Post<"));
-            Assert.AreEqual(5, CountOccurrences(source, "=> PostAsync<"));
+            Assert.AreEqual(20, CountOccurrences(source, "/// <summary>"));
+            Assert.AreEqual(20, CountOccurrences(source, "/// <param name=\"accessTokenOrAppKey\">"));
+            Assert.AreEqual(20, CountOccurrences(source, "/// <param name=\"request\">"));
+            Assert.AreEqual(20, CountOccurrences(source, "/// <param name=\"timeOut\">"));
+            Assert.AreEqual(20, CountOccurrences(source, "/// <returns>"));
+            Assert.AreEqual(10, CountOccurrences(source, "=> Post<"));
+            Assert.AreEqual(10, CountOccurrences(source, "=> PostAsync<"));
         }
 
         [TestMethod]
@@ -181,6 +203,129 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.Meeting
             Assert.AreEqual("2033-01-01", statisticsResult.summaries[0].date);
             Assert.AreEqual(12, statisticsResult.summaries[0].view_count);
             Assert.AreEqual(5, statisticsResult.summaries[0].download_count);
+        }
+
+        [TestMethod]
+        public void CurrentRecordFileModelsPreserveAddressesLargeTimesAndSummaryShapes()
+        {
+            var request = new GetMeetingRecordFileListRequest
+            {
+                meeting_record_id = "record-1",
+                meetingid = "meeting-1"
+            };
+            using var requestDocument = JsonDocument.Parse(JsonSerializer.Serialize(request));
+            Assert.AreEqual("record-1",
+                requestDocument.RootElement.GetProperty("meeting_record_id").GetString());
+
+            var singleFile = Newtonsoft.Json.JsonConvert.DeserializeObject<GetMeetingRecordFileResult>(
+                "{\"errcode\":0,\"record_file_id\":\"file-1\"," +
+                "\"meetingid\":\"meeting-1\",\"meeting_code\":\"code-1\"," +
+                "\"view_address\":\"https://view.test\"," +
+                "\"download_address\":\"https://download.test\"," +
+                "\"download_address_file_type\":\"mp4\"," +
+                "\"audio_address\":\"https://audio.test\"," +
+                "\"audio_address_file_type\":\"m4a\"," +
+                "\"meeting_summary\":{\"download_address\":\"https://summary.test\"," +
+                "\"file_type\":\"pdf\"},\"ai_meeting_transcripts\":[{" +
+                "\"download_address\":\"https://transcript.test\",\"file_type\":\"txt\"}]," +
+                "\"record_name\":\"录制1\",\"start_time\":\"5000000000\"," +
+                "\"end_time\":\"6000000000\",\"meeting_record_name\":\"会议录制\"}");
+            Assert.IsNotNull(singleFile);
+            Assert.AreEqual(5000000000L, singleFile.start_time);
+            Assert.AreEqual(6000000000L, singleFile.end_time);
+            Assert.AreEqual("pdf", singleFile.meeting_summary[0].file_type);
+            Assert.AreEqual("txt", singleFile.ai_meeting_transcripts[0].file_type);
+
+            var fileList = Newtonsoft.Json.JsonConvert.DeserializeObject<GetMeetingRecordFileListResult>(
+                "{\"errcode\":0,\"meeting_record_id\":\"record-1\"," +
+                "\"meetingid\":\"meeting-1\",\"record_files\":[{" +
+                "\"record_file_id\":\"file-1\",\"meeting_summary\":[{" +
+                "\"download_address\":\"https://summary.test\",\"file_type\":\"docx\"}]}]}");
+            Assert.IsNotNull(fileList);
+            Assert.AreEqual("file-1", fileList.record_files[0].record_file_id);
+            Assert.AreEqual("docx", fileList.record_files[0].meeting_summary[0].file_type);
+        }
+
+        [TestMethod]
+        public void TranscriptModelsPreserveParagraphsWordsSearchAndMillisecondTimes()
+        {
+            var paragraphList = Newtonsoft.Json.JsonConvert
+                .DeserializeObject<GetMeetingRecordTranscriptParagraphListResult>(
+                    "{\"errcode\":0,\"audio_detect\":1,\"paragraphs\":[{" +
+                    "\"pid\":\"11\",\"start_time\":5000000000," +
+                    "\"end_time\":6000000000}]}");
+            Assert.IsNotNull(paragraphList);
+            Assert.AreEqual(5000000000L, paragraphList.paragraphs[0].start_time);
+
+            var detail = Newtonsoft.Json.JsonConvert
+                .DeserializeObject<GetMeetingRecordTranscriptDetailResult>(
+                    "{\"errcode\":0,\"has_more\":true,\"transcripts\":{" +
+                    "\"paragraphs\":[{\"pid\":\"11\",\"start_time\":5000000000," +
+                    "\"end_time\":6000000000,\"speaker_info\":{\"userid\":\"USERID\"}," +
+                    "\"sentences\":[{\"sid\":\"2\",\"start_time\":10," +
+                    "\"end_time\":20,\"words\":[{\"wid\":\"3\",\"start_time\":11," +
+                    "\"end_time\":12,\"text\":\"word\"}]}]}]," +
+                    "\"keywords\":[\"nice\"],\"audio_detect\":1}}");
+            Assert.IsNotNull(detail);
+            Assert.IsTrue(detail.has_more);
+            Assert.AreEqual("USERID", detail.transcripts.paragraphs[0].speaker_info.userid);
+            Assert.AreEqual("word",
+                detail.transcripts.paragraphs[0].sentences[0].words[0].text);
+
+            var search = Newtonsoft.Json.JsonConvert
+                .DeserializeObject<SearchMeetingRecordTranscriptResult>(
+                    "{\"errcode\":0,\"hits\":[{\"pid\":\"11\",\"sid\":\"2\"," +
+                    "\"offset\":10,\"length\":4}],\"timelines\":[{" +
+                    "\"pid\":\"11\",\"sid\":\"2\",\"start_time\":5000000000}]}");
+            Assert.IsNotNull(search);
+            Assert.AreEqual(4, search.hits[0].length);
+            Assert.AreEqual(5000000000L, search.timelines[0].start_time);
+        }
+
+        [TestMethod]
+        public void CurrentRecordPublicModelsAreStronglyTypedAndDocumented()
+        {
+            var modelTypes = new[]
+            {
+                typeof(GetMeetingRecordFileRequest), typeof(MeetingRecordDownloadFile),
+                typeof(GetMeetingRecordFileResult), typeof(GetMeetingRecordFileListRequest),
+                typeof(MeetingRecordPlaybackFile), typeof(GetMeetingRecordFileListResult),
+                typeof(GetMeetingRecordTranscriptParagraphListRequest),
+                typeof(MeetingRecordTranscriptParagraphSummary),
+                typeof(GetMeetingRecordTranscriptParagraphListResult),
+                typeof(GetMeetingRecordTranscriptDetailRequest),
+                typeof(MeetingRecordTranscriptSpeaker), typeof(MeetingRecordTranscriptWord),
+                typeof(MeetingRecordTranscriptSentence), typeof(MeetingRecordTranscriptParagraph),
+                typeof(MeetingRecordTranscriptDetail),
+                typeof(GetMeetingRecordTranscriptDetailResult),
+                typeof(SearchMeetingRecordTranscriptRequest),
+                typeof(MeetingRecordTranscriptSearchHit),
+                typeof(MeetingRecordTranscriptTimeline),
+                typeof(SearchMeetingRecordTranscriptResult)
+            };
+
+            foreach (var property in modelTypes.SelectMany(type => type.GetProperties(
+                         BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)))
+            {
+                Assert.AreNotEqual(typeof(object), property.PropertyType,
+                    property.DeclaringType?.Name + "." + property.Name);
+                if (property.PropertyType.IsGenericType)
+                {
+                    CollectionAssert.DoesNotContain(property.PropertyType.GetGenericArguments(),
+                        typeof(object));
+                }
+            }
+
+            var source = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src",
+                "Senparc.Weixin.Work", "Senparc.Weixin.Work", "AdvancedAPIs", "Meeting",
+                "MeetingRecordCurrentJson.cs"));
+            var declarationCount = source.Split(new[] { '\r', '\n' },
+                    StringSplitOptions.RemoveEmptyEntries)
+                .Select(line => line.TrimStart())
+                .Count(line => line.StartsWith("public class ", StringComparison.Ordinal) ||
+                               line.StartsWith("public ", StringComparison.Ordinal) &&
+                               line.Contains("{ get; set; }", StringComparison.Ordinal));
+            Assert.AreEqual(declarationCount, CountOccurrences(source, "/// <summary>"));
         }
 
         [TestMethod]

@@ -5,8 +5,11 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
+using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Work.AdvancedAPIs.WeDrive;
+using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.MessageHandlers;
 
 namespace Senparc.Weixin.Work.Test.AdvancedAPIs.WeDrive
 {
@@ -273,6 +276,80 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.WeDrive
             CollectionAssert.AreEqual(new[] { "zhangsan", "lisi" }, vipList.userid_list.ToArray());
             Assert.IsTrue(vipList.has_more);
             Assert.AreEqual("cursor-2", vipList.next_cursor);
+        }
+
+        [TestMethod]
+        public void WeDriveCallbacksPreserveRepeatedIdsAndExposeHandlerExtensions()
+        {
+            var source = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src",
+                "Senparc.Weixin.Work", "Senparc.Weixin.Work", "Entities", "Request", "Event",
+                "RequestMessageEvent_WeDrive.cs"));
+            foreach (var documentId in new[] { "97898", "97899", "97900", "97901", "97902", "97903" })
+            {
+                StringAssert.Contains(source, "/document/path/" + documentId);
+            }
+            Assert.AreEqual(12, source.Split(new[] { "/// <summary>" },
+                StringSplitOptions.None).Length - 1);
+
+            var spaceDocument = XDocument.Parse(@"<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[fromUser]]></FromUserName>
+<CreateTime>5178368698</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[wedrive_space_change]]></Event>
+<ChangeType><![CDATA[space_member_change]]></ChangeType>
+<SpaceId><![CDATA[space-a]]></SpaceId>
+<SpaceId><![CDATA[space-b]]></SpaceId>
+</xml>");
+            var spaceRequest = RequestMessageFactory.GetRequestEntity(
+                new MessageContexts.DefaultWorkMessageContext(), spaceDocument) as
+                RequestMessageEvent_WeDrive_Space_Change;
+
+            Assert.IsNotNull(spaceRequest);
+            Assert.AreEqual(Event.wedrive_space_change, spaceRequest.Event);
+            Assert.AreEqual("space_member_change", spaceRequest.ChangeType);
+            CollectionAssert.AreEqual(new[] { "space-a", "space-b" }, spaceRequest.SpaceIds);
+
+            var fileDocument = XDocument.Parse(@"<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[sys]]></FromUserName>
+<CreateTime>5178368698</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[wedrive_file_change]]></Event>
+<ChangeType><![CDATA[move_file]]></ChangeType>
+<FileId><![CDATA[file-a]]></FileId>
+<FileId><![CDATA[file-b]]></FileId>
+</xml>");
+            var fileRequest = RequestMessageFactory.GetRequestEntity(
+                new MessageContexts.DefaultWorkMessageContext(), fileDocument) as
+                RequestMessageEvent_WeDrive_File_Change;
+
+            Assert.IsNotNull(fileRequest);
+            Assert.AreEqual(Event.wedrive_file_change, fileRequest.Event);
+            Assert.AreEqual("move_file", fileRequest.ChangeType);
+            CollectionAssert.AreEqual(new[] { "file-a", "file-b" }, fileRequest.FileIds);
+
+            var capacityDocument = XDocument.Parse(@"<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[sys]]></FromUserName>
+<CreateTime>5178368698</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[wedrive_insufficient_capacity]]></Event>
+</xml>");
+            var capacityRequest = RequestMessageFactory.GetRequestEntity(
+                new MessageContexts.DefaultWorkMessageContext(), capacityDocument) as
+                RequestMessageEvent_WeDrive_Insufficient_Capacity;
+
+            Assert.IsNotNull(capacityRequest);
+            Assert.AreEqual(Event.wedrive_insufficient_capacity, capacityRequest.Event);
+            Assert.IsNotNull(typeof(WorkMessageHandler<>).GetMethod(
+                "OnEvent_WeDriveInsufficientCapacityRequest"));
+            Assert.IsNotNull(typeof(WorkMessageHandler<>).GetMethod(
+                "OnEvent_WeDriveInsufficientCapacityRequestAsync"));
+            Assert.IsNotNull(typeof(WorkMessageHandler<>).GetMethod("OnEvent_WeDriveSpaceChangeRequest"));
+            Assert.IsNotNull(typeof(WorkMessageHandler<>).GetMethod("OnEvent_WeDriveSpaceChangeRequestAsync"));
+            Assert.IsNotNull(typeof(WorkMessageHandler<>).GetMethod("OnEvent_WeDriveFileChangeRequest"));
+            Assert.IsNotNull(typeof(WorkMessageHandler<>).GetMethod("OnEvent_WeDriveFileChangeRequestAsync"));
         }
 
         private static string FindRepositoryRoot([CallerFilePath] string sourceFilePath = null)

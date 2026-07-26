@@ -4,9 +4,12 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
+using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Work.AdvancedAPIs;
 using Senparc.Weixin.Work.AdvancedAPIs.DataIntelligence;
+using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.MessageHandlers;
 
 namespace Senparc.Weixin.Work.Test.AdvancedAPIs.DataIntelligence
 {
@@ -242,6 +245,123 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.DataIntelligence
                                                              BindingFlags.DeclaredOnly)
                     .FirstOrDefault(property => property.PropertyType == typeof(object));
                 Assert.IsNull(objectProperty, $"{modelType.FullName}.{objectProperty?.Name}");
+            }
+        }
+
+        [TestMethod]
+        public void ChatDataCallbacksDispatchAllCurrentEventsAndPreserveProgramNotification()
+        {
+            var callbackCases = new[]
+            {
+                new { Type = ChatDataCallbackTypes.AuditApprovedSingle,
+                    Payload = "chat_archive_audit_approved", Expected = typeof(ChatDataAuditApprovedCallback) },
+                new { Type = ChatDataCallbackTypes.AuditApprovedRoom,
+                    Payload = "chat_archive_audit_approved", Expected = typeof(ChatDataAuditApprovedCallback) },
+                new { Type = ChatDataCallbackTypes.ConversationNewMessage,
+                    Payload = "conversation_new_message", Expected = typeof(ChatDataConversationNewMessageCallback) },
+                new { Type = ChatDataCallbackTypes.HitKeyword,
+                    Payload = "hit_keyword", Expected = typeof(ChatDataHitKeywordCallback) },
+                new { Type = ChatDataCallbackTypes.AuthorizeKnowledgeBase,
+                    Payload = "auth_knowledge_base", Expected = typeof(ChatDataKnowledgeBaseCallback) },
+                new { Type = ChatDataCallbackTypes.UnauthorizeKnowledgeBase,
+                    Payload = "unauth_knowledge_base", Expected = typeof(ChatDataKnowledgeBaseCallback) },
+                new { Type = ChatDataCallbackTypes.DeleteKnowledgeBase,
+                    Payload = "delete_knowledge_base", Expected = typeof(ChatDataKnowledgeBaseCallback) },
+                new { Type = ChatDataCallbackTypes.KnowledgeBaseLearnDone,
+                    Payload = "knowledge_base_learn_done", Expected = typeof(ChatDataKnowledgeBaseCallback) },
+                new { Type = ChatDataCallbackTypes.ChatArchiveExportFinished,
+                    Payload = "chat_archive_export_finished", Expected = typeof(ChatDataExportFinishedCallback) }
+            };
+
+            Assert.AreEqual(9, callbackCases.Length);
+            foreach (var callback in callbackCases)
+            {
+                var json = "{\"event_type\":\"" + callback.Type +
+                    "\",\"timestamp\":5178368698,\"" + callback.Payload +
+                    "\":{\"token\":\"token-1\",\"knowledge_base_id\":\"kb-1\"," +
+                    "\"jobid\":\"job-1\"}}";
+                var parsed = ChatDataCallbackHandler.Parse(json);
+
+                Assert.AreEqual(callback.Expected, parsed.GetType(), callback.Type);
+                Assert.AreEqual(callback.Type, parsed.event_type, callback.Type);
+                Assert.AreEqual(5178368698L, parsed.timestamp, callback.Type);
+            }
+
+            const string learnJson =
+                "{\"event_type\":\"knowledge_base_learn_done\"," +
+                "\"timestamp\":5178368698,\"knowledge_base_learn_done\":{" +
+                "\"knowledge_base_id\":\"kb-1\",\"doc_id\":6000000000," +
+                "\"learn_status\":1}}";
+            var learn = (ChatDataKnowledgeBaseCallback)
+                ChatDataCallbackHandler.Parse(learnJson);
+            Assert.AreEqual(6000000000L, learn.knowledge_base_learn_done.doc_id);
+            Assert.AreEqual(1, learn.knowledge_base_learn_done.learn_status);
+
+            const string unknownJson =
+                "{\"event_type\":\"future_event\",\"timestamp\":5178368698," +
+                "\"future_event\":{\"value\":1}}";
+            var unknown = (ChatDataUnknownCallback)
+                ChatDataCallbackHandler.Parse(unknownJson);
+            Assert.AreEqual(unknownJson, unknown.raw_json);
+
+            var document = XDocument.Parse(@"<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[sys]]></FromUserName>
+<CreateTime>5178368698</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[program_notify]]></Event>
+<NotifyId><![CDATA[notify-1]]></NotifyId>
+<NotifyScene>7</NotifyScene>
+</xml>");
+            var request = RequestMessageFactory.GetRequestEntity(
+                new MessageContexts.DefaultWorkMessageContext(), document) as
+                RequestMessageEvent_Program_Notify;
+
+            Assert.IsNotNull(request);
+            Assert.AreEqual(Event.program_notify, request.Event);
+            Assert.AreEqual("notify-1", request.NotifyId);
+            Assert.AreEqual(7, request.NotifyScene);
+            Assert.IsNotNull(typeof(WorkMessageHandler<>).GetMethod("OnEvent_ProgramNotifyRequest"));
+            Assert.IsNotNull(typeof(WorkMessageHandler<>).GetMethod("OnEvent_ProgramNotifyRequestAsync"));
+
+            var sources = new[]
+            {
+                Path.Combine(FindRepositoryRoot(), "src", "Senparc.Weixin.Work",
+                    "Senparc.Weixin.Work", "AdvancedAPIs", "DataIntelligence",
+                    "ChatDataCallbackJson.cs"),
+                Path.Combine(FindRepositoryRoot(), "src", "Senparc.Weixin.Work",
+                    "Senparc.Weixin.Work", "AdvancedAPIs", "DataIntelligence",
+                    "ChatDataCallbackHandler.cs"),
+                Path.Combine(FindRepositoryRoot(), "src", "Senparc.Weixin.Work",
+                    "Senparc.Weixin.Work", "Entities", "Request", "Event",
+                    "RequestMessageEvent_Program_Notify.cs")
+            }.Select(File.ReadAllText).ToArray();
+            var combinedSource = string.Join("\n", sources);
+            foreach (var documentId in new[] { "99993", "99994", "99995", "99996", "99997", "99998" })
+            {
+                StringAssert.Contains(combinedSource, "/document/path/" + documentId);
+            }
+            foreach (var source in sources)
+            {
+                Assert.IsFalse(source.Contains("public object "));
+                Assert.IsFalse(source.Contains("public dynamic "));
+                var lines = source.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+                for (var index = 0; index < lines.Length; index++)
+                {
+                    if (!lines[index].TrimStart().StartsWith("public ", StringComparison.Ordinal))
+                    {
+                        continue;
+                    }
+
+                    var previous = index - 1;
+                    while (previous >= 0 && string.IsNullOrWhiteSpace(lines[previous]))
+                    {
+                        previous--;
+                    }
+                    Assert.IsTrue(previous >= 0 &&
+                        lines[previous].TrimStart().StartsWith("///", StringComparison.Ordinal),
+                        lines[index].Trim());
+                }
             }
         }
 

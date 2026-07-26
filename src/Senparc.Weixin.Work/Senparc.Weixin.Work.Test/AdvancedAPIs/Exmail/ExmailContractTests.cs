@@ -17,7 +17,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.Exmail
     public class ExmailContractTests
     {
         [TestMethod]
-        public void ExmailApiContainsTwentyOneSyncAndAsyncEntries()
+        public void ExmailApiContainsTwentyFourSyncAndAsyncEntries()
         {
             var methodNames = typeof(ExmailApi)
                 .GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
@@ -44,10 +44,13 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.Exmail
                 nameof(ExmailApi.ActivateEmailAccount),
                 nameof(ExmailApi.GetUserOptions),
                 nameof(ExmailApi.UpdateUserOptions),
-                nameof(ExmailApi.GetNewMailCount)
+                nameof(ExmailApi.GetNewMailCount),
+                nameof(ExmailApi.AddVipAccounts),
+                nameof(ExmailApi.RemoveVipAccounts),
+                nameof(ExmailApi.GetVipAccountList)
             };
 
-            Assert.AreEqual(42, methodNames.Length);
+            Assert.AreEqual(48, methodNames.Length);
             foreach (var syncMethodName in syncMethodNames)
             {
                 CollectionAssert.Contains(methodNames, syncMethodName, syncMethodName);
@@ -56,7 +59,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.Exmail
         }
 
         [TestMethod]
-        public void ExmailApiUsesTwentyOneCurrentPathsAndHttpMethods()
+        public void ExmailApiUsesTwentyFourCurrentPathsAndHttpMethods()
         {
             var directory = Path.Combine(FindRepositoryRoot(), "src", "Senparc.Weixin.Work",
                 "Senparc.Weixin.Work", "AdvancedAPIs", "Exmail");
@@ -84,7 +87,10 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.Exmail
                 "/cgi-bin/exmail/account/act_email",
                 "/cgi-bin/exmail/useroption/get",
                 "/cgi-bin/exmail/useroption/update",
-                "/cgi-bin/exmail/mail/get_newcount"
+                "/cgi-bin/exmail/mail/get_newcount",
+                "/cgi-bin/exmail/vip/batch_add",
+                "/cgi-bin/exmail/vip/batch_del",
+                "/cgi-bin/exmail/vip/list"
             };
 
             foreach (var path in paths)
@@ -92,7 +98,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.Exmail
                 StringAssert.Contains(source, path);
             }
 
-            Assert.AreEqual(21, paths.Distinct().Count());
+            Assert.AreEqual(24, paths.Distinct().Count());
             StringAssert.Contains(source, "CommonJsonSendType.POST");
             StringAssert.Contains(source, "CommonJsonSendType.GET");
         }
@@ -235,8 +241,83 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.Exmail
         }
 
         [TestMethod]
-        public void AppEmailChangeCallbackMapsToContextAndHandlerExtensions()
+        public void VipModelsPreserveBatchResultsBooleanPaginationAndLimits()
         {
+            var requestJson = JsonSerializer.Serialize(new ExmailVipBatchRequest
+            {
+                userid_list = new List<string> { "zhangsan", "lisi", "wangwu" }
+            });
+            var batchResult = JsonSerializer.Deserialize<ExmailVipBatchResult>(
+                "{\"errcode\":0,\"succ_userid_list\":[\"zhangsan\",\"lisi\"]," +
+                "\"fail_userid_list\":[\"wangwu\"]}");
+            var listRequestJson = JsonSerializer.Serialize(new ExmailVipListRequest
+            {
+                cursor = "CURSOR",
+                limit = 200
+            });
+            var listResult = JsonSerializer.Deserialize<ExmailVipListResult>(
+                "{\"errcode\":0,\"has_more\":true," +
+                "\"next_cursor\":\"GNIJIGEO\"," +
+                "\"userid_list\":[\"zhangsan\",\"lisi\"]}");
+
+            StringAssert.Contains(requestJson,
+                "\"userid_list\":[\"zhangsan\",\"lisi\",\"wangwu\"]");
+            Assert.AreEqual("wangwu", batchResult.fail_userid_list[0]);
+            StringAssert.Contains(listRequestJson, "\"limit\":200");
+            Assert.IsTrue(listResult.has_more);
+            Assert.AreEqual("GNIJIGEO", listResult.next_cursor);
+            Assert.AreEqual("lisi", listResult.userid_list[1]);
+        }
+
+        [TestMethod]
+        public void VipSurfaceUsesCurrentOfficialDocumentsAndCompleteXmlComments()
+        {
+            var root = FindRepositoryRoot();
+            var apiSource = File.ReadAllText(Path.Combine(root, "src",
+                "Senparc.Weixin.Work", "Senparc.Weixin.Work", "AdvancedAPIs",
+                "Exmail", "ExmailApi.Vip.cs"));
+            var modelSource = File.ReadAllText(Path.Combine(root, "src",
+                "Senparc.Weixin.Work", "Senparc.Weixin.Work", "AdvancedAPIs",
+                "Exmail", "ExmailVipJson.cs"));
+
+            foreach (var documentId in new[] { "99316", "99317", "99318" })
+            {
+                StringAssert.Contains(apiSource, "/document/path/" + documentId);
+            }
+
+            Assert.AreEqual(7, apiSource.Split(new[] { "/// <summary>" },
+                StringSplitOptions.None).Length - 1);
+            Assert.AreEqual(12, modelSource.Split(new[] { "/// <summary>" },
+                StringSplitOptions.None).Length - 1);
+            Assert.IsFalse(apiSource.Contains("object "));
+            Assert.IsFalse(apiSource.Contains("dynamic "));
+            Assert.IsFalse(modelSource.Contains("object "));
+            Assert.IsFalse(modelSource.Contains("dynamic "));
+
+            var addMethod = typeof(ExmailApi).GetMethod(
+                nameof(ExmailApi.AddVipAccounts));
+            var removeMethod = typeof(ExmailApi).GetMethod(
+                nameof(ExmailApi.RemoveVipAccounts));
+            var listMethod = typeof(ExmailApi).GetMethod(
+                nameof(ExmailApi.GetVipAccountList));
+            Assert.AreEqual(typeof(ExmailVipBatchRequest),
+                addMethod.GetParameters()[1].ParameterType);
+            Assert.AreEqual(typeof(ExmailVipBatchResult),
+                removeMethod.ReturnType);
+            Assert.AreEqual(typeof(ExmailVipListResult), listMethod.ReturnType);
+        }
+
+        [TestMethod]
+        public void EmailCallbacksMapToContextAndHandlerExtensions()
+        {
+            var repositoryRoot = FindRepositoryRoot();
+            var publicMailSource = File.ReadAllText(Path.Combine(repositoryRoot, "src",
+                "Senparc.Weixin.Work", "Senparc.Weixin.Work", "Entities", "Request", "Event",
+                "RequestMessageEvent_Public_Email_Change.cs"));
+            StringAssert.Contains(publicMailSource, "/document/path/100180");
+            Assert.AreEqual(5, publicMailSource.Split(new[] { "/// <summary>" },
+                StringSplitOptions.None).Length - 1);
+
             var document = XDocument.Parse(@"<xml>
 <ToUserName><![CDATA[toUser]]></ToUserName>
 <FromUserName><![CDATA[sys]]></FromUserName>
@@ -259,6 +340,32 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.Exmail
             Assert.AreEqual(2, request.Amount);
             Assert.IsNotNull(syncHandler);
             Assert.IsNotNull(asyncHandler);
+
+            var publicMailDocument = XDocument.Parse(@"<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[sys]]></FromUserName>
+<CreateTime>5178368698</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[public_email_change]]></Event>
+<ChangeType><![CDATA[receive_email]]></ChangeType>
+<Id>1</Id>
+<Amount>3</Amount>
+</xml>");
+            var publicMailRequest = RequestMessageFactory.GetRequestEntity(
+                new MessageContexts.DefaultWorkMessageContext(), publicMailDocument) as
+                RequestMessageEvent_Public_Email_Change;
+            var publicMailSyncHandler = typeof(WorkMessageHandler<>).GetMethod(
+                "OnEvent_PublicEmailChangeRequest");
+            var publicMailAsyncHandler = typeof(WorkMessageHandler<>).GetMethod(
+                "OnEvent_PublicEmailChangeRequestAsync");
+
+            Assert.IsNotNull(publicMailRequest);
+            Assert.AreEqual(Event.public_email_change, publicMailRequest.Event);
+            Assert.AreEqual("receive_email", publicMailRequest.ChangeType);
+            Assert.AreEqual(1, publicMailRequest.Id);
+            Assert.AreEqual(3, publicMailRequest.Amount);
+            Assert.IsNotNull(publicMailSyncHandler);
+            Assert.IsNotNull(publicMailAsyncHandler);
         }
 
         private static string FindRepositoryRoot([CallerFilePath] string sourceFilePath = null)

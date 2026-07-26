@@ -1,7 +1,7 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
     
-    文件名：OAuthJoinAPI.cs
+    文件名：ComponentApi.cs
     文件功能描述：公众号授权给第三方平台
     
     修改标识：Senparc - 20160520
@@ -45,6 +45,9 @@
     修改标识：Senparc - 20230730
     修改描述：v4.14.25 解决问题：设置第三方平台服务器域名调用url参数错误 #2882
 
+    修改标识：Senparc - 20260725
+    修改描述：v4.24.4 扩展当前授权方选项接口分部实现
+
 ----------------------------------------------------------------*/
 
 /*
@@ -67,7 +70,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
     /// ComponentApi
     /// </summary>
     [NcApiBind(NeuChar.PlatformType.WeChat_Open, true)]
-    public static class ComponentApi
+    public static partial class ComponentApi
     {
         #region 同步方法
 
@@ -1491,4 +1494,3 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         #endregion
     }
 }
-

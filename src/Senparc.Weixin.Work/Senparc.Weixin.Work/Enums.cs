@@ -70,6 +70,12 @@
     修改标识：Senparc - 20260523
     修改描述：补充更新日志，完善文件头修改记录
 
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 增加设备数据授权变更通知枚举
+
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 增加硬件设备特征变更通知枚举
+
     修改标识：Senparc - 20260724
     修改描述：v3.32.1 补齐企业微信通讯录、安全、智能机器人、微信客服和获客助手接口
 
@@ -340,6 +346,42 @@ namespace Senparc.Weixin.Work
         /// <para>文档：https://developer.work.weixin.qq.com/document/path/98111</para>
         /// </summary>
         respond_schedule,
+
+        /// <summary>
+        /// 公共邮箱接收邮件事件
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/100180</para>
+        /// </summary>
+        public_email_change,
+
+        /// <summary>
+        /// 微盘容量不足事件
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/97898</para>
+        /// </summary>
+        wedrive_insufficient_capacity,
+
+        /// <summary>
+        /// 微盘空间变更事件
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/97899</para>
+        /// </summary>
+        wedrive_space_change,
+
+        /// <summary>
+        /// 微盘文件变更事件
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/97900</para>
+        /// </summary>
+        wedrive_file_change,
+
+        /// <summary>
+        /// 数据与智能专区程序通知应用事件
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/99998</para>
+        /// </summary>
+        program_notify,
+
+        /// <summary>
+        /// 家校通讯录成员或部门变更事件
+        /// <para>文档：https://developer.work.weixin.qq.com/document/path/92032</para>
+        /// </summary>
+        change_school_contact,
     }
 
     public enum TencentGender
@@ -407,6 +449,16 @@ namespace Senparc.Weixin.Work
         /// 开启订单
         /// </summary>
         OPEN_ORDER,
+
+        /// <summary>
+        /// 设备数据授权变更通知
+        /// </summary>
+        DEVICE_DATA_AUTH_CHANGE,
+
+        /// <summary>
+        /// 硬件设备特征变更通知
+        /// </summary>
+        DEVICE_FEATURE_CHANGE,
     }
 
     public enum ExternalAttributeType

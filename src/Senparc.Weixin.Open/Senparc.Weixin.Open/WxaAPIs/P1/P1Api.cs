@@ -17,6 +17,9 @@ Licensed under the Apache License, Version 2.0 (the "License").
     修改标识：Senparc - 20260724
     修改描述：v4.24.4 补齐开放平台基础管理、流量主代运营和微信云托管接口
 
+    修改标识：Senparc - 20260725
+    修改描述：v4.24.4 补齐开放平台账号绑定状态查询
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;
@@ -162,6 +165,34 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 period_function_name = functionName
             };
             return PostFetchDataSettingAsync(authorizerAccessToken, data, timeOut);
+        }
+
+        /// <summary>
+        /// 查询公众号或小程序是否已绑定开放平台账号。
+        /// </summary>
+        /// <param name="authorizerAccessToken">授权账号接口调用凭证。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>是否已绑定开放平台账号。</returns>
+        /// <remarks>官方接口英文名：getBindOpenAccount。</remarks>
+        public static BindOpenAccountJsonResult GetBindOpenAccount(string authorizerAccessToken,
+            int timeOut = Config.TIME_OUT)
+        {
+            var url = $"{Config.ApiMpHost}/cgi-bin/open/have?access_token={authorizerAccessToken.AsUrlData()}";
+            return CommonJsonSend.Send<BindOpenAccountJsonResult>(null, url, null, CommonJsonSendType.GET, timeOut);
+        }
+
+        /// <summary>
+        /// 异步查询公众号或小程序是否已绑定开放平台账号。
+        /// </summary>
+        /// <param name="authorizerAccessToken">授权账号接口调用凭证。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>是否已绑定开放平台账号。</returns>
+        /// <remarks>官方接口英文名：getBindOpenAccount。</remarks>
+        public static Task<BindOpenAccountJsonResult> GetBindOpenAccountAsync(string authorizerAccessToken,
+            int timeOut = Config.TIME_OUT)
+        {
+            var url = $"{Config.ApiMpHost}/cgi-bin/open/have?access_token={authorizerAccessToken.AsUrlData()}";
+            return CommonJsonSend.SendAsync<BindOpenAccountJsonResult>(null, url, null, CommonJsonSendType.GET, timeOut);
         }
 
         /// <summary>

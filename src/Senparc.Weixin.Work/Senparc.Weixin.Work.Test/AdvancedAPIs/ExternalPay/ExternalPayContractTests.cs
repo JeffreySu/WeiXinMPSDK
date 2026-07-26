@@ -14,7 +14,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.ExternalPay
     public class ExternalPayContractTests
     {
         [TestMethod]
-        public void ExternalPayApiExposesSixSynchronousAndAsynchronousEndpoints()
+        public void ExternalPayApiExposesSevenSynchronousAndAsynchronousEndpoints()
         {
             var methods = typeof(ExternalPayApi).GetMethods(BindingFlags.Public | BindingFlags.Static)
                 .Select(method => method.Name).ToArray();
@@ -23,7 +23,8 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.ExternalPay
             {
                 nameof(ExternalPayApi.AddMerchant), nameof(ExternalPayApi.GetMerchant),
                 nameof(ExternalPayApi.DeleteMerchant), nameof(ExternalPayApi.SetMerchantUseScope),
-                nameof(ExternalPayApi.GetBillList), nameof(ExternalPayApi.GetPaymentInfo)
+                nameof(ExternalPayApi.GetBillList), nameof(ExternalPayApi.GetPaymentInfo),
+                nameof(ExternalPayApi.GetFundFlow)
             })
             {
                 CollectionAssert.Contains(methods, methodName);
@@ -41,7 +42,8 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.ExternalPay
             {
                 "/cgi-bin/externalpay/addmerchant", "/cgi-bin/externalpay/getmerchant",
                 "/cgi-bin/externalpay/delmerchant", "/cgi-bin/externalpay/set_mch_use_scope",
-                "/cgi-bin/externalpay/get_bill_list", "/cgi-bin/externalpay/get_payment_info"
+                "/cgi-bin/externalpay/get_bill_list", "/cgi-bin/externalpay/get_payment_info",
+                "/cgi-bin/externalpay/get_fund_flow"
             })
             {
                 Assert.AreEqual(1, CountOccurrences(source, path), path);
@@ -51,7 +53,8 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.ExternalPay
             Assert.AreEqual(2, CountOccurrences(source, "document/path/93667"));
             Assert.AreEqual(2, CountOccurrences(source, "document/path/93727"));
             Assert.AreEqual(2, CountOccurrences(source, "document/path/95944"));
-            Assert.AreEqual(13, CountOccurrences(source, "/// <summary>"));
+            Assert.AreEqual(2, CountOccurrences(source, "document/path/98100"));
+            Assert.AreEqual(15, CountOccurrences(source, "/// <summary>"));
         }
 
         [TestMethod]
@@ -96,7 +99,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.ExternalPay
         }
 
         [TestMethod]
-        public void BillAndPaymentModelsMatchOfficialSamplesAndHaveCompleteComments()
+        public void BillPaymentAndFundFlowModelsMatchOfficialSamplesAndHaveCompleteComments()
         {
             var bills = Newtonsoft.Json.JsonConvert.DeserializeObject<ExternalPayGetBillListResult>(
                 "{\"errcode\":0,\"errmsg\":\"ok\",\"next_cursor\":\"CURSOR\"," +
@@ -121,10 +124,25 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.ExternalPay
             Assert.AreEqual("收款小程序", bills.bill_list[0].miniprogram_info.name);
             Assert.AreEqual("order-2", payment.bill_list[1].out_trade_no);
 
+            var fundFlow = Newtonsoft.Json.JsonConvert
+                .DeserializeObject<ExternalPayGetFundFlowResult>(
+                    "{\"errcode\":0,\"next_cursor\":\"CURSOR\"," +
+                    "\"fund_flow_list\":[{\"timestamp\":5178368698," +
+                    "\"request_no\":\"flow-1\",\"transaction_type\":3," +
+                    "\"fund_flow_type\":1,\"transaction_amount\":5000000000," +
+                    "\"account_balance\":6000000000,\"out_trade_no\":\"order-1\"," +
+                    "\"mch_id\":\"12334\",\"operator_userid\":\"zhangsan\"," +
+                    "\"group_list\":[{\"group_name\":\"Rule1\"}]," +
+                    "\"remark\":\"收款\"}]}" );
+            Assert.AreEqual(5178368698L, fundFlow.fund_flow_list[0].timestamp);
+            Assert.AreEqual(5000000000L, fundFlow.fund_flow_list[0].transaction_amount);
+            Assert.AreEqual(6000000000L, fundFlow.fund_flow_list[0].account_balance);
+            Assert.AreEqual("Rule1", fundFlow.fund_flow_list[0].group_list[0].group_name);
+
             var modelSource = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src",
                 "Senparc.Weixin.Work", "Senparc.Weixin.Work", "AdvancedAPIs", "ExternalPay",
                 "ExternalPayJson.cs"));
-            Assert.AreEqual(66, CountOccurrences(modelSource, "/// <summary>"));
+            Assert.AreEqual(89, CountOccurrences(modelSource, "/// <summary>"));
             Assert.IsFalse(modelSource.Contains("object "));
         }
 

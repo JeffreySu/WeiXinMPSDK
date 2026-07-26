@@ -16,10 +16,13 @@ namespace Senparc.Weixin.Open.Test
     public class P1ContractTests
     {
         [TestMethod]
-        public void P1ApiSurfaceContainsAll48SyncAndAsyncEntries()
+        public void CurrentDirectoryApiSurfaceContainsAll52SyncAndAsyncEntries()
         {
             var methodCount = 0;
 
+            methodCount += AssertMethodPairs(typeof(ComponentApi),
+                nameof(ComponentApi.GetAuthorizerOptionInfo),
+                nameof(ComponentApi.SetAuthorizerOptionInfo));
             methodCount += AssertMethodPairs(typeof(ComponentOpenApi),
                 nameof(ComponentOpenApi.StartPushTicket),
                 nameof(ComponentOpenApi.GetComponentQuota),
@@ -37,6 +40,7 @@ namespace Senparc.Weixin.Open.Test
                 nameof(WxaManagementApi.GetFetchDataSetting),
                 nameof(WxaManagementApi.SetPreFetchDataSetting),
                 nameof(WxaManagementApi.SetPeriodFetchDataSetting),
+                nameof(WxaManagementApi.GetBindOpenAccount),
                 nameof(WxaManagementApi.GetBindOpenAccountEntity),
                 nameof(WxaManagementApi.GetSettingCategories),
                 nameof(WxaManagementApi.GetCategoriesByType),
@@ -73,16 +77,21 @@ namespace Senparc.Weixin.Open.Test
                 nameof(ManagedOfficialAccountApi.UnlinkMiniprogram));
             methodCount += AssertMethodPairs(typeof(QrCodeJumpApi),
                 nameof(QrCodeJumpApi.Get),
+                nameof(QrCodeJumpApi.DownloadQRCodeText),
                 nameof(QrCodeJumpApi.AddOrUpdate),
                 nameof(QrCodeJumpApi.Publish),
                 nameof(QrCodeJumpApi.Delete));
 
-            Assert.AreEqual(48, methodCount, "Open P1 应提供 48 对同步和异步入口。");
+            Assert.AreEqual(52, methodCount, "Open 当前目录增量应提供 52 对同步和异步入口。");
         }
 
         [TestMethod]
         public void P1ImplementationsContainOfficialPathsTokensAndFields()
         {
+            AssertSourceContains("ComponentAPIs/ComponentApi.Current.cs",
+                "/cgi-bin/component/get_authorizer_option",
+                "/cgi-bin/component/set_authorizer_option", "access_token",
+                "option_name", "option_value", "componentAccessToken");
             AssertSourceContains("ComponentAPIs/ComponentOpenApi.cs",
                 "/cgi-bin/component/api_start_push_ticket",
                 "/cgi-bin/openapi/quota/get", "/cgi-bin/openapi/rid/get",
@@ -90,7 +99,7 @@ namespace Senparc.Weixin.Open.Test
                 "/cgi-bin/callback/check", "/cgi-bin/get_api_domain_ip",
                 "component_appid", "component_secret", "appsecret", "cgi_path", "check_operator");
             AssertSourceContains("WxaAPIs/P1/P1Api.cs",
-                "/wxa/fetchdatasetting", "/cgi-bin/open/sameentity",
+                "/wxa/fetchdatasetting", "/cgi-bin/open/have", "/cgi-bin/open/sameentity",
                 "/cgi-bin/wxopen/getcategory", "/cgi-bin/wxopen/getcategoriesbytype",
                 "/wxa/get_category", "/wxa/getvisitstatus", "/wxa/security/get_code_privacy_info",
                 "/wxa/icp/get_icp_media", "/wxa/sec/submit_auth_and_icp",
@@ -109,11 +118,14 @@ namespace Senparc.Weixin.Open.Test
             AssertSourceContains("WxOpenAPIs/ManagedOfficialAccountApi.cs",
                 "/cgi-bin/wxopen/wxamplinkget", "/cgi-bin/wxopen/wxamplink",
                 "/cgi-bin/wxopen/wxampunlink", "/cgi-bin/wxopen/qrcodejumpget",
+                "/cgi-bin/wxopen/qrcodejumpdownload",
                 "/cgi-bin/wxopen/qrcodejumpadd", "/cgi-bin/wxopen/qrcodejumppublish",
                 "/cgi-bin/wxopen/qrcodejumpdelete", "authorizerAccessToken",
                 "notify_users", "show_profile", "prefix_list", "permit_sub_rule");
 
             AssertTokenParameter(typeof(ComponentOpenApi), nameof(ComponentOpenApi.GetComponentQuota),
+                "componentAccessToken");
+            AssertTokenParameter(typeof(ComponentApi), nameof(ComponentApi.GetAuthorizerOptionInfo),
                 "componentAccessToken");
             AssertTokenParameter(typeof(ComponentOpenApi), nameof(ComponentOpenApi.GetAuthorizerQuota),
                 "authorizerAccessToken");
@@ -153,6 +165,12 @@ namespace Senparc.Weixin.Open.Test
             var embedded = JsonConvert.DeserializeObject<GetListJsonResult>(
                 "{\"errcode\":0,\"embedded_flag\":1,\"wxa_embedded_list\":[{" +
                 "\"appid\":\"wx2\",\"create_time\":\"1784800000\",\"status\":1}]}");
+            var authorizerOption = JsonConvert.DeserializeObject<AuthorizerOptionInfoJsonResult>(
+                "{\"errcode\":0,\"option_name\":\"voice_recognize\",\"option_value\":\"1\"}");
+            var bindOpenAccount = JsonConvert.DeserializeObject<BindOpenAccountJsonResult>(
+                "{\"errcode\":0,\"have_open\":true}");
+            var qrCodeDownload = JsonConvert.DeserializeObject<QrCodeJumpDownloadJsonResult>(
+                "{\"errcode\":0,\"file_name\":\"MP_verify.txt\",\"file_content\":\"verify-content\"}");
 
             Assert.AreEqual(99999, quota.quota.remain);
             Assert.AreEqual(5178368698L, rid.request.invoke_time);
@@ -162,6 +180,11 @@ namespace Senparc.Weixin.Open.Test
             Assert.AreEqual("微信认证", managedAccount.wxopens.items[0].func_infos[0].name);
             Assert.AreEqual("pages/index", qrCode.rule_list[0].path);
             Assert.AreEqual("wx2", embedded.wxa_embedded_list[0].appid);
+            Assert.AreEqual("voice_recognize", authorizerOption.option_name);
+            Assert.AreEqual("1", authorizerOption.option_value);
+            Assert.IsTrue(bindOpenAccount.have_open);
+            Assert.AreEqual("MP_verify.txt", qrCodeDownload.file_name);
+            Assert.AreEqual("verify-content", qrCodeDownload.file_content);
         }
 
         private static int AssertMethodPairs(Type type, params string[] syncMethodNames)

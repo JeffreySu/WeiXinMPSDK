@@ -14,7 +14,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.WeDoc
     public class WeDocContractTests
     {
         [TestMethod]
-        public void WeDocApiContainsFortyFiveCurrentAndThreeCompatibilitySyncAsyncEntries()
+        public void WeDocApiContainsSixtyTwoCurrentAndThreeCompatibilitySyncAsyncEntries()
         {
             var methodNames = typeof(WeDocApi)
                 .GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
@@ -65,7 +65,24 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.WeDoc
                 nameof(WeDocApi.GetSmartSheetFieldGroups),
                 nameof(WeDocApi.AddSmartSheetFieldGroup),
                 nameof(WeDocApi.UpdateSmartSheetFieldGroup),
-                nameof(WeDocApi.DeleteSmartSheetFieldGroups)
+                nameof(WeDocApi.DeleteSmartSheetFieldGroups),
+                nameof(WeDocApi.AddSmartDocumentPage),
+                nameof(WeDocApi.UpdateSmartDocumentPage),
+                nameof(WeDocApi.DeleteSmartDocumentPage),
+                nameof(WeDocApi.GetSmartDocumentPageHierarchy),
+                nameof(WeDocApi.AddSmartDocumentBlocks),
+                nameof(WeDocApi.UpdateSmartDocumentBlocks),
+                nameof(WeDocApi.DeleteSmartDocumentBlocks),
+                nameof(WeDocApi.GetSmartDocumentBlocks),
+                nameof(WeDocApi.CreateSmartDocumentExportTask),
+                nameof(WeDocApi.GetSmartDocumentExportResult),
+                nameof(WeDocApi.GetSmartDocumentDataSource),
+                nameof(WeDocApi.AddSmartDocumentDataTable),
+                nameof(WeDocApi.DeleteSmartDocumentDataTable),
+                nameof(WeDocApi.UpdateSmartDocumentDataTable),
+                nameof(WeDocApi.PublishSmartDocument),
+                nameof(WeDocApi.CancelSmartDocumentPublish),
+                nameof(WeDocApi.UpdateSmartDocumentPublishSetting)
             };
             var compatibilitySyncMethods = new[]
             {
@@ -74,7 +91,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.WeDoc
                 nameof(WeDocApi.GetDocumentAdminList)
             };
 
-            Assert.AreEqual(96, methodNames.Length);
+            Assert.AreEqual(130, methodNames.Length);
             foreach (var syncMethod in currentSyncMethods.Concat(compatibilitySyncMethods))
             {
                 CollectionAssert.Contains(methodNames, syncMethod, syncMethod);
@@ -83,7 +100,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.WeDoc
         }
 
         [TestMethod]
-        public void WeDocApiUsesFortyFiveOfficialPaths()
+        public void WeDocApiUsesSixtyTwoOfficialPaths()
         {
             var sourceDirectory = Path.Combine(FindRepositoryRoot(), "src", "Senparc.Weixin.Work",
                 "Senparc.Weixin.Work", "AdvancedAPIs", "WeDoc");
@@ -135,7 +152,24 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.WeDoc
                 "/cgi-bin/wedoc/smartsheet/get_field_groups",
                 "/cgi-bin/wedoc/smartsheet/add_field_group",
                 "/cgi-bin/wedoc/smartsheet/update_field_group",
-                "/cgi-bin/wedoc/smartsheet/delete_field_groups"
+                "/cgi-bin/wedoc/smartsheet/delete_field_groups",
+                "/cgi-bin/wedoc/smartdoc/add_page",
+                "/cgi-bin/wedoc/smartdoc/update_page",
+                "/cgi-bin/wedoc/smartdoc/delete_page",
+                "/cgi-bin/wedoc/smartdoc/get_page_hierarchy",
+                "/cgi-bin/wedoc/smartdoc/add_blocks",
+                "/cgi-bin/wedoc/smartdoc/update_blocks",
+                "/cgi-bin/wedoc/smartdoc/delete_blocks",
+                "/cgi-bin/wedoc/smartdoc/get_block_list",
+                "/cgi-bin/wedoc/smartdoc/export_task",
+                "/cgi-bin/wedoc/smartdoc/get_export_result",
+                "/cgi-bin/wedoc/smartdoc/get_smartsheet_info",
+                "/cgi-bin/wedoc/smartdoc/add_smartsheet",
+                "/cgi-bin/wedoc/smartdoc/delete_smartsheet",
+                "/cgi-bin/wedoc/smartdoc/update_smartsheet",
+                "/cgi-bin/wedoc/smartdoc/publish",
+                "/cgi-bin/wedoc/smartdoc/cancel_publish",
+                "/cgi-bin/wedoc/smartdoc/publish_setting"
             };
 
             foreach (var path in paths)

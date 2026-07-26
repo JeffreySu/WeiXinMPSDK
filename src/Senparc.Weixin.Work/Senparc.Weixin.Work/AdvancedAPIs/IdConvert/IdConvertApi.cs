@@ -22,7 +22,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.IdConvert
     /// <summary>
     /// 企业微信账号、标签、客服账号和群聊 ID 转换接口。
     /// </summary>
-    public static class IdConvertApi
+    public static partial class IdConvertApi
     {
         private const string UnionIdToExternalUserIdPath =
             "/cgi-bin/idconvert/unionid_to_external_userid";

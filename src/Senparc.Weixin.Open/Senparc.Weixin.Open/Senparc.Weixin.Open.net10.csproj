@@ -220,6 +220,7 @@
 		5、补齐微信云托管环境共享、环境创建及服务版本生命周期 10 项接口
 		6、补齐第三方平台批量云开发环境、云函数、数据库、文件及静态网站 31 项接口
 		7、补齐第三方平台普通代云开发环境、消息推送、云函数、数据库、文件及微信支付授权 37 项接口
+		8、补齐当前官方目录的授权方选项、开放平台账号绑定状态及二维码校验文件接口
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

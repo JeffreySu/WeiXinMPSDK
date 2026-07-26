@@ -17,6 +17,9 @@ Licensed under the Apache License, Version 2.0 (the "License").
     修改标识：Senparc - 20260724
     修改描述：v4.24.4 补齐开放平台基础管理、流量主代运营和微信云托管接口
 
+    修改标识：Senparc - 20260725
+    修改描述：v4.24.4 补齐二维码规则校验文件下载入口和模型
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;
@@ -179,6 +182,30 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         }
 
         /// <summary>
+        /// 获取二维码跳转规则所属权校验文件的名称及内容。
+        /// </summary>
+        /// <param name="authorizerAccessToken">授权账号接口调用凭证。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>校验文件名称及文件内容。</returns>
+        /// <remarks>
+        /// 官方接口英文名：downloadQRCodeText。调用方应将返回的校验文件部署到二维码规则对应的服务器目录。
+        /// </remarks>
+        public static QrCodeJumpDownloadJsonResult DownloadQRCodeText(string authorizerAccessToken,
+            int timeOut = Config.TIME_OUT) => Post<QrCodeJumpDownloadJsonResult>(authorizerAccessToken,
+                "/cgi-bin/wxopen/qrcodejumpdownload", new { }, timeOut);
+
+        /// <summary>
+        /// 异步获取二维码跳转规则所属权校验文件的名称及内容。
+        /// </summary>
+        /// <param name="authorizerAccessToken">授权账号接口调用凭证。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>校验文件名称及文件内容。</returns>
+        /// <remarks>官方接口英文名：downloadQRCodeText。</remarks>
+        public static Task<QrCodeJumpDownloadJsonResult> DownloadQRCodeTextAsync(string authorizerAccessToken,
+            int timeOut = Config.TIME_OUT) => PostAsync<QrCodeJumpDownloadJsonResult>(authorizerAccessToken,
+                "/cgi-bin/wxopen/qrcodejumpdownload", new { }, timeOut);
+
+        /// <summary>
         /// 新增或更新二维码跳转规则。
         /// </summary>
         /// <param name="authorizerAccessToken">授权账号接口调用凭证。</param>
@@ -308,6 +335,22 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         public int list_size { get; set; }
         public int qrcodejump_pub_quota { get; set; }
         public int total_count { get; set; }
+    }
+
+    /// <summary>
+    /// 获取二维码跳转规则所属权校验文件接口返回结果。
+    /// </summary>
+    public class QrCodeJumpDownloadJsonResult : WxJsonResult
+    {
+        /// <summary>
+        /// 校验文件名称。
+        /// </summary>
+        public string file_name { get; set; }
+
+        /// <summary>
+        /// 校验文件内容。
+        /// </summary>
+        public string file_content { get; set; }
     }
 
     /// <summary>

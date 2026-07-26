@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20210926
     
+    修改标识：Senparc - 20260724
+    修改描述：v2.5.1 补齐消费者投诉 2.0 扩展接口并保持旧入口兼容
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;
@@ -178,9 +181,8 @@ namespace Senparc.Weixin.TenPayV3.Apis
         public async Task<ReturnJsonBase> DeleteComplaintNotifyUrlAsync(int timeOut = Config.TIME_OUT)
         {
             var url = BasePayApis.GetPayApiUrl(Senparc.Weixin.Config.TenPayV3Host + "/{0}v3/merchant-service/complaint-notifications");
-            //TODO: 此处新增DELETE方法 待测试是否有问题
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
-            return await tenPayApiRequest.RequestAsync<ReturnJsonBase>(url, null, timeOut, ApiRequestMethod.DELETE);
+            return await tenPayApiRequest.RequestWithoutBodyAsync<ReturnJsonBase>(url, timeOut, ApiRequestMethod.DELETE);
         }
 
         /// <summary>
@@ -218,4 +220,3 @@ namespace Senparc.Weixin.TenPayV3.Apis
         //TODO: 图片上传接口
     }
 }
-

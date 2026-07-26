@@ -50,6 +50,9 @@
 		v0.8.3 提供带符号的 nuget 包（.snupkg)
 		v0.9.0 使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
 		v1.0.3 清理引用项目
+		[2026-07-24] 修复现代 .NET 目标中的 WebSocket 传递依赖安全公告
+		1、显式锁定 Microsoft.AspNetCore.WebSockets 2.3.11
+		2、显式锁定 System.Net.WebSockets.WebSocketProtocol 5.1.0
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -107,10 +110,12 @@
     <!--<PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.WebSockets" Version="2.2.1" />-->
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.WebSockets" Version="2.3.11" />
+    <PackageReference Include="System.Net.WebSockets.WebSocketProtocol" Version="5.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET" Version="3.1.4" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Senparc.CO2NET" Version="4.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />

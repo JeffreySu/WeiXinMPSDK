@@ -1,15 +1,18 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
-    
+
     文件名：UrlLinkApi.cs
     文件功能描述：小程序 Url Link
     官方文档：https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/url-link/urllink.generate.html
-    
-    
+
+
     创建标识：Senparc - 20220106
-    
+
     修改标识：Senparc - 20260523
     修改描述：补充更新日志，完善文件头修改记录
+
+    修改标识：Senparc - 20260724
+    修改描述：v3.28.1 补齐小程序物流、交易、直播、短剧、小说和行业能力接口及事件
 
 ----------------------------------------------------------------*/
 
@@ -62,6 +65,25 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 return CommonJsonSend.Send<GenerateResultJson>(accessToken, urlFormat, postBody, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 查询小程序 URL Link 信息或访问额度
+        /// </summary>
+        /// <param name="urlLink">待查询的 URL Link；queryType 为 0 时必填</param>
+        /// <param name="queryType">查询类型：0 查询 URL Link 信息，1 查询访问额度</param>
+        /// <param name="accessTokenOrAppId">接口调用凭证或已注册的 AppId。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static QueryUrlLinkJsonResult Query(string accessTokenOrAppId, string urlLink = null, int queryType = 0,
+            int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/wxa/query_urllink?access_token={0}";
+                var data = new { url_link = urlLink, query_type = queryType };
+                return CommonJsonSend.Send<QueryUrlLinkJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
         #endregion
 
         #region 异步方法
@@ -100,7 +122,26 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 return await CommonJsonSend.SendAsync<GenerateResultJson>(accessToken, urlFormat, postBody, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
+
+
+        /// <summary>
+        /// 【异步方法】查询小程序 URL Link 信息或访问额度
+        /// </summary>
+        /// <param name="urlLink">待查询的 URL Link；queryType 为 0 时必填</param>
+        /// <param name="queryType">查询类型：0 查询 URL Link 信息，1 查询访问额度</param>
+        /// <param name="accessTokenOrAppId">接口调用凭证或已注册的 AppId。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static async Task<QueryUrlLinkJsonResult> QueryAsync(string accessTokenOrAppId, string urlLink = null, int queryType = 0,
+            int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/wxa/query_urllink?access_token={0}";
+                var data = new { url_link = urlLink, query_type = queryType };
+                return await CommonJsonSend.SendAsync<QueryUrlLinkJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
         #endregion
     }
 }
-

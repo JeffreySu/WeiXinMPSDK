@@ -2,6 +2,12 @@
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
+		<Version>1.0.1</Version>
+		<PackageReleaseNotes>
+		  [2026-07-23] v1.0.1 升级简易公众号示例依赖
+		  1、升级 Senparc.Weixin.All 至最新 net8 兼容稳定版 2025.10.24
+		  2、保持 net8.0 目标框架可还原和运行
+		</PackageReleaseNotes>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 
@@ -16,7 +22,7 @@
 		<EmbeddedResource Include="wwwroot\**\*" />
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="Senparc.Weixin.All" Version="2025.8.21" />
+	  <PackageReference Include="Senparc.Weixin.All" Version="2025.10.24" />
 	</ItemGroup>
 	<!-- 此节点为 Sample 共享文件需要而添加，实际项目无需添加 -->
 	<Import Project="..\..\Shared\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems" Label="Shared" />

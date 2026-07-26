@@ -1,4 +1,16 @@
-﻿
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2026 Senparc
+
+    文件名：GetTemplateDetailResult.cs
+    文件功能描述：审批模板详情返回模型
+
+
+    创建标识：Senparc - 20230224
+
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 补齐审批模板详情控件配置模型
+
+----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
 using System.Collections.Generic;
@@ -98,9 +110,39 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA.OAJson
     public class GetTemplateDetailResult_TemplateContent_Controls_Config
     {
         /// <summary>
-        /// 
+        /// 日期配置
+        /// </summary>
+        public ApprovalTemplateDateConfig date { get; set; }
+
+        /// <summary>
+        /// 单选或多选配置
         /// </summary>
         public GetTemplateDetailResult_TemplateContent_Controls_Config_Selector selector { get; set; }
+
+        /// <summary>
+        /// 成员或部门配置
+        /// </summary>
+        public ApprovalTemplateContactConfig contact { get; set; }
+
+        /// <summary>
+        /// 明细配置
+        /// </summary>
+        public ApprovalTemplateTableConfig table { get; set; }
+
+        /// <summary>
+        /// 假勤配置
+        /// </summary>
+        public ApprovalTemplateAttendanceConfig attendance { get; set; }
+
+        /// <summary>
+        /// 假期类型配置
+        /// </summary>
+        public ApprovalTemplateVacationList vacation_list { get; set; }
+
+        /// <summary>
+        /// 富文本说明配置
+        /// </summary>
+        public ApprovalTemplateTipsConfig tips { get; set; }
     }
 
     public class GetTemplateDetailResult_TemplateContent_Controls_Config_Selector
@@ -113,6 +155,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA.OAJson
         public int exp_type { get; set; }
 
         public List<GetTemplateDetailResult_TemplateContent_Controls_Config_Selector_Options> options { get; set; }
+
+        /// <summary>
+        /// 选项关联控件配置
+        /// </summary>
+        public List<ApprovalTemplateOptionRelation> op_relations { get; set; }
     }
 
     public class GetTemplateDetailResult_TemplateContent_Controls_Config_Selector_Options

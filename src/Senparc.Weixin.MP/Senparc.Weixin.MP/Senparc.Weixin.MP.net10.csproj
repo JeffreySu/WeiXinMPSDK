@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-    <Version>16.24.4</Version>
+    <Version>16.25.1</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -454,7 +454,19 @@
 		[2026-07-18] v16.24.4 修复公众号凭据容器并发刷新与同步注册竞态
 		1、同步注册在返回前完成，避免立即读取时尚未注册
 		2、在分布式锁内重新读取 AccessToken、JS-SDK、OAuth 和卡券票据状态，避免重复刷新
-	</PackageReleaseNotes>
+		[2026-07-20] v16.25.0 新增可注入公众号客户端并增强凭据与消息上下文管理
+		1、新增 MpApiClient 和外部凭据提供器注册入口
+		2、完善注册回调容量检查、消息上下文安全设置与响应生成兼容性
+		[2026-07-23] v16.25.1 升级公众号基础组件依赖
+		1、升级 CO2NET.APM 2.1.4、NeuChar 3.0.0 与 NeuChar.App 1.6.0
+		2、显式保留 Newtonsoft.Json 13.0.4 以兼容现有卡券和发票模型
+		3、补齐 openApi、模板与草稿、用户迁移、短链、统计和商品卡片 P1 接口
+		4、补齐驾驶证 OCR、图片智能裁剪、二维码/条码识别和微信就医助手消息推送 P2 接口
+		5、补齐微信“一物一码”申请、下载、激活、状态查询及票据换码 P3 接口
+		6、补齐微信非税缴费应收、下单、对账、通知、刷卡、退款及订单查询 P3 接口
+		7、修正图片智能裁剪 multipart 请求，将 ratios 作为普通表单字段而非文件路径上传
+		8、补齐公众号 openApi、统计、图像、医疗、非税和一物一码官方接口
+    </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -505,9 +517,10 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.APM" Version="2.1.2" />
-    <PackageReference Include="Senparc.NeuChar" Version="2.6.2" />
-    <PackageReference Include="Senparc.NeuChar.App" Version="1.5.6" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Senparc.CO2NET.APM" Version="2.1.4" />
+    <PackageReference Include="Senparc.NeuChar" Version="3.0.0" />
+    <PackageReference Include="Senparc.NeuChar.App" Version="1.6.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net10.csproj" />

@@ -36,20 +36,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20260718
     修改描述：v1.18.3 确定性释放企业红包请求的网络与证书资源
 
+    修改标识：Senparc - 20260725
+    修改描述：v1.19.0 提取同步/异步共享请求与响应逻辑
+
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Xml;
-
-#if !NET462
-using System.Net.Http;
-#endif
 
 namespace Senparc.Weixin.TenPay.V3
 {
@@ -74,16 +69,17 @@ namespace Senparc.Weixin.TenPay.V3
         {
             // .NET 9.0 兼容性改进：使用更灵活的证书加载标志
             X509KeyStorageFlags storageFlags;
-            #if NET9_0_OR_GREATER
+#if NET9_0_OR_GREATER
             storageFlags = X509KeyStorageFlags.Exportable | X509KeyStorageFlags.PersistKeySet;
             if (System.OperatingSystem.IsWindows())
             {
                 storageFlags |= X509KeyStorageFlags.MachineKeySet;
             }
-            #else
+            return X509CertificateLoader.LoadPkcs12FromFile(certPath, password, storageFlags);
+#else
             storageFlags = X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet;
-            #endif
             return new X509Certificate2(certPath, password, storageFlags);
+#endif
         }
 
         #region 错误码
@@ -141,140 +137,21 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             out string nonceStr, out string paySign, out string WorkpaySign, string openId, string amtType,string SenderHeader,string sceneId,
             string mchBillNo)
         {
-            mchBillNo = mchBillNo ?? GetNewBillNo(mchId);
+            var request = CreateSendWorkRedPackRequest(appId, mchId, tenPayKey, senderName,
+                redPackAmount, wishingWord, actionName, remark, agentId, openId, SenderHeader,
+                sceneId, mchBillNo);
+            nonceStr = request.NonceStr;
+            paySign = request.PaySign;
+            WorkpaySign = request.WorkpaySign;
 
-            nonceStr = TenPayV3Util.GetNoncestr();
-
-            RequestHandler packageReqHandler = new RequestHandler();
-            //设置package订单参数
-            packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
-            packageReqHandler.SetParameter("wxappid", appId);		  //公众账号ID
-            packageReqHandler.SetParameter("mch_id", mchId);		  //商户号
-            packageReqHandler.SetParameter("mch_billno", mchBillNo);                 //填入商家订单号
-            packageReqHandler.SetParameter("sender_name", senderName);                //红包发送者名称
-            packageReqHandler.SetParameter("agentid", agentId.ToString());                //发送红包的应用id
-            packageReqHandler.SetParameter("sender_header_media_id", SenderHeader);                //发送者头像
-            packageReqHandler.SetParameter("re_openid", openId);                //用户openid
-            packageReqHandler.SetParameter("total_amount", redPackAmount.ToString());                //付款金额，单位分
-            packageReqHandler.SetParameter("wishing", wishingWord);               //红包祝福语
-            packageReqHandler.SetParameter("act_name", actionName);   //活动名称
-            packageReqHandler.SetParameter("remark", remark);   //备注信息
-            packageReqHandler.SetParameter("scene_id", sceneId);   //场景
-
-            WorkpaySign = packageReqHandler.CreateMd5Sign("key", tenPayKey);
-            packageReqHandler.SetParameter("workwx_sign", WorkpaySign);   //企业微信签名
-
-            paySign = packageReqHandler.CreateMd5Sign("key", tenPayKey);
-            packageReqHandler.SetParameter("sign", paySign);	                    //签名
-
-
-            //最新的官方文档中将以下三个字段去除了
-            //packageReqHandler.SetParameter("nick_name", "提供方名称");                 //提供方名称
-            //packageReqHandler.SetParameter("max_value", "100");                //最大红包金额，单位分
-            //packageReqHandler.SetParameter("min_value", "100");                //最小红包金额，单位分
-
-            //发红包需要post的数据
-            string data = packageReqHandler.ParseXML();
-
-            //发红包接口地址
             string url = Senparc.Weixin.Config.TenPayV3Host + "/mmpaymkttransfers/sendworkwxredpack";
-            //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
-            string cert = tenPayCertPath;
-            //私钥（在安装证书时设置）
-            string password = mchId;
-
             XmlDocument doc;
-            using (var cer = LoadCertificate(cert, password))
+            using (var cer = LoadCertificate(tenPayCertPath, mchId))
             {
-                doc = RedPackHttpUtility.PostXml(url, data, cer);
+                doc = RedPackHttpUtility.PostXml(url, request.Data, cer);
             }
 
-            //XDocument xDoc = XDocument.Load(responseContent);
-
-            NormalRedPackResult normalReturn = new NormalRedPackResult
-            {
-                err_code = "",
-                err_code_des = ""
-            };
-
-            if (doc.SelectSingleNode("/xml/return_code") != null)
-            {
-                normalReturn.return_code = doc.SelectSingleNode("/xml/return_code").InnerText;
-            }
-            if (doc.SelectSingleNode("/xml/return_msg") != null)
-            {
-                normalReturn.return_msg = doc.SelectSingleNode("/xml/return_msg").InnerText;
-            }
-
-            if (normalReturn.ReturnCodeSuccess)
-            {
-                //redReturn.sign = doc.SelectSingleNode("/xml/sign").InnerText;
-                if (doc.SelectSingleNode("/xml/result_code") != null)
-                {
-                    normalReturn.result_code = doc.SelectSingleNode("/xml/result_code").InnerText;
-                }
-
-                if (normalReturn.ResultCodeSuccess)
-                {
-                    if (doc.SelectSingleNode("/xml/mch_billno") != null)
-                    {
-                        normalReturn.mch_billno = doc.SelectSingleNode("/xml/mch_billno").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/mch_id") != null)
-                    {
-                        normalReturn.mch_id = doc.SelectSingleNode("/xml/mch_id").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/wxappid") != null)
-                    {
-                        normalReturn.wxappid = doc.SelectSingleNode("/xml/wxappid").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/re_openid") != null)
-                    {
-                        normalReturn.re_openid = doc.SelectSingleNode("/xml/re_openid").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/total_amount") != null)
-                    {
-                        normalReturn.total_amount = doc.SelectSingleNode("/xml/total_amount").InnerText;
-                    }
-                }
-                else
-                {
-                    if (doc.SelectSingleNode("/xml/err_code") != null)
-                    {
-                        normalReturn.err_code = doc.SelectSingleNode("/xml/err_code").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/err_code_des") != null)
-                    {
-                        normalReturn.err_code_des = doc.SelectSingleNode("/xml/err_code_des").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/mch_billno") != null)
-                    {
-                        normalReturn.mch_billno = doc.SelectSingleNode("/xml/mch_billno").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/mch_id") != null)
-                    {
-                        normalReturn.mch_id = doc.SelectSingleNode("/xml/mch_id").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/wxappid") != null)
-                    {
-                        normalReturn.wxappid = doc.SelectSingleNode("/xml/wxappid").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/re_openid") != null)
-                    {
-                        normalReturn.re_openid = doc.SelectSingleNode("/xml/re_openid").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/total_amount") != null)
-                    {
-                        normalReturn.total_amount = doc.SelectSingleNode("/xml/total_amount").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/send_listid") != null)
-                    {
-                        normalReturn.send_listid = doc.SelectSingleNode("/xml/send_listid").InnerText;
-                    }
-                }
-            }
-
-            return normalReturn;
+            return ParseSendWorkRedPackResult(doc);
         }
 
         /// <summary>
@@ -288,27 +165,10 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
         /// <returns></returns>
         public static SearchRedPackResult SearchRedPack(string appId, string mchId, string tenPayKey, string tenPayCertPath, string mchBillNo)
         {
-            string nonceStr = TenPayV3Util.GetNoncestr();
-            RequestHandler packageReqHandler = new RequestHandler();
-
-            packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
-            packageReqHandler.SetParameter("appid", appId);		  //公众账号ID
-            packageReqHandler.SetParameter("mch_id", mchId);		  //商户号
-            packageReqHandler.SetParameter("mch_billno", mchBillNo);                 //填入商家订单号
-            string sign = packageReqHandler.CreateMd5Sign("key", tenPayKey);
-            packageReqHandler.SetParameter("sign", sign);	                    //签名
-            //发红包需要post的数据
-            string data = packageReqHandler.ParseXML();
-
-            //发红包接口地址
+            string data = CreateSearchWorkRedPackRequest(appId, mchId, tenPayKey, mchBillNo);
             string url = Senparc.Weixin.Config.TenPayV3Host + "/mmpaymkttransfers/queryworkwxredpack";
-            //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
-            string cert = tenPayCertPath;
-            //私钥（在安装证书时设置）
-            string password = mchId;
-
             XmlDocument doc;
-            using (var cer = LoadCertificate(cert, password))
+            using (var cer = LoadCertificate(tenPayCertPath, mchId))
             {
                 doc = RedPackHttpUtility.PostXml(url, data, cer);
             }
@@ -316,91 +176,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
 
 
 
-            SearchRedPackResult searchReturn = new SearchRedPackResult
-            {
-                err_code = "",
-                err_code_des = ""
-            };
-            if (doc.SelectSingleNode("/xml/return_code") != null)
-            {
-                searchReturn.return_code = (doc.SelectSingleNode("/xml/return_code").InnerText.ToUpper() == "SUCCESS");
-            }
-            if (doc.SelectSingleNode("/xml/return_msg") != null)
-            {
-                searchReturn.return_msg = doc.SelectSingleNode("/xml/return_msg").InnerText;
-            }
-
-            if (searchReturn.return_code == true)
-            {
-                //redReturn.sign = doc.SelectSingleNode("/xml/sign").InnerText;
-                if (doc.SelectSingleNode("/xml/result_code") != null)
-                {
-                    searchReturn.result_code = (doc.SelectSingleNode("/xml/result_code").InnerText.ToUpper() == "SUCCESS");
-                }
-
-                if (searchReturn.result_code == true)
-                {
-                    if (doc.SelectSingleNode("/xml/mch_billno") != null)
-                    {
-                        searchReturn.mch_billno = doc.SelectSingleNode("/xml/mch_billno").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/mch_id") != null)
-                    {
-                        searchReturn.mch_id = doc.SelectSingleNode("/xml/mch_id").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/detail_id") != null)
-                    {
-                        searchReturn.detail_id = doc.SelectSingleNode("/xml/detail_id").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/status") != null)
-                    {
-                        searchReturn.status = doc.SelectSingleNode("/xml/status").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/send_type") != null)
-                    {
-                        searchReturn.send_type = doc.SelectSingleNode("/xml/send_type").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/total_amount") != null)
-                    {
-                        searchReturn.total_amount = doc.SelectSingleNode("/xml/total_amount").InnerText;
-                    }
-
-                    if (doc.SelectSingleNode("/xml/reason") != null)
-                    {
-                        searchReturn.reason = doc.SelectSingleNode("/xml/reason").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/send_time") != null)
-                    {
-                        searchReturn.send_time = doc.SelectSingleNode("/xml/send_time").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/wishing") != null)
-                    {
-                        searchReturn.wishing = doc.SelectSingleNode("/xml/wishing").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/remark") != null)
-                    {
-                        searchReturn.remark = doc.SelectSingleNode("/xml/remark").InnerText;
-                    }
-
-                    if (doc.SelectSingleNode("/xml/act_name") != null)
-                    {
-                        searchReturn.act_name = doc.SelectSingleNode("/xml/act_name").InnerText;
-                    }
-                }
-                else
-                {
-                    if (doc.SelectSingleNode("/xml/err_code") != null)
-                    {
-                        searchReturn.err_code = doc.SelectSingleNode("/xml/err_code").InnerText;
-                    }
-                    if (doc.SelectSingleNode("/xml/err_code_des") != null)
-                    {
-                        searchReturn.err_code_des = doc.SelectSingleNode("/xml/err_code_des").InnerText;
-                    }
-                }
-            }
-
-            return searchReturn;
+            return ParseSearchWorkRedPackResult(doc);
         }
 
 
@@ -413,4 +189,3 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
 
     }
 }
-

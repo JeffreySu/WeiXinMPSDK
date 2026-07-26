@@ -5,7 +5,7 @@
     文件功能描述：多媒体文件接口
     
     
-    创建标识：Senparc - 20150313
+    创建标识：Senparc - 20160707
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
@@ -27,6 +27,8 @@
     修改标识：Senparc - 20180527
     修改描述：v1.6.0-rc1 修复 MediaApi.UploadimgMedia() 方法文件上传问题
 
+    修改标识：Senparc - 20260726
+    修改描述：v3.32.1 支持客户联系附件上传扩展的分部类实现；增加通过 URL 异步上传临时素材接口
 
 ----------------------------------------------------------------*/
 
@@ -52,7 +54,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// 多媒体文件接口
     /// </summary>
     [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
-    public static class MediaApi
+    public static partial class MediaApi
     {
         #region 同步方法
 
@@ -606,4 +608,3 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
     }
 }
-

@@ -21,11 +21,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright(C) 2023 Senparc
     
-    文件名：MailListApi.cs
+    文件名：MassApi.cs
     文件功能描述：发送消息接口
     
     
-    创建标识：Senparc - 20150313
+    创建标识：Senparc - 20140923
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
@@ -60,6 +60,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20260523
     修改描述：补充更新日志，完善文件头修改记录
 
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 增加应用消息发送统计接口
+
 ----------------------------------------------------------------*/
 
 /*
@@ -89,7 +92,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// 发送消息
     /// </summary>
     [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
-    public static class MassApi
+    public static partial class MassApi
     {
         private static string _urlFormat = Config.ApiWorkHost + "/cgi-bin/message/send?access_token={0}";
         private static string _updateTemplateCardFormat = Config.ApiWorkHost + "/cgi-bin/message/update_template_card?access_token={0}";
@@ -1218,4 +1221,3 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
     }
 }
-

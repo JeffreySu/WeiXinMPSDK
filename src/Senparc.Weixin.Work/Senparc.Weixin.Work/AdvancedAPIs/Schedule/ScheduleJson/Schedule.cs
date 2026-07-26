@@ -13,6 +13,9 @@
     修改标识：Senparc - 20260608
     修改描述：v3.17.x 同步企业微信日程接口新增字段与请求参数
 
+    修改标识：Senparc - 20260724
+    修改描述：v3.32.1 补齐重复日程更新请求参数
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -192,6 +195,32 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
         /// 日程ID
         /// </summary>
         public string schedule_id { get; set; }
+    }
+
+    /// <summary>
+    /// 带重复日程操作选项的更新请求。
+    /// </summary>
+    public class ScheduleUpdateData
+    {
+        /// <summary>
+        /// 是否不更新参与人。0-否；1-是。默认为 0。
+        /// </summary>
+        public int? skip_attendees { get; set; }
+
+        /// <summary>
+        /// 重复日程操作模式：0-修改全部；1-仅修改本次；2-修改本次及以后。
+        /// </summary>
+        public int? op_mode { get; set; }
+
+        /// <summary>
+        /// 操作起始时间。op_mode 为 1 或 2 时，必须是原重复日程某一次的开始时间。
+        /// </summary>
+        public long? op_start_time { get; set; }
+
+        /// <summary>
+        /// 要更新的日程信息。
+        /// </summary>
+        public ScheduleUpdate schedule { get; set; }
     }
 
     /// <summary>

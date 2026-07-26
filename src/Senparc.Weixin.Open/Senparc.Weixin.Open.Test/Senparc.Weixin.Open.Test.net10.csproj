@@ -2,9 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <Version>1.0.1</Version>
+    <Version>1.0.3</Version>
     <PackageReleaseNotes>
       [2026-07-18] v1.0.1 Dependency update from Senparc.Weixin to 6.23.2; Senparc.Weixin.MP to 16.24.4; Senparc.Weixin.Open to 4.24.2
+      [2026-07-20] v1.0.2 Dependency update from Senparc.Weixin to 6.24.0; Senparc.Weixin.MP to 16.25.0; Senparc.Weixin.Open to 4.24.3
+      [2026-07-23] v1.0.3 同步开放平台测试依赖
+      1、适配开放平台组件、NeuChar 3.0 与最新序列化依赖
+      2、补充开放平台流量主和微信云托管接口契约测试
+      3、补充 Open 当前目录共 52 项同步/异步入口、官方路径、Token 和响应模型契约测试
+      4、覆盖流量主、微信云托管、批量代云开发和普通代云开发 P2 产品簇
+      5、覆盖授权方选项、开放平台账号绑定状态和二维码校验文件增量
     </PackageReleaseNotes>
 
     <IsPackable>false</IsPackable>

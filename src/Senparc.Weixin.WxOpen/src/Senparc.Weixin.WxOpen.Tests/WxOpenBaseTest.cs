@@ -6,11 +6,12 @@ using System.Text;
 
 namespace Senparc.Weixin.WxOpen.Tests
 {
-    public class WxOpenBaseTest : CommonApiTest
+    public abstract class WxOpenBaseTest : CommonApiTest
     {
         public WxOpenBaseTest()
         {
-            AccessTokenContainer.RegisterAsync(base._wxOpenAppId, base._wxOpenAppSecret, "小程序单元测试").GetAwaiter();
+            AccessTokenContainer.RegisterAsync(base._wxOpenAppId, base._wxOpenAppSecret, "小程序单元测试")
+                .GetAwaiter().GetResult();
         }
     }
 }

@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Version>1.0.0</Version>
+    <PackageReleaseNotes>
+      [2026-07-24] v1.0.0 新增微信 SDK Native AOT 冒烟验证程序
+      1、验证核心 JSON 序列化、微信支付请求模型及公共 HTTP 调用链的 AOT 兼容性
+      2、提供 macOS arm64 自包含发布与运行验证入口
+    </PackageReleaseNotes>
+    <LangVersion>12.0</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>Senparc.Weixin.NativeAotSmoke</AssemblyName>
+    <PublishAot>true</PublishAot>
+    <SelfContained>true</SelfContained>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <StripSymbols>true</StripSymbols>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/Senparc.Weixin/Senparc.Weixin/Senparc.Weixin.net10.csproj"
+                      AdditionalProperties="TargetFrameworks=net10.0" />
+    <ProjectReference Include="../../src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPay/Senparc.Weixin.TenPay.net10.csproj"
+                      AdditionalProperties="TargetFrameworks=net10.0" />
+  </ItemGroup>
+</Project>

@@ -73,6 +73,41 @@ namespace Senparc.Weixin.TenPayV3.Test.HttpHandlers
             }
         }
 
+        [TestMethod]
+        public async Task NotificationIdAndRawBodyProvideStableIdempotencyInputs()
+        {
+            const string notificationId = "EV-202607241234567890";
+            var json = "{\"id\":\"" + notificationId +
+                       "\",\"create_time\":\"2026-07-24T12:00:00+08:00\"," +
+                       "\"resource_type\":\"encrypt-resource\"," +
+                       "\"event_type\":\"TRANSACTION.SUCCESS\",\"summary\":\"test\"," +
+                       "\"resource\":{\"original_type\":\"transaction\"," +
+                       "\"algorithm\":\"AEAD_AES_256_GCM\",\"ciphertext\":\"cipher\"," +
+                       "\"associated_data\":\"data\",\"nonce\":\"nonce\"}}";
+
+            var first = await TenPayNotifyHandler.CreateAsync(
+                CreateContext(json), CreateSetting());
+            var retry = await TenPayNotifyHandler.CreateAsync(
+                CreateContext(json), CreateSetting());
+
+            Assert.AreEqual(notificationId, first.NotificationId);
+            Assert.AreEqual(notificationId, first.Notification.id);
+            Assert.AreEqual(first.NotificationId, retry.NotificationId,
+                "同一官方通知重试必须暴露相同的幂等键。");
+            Assert.AreEqual(json, first.RawBody);
+        }
+
+        private static DefaultHttpContext CreateContext(string json)
+        {
+            var bytes = Encoding.UTF8.GetBytes(json);
+            var context = new DefaultHttpContext();
+            context.Request.Method = "POST";
+            context.Request.ContentLength = bytes.Length;
+            context.Request.ContentType = "application/json";
+            context.Request.Body = new MemoryStream(bytes);
+            return context;
+        }
+
         /// <summary>
         /// 测试 Request.Body 流在 TenPayNotifyHandler 读取后仍可被后续中间件读取
         /// </summary>

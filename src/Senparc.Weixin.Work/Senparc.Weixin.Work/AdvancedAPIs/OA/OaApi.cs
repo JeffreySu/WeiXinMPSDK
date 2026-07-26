@@ -25,10 +25,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：审批接口
     
     
-    创建标识：mojinxun - 20230226
+    创建标识：mojinxun - 20220224
     
     修改标识：Senparc - 20251223
     修改描述：添加创建审批模板接口返回参数template_id
+
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 补齐复制第三方应用审批模板接口
     
 ----------------------------------------------------------------*/
 
@@ -154,6 +157,22 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA
         {
             var urlFormat = Config.ApiWorkHost + "/cgi-bin/oa/vacation/setoneuserquota?access_token={0}";
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 复制第三方应用审批模板到当前企业。
+        /// <see href="https://developer.work.weixin.qq.com/document/path/92630"/>
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证，须使用审批应用或企业内自建应用的 Secret 获取。</param>
+        /// <param name="data">包含服务商审批模板 ID 的请求。</param>
+        /// <param name="timeOut">代理请求超时时间，单位为毫秒。</param>
+        /// <returns>复制后生成的企业审批模板 ID。</returns>
+        public static ApprovalCopyTemplateResult ApprovalCopyTemplate(string accessToken,
+            ApprovalCopyTemplateRequest data, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiWorkHost + "/cgi-bin/oa/approval/copytemplate?access_token={0}";
+            return CommonJsonSend.Send<ApprovalCopyTemplateResult>(accessToken, urlFormat, data,
+                CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -292,6 +311,22 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA
         }
 
         /// <summary>
+        /// 异步复制第三方应用审批模板到当前企业。
+        /// <see href="https://developer.work.weixin.qq.com/document/path/92630"/>
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证，须使用审批应用或企业内自建应用的 Secret 获取。</param>
+        /// <param name="data">包含服务商审批模板 ID 的请求。</param>
+        /// <param name="timeOut">代理请求超时时间，单位为毫秒。</param>
+        /// <returns>复制后生成的企业审批模板 ID。</returns>
+        public static async Task<ApprovalCopyTemplateResult> ApprovalCopyTemplateAsync(string accessToken,
+            ApprovalCopyTemplateRequest data, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiWorkHost + "/cgi-bin/oa/approval/copytemplate?access_token={0}";
+            return await CommonJsonSend.SendAsync<ApprovalCopyTemplateResult>(accessToken, urlFormat, data,
+                CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
         /// 创建审批模板
         /// https://developer.work.weixin.qq.com/document/path/97437
         /// </summary>
@@ -321,4 +356,3 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA
         #endregion
     }
 }
-

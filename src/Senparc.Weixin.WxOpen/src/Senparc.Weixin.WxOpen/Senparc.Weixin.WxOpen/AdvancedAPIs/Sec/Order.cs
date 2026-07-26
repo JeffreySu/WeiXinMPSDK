@@ -20,17 +20,20 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
-    
-    文件名：SnsApi.cs
+
+    文件名：Order.cs
     文件功能描述：小程序 Sec下接口
-    
-    创建标识：mc7246 - 20230831
+
+    创建标识：mc7246 - 20230902
 
     修改标识：Senparc - 20230905
     修改描述：v4.15.0 完善“第三方服务商小程序备案”接口
 
     修改标识：Guili95 - 20240623
     修改描述：v3.19.0 添加小程序发货信息管理服务-查询小程序是否已完成交易结算管理确认接口
+
+    修改标识：Senparc - 20260724
+    修改描述：v3.28.1 补齐小程序物流、交易、直播、短剧、小说和行业能力接口及事件
 
 ----------------------------------------------------------------*/
 
@@ -53,7 +56,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sec
     /// WxApp接口
     /// </summary>
     [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
-    public static class Order
+    public static partial class Order
     {
         #region 同步方法
 
@@ -407,4 +410,3 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sec
         #endregion
     }
 }
-

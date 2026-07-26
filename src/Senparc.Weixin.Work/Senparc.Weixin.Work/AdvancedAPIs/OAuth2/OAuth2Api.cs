@@ -5,7 +5,7 @@
     文件功能描述：OAuth2接口
     
     
-    创建标识：Senparc - 20150313
+    创建标识：Senparc - 20160707
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
@@ -21,6 +21,9 @@
 
     修改标识：Senparc - 20190129
     修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 更新访问用户身份和敏感信息接口路径
 ----------------------------------------------------------------*/
 
 /*
@@ -41,7 +44,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 {
 
     [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
-    public static class OAuth2Api
+    public static partial class OAuth2Api
     {
         #region 同步方法
 
@@ -74,18 +77,18 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="code">通过员工授权获取到的code，每次员工授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期</param>
+        /// <param name="agentId">兼容参数；当前接口不再需要企业应用 ID。</param>
         /// 权限说明：管理员须拥有agent的使用权限；agentid必须和跳转链接时所在的企业应用ID相同。
         /// <returns></returns>
         [Obsolete("请使用新方法GetUserId(string accessToken, string code)")]
         public static GetUserInfoResult GetUserId(string accessToken, string code, string agentId)
         {
-            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}&agentid={2}", accessToken.AsUrlData(), code.AsUrlData(), agentId.AsUrlData());
-
-            return CommonJsonSend.Send<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET);
+            return GetUserId(accessToken, code);
         }
 
         /// <summary>
-        /// 获取成员信息
+        /// 获取访问用户身份。
+        /// <para>参考文档：<see href="https://developer.work.weixin.qq.com/document/path/91023"/></para>
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="code">通过员工授权获取到的code，每次员工授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期</param>
@@ -93,21 +96,21 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static GetUserInfoResult GetUserId(string accessToken, string code)
         {
-            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
+            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/auth/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
 
             return CommonJsonSend.Send<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
-        /// 使用user_ticket获取成员详情
-        /// 官方文档：http://work.weixin.qq.com/api/doc#10028
+        /// 使用 user_ticket 获取访问用户敏感信息。
+        /// <para>参考文档：<see href="https://developer.work.weixin.qq.com/document/path/95833"/></para>
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="userTicket">成员票据</param>
         /// <returns></returns>
         public static GetUserDetailResult GetUserDetail(string accessToken, string userTicket)
         {
-            var urlFormat = Config.ApiWorkHost + "/cgi-bin/user/getuserdetail?access_token={0}";
+            var urlFormat = Config.ApiWorkHost + "/cgi-bin/auth/getuserdetail?access_token={0}";
 
             var data = new
             {
@@ -125,18 +128,18 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="code">通过员工授权获取到的code，每次员工授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期</param>
+        /// <param name="agentId">兼容参数；当前接口不再需要企业应用 ID。</param>
         /// 权限说明：管理员须拥有agent的使用权限；agentid必须和跳转链接时所在的企业应用ID相同。
         /// <returns></returns>
         [Obsolete("请使用新方法GetUserId(string accessToken, string code)")]
         public static async Task<GetUserInfoResult> GetUserIdAsync(string accessToken, string code, string agentId)
         {
-            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}&agentid={2}", accessToken.AsUrlData(), code.AsUrlData(), agentId.AsUrlData());
-
-            return await CommonJsonSend.SendAsync<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            return await GetUserIdAsync(accessToken, code).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// 【异步方法】获取成员信息
+        /// 【异步方法】获取访问用户身份。
+        /// <para>参考文档：<see href="https://developer.work.weixin.qq.com/document/path/91023"/></para>
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="code">通过员工授权获取到的code，每次员工授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期</param>
@@ -144,21 +147,21 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetUserInfoResult> GetUserIdAsync(string accessToken, string code)
         {
-            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
+            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/auth/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
 
             return await CommonJsonSend.SendAsync<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// 【异步请求】使用user_ticket获取成员详情
-        /// 官方文档：http://work.weixin.qq.com/api/doc#10028
+        /// 【异步请求】使用 user_ticket 获取访问用户敏感信息。
+        /// <para>参考文档：<see href="https://developer.work.weixin.qq.com/document/path/95833"/></para>
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="userTicket">成员票据</param>
         /// <returns></returns>
         public static async Task<GetUserDetailResult> GetUserDetailAsync(string accessToken, string userTicket)
         {
-            var urlFormat = Config.ApiWorkHost + "/cgi-bin/user/getuserdetail?access_token={0}";
+            var urlFormat = Config.ApiWorkHost + "/cgi-bin/auth/getuserdetail?access_token={0}";
 
             var data = new
             {
@@ -170,4 +173,3 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
     }
 }
-

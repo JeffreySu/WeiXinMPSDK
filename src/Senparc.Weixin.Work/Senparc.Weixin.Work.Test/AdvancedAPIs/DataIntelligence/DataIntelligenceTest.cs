@@ -21,6 +21,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Work.AdvancedAPIs;
@@ -66,7 +67,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         }
 
         [TestMethod]
-        public async void GetConversationRecordsAsyncTest()
+        public async Task GetConversationRecordsAsyncTest()
         {
             // 测试异步方法
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
@@ -155,7 +156,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         }
 
         [TestMethod]
-        public async void GetMessageStatisticsAsyncTest()
+        public async Task GetMessageStatisticsAsyncTest()
         {
             // 测试异步消息统计API
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);

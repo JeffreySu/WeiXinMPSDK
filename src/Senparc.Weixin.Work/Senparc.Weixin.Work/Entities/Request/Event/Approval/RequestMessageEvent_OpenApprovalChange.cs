@@ -6,10 +6,13 @@
     官方文档：https://developer.work.weixin.qq.com/document/path/90269
     
     
-    创建标识：Senparc - 20220211
+    创建标识：Senparc - 20220214
 
     修改标识：Senparc - 20230405
     修改描述：v3.15.17.1 修改 RequestMessageEvent_OpenApprovalChange 中 OpenTemplateId 参数类型为 string
+
+    修改标识：Senparc - 20260724
+    修改描述：v3.32.1 兼容超过 byte 范围的审批操作时间
 
 ----------------------------------------------------------------*/
 
@@ -127,6 +130,8 @@ namespace Senparc.Weixin.Work.Entities
 
     public partial class OpenApprovalNodeItemsItem
     {
+        private byte _itemOpTime;
+
         /// <summary>
         /// 抄送人姓名
         /// </summary>
@@ -160,7 +165,39 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         /// 分支审批人操作时间
         /// </summary>
-        public byte ItemOpTime { get; set; }
+        [System.Xml.Serialization.XmlIgnore]
+        public byte ItemOpTime
+        {
+            get => _itemOpTime;
+            set
+            {
+                _itemOpTime = value;
+                if (ItemOpTimeTimestamp == 0)
+                {
+                    ItemOpTimeTimestamp = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 分支审批人操作时间（Unix 时间戳）。新代码应使用此 64 位属性。
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnore]
+        public ulong ItemOpTimeTimestamp { get; set; }
+
+        /// <summary>
+        /// XML 序列化兼容入口，保留原始 <c>ItemOpTime</c> 节点名称。
+        /// </summary>
+        [System.Xml.Serialization.XmlElement("ItemOpTime")]
+        public ulong ItemOpTimeValue
+        {
+            get => ItemOpTimeTimestamp != 0 ? ItemOpTimeTimestamp : _itemOpTime;
+            set
+            {
+                ItemOpTimeTimestamp = value;
+                _itemOpTime = value > byte.MaxValue ? byte.MaxValue : (byte)value;
+            }
+        }
     }
 
     public partial class OpenApprovalNotifyNode
@@ -189,4 +226,3 @@ namespace Senparc.Weixin.Work.Entities
 
 
 }
-

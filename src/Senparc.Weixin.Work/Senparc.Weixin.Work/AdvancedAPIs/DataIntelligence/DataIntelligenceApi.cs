@@ -5,10 +5,13 @@
     文件功能描述：企业微信数据与智能专区接口
     
     
-    创建标识：Senparc - 20241128
+    创建标识：Senparc - 20250828
     
     修改标识：Senparc - 20241128
     修改描述：新增数据与智能专区相关接口，包括获取会话记录等功能
+
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 支持高级接口订单管理分部实现
     
 ----------------------------------------------------------------*/
 
@@ -34,7 +37,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// https://developer.work.weixin.qq.com/document/path/99824
     /// </summary>
     [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
-    public static class DataIntelligenceApi
+    public static partial class DataIntelligenceApi
     {
         private static string _urlFormatGetConversationRecords = Config.ApiWorkHost + "/cgi-bin/data/get_conversation_records?access_token={0}";
         private static string _urlFormatGetMessageStatistics = Config.ApiWorkHost + "/cgi-bin/data/get_message_statistics?access_token={0}";

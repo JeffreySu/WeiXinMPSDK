@@ -20,25 +20,25 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
-    
+
     文件名：CommonApi.cs
     文件功能描述：通用接口(用于和微信服务器通讯，一般不涉及自有网站服务器的通讯)
-    
-    
-    创建标识：Senparc - 20150211
-    
+
+
+    创建标识：Senparc - 20130514
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
-    
+
     修改标识：Senparc - 20150330
     修改描述：获取调用微信JS接口的临时票据中的AccessToken添加缓存
-    
+
     修改标识：Senparc - 20150401
     修改描述：添加公众号第三方平台获取授权码接口
-    
+
     修改标识：Senparc - 20150430
     修改描述：公众号第三方平台分离
- 
+
     修改标识：Senparc - 20160721
     修改描述：增加其接口的异步方法
 
@@ -62,6 +62,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：dupeng0811 - 20260323
     修改描述：v16.24.2 修复 GetStableAccessToken 方法中 force_refresh 参数硬编码问题
+
+    修改标识：Senparc - 20260724
+    修改描述：v16.25.1 补齐公众号 openApi、统计、图像、医疗、非税和一物一码官方接口
 
 ----------------------------------------------------------------*/
 
@@ -216,6 +219,47 @@ namespace Senparc.Weixin.MP.CommonAPIs
         }
 
         /// <summary>
+        /// 网络通信检测
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken 或 AppId（推荐使用 AppId，需要先注册）</param>
+        /// <param name="action">检测动作</param>
+        /// <param name="checkOperator">检测运营商</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static CallbackCheckJsonResult CallbackCheck(string accessTokenOrAppId,
+            CallbackCheckAction action = CallbackCheckAction.all,
+            CallbackCheckOperator checkOperator = CallbackCheckOperator.DEFAULT,
+            int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/callback/check?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    action = action.ToString(),
+                    check_operator = checkOperator.ToString()
+                };
+
+                return CommonJsonSend.Send<CallbackCheckJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 获取微信 API 服务器 IP 地址列表
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken 或 AppId（推荐使用 AppId，需要先注册）</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static GetApiDomainIpResult GetApiDomainIp(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/get_api_domain_ip?access_token={0}", accessToken.AsUrlData());
+                return CommonJsonSend.Send<GetApiDomainIpResult>(null, url, null, CommonJsonSendType.GET, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
         /// 公众号调用或第三方平台帮公众号调用对公众号的所有api调用（包括第三方帮其调用）次数进行清零
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
@@ -235,6 +279,25 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 使用 AppSecret 重置账号的 API 调用次数。此接口不依赖 AccessToken。
+        /// </summary>
+        /// <param name="appId">账号 AppId</param>
+        /// <param name="appSecret">账号 AppSecret</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static WxJsonResult ClearQuotaByAppSecret(string appId, string appSecret, int timeOut = Config.TIME_OUT)
+        {
+            var url = Config.ApiMpHost + "/cgi-bin/clear_quota/v2";
+            var data = new
+            {
+                appid = appId,
+                appsecret = appSecret
+            };
+
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut: timeOut);
         }
 
         #endregion
@@ -366,6 +429,47 @@ namespace Senparc.Weixin.MP.CommonAPIs
         }
 
         /// <summary>
+        /// 【异步方法】网络通信检测
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken 或 AppId（推荐使用 AppId，需要先注册）</param>
+        /// <param name="action">检测动作</param>
+        /// <param name="checkOperator">检测运营商</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static async Task<CallbackCheckJsonResult> CallbackCheckAsync(string accessTokenOrAppId,
+            CallbackCheckAction action = CallbackCheckAction.all,
+            CallbackCheckOperator checkOperator = CallbackCheckOperator.DEFAULT,
+            int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/callback/check?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    action = action.ToString(),
+                    check_operator = checkOperator.ToString()
+                };
+
+                return await CommonJsonSend.SendAsync<CallbackCheckJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取微信 API 服务器 IP 地址列表
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken 或 AppId（推荐使用 AppId，需要先注册）</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static async Task<GetApiDomainIpResult> GetApiDomainIpAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/get_api_domain_ip?access_token={0}", accessToken.AsUrlData());
+                return await CommonJsonSend.SendAsync<GetApiDomainIpResult>(null, url, null, CommonJsonSendType.GET, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// 【异步方法】公众号调用或第三方平台帮公众号调用对公众号的所有api调用（包括第三方帮其调用）次数进行清零
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
@@ -387,8 +491,26 @@ namespace Senparc.Weixin.MP.CommonAPIs
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// 【异步方法】使用 AppSecret 重置账号的 API 调用次数。此接口不依赖 AccessToken。
+        /// </summary>
+        /// <param name="appId">账号 AppId</param>
+        /// <param name="appSecret">账号 AppSecret</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static async Task<WxJsonResult> ClearQuotaByAppSecretAsync(string appId, string appSecret, int timeOut = Config.TIME_OUT)
+        {
+            var url = Config.ApiMpHost + "/cgi-bin/clear_quota/v2";
+            var data = new
+            {
+                appid = appId,
+                appsecret = appSecret
+            };
+
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
+        }
+
         #endregion
 
     }
 }
-

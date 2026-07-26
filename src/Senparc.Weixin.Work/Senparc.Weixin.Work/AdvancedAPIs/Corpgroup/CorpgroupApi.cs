@@ -25,7 +25,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：上下游及互联企业相关接口
 
 
-    创建标识：mojinxun - 20230226
+    创建标识：mojinxun - 20230224
+
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 新增上下游小程序会话转换、企业链路分组和企业信息接口，并修正对接规则路径
 
 ----------------------------------------------------------------*/
 
@@ -78,6 +81,20 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Corpgroup
         }
 
         /// <summary>
+        /// 将上级或上游企业的小程序会话转换为下级或下游企业的小程序会话。
+        /// https://developer.work.weixin.qq.com/document/path/95817
+        /// </summary>
+        /// <param name="accessToken">下级或下游企业的 access_token。</param>
+        /// <param name="data">上级或上游企业的小程序会话信息。</param>
+        /// <param name="timeOut">请求超时时间。</param>
+        /// <returns>下级或下游企业的小程序会话。</returns>
+        public static TransferSessionResult TransferSession(string accessToken, TransferSessionRequest data, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiWorkHost + "/cgi-bin/miniprogram/transfer_session?access_token={0}";
+            return CommonJsonSend.Send<TransferSessionResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+        }
+
+        /// <summary>
         /// 通过unionid和openid查询external_userid
         /// https://developer.work.weixin.qq.com/document/path/95818
         /// </summary>
@@ -114,6 +131,51 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Corpgroup
         {
             var urlFormat = Config.ApiWorkHost + "/cgi-bin/corpgroup/corp/get_chain_list?access_token={0}";
             return CommonJsonSend.Send<GetChainListResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+        }
+
+        /// <summary>
+        /// 获取上下游通讯录分组。
+        /// <para>可查询指定上下游的全部分组，或通过 <paramref name="data"/> 中的分组 ID 查询下级分组。</para>
+        /// <para>参考文档：<see href="https://developer.work.weixin.qq.com/document/path/95315"/></para>
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证。</param>
+        /// <param name="data">上下游及可选分组查询参数。</param>
+        /// <param name="timeOut">请求超时时间。</param>
+        /// <returns>上下游通讯录分组列表。</returns>
+        public static GetChainGroupResult CorpGetChainGroup(string accessToken, GetChainGroupRequest data, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiWorkHost + "/cgi-bin/corpgroup/corp/get_chain_group?access_token={0}";
+            return CommonJsonSend.Send<GetChainGroupResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+        }
+
+        /// <summary>
+        /// 获取上下游分组中的企业列表。
+        /// <para>支持按分组筛选、返回待加入企业及游标分页。</para>
+        /// <para>参考文档：<see href="https://developer.work.weixin.qq.com/document/path/95315"/></para>
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证。</param>
+        /// <param name="data">企业列表筛选与分页参数。</param>
+        /// <param name="timeOut">请求超时时间。</param>
+        /// <returns>上下游企业列表和下一页信息。</returns>
+        public static GetChainCorpInfoListResult CorpGetChainCorpInfoList(string accessToken, GetChainCorpInfoListRequest data, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiWorkHost + "/cgi-bin/corpgroup/corp/get_chain_corpinfo_list?access_token={0}";
+            return CommonJsonSend.Send<GetChainCorpInfoListResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+        }
+
+        /// <summary>
+        /// 获取上下游企业详情。
+        /// <para>可使用已加入企业 CorpId 或待加入企业 PendingCorpId 查询。</para>
+        /// <para>参考文档：<see href="https://developer.work.weixin.qq.com/document/path/95820"/></para>
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证。</param>
+        /// <param name="data">上下游及企业标识。</param>
+        /// <param name="timeOut">请求超时时间。</param>
+        /// <returns>上下游企业详情。</returns>
+        public static GetChainCorpInfoResult CorpGetChainCorpInfo(string accessToken, GetChainCorpInfoRequest data, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiWorkHost + "/cgi-bin/corpgroup/corp/get_chain_corpinfo?access_token={0}";
+            return CommonJsonSend.Send<GetChainCorpInfoResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
         }
 
         /// <summary>
@@ -200,7 +262,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Corpgroup
         /// <summary>
         /// 删除对接规则
         /// 上下游系统应用可通过该接口删除企业上下游规则
-        /// https://developer.work.weixin.qq.com/document/path/9562
+        /// https://developer.work.weixin.qq.com/document/path/95632
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="data">请求参数</param>
@@ -214,7 +276,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Corpgroup
         /// <summary>
         /// 获取对接规则详情
         /// 上下游系统应用可通过该接口获取企业上下游规则详情
-        /// https://developer.work.weixin.qq.com/document/path/9563
+        /// https://developer.work.weixin.qq.com/document/path/95633
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="data">请求参数</param>
@@ -228,21 +290,21 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Corpgroup
         /// <summary>
         /// 新增对接规则
         /// 上下游系统应用可通过该接口新增一条对接规则
-        /// https://developer.work.weixin.qq.com/document/path/9564
+        /// https://developer.work.weixin.qq.com/document/path/95634
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="data">请求参数</param>
         /// <returns></returns>
         public static AddRuleResult RuleAddRule(string accessToken, AddRuleRequest data, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = Config.ApiWorkHost + "/cgi-bin/corpgroup/rule/get_rule_info?access_token={0}";
+            var urlFormat = Config.ApiWorkHost + "/cgi-bin/corpgroup/rule/add_rule?access_token={0}";
             return CommonJsonSend.Send<AddRuleResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
         }
 
         /// <summary>
         /// 更新对接规则
         /// 上下游应用可通过该接口修改一条对接规则
-        /// https://developer.work.weixin.qq.com/document/path/9565
+        /// https://developer.work.weixin.qq.com/document/path/95635
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="data">请求参数</param>
@@ -286,6 +348,20 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Corpgroup
         }
 
         /// <summary>
+        /// 将上级或上游企业的小程序会话转换为下级或下游企业的小程序会话。
+        /// https://developer.work.weixin.qq.com/document/path/95817
+        /// </summary>
+        /// <param name="accessToken">下级或下游企业的 access_token。</param>
+        /// <param name="data">上级或上游企业的小程序会话信息。</param>
+        /// <param name="timeOut">请求超时时间。</param>
+        /// <returns>下级或下游企业的小程序会话。</returns>
+        public static async Task<TransferSessionResult> TransferSessionAsync(string accessToken, TransferSessionRequest data, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiWorkHost + "/cgi-bin/miniprogram/transfer_session?access_token={0}";
+            return await CommonJsonSend.SendAsync<TransferSessionResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+        }
+
+        /// <summary>
         /// 通过unionid和openid查询external_userid
         /// https://developer.work.weixin.qq.com/document/path/95818
         /// </summary>
@@ -322,6 +398,51 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Corpgroup
         {
             var urlFormat = Config.ApiWorkHost + "/cgi-bin/corpgroup/corp/get_chain_list?access_token={0}";
             return await CommonJsonSend.SendAsync<GetChainListResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+        }
+
+        /// <summary>
+        /// 异步获取上下游通讯录分组。
+        /// <para>可查询指定上下游的全部分组，或通过 <paramref name="data"/> 中的分组 ID 查询下级分组。</para>
+        /// <para>参考文档：<see href="https://developer.work.weixin.qq.com/document/path/95315"/></para>
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证。</param>
+        /// <param name="data">上下游及可选分组查询参数。</param>
+        /// <param name="timeOut">请求超时时间。</param>
+        /// <returns>上下游通讯录分组列表。</returns>
+        public static async Task<GetChainGroupResult> CorpGetChainGroupAsync(string accessToken, GetChainGroupRequest data, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiWorkHost + "/cgi-bin/corpgroup/corp/get_chain_group?access_token={0}";
+            return await CommonJsonSend.SendAsync<GetChainGroupResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+        }
+
+        /// <summary>
+        /// 异步获取上下游分组中的企业列表。
+        /// <para>支持按分组筛选、返回待加入企业及游标分页。</para>
+        /// <para>参考文档：<see href="https://developer.work.weixin.qq.com/document/path/95315"/></para>
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证。</param>
+        /// <param name="data">企业列表筛选与分页参数。</param>
+        /// <param name="timeOut">请求超时时间。</param>
+        /// <returns>上下游企业列表和下一页信息。</returns>
+        public static async Task<GetChainCorpInfoListResult> CorpGetChainCorpInfoListAsync(string accessToken, GetChainCorpInfoListRequest data, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiWorkHost + "/cgi-bin/corpgroup/corp/get_chain_corpinfo_list?access_token={0}";
+            return await CommonJsonSend.SendAsync<GetChainCorpInfoListResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+        }
+
+        /// <summary>
+        /// 异步获取上下游企业详情。
+        /// <para>可使用已加入企业 CorpId 或待加入企业 PendingCorpId 查询。</para>
+        /// <para>参考文档：<see href="https://developer.work.weixin.qq.com/document/path/95820"/></para>
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证。</param>
+        /// <param name="data">上下游及企业标识。</param>
+        /// <param name="timeOut">请求超时时间。</param>
+        /// <returns>上下游企业详情。</returns>
+        public static async Task<GetChainCorpInfoResult> CorpGetChainCorpInfoAsync(string accessToken, GetChainCorpInfoRequest data, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = Config.ApiWorkHost + "/cgi-bin/corpgroup/corp/get_chain_corpinfo?access_token={0}";
+            return await CommonJsonSend.SendAsync<GetChainCorpInfoResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
         }
 
         /// <summary>
@@ -408,7 +529,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Corpgroup
         /// <summary>
         /// 删除对接规则
         /// 上下游系统应用可通过该接口删除企业上下游规则
-        /// https://developer.work.weixin.qq.com/document/path/9562
+        /// https://developer.work.weixin.qq.com/document/path/95632
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="data">请求参数</param>
@@ -422,7 +543,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Corpgroup
         /// <summary>
         /// 获取对接规则详情
         /// 上下游系统应用可通过该接口获取企业上下游规则详情
-        /// https://developer.work.weixin.qq.com/document/path/9563
+        /// https://developer.work.weixin.qq.com/document/path/95633
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="data">请求参数</param>
@@ -436,21 +557,21 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Corpgroup
         /// <summary>
         /// 新增对接规则
         /// 上下游系统应用可通过该接口新增一条对接规则
-        /// https://developer.work.weixin.qq.com/document/path/9564
+        /// https://developer.work.weixin.qq.com/document/path/95634
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="data">请求参数</param>
         /// <returns></returns>
         public static async Task<AddRuleResult> RuleAddRuleAsync(string accessToken, AddRuleRequest data, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = Config.ApiWorkHost + "/cgi-bin/corpgroup/rule/get_rule_info?access_token={0}";
+            var urlFormat = Config.ApiWorkHost + "/cgi-bin/corpgroup/rule/add_rule?access_token={0}";
             return await CommonJsonSend.SendAsync<AddRuleResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
         }
 
         /// <summary>
         /// 更新对接规则
         /// 上下游应用可通过该接口修改一条对接规则
-        /// https://developer.work.weixin.qq.com/document/path/9565
+        /// https://developer.work.weixin.qq.com/document/path/95635
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="data">请求参数</param>
@@ -463,4 +584,3 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Corpgroup
         #endregion
     }
 }
-

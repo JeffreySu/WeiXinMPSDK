@@ -18,7 +18,7 @@
 
     修改标识：LofyLiu - 20240315
     修改描述：添加: 模板卡片点击回调事件
-    
+
     修改标识: IcedMango - 20241114
     修改描述: 添加: 通用模板卡片右上角菜单事件推送; 修复不正确的通用模板卡片事件推送类型
 
@@ -30,6 +30,9 @@
 
     修改标识：Senparc - 20260718
     修改描述：v3.32.0 移除异步兼容回调中的 Task.Run 线程池排队
+
+    修改标识：Senparc - 20260726
+    修改描述：v3.32.1 补齐企业微信通讯录、安全、智能机器人、微信客服和获客助手接口；增加应用邮箱新邮件变更异步回调处理入口；增加设备数据授权变更异步回调处理入口；增加硬件设备特征变更异步回调处理入口
 
 ----------------------------------------------------------------*/
 
@@ -249,6 +252,14 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     responseMessage = await
                         OnEvent_BatchJobResultRequestAsync(RequestMessage as RequestMessageEvent_Batch_Job_Result);
                     break;
+                case Event.change_chain: //上下游空间、分组或企业变更事件(change_chain)
+                    responseMessage = await
+                        OnEvent_ChangeChainRequestAsync(RequestMessage as RequestMessageEvent_Change_Chain);
+                    break;
+                case Event.security: //安全管理事件
+                    responseMessage = await
+                        OnEvent_SecurityRequestAsync(RequestMessage as RequestMessageEvent_Security);
+                    break;
                 case Event.change_contact:
                     var ccRequestMessage = RequestMessage as IRequestMessageEvent_Change_Contact_Base;
 
@@ -322,6 +333,10 @@ namespace Senparc.Weixin.Work.MessageHandlers
                         case ExternalContactChangeType.del_follow_user:
                             responseMessage = await OnEvent_ChangeExternalContactDelFollowUserRequestAsync(
                                 RequestMessage as RequestMessageEvent_Change_ExternalContact_Del_FollowUser);
+                            break;
+                        case ExternalContactChangeType.transfer_fail:
+                            responseMessage = await OnEvent_ChangeExternalContactTransferFailRequestAsync(
+                                RequestMessage as RequestMessageEvent_Change_ExternalContact_Transfer_Fail);
                             break;
                         case ExternalContactChangeType.msg_audit_approved:
                             responseMessage = await
@@ -426,6 +441,106 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     responseMessage = await
                         OnEvent_KfMsgOrEventRequestAsync(
                             RequestMessage as RequestMessageEvent_Kf_Msg_Or_Event);
+                    break;
+                case Event.KF_ACCOUNT_AUTH_CHANGE: // 微信客服账号授权变更通知
+                    responseMessage = await
+                        OnEvent_KfAccountAuthChangeRequestAsync(
+                            RequestMessage as RequestMessageEvent_Kf_Account_Auth_Change);
+                    break;
+                case Event.CUSTOMER_ACQUISITION: // 获客助手事件通知
+                    responseMessage = await
+                        OnEvent_CustomerAcquisitionRequestAsync(
+                            RequestMessage as RequestMessageEvent_Customer_Acquisition);
+                    break;
+                case Event.app_email_change: // 应用邮箱新邮件变更事件
+                    responseMessage = await
+                        OnEvent_AppEmailChangeRequestAsync(
+                            RequestMessage as RequestMessageEvent_App_Email_Change);
+                    break;
+                case Event.public_email_change: // 公共邮箱接收邮件事件
+                    responseMessage = await
+                        OnEvent_PublicEmailChangeRequestAsync(
+                            RequestMessage as RequestMessageEvent_Public_Email_Change);
+                    break;
+                case Event.wedrive_insufficient_capacity: // 微盘容量不足事件
+                    responseMessage = await
+                        OnEvent_WeDriveInsufficientCapacityRequestAsync(
+                            RequestMessage as RequestMessageEvent_WeDrive_Insufficient_Capacity);
+                    break;
+                case Event.wedrive_space_change: // 微盘空间变更事件
+                    responseMessage = await
+                        OnEvent_WeDriveSpaceChangeRequestAsync(
+                            RequestMessage as RequestMessageEvent_WeDrive_Space_Change);
+                    break;
+                case Event.wedrive_file_change: // 微盘文件变更事件
+                    responseMessage = await
+                        OnEvent_WeDriveFileChangeRequestAsync(
+                            RequestMessage as RequestMessageEvent_WeDrive_File_Change);
+                    break;
+                case Event.program_notify: // 数据与智能专区程序通知应用事件
+                    responseMessage = await
+                        OnEvent_ProgramNotifyRequestAsync(
+                            RequestMessage as RequestMessageEvent_Program_Notify);
+                    break;
+                case Event.change_school_contact: // 家校通讯录成员或部门变更事件
+                    responseMessage = await
+                        OnEvent_ChangeSchoolContactRequestAsync(
+                            RequestMessage as RequestMessageEvent_Change_School_Contact);
+                    break;
+                case Event.book_meeting_room: // 会议室预定事件
+                    responseMessage = await
+                        OnEvent_BookMeetingRoomRequestAsync(
+                            RequestMessage as RequestMessageEvent_Book_Meeting_Room);
+                    break;
+                case Event.cancel_meeting_room: // 会议室取消预定事件
+                    responseMessage = await
+                        OnEvent_CancelMeetingRoomRequestAsync(
+                            RequestMessage as RequestMessageEvent_Cancel_Meeting_Room);
+                    break;
+                case Event.pay_transaction: // 小程序对外收款支付成功通知
+                    responseMessage = await
+                        OnEvent_MiniProgramPayTransactionRequestAsync(
+                            RequestMessage as RequestMessageEvent_MiniProgramPay_Transaction);
+                    break;
+                case Event.pay_refund: // 小程序对外收款退款通知
+                    responseMessage = await
+                        OnEvent_MiniProgramPayRefundRequestAsync(
+                            RequestMessage as RequestMessageEvent_MiniProgramPay_Refund);
+                    break;
+                case Event.delete_calendar: // 删除日历事件
+                    responseMessage = await
+                        OnEvent_DeleteCalendarRequestAsync(
+                            RequestMessage as RequestMessageEvent_Delete_Calendar);
+                    break;
+                case Event.modify_calendar: // 修改日历事件
+                    responseMessage = await
+                        OnEvent_ModifyCalendarRequestAsync(
+                            RequestMessage as RequestMessageEvent_Modify_Calendar);
+                    break;
+                case Event.modify_schedule: // 修改日程事件
+                    responseMessage = await
+                        OnEvent_ModifyScheduleRequestAsync(
+                            RequestMessage as RequestMessageEvent_Modify_Schedule);
+                    break;
+                case Event.delete_schedule: // 删除日程事件
+                    responseMessage = await
+                        OnEvent_DeleteScheduleRequestAsync(
+                            RequestMessage as RequestMessageEvent_Delete_Schedule);
+                    break;
+                case Event.respond_schedule: // 日程回执事件
+                    responseMessage = await
+                        OnEvent_RespondScheduleRequestAsync(
+                            RequestMessage as RequestMessageEvent_Respond_Schedule);
+                    break;
+                case Event.submit_vip_account_approval: // 成员提交高级功能账号申请
+                    responseMessage = await
+                        OnEvent_SubmitVipAccountApprovalRequestAsync(
+                            RequestMessage as RequestMessageEvent_Submit_Vip_Account_Approval);
+                    break;
+                case Event.finish_vip_account_approval: // 成员高级功能账号申请终止
+                    responseMessage = await
+                        OnEvent_FinishVipAccountApprovalRequestAsync(
+                            RequestMessage as RequestMessageEvent_Finish_Vip_Account_Approval);
                     break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -567,6 +682,26 @@ namespace Senparc.Weixin.Work.MessageHandlers
         }
 
         /// <summary>
+        /// 上下游空间、分组或企业变更事件(change_chain)
+        /// </summary>
+        /// <param name="requestMessage">企业微信上下游变更事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_ChangeChainRequestAsync(
+            RequestMessageEvent_Change_Chain requestMessage)
+        {
+            return await Task.FromResult(OnEvent_ChangeChainRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>安全管理事件。</summary>
+        /// <param name="requestMessage">企业微信事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_SecurityRequestAsync(
+            RequestMessageEvent_Security requestMessage)
+        {
+            return await Task.FromResult(OnEvent_SecurityRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// 新增成员事件推送
         /// </summary>
         /// <param name="requestMessage"></param>
@@ -698,6 +833,18 @@ namespace Senparc.Weixin.Work.MessageHandlers
             RequestMessageEvent_Change_ExternalContact_Del_FollowUser requestMessage)
         {
             return await Task.FromResult(OnEvent_ChangeExternalContactDelFollowUserRequest(requestMessage))
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 客户接替失败事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_ChangeExternalContactTransferFailRequestAsync(
+            RequestMessageEvent_Change_ExternalContact_Transfer_Fail requestMessage)
+        {
+            return await Task.FromResult(OnEvent_ChangeExternalContactTransferFailRequest(requestMessage))
                 .ConfigureAwait(false);
         }
 
@@ -884,6 +1031,177 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return await Task.FromResult(OnEvent_KfMsgOrEventRequest(requestMessage)).ConfigureAwait(false);
         }
 
+        /// <summary>微信客服账号授权变更通知。</summary>
+        /// <param name="requestMessage">企业微信事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_KfAccountAuthChangeRequestAsync(
+            RequestMessageEvent_Kf_Account_Auth_Change requestMessage)
+        {
+            return await Task.FromResult(OnEvent_KfAccountAuthChangeRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>获客助手事件通知。</summary>
+        /// <param name="requestMessage">企业微信事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_CustomerAcquisitionRequestAsync(
+            RequestMessageEvent_Customer_Acquisition requestMessage)
+        {
+            return await Task.FromResult(OnEvent_CustomerAcquisitionRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>应用邮箱新邮件变更事件。</summary>
+        /// <param name="requestMessage">包含变更类型和新邮件数量的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_AppEmailChangeRequestAsync(
+            RequestMessageEvent_App_Email_Change requestMessage)
+        {
+            return await Task.FromResult(OnEvent_AppEmailChangeRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>公共邮箱接收邮件事件。</summary>
+        /// <param name="requestMessage">包含公共邮箱 ID 和当前新邮件数量的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_PublicEmailChangeRequestAsync(
+            RequestMessageEvent_Public_Email_Change requestMessage)
+        {
+            return await Task.FromResult(OnEvent_PublicEmailChangeRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>微盘容量不足事件。</summary>
+        /// <param name="requestMessage">企业微盘容量使用率超过 90% 时产生的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_WeDriveInsufficientCapacityRequestAsync(
+            RequestMessageEvent_WeDrive_Insufficient_Capacity requestMessage)
+        {
+            return await Task.FromResult(OnEvent_WeDriveInsufficientCapacityRequest(requestMessage))
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>微盘空间变更事件。</summary>
+        /// <param name="requestMessage">包含变更类型和空间 ID 列表的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_WeDriveSpaceChangeRequestAsync(
+            RequestMessageEvent_WeDrive_Space_Change requestMessage)
+        {
+            return await Task.FromResult(OnEvent_WeDriveSpaceChangeRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>微盘文件变更事件。</summary>
+        /// <param name="requestMessage">包含变更类型和文件 ID 列表的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_WeDriveFileChangeRequestAsync(
+            RequestMessageEvent_WeDrive_File_Change requestMessage)
+        {
+            return await Task.FromResult(OnEvent_WeDriveFileChangeRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>数据与智能专区程序通知应用事件。</summary>
+        /// <param name="requestMessage">包含通知 ID 和通知场景的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_ProgramNotifyRequestAsync(
+            RequestMessageEvent_Program_Notify requestMessage)
+        {
+            return await Task.FromResult(OnEvent_ProgramNotifyRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>家校通讯录成员或部门变更事件。</summary>
+        /// <param name="requestMessage">包含变更类型和成员或部门 ID 的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_ChangeSchoolContactRequestAsync(
+            RequestMessageEvent_Change_School_Contact requestMessage)
+        {
+            return await Task.FromResult(OnEvent_ChangeSchoolContactRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>会议室预定事件。</summary>
+        /// <param name="requestMessage">企业微信会议室预定事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_BookMeetingRoomRequestAsync(
+            RequestMessageEvent_Book_Meeting_Room requestMessage)
+        {
+            return await Task.FromResult(OnEvent_BookMeetingRoomRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>会议室取消预定事件。</summary>
+        /// <param name="requestMessage">企业微信会议室取消预定事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_CancelMeetingRoomRequestAsync(
+            RequestMessageEvent_Cancel_Meeting_Room requestMessage)
+        {
+            return await Task.FromResult(OnEvent_CancelMeetingRoomRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>小程序对外收款支付成功通知。</summary>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_MiniProgramPayTransactionRequestAsync(
+            RequestMessageEvent_MiniProgramPay_Transaction requestMessage)
+        {
+            return await Task.FromResult(OnEvent_MiniProgramPayTransactionRequest(requestMessage))
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>小程序对外收款退款通知。</summary>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_MiniProgramPayRefundRequestAsync(
+            RequestMessageEvent_MiniProgramPay_Refund requestMessage)
+        {
+            return await Task.FromResult(OnEvent_MiniProgramPayRefundRequest(requestMessage))
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>删除日历事件。</summary>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_DeleteCalendarRequestAsync(
+            RequestMessageEvent_Delete_Calendar requestMessage)
+        {
+            return await Task.FromResult(OnEvent_DeleteCalendarRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>修改日历事件。</summary>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_ModifyCalendarRequestAsync(
+            RequestMessageEvent_Modify_Calendar requestMessage)
+        {
+            return await Task.FromResult(OnEvent_ModifyCalendarRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>修改日程事件。</summary>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_ModifyScheduleRequestAsync(
+            RequestMessageEvent_Modify_Schedule requestMessage)
+        {
+            return await Task.FromResult(OnEvent_ModifyScheduleRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>删除日程事件。</summary>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_DeleteScheduleRequestAsync(
+            RequestMessageEvent_Delete_Schedule requestMessage)
+        {
+            return await Task.FromResult(OnEvent_DeleteScheduleRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>日程回执事件。</summary>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_RespondScheduleRequestAsync(
+            RequestMessageEvent_Respond_Schedule requestMessage)
+        {
+            return await Task.FromResult(OnEvent_RespondScheduleRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>成员提交高级功能账号申请事件。</summary>
+        /// <param name="requestMessage">成员提交申请事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_SubmitVipAccountApprovalRequestAsync(
+            RequestMessageEvent_Submit_Vip_Account_Approval requestMessage)
+        {
+            return await Task.FromResult(OnEvent_SubmitVipAccountApprovalRequest(requestMessage))
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>成员高级功能账号申请终止事件。</summary>
+        /// <param name="requestMessage">成员申请终止事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_FinishVipAccountApprovalRequestAsync(
+            RequestMessageEvent_Finish_Vip_Account_Approval requestMessage)
+        {
+            return await Task.FromResult(OnEvent_FinishVipAccountApprovalRequest(requestMessage))
+                .ConfigureAwait(false);
+        }
+
         #endregion //Event 下属分类
 
         #endregion
@@ -909,6 +1227,12 @@ namespace Senparc.Weixin.Work.MessageHandlers
                 case ThirdPartyInfo.RESET_PERMANENT_CODE:
                     return OnThirdPartEvent_Reset_Permanent_CodeAsync(
                         (RequestMessageInfo_Reset_Permanent_Code)thirdPartyInfo);
+                case ThirdPartyInfo.DEVICE_DATA_AUTH_CHANGE:
+                    return OnThirdPartyEvent_DeviceDataAuthChangeAsync(
+                        (RequestMessageInfo_Device_Data_Auth_Change)thirdPartyInfo);
+                case ThirdPartyInfo.DEVICE_FEATURE_CHANGE:
+                    return OnThirdPartyEvent_DeviceFeatureChangeAsync(
+                        (RequestMessageInfo_Device_Feature_Change)thirdPartyInfo);
                 case ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT:
                 {
                     var cecRequestMessage = RequestMessage as IRequestMessageEvent_Change_ExternalContact_Base;
@@ -930,6 +1254,9 @@ namespace Senparc.Weixin.Work.MessageHandlers
                         case ExternalContactChangeType.del_follow_user:
                             return OnThirdPartyEvent_ChangeExternalContactDelFollowUserRequestAsync(
                                 RequestMessage as RequestMessageEvent_Change_ExternalContact_Del_FollowUser);
+                        case ExternalContactChangeType.transfer_fail:
+                            return OnThirdPartyEvent_ChangeExternalContactTransferFailRequestAsync(
+                                RequestMessage as RequestMessageEvent_Change_ExternalContact_Transfer_Fail);
                         case ExternalContactChangeType.msg_audit_approved:
                             return OnThirdPartyEvent_ChangeExternalContactMsgAuditAsync(
                                 RequestMessage as RequestMessageEvent_Change_ExternalContact_MsgAudit);
@@ -992,6 +1319,30 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return await Task.FromResult(OnThirdPartEvent_ResetPermanentCode(thirdPartyInfo)).ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// 异步处理设备数据授权变更通知。
+        /// </summary>
+        /// <param name="requestMessage">设备数据授权变更通知。</param>
+        /// <returns>第三方回调响应文本。</returns>
+        protected virtual async Task<string> OnThirdPartyEvent_DeviceDataAuthChangeAsync(
+            RequestMessageInfo_Device_Data_Auth_Change requestMessage)
+        {
+            return await Task.FromResult(OnThirdPartyEvent_DeviceDataAuthChange(requestMessage))
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 异步处理硬件设备特征变更通知。
+        /// </summary>
+        /// <param name="requestMessage">硬件设备特征变更通知。</param>
+        /// <returns>第三方回调响应文本。</returns>
+        protected virtual async Task<string> OnThirdPartyEvent_DeviceFeatureChangeAsync(
+            RequestMessageInfo_Device_Feature_Change requestMessage)
+        {
+            return await Task.FromResult(OnThirdPartyEvent_DeviceFeatureChange(requestMessage))
+                .ConfigureAwait(false);
+        }
+
         #region 外部联系人
 
         protected virtual async Task<string> OnThirdPartyEvent_ChangeExternalContactAddRequestAsync(
@@ -1026,6 +1377,13 @@ namespace Senparc.Weixin.Work.MessageHandlers
             RequestMessageEvent_Change_ExternalContact_Del_FollowUser requestMessage)
         {
             return await Task.FromResult(OnThirdPartyEvent_ChangeExternalContactDelFollowUserRequest(requestMessage))
+                .ConfigureAwait(false);
+        }
+
+        protected virtual async Task<string> OnThirdPartyEvent_ChangeExternalContactTransferFailRequestAsync(
+            RequestMessageEvent_Change_ExternalContact_Transfer_Fail requestMessage)
+        {
+            return await Task.FromResult(OnThirdPartyEvent_ChangeExternalContactTransferFailRequest(requestMessage))
                 .ConfigureAwait(false);
         }
 

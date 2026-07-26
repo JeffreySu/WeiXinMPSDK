@@ -5,7 +5,7 @@
     文件功能描述：获取XDocument转换后的IRequestMessageBase实例
     
     
-    创建标识：Senparc - 20150313
+    创建标识：Senparc - 20130113
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
@@ -28,8 +28,11 @@
     修改标识：Senparc - 20231026
     修改描述：v3.17.0 成员对外联系 > 客户消息通知处理
     
-   修改标识：IcedMango - 20240229
-   修改描述：添加: 企业微信会话存档-产生会话回调事件（MSGAUDIT_NOTIFY）
+    修改标识：IcedMango - 20240229
+    修改描述：添加: 企业微信会话存档-产生会话回调事件（MSGAUDIT_NOTIFY）
+
+    修改标识：Senparc - 20260726
+    修改描述：v3.32.1 接入小程序对外收款支付与退款通知识别；接入设备数据授权变更通知识别；接入硬件设备特征变更通知识别
 
 ----------------------------------------------------------------*/
 
@@ -60,8 +63,33 @@ namespace Senparc.Weixin.Work
             RequestMsgType msgType;
             ThirdPartyInfo infoType;
 
+            var paymentEventType = doc.Root.Element("event_type")?.Value;
+            var isPaymentTransaction = string.Equals(paymentEventType, "TRANSACTION.SUCCESS",
+                StringComparison.OrdinalIgnoreCase);
+            var isPaymentRefund = paymentEventType != null
+                && paymentEventType.StartsWith("REFUND.", StringComparison.OrdinalIgnoreCase);
+
             //区分普通消息与第三方应用授权推送消息，MsgType有值说明是普通消息，反之则是第三方应用授权推送消息
-            if (doc.Root.Element("MsgType") != null)
+            if ((isPaymentTransaction || isPaymentRefund) && doc.Root.Element("resource") != null)
+            {
+                // 小程序对外收款通知的解密后外层 XML 不包含传统 MsgType/Event 节点。
+                // resource 内的业务数据还需要使用相同 EncodingAESKey 进行 AES-GCM 解密。
+                requestMessage = isPaymentTransaction
+                    ? new RequestMessageEvent_MiniProgramPay_Transaction()
+                    : new RequestMessageEvent_MiniProgramPay_Refund();
+                EntityHelper.FillEntityWithXml(requestMessage, doc);
+
+                var resourceElement = doc.Root.Element("resource");
+                ((RequestMessageEvent_MiniProgramPayBase)requestMessage).resource =
+                    new MiniProgramPayNotificationResource
+                    {
+                        algorithm = resourceElement.Element("algorithm")?.Value,
+                        ciphertext = resourceElement.Element("ciphertext")?.Value,
+                        associated_data = resourceElement.Element("associated_data")?.Value,
+                        nonce = resourceElement.Element("nonce")?.Value
+                    };
+            }
+            else if (doc.Root.Element("MsgType") != null)
             {
                 //常规推送信息
                 try
@@ -112,6 +140,12 @@ namespace Senparc.Weixin.Work
                             break;
                         case ThirdPartyInfo.RESET_PERMANENT_CODE:
                             requestMessage = new RequestMessageInfo_Reset_Permanent_Code();
+                            break;
+                        case ThirdPartyInfo.DEVICE_DATA_AUTH_CHANGE:
+                            requestMessage = new RequestMessageInfo_Device_Data_Auth_Change();
+                            break;
+                        case ThirdPartyInfo.DEVICE_FEATURE_CHANGE:
+                            requestMessage = new RequestMessageInfo_Device_Feature_Change();
                             break;
                         case ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT:
                             switch (doc.Root.Element("ChangeType").Value.ToUpper())
@@ -216,4 +250,3 @@ namespace Senparc.Weixin.Work
         }
     }
 }
-

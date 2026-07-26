@@ -7,6 +7,9 @@
     
     
     创建标识：Senparc - 20220208
+
+    修改标识：Senparc - 20260724
+    修改描述：v3.32.1 补齐字符串审批编号和新版流程节点
     
 ----------------------------------------------------------------*/
 
@@ -36,6 +39,11 @@ namespace Senparc.Weixin.Work.Entities
     /// </summary>
     public partial class SysApprovalInfo
     {
+        /// <summary>
+        /// 审批编号（字符串类型）。官方推荐优先使用此字段。
+        /// </summary>
+        public string SpNoStr { get; set; }
+
         /// <summary>
         /// 审批编号
         /// </summary>
@@ -86,6 +94,11 @@ namespace Senparc.Weixin.Work.Entities
         /// </summary>
         [System.Xml.Serialization.XmlElement("Comments")]
         public ApprovalInfoComments[] Comments { get; set; }
+
+        /// <summary>
+        /// 新版审批流程列表
+        /// </summary>
+        public ApprovalInfoProcessList ProcessList { get; set; }
 
         /// <summary>
         /// 审批申请状态变化类型：1-提单；2-同意；3-驳回；4-转审；5-催办；6-撤销；8-通过后撤销；10-添加备注
@@ -209,6 +222,86 @@ namespace Senparc.Weixin.Work.Entities
         public string UserId { get; set; }
     }
 
+    /// <summary>
+    /// 新版审批流程列表
+    /// </summary>
+    public class ApprovalInfoProcessList
+    {
+        /// <summary>
+        /// 流程节点
+        /// </summary>
+        [System.Xml.Serialization.XmlElement("NodeList")]
+        public ApprovalInfoProcessNode[] NodeLists { get; set; }
+    }
+
+    /// <summary>
+    /// 新版审批流程节点
+    /// </summary>
+    public class ApprovalInfoProcessNode
+    {
+        /// <summary>
+        /// 节点类型：1-审批人；2-抄送人；3-办理人
+        /// </summary>
+        public byte NodeType { get; set; }
+
+        /// <summary>
+        /// 节点状态
+        /// </summary>
+        public byte SpStatus { get; set; }
+
+        /// <summary>
+        /// 多人办理方式：1-会签；2-或签；3-依次审批
+        /// </summary>
+        public byte ApvRel { get; set; }
+
+        /// <summary>
+        /// 子节点列表
+        /// </summary>
+        [System.Xml.Serialization.XmlElement("SubNodeList")]
+        public ApprovalInfoProcessSubNode[] SubNodeLists { get; set; }
+    }
+
+    /// <summary>
+    /// 新版审批流程子节点
+    /// </summary>
+    public class ApprovalInfoProcessSubNode
+    {
+        /// <summary>
+        /// 处理人信息
+        /// </summary>
+        public ApprovalInfoProcessUser UserInfo { get; set; }
+
+        /// <summary>
+        /// 审批或办理意见
+        /// </summary>
+        public string Speech { get; set; }
+
+        /// <summary>
+        /// 子节点状态
+        /// </summary>
+        public byte SpYj { get; set; }
+
+        /// <summary>
+        /// 操作时间（Unix 时间戳）
+        /// </summary>
+        public ulong Sptime { get; set; }
+
+        /// <summary>
+        /// 意见附件 media_id
+        /// </summary>
+        public string MediaIds { get; set; }
+    }
+
+    /// <summary>
+    /// 新版审批流程处理人
+    /// </summary>
+    public class ApprovalInfoProcessUser
+    {
+        /// <summary>
+        /// 处理人 UserId
+        /// </summary>
+        public string UserId { get; set; }
+    }
+
 
 }
-

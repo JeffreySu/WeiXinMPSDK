@@ -27,6 +27,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20181009
 
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 支持当前批量查询电子发票分部实现
 
 ----------------------------------------------------------------*/
 
@@ -44,7 +46,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// 电子发票接口
     /// </summary>
     [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
-    public static class InvoiceApi
+    public static partial class InvoiceApi
     {
         #region 同步方法
 
@@ -254,4 +256,3 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
     }
 }
-

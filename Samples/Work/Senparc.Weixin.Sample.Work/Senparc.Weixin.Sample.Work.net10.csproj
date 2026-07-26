@@ -2,6 +2,12 @@
 
 	<PropertyGroup>
 		<TargetFramework>net10.0</TargetFramework>
+		<Version>1.0.1</Version>
+		<PackageReleaseNotes>
+		  [2026-07-23] v1.0.1 升级企业微信示例依赖
+		  1、升级 AspNet、Work 与 Work.Middleware 至最新稳定版
+		  2、适配最新企业微信组件和中间件
+		</PackageReleaseNotes>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 
@@ -25,9 +31,9 @@
 
 	<!--引用 Nuget 包-->
 	<ItemGroup>
-	  <PackageReference Include="Senparc.Weixin.AspNet" Version="1.6.0" />
-	  <PackageReference Include="Senparc.Weixin.Work" Version="3.28.1" />
-	  <PackageReference Include="Senparc.Weixin.Work.Middleware" Version="1.4.10" />
+	  <PackageReference Include="Senparc.Weixin.AspNet" Version="1.6.4" />
+	  <PackageReference Include="Senparc.Weixin.Work" Version="3.32.0" />
+	  <PackageReference Include="Senparc.Weixin.Work.Middleware" Version="1.5.3" />
 	</ItemGroup>
 
 	<!--直接引用源码-->

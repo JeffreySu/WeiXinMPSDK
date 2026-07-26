@@ -1,7 +1,7 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
     
-    文件名：SsoApi.cs
+    文件名：OaDataOpenApi.cs
     文件功能描述：OA数据开放接口（Work中新增）
     
     
@@ -12,6 +12,9 @@
 
     修改标识：Senparc - 20170712
     修改描述：v14.5.1 AccessToken HandlerWaper改造
+
+    修改标识：Senparc - 20260724
+    修改描述：v3.32.1 支持 OA 数据开放接口按分部文件扩展
 
 ----------------------------------------------------------------*/
 
@@ -31,7 +34,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
     /// OA数据开放接口
     /// </summary>
     [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
-    public class OaDataOpenApi
+    public partial class OaDataOpenApi
     {
         /// <summary>
         /// 打卡类型
@@ -403,4 +406,3 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         #endregion
     }
 }
-

@@ -10,6 +10,9 @@
     修改标识：Senparc - 20231128
     修改描述：修复：template_names 命名更正为：template_name
 
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 补齐审批模板富文本及明细子控件配置
+
 ----------------------------------------------------------------*/
 using System.Collections.Generic;
 
@@ -135,6 +138,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA.OAJson
         /// 
         /// </summary>
         public ApprovalCreateTemplateRequest_TemplateContent_Controls_Config_Contact contact { get; set; }
+
+        /// <summary>
+        /// 富文本说明配置
+        /// </summary>
+        public ApprovalTemplateTipsConfig tips { get; set; }
 
         /// <summary>
         /// 
@@ -288,9 +296,44 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA.OAJson
     public class ApprovalCreateTemplateRequest_TemplateContent_Controls_Config_Table_Children_Config
     {
         /// <summary>
+        /// 日期配置
+        /// </summary>
+        public ApprovalCreateTemplateRequest_TemplateContent_Controls_Config_Date date { get; set; }
+
+        /// <summary>
+        /// 单选或多选配置
+        /// </summary>
+        public ApprovalCreateTemplateRequest_TemplateContent_Controls_Config_Selector selector { get; set; }
+
+        /// <summary>
+        /// 成员或部门配置
+        /// </summary>
+        public ApprovalCreateTemplateRequest_TemplateContent_Controls_Config_Contact contact { get; set; }
+
+        /// <summary>
+        /// 富文本说明配置
+        /// </summary>
+        public ApprovalTemplateTipsConfig tips { get; set; }
+
+        /// <summary>
         /// 
         /// </summary>
         public ApprovalCreateTemplateRequest_TemplateContent_Controls_Config_Table_Children_Config_File file { get; set; }
+
+        /// <summary>
+        /// 位置配置
+        /// </summary>
+        public ApprovalCreateTemplateRequest_TemplateContent_Controls_Config_Location location { get; set; }
+
+        /// <summary>
+        /// 关联审批单配置
+        /// </summary>
+        public ApprovalCreateTemplateRequest_TemplateContent_Controls_Config_RelatedApproval related_approval { get; set; }
+
+        /// <summary>
+        /// 时长配置
+        /// </summary>
+        public ApprovalCreateTemplateRequest_TemplateContent_Controls_Config_DateRange date_range { get; set; }
     }
 
     public class ApprovalCreateTemplateRequest_TemplateContent_Controls_Config_Table_Children_Config_File
@@ -367,4 +410,3 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA.OAJson
         public int perday_duration { get; set; }
     }
 }
-

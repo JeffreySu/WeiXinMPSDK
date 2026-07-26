@@ -21,23 +21,26 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
 
-    文件名：AnalysisAPI.cs
+    文件名：AnalysisApi.cs
     文件功能描述：分析数据接口
 
 
-    创建标识：Senparc - 20150211
+    创建标识：Senparc - 20150303
 
     修改标识：Senparc - 20150303
     修改描述：整理接口
 
     修改标识：Senparc - 20150312
     修改描述：开放代理请求超时时间
- 
+
     修改标识：Senparc - 20160718
     修改描述：将其接口增加了异步方法
 
     修改标识：Senparc - 20170707
     修改描述：v14.5.1 完善异步方法async/await
+
+    修改标识：Senparc - 20260724
+    修改描述：v16.25.1 补齐公众号 openApi、统计、图像、医疗、非税和一物一码官方接口
 
 ----------------------------------------------------------------*/
 
@@ -224,6 +227,82 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 return CommonJsonSend.Send<AnalysisResultJson<UserShareHourItem>>(accessToken, urlFormat, data, timeOut: timeOut);
 
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 获取发表内容每日阅读数据（日期范围仅支持 1 天）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证或已注册的 AppId。</param>
+        /// <param name="beginDate">统计开始日期。</param>
+        /// <param name="endDate">统计结束日期。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static PublishedArticleAnalysisResult<PublishedArticleReadItem> GetPublishedArticleRead(
+            string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/datacube/getarticleread?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return CommonJsonSend.Send<PublishedArticleAnalysisResult<PublishedArticleReadItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 获取发表内容每日分享数据（日期范围仅支持 1 天）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证或已注册的 AppId。</param>
+        /// <param name="beginDate">统计开始日期。</param>
+        /// <param name="endDate">统计结束日期。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static PublishedArticleAnalysisResult<PublishedArticleShareItem> GetPublishedArticleShare(
+            string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/datacube/getarticleshare?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return CommonJsonSend.Send<PublishedArticleAnalysisResult<PublishedArticleShareItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 获取发表内容概况总数据（日期范围最长 30 天）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证或已注册的 AppId。</param>
+        /// <param name="beginDate">统计开始日期。</param>
+        /// <param name="endDate">统计结束日期。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static PublishedArticleAnalysisResult<PublishedArticleBizSummaryItem> GetPublishedArticleBizSummary(
+            string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/datacube/getbizsummary?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return CommonJsonSend.Send<PublishedArticleAnalysisResult<PublishedArticleBizSummaryItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 获取发表内容详细数据（日期范围仅支持 1 天）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证或已注册的 AppId。</param>
+        /// <param name="beginDate">统计开始日期。</param>
+        /// <param name="endDate">统计结束日期。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static PublishedArticleAnalysisResult<PublishedArticleTotalDetailItem> GetPublishedArticleTotalDetail(
+            string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/datacube/getarticletotaldetail?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return CommonJsonSend.Send<PublishedArticleAnalysisResult<PublishedArticleTotalDetailItem>>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
 
@@ -693,6 +772,82 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserShareHourItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取发表内容每日阅读数据（日期范围仅支持 1 天）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证或已注册的 AppId。</param>
+        /// <param name="beginDate">统计开始日期。</param>
+        /// <param name="endDate">统计结束日期。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static async Task<PublishedArticleAnalysisResult<PublishedArticleReadItem>> GetPublishedArticleReadAsync(
+            string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/datacube/getarticleread?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return await CommonJsonSend.SendAsync<PublishedArticleAnalysisResult<PublishedArticleReadItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取发表内容每日分享数据（日期范围仅支持 1 天）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证或已注册的 AppId。</param>
+        /// <param name="beginDate">统计开始日期。</param>
+        /// <param name="endDate">统计结束日期。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static async Task<PublishedArticleAnalysisResult<PublishedArticleShareItem>> GetPublishedArticleShareAsync(
+            string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/datacube/getarticleshare?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return await CommonJsonSend.SendAsync<PublishedArticleAnalysisResult<PublishedArticleShareItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取发表内容概况总数据（日期范围最长 30 天）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证或已注册的 AppId。</param>
+        /// <param name="beginDate">统计开始日期。</param>
+        /// <param name="endDate">统计结束日期。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static async Task<PublishedArticleAnalysisResult<PublishedArticleBizSummaryItem>> GetPublishedArticleBizSummaryAsync(
+            string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/datacube/getbizsummary?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return await CommonJsonSend.SendAsync<PublishedArticleAnalysisResult<PublishedArticleBizSummaryItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取发表内容详细数据（日期范围仅支持 1 天）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证或已注册的 AppId。</param>
+        /// <param name="beginDate">统计开始日期。</param>
+        /// <param name="endDate">统计结束日期。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static async Task<PublishedArticleAnalysisResult<PublishedArticleTotalDetailItem>> GetPublishedArticleTotalDetailAsync(
+            string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/datacube/getarticletotaldetail?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return await CommonJsonSend.SendAsync<PublishedArticleAnalysisResult<PublishedArticleTotalDetailItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
 

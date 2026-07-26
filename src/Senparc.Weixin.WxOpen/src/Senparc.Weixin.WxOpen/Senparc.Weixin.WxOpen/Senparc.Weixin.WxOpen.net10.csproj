@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-    <Version>3.28.0</Version>
+    <Version>3.28.1</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
@@ -186,7 +186,23 @@
 		[2026-07-20] v3.28.0 新增可注入小程序客户端并增强消息与凭据管理
 		1、新增 WxOpenApiClient 和外部凭据提供器注册入口
 		2、完善注册容量检查、消息上下文安全设置与响应生成兼容性
-	</PackageReleaseNotes>
+		[2026-07-23] v3.28.1 升级小程序基础依赖
+		1、升级 NeuChar 3.0.0
+		2、显式保留 Newtonsoft.Json 13.0.4 以兼容现有小程序模型
+		3、补齐基础、用户、运维、客服、消息、硬件和云开发等 52 项 P1 能力
+		4、补齐物流助手运力方审核、轨迹、面单、联系人、订单、账单和投诉等 10 项 P2 能力
+		5、补齐即时配送商户侧和运力方下单、查询、取消、模拟、状态更新等 15 项 P2 能力
+		6、补齐微信物流查询、消息、退货、运力方推送、无忧退货和同城配送全部 40 个目录项（39 个唯一接口）
+		7、补齐交易管理特殊发货报备、品牌申请与状态查询、交易类型变更 4 项 P2 能力
+		8、补齐交易保障违规记录、保障标、评价评论、客服额度、和解及投诉处理全链路 16 项 P2 能力
+		9、补齐虚拟支付 iOS 月结账单和商户管控原因，修复可提现余额及广告金账户绑定路径并完善返回模型
+		10、补齐 B2B 门店助手门店授权、消息、商户进件、订单退款、资金提现、分账及退款通知全链路 34 项 P2 能力
+		11、补齐小程序短剧媒资、剧目审核、统计、授权和播放器 41 个官方目录项（40 个唯一接口），并新增媒资上传完成和剧目审核状态事件
+		12、补齐小程序小说作品、章节、账号与作品授权、预览设置和读后推荐全部 23 项 P2 能力
+		13、补齐小程序直播间、商品、成员和长期订阅全部 38 项 P2 能力，并新增订阅状态和群发结果事件
+		14、补齐学生身份、城市服务、图像与 OCR、红包封面、服务市场、生物认证和人脸核身全部 22 项 P3 能力
+		15、补齐小程序物流、交易、直播、短剧、小说和行业能力接口及事件
+    </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -225,7 +241,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="2.6.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Senparc.NeuChar" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net10.csproj" />

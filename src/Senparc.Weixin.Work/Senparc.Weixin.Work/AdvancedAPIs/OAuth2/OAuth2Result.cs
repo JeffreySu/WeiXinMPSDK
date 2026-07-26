@@ -5,7 +5,7 @@
     文件功能描述：获取成员信息返回结果
     http://work.weixin.qq.com/api/doc#10028
     
-    创建标识：Senparc - 20150313
+    创建标识：Senparc - 20140923
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
@@ -21,6 +21,9 @@
 
     修改标识：Senparc - 20180815
     修改描述：添加 CorpId 属性
+
+    修改标识：Senparc - 20260725
+    修改描述：v3.32.1 补充授权身份和二次验证结果字段
 
 ----------------------------------------------------------------*/
 
@@ -82,6 +85,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OAuth2
         /// 后续利用该参数可以获取用户信息或敏感信息。
         /// </summary>
         public string user_ticket { get; set; }
+
+        /// <summary>
+        /// 文档检索票据；仅拥有智能专区文档存档权限的应用返回，有效期为 30 天。
+        /// </summary>
+        public string user_doc_ticket { get; set; }
 
         /// <summary>
         /// user_token的有效时间（秒），随user_ticket一起返回
@@ -146,6 +154,37 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OAuth2
         /// 头像url。注：如果要获取小图将url最后的”/0”改成”/64”即可
         /// </summary>
         public string avatar { get; set; }
+
+        /// <summary>
+        /// 员工个人二维码；仅在用户同意 snsapi_privateinfo 授权时返回。
+        /// </summary>
+        public string qr_code { get; set; }
+
+        /// <summary>
+        /// 企业邮箱；仅在用户同意 snsapi_privateinfo 授权时返回，第三方应用不可获取。
+        /// </summary>
+        public string biz_mail { get; set; }
+
+        /// <summary>
+        /// 地址；仅在用户同意 snsapi_privateinfo 授权时返回，第三方应用不可获取。
+        /// </summary>
+        public string address { get; set; }
+    }
+
+    /// <summary>获取用户二次验证信息请求。</summary>
+    public class GetTfaInfoRequest
+    {
+        /// <summary>获取或设置用户进入二次验证页面时企业微信颁发的 Code；五分钟内有效且只能使用一次。</summary>
+        public string code { get; set; }
+    }
+
+    /// <summary>获取用户二次验证信息结果。</summary>
+    public class GetTfaInfoResult : WorkJsonResult
+    {
+        /// <summary>获取或设置成员 UserId。</summary>
+        public string userid { get; set; }
+
+        /// <summary>获取或设置二次验证授权码；五分钟内有效且只能使用一次。</summary>
+        public string tfa_code { get; set; }
     }
 }
-

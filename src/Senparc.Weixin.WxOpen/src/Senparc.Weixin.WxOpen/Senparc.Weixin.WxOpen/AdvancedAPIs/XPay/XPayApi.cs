@@ -20,15 +20,19 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
-    
+
     文件名：XPayApi.cs
     文件功能描述：小程序虚拟支付
-    
-    
+
+
     创建标识：Yaofeng - 20231130
 
     修改标识：Senparc - 20260617
     修改描述：添加 iOS 会员订阅签名辅助方法 GenerateAppleSubscribePaySign
+
+    修改标识：Senparc - 20260724
+    修改描述：v3.28.1 补齐小程序物流、交易、直播、短剧、小说和行业能力接口及事件
+
 ----------------------------------------------------------------*/
 
 using Newtonsoft.Json;
@@ -48,7 +52,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.XPay
     /// https://developers.weixin.qq.com/miniprogram/dev/platform-capabilities/industry/virtual-payment.html#_2-3-%E6%9C%8D%E5%8A%A1%E5%99%A8API
     /// </summary>
     [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
-    public class XPayApi
+    public partial class XPayApi
     {
         #region 同步方法
         /// <summary>
@@ -300,18 +304,19 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.XPay
         }
 
         /// <summary>
-        /// 查询商家账户里的可提现余额
+        /// 查询商家账户里的可提现余额。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
-        /// <param name="pay_sig"></param>
+        /// <param name="accessTokenOrAppId">AccessToken、authorizer_access_token 或已注册的小程序 AppId。</param>
+        /// <param name="pay_sig">支付签名。</param>
         /// <param name="env">0-正式环境 1-沙箱环境（仅作为签名校验，查询的结果都是正式环境的）</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>可提现余额及币种。</returns>
+        /// <remarks>微信官方文档：<see href="https://developers.weixin.qq.com/miniprogram/dev/server/API/VirtualPayment/api_query_biz_balance"/>。本接口支持第三方平台代商家调用。</remarks>
         public static QueryBizBalanceJsonResult QueryBizBalance(string accessTokenOrAppId, string pay_sig, int env, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiMpHost + "/xpay/query_publish_goods?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/xpay/query_biz_balance?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
                 var data = new
                 {
                     env
@@ -374,20 +379,16 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.XPay
         }
 
         /// <summary>
-        /// 绑定广告金充值账户
+        /// 绑定广告金充值账户。此方法名保留历史拼写，建议新代码使用 <see cref="BindTransferAccount"/>。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
-        /// <param name="pay_sig"></param>
-        /// <param name="data">请求参数</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
+        /// <param name="accessTokenOrAppId">AccessToken、authorizer_access_token 或已注册的小程序 AppId。</param>
+        /// <param name="data">充值账户及小程序环境信息。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>绑定结果。</returns>
+        /// <remarks>微信官方文档：<see href="https://developers.weixin.qq.com/miniprogram/dev/server/API/VirtualPayment/api_bind_transfer_accout"/>。本接口支持第三方平台代商家调用。</remarks>
         public static WxJsonResult BindTransferAccout(string accessTokenOrAppId, BindTransferAccoutRequestData data, int timeOut = Config.TIME_OUT)
         {
-            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                var url = string.Format(Config.ApiMpHost + "/xpay/create_funds_bill?access_token={0}", accessToken.AsUrlData());
-                return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppId);
+            return BindTransferAccount(accessTokenOrAppId, data, timeOut);
         }
 
         /// <summary>
@@ -908,18 +909,19 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.XPay
         }
 
         /// <summary>
-        /// 查询商家账户里的可提现余额
+        /// 异步查询商家账户里的可提现余额。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
-        /// <param name="pay_sig"></param>
+        /// <param name="accessTokenOrAppId">AccessToken、authorizer_access_token 或已注册的小程序 AppId。</param>
+        /// <param name="pay_sig">支付签名。</param>
         /// <param name="env">0-正式环境 1-沙箱环境（仅作为签名校验，查询的结果都是正式环境的）</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>可提现余额及币种。</returns>
+        /// <remarks>微信官方文档：<see href="https://developers.weixin.qq.com/miniprogram/dev/server/API/VirtualPayment/api_query_biz_balance"/>。本接口支持第三方平台代商家调用。</remarks>
         public static async Task<QueryBizBalanceJsonResult> QueryBizBalanceAsync(string accessTokenOrAppId, string pay_sig, int env, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format(Config.ApiMpHost + "/xpay/query_publish_goods?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/xpay/query_biz_balance?access_token={0}&pay_sig={1}", accessToken.AsUrlData(), pay_sig.AsUrlData());
                 var data = new
                 {
                     env
@@ -982,20 +984,16 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.XPay
         }
 
         /// <summary>
-        /// 绑定广告金充值账户
+        /// 异步绑定广告金充值账户。此方法名保留历史拼写，建议新代码使用 <see cref="BindTransferAccountAsync"/>。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
-        /// <param name="pay_sig"></param>
-        /// <param name="data">请求参数</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
+        /// <param name="accessTokenOrAppId">AccessToken、authorizer_access_token 或已注册的小程序 AppId。</param>
+        /// <param name="data">充值账户及小程序环境信息。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>绑定结果。</returns>
+        /// <remarks>微信官方文档：<see href="https://developers.weixin.qq.com/miniprogram/dev/server/API/VirtualPayment/api_bind_transfer_accout"/>。本接口支持第三方平台代商家调用。</remarks>
         public static async Task<WxJsonResult> BindTransferAccoutAsync(string accessTokenOrAppId, BindTransferAccoutRequestData data, int timeOut = Config.TIME_OUT)
         {
-            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
-            {
-                var url = string.Format(Config.ApiMpHost + "/xpay/create_funds_bill?access_token={0}", accessToken.AsUrlData());
-                return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppId);
+            return await BindTransferAccountAsync(accessTokenOrAppId, data, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1346,4 +1344,3 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.XPay
         #endregion
     }
 }
-

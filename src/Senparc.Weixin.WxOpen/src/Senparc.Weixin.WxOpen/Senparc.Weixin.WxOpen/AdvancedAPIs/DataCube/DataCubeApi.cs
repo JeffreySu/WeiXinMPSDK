@@ -20,17 +20,21 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
-    
+
     文件名：DataCubeApi.cs
     文件功能描述：小程序“数据分析”接口
-    
-    
+
+
     创建标识：Senparc - 20180101
+
+    修改标识：Senparc - 20260724
+    修改描述：v3.28.1 补齐小程序物流、交易、直播、短剧、小说和行业能力接口及事件
 
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
@@ -263,6 +267,26 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 获取小程序启动性能、运行性能等数据
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证或已注册的 AppId。</param>
+        /// <param name="module">性能数据模块。</param>
+        /// <param name="time">查询时间点。</param>
+        /// <param name="parameters">请求参数。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static GetPerformanceDataJsonResult GetPerformanceData(string accessTokenOrAppId, int module,
+            PerformanceDataTime time, IList<PerformanceDataQuery> parameters, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var data = new { module, time, @params = parameters };
+                return CommonJsonSend.Send<GetPerformanceDataJsonResult>(accessToken,
+                    Config.ApiMpHost + "/wxa/business/performance/boot?access_token={0}", data, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
         #endregion
 
         #endregion
@@ -486,9 +510,28 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// 【异步方法】获取小程序启动性能、运行性能等数据
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证或已注册的 AppId。</param>
+        /// <param name="module">性能数据模块。</param>
+        /// <param name="time">查询时间点。</param>
+        /// <param name="parameters">请求参数。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static async Task<GetPerformanceDataJsonResult> GetPerformanceDataAsync(string accessTokenOrAppId, int module,
+            PerformanceDataTime time, IList<PerformanceDataQuery> parameters, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var data = new { module, time, @params = parameters };
+                return await CommonJsonSend.SendAsync<GetPerformanceDataJsonResult>(accessToken,
+                    Config.ApiMpHost + "/wxa/business/performance/boot?access_token={0}", data, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
         #endregion
 
         #endregion
     }
 }
-

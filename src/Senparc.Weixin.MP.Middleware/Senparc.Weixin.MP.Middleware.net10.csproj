@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-    <Version>1.5.3</Version>
+    <Version>1.5.4</Version>
     <AssemblyName>Senparc.Weixin.MP.Middleware</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.Middleware</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -27,7 +27,10 @@
 			[2024-08-06] v1.2.5 更新基础库，包括 Senparc.CO2NET 相关库、Senparc.AI
 			[2026-07-18] v1.5.2 Dependency update from Senparc.Weixin to 6.23.2; Senparc.Weixin.MP to 16.24.4
 			[2026-07-20] v1.5.3 Dependency update from Senparc.Weixin to 6.24.0; Senparc.Weixin.MP to 16.25.0
-</PackageReleaseNotes>
+			[2026-07-23] v1.5.4 升级公众号中间件依赖
+			1、升级 NeuChar.AspNet 1.7.0
+			2、适配最新公众号与 ASP.NET 集成能力
+    </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <PackageId>Senparc.Weixin.MP.Middleware</PackageId>
   </PropertyGroup>
@@ -74,7 +77,7 @@
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar.AspNet" Version="1.6.3" />
+    <PackageReference Include="Senparc.NeuChar.AspNet" Version="1.7.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net10.csproj" />

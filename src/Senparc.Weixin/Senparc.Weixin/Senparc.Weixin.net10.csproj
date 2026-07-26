@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
     <!--<FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>-->
-    <Version>6.24.0</Version>
-    <LangVersion>10.0</LangVersion>
+    <Version>6.25.0</Version>
+    <LangVersion>12.0</LangVersion>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -301,7 +301,11 @@
 			1、新增缓存能力描述、分页读取、注册回调容量管理与外部凭据提供器
 			2、新增统一 API 错误模型、消息上下文安全选项和日志敏感信息脱敏
 			3、优化 JSON 请求缓冲、注册并发与已发布 API 兼容性
-</PackageReleaseNotes>
+			[2026-07-23] v6.25.0 增强 System.Text.Json 与 Native AOT 请求能力
+			1、新增基于 JsonTypeInfo 的同步和异步微信 API 请求入口
+			2、升级 CO2NET 4.1.0 与 NeuChar 3.0.0，并统一错误结果序列化
+			3、增强微信 API 请求序列化、错误响应与 Native AOT 兼容能力
+    </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -342,9 +346,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Senparc.CO2NET" Version="3.1.5" />
-    <PackageReference Include="Senparc.NeuChar" Version="2.6.2" />
+    <PackageReference Include="Senparc.CO2NET" Version="4.1.0" />
+    <PackageReference Include="Senparc.NeuChar" Version="3.0.0" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" Condition=" '$(TargetFramework)' != 'net10.0' " />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
     <Reference Include="System.Core" />

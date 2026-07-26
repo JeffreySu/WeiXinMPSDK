@@ -50,7 +50,12 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         }
 
         [TestMethod]
-        public string UploadImageTest()
+        public void UploadImageTest()
+        {
+            Assert.IsFalse(string.IsNullOrEmpty(UploadImage()));
+        }
+
+        private string UploadImage()
         {
             string _media = "E:\\Senparc项目\\WeiXinMPSDK\\src\\Senparc.Weixin.Work\\Senparc.Weixin.Work.Test\\AdvancedAPIs\\Media\\test.jpg";
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
@@ -76,7 +81,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         [TestMethod]
         public void GetImageTest()
         {
-            string mediaId = UploadImageTest();
+            string mediaId = UploadImage();
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
 
             using (MemoryStream ms = new MemoryStream())
@@ -140,4 +145,3 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         }
     }
 }
-

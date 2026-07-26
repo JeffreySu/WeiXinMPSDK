@@ -14,13 +14,13 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
-		<PackageReference Include="Senparc.NeuChar" Version="2.1.1.1" />
-		<PackageReference Include="Senparc.WebSocket" Version="0.17.1" />
-		<PackageReference Include="Senparc.Weixin.MP" Version="16.18.2" />
-		<PackageReference Include="Senparc.Weixin.Open" Version="4.14.2" />
-		<PackageReference Include="Senparc.Weixin.TenPay" Version="1.12.1" />
-		<PackageReference Include="Senparc.Weixin.Work" Version="3.15.3-beta3" />
-		<PackageReference Include="Senparc.Weixin.WxOpen" Version="3.15.3" />
+		<PackageReference Include="Senparc.NeuChar" Version="3.0.0" />
+		<PackageReference Include="Senparc.WebSocket" Version="1.2.1" />
+		<PackageReference Include="Senparc.Weixin.MP" Version="16.25.0" />
+		<PackageReference Include="Senparc.Weixin.Open" Version="4.24.3" />
+		<PackageReference Include="Senparc.Weixin.TenPay" Version="1.18.3" />
+		<PackageReference Include="Senparc.Weixin.Work" Version="3.32.0" />
+		<PackageReference Include="Senparc.Weixin.WxOpen" Version="3.28.0" />
 		<PackageReference Include="System.Drawing.Common" Version="4.7.0" />
 		<PackageReference Include="System.Diagnostics.FileVersionInfo" Version="4.3.0" />
 		<PackageReference Include="ZXing.Net" Version="0.16.4" />

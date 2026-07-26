@@ -93,6 +93,10 @@ steps:
     projects: '$(solution)'
     arguments: '--configuration $(buildConfiguration)'
 
+- script: |
+    dotnet msbuild "eng/ApiCompat/ApiCompat.proj" -restore -t:ValidateApiCompatibility -p:ApiCompatConfiguration=$(buildConfiguration) -v:minimal
+  displayName: 'Public API compatibility gate (all changed SDK assemblies)'
+
 # 自动发现并推送 Senparc.Weixin.* / Senparc.WebSocket.* / Weixin.* / WeChat.* 的 .nupkg / .snupkg（--skip-duplicate）
 # 凭据：通过 Library 变量组 Nuget_Key 中的机密变量 NUGET_API_KEY 注入
 - powershell: |
@@ -283,7 +287,7 @@ steps:
     }
     exit 0
   displayName: 'Push WeiXinMPSDK .nupkg/.snupkg (auto-discover, skip duplicates)'
-  condition: succeededOrFailed()
+  condition: succeeded()
   env:
     NUGET_API_KEY: $(NUGET_API_KEY)
 

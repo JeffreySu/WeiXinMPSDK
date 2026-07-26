@@ -1,0 +1,150 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ApiCompatConfiguration Condition="'$(ApiCompatConfiguration)' == ''">Release</ApiCompatConfiguration>
+    <CheckAllAssemblies Condition="'$(ApiCompatAssembly)' == ''">true</CheckAllAssemblies>
+    <RepositoryRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\..\'))</RepositoryRoot>
+    <CompatibilityTargetFramework>netstandard2.1</CompatibilityTargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+
+    <CoreBaselineVersion>6.24.0</CoreBaselineVersion>
+    <TenPayBaselineVersion>1.18.3</TenPayBaselineVersion>
+    <MpBaselineVersion>16.25.0</MpBaselineVersion>
+    <WxOpenBaselineVersion>3.28.0</WxOpenBaselineVersion>
+    <OpenBaselineVersion>4.24.3</OpenBaselineVersion>
+    <WorkBaselineVersion>3.32.0</WorkBaselineVersion>
+    <TenPayV3BaselineVersion>2.5.0</TenPayV3BaselineVersion>
+
+    <CoreBaselineAssembly>$([System.IO.Path]::Combine('$(NuGetPackageRoot)', 'senparc.weixin', '$(CoreBaselineVersion)', 'lib/$(CompatibilityTargetFramework)/Senparc.Weixin.dll'))</CoreBaselineAssembly>
+    <TenPayBaselineAssembly>$([System.IO.Path]::Combine('$(NuGetPackageRoot)', 'senparc.weixin.tenpay', '$(TenPayBaselineVersion)', 'lib/$(CompatibilityTargetFramework)/Senparc.Weixin.TenPay.dll'))</TenPayBaselineAssembly>
+    <MpBaselineAssembly>$([System.IO.Path]::Combine('$(NuGetPackageRoot)', 'senparc.weixin.mp', '$(MpBaselineVersion)', 'lib/$(CompatibilityTargetFramework)/Senparc.Weixin.MP.dll'))</MpBaselineAssembly>
+    <WxOpenBaselineAssembly>$([System.IO.Path]::Combine('$(NuGetPackageRoot)', 'senparc.weixin.wxopen', '$(WxOpenBaselineVersion)', 'lib/$(CompatibilityTargetFramework)/Senparc.Weixin.WxOpen.dll'))</WxOpenBaselineAssembly>
+    <OpenBaselineAssembly>$([System.IO.Path]::Combine('$(NuGetPackageRoot)', 'senparc.weixin.open', '$(OpenBaselineVersion)', 'lib/$(CompatibilityTargetFramework)/Senparc.Weixin.Open.dll'))</OpenBaselineAssembly>
+    <WorkBaselineAssembly>$([System.IO.Path]::Combine('$(NuGetPackageRoot)', 'senparc.weixin.work', '$(WorkBaselineVersion)', 'lib/$(CompatibilityTargetFramework)/Senparc.Weixin.Work.dll'))</WorkBaselineAssembly>
+    <TenPayV3BaselineAssembly>$([System.IO.Path]::Combine('$(NuGetPackageRoot)', 'senparc.weixin.tenpayv3', '$(TenPayV3BaselineVersion)', 'lib/$(CompatibilityTargetFramework)/Senparc.Weixin.TenPayV3.dll'))</TenPayV3BaselineAssembly>
+    <CoreCurrentAssembly Condition="'$(ApiCompatConfiguration)' == 'Release'">$(RepositoryRoot)src/BuildOutPut/$(CompatibilityTargetFramework)/Senparc.Weixin.dll</CoreCurrentAssembly>
+    <TenPayCurrentAssembly Condition="'$(ApiCompatConfiguration)' == 'Release'">$(RepositoryRoot)src/BuildOutPut/$(CompatibilityTargetFramework)/Senparc.Weixin.TenPay.dll</TenPayCurrentAssembly>
+    <MpCurrentAssembly Condition="'$(ApiCompatConfiguration)' == 'Release'">$(RepositoryRoot)src/BuildOutPut/$(CompatibilityTargetFramework)/Senparc.Weixin.MP.dll</MpCurrentAssembly>
+    <WxOpenCurrentAssembly Condition="'$(ApiCompatConfiguration)' == 'Release'">$(RepositoryRoot)src/BuildOutPut/$(CompatibilityTargetFramework)/Senparc.Weixin.WxOpen.dll</WxOpenCurrentAssembly>
+    <OpenCurrentAssembly Condition="'$(ApiCompatConfiguration)' == 'Release'">$(RepositoryRoot)src/BuildOutPut/$(CompatibilityTargetFramework)/Senparc.Weixin.Open.dll</OpenCurrentAssembly>
+    <WorkCurrentAssembly Condition="'$(ApiCompatConfiguration)' == 'Release'">$(RepositoryRoot)src/BuildOutPut/$(CompatibilityTargetFramework)/Senparc.Weixin.Work.dll</WorkCurrentAssembly>
+    <TenPayV3CurrentAssembly Condition="'$(ApiCompatConfiguration)' == 'Release'">$(RepositoryRoot)src/BuildOutPut/$(CompatibilityTargetFramework)/Senparc.Weixin.TenPayV3.dll</TenPayV3CurrentAssembly>
+    <CoreCurrentAssembly Condition="'$(CoreCurrentAssembly)' == ''">$(RepositoryRoot)src/Senparc.Weixin/Senparc.Weixin/bin/$(ApiCompatConfiguration)/$(CompatibilityTargetFramework)/Senparc.Weixin.dll</CoreCurrentAssembly>
+    <TenPayCurrentAssembly Condition="'$(TenPayCurrentAssembly)' == ''">$(RepositoryRoot)src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPay/bin/$(ApiCompatConfiguration)/$(CompatibilityTargetFramework)/Senparc.Weixin.TenPay.dll</TenPayCurrentAssembly>
+    <MpCurrentAssembly Condition="'$(MpCurrentAssembly)' == ''">$(RepositoryRoot)src/Senparc.Weixin.MP/Senparc.Weixin.MP/bin/$(ApiCompatConfiguration)/$(CompatibilityTargetFramework)/Senparc.Weixin.MP.dll</MpCurrentAssembly>
+    <WxOpenCurrentAssembly Condition="'$(WxOpenCurrentAssembly)' == ''">$(RepositoryRoot)src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.WxOpen/Senparc.Weixin.WxOpen/bin/$(ApiCompatConfiguration)/$(CompatibilityTargetFramework)/Senparc.Weixin.WxOpen.dll</WxOpenCurrentAssembly>
+    <OpenCurrentAssembly Condition="'$(OpenCurrentAssembly)' == ''">$(RepositoryRoot)src/Senparc.Weixin.Open/Senparc.Weixin.Open/bin/$(ApiCompatConfiguration)/$(CompatibilityTargetFramework)/Senparc.Weixin.Open.dll</OpenCurrentAssembly>
+    <WorkCurrentAssembly Condition="'$(WorkCurrentAssembly)' == ''">$(RepositoryRoot)src/Senparc.Weixin.Work/Senparc.Weixin.Work/bin/$(ApiCompatConfiguration)/$(CompatibilityTargetFramework)/Senparc.Weixin.Work.dll</WorkCurrentAssembly>
+    <TenPayV3CurrentAssembly Condition="'$(TenPayV3CurrentAssembly)' == ''">$(RepositoryRoot)src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3/bin/$(ApiCompatConfiguration)/$(CompatibilityTargetFramework)/Senparc.Weixin.TenPayV3.dll</TenPayV3CurrentAssembly>
+
+    <ApiCompatTaskAssembly>$(MSBuildSDKsPath)/Microsoft.NET.Sdk/tools/net10.0/Microsoft.DotNet.ApiCompat.Task.dll</ApiCompatTaskAssembly>
+    <RoslynAssembliesPath>$(MSBuildToolsPath)/Roslyn/bincore</RoslynAssembliesPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageDownload Include="Senparc.Weixin" Version="[$(CoreBaselineVersion)]"
+                     Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin'" />
+    <PackageDownload Include="Senparc.Weixin.TenPay" Version="[$(TenPayBaselineVersion)]"
+                     Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin.TenPay'" />
+    <PackageDownload Include="Senparc.Weixin.MP" Version="[$(MpBaselineVersion)]"
+                     Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin.MP'" />
+    <PackageDownload Include="Senparc.Weixin.WxOpen" Version="[$(WxOpenBaselineVersion)]"
+                     Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin.WxOpen'" />
+    <PackageDownload Include="Senparc.Weixin.Open" Version="[$(OpenBaselineVersion)]"
+                     Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin.Open'" />
+    <PackageDownload Include="Senparc.Weixin.Work" Version="[$(WorkBaselineVersion)]"
+                     Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin.Work'" />
+    <PackageDownload Include="Senparc.Weixin.TenPayV3" Version="[$(TenPayV3BaselineVersion)]"
+                     Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin.TenPayV3'" />
+    <CurrentProject Include="$(RepositoryRoot)src/Senparc.Weixin/Senparc.Weixin/Senparc.Weixin.net10.csproj"
+                    Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin'" />
+    <CurrentProject Include="$(RepositoryRoot)src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPay/Senparc.Weixin.TenPay.net10.csproj"
+                    Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin.TenPay'" />
+    <CurrentProject Include="$(RepositoryRoot)src/Senparc.Weixin.MP/Senparc.Weixin.MP/Senparc.Weixin.MP.net10.csproj"
+                    Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin.MP'" />
+    <CurrentProject Include="$(RepositoryRoot)src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.WxOpen/Senparc.Weixin.WxOpen/Senparc.Weixin.WxOpen.net10.csproj"
+                    Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin.WxOpen'" />
+    <CurrentProject Include="$(RepositoryRoot)src/Senparc.Weixin.Open/Senparc.Weixin.Open/Senparc.Weixin.Open.net10.csproj"
+                    Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin.Open'" />
+    <CurrentProject Include="$(RepositoryRoot)src/Senparc.Weixin.Work/Senparc.Weixin.Work/Senparc.Weixin.Work.net10.csproj"
+                    Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin.Work'" />
+    <CurrentProject Include="$(RepositoryRoot)src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3/Senparc.Weixin.TenPayV3.net10.csproj"
+                    Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin.TenPayV3'" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <CompatibilityAssembly Include="Senparc.Weixin"
+                           Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin'">
+      <BaselineVersion>$(CoreBaselineVersion)</BaselineVersion>
+      <BaselineAssembly>$(CoreBaselineAssembly)</BaselineAssembly>
+      <CurrentAssembly>$(CoreCurrentAssembly)</CurrentAssembly>
+    </CompatibilityAssembly>
+    <CompatibilityAssembly Include="Senparc.Weixin.TenPay"
+                           Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin.TenPay'">
+      <BaselineVersion>$(TenPayBaselineVersion)</BaselineVersion>
+      <BaselineAssembly>$(TenPayBaselineAssembly)</BaselineAssembly>
+      <CurrentAssembly>$(TenPayCurrentAssembly)</CurrentAssembly>
+    </CompatibilityAssembly>
+    <CompatibilityAssembly Include="Senparc.Weixin.MP"
+                           Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin.MP'">
+      <BaselineVersion>$(MpBaselineVersion)</BaselineVersion>
+      <BaselineAssembly>$(MpBaselineAssembly)</BaselineAssembly>
+      <CurrentAssembly>$(MpCurrentAssembly)</CurrentAssembly>
+    </CompatibilityAssembly>
+    <CompatibilityAssembly Include="Senparc.Weixin.WxOpen"
+                           Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin.WxOpen'">
+      <BaselineVersion>$(WxOpenBaselineVersion)</BaselineVersion>
+      <BaselineAssembly>$(WxOpenBaselineAssembly)</BaselineAssembly>
+      <CurrentAssembly>$(WxOpenCurrentAssembly)</CurrentAssembly>
+    </CompatibilityAssembly>
+    <CompatibilityAssembly Include="Senparc.Weixin.Open"
+                           Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin.Open'">
+      <BaselineVersion>$(OpenBaselineVersion)</BaselineVersion>
+      <BaselineAssembly>$(OpenBaselineAssembly)</BaselineAssembly>
+      <CurrentAssembly>$(OpenCurrentAssembly)</CurrentAssembly>
+    </CompatibilityAssembly>
+    <CompatibilityAssembly Include="Senparc.Weixin.Work"
+                           Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin.Work'">
+      <BaselineVersion>$(WorkBaselineVersion)</BaselineVersion>
+      <BaselineAssembly>$(WorkBaselineAssembly)</BaselineAssembly>
+      <CurrentAssembly>$(WorkCurrentAssembly)</CurrentAssembly>
+    </CompatibilityAssembly>
+    <CompatibilityAssembly Include="Senparc.Weixin.TenPayV3"
+                           Condition="'$(CheckAllAssemblies)' == 'true' Or '$(ApiCompatAssembly)' == 'Senparc.Weixin.TenPayV3'">
+      <BaselineVersion>$(TenPayV3BaselineVersion)</BaselineVersion>
+      <BaselineAssembly>$(TenPayV3BaselineAssembly)</BaselineAssembly>
+      <CurrentAssembly>$(TenPayV3CurrentAssembly)</CurrentAssembly>
+    </CompatibilityAssembly>
+  </ItemGroup>
+
+  <UsingTask TaskName="Microsoft.DotNet.ApiCompat.Task.ValidateAssembliesTask"
+             AssemblyFile="$(ApiCompatTaskAssembly)" />
+
+  <Target Name="BuildCurrentAssemblies">
+    <Error Condition="!Exists('$(ApiCompatTaskAssembly)')"
+           Text="ApiCompat task was not found at $(ApiCompatTaskAssembly). Install and select the .NET 10 SDK." />
+    <MSBuild Projects="@(CurrentProject)"
+             Targets="Restore"
+             BuildInParallel="false"
+             Properties="Configuration=$(ApiCompatConfiguration);GeneratePackageOnBuild=false;EnableSourceControlManagerQueries=false;EnableSourceLink=false;PublishRepositoryUrl=false" />
+    <MSBuild Projects="@(CurrentProject)"
+             Targets="Build"
+             BuildInParallel="false"
+             Properties="Configuration=$(ApiCompatConfiguration);TargetFramework=$(CompatibilityTargetFramework);GeneratePackageOnBuild=false;RestoreIgnoreFailedSources=false;EnableSourceControlManagerQueries=false;EnableSourceLink=false;PublishRepositoryUrl=false" />
+  </Target>
+
+  <Target Name="ValidateApiCompatibility" DependsOnTargets="BuildCurrentAssemblies">
+    <Error Condition="!Exists('%(CompatibilityAssembly.BaselineAssembly)')"
+           Text="%(CompatibilityAssembly.Identity) baseline assembly was not restored: %(CompatibilityAssembly.BaselineAssembly)" />
+    <Error Condition="!Exists('%(CompatibilityAssembly.CurrentAssembly)')"
+           Text="Current %(CompatibilityAssembly.Identity) assembly was not built: %(CompatibilityAssembly.CurrentAssembly)" />
+
+    <Message Importance="high"
+             Text="ApiCompat: %(CompatibilityAssembly.Identity) %(CompatibilityAssembly.BaselineVersion) -> %(CompatibilityAssembly.CurrentAssembly)" />
+    <ValidateAssembliesTask LeftAssemblies="%(CompatibilityAssembly.BaselineAssembly)"
+                            RightAssemblies="%(CompatibilityAssembly.CurrentAssembly)"
+                            RoslynAssembliesPath="$(RoslynAssembliesPath)"
+                            EnableStrictMode="false" />
+  </Target>
+</Project>

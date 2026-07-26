@@ -1,10 +1,10 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
-    
+
     文件名：WorkMessageHandler.cs
     文件功能描述：企业号请求的集中处理方法
-    
-    
+
+
     创建标识：Senparc - 20141006
 
     修改标识：Senparc - 20150313
@@ -74,7 +74,7 @@
 
     修改标识：LofyLiu - 20240315
     修改描述：添加: 模板卡片点击回调事件
-    
+
     修改标识: IcedMango - 20241114
     修改描述: 添加: 通用模板卡片右上角菜单事件推送; 修复不正确的通用模板卡片事件推送类型
 
@@ -86,6 +86,9 @@
 
     修改标识：Senparc - 20260718
     修改描述：v3.32.0 限制消息上下文容量并缓存响应 XML
+
+    修改标识：Senparc - 20260726
+    修改描述：v3.32.1 补齐企业微信通讯录、安全、智能机器人、微信客服和获客助手接口；增加应用邮箱新邮件变更回调处理入口；增加设备数据授权变更回调处理入口；增加硬件设备特征变更回调处理入口
 
 ----------------------------------------------------------------*/
 
@@ -655,6 +658,24 @@ namespace Senparc.Weixin.Work.MessageHandlers
         {
             return DefaultResponseMessage(requestMessage);
         }
+
+        /// <summary>
+        /// 上下游空间、分组或企业变更事件(change_chain)
+        /// </summary>
+        /// <param name="requestMessage">企业微信上下游变更事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeChainRequest(RequestMessageEvent_Change_Chain requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>安全管理事件。</summary>
+        /// <param name="requestMessage">企业微信事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_SecurityRequest(RequestMessageEvent_Security requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
         /// <summary>
         /// 新增成员事件推送
         /// </summary>
@@ -770,6 +791,17 @@ namespace Senparc.Weixin.Work.MessageHandlers
         /// <returns></returns>
         public virtual IWorkResponseMessageBase OnEvent_ChangeExternalContactDelFollowUserRequest(
             RequestMessageEvent_Change_ExternalContact_Del_FollowUser requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 客户接替失败事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalContactTransferFailRequest(
+            RequestMessageEvent_Change_ExternalContact_Transfer_Fail requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -944,6 +976,172 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
+        /// <summary>微信客服账号授权变更通知。</summary>
+        /// <param name="requestMessage">企业微信事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_KfAccountAuthChangeRequest(RequestMessageEvent_Kf_Account_Auth_Change requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>获客助手事件通知。</summary>
+        /// <param name="requestMessage">企业微信事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_CustomerAcquisitionRequest(RequestMessageEvent_Customer_Acquisition requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>应用邮箱新邮件变更事件。</summary>
+        /// <param name="requestMessage">包含变更类型和新邮件数量的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_AppEmailChangeRequest(
+            RequestMessageEvent_App_Email_Change requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>公共邮箱接收邮件事件。</summary>
+        /// <param name="requestMessage">包含公共邮箱 ID 和当前新邮件数量的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_PublicEmailChangeRequest(
+            RequestMessageEvent_Public_Email_Change requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>微盘容量不足事件。</summary>
+        /// <param name="requestMessage">企业微盘容量使用率超过 90% 时产生的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_WeDriveInsufficientCapacityRequest(
+            RequestMessageEvent_WeDrive_Insufficient_Capacity requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>微盘空间变更事件。</summary>
+        /// <param name="requestMessage">包含变更类型和空间 ID 列表的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_WeDriveSpaceChangeRequest(
+            RequestMessageEvent_WeDrive_Space_Change requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>微盘文件变更事件。</summary>
+        /// <param name="requestMessage">包含变更类型和文件 ID 列表的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_WeDriveFileChangeRequest(
+            RequestMessageEvent_WeDrive_File_Change requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>数据与智能专区程序通知应用事件。</summary>
+        /// <param name="requestMessage">包含通知 ID 和通知场景的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_ProgramNotifyRequest(
+            RequestMessageEvent_Program_Notify requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>家校通讯录成员或部门变更事件。</summary>
+        /// <param name="requestMessage">包含变更类型和成员或部门 ID 的事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeSchoolContactRequest(
+            RequestMessageEvent_Change_School_Contact requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>会议室预定事件。</summary>
+        /// <param name="requestMessage">企业微信会议室预定事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_BookMeetingRoomRequest(RequestMessageEvent_Book_Meeting_Room requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>会议室取消预定事件。</summary>
+        /// <param name="requestMessage">企业微信会议室取消预定事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_CancelMeetingRoomRequest(RequestMessageEvent_Cancel_Meeting_Room requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>小程序对外收款支付成功通知。</summary>
+        /// <param name="requestMessage">包含二次加密业务资源的支付通知。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_MiniProgramPayTransactionRequest(
+            RequestMessageEvent_MiniProgramPay_Transaction requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>小程序对外收款退款通知。</summary>
+        /// <param name="requestMessage">包含二次加密业务资源的退款通知。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_MiniProgramPayRefundRequest(
+            RequestMessageEvent_MiniProgramPay_Refund requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>删除日历事件。</summary>
+        public virtual IWorkResponseMessageBase OnEvent_DeleteCalendarRequest(
+            RequestMessageEvent_Delete_Calendar requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>修改日历事件。</summary>
+        public virtual IWorkResponseMessageBase OnEvent_ModifyCalendarRequest(
+            RequestMessageEvent_Modify_Calendar requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>修改日程事件。</summary>
+        public virtual IWorkResponseMessageBase OnEvent_ModifyScheduleRequest(
+            RequestMessageEvent_Modify_Schedule requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>删除日程事件。</summary>
+        public virtual IWorkResponseMessageBase OnEvent_DeleteScheduleRequest(
+            RequestMessageEvent_Delete_Schedule requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>日程回执事件。</summary>
+        public virtual IWorkResponseMessageBase OnEvent_RespondScheduleRequest(
+            RequestMessageEvent_Respond_Schedule requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>成员提交高级功能账号申请事件。</summary>
+        /// <param name="requestMessage">成员提交申请事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_SubmitVipAccountApprovalRequest(
+            RequestMessageEvent_Submit_Vip_Account_Approval requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>成员高级功能账号申请终止事件。</summary>
+        /// <param name="requestMessage">成员申请终止事件请求消息。</param>
+        /// <returns>微信接口返回结果。</returns>
+        public virtual IWorkResponseMessageBase OnEvent_FinishVipAccountApprovalRequest(
+            RequestMessageEvent_Finish_Vip_Account_Approval requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
         #endregion //Event 下属分类
         #endregion
 
@@ -1038,6 +1236,28 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return ThirdPartyEventSuccessResult;
         }
 
+        /// <summary>
+        /// 处理设备数据授权变更通知。
+        /// </summary>
+        /// <param name="requestMessage">设备数据授权变更通知。</param>
+        /// <returns>第三方回调响应文本。</returns>
+        protected virtual string OnThirdPartyEvent_DeviceDataAuthChange(
+            RequestMessageInfo_Device_Data_Auth_Change requestMessage)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        /// <summary>
+        /// 处理硬件设备特征变更通知。
+        /// </summary>
+        /// <param name="requestMessage">硬件设备特征变更通知。</param>
+        /// <returns>第三方回调响应文本。</returns>
+        protected virtual string OnThirdPartyEvent_DeviceFeatureChange(
+            RequestMessageInfo_Device_Feature_Change requestMessage)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
         #region 外部联系人
 
         protected virtual string OnThirdPartyEvent_ChangeExternalContactAddRequest(RequestMessageEvent_Change_ExternalContact_Add requestMessage)
@@ -1061,6 +1281,11 @@ namespace Senparc.Weixin.Work.MessageHandlers
         }
 
         protected virtual string OnThirdPartyEvent_ChangeExternalContactDelFollowUserRequest(RequestMessageEvent_Change_ExternalContact_Del_FollowUser requestMessage)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        protected virtual string OnThirdPartyEvent_ChangeExternalContactTransferFailRequest(RequestMessageEvent_Change_ExternalContact_Transfer_Fail requestMessage)
         {
             return ThirdPartyEventSuccessResult;
         }

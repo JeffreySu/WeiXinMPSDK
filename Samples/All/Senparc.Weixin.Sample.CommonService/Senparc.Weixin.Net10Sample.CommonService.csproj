@@ -2,12 +2,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
-        <Version>3.1.0</Version>
+        <Version>3.1.1</Version>
         <PackageReleaseNotes>
           [2026-07-18] v3.0.3 Dependency update from Senparc.Weixin to 6.23.2; Senparc.Weixin.MP to 16.24.4; Senparc.Weixin.Open to 4.24.2; Senparc.Weixin.TenPayV3 to 2.4.1; Senparc.Weixin.Work to 3.31.1; Senparc.Weixin.WxOpen to 3.27.3
           [2026-07-18] v3.1.0 AI 消息示例迁移至 AgentKernel 会话模型
           1、使用 Microsoft.Extensions.AI 保存和恢复聊天历史
           2、升级文本、图像生成及对话记忆到 AgentKernel/MAF
+          [2026-07-23] v3.1.1 升级公共服务依赖并适配最新 Senparc 组件
+          1、升级 NeuChar 3.0，并保持 AgentKernel 0.1.10 兼容
+          2、同步微信模块依赖以支持最新序列化与运行时能力
         </PackageReleaseNotes>
 		<LangVersion>latest</LangVersion>
         <AssemblyName>Senparc.Weixin.MP.Sample.CommonService</AssemblyName>
@@ -24,7 +27,7 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Senparc.AI.AgentKernel" Version="0.1.10" />
-        <PackageReference Include="Senparc.NeuChar" Version="2.6.2" />
+        <PackageReference Include="Senparc.NeuChar" Version="3.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
         <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
         <PackageReference Include="System.Diagnostics.FileVersionInfo" Version="4.3.0" />

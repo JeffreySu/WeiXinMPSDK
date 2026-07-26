@@ -21,11 +21,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2026 Senparc
 
-    文件名：UserAPI.cs
+    文件名：UserApi.cs
     文件功能描述：用户接口
 
 
-    创建标识：Senparc - 20150211
+    创建标识：Senparc - 20160707
 
     修改标识：Senparc - 20150303
     修改描述：整理接口
@@ -44,6 +44,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190129
     修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+
+    修改标识：Senparc - 20260724
+    修改描述：v16.25.1 补齐公众号 openApi、统计、图像、医疗、非税和一物一码官方接口
 
 ----------------------------------------------------------------*/
 
@@ -153,6 +156,30 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     user_list = userList,
                 };
                 return CommonJsonSend.Send<BatchGetUserInfoJsonResult>(accessToken, url, data, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 账号迁移后，将原账号关注用户的 OpenId 转换为新账号 OpenId
+        /// </summary>
+        /// <param name="accessTokenOrAppId">目标账号 AccessToken 或 AppId（推荐使用 AppId，需要先注册）</param>
+        /// <param name="fromAppId">原账号的原始 Id（gh_ 开头），不是 AppId</param>
+        /// <param name="openIdList">原账号用户 OpenId 列表，一次最多 100 个</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static ChangeOpenIdJsonResult ChangeOpenId(string accessTokenOrAppId, string fromAppId,
+            List<string> openIdList, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/changeopenid?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    from_appid = fromAppId,
+                    openid_list = openIdList
+                };
+
+                return CommonJsonSend.Send<ChangeOpenIdJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
 
@@ -303,6 +330,30 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
+        /// 【异步方法】账号迁移后，将原账号关注用户的 OpenId 转换为新账号 OpenId
+        /// </summary>
+        /// <param name="accessTokenOrAppId">目标账号 AccessToken 或 AppId（推荐使用 AppId，需要先注册）</param>
+        /// <param name="fromAppId">原账号的原始 Id（gh_ 开头），不是 AppId</param>
+        /// <param name="openIdList">原账号用户 OpenId 列表，一次最多 100 个</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns>微信接口返回结果。</returns>
+        public static async Task<ChangeOpenIdJsonResult> ChangeOpenIdAsync(string accessTokenOrAppId, string fromAppId,
+            List<string> openIdList, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/changeopenid?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    from_appid = fromAppId,
+                    openid_list = openIdList
+                };
+
+                return await CommonJsonSend.SendAsync<ChangeOpenIdJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// 获取黑名单
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
@@ -364,4 +415,3 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #endregion
     }
 }
-

@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
     <LangVersion>12.0</LangVersion>
-    <Version>1.19.0</Version>
+    <Version>1.20.0</Version>
     <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -67,6 +67,9 @@
             3、增强微信支付请求模型的 Native AOT 序列化兼容能力
             4、新增企业红包发放/查询、企业向员工付款/查询的真实异步入口；企业红包入口支持取消
             5、同步/异步共享请求签名和响应解析，确定性释放证书、响应和原始请求流，保留全部既有同步入口
+            [2026-07-28] v1.20.0 新增微信支付海关报关 V2 完整模块
+            1、新增报关、报关状态查询和重新申报 3 组同步/异步接口
+            2、补齐 MD5 签名 XML 请求、强类型结果及多子单索引解析
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

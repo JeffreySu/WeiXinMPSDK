@@ -2,15 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <PackageReleaseNotes>
       [2026-07-18] v1.0.1 Dependency update from Senparc.Weixin to 6.23.2; Senparc.Weixin.Cache.Redis to 2.21.2
       [2026-07-20] v1.0.2 Dependency update from Senparc.Weixin to 6.24.0; Senparc.Weixin.Cache.Redis to 2.21.3
       [2026-07-23] v1.0.3 同步 Redis 缓存测试依赖
       1、适配 Redis 缓存组件及 CO2NET.Cache.Redis 新版本
+      [2026-07-29] v1.0.4 完善 Redis 缓存测试项目发现配置
+      1、显式标记测试项目，确保缓存回归测试被测试运行器加载
     </PackageReleaseNotes>
 
     <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>

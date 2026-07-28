@@ -26,21 +26,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20210926
+
+    修改标识：Senparc - 20260728
+    修改描述：v2.6.0 新增积分提交状态查询和停车状态同步接口
     
 ----------------------------------------------------------------*/
 
-using Senparc.CO2NET.Extensions;
-using Senparc.CO2NET.Helpers;
-using Senparc.CO2NET.Trace;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.TenPayV3.Apis.BusinessCircle;
 using Senparc.Weixin.TenPayV3.Apis.Entities;
-using Senparc.Weixin.TenPayV3.Entities;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Apis
@@ -90,11 +86,58 @@ namespace Senparc.Weixin.TenPayV3.Apis
         /// <returns></returns>
         public async Task<QueryUserAuthorizationReturnJson> QueryUserAuthorizationAsync(string appid, string openid, int timeOut = Config.TIME_OUT)
         {
-            var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/businesscircle/user-authorizations/{openid}?appid={appid}");
+            var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/businesscircle/user-authorizations/{Uri.EscapeDataString(openid ?? string.Empty)}?appid={Uri.EscapeDataString(appid ?? string.Empty)}");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
-            return await tenPayApiRequest.RequestAsync<QueryUserAuthorizationReturnJson>(url, null, timeOut, ApiRequestMethod.GET);
+            return await tenPayApiRequest.RequestAsync<QueryUserAuthorizationReturnJson>(url, null, timeOut, ApiRequestMethod.GET).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 查询顾客积分提交状态。
+        /// <para>官方文档：https://pay.weixin.qq.com/doc/v3/merchant/4012534994</para>
+        /// </summary>
+        /// <param name="openid">顾客在小程序 AppID 下的 OpenID。</param>
+        /// <param name="brandid">微信支付分配的品牌 ID。</param>
+        /// <param name="appid">顾客授权时使用的小程序 AppID。</param>
+        /// <param name="subMchid">服务商模式下的子商户号。</param>
+        /// <param name="timeOut">超时时间，单位为毫秒。</param>
+        public async Task<QueryPointsCommitStatusReturnJson>
+            QueryPointsCommitStatusAsync(string openid, long brandid,
+                string appid, string subMchid = null,
+                int timeOut = Config.TIME_OUT)
+        {
+            var query = new List<string>();
+            if (!string.IsNullOrWhiteSpace(subMchid))
+            {
+                query.Add("sub_mchid=" + Uri.EscapeDataString(subMchid));
+            }
+            query.Add("brandid=" + brandid);
+            query.Add("appid=" + Uri.EscapeDataString(appid ?? string.Empty));
+
+            var path = $"v3/businesscircle/users/{Uri.EscapeDataString(openid ?? string.Empty)}/points/commit_status?{string.Join("&", query)}";
+            var url = BasePayApis.GetPayApiUrl(
+                $"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}{path}");
+            var request = new TenPayApiRequest(_tenpayV3Setting);
+            return await request.RequestAsync<QueryPointsCommitStatusReturnJson>(
+                url, null, timeOut, ApiRequestMethod.GET).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 同步智慧商圈停车入场或离场状态。
+        /// <para>成功时微信支付返回 HTTP 204，SDK 返回空的 ReturnJsonBase 实例。</para>
+        /// <para>官方文档：https://pay.weixin.qq.com/doc/v3/merchant/4012535502</para>
+        /// </summary>
+        /// <param name="data">品牌、顾客、车辆及停车状态信息。</param>
+        /// <param name="timeOut">超时时间，单位为毫秒。</param>
+        public async Task<ReturnJsonBase> SyncParkingStateAsync(
+            BusinessCircleParkingRequestData data,
+            int timeOut = Config.TIME_OUT)
+        {
+            var url = BasePayApis.GetPayApiUrl(
+                $"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/businesscircle/parkings");
+            var request = new TenPayApiRequest(_tenpayV3Setting);
+            return await request.RequestAsync<ReturnJsonBase>(url, data, timeOut)
+                .ConfigureAwait(false);
         }
 
     }
 }
-

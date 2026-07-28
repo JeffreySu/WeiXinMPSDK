@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <PackageReleaseNotes>
       [2026-07-18] v1.0.1 完善 HTTP 客户端复用和随机数安全性测试
       1、覆盖同配置 HttpClient 复用及自定义请求头隔离
@@ -33,9 +33,13 @@
       21、增加连锁品牌分账 12 项目录能力、现行路径、模型、通知、流式下载及旧入口保留测试
       22、增加商品券（单券）27 项请求、2 类通知、嵌套模型、查询编码、上传限长及旧商家券保留测试
       23、增加商品券（多次优惠）8 项独有请求、批次组和用户券组模型、路径编码及单券入口保留测试
+      [2026-07-29] v1.0.4 增加商家转账授权、智慧商圈与安全探测契约测试并完善测试发现配置
+      1、覆盖新增接口的路径、查询参数、请求模型和通知解密入口
+      2、显式标记测试项目，确保新增支付 V3 契约测试被测试运行器加载
     </PackageReleaseNotes>
 
     <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>

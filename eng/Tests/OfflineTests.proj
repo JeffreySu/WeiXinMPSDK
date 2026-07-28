@@ -1,0 +1,43 @@
+<Project DefaultTargets="Run">
+  <PropertyGroup>
+    <RepositoryRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../..'))</RepositoryRoot>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <OfflineRestore Condition="'$(OfflineRestore)' == ''">false</OfflineRestore>
+    <RestoreArgument Condition="'$(OfflineRestore)' != 'true'">--no-restore</RestoreArgument>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <OfflineTestProject Include="$(RepositoryRoot)/src/Senparc.Weixin/Senparc.WeixinTests/Senparc.WeixinTests.net10.csproj">
+      <Filter>FullyQualifiedName~P1SafetyTests|FullyQualifiedName~WeixinJsonSerializerTests</Filter>
+    </OfflineTestProject>
+    <OfflineTestProject Include="$(RepositoryRoot)/src/Senparc.Weixin.MP/Senparc.Weixin.MP.Test/Senparc.Weixin.MP.Test.net10.csproj">
+      <Filter>FullyQualifiedName~ContractTests</Filter>
+    </OfflineTestProject>
+    <OfflineTestProject Include="$(RepositoryRoot)/src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.WxOpen.Tests/Senparc.Weixin.WxOpen.Tests.net10.csproj">
+      <Filter>FullyQualifiedName~ContractTests</Filter>
+    </OfflineTestProject>
+    <OfflineTestProject Include="$(RepositoryRoot)/src/Senparc.Weixin.Open/Senparc.Weixin.Open.Test/Senparc.Weixin.Open.Test.net10.csproj">
+      <Filter>FullyQualifiedName~ContractTests</Filter>
+    </OfflineTestProject>
+    <OfflineTestProject Include="$(RepositoryRoot)/src/Senparc.Weixin.Work/Senparc.Weixin.Work.Test/Senparc.Weixin.Work.Test.net10.csproj">
+      <Filter>FullyQualifiedName~ContractTests</Filter>
+    </OfflineTestProject>
+    <OfflineTestProject Include="$(RepositoryRoot)/src/Senparc.Weixin.TenPay/Senparc.Weixin.TenPayV3.Test/Senparc.Weixin.TenPayV3.Test.net10.csproj">
+      <Filter>FullyQualifiedName~ContractTests|FullyQualifiedName~TenPayNotifyHandlerTests</Filter>
+    </OfflineTestProject>
+  </ItemGroup>
+
+  <Target Name="List">
+    <Message Importance="high" Text="%(OfflineTestProject.Identity) :: %(OfflineTestProject.Filter)" />
+  </Target>
+
+  <Target Name="Run">
+    <Exec WorkingDirectory="$(RepositoryRoot)"
+          Command="dotnet test &quot;%(OfflineTestProject.Identity)&quot; -c $(Configuration) $(RestoreArgument) --filter &quot;%(OfflineTestProject.Filter)&quot; --logger &quot;console;verbosity=minimal&quot; -p:TargetFramework=net10.0 -p:GeneratePackageOnBuild=false -clp:ErrorsOnly" />
+  </Target>
+
+  <Target Name="RunStress">
+    <Exec WorkingDirectory="$(RepositoryRoot)"
+          Command="dotnet test &quot;$(RepositoryRoot)/src/Senparc.Weixin/Senparc.WeixinTests/Senparc.WeixinTests.net10.csproj&quot; -c $(Configuration) $(RestoreArgument) --settings &quot;$(RepositoryRoot)/tests/stress.runsettings&quot; --logger &quot;console;verbosity=minimal&quot; -p:TargetFramework=net10.0 -p:GeneratePackageOnBuild=false -clp:ErrorsOnly" />
+  </Target>
+</Project>

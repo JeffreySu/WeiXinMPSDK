@@ -5,6 +5,7 @@
     <!--<AssemblyName>Senparc.Weixin.MP.Test</AssemblyName>-->
 
     <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <RunConfiguration>
+    <ResultsDirectory>../TestResults/Stress</ResultsDirectory>
+    <CollectSourceInformation>true</CollectSourceInformation>
+    <TestCaseFilter>TestCategory=Stress</TestCaseFilter>
+  </RunConfiguration>
+</RunSettings>

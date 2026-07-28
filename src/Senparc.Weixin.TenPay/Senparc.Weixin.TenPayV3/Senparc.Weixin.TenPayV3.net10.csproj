@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>2.5.1</Version>
+    <Version>2.6.0</Version>
     <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
     <LangVersion>10.0</LangVersion>
@@ -107,6 +107,11 @@
 		24、补齐商品券（单券）27 项服务端请求、2 类通知、强类型模型及 2 MiB 图片上传限长，并保留旧商家券入口
 		25、补齐商品券（多次优惠）8 项独有批次组和用户券组请求，复用其余 18 项请求与 2 类通知，并保留单券入口
 		26、统一商品券兼容命名与多次优惠共享模型，修复新增接口的编译集成
+		[2026-07-28] v2.6.0 补齐商家转账授权、智慧商圈与安全探测接口
+		1、新增商家转账免确认收款预受理、授权创建/查询/关闭及授权后转账 5 项接口
+		2、新增商家转账结果与授权结果通知模型及强类型解密入口
+		3、新增智慧商圈积分提交状态查询和停车状态同步接口
+		4、新增安全探测接口与成功通知，自动处理敏感字段加密和 Wechatpay-Serial 请求头
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

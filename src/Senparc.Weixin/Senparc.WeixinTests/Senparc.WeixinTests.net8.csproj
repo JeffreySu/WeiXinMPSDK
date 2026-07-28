@@ -5,6 +5,7 @@
     <!--<AssemblyName>Senparc.WeixinTests</AssemblyName>-->
 
     <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>

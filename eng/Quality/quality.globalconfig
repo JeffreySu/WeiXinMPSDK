@@ -1,0 +1,11 @@
+is_global = true
+global_level = 100
+
+# This analyzer profile is opt-in through QualityGate.proj and does not affect normal builds.
+dotnet_analyzer_diagnostic.severity = none
+dotnet_analyzer_diagnostic.category-Reliability.severity = suggestion
+dotnet_analyzer_diagnostic.category-Security.severity = suggestion
+dotnet_analyzer_diagnostic.category-Performance.severity = suggestion
+dotnet_diagnostic.CA2000.severity = warning
+dotnet_diagnostic.CA2016.severity = warning
+dotnet_diagnostic.CS4014.severity = warning

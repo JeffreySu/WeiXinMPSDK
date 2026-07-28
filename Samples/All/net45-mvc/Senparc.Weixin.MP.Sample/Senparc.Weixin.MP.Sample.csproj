@@ -14,13 +14,15 @@
     <RootNamespace>Senparc.Weixin.MP.Sample</RootNamespace>
     <AssemblyName>Senparc.Weixin.MP.Sample</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <PackageReleaseNotes>
       [2026-07-18] v1.0.1 Dependency update from Senparc.Weixin.Net10Sample.CommonService to 3.0.3
       [2026-07-18] v1.0.2 Dependency update from Senparc.Weixin.Net10Sample.CommonService to 3.1.0
       [2026-07-23] v1.0.3 升级 .NET Framework 示例的 Senparc 依赖
       1、升级 CO2NET、NeuChar 与微信组件至最新稳定版
       2、同步 packages.config 与 net462 程序集引用路径
+      [2026-07-29] v1.0.4 Dependency update from Senparc.Weixin SDK payment modules to 1.20.0 and 2.6.0
+      1、保持 .NET Framework 示例与当前微信支付和支付 V3 契约兼容
     </PackageReleaseNotes>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>

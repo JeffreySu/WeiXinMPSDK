@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <RunConfiguration>
+    <ResultsDirectory>../TestResults/Live</ResultsDirectory>
+    <CollectSourceInformation>true</CollectSourceInformation>
+    <TestCaseFilter>TestCategory=Live</TestCaseFilter>
+  </RunConfiguration>
+</RunSettings>

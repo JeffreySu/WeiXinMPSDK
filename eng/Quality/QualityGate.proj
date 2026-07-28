@@ -1,0 +1,34 @@
+<Project DefaultTargets="Validate">
+  <PropertyGroup>
+    <RepositoryRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../..'))</RepositoryRoot>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <QualityRestore Condition="'$(QualityRestore)' == ''">false</QualityRestore>
+    <RestoreArgument Condition="'$(QualityRestore)' != 'true'">--no-restore</RestoreArgument>
+  </PropertyGroup>
+
+  <Target Name="Build">
+    <Exec WorkingDirectory="$(RepositoryRoot)"
+          Command="dotnet build &quot;$(RepositoryRoot)/src/Senparc.Weixin.All/Senparc.Weixin.All.net10.csproj&quot; -c $(Configuration) $(RestoreArgument) -m:1 -p:TargetFramework=net10.0 -p:GeneratePackageOnBuild=false -p:EnableNETAnalyzers=true -p:AnalysisLevel=latest-minimum -p:GlobalAnalyzerConfigFiles=&quot;$(RepositoryRoot)/eng/Quality/quality.globalconfig&quot; -p:EnableSourceControlManagerQueries=false -p:EnableSourceLink=false -p:PublishRepositoryUrl=false -clp:ErrorsOnly" />
+  </Target>
+
+  <Target Name="Tests">
+    <MSBuild Projects="$(RepositoryRoot)/eng/Tests/OfflineTests.proj"
+             Targets="Run"
+             Properties="Configuration=$(Configuration);OfflineRestore=$(QualityRestore)" />
+  </Target>
+
+  <Target Name="Performance">
+    <Exec WorkingDirectory="$(RepositoryRoot)"
+          Command="dotnet build &quot;$(RepositoryRoot)/benchmarks/Senparc.Weixin.Benchmarks/Senparc.Weixin.Benchmarks.csproj&quot; -c $(Configuration) $(RestoreArgument) -m:1 -p:TargetFramework=net10.0 -p:GeneratePackageOnBuild=false -p:EnableSourceControlManagerQueries=false -p:EnableSourceLink=false -clp:ErrorsOnly" />
+    <Exec WorkingDirectory="$(RepositoryRoot)"
+          Command="dotnet run --project &quot;$(RepositoryRoot)/benchmarks/Senparc.Weixin.Benchmarks/Senparc.Weixin.Benchmarks.csproj&quot; -c $(Configuration) --no-build --no-restore -- --gate" />
+  </Target>
+
+  <Target Name="ApiCompat">
+    <Exec WorkingDirectory="$(RepositoryRoot)"
+          Command="dotnet msbuild &quot;$(RepositoryRoot)/eng/ApiCompat/ApiCompat.proj&quot; -restore -t:ValidateApiCompatibility -p:ApiCompatConfiguration=$(Configuration) -v:minimal -clp:ErrorsOnly" />
+  </Target>
+
+  <Target Name="Validate" DependsOnTargets="Build;Tests;Performance" />
+  <Target Name="ValidateFull" DependsOnTargets="Validate;ApiCompat" />
+</Project>

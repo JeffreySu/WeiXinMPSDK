@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <PackageReleaseNotes>
       [2026-07-18] v1.0.1 Dependency update from Senparc.Weixin to 6.23.2; Senparc.Weixin.MP to 16.24.4
       [2026-07-20] v1.0.2 Dependency update from Senparc.Weixin to 6.24.0; Senparc.Weixin.MP to 16.25.0
@@ -10,10 +10,13 @@
       1、适配公众号组件、NeuChar 3.0 与最新序列化依赖
       2、补充公众号新增接口的序列化与契约测试
       3、支持契约测试从隔离构建目录定位源码，并覆盖图像、医疗、非税和一物一码产品簇
+      [2026-07-29] v1.0.4 完善公众号测试项目发现配置
+      1、显式标记测试项目，确保公众号契约测试被测试运行器加载
     </PackageReleaseNotes>
     <!--<AssemblyName>Senparc.Weixin.MP.Test</AssemblyName>-->
 
     <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>

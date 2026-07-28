@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <RunConfiguration>
+    <ResultsDirectory>../TestResults/Unit</ResultsDirectory>
+    <CollectSourceInformation>true</CollectSourceInformation>
+    <TestCaseFilter>(TestCategory!=Integration)&amp;(TestCategory!=Live)&amp;(TestCategory!=Stress)</TestCaseFilter>
+  </RunConfiguration>
+</RunSettings>

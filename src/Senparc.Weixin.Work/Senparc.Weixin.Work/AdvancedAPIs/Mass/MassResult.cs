@@ -79,6 +79,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Mass
         public string toparty { get; set; }
         public string totag { get; set; }
         public string msgtype { get; set; }
+        /// <summary>
+        /// 企业应用的id，整型
+        /// 企业内部开发，可在应用的设置页面查看；
+        /// 第三方服务商，可通过接口 获取企业授权信息 获取该参数值
+        /// </summary>
+        public int agentid { get; set; }
         public Miniprogram_Notice miniprogram_notice { get; set; }
         /// <summary>
         /// 表示是否开启重复消息检查，0表示否，1表示是，默认0

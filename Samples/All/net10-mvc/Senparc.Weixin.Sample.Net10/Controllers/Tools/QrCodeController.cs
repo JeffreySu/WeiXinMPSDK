@@ -64,6 +64,11 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
 
             //便利所有二维码内容
             var i = 0;
+            var qrCodeHints = new Dictionary<EncodeHintType, object>
+            {
+                [EncodeHintType.CHARACTER_SET] = "UTF-8"
+            };
+
             foreach (var code in codes)
             {
                 if (code.IsNullOrEmpty())
@@ -77,7 +82,7 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
 
                 //二维码生成开始
                 BitMatrix bitMatrix;//定义像素矩阵对象
-                bitMatrix = new MultiFormatWriter().encode(finalCode, BarcodeFormat.QR_CODE /*条码或二维码标准*/, 600/*宽度*/, 600/*高度*/);
+                bitMatrix = new MultiFormatWriter().encode(finalCode, BarcodeFormat.QR_CODE /*条码或二维码标准*/, 600/*宽度*/, 600/*高度*/, qrCodeHints);
                 var bw = new ZXing.BarcodeWriterPixelData();
 
                 var pixelData = bw.Write(bitMatrix);

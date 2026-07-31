@@ -40,7 +40,7 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
-        <PackageReference Include="Senparc.AI.AgentKernel" Version="0.1.10" />
+        <PackageReference Include="Senparc.AI.AgentKernel" Version="0.1.11" />
         <PackageReference Include="Senparc.CO2NET.WebApi" Version="2.1.9-preview" />
         <PackageReference Include="Senparc.NeuChar.App" Version="1.6.0" />
         <PackageReference Include="Senparc.NeuChar.AspNet" Version="1.7.0" />
@@ -70,9 +70,7 @@
     </ItemGroup>
     <Import Project="..\..\Senparc.Weixin.Sample.Shared\Senparc.Weixin.Sample.Shared.projitems" Label="Shared" />
     <ItemGroup>
-        <Content Update="App_Data\**\*;wwwroot\**\*;..\..\Senparc.Weixin.Sample.Shared\wwwroot\**\*;**\*.Development.json;appsettings.json;web.config"
-                 CopyToPublishDirectory="Never" />
-        <None Update="App_Data\**\*;wwwroot\**\*;**\*.Development.json;appsettings.json;web.config"
-              CopyToPublishDirectory="Never" />
+        <Content Update="App_Data\**\*;wwwroot\**\*;..\..\Senparc.Weixin.Sample.Shared\wwwroot\**\*;**\*.Development.json;appsettings.json;web.config" CopyToPublishDirectory="Never" />
+        <None Update="App_Data\**\*;wwwroot\**\*;**\*.Development.json;appsettings.json;web.config" CopyToPublishDirectory="Never" />
     </ItemGroup>
 </Project>

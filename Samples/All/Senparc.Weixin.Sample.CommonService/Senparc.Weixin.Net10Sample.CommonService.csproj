@@ -29,7 +29,7 @@
         <None Remove="packages.config" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Senparc.AI.AgentKernel" Version="0.1.10" />
+        <PackageReference Include="Senparc.AI.AgentKernel" Version="0.1.11" />
         <PackageReference Include="Senparc.NeuChar" Version="3.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
         <PackageReference Include="System.Drawing.Common" Version="8.0.0" />

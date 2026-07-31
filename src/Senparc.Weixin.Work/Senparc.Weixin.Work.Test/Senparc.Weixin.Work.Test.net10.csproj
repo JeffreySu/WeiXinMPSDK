@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <PackageReleaseNotes>
       [2026-07-18] v1.0.1 Dependency update from Senparc.Weixin to 6.23.2; Senparc.Weixin.MP to 16.24.4; Senparc.Weixin.Work to 3.31.1
       [2026-07-20] v1.0.2 Dependency update from Senparc.Weixin to 6.24.0; Senparc.Weixin.MP to 16.25.0; Senparc.Weixin.Work to 3.32.0
@@ -84,6 +84,7 @@
       75、增加开放硬件访客数据 2 项占位入口、无猜测路径、官方文档编号和明确异常契约测试
       [2026-07-29] v1.0.4 完善企业微信测试项目发现配置
       1、显式标记测试项目，确保企业微信契约测试被测试运行器加载
+      [2026-07-31] v1.0.5 Dependency update from Senparc.Weixin.Cache.CsRedis to 1.3.5; Senparc.Weixin.MP to 16.25.2; Senparc.WeixinTests to 1.0.5; Senparc.Weixin to 6.25.1; Senparc.Weixin.Work to 3.32.2
     </PackageReleaseNotes>
 
     <IsPackable>false</IsPackable>

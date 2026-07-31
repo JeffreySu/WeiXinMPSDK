@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-    <Version>4.24.4</Version>
+    <Version>4.24.5</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -221,6 +221,7 @@
 		6、补齐第三方平台批量云开发环境、云函数、数据库、文件及静态网站 31 项接口
 		7、补齐第三方平台普通代云开发环境、消息推送、云函数、数据库、文件及微信支付授权 37 项接口
 		8、补齐当前官方目录的授权方选项、开放平台账号绑定状态及二维码校验文件接口
+		[2026-07-31] v4.24.5 Dependency update from Senparc.Weixin to 6.25.1
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

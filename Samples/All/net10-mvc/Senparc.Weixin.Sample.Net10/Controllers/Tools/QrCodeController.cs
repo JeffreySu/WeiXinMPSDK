@@ -1,4 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2026 Senparc
+
+    文件名：QrCodeController.cs
+    文件功能描述：提供二维码批量生成与下载功能
+
+
+    创建标识：Senparc - 20200206
+
+    修改标识：Senparc - 20260731
+    修改描述：v10.1.0.3 为二维码编码显式指定 UTF-8，支持中文等非拉丁内容
+
+----------------------------------------------------------------*/
+using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
 using System;
@@ -64,6 +77,11 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
 
             //便利所有二维码内容
             var i = 0;
+            var qrCodeHints = new Dictionary<EncodeHintType, object>
+            {
+                [EncodeHintType.CHARACTER_SET] = "UTF-8"
+            };
+
             foreach (var code in codes)
             {
                 if (code.IsNullOrEmpty())
@@ -77,7 +95,7 @@ namespace Senparc.Weixin.Sample.Net8.Controllers
 
                 //二维码生成开始
                 BitMatrix bitMatrix;//定义像素矩阵对象
-                bitMatrix = new MultiFormatWriter().encode(finalCode, BarcodeFormat.QR_CODE /*条码或二维码标准*/, 600/*宽度*/, 600/*高度*/);
+                bitMatrix = new MultiFormatWriter().encode(finalCode, BarcodeFormat.QR_CODE /*条码或二维码标准*/, 600/*宽度*/, 600/*高度*/, qrCodeHints);
                 var bw = new ZXing.BarcodeWriterPixelData();
 
                 var pixelData = bw.Write(bitMatrix);

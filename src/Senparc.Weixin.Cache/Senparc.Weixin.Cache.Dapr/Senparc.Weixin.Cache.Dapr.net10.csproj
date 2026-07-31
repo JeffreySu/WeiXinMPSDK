@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net10.0</TargetFrameworks>
-    <Version>0.3.4</Version>
+    <Version>0.3.5</Version>
     <AssemblyName>Senparc.Weixin.Cache.Dapr</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Dapr</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -29,6 +29,9 @@
 			[2026-07-23] v0.3.4 升级 Dapr 缓存基础依赖
 			1、升级 CO2NET.Cache.Dapr 1.1.3
 			2、保持微信缓存接口与最新 Dapr 缓存实现兼容
+			[2026-07-31] v0.3.5 升级 CO2NET Dapr 缓存依赖
+			1、升级 Senparc.CO2NET.Cache.Dapr 至 1.1.4
+			2、同步 Senparc.Weixin 6.25.1 并保持 Dapr 缓存适配兼容性
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -61,7 +64,7 @@
     <None Include="..\..\Senparc.Weixin\icon.jpg" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.Cache.Dapr" Version="1.1.3" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Dapr" Version="1.1.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net10.csproj" />

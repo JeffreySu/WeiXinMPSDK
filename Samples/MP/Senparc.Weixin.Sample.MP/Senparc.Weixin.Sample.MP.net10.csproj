@@ -2,11 +2,14 @@
 
 	<PropertyGroup>
 		<TargetFramework>net10.0</TargetFramework>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 		<PackageReleaseNotes>
 		  [2026-07-23] v1.0.1 升级公众号示例依赖
 		  1、升级 AspNet、MP、MP.Middleware 与 MP.MVC 至最新稳定版
 		  2、适配最新公众号运行时和中间件能力
+		  [2026-07-31] v1.0.2 升级公众号示例依赖
+		  1、升级 Senparc.Weixin.AspNet 1.6.6 与 MP 16.25.1
+		  2、升级 MP.Middleware 1.5.5 与 MP.MVC 7.17.4
 		</PackageReleaseNotes>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -30,10 +33,10 @@
 
 	<!--引用 Nuget 包-->
 	<ItemGroup>
-		<PackageReference Include="Senparc.Weixin.AspNet" Version="1.6.4" />
-		<PackageReference Include="Senparc.Weixin.MP" Version="16.25.0" />
-		<PackageReference Include="Senparc.Weixin.MP.Middleware" Version="1.5.3" />
-		<PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.17.3" />
+		<PackageReference Include="Senparc.Weixin.AspNet" Version="1.6.6" />
+		<PackageReference Include="Senparc.Weixin.MP" Version="16.25.1" />
+		<PackageReference Include="Senparc.Weixin.MP.Middleware" Version="1.5.5" />
+		<PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.17.4" />
 	</ItemGroup>
 
 	<!--直接引用源码-->

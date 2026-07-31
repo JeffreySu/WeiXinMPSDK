@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
     <!--<FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>-->
-    <Version>6.25.0</Version>
+    <Version>6.25.1</Version>
     <LangVersion>12.0</LangVersion>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
@@ -305,6 +305,9 @@
 			1、新增基于 JsonTypeInfo 的同步和异步微信 API 请求入口
 			2、升级 CO2NET 4.1.0 与 NeuChar 3.0.0，并统一错误结果序列化
 			3、增强微信 API 请求序列化、错误响应与 Native AOT 兼容能力
+			[2026-07-31] v6.25.1 升级 CO2NET 基础依赖
+			1、升级 Senparc.CO2NET 至 4.2.0
+			2、同步微信 SDK 基础模块与新版序列化及网络组件的兼容能力
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -346,7 +349,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-    <PackageReference Include="Senparc.CO2NET" Version="4.1.0" />
+    <PackageReference Include="Senparc.CO2NET" Version="4.2.0" />
     <PackageReference Include="Senparc.NeuChar" Version="3.0.0" />
     <PackageReference Include="System.Text.Json" Version="8.0.5" Condition=" '$(TargetFramework)' != 'net10.0' " />
   </ItemGroup>

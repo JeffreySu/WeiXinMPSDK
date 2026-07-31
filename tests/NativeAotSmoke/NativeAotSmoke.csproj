@@ -2,13 +2,14 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <PackageReleaseNotes>
       [2026-07-24] v1.0.0 新增微信 SDK Native AOT 冒烟验证程序
       1、验证核心 JSON 序列化、微信支付请求模型及公共 HTTP 调用链的 AOT 兼容性
       2、提供 macOS arm64 自包含发布与运行验证入口
       [2026-07-29] v1.0.1 Dependency update from Senparc.Weixin.TenPay to 1.20.0
       1、继续使用当前微信支付模型和请求链验证 Native AOT 兼容性
+      [2026-07-31] v1.0.2 Dependency update from Senparc.Weixin to 6.25.1 and Senparc.Weixin.TenPay to 1.20.1
     </PackageReleaseNotes>
     <LangVersion>12.0</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>

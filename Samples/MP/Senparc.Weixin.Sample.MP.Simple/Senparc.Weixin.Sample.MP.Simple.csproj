@@ -1,12 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
-		<Version>1.0.1</Version>
+		<TargetFramework>net10.0</TargetFramework>
+		<Version>2.0.0</Version>
 		<PackageReleaseNotes>
 		  [2026-07-23] v1.0.1 升级简易公众号示例依赖
 		  1、升级 Senparc.Weixin.All 至最新 net8 兼容稳定版 2025.10.24
 		  2、保持 net8.0 目标框架可还原和运行
+		  [2026-07-31] v2.0.0 简易公众号示例迁移至 .NET 10
+		  1、目标框架由 net8.0 升级为 net10.0
+		  2、适配 .NET 10 运行时与现有公众号聚合包调用方式
 		</PackageReleaseNotes>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>

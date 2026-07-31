@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-    <Version>1.2.3</Version>
+    <Version>1.2.4</Version>
     <AssemblyName>Senparc.WebSocket</AssemblyName>
     <RootNamespace>Senparc.WebSocket</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -50,6 +50,9 @@
 		2、显式升级 Newtonsoft.Json 13.0.4 以保持现有序列化行为
 		3、显式锁定 Microsoft.AspNetCore.WebSockets 2.3.11
 		4、显式锁定 System.Net.WebSockets.WebSocketProtocol 5.1.0
+		[2026-07-31] v1.2.4 升级 CO2NET 基础依赖
+		1、升级 Senparc.CO2NET 至 4.2.0
+		2、同步 WebSocket 模块与新版基础组件的兼容能力
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -111,7 +114,7 @@
     <PackageReference Include="System.Net.WebSockets.WebSocketProtocol" Version="5.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET" Version="4.1.0" />
+    <PackageReference Include="Senparc.CO2NET" Version="4.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;net10.0</TargetFrameworks>
-    <Version>1.6.6</Version>
+    <Version>1.6.7</Version>
     <AssemblyName>Senparc.Weixin.AspNet</AssemblyName>
     <RootNamespace>Senparc.Weixin.AspNet</RootNamespace>
     <!--<OutputType>Library</OutputType>-->
@@ -42,6 +42,9 @@
 			4、.NET Standard 显式锁定 System.Security.Cryptography.Xml 8.0.4
 			5、对齐 NuGet 实际解析的 ModelContextProtocol 1.0.0，消除近似版本回退
 			6、显式锁定 System.Text.RegularExpressions 4.3.1
+			[2026-07-31] v1.6.7 升级 CO2NET WebApi 依赖
+			1、升级 Senparc.CO2NET.WebApi 至 2.1.9-preview
+			2、同步 Senparc.Weixin 6.25.1 并适配新版 ASP.NET Core 基础能力
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <PackageId>Senparc.Weixin.AspNet</PackageId>
@@ -108,6 +111,6 @@
   <ItemGroup Condition="'$(TargetFramework)' == 'net10.0' ">
     <PackageReference Include="ModelContextProtocol" Version="1.0.0" />
     <PackageReference Include="ModelContextProtocol.AspNetCore" Version="1.0.0" />
-    <PackageReference Include="Senparc.CO2NET.WebApi" Version="2.1.4" />
+    <PackageReference Include="Senparc.CO2NET.WebApi" Version="2.1.9-preview" />
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-    <Version>16.25.1</Version>
+    <Version>16.25.2</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -466,6 +466,9 @@
 		6、补齐微信非税缴费应收、下单、对账、通知、刷卡、退款及订单查询 P3 接口
 		7、修正图片智能裁剪 multipart 请求，将 ratios 作为普通表单字段而非文件路径上传
 		8、补齐公众号 openApi、统计、图像、医疗、非税和一物一码官方接口
+		[2026-07-31] v16.25.2 升级 CO2NET APM 依赖
+		1、升级 Senparc.CO2NET.APM 至 2.2.0
+		2、同步 Senparc.Weixin 6.25.1 并适配新版追踪与监控能力
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -518,7 +521,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="Senparc.CO2NET.APM" Version="2.1.4" />
+    <PackageReference Include="Senparc.CO2NET.APM" Version="2.2.0" />
     <PackageReference Include="Senparc.NeuChar" Version="3.0.0" />
     <PackageReference Include="Senparc.NeuChar.App" Version="1.6.0" />
   </ItemGroup>

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>2.6.0</Version>
+    <Version>2.6.1</Version>
     <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
     <LangVersion>10.0</LangVersion>
@@ -112,6 +112,9 @@
 		2、新增商家转账结果与授权结果通知模型及强类型解密入口
 		3、新增智慧商圈积分提交状态查询和停车状态同步接口
 		4、新增安全探测接口与成功通知，自动处理敏感字段加密和 Wechatpay-Serial 请求头
+		[2026-07-31] v2.6.1 升级 CO2NET AspNet 依赖
+		1、升级 Senparc.CO2NET.AspNet 至 2.1.4
+		2、同步 Senparc.Weixin 6.25.1 并保持微信支付 V3 Web 适配兼容性
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -145,7 +148,7 @@
   <ItemGroup>
     <PackageReference Include="BouncyCastle.Cryptography" Version="2.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="Senparc.CO2NET.AspNet" Version="2.1.3" />
+    <PackageReference Include="Senparc.CO2NET.AspNet" Version="2.1.4" />
     <PackageReference Include="System.Security.Cryptography.Cng" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>

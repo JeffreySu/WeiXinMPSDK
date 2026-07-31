@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-    <Version>1.5.5</Version>
+    <Version>1.5.6</Version>
     <AssemblyName>Senparc.Weixin.WxOpen.Middleware</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen.Middleware</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -33,6 +33,7 @@
 			[2026-07-26] v1.5.5 修复现代 .NET 加密 XML 传递依赖安全公告
 			1、net10.0 显式锁定 System.Security.Cryptography.Xml 10.0.10
 			2、其他现代目标显式锁定 System.Security.Cryptography.Xml 8.0.4
+			[2026-07-31] v1.5.6 Dependency update from Senparc.Weixin.WxOpen to 3.28.2 and Senparc.Weixin to 6.25.1
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <PackageId>Senparc.Weixin.WxOpen.Middleware</PackageId>

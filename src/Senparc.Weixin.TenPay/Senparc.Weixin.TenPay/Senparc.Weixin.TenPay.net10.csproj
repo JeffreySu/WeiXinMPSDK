@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
     <LangVersion>12.0</LangVersion>
-    <Version>1.20.0</Version>
+    <Version>1.20.1</Version>
     <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -70,6 +70,9 @@
             [2026-07-28] v1.20.0 新增微信支付海关报关 V2 完整模块
             1、新增报关、报关状态查询和重新申报 3 组同步/异步接口
             2、补齐 MD5 签名 XML 请求、强类型结果及多子单索引解析
+            [2026-07-31] v1.20.1 升级 CO2NET AspNet 依赖
+            1、升级 Senparc.CO2NET.AspNet 至 2.1.4
+            2、同步 Senparc.Weixin 6.25.1 并保持微信支付 V2 Web 适配兼容性
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -109,7 +112,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.AspNet" Version="2.1.3" />
+    <PackageReference Include="Senparc.CO2NET.AspNet" Version="2.1.4" />
     <PackageReference Include="System.Text.Json" Version="8.0.5" Condition=" '$(TargetFramework)' != 'net10.0' " />
   </ItemGroup>
   <ItemGroup>

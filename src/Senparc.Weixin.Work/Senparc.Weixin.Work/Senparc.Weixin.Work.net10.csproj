@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-		<Version>3.32.1</Version>
+		<Version>3.32.2</Version>
 		<LangVersion>10.0</LangVersion>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -298,6 +298,7 @@
 			76、补齐对外收款资金流水分页查询接口和 64 位金额、余额模型
 			77、补齐会话内容存档 Finance 原生 SDK，会话拉取、消息解密、媒体分片下载及跨平台资源释放
 			78、为官方正文无权访问的开放硬件访客数据 2 项接口保留同步/异步占位入口，调用时抛出包含文档编号的明确异常
+			[2026-07-31] v3.32.2 Dependency update from Senparc.Weixin to 6.25.1
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

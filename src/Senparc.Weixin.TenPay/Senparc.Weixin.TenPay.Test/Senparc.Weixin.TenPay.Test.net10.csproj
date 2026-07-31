@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <PackageReleaseNotes>
       [2026-07-18] v1.0.1 Dependency update from Senparc.Weixin to 6.23.2; Senparc.Weixin.TenPay to 1.18.2
       [2026-07-20] v1.0.2 Dependency update from Senparc.Weixin to 6.24.0; Senparc.Weixin.TenPay to 1.18.3
@@ -15,6 +15,7 @@
       [2026-07-29] v1.0.4 增加海关报关 V2 契约测试并完善测试发现配置
       1、覆盖报关、报关状态查询和重新申报的 XML 签名与多子单解析
       2、显式标记测试项目，确保新增支付契约测试被测试运行器加载
+      [2026-07-31] v1.0.5 Dependency update from Senparc.WeixinTests to 1.0.5; Senparc.Weixin to 6.25.1; Senparc.Weixin.TenPay to 1.20.1
     </PackageReleaseNotes>
 
     <IsPackable>false</IsPackable>

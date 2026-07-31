@@ -2,11 +2,14 @@
 
 	<PropertyGroup>
 		<TargetFramework>net10.0</TargetFramework>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 		<PackageReleaseNotes>
 		  [2026-07-23] v1.0.1 升级小程序示例依赖
 		  1、升级 AspNet、TenPayV3、WxOpen 与 WxOpen.Middleware 至最新稳定版
 		  2、适配最新小程序及微信支付能力
+		  [2026-07-31] v1.0.2 升级小程序示例依赖
+		  1、升级 Senparc.Weixin.AspNet 1.6.6 与 TenPayV3 2.6.0
+		  2、升级 Senparc.Weixin.WxOpen 3.28.1 与 WxOpen.Middleware 1.5.5
 		</PackageReleaseNotes>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -31,10 +34,10 @@
 
 	<!--引用 Nuget 包-->
 	<ItemGroup>
-		<PackageReference Include="Senparc.Weixin.AspNet" Version="1.6.4" />
-		<PackageReference Include="Senparc.Weixin.TenPayV3" Version="2.5.0" />
-		<PackageReference Include="Senparc.Weixin.WxOpen" Version="3.28.0" />
-		<PackageReference Include="Senparc.Weixin.WxOpen.Middleware" Version="1.5.3" />
+		<PackageReference Include="Senparc.Weixin.AspNet" Version="1.6.6" />
+		<PackageReference Include="Senparc.Weixin.TenPayV3" Version="2.6.0" />
+		<PackageReference Include="Senparc.Weixin.WxOpen" Version="3.28.1" />
+		<PackageReference Include="Senparc.Weixin.WxOpen.Middleware" Version="1.5.5" />
 	</ItemGroup>
 
 	<!--直接引用源码-->

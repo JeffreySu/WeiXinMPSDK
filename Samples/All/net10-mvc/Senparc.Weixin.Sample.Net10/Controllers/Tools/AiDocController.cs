@@ -150,10 +150,10 @@ public class QueryMcpResult
 
 ### JSON 参数说明
 1. Platform 根据选择的平台进行匹配：
-{Senparc.NeuChar.PlatformType.WeChat_OfficialAccount}：微信公众号
-{Senparc.NeuChar.PlatformType.WeChat_Work}：企业微信
-{Senparc.NeuChar.PlatformType.WeChat_Open}：微信开放平台
-{Senparc.NeuChar.PlatformType.WeChat_MiniProgram}：微信小程序
+{Senparc.NeuChar.PlatformType.WeChat_OfficialAccount.ToString()}：微信公众号
+{Senparc.NeuChar.PlatformType.WeChat_Work.ToString()}：企业微信
+{Senparc.NeuChar.PlatformType.WeChat_Open.ToString()}：微信开放平台
+{Senparc.NeuChar.PlatformType.WeChat_MiniProgram.ToString()}：微信小程序
 2. 如果过程中涉及到了多个接口，则在 ParamsDescription 中遍历展示这些接口的信息
 3. Tips 请根据接口实际说明进行调整
 4. 第一个参数为 accessTokenOrAppId 时，优先使用 appId 而不是 accessToken，因此不需要 accessToken 参数，因为 SDK 推荐提前注册并自动管理 AccessToken。

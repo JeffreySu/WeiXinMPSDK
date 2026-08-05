@@ -1,4 +1,18 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2026 Senparc
+
+    文件名：GetApprovalInfoRequest.cs
+    文件功能描述：批量获取审批单号请求参数
+
+
+    创建标识：Senparc - 20230224
+
+    修改标识：Senparc - 20260805
+    修改描述：v3.32.2 修复企业微信审批分页字段并兼容新版游标
+
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,12 +37,18 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA.OAJson
         public string endtime { get; set; }
 
         /// <summary>
-        /// 分页查询游标，默认为0，后续使用返回的next_cursor进行分页拉取
+        /// 新版分页查询游标，首次请求传空字符串，后续使用返回的new_next_cursor进行分页拉取。
+        /// </summary>
+        public string new_cursor { get; set; }
+
+        /// <summary>
+        /// 旧版分页查询游标，默认为0，后续使用返回的next_cursor进行分页拉取。
+        /// 当前企业微信官方文档已推荐使用new_cursor。
         /// </summary>
         public int cursor { get; set; }
 
         /// <summary>
-        /// 一次请求拉取审批单数量，默认值为100，上限值为100。若accesstoken为自建应用，仅允许获取在应用可见范围内申请人提交的表单，返回的sp_no_list个数可能和size不一致，开发者需用next_cursor判断表单记录是否拉取完
+        /// 一次请求拉取审批单数量，默认值为100，上限值为100。若accesstoken为自建应用，仅允许获取在应用可见范围内申请人提交的表单，返回的sp_no_list个数可能和size不一致，开发者需用new_next_cursor判断表单记录是否拉取完。
         /// </summary>
         public int size { get; set; }
 

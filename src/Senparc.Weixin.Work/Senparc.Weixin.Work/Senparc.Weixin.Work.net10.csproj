@@ -299,6 +299,9 @@
 			77、补齐会话内容存档 Finance 原生 SDK，会话拉取、消息解密、媒体分片下载及跨平台资源释放
 			78、为官方正文无权访问的开放硬件访客数据 2 项接口保留同步/异步占位入口，调用时抛出包含文档编号的明确异常
 			[2026-07-31] v3.32.2 Dependency update from Senparc.Weixin to 6.25.1
+			[2026-08-05] v3.32.2 修复企业微信审批单号分页游标协议
+			1、补齐官方当前协议的 new_cursor 请求字段和 new_next_cursor 返回字段，并保留旧字段兼容性
+			2、修正新版分页请求序列化，避免发送已废弃的旧 cursor 字段
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

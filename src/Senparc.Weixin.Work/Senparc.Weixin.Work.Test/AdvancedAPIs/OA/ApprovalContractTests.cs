@@ -267,6 +267,44 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.OA
             }
         }
 
+        [TestMethod]
+        public void GetApprovalInfoModelsSupportCurrentAndLegacyPagination()
+        {
+            var request = new GetApprovalInfoRequest
+            {
+                starttime = "1569546000",
+                endtime = "1569718800",
+                new_cursor = string.Empty,
+                size = 100
+            };
+            var requestJson = JsonSerializer.Serialize(request);
+            using (var requestDocument = JsonDocument.Parse(requestJson))
+            {
+                Assert.AreEqual(string.Empty,
+                    requestDocument.RootElement.GetProperty("new_cursor").GetString());
+                Assert.AreEqual(100, requestDocument.RootElement.GetProperty("size").GetInt32());
+            }
+
+            var result = JsonSerializer.Deserialize<GetApprovalInfoResult>(
+                "{\"errcode\":0,\"errmsg\":\"ok\",\"sp_no_list\":[\"202608050001\"]," +
+                "\"new_next_cursor\":\"opaque-next-cursor\"}");
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result.sp_no_list.Count);
+            Assert.AreEqual("202608050001", result.sp_no_list[0]);
+            Assert.AreEqual("opaque-next-cursor", result.new_next_cursor);
+
+            var lastPage = JsonSerializer.Deserialize<GetApprovalInfoResult>(
+                "{\"errcode\":0,\"errmsg\":\"ok\",\"sp_no_list\":[\"202608050002\"]}");
+            Assert.IsNotNull(lastPage);
+            Assert.AreEqual(1, lastPage.sp_no_list.Count);
+            Assert.IsNull(lastPage.new_next_cursor);
+
+            var legacyResult = JsonSerializer.Deserialize<GetApprovalInfoResult>(
+                "{\"errcode\":0,\"errmsg\":\"ok\",\"sp_no_list\":[],\"next_cursor\":100}");
+            Assert.IsNotNull(legacyResult);
+            Assert.AreEqual(100, legacyResult.next_cursor.Value);
+        }
+
         private static int CountOccurrences(string source, string value)
             => source.Split(new[] { value }, StringSplitOptions.None).Length - 1;
 

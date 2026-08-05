@@ -32,9 +32,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20260725
     修改描述：v3.32.1 补齐复制第三方应用审批模板接口
+
+    修改标识：Senparc - 20260805
+    修改描述：v3.32.2 修复企业微信审批分页字段并兼容新版游标
     
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
@@ -54,6 +58,25 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA
     [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
     public static class OaApi
     {
+        private static readonly JsonSetting IgnoreNullJsonSetting = new JsonSetting(true);
+
+        private static object GetApprovalInfoRequestData(GetApprovalInfoRequest data)
+        {
+            if (data?.new_cursor == null)
+            {
+                return data;
+            }
+
+            return new
+            {
+                data.starttime,
+                data.endtime,
+                data.new_cursor,
+                data.size,
+                data.filters
+            };
+        }
+
         #region 同步方法
         /// <summary>
         /// 获取审批模板详情
@@ -85,6 +108,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA
 
         /// <summary>
         /// 批量获取审批单号
+        /// 当前分页协议使用请求字段 new_cursor 和返回字段 new_next_cursor；返回结果没有 new_next_cursor 时表示已拉取完。
         /// https://developer.work.weixin.qq.com/document/path/91816
         /// </summary>
         /// <param name="accessToken">	调用接口凭证。必须使用审批应用或企业内自建应用的secret获取</param>
@@ -94,7 +118,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA
         public static GetApprovalInfoResult GetApprovalInfo(string accessToken, GetApprovalInfoRequest data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = Config.ApiWorkHost + "/cgi-bin/oa/getapprovalinfo?access_token={0}";
-            return CommonJsonSend.Send<GetApprovalInfoResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<GetApprovalInfoResult>(accessToken, urlFormat,
+                GetApprovalInfoRequestData(data), CommonJsonSendType.POST, timeOut,
+                jsonSetting: IgnoreNullJsonSetting);
         }
 
         /// <summary>
@@ -236,6 +262,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA
 
         /// <summary>
         /// 批量获取审批单号
+        /// 当前分页协议使用请求字段 new_cursor 和返回字段 new_next_cursor；返回结果没有 new_next_cursor 时表示已拉取完。
         /// https://developer.work.weixin.qq.com/document/path/91816
         /// </summary>
         /// <param name="accessToken">	调用接口凭证。必须使用审批应用或企业内自建应用的secret获取</param>
@@ -245,7 +272,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA
         public static async Task<GetApprovalInfoResult> GetApprovalInfoAsync(string accessToken, GetApprovalInfoRequest data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = Config.ApiWorkHost + "/cgi-bin/oa/getapprovalinfo?access_token={0}";
-            return await CommonJsonSend.SendAsync<GetApprovalInfoResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<GetApprovalInfoResult>(accessToken, urlFormat,
+                GetApprovalInfoRequestData(data), CommonJsonSendType.POST, timeOut,
+                jsonSetting: IgnoreNullJsonSetting);
         }
 
         /// <summary>

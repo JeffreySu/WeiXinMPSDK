@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
-        <Version>10.1.0.3</Version>
+        <Version>10.1.0.4</Version>
         <PackageReleaseNotes>
           [2026-07-18] v10.0.2.2 Dependency update from Senparc.Weixin.Net10Sample.CommonService to 3.0.3
           [2026-07-18] v10.1.0.0 AI 文档示例迁移至 AgentKernel MCP 工具集
@@ -17,6 +17,9 @@
           1、二维码生成显式使用 UTF-8 编码，支持中文等非拉丁内容
           2、升级 Senparc.CO2NET.WebApi 至 2.1.9-preview
           3、同步 Senparc.Weixin.Net10Sample.CommonService 至 3.1.3
+          [2026-08-05] v10.1.0.4 修正 AI 文档平台枚举参数说明
+          1、使用枚举字符串值生成平台匹配说明，避免模板展示数值或非预期表达
+          2、同步 Senparc.Weixin.Net10Sample.CommonService 至 3.1.4
         </PackageReleaseNotes>
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>35e58786-0820-4cde-b1ff-f4c6198d00f7</UserSecretsId>

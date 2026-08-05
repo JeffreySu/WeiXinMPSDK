@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-    <Version>1.5.6</Version>
+    <Version>1.5.7</Version>
     <AssemblyName>Senparc.Weixin.MP.Middleware</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.Middleware</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -34,6 +34,7 @@
 			1、net10.0 显式锁定 System.Security.Cryptography.Xml 10.0.10
 			2、其他现代目标显式锁定 System.Security.Cryptography.Xml 8.0.4
 			[2026-07-31] v1.5.6 Dependency update from Senparc.Weixin.MP to 16.25.2 and Senparc.Weixin to 6.25.1
+			[2026-08-05] v1.5.7 Dependency update from Senparc.Weixin.MP to 16.25.3
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <PackageId>Senparc.Weixin.MP.Middleware</PackageId>

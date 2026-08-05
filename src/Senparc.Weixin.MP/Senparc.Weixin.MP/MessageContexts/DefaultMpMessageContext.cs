@@ -30,13 +30,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20200731
     修改描述：v16.10.502.2 添加微信电子发票 2.3 接收授权完成事件的处理
 
-    
+    修改标识：Senparc - 20260805
+    修改描述：v16.25.3 兼容缺失或数字形式的缓存事件类型
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;
 using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
 using Senparc.Weixin.MP.Entities;
+using System;
+using System.Globalization;
 using System.Xml.Linq;
 
 namespace Senparc.Weixin.MP.MessageContexts
@@ -85,7 +89,18 @@ namespace Senparc.Weixin.MP.MessageContexts
                     break;
                 case RequestMsgType.Event:
                     //判断Event类型
-                    switch (doc.Root.Element("Event").Value.ToUpper())
+                    var eventValue = doc?.Root?.Element("Event")?.Value;
+
+                    //兼容 System.Text.Json 将枚举序列化为数字的缓存数据。
+                    //对于旧版本已经丢失 Event 字段的缓存，eventValue 保持为 null，
+                    //并在下方回退到 RequestMessageEventBase，避免上下文恢复时抛出空引用异常。
+                    if (int.TryParse(eventValue, NumberStyles.Integer, CultureInfo.InvariantCulture, out var eventNumber) &&
+                        Enum.IsDefined(typeof(Event), eventNumber))
+                    {
+                        eventValue = ((Event)eventNumber).ToString();
+                    }
+
+                    switch (eventValue?.ToUpperInvariant())
                     {
                         case "ENTER"://进入会话
                             requestMessage = new RequestMessageEvent_Enter();
@@ -360,4 +375,3 @@ namespace Senparc.Weixin.MP.MessageContexts
         }
     }
 }
-

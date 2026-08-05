@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-    <Version>3.28.2</Version>
+    <Version>3.28.3</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
@@ -203,6 +203,7 @@
 		14、补齐学生身份、城市服务、图像与 OCR、红包封面、服务市场、生物认证和人脸核身全部 22 项 P3 能力
 		15、补齐小程序物流、交易、直播、短剧、小说和行业能力接口及事件
 		[2026-07-31] v3.28.2 Dependency update from Senparc.Weixin.MP to 16.25.2 and Senparc.Weixin to 6.25.1
+		[2026-08-05] v3.28.3 Dependency update from Senparc.Weixin.MP to 16.25.3
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

@@ -240,6 +240,18 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.OA
                                                             {
                                                                 content = "请阅读制度"
                                                             }
+
+                                                            [TestMethod]
+                                                            public void GetApprovalInfoResultSupportsPaginationCursor()
+                                                            {
+                                                                var result = JsonSerializer.Deserialize<GetApprovalInfoResult>(
+                                                                    "{\"errcode\":0,\"errmsg\":\"ok\",\"sp_no_list\":[\"202608050001\"],\"next_cursor\":100}");
+
+                                                                Assert.IsNotNull(result);
+                                                                Assert.AreEqual(1, result.sp_no_list.Count);
+                                                                Assert.AreEqual("202608050001", result.sp_no_list[0]);
+                                                                Assert.AreEqual(100, result.next_cursor);
+                                                            }
                                                         }
                                                     }
                                                 }

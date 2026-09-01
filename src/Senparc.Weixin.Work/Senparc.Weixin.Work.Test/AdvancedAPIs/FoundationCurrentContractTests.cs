@@ -18,6 +18,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
     public class FoundationCurrentContractTests
     {
         [TestMethod]
+        [DoNotParallelize]
         public void OAuth2ApiUsesConfigurableUserAuthenticationPathsAndProvidesTfaEntries()
         {
             var oauthSource = ReadRepositoryFile("src", "Senparc.Weixin.Work",
@@ -26,15 +27,36 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
                 "Senparc.Weixin.Work", "AdvancedAPIs", "OAuth2",
                 "OAuth2Api.Tfa.cs");
 
-            StringAssert.Contains(oauthSource, "GetUserAuthenticationPath(\"getuserinfo\")");
-            StringAssert.Contains(oauthSource, "GetUserAuthenticationPath(\"getuserdetail\")");
-            StringAssert.Contains(oauthSource, "WorkUserAuthenticationApiPathPrefix");
             StringAssert.Contains(oauthSource, "/document/path/91023");
             StringAssert.Contains(oauthSource, "/document/path/95833");
-            StringAssert.Contains(tfaSource, "GetUserAuthenticationPath(\"get_tfa_info\")");
             StringAssert.Contains(tfaSource, "/document/path/99499");
             Assert.AreEqual(3, CountOccurrences(tfaSource, "/// <summary>"));
-            Assert.AreEqual("auth", Config.WorkUserAuthenticationApiPathPrefix);
+
+            var getUserAuthenticationPath = typeof(OAuth2Api)
+                .GetMethod("GetUserAuthenticationPath",
+                    BindingFlags.NonPublic | BindingFlags.Static);
+            Assert.IsNotNull(getUserAuthenticationPath);
+
+            var originalPrefix = Config.WorkUserAuthenticationApiPathPrefix;
+            try
+            {
+                Config.WorkUserAuthenticationApiPathPrefix = "auth";
+                Assert.AreEqual("/cgi-bin/auth/getuserinfo",
+                    (string)getUserAuthenticationPath.Invoke(null,
+                        new object[] { "getuserinfo" }));
+                Assert.AreEqual("/cgi-bin/auth/getuserdetail",
+                    (string)getUserAuthenticationPath.Invoke(null,
+                        new object[] { "getuserdetail" }));
+
+                Config.WorkUserAuthenticationApiPathPrefix = "/user/";
+                Assert.AreEqual("/cgi-bin/user/get_tfa_info",
+                    (string)getUserAuthenticationPath.Invoke(null,
+                        new object[] { "get_tfa_info" }));
+            }
+            finally
+            {
+                Config.WorkUserAuthenticationApiPathPrefix = originalPrefix;
+            }
 
             var methodNames = typeof(OAuth2Api)
                 .GetMethods(BindingFlags.Public | BindingFlags.Static)
@@ -48,16 +70,20 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         }
 
         [TestMethod]
+        [DoNotParallelize]
         public void WorkUserAuthenticationApiPathPrefixSupportsLegacyPrivateDeploymentValue()
         {
             var originalPrefix = Config.WorkUserAuthenticationApiPathPrefix;
             try
             {
-                Config.WorkUserAuthenticationApiPathPrefix = "/user/";
-                Assert.AreEqual("user", Config.WorkUserAuthenticationApiPathPrefix);
-
                 Config.WorkUserAuthenticationApiPathPrefix = null;
                 Assert.AreEqual("auth", Config.WorkUserAuthenticationApiPathPrefix);
+
+                Config.WorkUserAuthenticationApiPathPrefix = "   ";
+                Assert.AreEqual("auth", Config.WorkUserAuthenticationApiPathPrefix);
+
+                Config.WorkUserAuthenticationApiPathPrefix = "/user/";
+                Assert.AreEqual("user", Config.WorkUserAuthenticationApiPathPrefix);
             }
             finally
             {

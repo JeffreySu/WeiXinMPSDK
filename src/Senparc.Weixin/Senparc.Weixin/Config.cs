@@ -158,6 +158,19 @@ namespace Senparc.Weixin
         /// </summary>
         public static string ApiWorkHost { get; set; } = "https://qyapi.weixin.qq.com";
 
+        private static string _workUserAuthenticationApiPathPrefix = "auth";
+
+        /// <summary>
+        /// 企业微信用户身份相关接口路径前缀（默认：auth，可设置为 user 以兼容部分私有化版本）。
+        /// </summary>
+        public static string WorkUserAuthenticationApiPathPrefix
+        {
+            get => _workUserAuthenticationApiPathPrefix;
+            set => _workUserAuthenticationApiPathPrefix = string.IsNullOrWhiteSpace(value)
+                ? "auth"
+                : value.Trim('/');
+        }
+
         #endregion
 
         #region 微信支付 API 的服务器地址（默认为：https://api.mch.weixin.qq.com）
@@ -210,4 +223,3 @@ namespace Senparc.Weixin
         }
     }
 }
-

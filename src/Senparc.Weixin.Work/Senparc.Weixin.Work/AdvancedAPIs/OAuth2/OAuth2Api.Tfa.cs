@@ -24,8 +24,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// </summary>
     public static partial class OAuth2Api
     {
-        private const string GetTfaInfoPath = "/cgi-bin/auth/get_tfa_info";
-
         /// <summary>
         /// 使用用户进入二次验证页面时获得的 Code 获取成员和二次验证授权码。
         /// <para>参考文档：<see href="https://developer.work.weixin.qq.com/document/path/99499"/></para>
@@ -38,7 +36,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             GetTfaInfoRequest request, int timeOut = Config.TIME_OUT)
             => ApiHandlerWapper.TryCommonApi(accessToken =>
                 CommonJsonSend.Send<GetTfaInfoResult>(accessToken,
-                    Config.ApiWorkHost + GetTfaInfoPath + "?access_token={0}", request,
+                    Config.ApiWorkHost + GetUserAuthenticationPath("get_tfa_info") + "?access_token={0}", request,
                     CommonJsonSendType.POST, timeOut), accessTokenOrAppKey);
 
         /// <summary>
@@ -53,7 +51,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             GetTfaInfoRequest request, int timeOut = Config.TIME_OUT)
             => ApiHandlerWapper.TryCommonApiAsync(accessToken =>
                 CommonJsonSend.SendAsync<GetTfaInfoResult>(accessToken,
-                    Config.ApiWorkHost + GetTfaInfoPath + "?access_token={0}", request,
+                    Config.ApiWorkHost + GetUserAuthenticationPath("get_tfa_info") + "?access_token={0}", request,
                     CommonJsonSendType.POST, timeOut), accessTokenOrAppKey);
     }
 }

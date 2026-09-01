@@ -46,6 +46,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
     public static partial class OAuth2Api
     {
+        private static string GetUserAuthenticationPath(string endPoint)
+            => string.Format("/cgi-bin/{0}/{1}", Config.WorkUserAuthenticationApiPathPrefix, endPoint);
+
         #region 同步方法
 
 
@@ -96,7 +99,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static GetUserInfoResult GetUserId(string accessToken, string code)
         {
-            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/auth/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
+            var url = string.Format(Config.ApiWorkHost + GetUserAuthenticationPath("getuserinfo") + "?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
 
             return CommonJsonSend.Send<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET);
         }
@@ -110,7 +113,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static GetUserDetailResult GetUserDetail(string accessToken, string userTicket)
         {
-            var urlFormat = Config.ApiWorkHost + "/cgi-bin/auth/getuserdetail?access_token={0}";
+            var urlFormat = Config.ApiWorkHost + GetUserAuthenticationPath("getuserdetail") + "?access_token={0}";
 
             var data = new
             {
@@ -147,7 +150,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetUserInfoResult> GetUserIdAsync(string accessToken, string code)
         {
-            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/auth/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
+            var url = string.Format(Config.ApiWorkHost + GetUserAuthenticationPath("getuserinfo") + "?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
 
             return await CommonJsonSend.SendAsync<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
         }
@@ -161,7 +164,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetUserDetailResult> GetUserDetailAsync(string accessToken, string userTicket)
         {
-            var urlFormat = Config.ApiWorkHost + "/cgi-bin/auth/getuserdetail?access_token={0}";
+            var urlFormat = Config.ApiWorkHost + GetUserAuthenticationPath("getuserdetail") + "?access_token={0}";
 
             var data = new
             {

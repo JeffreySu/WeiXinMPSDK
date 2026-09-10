@@ -247,19 +247,19 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             /// 微信出资，单位为分
             /// 示例值：0
             /// </summary>
-            public string wechatpay_contribute { get; set; }
+            public int wechatpay_contribute { get; set; }
 
             /// <summary>
             /// 商户出资，单位为分
             /// 示例值：0
             /// </summary>
-            public string merchant_contribute { get; set; }
+            public int merchant_contribute { get; set; }
 
             /// <summary>
             /// 其他出资，单位为分
             /// 示例值：0
             /// </summary>
-            public string other_contribute { get; set; }
+            public int other_contribute { get; set; }
 
             /// <summary>
             /// 优惠币种	

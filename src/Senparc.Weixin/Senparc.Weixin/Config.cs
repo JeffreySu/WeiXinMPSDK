@@ -48,6 +48,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20200918
     修改描述：v6.7.600 停用 file.api.weixin.qq.com 域名
 
+    修改标识：Senparc - 20260910
+    修改描述：增加 WorkUserAuthenticationApiPathPrefix，兼容企微 SaaS 与私有化用户身份接口路径差异
+
 ----------------------------------------------------------------*/
 
 using System;

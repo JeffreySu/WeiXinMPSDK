@@ -3,13 +3,13 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>2026.8.6</Version>
+    <Version>2026.9.10</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.All</AssemblyName>
     <RootNamespace>Senparc.Weixin.All</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
     <Description>
-			微信 SDK - Senparc.Weixin SDK 集成模块
+			微信 SDK - Senparc.Weixin SDK 集成模块（含企业微信用户身份接口路径兼容能力）
 
 			此模块将自动引用所有 Senparc.Weixin SDK 系列的工具包，包括：
 			- Senparc.Weixin
@@ -111,6 +111,8 @@
 		[2026-08-05] v2026.8.5 Dependency update from Senparc.Weixin.MP.Middleware to 1.5.7; Senparc.Weixin.MP.MvcExtension to 7.17.6; Senparc.Weixin.MP to 16.25.3; Senparc.Weixin.WxOpen.Middleware to 1.5.7; Senparc.Weixin.WxOpen to 3.28.3
 		[2026-08-06] v2026.8.6 Work v3.32.2 fix: 修复企业微信审批单号新版分页游标字段及分页结束判断
 		1、聚合 Work 的 new_cursor/new_next_cursor 官方审批分页协议，并保留旧字段兼容
+		[2026-09-10] v2026.9.10 同步基础库与 Work 用户身份路径兼容能力
+		1、聚合 Senparc.Weixin 6.25.2 与 Senparc.Weixin.Work 3.32.4，支持 /cgi-bin/auth/ 与 /cgi-bin/user/ 路径切换
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

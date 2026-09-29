@@ -26,10 +26,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20250813
+    修改标识：Senparc - 20260929 修复转账请求公钥序列号及无正文撤销请求
 
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.TenPayV3.Apis;
 using System.Threading.Tasks;
 
@@ -65,7 +67,31 @@ namespace Senparc.Weixin.TenPayV3.Apis.FundApp
         public async Task<TransferBillReturnJson> TransferBillAsync(TransferBillRequestData data, int timeOut = Config.TIME_OUT)
         {
             var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/fund-app/mch-transfer/transfer-bills");
-            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            if ((!string.IsNullOrWhiteSpace(_tenpayV3Setting.TenPayV3_TenPayPubKeyID) ||
+                 !string.IsNullOrWhiteSpace(_tenpayV3Setting.TenPayV3_TenPayPubKey)) &&
+                (string.IsNullOrWhiteSpace(_tenpayV3Setting.TenPayV3_TenPayPubKeyID) ||
+                 string.IsNullOrWhiteSpace(_tenpayV3Setting.TenPayV3_TenPayPubKey)))
+            {
+                throw new TenpayApiRequestException("发起转账前请配置微信支付公钥 ID 和公钥。");
+            }
+
+            var publicKey = GetConfiguredPaymentPublicKey();
+            if (string.IsNullOrWhiteSpace(publicKey.Key))
+            {
+                var registerKey = TenPayHelper.GetRegisterKey(
+                    _tenpayV3Setting.TenPayV3_MchId, _tenpayV3Setting.TenPayV3_SubMchId);
+                var publicKeys = await TenPayV3InfoCollection.Data[registerKey]
+                    .GetPublicKeysAsync(_tenpayV3Setting).ConfigureAwait(false);
+                publicKey = SelectPaymentPublicKey(publicKeys);
+            }
+
+            if (string.IsNullOrWhiteSpace(publicKey.Key) || string.IsNullOrWhiteSpace(publicKey.Value))
+            {
+                throw new TenpayApiRequestException("发起转账前请配置微信支付公钥或平台证书。");
+            }
+
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting,
+                httpClient => httpClient.DefaultRequestHeaders.Add("Wechatpay-Serial", publicKey.Key));
             return await tenPayApiRequest.RequestAsync<TransferBillReturnJson>(url, data, timeOut);
         }
 
@@ -81,7 +107,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.FundApp
         {
             var url = BasePayApis.GetPayApiUrl($"{Senparc.Weixin.Config.TenPayV3Host}/{{0}}v3/fund-app/mch-transfer/transfer-bills/out-bill-no/{data.out_bill_no}/cancel");
             TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
-            return await tenPayApiRequest.RequestAsync<CancelTransferReturnJson>(url, null, timeOut, ApiRequestMethod.POST);
+            return await tenPayApiRequest.RequestWithoutBodyAsync<CancelTransferReturnJson>(url, timeOut, ApiRequestMethod.POST);
         }
 
         /// <summary>
@@ -181,4 +207,3 @@ namespace Senparc.Weixin.TenPayV3.Apis.FundApp
         #endregion
     }
 }
-

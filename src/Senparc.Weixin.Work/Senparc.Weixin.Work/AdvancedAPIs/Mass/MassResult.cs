@@ -33,6 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20230226
     修改描述：v3.15.16 添加完善属性
 
+    修改标识：Senparc - 20260929
+    修改描述：发送小程序通知消息时补充 agentid 参数
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
@@ -79,6 +82,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Mass
         public string toparty { get; set; }
         public string totag { get; set; }
         public string msgtype { get; set; }
+        /// <summary>
+        /// 企业应用的id，整型
+        /// </summary>
+        public int agentid { get; set; }
         public Miniprogram_Notice miniprogram_notice { get; set; }
         /// <summary>
         /// 表示是否开启重复消息检查，0表示否，1表示是，默认0
@@ -160,4 +167,3 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Mass
         public string[] invaliduser { get; set; }
     }
 }
-

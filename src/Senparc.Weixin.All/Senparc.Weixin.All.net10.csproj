@@ -3,7 +3,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>2026.8.6</Version>
+    <Version>2026.9.29</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.All</AssemblyName>
     <RootNamespace>Senparc.Weixin.All</RootNamespace>
@@ -111,6 +111,7 @@
 		[2026-08-05] v2026.8.5 Dependency update from Senparc.Weixin.MP.Middleware to 1.5.7; Senparc.Weixin.MP.MvcExtension to 7.17.6; Senparc.Weixin.MP to 16.25.3; Senparc.Weixin.WxOpen.Middleware to 1.5.7; Senparc.Weixin.WxOpen to 3.28.3
 		[2026-08-06] v2026.8.6 Work v3.32.2 fix: 修复企业微信审批单号新版分页游标字段及分页结束判断
 		1、聚合 Work 的 new_cursor/new_next_cursor 官方审批分页协议，并保留旧字段兼容
+		[2026-09-29] v2026.9.29 MP v16.25.4 修复媒体上传和群发结果的字符串枚举反序列化
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

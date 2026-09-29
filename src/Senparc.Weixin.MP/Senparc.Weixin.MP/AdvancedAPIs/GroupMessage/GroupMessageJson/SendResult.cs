@@ -13,8 +13,12 @@
     修改标识：oppoic - 20170413
     修改描述：v14.3.142 SendResult添加msg_data_id字段，此字段用于统计分析
 
+    修改标识：Senparc - 20260929
+    修改描述：兼容 System.Text.Json 反序列化群发媒体类型字符串
+
 ----------------------------------------------------------------*/
 
+using System.Text.Json.Serialization;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
@@ -27,6 +31,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// <summary>
         /// 媒体文件类型，分别有图片（image）、语音（voice）、视频（video）和缩略图（thumb），图文消息为news
         /// </summary>
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public UploadMediaFileType type { get; set; }
 
         /// <summary>
@@ -53,4 +58,3 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         public string msg_status { get; set; }
     }
 }
-

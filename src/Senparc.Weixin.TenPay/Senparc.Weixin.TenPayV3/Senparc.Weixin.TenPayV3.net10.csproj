@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>2.6.1</Version>
+    <Version>2.6.2</Version>
     <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
     <LangVersion>10.0</LangVersion>
@@ -113,6 +113,7 @@
 		3、新增智慧商圈积分提交状态查询和停车状态同步接口
 		4、新增安全探测接口与成功通知，自动处理敏感字段加密和 Wechatpay-Serial 请求头
 		[2026-07-31] v2.6.1 升级 CO2NET AspNet 依赖
+		[2026-09-29] v2.6.2 修复商家转账公钥序列号请求头与无正文撤销请求 #3276
 		1、升级 Senparc.CO2NET.AspNet 至 2.1.4
 		2、同步 Senparc.Weixin 6.25.1 并保持微信支付 V3 Web 适配兼容性
     </PackageReleaseNotes>

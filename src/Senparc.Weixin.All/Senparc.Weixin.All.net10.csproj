@@ -3,7 +3,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>2026.9.29</Version>
+    <Version>2026.9.29.1</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.All</AssemblyName>
     <RootNamespace>Senparc.Weixin.All</RootNamespace>
@@ -114,6 +114,7 @@
 		[2026-09-10] v2026.9.10 同步基础库与 Work 用户身份路径兼容能力
 		1、聚合 Senparc.Weixin 6.25.2 与 Senparc.Weixin.Work 3.32.4，支持 /cgi-bin/auth/ 与 /cgi-bin/user/ 路径切换
 		[2026-09-29] v2026.9.29 MP v16.25.4 修复媒体上传和群发结果的字符串枚举反序列化
+		[2026-09-29] v2026.9.29.1 TenPayV3 v2.6.2 修复商家转账发起及撤销请求 #3276
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

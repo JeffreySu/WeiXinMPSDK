@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
-		<Version>3.32.3</Version>
+		<Version>3.32.4</Version>
 		<LangVersion>10.0</LangVersion>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -302,6 +302,8 @@
 			[2026-08-05] v3.32.3 修复企业微信审批单号分页游标协议
 			1、补齐官方当前协议的 new_cursor 请求字段和 new_next_cursor 返回字段，并保留旧字段兼容性
 			2、修正新版分页请求序列化，避免发送已废弃的旧 cursor 字段
+			[2026-09-10] v3.32.4 兼容企业微信用户身份接口路径差异
+			1、OAuth2 getuserinfo/getuserdetail 与 get_tfa_info 支持通过配置在 /cgi-bin/auth/ 和 /cgi-bin/user/ 间切换
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

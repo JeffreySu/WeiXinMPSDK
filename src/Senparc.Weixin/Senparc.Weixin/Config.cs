@@ -48,6 +48,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20200918
     修改描述：v6.7.600 停用 file.api.weixin.qq.com 域名
 
+    修改标识：Senparc - 20260910
+    修改描述：增加 WorkUserAuthenticationApiPathPrefix，兼容企微 SaaS 与私有化用户身份接口路径差异
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -158,6 +161,19 @@ namespace Senparc.Weixin
         /// </summary>
         public static string ApiWorkHost { get; set; } = "https://qyapi.weixin.qq.com";
 
+        private static string _workUserAuthenticationApiPathPrefix = "auth";
+
+        /// <summary>
+        /// 企业微信用户身份相关接口路径前缀（默认：auth，可设置为 user 以兼容部分私有化版本）。
+        /// </summary>
+        public static string WorkUserAuthenticationApiPathPrefix
+        {
+            get => _workUserAuthenticationApiPathPrefix;
+            set => _workUserAuthenticationApiPathPrefix = string.IsNullOrWhiteSpace(value)
+                ? "auth"
+                : value.Trim('/');
+        }
+
         #endregion
 
         #region 微信支付 API 的服务器地址（默认为：https://api.mch.weixin.qq.com）
@@ -210,4 +226,3 @@ namespace Senparc.Weixin
         }
     }
 }
-

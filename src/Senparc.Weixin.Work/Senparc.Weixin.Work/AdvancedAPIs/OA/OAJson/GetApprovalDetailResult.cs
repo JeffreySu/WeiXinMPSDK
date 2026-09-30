@@ -536,35 +536,19 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OA.OAJson
         public string type { get; set; }
 
         /// <summary>
-        /// 开始时间
+        /// 开始时间（时间戳，单位：秒）
         /// </summary>
-        public GetApprovalDetailResult_AttendanceDateRangeData new_begin { get; set; }
+        public long new_begin { get; set; }
 
         /// <summary>
-        /// 结束时间
+        /// 结束时间（时间戳，单位：秒）
         /// </summary>
-        public GetApprovalDetailResult_AttendanceDateRangeData new_end { get; set; }
+        public long new_end { get; set; }
 
         /// <summary>
         /// 时长秒数
         /// </summary>
         public long new_duration { get; set; }
-    }
-
-    /// <summary>
-    /// 假勤日期范围数据
-    /// </summary>
-    public class GetApprovalDetailResult_AttendanceDateRangeData
-    {
-        /// <summary>
-        /// 时间戳
-        /// </summary>
-        public long timestamp { get; set; }
-
-        /// <summary>
-        /// 类型：0-上午；1-下午；仅当type为halfday时有效
-        /// </summary>
-        public int time_type { get; set; }
     }
 
     #endregion

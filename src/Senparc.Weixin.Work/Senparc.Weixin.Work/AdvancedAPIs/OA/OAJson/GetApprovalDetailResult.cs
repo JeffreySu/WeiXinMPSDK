@@ -10,6 +10,9 @@
     
     修改标识：Senparc - 20251218
     修改描述：添加对所有控件类型的支持，包括明细控件（Table）的 children 属性
+
+    修改标识：Senparc - 20260930
+    修改描述：修复 GetApprovalDetailResult_AttendanceDateRange 的 new_begin/new_end 反序列化异常，改为 long 类型，与官方文档保持一致
     
 ----------------------------------------------------------------*/
 

@@ -9,7 +9,7 @@
     <RootNamespace>Senparc.Weixin.All</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
     <Description>
-			微信 SDK - Senparc.Weixin SDK 集成模块（含企业微信用户身份路径兼容及小程序通知消息 agentid 修复）
+			微信 SDK - Senparc.Weixin SDK 集成模块
 
 			此模块将自动引用所有 Senparc.Weixin SDK 系列的工具包，包括：
 			- Senparc.Weixin

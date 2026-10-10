@@ -12,8 +12,12 @@
     
     修改标识：Senparc - 20150320
     修改描述：修改结果类型（有临时和永久之分）
+
+    修改标识：Senparc - 20260929
+    修改描述：兼容 System.Text.Json 反序列化上传媒体类型字符串
 ----------------------------------------------------------------*/
 
+using System.Text.Json.Serialization;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Media
@@ -23,6 +27,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
     /// </summary>
     public class UploadTemporaryMediaResult : WxJsonResult
     {
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public UploadMediaFileType type { get; set; }
         public string media_id { get; set; }
         /// <summary>
@@ -56,4 +61,3 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         public string url { get; set; }
     }
 }
-

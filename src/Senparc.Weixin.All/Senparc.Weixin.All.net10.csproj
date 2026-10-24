@@ -117,6 +117,9 @@
 		[2026-10-24] v2026.10.24 统一修复微信各模块 System.Text.Json 枚举字符串兼容和 Newtonsoft 属性映射
 		1、覆盖接口结果与消息 DTO 枚举字符串反序列化，保持原有数字序列化格式
 		2、更新 Senparc.Weixin 6.25.3、MP 16.25.5、Work 3.32.5、Open 4.24.6、TenPayV3 2.6.2、WxOpen 3.28.4
+		[2026-09-30] v2026.9.30 Work v3.32.5 修复获取审批申请单详情反序列化异常
+		1、GetApprovalDetailResult_AttendanceDateRange 的 new_begin/new_end 由对象改为 long 时间戳，与官方文档保持一致 / Issue #3339
+		[2026-10-24] v2026.10.24 TenPayV3 v2.6.2 修复订单查询优惠出资字段的数字类型反序列化
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

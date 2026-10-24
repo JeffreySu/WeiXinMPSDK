@@ -28,7 +28,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
     /// </summary>
     public class UploadTemporaryMediaResult : WxJsonResult
     {
-        [JsonConverter(typeof(JsonStringOrNumberEnumConverterFactory))]
+        [JsonConverter(typeof(JsonStringOrNumberEnumConverter<UploadMediaFileType>))]
         public UploadMediaFileType type { get; set; }
         public string media_id { get; set; }
         /// <summary>

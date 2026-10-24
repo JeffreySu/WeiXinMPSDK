@@ -116,6 +116,7 @@
 		[2026-10-24] v2.6.2 修复微信支付 V3 DTO 中 Newtonsoft 忽略属性未映射的问题
 		1、升级 Senparc.CO2NET.AspNet 至 2.1.4
 		2、同步 Senparc.Weixin 6.25.1 并保持微信支付 V3 Web 适配兼容性
+		[2026-10-24] v2.6.2 修复订单查询优惠出资字段的数字类型反序列化
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

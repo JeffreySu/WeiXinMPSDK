@@ -31,7 +31,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// <summary>
         /// 媒体文件类型，分别有图片（image）、语音（voice）、视频（video）和缩略图（thumb），图文消息为news
         /// </summary>
-        [JsonConverter(typeof(JsonStringEnumConverter))]
+        [JsonConverter(typeof(JsonStringEnumConverter<UploadMediaFileType>))]
         public UploadMediaFileType type { get; set; }
 
         /// <summary>

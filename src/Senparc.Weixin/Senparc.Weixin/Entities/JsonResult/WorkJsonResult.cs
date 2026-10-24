@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170702
     修改描述：v4.13.0 添加 ErrorCodeValue 属性。使用 BaseJsonResult 基类。
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -45,6 +48,7 @@ namespace Senparc.Weixin.Entities
         /// <summary>
         /// 返回代码
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public ReturnCode_Work errcode { get; set; }
 
         /// <summary>

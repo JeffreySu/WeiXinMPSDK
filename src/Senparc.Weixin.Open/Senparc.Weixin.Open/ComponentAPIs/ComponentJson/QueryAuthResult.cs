@@ -6,6 +6,9 @@
 
 
     创建标识：Senparc - 20150430
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -84,6 +87,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
     [Serializable]
     public class AuthorizationInfo_FuncscopeCategory
     {
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public FuncscopeCategory id { get; set; }
     }
 }

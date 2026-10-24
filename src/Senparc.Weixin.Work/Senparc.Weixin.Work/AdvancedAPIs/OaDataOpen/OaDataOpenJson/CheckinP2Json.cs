@@ -8,6 +8,9 @@
 
     修改标识：Senparc - 20260724
     修改描述：v3.32.1 补齐企业微信打卡统计、排班及规则管理强类型模型
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using Newtonsoft.Json;
@@ -293,6 +296,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen.OaDataOpenJson
 
         /// <summary>应打卡时间，距离当天零点的秒数。</summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public int? schedule_checkin_time { get; set; }
 
         /// <summary>实际补卡时间的 Unix 时间戳。</summary>
@@ -347,6 +351,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen.OaDataOpenJson
     {
         /// <summary>是否立即生效；不填写时由服务端采用默认值。</summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? effective_now { get; set; }
 
         /// <summary>打卡规则。</summary>
@@ -364,6 +369,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen.OaDataOpenJson
 
         /// <summary>是否立即生效。</summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? effective_now { get; set; }
     }
 
@@ -375,6 +381,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen.OaDataOpenJson
 
         /// <summary>是否立即生效。</summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? effective_now { get; set; }
     }
 

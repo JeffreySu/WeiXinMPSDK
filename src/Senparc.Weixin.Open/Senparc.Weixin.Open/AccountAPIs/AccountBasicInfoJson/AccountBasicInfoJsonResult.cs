@@ -33,6 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：mc7246 - 20220514
     修改描述：v4.14.3 补充小程序/公众号获取基本信息字段
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
@@ -82,11 +85,13 @@ namespace Senparc.Weixin.Open.AccountAPIs.AccountBasicInfoJson
         /// <summary>
         /// 帐号类型（1：订阅号，2：服务号，3：小程序）
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public AccountType account_type { get; set; }
 
         /// <summary>
         /// 主体类型（0-个人,1-企业,2-媒体,3-政府,4-其他组织）
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public PrincipalType principal_type { get; set; }
 
         /// <summary>
@@ -106,6 +111,7 @@ namespace Senparc.Weixin.Open.AccountAPIs.AccountBasicInfoJson
         /// 注意！！！当realname_status不为1时，帐号只允许调用本文档内的以下API：（即无权限调用其他API）
         /// 微信认证相关接口（参考2.x） 帐号设置相关接口（参考3.x）</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public RealNameStatus realname_status { get; set; }
 
         /// <summary>
@@ -136,6 +142,7 @@ namespace Senparc.Weixin.Open.AccountAPIs.AccountBasicInfoJson
         /// <summary>
         /// 认证类型；如果未完成微信认证则返回0；
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public CustomerType customer_type { get; set; }
     }
 

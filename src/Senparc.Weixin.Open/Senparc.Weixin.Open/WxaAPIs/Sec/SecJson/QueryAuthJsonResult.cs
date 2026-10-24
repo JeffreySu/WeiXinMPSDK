@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Yaofeng - 20231130
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
@@ -41,6 +44,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sec
         /// <summary>
         /// 当前任务流程的状态码：
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public TaskStatus task_status { get; set; }
 
         /// <summary>
@@ -52,6 +56,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sec
         /// <summary>
         /// 审核单状态，创建认证审核审核单成功后该值有效
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public ApplyStatus apply_status { get; set; }
 
         /// <summary>

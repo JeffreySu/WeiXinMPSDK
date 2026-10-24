@@ -6,6 +6,9 @@
     
     
     创建标识：Wang Qian - 20250802
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
@@ -53,6 +56,7 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         /// 对应chattype，会话类型，single\group，分别表示：单聊\群聊
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public ChatType ChatType { get; set; }
 
         //默认返回Unknown，如果返回Unknown，说明是未知消息类型

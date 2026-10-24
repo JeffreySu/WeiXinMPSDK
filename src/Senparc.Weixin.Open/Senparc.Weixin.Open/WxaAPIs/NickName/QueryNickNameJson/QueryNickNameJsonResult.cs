@@ -18,6 +18,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NickName.QueryNickNameJson
         /// <summary>
         /// 审核状态，1：审核中，2：审核失败，3：审核成功
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public AuditStat audit_stat { get; set; }
 
         /// <summary>

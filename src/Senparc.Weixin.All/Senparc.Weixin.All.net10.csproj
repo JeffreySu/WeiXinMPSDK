@@ -3,7 +3,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>2026.9.29</Version>
+    <Version>2026.10.24</Version>
     <LangVersion>10.0</LangVersion>
     <AssemblyName>Senparc.Weixin.All</AssemblyName>
     <RootNamespace>Senparc.Weixin.All</RootNamespace>
@@ -114,6 +114,9 @@
 		[2026-09-10] v2026.9.10 同步基础库与 Work 用户身份路径兼容能力
 		1、聚合 Senparc.Weixin 6.25.2 与 Senparc.Weixin.Work 3.32.4，支持 /cgi-bin/auth/ 与 /cgi-bin/user/ 路径切换
 		[2026-09-29] v2026.9.29 MP v16.25.4 修复媒体上传和群发结果的字符串枚举反序列化
+		[2026-10-24] v2026.10.24 统一修复微信各模块 System.Text.Json 枚举字符串兼容和 Newtonsoft 属性映射
+		1、覆盖接口结果与消息 DTO 枚举字符串反序列化，保持原有数字序列化格式
+		2、更新 Senparc.Weixin 6.25.3、MP 16.25.5、Work 3.32.5、Open 4.24.6、TenPayV3 2.6.2、WxOpen 3.28.4
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

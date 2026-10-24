@@ -6,6 +6,9 @@
     
     
     创建标识：Senparc - 20180930
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -119,6 +122,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 发票行性质 0 正常 1折扣 2 被折扣
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public Fphxz fphxz { get; set; }
         /// <summary>
         /// 19位税收分类编码

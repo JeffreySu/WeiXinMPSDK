@@ -11,6 +11,7 @@
         /// <summary>
         /// 属性类型: 0-文本 1-网页 2-小程序
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public ExternalAttributeType type { get; set; }
         /// <summary>
         /// 属性名称

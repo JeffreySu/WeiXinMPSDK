@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     添加访问分析接口的 access_source_visit_uv 属性（该场景 id 访问 uv）
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
@@ -59,6 +62,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <summary>
         /// 分布类型
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public GetWeAnalysisAppidVisitDistributionResultJson_list_index index { get; set; }
 
         /// <summary>

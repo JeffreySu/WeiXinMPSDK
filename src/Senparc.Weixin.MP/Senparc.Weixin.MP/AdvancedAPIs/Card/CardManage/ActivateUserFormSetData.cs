@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
  
     修改标识：Senparc - 20160808
     修改描述：修改BaseForm
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 
@@ -93,6 +96,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// </summary>
     public class RichField
     {
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public RichFieldType type { get; set; }
         /// <summary>
         /// 否 string(32)  职业  字段名

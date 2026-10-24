@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20210924
     
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using Newtonsoft.Json;
@@ -69,6 +72,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <para></para>
         /// </summary>
         [JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
         public string openid { get; set; }
 
         /// <summary>
@@ -94,4 +98,3 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
 
     }
 }
-

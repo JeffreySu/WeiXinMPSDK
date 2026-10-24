@@ -90,9 +90,9 @@ namespace Senparc.Weixin.TenPayV3.Apis.FundApp
                 throw new TenpayApiRequestException("发起转账前请配置微信支付公钥或平台证书。");
             }
 
-            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting,
-                httpClient => httpClient.DefaultRequestHeaders.Add("Wechatpay-Serial", publicKey.Key));
-            return await tenPayApiRequest.RequestAsync<TransferBillReturnJson>(url, data, timeOut);
+            TenPayApiRequest tenPayApiRequest = new(_tenpayV3Setting);
+            return await tenPayApiRequest.RequestAsyncWithHeaderAsync<TransferBillReturnJson>(
+                url, data, "Wechatpay-Serial", publicKey.Key, timeOut);
         }
 
         /// <summary>

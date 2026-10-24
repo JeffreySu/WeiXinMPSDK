@@ -10,6 +10,9 @@
     修改标识：Senparc - 20181030
     修改描述：更新User_Info
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
@@ -187,6 +190,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public int tax { get; set; }
         public string pdf_url { get; set; }
         public string trip_pdf_url { get; set; }
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public Reimburse_Status reimburse_status { get; set; }
         public string check_code { get; set; }
         public string buyer_number { get; set; }

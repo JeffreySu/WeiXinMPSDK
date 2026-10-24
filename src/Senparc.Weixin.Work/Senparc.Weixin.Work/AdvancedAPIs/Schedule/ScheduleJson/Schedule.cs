@@ -16,6 +16,9 @@
     修改标识：Senparc - 20260724
     修改描述：v3.32.1 补齐重复日程更新请求参数
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -113,6 +116,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
         /// <summary>
         /// 日程开始（start_time）前多少秒提醒，当is_remind为1时有效。例如： 300表示日程开始前5分钟提醒。
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public Remind_Before_Event_Secs remind_before_event_secs { get; set; }
         /// <summary>
         /// 日程开始时间与提醒时间的差值列表（单位秒）
@@ -125,6 +129,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
         /// <summary>
         /// 重复类型，当is_repeat为1时有效。
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public Repeat_Type repeat_type { get; set; }
         /// <summary>
         /// 重复频率单位（历史字段，保留兼容）

@@ -35,6 +35,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.XPay
         /// 增加了JsonProperty，因为operator为关键词
         /// </summary>
         [JsonProperty("operator")]
+        [System.Text.Json.Serialization.JsonPropertyName("operator")]
         public string operator_ { get; set; }
 
         /// <summary>

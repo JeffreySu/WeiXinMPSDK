@@ -7,6 +7,9 @@
 
     创建标识：IcedMango - 20241114
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -37,6 +40,7 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         ///     通用模板卡片的类型
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public TemplateCard_CardTypeEnum CardType { get; set; }
         
         /// <summary>

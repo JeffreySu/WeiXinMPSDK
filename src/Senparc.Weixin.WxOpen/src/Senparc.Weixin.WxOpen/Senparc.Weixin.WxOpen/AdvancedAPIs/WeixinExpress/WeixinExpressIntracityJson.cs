@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20260724
     修改描述：v3.28.1 补齐小程序物流、交易、直播、短剧、小说和行业能力接口及事件
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -1053,6 +1056,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WeixinExpress
         public int num { get; set; }
 
         [JsonProperty("item_num")]
+        [System.Text.Json.Serialization.JsonInclude]
+        [System.Text.Json.Serialization.JsonPropertyName("item_num")]
         private int ItemNum
         {
             set => num = value;

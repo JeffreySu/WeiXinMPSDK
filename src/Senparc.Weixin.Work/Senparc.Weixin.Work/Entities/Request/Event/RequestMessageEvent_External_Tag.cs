@@ -7,6 +7,9 @@
     
     创建标识：XiaoPoTian - 20231119
     
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -35,6 +38,7 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         /// 具体事件类型
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public virtual ExternalTagChangeType ChangeType { get { return ExternalTagChangeType.create; } }
     }
 
@@ -46,6 +50,7 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         /// 变更类型
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public ExternalTagChangeTagType TagType { get; set; }
         /// <summary>
         /// TagType类型初始化
@@ -65,6 +70,7 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         /// 变更类型
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public ExternalTagChangeTagType TagType { get; set; }
         // <summary>
         /// TagType类型初始化
@@ -89,6 +95,7 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         /// 变更类型
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public ExternalTagChangeTagType TagType { get; set; }
         // <summary>
         /// TagType类型初始化

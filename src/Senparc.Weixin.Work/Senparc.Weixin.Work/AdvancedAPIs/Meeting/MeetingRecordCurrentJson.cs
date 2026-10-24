@@ -10,6 +10,9 @@
     修改标识：Senparc - 20260725
     修改描述：v3.32.1 补齐录制文件、下载地址和转写请求结果模型
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -78,6 +81,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Meeting
         /// SDK 同时兼容两种 JSON 形状。
         /// </summary>
         [JsonConverter(typeof(MeetingRecordDownloadFileListConverter))]
+        [System.Text.Json.Serialization.JsonConverter(typeof(MeetingRecordDownloadFileListSystemTextJsonConverter))]
         public IList<MeetingRecordDownloadFile> meeting_summary { get; set; }
 
         /// <summary>获取或设置智能优化版会议录制转写下载文件列表。</summary>
@@ -133,6 +137,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Meeting
 
         /// <summary>获取或设置会议纪要下载文件列表。</summary>
         [JsonConverter(typeof(MeetingRecordDownloadFileListConverter))]
+        [System.Text.Json.Serialization.JsonConverter(typeof(MeetingRecordDownloadFileListSystemTextJsonConverter))]
         public IList<MeetingRecordDownloadFile> meeting_summary { get; set; }
     }
 
@@ -365,6 +370,34 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Meeting
 
         /// <summary>获取或设置用于时间轴预览的搜索结果位置列表。</summary>
         public IList<MeetingRecordTranscriptTimeline> timelines { get; set; }
+    }
+
+    internal sealed class MeetingRecordDownloadFileListSystemTextJsonConverter
+        : System.Text.Json.Serialization.JsonConverter<IList<MeetingRecordDownloadFile>>
+    {
+        public override IList<MeetingRecordDownloadFile> Read(
+            ref System.Text.Json.Utf8JsonReader reader, Type typeToConvert,
+            System.Text.Json.JsonSerializerOptions options)
+        {
+            if (reader.TokenType == System.Text.Json.JsonTokenType.Null)
+            {
+                return null;
+            }
+
+            if (reader.TokenType == System.Text.Json.JsonTokenType.StartArray)
+            {
+                return System.Text.Json.JsonSerializer.Deserialize<List<MeetingRecordDownloadFile>>(ref reader, options);
+            }
+
+            return new List<MeetingRecordDownloadFile>
+            {
+                System.Text.Json.JsonSerializer.Deserialize<MeetingRecordDownloadFile>(ref reader, options)
+            };
+        }
+
+        public override void Write(System.Text.Json.Utf8JsonWriter writer,
+            IList<MeetingRecordDownloadFile> value, System.Text.Json.JsonSerializerOptions options)
+            => System.Text.Json.JsonSerializer.Serialize(writer, new List<MeetingRecordDownloadFile>(value), options);
     }
 
     internal sealed class MeetingRecordDownloadFileListConverter : JsonConverter

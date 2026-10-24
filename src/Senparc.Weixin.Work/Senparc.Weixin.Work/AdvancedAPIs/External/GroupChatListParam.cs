@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：WangDrama - 20210630
     修改描述：v3.9.600 添加：外部联系人 - 客户群统计+联系客户+群直播+客户群事件 相关功能
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.External
@@ -51,6 +54,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External
         /// <summary>
         /// 群状态过滤。
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public StatusFilter status_filter { get; set; } = StatusFilter.普通列表;
         /// <summary>
         /// 群主过滤。如果不填，表示获取全部群主的数据

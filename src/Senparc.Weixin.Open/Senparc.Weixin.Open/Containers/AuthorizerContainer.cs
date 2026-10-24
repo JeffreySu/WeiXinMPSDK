@@ -96,6 +96,9 @@ Copyright(C) 2018 Senparc
     修改标识：Senparc - 20260718
     修改描述：v4.24.2 修复授权方同步注册及凭据锁内二次检查
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -131,6 +134,7 @@ namespace Senparc.Weixin.Open.Containers
         /// 授权信息
         /// </summary>
         [JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
         public GetAuthorizerInfoResult FullAuthorizerInfoResult
         {
             get

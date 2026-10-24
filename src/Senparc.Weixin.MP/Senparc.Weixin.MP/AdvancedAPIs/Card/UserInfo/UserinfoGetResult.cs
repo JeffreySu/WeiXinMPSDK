@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20160505
     修改描述：注销UserinfoGetResult.custom_field_list属性,正确的位置应放到UserinfoGetResult_UserInfo 对象中。感谢@hello2008zj
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -76,6 +79,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <summary>
         /// 当前用户的会员卡状态
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public UserCardStatus user_card_status { get; set; }
         /// <summary>
         /// 该卡是否已经被激活，true表示已经被激活，false表示未被激活

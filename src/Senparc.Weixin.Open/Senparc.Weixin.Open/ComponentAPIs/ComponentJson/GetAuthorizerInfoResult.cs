@@ -25,6 +25,9 @@
     修改标识：Senparc - 20260616
     修改描述：v4.24.1 添加 AuthorizerInfo 中的 store_info、talent_info、supplier_info 属性
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -120,12 +123,14 @@ namespace Senparc.Weixin.Open.ComponentAPIs
     [Serializable]
     public class ServiceTypeInfo
     {
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public ServiceType id { get; set; }
     }
 
     [Serializable]
     public class VerifyTypeInfo
     {
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public VerifyType id { get; set; }
     }
 

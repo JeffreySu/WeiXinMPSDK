@@ -6,6 +6,9 @@
     
     
     创建标识：Senparc - 20150728
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.Chat
@@ -22,6 +25,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Chat
         /// <summary>
         /// 免打扰状态
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public Mute_Status status { get; set; }
     }
 }

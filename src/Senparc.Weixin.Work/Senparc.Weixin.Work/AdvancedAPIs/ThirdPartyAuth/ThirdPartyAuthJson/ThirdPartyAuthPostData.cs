@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
@@ -42,6 +45,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         /// <summary>
         /// 是否接收用户变更通知。0：不接收；1：接收
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public SetAgent_IsReportUser isreportuser { get; set; }
     }
 

@@ -7,6 +7,9 @@
     
     创建标识：Senparc - 20230905
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
@@ -31,6 +34,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Icp.IcpJson
         /// <summary>
         /// 备案状态，取值参考备案状态枚举，示例值：`1024`
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public StatusCode status { get; set; }
 
         /// <summary>
@@ -46,11 +50,13 @@ namespace Senparc.Weixin.Open.WxaAPIs.Icp.IcpJson
         /// <summary>
         /// 备案入口是否对该小程序开放
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public Available available { get; set; }
 
         /// <summary>
         /// 管局短信核验状态，仅当备案状态为 `4`（管局审核中）的时候才有效。
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public SmsVerifyStatus sms_verify_status { get; set; }
     }
 

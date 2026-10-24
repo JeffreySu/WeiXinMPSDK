@@ -36,6 +36,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190121
     修改描述：v16.6.9 修复：GetCardInfoResultJson 返回结果参数
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 
@@ -62,6 +65,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         public string openid { get; set; }
         //can_consume
         public bool can_consume { get; set; }
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public UserCardStatus user_card_status { get; set; }
         public Get_Card card { get; set; }
     }

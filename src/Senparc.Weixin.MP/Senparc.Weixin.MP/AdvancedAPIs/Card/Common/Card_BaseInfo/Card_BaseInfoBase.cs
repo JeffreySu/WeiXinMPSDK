@@ -42,6 +42,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190330
     修改描述：v16.6.15 Card_BaseInfoBase 添加 get_custom_code_mode 属性
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 
@@ -73,6 +76,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 必填
         /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
         public Card_CodeType code_type { get; set; }
         /// <summary>
         /// 商户名字,字数上限为12 个汉字。（填写直接提供服务的商户名， 第三方商户名填写在source 字段）
@@ -166,6 +170,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 商户自定义cell 名称
         /// 非必填
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public Card_UrlNameType url_name_type { get; set; }
         /// <summary>
         /// 商户自定义url 地址，支持卡券页内跳转,跳转页面内容需与自定义cell 名称保持一致。
@@ -289,4 +294,3 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         public string url { get; set; }
     }
 }
-

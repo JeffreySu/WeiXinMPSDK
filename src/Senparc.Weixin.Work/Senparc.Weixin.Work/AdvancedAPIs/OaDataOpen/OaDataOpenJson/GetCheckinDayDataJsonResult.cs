@@ -6,6 +6,9 @@
     
     创建标识：XbCore - 20210906
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 #region 引用
 
@@ -74,6 +77,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 记录类型
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public RecordType record_type { get; set; }
 
         /// <summary>
@@ -104,6 +108,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 日报类型
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public DayType day_type { get; set; }
     }
 
@@ -259,6 +264,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 校准状态类型：1-迟到；2-早退；3-缺卡；4-旷工；5-地点异常；6-设备异常
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public ExceptionType exception { get; set; }
     }
 
@@ -270,6 +276,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 状态：0-无加班；1-正常；2-缺时长
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public OtStatus ot_status { get; set; }
 
         /// <summary>
@@ -291,6 +298,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 类型：1-请假；2-补卡；3-出差；4-外出；100-外勤
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public LeaveType type { get; set; }
 
         /// <summary>
@@ -316,6 +324,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 时长单位：0-按天 1-按小时
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public TimeType time_type { get; set; }
     }
 

@@ -10,6 +10,9 @@
     修改标识：Senparc - 20260608
     修改描述：v3.17.x 增加 get_by_calendar 返回的 sequence 字段
     
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
@@ -90,6 +93,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule.ScheduleJson
 
     public class AttendeeResult : Attendee
     {
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public Response_Status response_status { get; set; }
     }
 

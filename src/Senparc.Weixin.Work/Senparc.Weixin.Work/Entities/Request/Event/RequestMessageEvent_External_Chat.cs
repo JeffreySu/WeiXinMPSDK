@@ -16,6 +16,9 @@
     修改标识：XiaoPoTian - 20231122
     修改描述：v3.18.1 添加客户群变更事件(MemChangeList,LastMemVer,CurMemVer)
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;
@@ -41,6 +44,7 @@ namespace Senparc.Weixin.Work.Entities
         /// </summary>
         public string ChatId { get; set; }
 
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public virtual ExternalChatChangeType ChangeType { get { return ExternalChatChangeType.create; } }
     }
 
@@ -62,6 +66,7 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         /// 变更详情
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public ExternalChatUpdateDetailType UpdateDetail { get; set; }
         /// <summary>
         /// 当是成员入群时有值。表示成员的入群方式0 - 由成员邀请入群（包括直接邀请入群和通过邀请链接入群）3 - 通过扫描群二维码入群

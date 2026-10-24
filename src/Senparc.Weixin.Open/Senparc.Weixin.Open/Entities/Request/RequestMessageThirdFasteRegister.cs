@@ -18,6 +18,9 @@
     修改描述：v4.16.0 1、处理三方推送消息枚举
 		              2、添加“小程序发货信息管理服务”
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;
@@ -42,6 +45,7 @@ namespace Senparc.Weixin.Open
         /// <summary>
         /// 
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public ReturnCode status { get; set; }
 
         /// <summary>

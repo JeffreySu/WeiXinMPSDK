@@ -10,6 +10,9 @@
     修改标识：Senparc - 20200731
     修改描述：v16.10.502.3 "获取授权页链接数据开票来源"属性的枚举类型序列化字符串优化
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using Newtonsoft.Json;
@@ -42,6 +45,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 开票来源，web：公众号开票，app：app开票
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public SourceType source { get; set; }
         /// <summary>
         /// 授权成功后跳转页面
@@ -196,6 +200,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 授权类型
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public AuthType type { get; set; }
     }
 }

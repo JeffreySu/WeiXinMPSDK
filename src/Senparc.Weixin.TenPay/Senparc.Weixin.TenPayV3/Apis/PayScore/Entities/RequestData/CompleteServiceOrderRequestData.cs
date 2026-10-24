@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：mojinxun - 20250708
     修改描述：v2.1.1 微信支付分 增加参数device /PR #3156 / Issue #3155 感谢 @mojinxun @zariczhu
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 
@@ -93,6 +96,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
         /// <para>示例值：1234323JKHDFE1243252 </para>
         /// </summary>
         [JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
         public string out_order_no { get; set; }
 
         /// <summary>
@@ -372,4 +376,3 @@ namespace Senparc.Weixin.TenPayV3.Apis.PayScore
     }
 
 }
-

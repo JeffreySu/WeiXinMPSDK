@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180901
     修改描述：支持 NeuChar
     
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -44,6 +47,7 @@ namespace Senparc.Weixin.Work.Entities.Request.KF
 {
     public class RequestPack : IEntityBase
     {
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public AgentType AgentType { get; set; }
         public string ToUserName { get; set; }
         public int ItemCount { get; set; }

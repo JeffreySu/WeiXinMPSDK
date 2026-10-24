@@ -13,6 +13,9 @@
     修改标识：Senparc - 20170204
     修改描述：v14.3.124 修改lang属性为string类型，并添加LangEnum作为枚举
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -39,6 +42,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
         /// <summary>
         /// lang属性的枚举转换
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public Language LangEnum {
             get { return (Language)Enum.Parse(typeof (Language), lang); }
             set { lang = value.ToString(); }

@@ -31,6 +31,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170322
     修改描述：v14.3.136 增加 KeywordAutoReplyInfo_Item.reply_list_info 属性
   
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -68,6 +71,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.AutoReply
         /// <summary>
         /// 自动回复的类型。关注后自动回复和消息自动回复的类型仅支持文本（text）、图片（img）、语音（voice）、视频（video），关键词自动回复则还多了图文消息（news）
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public AutoReplyType type { get; set; }
         /// <summary>
         /// 对于文本类型，content是文本内容，对于图文、图片、语音、视频类型，content是mediaID
@@ -80,6 +84,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.AutoReply
         /// <summary>
         /// 自动回复的类型。关注后自动回复和消息自动回复的类型仅支持文本（text）、图片（img）、语音（voice）、视频（video），关键词自动回复则还多了图文消息（news）
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public AutoReplyType type { get; set; }
         /// <summary>
         /// 对于文本类型，content是文本内容，对于图文、图片、语音、视频类型，content是mediaID
@@ -108,6 +113,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.AutoReply
         /// <summary>
         /// 回复模式，reply_all代表全部回复，random_one代表随机回复其中一条
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public AutoReplyMode reply_mode { get; set; }
         /// <summary>
         /// 匹配的关键词列表
@@ -125,10 +131,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.AutoReply
         /// <summary>
         ///  关键词的类型，仅支持文本（text）、图片（img）、语音（voice）、视频（video），关键词自动回复则还多了图文消息（news）
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public AutoReplyType type { get; set; }
         /// <summary>
         /// 关键词匹配模式，contain = 0 消息中含有该关键词即可， equal = 1 消息内容必须和关键词严格相同
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public AutoReplyMatchMode match_mode { get; set; }
         /// <summary>
         /// 对于文本类型，content是文本内容，对于图文、图片、语音、视频类型，content是mediaID
@@ -141,6 +149,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.AutoReply
         /// <summary>
         /// 自动回复的类型。关注后自动回复和消息自动回复的类型仅支持文本（text）、图片（img）、语音（voice）、视频（video），关键词自动回复则还多了图文消息（news）
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public AutoReplyType type { get; set; }
         /// <summary>
         /// 图文消息的信息

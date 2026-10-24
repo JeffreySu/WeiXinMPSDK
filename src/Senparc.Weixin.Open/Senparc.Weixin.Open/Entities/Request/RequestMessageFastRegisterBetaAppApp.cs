@@ -7,6 +7,9 @@
     
     创建标识：mc7246 - 20220329
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;
@@ -29,6 +32,7 @@ namespace Senparc.Weixin.Open
         /// </summary>
         public string appid { get; set; }
 
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public ReturnCode status { get; set; }
 
         public string msg { get; set; }

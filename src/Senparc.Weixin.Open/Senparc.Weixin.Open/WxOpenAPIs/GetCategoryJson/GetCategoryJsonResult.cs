@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：ccccccmd - 20210302
 
+    修改标识：Senparc - 20261024
+    修改描述：兼容 System.Text.Json 枚举字符串并保持旧 JSON 契约
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -92,6 +95,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs.GetCategoryJson
         /// <summary>
         /// 审核状态（1审核中 2审核不通过 3审核通过）
         /// </summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
         public AuditStatus audit_status { get; set; }
 
         /// <summary>

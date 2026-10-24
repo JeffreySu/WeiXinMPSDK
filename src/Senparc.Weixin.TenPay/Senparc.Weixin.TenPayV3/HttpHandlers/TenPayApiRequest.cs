@@ -202,7 +202,7 @@ namespace Senparc.Weixin.TenPayV3
         /// 获取 HttpResponseMessage 对象，并支持调用方取消及流式响应。
         /// </summary>
         /// <returns>响应对象由调用方负责释放。</returns>
-        public async Task<HttpResponseMessage> GetHttpResponseMessageAsync(
+        public Task<HttpResponseMessage> GetHttpResponseMessageAsync(
             string url,
             object data,
             CancellationToken cancellationToken,
@@ -210,6 +210,20 @@ namespace Senparc.Weixin.TenPayV3
             int timeOut = Config.TIME_OUT,
             ApiRequestMethod requestMethod = ApiRequestMethod.POST,
             bool checkDataNotNull = true)
+        {
+            return GetHttpResponseMessageAsync(url, data, cancellationToken, completionOption,
+                timeOut, requestMethod, checkDataNotNull, null);
+        }
+
+        private async Task<HttpResponseMessage> GetHttpResponseMessageAsync(
+            string url,
+            object data,
+            CancellationToken cancellationToken,
+            HttpCompletionOption completionOption,
+            int timeOut,
+            ApiRequestMethod requestMethod,
+            bool checkDataNotNull,
+            Action<HttpRequestMessage> setRequestHeaders)
         {
             if (timeOut <= 0 && timeOut != Timeout.Infinite)
             {
@@ -241,6 +255,8 @@ namespace Senparc.Weixin.TenPayV3
                 default:
                     throw new ArgumentOutOfRangeException(nameof(requestMethod));
             }
+
+            setRequestHeaders?.Invoke(request);
 
             using var timeoutCancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
             if (timeOut != Timeout.Infinite)
@@ -636,7 +652,7 @@ namespace Senparc.Weixin.TenPayV3
             where T : ReturnJsonBase, new()
         {
             return RequestAsyncCore(url, data, CancellationToken.None, timeOut, requestMethod,
-                checkSign, createDefaultInstance, true);
+                checkSign, createDefaultInstance, true, null);
         }
 
         /// <summary>
@@ -646,7 +662,17 @@ namespace Senparc.Weixin.TenPayV3
             where T : ReturnJsonBase, new()
         {
             return RequestAsyncCore(url, data, cancellationToken, timeOut, requestMethod,
-                checkSign, createDefaultInstance, true);
+                checkSign, createDefaultInstance, true, null);
+        }
+
+        internal Task<T> RequestAsyncWithHeaderAsync<T>(string url, object data,
+            string headerName, string headerValue, int timeOut = Config.TIME_OUT,
+            ApiRequestMethod requestMethod = ApiRequestMethod.POST)
+            where T : ReturnJsonBase, new()
+        {
+            return RequestAsyncCore<T>(url, data, CancellationToken.None, timeOut,
+                requestMethod, true, null, true,
+                request => request.Headers.Add(headerName, headerValue));
         }
 
         /// <summary>
@@ -686,12 +712,13 @@ namespace Senparc.Weixin.TenPayV3
             where T : ReturnJsonBase, new()
         {
             return RequestAsyncCore(url, null, cancellationToken, timeOut, requestMethod,
-                checkSign, createDefaultInstance, false);
+                checkSign, createDefaultInstance, false, null);
         }
 
         private async Task<T> RequestAsyncCore<T>(string url, object data,
             CancellationToken cancellationToken, int timeOut, ApiRequestMethod requestMethod,
-            bool checkSign, Func<T> createDefaultInstance, bool checkDataNotNull)
+            bool checkSign, Func<T> createDefaultInstance, bool checkDataNotNull,
+            Action<HttpRequestMessage> setRequestHeaders)
             where T : ReturnJsonBase, new()
         {
             T result = null;
@@ -700,7 +727,7 @@ namespace Senparc.Weixin.TenPayV3
             {
                 using HttpResponseMessage responseMessage = await GetHttpResponseMessageAsync(
                     url, data, cancellationToken, HttpCompletionOption.ResponseContentRead, timeOut,
-                    requestMethod, checkDataNotNull).ConfigureAwait(false);
+                    requestMethod, checkDataNotNull, setRequestHeaders).ConfigureAwait(false);
 
                 //获取响应结果
                 string content = await responseMessage.Content.ReadAsStringAsync();//TODO:如果不正确也要返回详情

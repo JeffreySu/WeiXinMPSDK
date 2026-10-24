@@ -78,7 +78,8 @@ var queryResult = await fundAppApis.QueryTransferByOutBillNoAsync(queryRequest);
 2. **收款用户姓名**：转账金额 >= 2000元时必填，需使用微信提供的公钥进行加密
 3. **金额单位**：转账金额单位为"分"，不是"元"
 4. **通知地址**：notify_url必须为公网可访问的HTTPS地址
-5. **单据状态**：
+5. **验签公钥**：发起转账前应配置 `TenPayV3_TenPayPubKeyID` 和 `TenPayV3_TenPayPubKey`（微信支付公钥模式），或确保可获取平台证书；SDK 会在请求中发送对应的 `Wechatpay-Serial`，并保持响应验签。撤销转账使用无正文 POST 请求。
+6. **单据状态**：
    - ACCEPTED: 转账已受理
    - PROCESSING: 转账锁定资金中
    - WAIT_USER_CONFIRM: 待收款用户确认

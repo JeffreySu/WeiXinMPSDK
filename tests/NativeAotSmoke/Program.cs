@@ -13,6 +13,7 @@
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.CommonAPIs;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers.Serializers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.TenPay.V3;
@@ -32,6 +33,9 @@ internal static class Program
 
         var parsed = Post.GetResult("{\"value\":7}", SmokeJsonContext.Default.SmokePayload);
         Ensure(parsed.Value == 7, "core deserialize");
+
+        var wxResult = WeixinJsonSerializer.DeserializeWxJsonResult("{\"errcode\":0,\"errmsg\":\"ok\"}");
+        Ensure(wxResult.errcode == ReturnCode.请求成功, "WxJsonResult errcode");
 
         using (var client = new HttpClient(new StaticJsonHandler("{\"value\":9}")))
         {

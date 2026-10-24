@@ -160,7 +160,7 @@ namespace Senparc.WeixinTests.Helpers.Serializers
 
     public sealed class EnumMemberPayload
     {
-        [JsonConverter(typeof(JsonStringOrNumberEnumConverterFactory))]
+        [JsonConverter(typeof(JsonStringOrNumberEnumConverter<EnumMemberValue>))]
         public EnumMemberValue Value { get; set; }
     }
 

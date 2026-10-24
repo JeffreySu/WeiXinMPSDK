@@ -76,7 +76,7 @@ namespace Senparc.Weixin.Entities
         //    get { return this; }
         //}
 
-        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverterFactory))]
+        [System.Text.Json.Serialization.JsonConverter(typeof(Senparc.Weixin.Helpers.Serializers.JsonStringOrNumberEnumConverter<ReturnCode>))]
         public ReturnCode errcode { get; set; }
 
         /// <summary>
@@ -130,4 +130,3 @@ namespace Senparc.Weixin.Entities
         //}
     }
 }
-

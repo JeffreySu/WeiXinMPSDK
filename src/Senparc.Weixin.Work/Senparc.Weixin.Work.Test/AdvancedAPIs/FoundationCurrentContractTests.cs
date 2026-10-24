@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin;
 using Senparc.Weixin.Work.AdvancedAPIs;
 using Senparc.Weixin.Work.AdvancedAPIs.IdConvert;
 using Senparc.Weixin.Work.AdvancedAPIs.OAuth2;
@@ -17,7 +18,8 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
     public class FoundationCurrentContractTests
     {
         [TestMethod]
-        public void OAuth2ApiUsesCurrentAuthPathsAndProvidesTfaEntries()
+        [DoNotParallelize]
+        public void OAuth2ApiUsesConfigurableUserAuthenticationPathsAndProvidesTfaEntries()
         {
             var oauthSource = ReadRepositoryFile("src", "Senparc.Weixin.Work",
                 "Senparc.Weixin.Work", "AdvancedAPIs", "OAuth2", "OAuth2Api.cs");
@@ -25,15 +27,36 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
                 "Senparc.Weixin.Work", "AdvancedAPIs", "OAuth2",
                 "OAuth2Api.Tfa.cs");
 
-            StringAssert.Contains(oauthSource, "/cgi-bin/auth/getuserinfo");
-            StringAssert.Contains(oauthSource, "/cgi-bin/auth/getuserdetail");
-            Assert.IsFalse(oauthSource.Contains("/cgi-bin/user/getuserinfo"));
-            Assert.IsFalse(oauthSource.Contains("/cgi-bin/user/getuserdetail"));
             StringAssert.Contains(oauthSource, "/document/path/91023");
             StringAssert.Contains(oauthSource, "/document/path/95833");
-            StringAssert.Contains(tfaSource, "/cgi-bin/auth/get_tfa_info");
             StringAssert.Contains(tfaSource, "/document/path/99499");
             Assert.AreEqual(3, CountOccurrences(tfaSource, "/// <summary>"));
+
+            var getUserAuthenticationPath = typeof(OAuth2Api)
+                .GetMethod("GetUserAuthenticationPath",
+                    BindingFlags.NonPublic | BindingFlags.Static);
+            Assert.IsNotNull(getUserAuthenticationPath);
+
+            var originalPrefix = Config.WorkUserAuthenticationApiPathPrefix;
+            try
+            {
+                Config.WorkUserAuthenticationApiPathPrefix = "auth";
+                Assert.AreEqual("/cgi-bin/auth/getuserinfo",
+                    (string)getUserAuthenticationPath.Invoke(null,
+                        new object[] { "getuserinfo" }));
+                Assert.AreEqual("/cgi-bin/auth/getuserdetail",
+                    (string)getUserAuthenticationPath.Invoke(null,
+                        new object[] { "getuserdetail" }));
+
+                Config.WorkUserAuthenticationApiPathPrefix = "/user/";
+                Assert.AreEqual("/cgi-bin/user/get_tfa_info",
+                    (string)getUserAuthenticationPath.Invoke(null,
+                        new object[] { "get_tfa_info" }));
+            }
+            finally
+            {
+                Config.WorkUserAuthenticationApiPathPrefix = originalPrefix;
+            }
 
             var methodNames = typeof(OAuth2Api)
                 .GetMethods(BindingFlags.Public | BindingFlags.Static)
@@ -44,6 +67,28 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
             CollectionAssert.Contains(methodNames, nameof(OAuth2Api.GetUserDetailAsync));
             CollectionAssert.Contains(methodNames, nameof(OAuth2Api.GetTfaInfo));
             CollectionAssert.Contains(methodNames, nameof(OAuth2Api.GetTfaInfoAsync));
+        }
+
+        [TestMethod]
+        [DoNotParallelize]
+        public void WorkUserAuthenticationApiPathPrefixSupportsLegacyPrivateDeploymentValue()
+        {
+            var originalPrefix = Config.WorkUserAuthenticationApiPathPrefix;
+            try
+            {
+                Config.WorkUserAuthenticationApiPathPrefix = null;
+                Assert.AreEqual("auth", Config.WorkUserAuthenticationApiPathPrefix);
+
+                Config.WorkUserAuthenticationApiPathPrefix = "   ";
+                Assert.AreEqual("auth", Config.WorkUserAuthenticationApiPathPrefix);
+
+                Config.WorkUserAuthenticationApiPathPrefix = "/user/";
+                Assert.AreEqual("user", Config.WorkUserAuthenticationApiPathPrefix);
+            }
+            finally
+            {
+                Config.WorkUserAuthenticationApiPathPrefix = originalPrefix;
+            }
         }
 
         [TestMethod]

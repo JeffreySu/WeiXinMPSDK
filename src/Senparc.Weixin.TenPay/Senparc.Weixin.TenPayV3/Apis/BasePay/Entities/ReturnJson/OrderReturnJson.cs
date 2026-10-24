@@ -36,6 +36,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Senparc.Weixin.TenPayV3.Entities;
 using Senparc.Weixin.TenPayV3.Apis.Entities;
@@ -274,18 +275,21 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
             /// 微信出资，单位为分
             /// 示例值：0
             /// </summary>
+            [JsonConverter(typeof(StringOrNumberJsonConverter))]
             public string wechatpay_contribute { get; set; }
 
             /// <summary>
             /// 商户出资，单位为分
             /// 示例值：0
             /// </summary>
+            [JsonConverter(typeof(StringOrNumberJsonConverter))]
             public string merchant_contribute { get; set; }
 
             /// <summary>
             /// 其他出资，单位为分
             /// 示例值：0
             /// </summary>
+            [JsonConverter(typeof(StringOrNumberJsonConverter))]
             public string other_contribute { get; set; }
 
             /// <summary>

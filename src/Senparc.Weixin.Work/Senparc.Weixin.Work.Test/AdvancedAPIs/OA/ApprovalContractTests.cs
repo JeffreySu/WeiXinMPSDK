@@ -305,6 +305,22 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.OA
             Assert.AreEqual(100, legacyResult.next_cursor.Value);
         }
 
+        [TestMethod]
+        public void GetApprovalDetailAttendanceDateRangeDeserializesLongTimestamps()
+        {
+            var result = JsonSerializer.Deserialize<GetApprovalDetailResult_Info_ApplyData_Contents>(
+                "{\"control\":\"Attendance\",\"id\":\"attendance-1\"," +
+                "\"value\":{\"attendance\":{\"date_range\":{\"type\":\"halfday\"," +
+                "\"new_begin\":1599494400,\"new_end\":1599667199,\"new_duration\":172800}}}}");
+
+            Assert.IsNotNull(result);
+            var dateRange = result.value.attendance.date_range;
+            Assert.AreEqual("halfday", dateRange.type);
+            Assert.AreEqual(1599494400L, dateRange.new_begin);
+            Assert.AreEqual(1599667199L, dateRange.new_end);
+            Assert.AreEqual(172800L, dateRange.new_duration);
+        }
+
         private static int CountOccurrences(string source, string value)
             => source.Split(new[] { value }, StringSplitOptions.None).Length - 1;
 

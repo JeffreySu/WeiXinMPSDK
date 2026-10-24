@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net10.0</TargetFrameworks>
     <!--<FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>-->
-    <Version>6.25.1</Version>
+    <Version>6.25.2</Version>
     <LangVersion>12.0</LangVersion>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
@@ -308,6 +308,8 @@
 			[2026-07-31] v6.25.1 升级 CO2NET 基础依赖
 			1、升级 Senparc.CO2NET 至 4.2.0
 			2、同步微信 SDK 基础模块与新版序列化及网络组件的兼容能力
+			[2026-09-10] v6.25.2 新增企业微信用户身份接口路径前缀配置
+			1、提供 WorkUserAuthenticationApiPathPrefix，默认 auth，支持 user 兼容私有化旧路径
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

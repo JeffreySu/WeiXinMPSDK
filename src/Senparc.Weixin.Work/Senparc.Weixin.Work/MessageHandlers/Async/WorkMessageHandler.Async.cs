@@ -57,26 +57,26 @@ namespace Senparc.Weixin.Work.MessageHandlers
             switch (RequestMessage.MsgType)
             {
                 case RequestMsgType.Unknown: //第三方回调
-                {
-                    if (RequestMessage is IThirdPartyInfoBase)
                     {
-                        var thirdPartyInfo = RequestMessage as IThirdPartyInfoBase;
-                        TextResponseMessage = await OnThirdPartyEventAsync(thirdPartyInfo);
+                        if (RequestMessage is IThirdPartyInfoBase)
+                        {
+                            var thirdPartyInfo = RequestMessage as IThirdPartyInfoBase;
+                            TextResponseMessage = await OnThirdPartyEventAsync(thirdPartyInfo);
+                        }
+                        else
+                        {
+                            throw new WeixinException("没有找到合适的消息类型。");
+                        }
                     }
-                    else
-                    {
-                        throw new WeixinException("没有找到合适的消息类型。");
-                    }
-                }
                     break;
                 //以下是普通信息
                 case RequestMsgType.Text:
-                {
-                    var requestMessage = RequestMessage as RequestMessageText;
+                    {
+                        var requestMessage = RequestMessage as RequestMessageText;
 
-                    ResponseMessage = await OnTextOrEventRequestAsync(requestMessage) ??
-                                      await OnTextRequestAsync(requestMessage);
-                }
+                        ResponseMessage = await OnTextOrEventRequestAsync(requestMessage) ??
+                                          await OnTextRequestAsync(requestMessage);
+                    }
                     break;
                 case RequestMsgType.Location:
                     ResponseMessage = await OnLocationRequestAsync(RequestMessage as RequestMessageLocation);
@@ -97,12 +97,12 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     ResponseMessage = await OnFileRequestAsync(RequestMessage as RequestMessageFile);
                     break;
                 case RequestMsgType.Event:
-                {
-                    var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
+                    {
+                        var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
 
-                    ResponseMessage = await OnTextOrEventRequestAsync(requestMessageText) ??
-                                      await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase);
-                }
+                        ResponseMessage = await OnTextOrEventRequestAsync(requestMessageText) ??
+                                          await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase);
+                    }
                     break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
@@ -1234,37 +1234,37 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     return OnThirdPartyEvent_DeviceFeatureChangeAsync(
                         (RequestMessageInfo_Device_Feature_Change)thirdPartyInfo);
                 case ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT:
-                {
-                    var cecRequestMessage = RequestMessage as IRequestMessageEvent_Change_ExternalContact_Base;
-
-                    switch (cecRequestMessage.ChangeType)
                     {
-                        case ExternalContactChangeType.add_external_contact:
-                            return OnThirdPartyEvent_ChangeExternalContactAddRequestAsync(
-                                RequestMessage as RequestMessageEvent_Change_ExternalContact_Add);
-                        case ExternalContactChangeType.edit_external_contact:
-                            return OnThirdPartyEvent_ChangeExternalContactUpdateRequestAsync(
-                                RequestMessage as RequestMessageEvent_Change_ExternalContact_Modified);
-                        case ExternalContactChangeType.add_half_external_contact:
-                            return OnThirdPartyEvent_ChangeExternalContactAddHalfRequestAsync(
-                                RequestMessage as RequestMessageEvent_Change_ExternalContact_Add_Half);
-                        case ExternalContactChangeType.del_external_contact:
-                            return OnThirdPartyEvent_ChangeExternalContactDelRequestAsync(
-                                RequestMessage as RequestMessageEvent_Change_ExternalContact_Del);
-                        case ExternalContactChangeType.del_follow_user:
-                            return OnThirdPartyEvent_ChangeExternalContactDelFollowUserRequestAsync(
-                                RequestMessage as RequestMessageEvent_Change_ExternalContact_Del_FollowUser);
-                        case ExternalContactChangeType.transfer_fail:
-                            return OnThirdPartyEvent_ChangeExternalContactTransferFailRequestAsync(
-                                RequestMessage as RequestMessageEvent_Change_ExternalContact_Transfer_Fail);
-                        case ExternalContactChangeType.msg_audit_approved:
-                            return OnThirdPartyEvent_ChangeExternalContactMsgAuditAsync(
-                                RequestMessage as RequestMessageEvent_Change_ExternalContact_MsgAudit);
-                        default:
-                            throw new UnknownRequestMsgTypeException("未知的外部联系人事件Event.CHANGE_EXTERNAL_CONTACT下属请求信息",
-                                null);
+                        var cecRequestMessage = RequestMessage as IRequestMessageEvent_Change_ExternalContact_Base;
+
+                        switch (cecRequestMessage.ChangeType)
+                        {
+                            case ExternalContactChangeType.add_external_contact:
+                                return OnThirdPartyEvent_ChangeExternalContactAddRequestAsync(
+                                    RequestMessage as RequestMessageEvent_Change_ExternalContact_Add);
+                            case ExternalContactChangeType.edit_external_contact:
+                                return OnThirdPartyEvent_ChangeExternalContactUpdateRequestAsync(
+                                    RequestMessage as RequestMessageEvent_Change_ExternalContact_Modified);
+                            case ExternalContactChangeType.add_half_external_contact:
+                                return OnThirdPartyEvent_ChangeExternalContactAddHalfRequestAsync(
+                                    RequestMessage as RequestMessageEvent_Change_ExternalContact_Add_Half);
+                            case ExternalContactChangeType.del_external_contact:
+                                return OnThirdPartyEvent_ChangeExternalContactDelRequestAsync(
+                                    RequestMessage as RequestMessageEvent_Change_ExternalContact_Del);
+                            case ExternalContactChangeType.del_follow_user:
+                                return OnThirdPartyEvent_ChangeExternalContactDelFollowUserRequestAsync(
+                                    RequestMessage as RequestMessageEvent_Change_ExternalContact_Del_FollowUser);
+                            case ExternalContactChangeType.transfer_fail:
+                                return OnThirdPartyEvent_ChangeExternalContactTransferFailRequestAsync(
+                                    RequestMessage as RequestMessageEvent_Change_ExternalContact_Transfer_Fail);
+                            case ExternalContactChangeType.msg_audit_approved:
+                                return OnThirdPartyEvent_ChangeExternalContactMsgAuditAsync(
+                                    RequestMessage as RequestMessageEvent_Change_ExternalContact_MsgAudit);
+                            default:
+                                throw new UnknownRequestMsgTypeException("未知的外部联系人事件Event.CHANGE_EXTERNAL_CONTACT下属请求信息",
+                                    null);
+                        }
                     }
-                }
                 default:
                     throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
             }

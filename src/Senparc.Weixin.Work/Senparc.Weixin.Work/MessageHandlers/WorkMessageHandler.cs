@@ -90,6 +90,9 @@
     修改标识：Senparc - 20260726
     修改描述：v3.32.1 补齐企业微信通讯录、安全、智能机器人、微信客服和获客助手接口；增加应用邮箱新邮件变更回调处理入口；增加设备数据授权变更回调处理入口；增加硬件设备特征变更回调处理入口
 
+    修改标识：lijian3828940 - 20261104
+    修改描述：添加:企业互联共享应用事件回调,上下游共享应用事件回调 事件
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -935,7 +938,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
         #endregion
-        
+
         /// <summary>
         /// 企业微信会话存档-产生会话回调事件
         /// </summary>
@@ -944,6 +947,34 @@ namespace Senparc.Weixin.Work.MessageHandlers
         public virtual IWorkResponseMessageBase OnEvent_MsgAuditNotifyRequest(RequestMessageEvent_MsgAuditNotify requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 企业互联共享应用事件回调 <see href="https://developer.work.weixin.qq.com/document/path/90240#%E4%BC%81%E4%B8%9A%E4%BA%92%E8%81%94%E5%85%B1%E4%BA%AB%E5%BA%94%E7%94%A8%E4%BA%8B%E4%BB%B6%E5%9B%9E%E8%B0%83">官方文档</see>
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ShareAgentChangeRequest(RequestMessageEvent_Share_Agent_Change requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 上下游共享应用事件回调 <see href="https://developer.work.weixin.qq.com/document/path/90240#%E4%B8%8A%E4%B8%8B%E6%B8%B8%E5%85%B1%E4%BA%AB%E5%BA%94%E7%94%A8%E4%BA%8B%E4%BB%B6%E5%9B%9E%E8%B0%83">官方文档</see>
+        /// <para>本事件触发时机为：</para>
+        /// <list type="number">
+        /// <item>
+        ///     <description>上游企业把自建应用共享给下游企业使用</description>
+        ///   </item>
+        ///   <item>
+        ///     <description>上游企业把下游企业从共享应用中移除</description>
+        ///   </item>   
+        /// </list>
+        /// </summary>
+        /// <param name="requestMessageEvent_Share_Chain_Change"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ShareChainChangeRequest(RequestMessageEvent_Share_Chain_Change requestMessageEvent_Share_Chain_Change)
+        {
+            return DefaultResponseMessage(requestMessageEvent_Share_Chain_Change);
         }
 
         /// <summary>
@@ -955,7 +986,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
         {
             return DefaultResponseMessage(requestMessage);
         }
-        
+
         /// <summary>
         ///     通用模板卡片右上角菜单事件推送
         /// </summary>

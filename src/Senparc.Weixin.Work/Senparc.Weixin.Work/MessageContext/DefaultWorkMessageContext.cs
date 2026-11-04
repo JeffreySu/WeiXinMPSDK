@@ -43,6 +43,10 @@
     修改标识：Senparc - 20260726
     修改描述：v3.32.1 补齐企业微信通讯录、安全、智能机器人、微信客服和获客助手接口；识别应用邮箱新邮件变更回调
 
+    修改标识：lijian3828940 - 20261104
+    修改描述：添加:企业互联共享应用事件回调 RequestMessageEvent_Share_Agent_Change,上下游共享应用事件回调 RequestMessageEvent_Share_Chain_Change 事件
+            增加 doc.Root.Element("Event") 为空判断
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;
@@ -101,7 +105,7 @@ namespace Senparc.Weixin.Work.MessageContexts
                     break;
                 case RequestMsgType.Event:
                     //判断Event类型
-                    switch (doc.Root.Element("Event").Value.ToUpper())
+                    switch (doc.Root.Element("Event")?.Value.ToUpper())
                     {
                         case "CLICK"://菜单点击
                             requestMessage = new RequestMessageEvent_Click();
@@ -259,6 +263,12 @@ namespace Senparc.Weixin.Work.MessageContexts
                         // 文档: https://developer.work.weixin.qq.com/document/path/95039
                         case "MSGAUDIT_NOTIFY":
                             requestMessage = new RequestMessageEvent_MsgAuditNotify();
+                            break;
+                        case "SHARE_AGENT_CHANGE"://企业互联共享应用事件回调
+                            requestMessage = new RequestMessageEvent_Share_Agent_Change();
+                            break;
+                        case "SHARE_CHAIN_CHANGE"://上下游共享应用事件回调
+                            requestMessage = new RequestMessageEvent_Share_Chain_Change();
                             break;
                         case "TEMPLATE_CARD_EVENT": // 模板卡片事件推送
                             requestMessage = new RequestMessageEvent_TemplateCardEvent();

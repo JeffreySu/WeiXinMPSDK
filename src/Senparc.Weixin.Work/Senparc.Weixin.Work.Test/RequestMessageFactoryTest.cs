@@ -291,6 +291,25 @@ namespace Senparc.Weixin.Work.Test
    <OpenKfId><![CDATA[wkxxxxxxx]]></OpenKfId>
 </xml>";
 
+        private string xmlEvent_Share_Agent_Change = @"<xml>
+ <ToUserName><![CDATA[wwddddccc7775555aaa]]></ToUserName>
+  <FromUserName><![CDATA[sys]]></FromUserName>
+  <CreateTime>1527838022</CreateTime>
+  <MsgType><![CDATA[event]]></MsgType>
+  <Event><![CDATA[share_agent_change]]></Event>
+  <AgentID>1</AgentID>
+</xml>";
+
+        private string xmlEvent_Share_Chain_Change = @"<xml>
+ <ToUserName><![CDATA[wwddddccc7775555aaa]]></ToUserName>
+  <FromUserName><![CDATA[sys]]></FromUserName>
+  <CreateTime>1527838022</CreateTime>
+  <MsgType><![CDATA[event]]></MsgType>
+  <Event><![CDATA[share_chain_change]]></Event>
+  <AgentID>1</AgentID>
+</xml>";
+
+
         [TestMethod]
         public void GetRequestEntityTest()
         {
@@ -353,7 +372,7 @@ namespace Senparc.Weixin.Work.Test
                 Assert.AreEqual("media_id", result.MediaId);
                 Assert.AreEqual(1, result.AgentID);
             }
-            
+
             {
                 //Event_Location
                 var doc = XDocument.Parse(xmlEvent_Location);
@@ -499,6 +518,26 @@ namespace Senparc.Weixin.Work.Test
                 Assert.AreEqual("ENCApHxnGDNAVNY4AaSJKj4Tb5mwsEMzxhFmHVGcra996NR", result.Token);
                 Assert.AreEqual("wkxxxxxxx", result.OpenKfId);
                 Assert.AreEqual(Event.KF_MSG_OR_EVENT, result.Event);
+            }
+
+            {
+                //Event_Share_Agent_Change
+                var doc = XDocument.Parse(xmlEvent_Share_Agent_Change);
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageEvent_Share_Agent_Change;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("wwddddccc7775555aaa", result.ToUserName);
+                Assert.AreEqual(Event.SHARE_AGENT_CHANGE, result.Event);
+                Assert.AreEqual(1, result.AgentID);
+            }
+
+            {
+                //Event_Share_Chain_Change
+                var doc = XDocument.Parse(xmlEvent_Share_Chain_Change);
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageEvent_Share_Chain_Change;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("wwddddccc7775555aaa", result.ToUserName);
+                Assert.AreEqual(Event.SHARE_CHAIN_CHANGE, result.Event);
+                Assert.AreEqual(1, result.AgentID);
             }
         }
     }

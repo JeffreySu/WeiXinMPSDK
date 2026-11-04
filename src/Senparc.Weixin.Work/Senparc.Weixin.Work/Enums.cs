@@ -73,6 +73,9 @@
     修改标识：Senparc - 20260726
     修改描述：v3.32.1 增加设备数据授权变更通知枚举；增加硬件设备特征变更通知枚举；补齐企业微信通讯录、安全、智能机器人、微信客服和获客助手接口；接入应用邮箱新邮件变更回调事件
 
+    修改标识：lijian3828940 - 20261104
+    修改描述：添加 企业互联共享应用事件回调（SHARE_AGENT_CHANGE）,上下游共享应用事件回调（SHARE_CHAIN_CHANGE） 回调事件枚举
+
 ----------------------------------------------------------------*/
 
 using static System.Net.WebRequestMethods;
@@ -232,7 +235,7 @@ namespace Senparc.Weixin.Work
         /// </summary>
         OPEN_APPROVAL_CHANGE,
         #endregion
-        
+
         /// <summary>
         /// 会话存档-产生会话回调事件
         /// </summary>
@@ -242,7 +245,7 @@ namespace Senparc.Weixin.Work
         /// 模板卡片事件推送
         /// </summary>
         TEMPLATE_CARD_EVENT,
-        
+
         /// <summary>
         /// 通用模板卡片右上角菜单事件
         /// </summary>
@@ -373,6 +376,15 @@ namespace Senparc.Weixin.Work
         /// <para>文档：https://developer.work.weixin.qq.com/document/path/92032</para>
         /// </summary>
         change_school_contact,
+
+        /// <summary>
+        /// 企业互联共享应用事件回调
+        /// </summary>
+        SHARE_AGENT_CHANGE,
+        /// <summary>
+        /// 上下游共享应用事件回调
+        /// </summary>
+        SHARE_CHAIN_CHANGE,
     }
 
     public enum TencentGender

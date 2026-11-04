@@ -34,6 +34,9 @@
     修改标识：Senparc - 20260726
     修改描述：v3.32.1 补齐企业微信通讯录、安全、智能机器人、微信客服和获客助手接口；增加应用邮箱新邮件变更异步回调处理入口；增加设备数据授权变更异步回调处理入口；增加硬件设备特征变更异步回调处理入口
 
+    修改标识：lijian3828940 - 20261104
+    修改描述：添加:企业互联共享应用事件回调,上下游共享应用事件回调 事件
+ 
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Context;
@@ -426,6 +429,16 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     responseMessage = await
                         OnEvent_MsgAuditNotifyRequestAsync(
                             RequestMessage as RequestMessageEvent_MsgAuditNotify);
+                    break;
+                case Event.SHARE_AGENT_CHANGE://企业互联共享应用事件回调
+                    responseMessage = await
+                        OnEvent_ShareAgentChangeRequestAsync(
+                            RequestMessage as RequestMessageEvent_Share_Agent_Change);
+                    break;
+                case Event.SHARE_CHAIN_CHANGE://上下游共享应用事件回调
+                    responseMessage = await
+                        OnEvent_ShareChainChangeRequestAsync(
+                            RequestMessage as RequestMessageEvent_Share_Chain_Change);
                     break;
                 case Event.TEMPLATE_CARD_EVENT: // 企业微信-模板卡片事件推送
                     responseMessage = await
@@ -997,6 +1010,35 @@ namespace Senparc.Weixin.Work.MessageHandlers
         {
             return await Task.FromResult(OnEvent_MsgAuditNotifyRequest(requestMessage)).ConfigureAwait(false);
         }
+        /// <summary>
+        /// 企业互联共享应用事件回调 <see href="https://developer.work.weixin.qq.com/document/path/90240#%E4%BC%81%E4%B8%9A%E4%BA%92%E8%81%94%E5%85%B1%E4%BA%AB%E5%BA%94%E7%94%A8%E4%BA%8B%E4%BB%B6%E5%9B%9E%E8%B0%83">官方文档</see>
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_ShareAgentChangeRequestAsync(RequestMessageEvent_Share_Agent_Change requestMessage)
+        {
+            return await Task.FromResult(OnEvent_ShareAagentChangeRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 上下游共享应用事件回调 <see href="https://developer.work.weixin.qq.com/document/path/90240#%E4%B8%8A%E4%B8%8B%E6%B8%B8%E5%85%B1%E4%BA%AB%E5%BA%94%E7%94%A8%E4%BA%8B%E4%BB%B6%E5%9B%9E%E8%B0%83">官方文档</see>
+        /// <para>本事件触发时机为：</para>
+        /// <list type="number">
+        /// <item>
+        ///     <description>上游企业把自建应用共享给下游企业使用</description>
+        ///   </item>
+        ///   <item>
+        ///     <description>上游企业把下游企业从共享应用中移除</description>
+        ///   </item>   
+        /// </list>
+        /// </summary>
+        /// <param name="requestMessageEvent_Share_Chain_Change"></param>
+        /// <returns></returns>
+        public virtual async Task<IWorkResponseMessageBase> OnEvent_ShareChainChangeRequestAsync(RequestMessageEvent_Share_Chain_Change requestMessageEvent_Share_Chain_Change)
+        {
+            return await Task.FromResult(OnEvent_ShareChainChangeRequest(requestMessageEvent_Share_Chain_Change)).ConfigureAwait(false);
+        }
+
 
         /// <summary>
         ///     企业微信-模板卡片事件推送

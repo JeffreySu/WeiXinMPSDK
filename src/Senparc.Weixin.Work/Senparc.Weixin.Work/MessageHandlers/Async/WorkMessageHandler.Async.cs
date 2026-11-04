@@ -1017,7 +1017,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IWorkResponseMessageBase> OnEvent_ShareAgentChangeRequestAsync(RequestMessageEvent_Share_Agent_Change requestMessage)
         {
-            return await Task.FromResult(OnEvent_ShareAagentChangeRequest(requestMessage)).ConfigureAwait(false);
+            return await Task.FromResult(OnEvent_ShareAgentChangeRequest(requestMessage)).ConfigureAwait(false);
         }
 
         /// <summary>

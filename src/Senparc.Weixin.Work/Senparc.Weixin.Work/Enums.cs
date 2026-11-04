@@ -237,15 +237,6 @@ namespace Senparc.Weixin.Work
         #endregion
 
         /// <summary>
-        /// 企业互联共享应用事件回调
-        /// </summary>
-        SHARE_AGENT_CHANGE,
-        /// <summary>
-        /// 上下游共享应用事件回调
-        /// </summary>
-        SHARE_CHAIN_CHANGE,
-
-        /// <summary>
         /// 会话存档-产生会话回调事件
         /// </summary>
         MSGAUDIT_NOTIFY,
